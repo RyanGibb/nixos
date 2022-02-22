@@ -3,6 +3,11 @@
 { config, pkgs, ... }:
 
 {
+  boot.loader.grub = {
+    enable = true;
+    version = 2;
+  };
+
   time.timeZone = "Europe/London";
 
   i18n.defaultLocale = "en_GB.UTF-8";

@@ -1,6 +1,36 @@
 { config, pkgs, ... }:
 
 {
+  programs.git = {
+    enable = true;
+    config = {
+      user = {
+        email = "ryan@gibb.org";
+        name = "Ryan Gibb";
+      };
+      alias = {
+        s = "status";
+        ci = "commit";
+       	cm = "commit --message";
+       	ca = "commit --amend";
+       	cu = "commit --message update";
+       	br = "branch";
+       	co = "checkout";
+       	df = "diff";
+       	lg = "log -p";
+       	lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
+       	lola = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
+       	ls = "ls-files";
+       	a = "add";
+       	aa = "add --all";
+       	au = "add -u";
+       	ap = "add --patch";
+       	ps = "push";
+       	pf = "push --force";
+      };
+    };
+  };
+
   programs.zsh = {
     enable = true;
     histSize = 100000;
@@ -87,12 +117,8 @@
       bindkey "''${key[Home]}"              beginning-of-line
       bindkey "''${key[End]}"               end-of-line
       bindkey "''${key[Insert]}"            overwrite-mode
-      bindkey "''${key[Backspace]}"         backward-delete-char
-      bindkey "''${key[Delete]}"            delete-char
       bindkey "''${key[Up]}"                up-line-or-beginning-search
       bindkey "''${key[Down]}"              down-line-or-beginning-search
-      bindkey "''${key[Left]}"              backward-char
-      bindkey "''${key[Right]}"             forward-char
       bindkey "''${key[PageUp]}"            beginning-of-buffer-or-history
       bindkey "''${key[PageDown]}"          end-of-buffer-or-history
       bindkey "''${key[Shift-Tab]}"         reverse-menu-complete
@@ -151,5 +177,7 @@
       };
     };
   };
+
+  programs.mosh.enable = true;
 }
 
