@@ -179,5 +179,6 @@
   };
 
   programs.mosh.enable = true;
+  programs.tmux.enable = true;
 }
 
