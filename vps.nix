@@ -31,16 +31,10 @@
       root = "/var/www/gibbr.org";
     };
   };
-  #systemd.services.nginx.serviceConfig.ProtectHome = lib.mkForce false;
-  #systemd.services.nginx.serviceConfig.ProtectSystem = lib.mkForce false;
-  #systemd.services.nginx.serviceConfig.ReadOnlyPaths = [ "/home/" ];
 
   security.acme = {
-    email = "ryan@gibb.xyz";
+    email = "ryan@gibbr.org";
     acceptTerms = true;
-    #certs = {
-    #  "gibbr.org".email = "ryan@gibbr.org";
-    #};
   };
 
   services.bind = {
