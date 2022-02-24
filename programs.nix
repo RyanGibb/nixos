@@ -42,7 +42,8 @@
       enable = true;
     };
     promptInit = ''
-        PROMPT='%(?..%F{red}%3?%f )%D{%I:%M:%S%p} %F{blue}%n@%m%f:%F{cyan}%~%f%<<''${vcs_info_msg_0_}'$'\n'" %# "
+      PROMPT='%(?..%F{red}%3?%f )%D{%I:%M:%S%p} %F{blue}%n@%m%f:%F{cyan}%~%f%<<''${vcs_info_msg_0_}'$'\n'" %# "
+      export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
     '';
     interactiveShellInit = ''
       setopt autocd nomatch notify interactive_comments
@@ -55,8 +56,6 @@
       autoload -Uz edit-command-line
       zle -N edit-command-line
       bindkey -M vicmd V edit-command-line
-
-      ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
 
       autoload zmv
 
@@ -93,7 +92,7 @@
       }
 
       function xterm_title_preexec () {
-              print -Pn -- '\e]2;zsh %n@%m:%~ %# ' && print -n -- "''$\{(q)1\}\a"
+              print -Pn -- '\e]2;zsh %n@%m:%~ %# ' && print -n -- "''${(q)1}\a"
       }
 
       if [[ "$TERM" != "linux" ]]; then
