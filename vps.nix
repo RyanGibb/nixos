@@ -4,15 +4,16 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
     ./common.nix
-    ./packages.nix
-    ./programs.nix
+    ./matrix.nix
   ];
 
   boot.loader.grub.device = "/dev/vda";
 
-  networking.hostName = "vps";
+  networking = {
+    hostName = "vps";
+    domain = "gibbr.org";
+  };
 
   networking.useDHCP = false;
   networking.interfaces.enp1s0.useDHCP = true;
@@ -26,7 +27,7 @@
   services.nginx = {
     enable = true;
     virtualHosts."gibbr.org" = {
-      addSSL = true;
+      forceSSL = true;
       enableACME = true;
       root = "/var/www/gibbr.org";
     };

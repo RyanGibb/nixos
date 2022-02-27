@@ -3,6 +3,13 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./hardware-configuration.nix
+    ./packages.nix
+    ./programs.nix
+    ./secret.nix
+  ];
+
   boot.loader.grub = {
     enable = true;
     version = 2;
