@@ -42,7 +42,7 @@
     enable = true;
     zones."gibbr.org" = {
       master = true;
-      file = "/var/dns/gibbr.org";
+      file = "/etc/nixos/gibbr.org.zone";
     };
   };
 
