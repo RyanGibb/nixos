@@ -43,6 +43,7 @@
     };
     promptInit = ''
       PROMPT='%(?..%F{red}%3?%f )%D{%I:%M:%S%p} %F{blue}%n@%m%f:%F{cyan}%~%f%<<''${vcs_info_msg_0_}'$'\n'" %# "
+      # workaround for https://github.com/NixOS/nixpkgs/pull/161701
       export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
     '';
     interactiveShellInit =builtins.readFile ./zsh.cfg;
