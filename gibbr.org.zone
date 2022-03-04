@@ -1,16 +1,16 @@
 $TTL 4800
 @ IN SOA ns1.gibbr.org. dns (
-  2018011615 ; Serial
-  604800 ; Refresh
-  86400 ; Retry
-  2419200 ; Expire
-  604800 ) ; Negative Cache TTL
+	2018011615 ; Serial
+	604800 ; Refresh
+	86400 ; Retry
+	2419200 ; Expire
+	604800 ) ; Negative Cache TTL
 ;
-@ IN NS ns1.gibbr.org.
-ns1 IN A 45.77.205.198
-gibbr.org. IN A 45.77.205.198
-vps.gibbr.org. IN A 45.77.205.198
-twitcher.gibbr.org. IN A 45.77.205.198
-@ 10800 IN MX 10 spool.mail.gandi.net.
-@ 10800 IN MX 50 fb.mail.gandi.net.
-@ 10800 IN TXT "v=spf1 include:_mailcust.gandi.net ?all"
+@          IN NS    ns1.gibbr.org.
+ns1        IN A     45.77.205.198
+gibbr.org. IN A     45.77.205.198
+vps        IN A     45.77.205.198
+twitcher   IN A     45.77.205.198
+@ 10800    IN MX    10 spool.mail.gandi.net.
+@ 10800    IN MX    50 fb.mail.gandi.net.
+@ 10800    IN TXT   "v=spf1 include:_mailcust.gandi.net ?all"
