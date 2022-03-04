@@ -13,22 +13,17 @@
     };
   };
 
-  systemd.services.foo = {
+  systemd.services.twitcher = {
     enable = true;
     description = "twitcher";
-    unitConfig = {
-      Type = "simple";
-      # ...
-    };
     serviceConfig = {
-      ExecStart = "/home/ryan/twitcher";
-      # ...
+      ExecStart = "${pkgs.nodejs}/bin/node /var/www/twitcher";
     };
+    after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
-    # ...
+    environment.PORT = "8081";
   };
 
-  environment.systemPackages = [ nodejs ]
-
+  environment.systemPackages = with pkgs; [ nodejs ];
 }
 

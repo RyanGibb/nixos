@@ -6,7 +6,15 @@
   imports = [
     ./common.nix
     ./matrix.nix
+    ./twitcher.nix
   ];
+
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
 
   boot.loader.grub.device = "/dev/vda";
 
@@ -31,14 +39,6 @@
       enableACME = true;
       root = "/var/www/gibbr.org";
     };
-    recommendedProxySettings = true;
-    virtualHosts."twitcher.gibbr.org" = {
-      forceSSL = true;
-      enableACME = true;
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:8080";
-      };
-    };
   };
 
   security.acme = {
@@ -53,6 +53,12 @@
       file = "/etc/nixos/gibbr.org.zone";
     };
   };
+
+  services.journald.extraConfig = ''
+    SystemMaxUse=2G
+  '';
+
+  swapDevices = [ { device = "/var/swap"; size = 2048; } ];
 
   system.stateVersion = "21.11";
 }
