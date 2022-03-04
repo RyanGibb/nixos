@@ -10,10 +10,11 @@
       };
       alias = {
         s = "status";
-        ci = "commit";
+        c = "commit";
        	cm = "commit --message";
-       	ca = "commit --amend";
+       	ca = "commit --amend --no-edit";
        	cu = "commit --message update";
+       	ci = "commit --message initial";
        	br = "branch";
        	co = "checkout";
        	df = "diff";

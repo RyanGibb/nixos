@@ -38,7 +38,7 @@
     extraGroups = [ "wheel" ]; # enable sudo
     shell = pkgs.zsh;
     openssh.authorizedKeys.keyFiles = [
-      /etc/nixos/ssh/authorized_keys
+      /etc/nixos/authorized_keys
     ];
   };
 
