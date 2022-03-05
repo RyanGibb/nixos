@@ -48,8 +48,6 @@
       su = "su -p";
       ssh = "TERM=xterm ssh";
     };
-    # for home-manager.users.ryan.programs.zsh.enableCompletion
-    pathsToLink = [ "/share/zsh" ];
   };
 
   programs.mosh.enable = true;
