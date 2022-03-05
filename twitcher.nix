@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   services.nginx = {
@@ -17,11 +17,12 @@
     enable = true;
     description = "twitcher";
     serviceConfig = {
-      ExecStart = "${pkgs.nodejs}/bin/node /var/www/twitcher";
+      ExecStart = "${pkgs.nodejs}/bin/node .";
+      WorkingDirectory = "/var/www/twitcher";
     };
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
-    environment.PORT = "8081";
+    environment.PORT = "8080";
   };
 
   environment.systemPackages = with pkgs; [ nodejs ];

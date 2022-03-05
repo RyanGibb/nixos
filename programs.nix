@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   programs.git = {
@@ -47,7 +47,8 @@
       # workaround for https://github.com/NixOS/nixpkgs/pull/161701
       export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
     '';
-    interactiveShellInit =builtins.readFile ./zsh.cfg;
+    setOptions = [ "HIST_IGNORE_DUPS" "HIST_FCNTL_LOCK" ];
+    interactiveShellInit = builtins.readFile ./zsh.cfg;
   };
 
   programs.neovim = {

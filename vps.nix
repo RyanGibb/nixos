@@ -1,6 +1,6 @@
 # man 5 configuration.nix
 
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
