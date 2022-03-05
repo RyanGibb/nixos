@@ -1,20 +1,11 @@
 # man 5 configuration.nix
 
-{ pkgs, ... }:
-
 {
   imports = [
     ./common.nix
     ./matrix.nix
     ./twitcher.nix
   ];
-
-  nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-  };
 
   boot.loader.grub.device = "/dev/vda";
 

@@ -12,5 +12,6 @@
     inetutils
     ncdu
     nix-prefetch-git
+    gnumake
   ];
 }
