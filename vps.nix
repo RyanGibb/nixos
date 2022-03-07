@@ -1,5 +1,3 @@
-# man 5 configuration.nix
-
 {
   imports = [
     ./common.nix
