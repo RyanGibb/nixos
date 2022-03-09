@@ -43,11 +43,18 @@
     };
   };
 
+  swapDevices = [ { device = "/var/swap"; size = 2048; } ];
+
   services.journald.extraConfig = ''
     SystemMaxUse=2G
   '';
 
-  swapDevices = [ { device = "/var/swap"; size = 2048; } ];
+  nix.autoOptimiseStore = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
 
   system.stateVersion = "21.11";
 }
