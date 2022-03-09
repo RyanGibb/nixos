@@ -55,6 +55,7 @@
   services.openssh.enable = true;
   services.openssh.permitRootLogin = "no";
   services.openssh.passwordAuthentication = false;
+  services.tailscale.enable = true;
 
   system.stateVersion = "21.11";
 }
