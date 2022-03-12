@@ -158,8 +158,8 @@
     enable = true;
     description = "Fusuma touchpad gestures";
     serviceConfig = {
-      DynamicUser = true;
-      ExecStart = "${pkgs.nodejs}/bin/fusuma";
+      EnvironmentFile = builtins.toFile "fusuma-environment" "DISPLAY=:0";
+      ExecStart = "${pkgs.fusuma}/bin/fusuma";
       Restart = "on-failure";
       RestartSec = "10s";
     };

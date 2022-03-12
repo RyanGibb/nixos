@@ -3,20 +3,20 @@ swipe:
     threshhold: 1
     interval: 1
     left:
-      sendkey: "LEFTALT+RIGHT"
+      command: "wtype -M alt -P right"
     right:
-      sendkey: "LEFTALT+LEFT"
+      command: "wtype -M alt -P left"
     up:
-      sendkey: "LEFTCTRL+TAB"
+      command: "wtype -M ctrl -P tab"
     down:
-      sendkey: "LEFTCTRL+LEFTSHIFT+TAB"
+      command: "wtype -M ctrl -M shift -P tab"
   4:
     threshhold: 0
     interval: 1
     left:
-      sendkey: "LEFTMETA+DOT"
+      command: "wtype -M logo -P period"
     right:
-      sendkey: "LEFTMETA+COMMA"
+      command: "wtype -M logo -P comma"
     up:
       command: "light -A 1"
       threshold: 0
@@ -35,7 +35,3 @@ swipe:
           command: "pactl set-sink-volume @DEFAULT_SINK@ -1%"
           threshold: 0
           interval: 0.05
-plugin:
-  inputs:
-    libinput_command_input:
-      show-keycodes: true
