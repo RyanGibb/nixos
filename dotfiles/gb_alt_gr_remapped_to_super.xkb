@@ -1,0 +1,6 @@
+xkb_symbols "basic" {
+		name[Group1]="English (UK) RALT -> SUPER";
+		include "gb"
+		key <RALT> { [ Super_L, Super_R ] };
+};
+

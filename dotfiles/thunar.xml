@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal Here</name>
+	<unique-id>1610123255537492-1</unique-id>
+	<command>$TERMINAL --working-directory %f</command>
+	<description></description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon></icon>
+	<name>Set as wallpaper</name>
+	<unique-id>1626818231191377-1</unique-id>
+	<command>~/.config/sway/scripts/set_wallpaper.sh %f</command>
+	<description></description>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+</actions>

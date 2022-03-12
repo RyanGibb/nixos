@@ -1,0 +1,32 @@
+# This has a problem with metadata, and using -P means persisance is lost:
+#	exec wl-paste -t text --watch clipman store
+# https://github.com/yory8/clipman/issues/59
+exec copyq
+
+exec $SCRIPT_DIR/swayidle_lock.sh
+
+exec playerctld daemon
+exec thunar --daemon
+
+exec blueman-applet
+exec nm-applet --indicator
+exec /usr/lib/geoclue-2.0/demos/agent
+exec gammastep-indicator -r
+exec kdeconnect-indicator
+
+exec mako
+exec_always "pkill kanshi; kanshi &> ~/.kanshi_log"
+exec fcitx5 -d --replace
+
+exec waybar
+
+exec $SCRIPT_DIR/bat_monitor.sh
+exec $SCRIPT_DIR/notification_log.sh $HOME/.notification_log
+
+# https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
+# https://github.com/emersion/xdg-desktop-portal-wlr#running
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && \
+	exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+
+exec thunderbird

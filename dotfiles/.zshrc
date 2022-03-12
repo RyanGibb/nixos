@@ -23,6 +23,16 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd V edit-command-line
 
+alias ls='ls -p --color=auto'
+alias pls='sudo $(fc -ln -1)'
+alias o='xdg-open'
+alias se='sudoedit'
+alias su='su -p'
+alias ssh='TERM=xterm ssh'
+
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
+
 autoload zmv
 
 # fix right prompt indent
@@ -49,6 +59,10 @@ zstyle ':vcs_info:git*' formats $' %F{green}%.32b%m%u%c%f'
 		hook_com[misc]='?'
 	fi
 }
+
+
+PROMPT='%(?..%F{red}%3?%f )%D{%I:%M:%S%p} %F{blue}%n@%m%f:%F{cyan}%~%f%<<${vcs_info_msg_0_}'$'\n'' %# '
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=fg=5
 
 
 # set window title

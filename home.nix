@@ -120,6 +120,57 @@
     '';
   };
 
+  xdg = {
+    configFile = {
+      "Thunar/uca.xml".source = ./dotfiles/thunar.xml;
+      "fusuma/config.yml".source = ./dotfiles/fusuma.yml;
+      "fontconfig/fonts.conf".source = ./dotfiles/fonts.conf;
+      "kanshi/config".source = ./dotfiles/kanshi;
+      "mako/config".source = ./dotfiles/mako;
+      "swaylock/config".source = ./dotfiles/swaylock;
+      "wofi/style.css".source = ./dotfiles/wofi.css;
+      "alacritty.yml".source = ./dotfiles/alacritty.yml;
+      "swappy/config".text = ''
+        [Default]
+        save_dir=$HOME/pictures/capture/
+        save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
+      '';
+      "tridactyl/tridactyl".text = ''
+        unbind <F1>
+        set modeindicator false
+      '';
+      ".xkb/symbols/gb_alt_gr_remapped_to_super".source = ./dotfiles/gb_alt_gr_remapped_to_super.xkb;
+      "sway".source = ./dotfiles/sway;
+      "waybar".source = ./dotfiles/waybar;
+    };
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "inode/directory" = [ "thunar.desktop" "code-oss.desktop" ];
+        "text/html" = [ "firefox.desktop" "codium.desktop" "neovim.desktop" ];
+        "text/plain" = [ "neovim.desktop" "codium.desktop" ];
+        "text/markdown" = [ "neovim.desktop" "codium.desktop" ];
+        "application/pdf" = "org.gnome.Evince.desktop";
+        "image" = [ "feh.desktop" "gimp.desktop" ];
+        "application/xbittorrent" = "transmission.desktop";
+        "x-scheme-handler/magnet" = "transmission.desktop";
+        "x-scheme-handler" = "firefox.desktop";
+        "application/lrf" = "calibre-lrfviewer.desktop";
+      };
+    };
+    userDirs = {
+      enable = true;
+      download    = "$HOME/downloads";
+      documents   = "$HOME/documents";
+      pictures    = "$HOME/pictures";
+      videos      = "$HOME/pictures";
+      music       = "$HOME";
+      desktop     = "$HOME";
+      templates   = "$HOME";
+      publicShare = "$HOME";
+    };
+  };
+
   programs.go.goPath = "~/.go";
 
   home.keyboard = null;

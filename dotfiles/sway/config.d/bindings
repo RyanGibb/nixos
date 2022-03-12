@@ -1,0 +1,502 @@
+set $volume_inc      exec pactl set-sink-volume @DEFAULT_SINK@   +$VOLUME_DELTA%
+set $volume_dec      exec pactl set-sink-volume @DEFAULT_SINK@   -$VOLUME_DELTA%
+set $volume_inc_1    exec pactl set-sink-volume @DEFAULT_SINK@   +1%
+set $volume_dec_1    exec pactl set-sink-volume @DEFAULT_SINK@   -1%
+set $volume_inc_5    exec pactl set-sink-volume @DEFAULT_SINK@   +5%
+set $volume_dec_5    exec pactl set-sink-volume @DEFAULT_SINK@   -5%
+set $volume_mute     exec pactl set-sink-mute   @DEFAULT_SINK@   toggle
+set $volume_mic_mute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+set $play_pause exec playerctl play-pause
+set $play_prev  exec playerctl previous
+set $play_next  exec playerctl next
+set $play_stop  exec playerctl stop
+
+set $backlight_inc   exec light -A $BRIGHTNESS_DELTA
+set $backlight_dec   exec light -U $BRIGHTNESS_DELTA
+set $backlight_inc_1 exec light -A 1
+set $backlight_dec_1 exec light -U 1
+set $backlight_inc_5 exec light -A 5
+set $backlight_dec_5 exec light -U 5
+
+bindsym --locked XF86AudioRaiseVolume         $volume_inc
+bindsym --locked XF86AudioLowerVolume         $volume_dec
+bindsym --locked Shift+XF86AudioRaiseVolume   $volume_inc_1
+bindsym --locked Shift+XF86AudioLowerVolume   $volume_dec_1
+bindsym --locked Control+XF86AudioRaiseVolume $volume_inc_5
+bindsym --locked Control+XF86AudioLowerVolume $volume_dec_5
+bindsym --locked XF86AudioMute                $volume_mute
+bindsym --locked XF86AudioMicMute             $volume_mic_mute
+
+bindsym --locked XF86AudioPlay  $play_pause
+bindsym --locked XF86AudioPause $play_pause
+bindsym --locked XF86AudioPrev  $play_prev
+bindsym --locked XF86AudioNext  $play_next
+bindsym --locked XF86AudioStop  $play_stop
+
+bindsym --locked XF86MonBrightnessUp           $backlight_inc
+bindsym --locked XF86MonBrightnessDown         $backlight_dec
+bindsym --locked Shift+XF86MonBrightnessUp     $backlight_inc_1
+bindsym --locked Shift+XF86MonBrightnessDown   $backlight_dec_1
+bindsym --locked Control+XF86MonBrightnessUp   $backlight_inc_5
+bindsym --locked Control+XF86MonBrightnessDown $backlight_dec_5
+
+floating_modifier $mod
+
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+Return exec $term -o background_opacity=1
+bindsym $mod+Control+Return exec $term -e zsh -c "cd documents/vault; vim log/$(date +%Y-%m-%d).md; zsh -i"
+
+bindsym $mod+Shift+q kill
+
+bindsym $mod+d         exec wofi -i --show drun --allow-images -a
+bindsym $mod+Shift+d   exec wofi -i --show run
+bindsym $mod+Control+d exec "$(zenity --entry --text "run")"
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+h move left  25px
+bindsym $mod+Shift+j move down  25px
+bindsym $mod+Shift+k move up    25px
+bindsym $mod+Shift+l move right 25px
+
+bindsym $mod+Shift+Left  move left  25px
+bindsym $mod+Shift+Down  move down  25px
+bindsym $mod+Shift+Up    move up    25px
+bindsym $mod+Shift+Right move right 25px
+
+bindsym $mod+g split h
+bindsym $mod+v split v
+
+bindsym $mod+f         fullscreen toggle
+bindsym $mod+Shift+f   exec wtype -k F11
+bindsym $mod+Control+f fullscreen toggle global
+# toggle bar
+bindsym $mod+$alt+f    exec killall -SIGUSR1 waybar
+
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+bindsym $mod+$alt+g split h; layout tabbed;
+bindsym $mod+$alt+v split v; layout stacking;
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+bindsym $mod+a focus parent
+bindsym $mod+z focus child
+bindsym $mod+Shift+a exec $SCRIPT_DIR/focus_root.sh
+bindsym $mod+Shift+z exec $SCRIPT_DIR/focus_leaf.sh
+
+set $ws1  "1"
+set $ws2  "2"
+set $ws3  "3"
+set $ws4  "4"
+set $ws5  "5"
+set $ws6  "6"
+set $ws7  "7"
+set $ws8  "8"
+set $ws9  "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# move focused container to workspace and switch to workspace
+# (maintaing focus)
+bindsym $mod+Control+1 exec $SCRIPT_DIR/preserve_focus.sh \
+	'swaymsg move container to workspace number $ws1'
+bindsym $mod+Control+2 exec $SCRIPT_DIR/preserve_focus.sh \
+	'swaymsg move container to workspace number $ws2'
+bindsym $mod+Control+3 exec $SCRIPT_DIR/preserve_focus.sh \
+	'swaymsg move container to workspace number $ws3'
+bindsym $mod+Control+4 exec $SCRIPT_DIR/preserve_focus.sh \
+	'swaymsg move container to workspace number $ws4'
+bindsym $mod+Control+5 exec $SCRIPT_DIR/preserve_focus.sh \
+	'swaymsg move container to workspace number $ws5'
+bindsym $mod+Control+6 exec $SCRIPT_DIR/preserve_focus.sh \
+	'swaymsg move container to workspace number $ws6'
+bindsym $mod+Control+7 exec $SCRIPT_DIR/preserve_focus.sh \
+	'swaymsg move container to workspace number $ws7'
+bindsym $mod+Control+8 exec $SCRIPT_DIR/preserve_focus.sh \
+	'swaymsg move container to workspace number $ws8'
+bindsym $mod+Control+9 exec $SCRIPT_DIR/preserve_focus.sh \
+	'swaymsg move container to workspace number $ws9'
+bindsym $mod+Control+0 exec $SCRIPT_DIR/preserve_focus.sh \
+	'swaymsg move container to workspace number $ws10'
+
+bindsym $mod+Shift+numbersign move scratchpad
+bindsym $mod+numbersign scratchpad show
+
+# grave=`
+bindsym $mod+grave workspace back_and_forth
+bindsym $mod+Shift+grave move container to workspace back_and_forth
+bindsym $mod+Control+grave exec $SCRIPT_DIR/preserve_focus.sh \
+	'swaymsg move container to workspace back_and_forth'
+
+bindsym $mod+period workspace next_on_output
+bindsym $mod+comma workspace prev_on_output
+
+bindsym $mod+Shift+period move container to workspace next_on_output
+bindsym $mod+Shift+comma move container to workspace prev_on_output
+bindsym $mod+Control+period exec $SCRIPT_DIR/preserve_focus.sh \
+	'swaymsg move container to workspace next_on_output'
+bindsym $mod+Control+comma exec $SCRIPT_DIR/preserve_focus.sh \
+	'swaymsg move container to workspace prev_on_output'
+
+# monitors and workspaces
+bindsym $mod+$alt+h focus output left
+bindsym $mod+$alt+j focus output down
+bindsym $mod+$alt+k focus output up
+bindsym $mod+$alt+l focus output right
+
+bindsym $mod+$alt+Shift+h move container to output left
+bindsym $mod+$alt+Shift+j move container to output down
+bindsym $mod+$alt+Shift+k move container to output up
+bindsym $mod+$alt+Shift+l move container to output right
+
+bindsym $mod+$alt+Control+h exec $SCRIPT_DIR/preserve_focus.sh 'swaymsg move container to output left'
+bindsym $mod+$alt+Control+j exec $SCRIPT_DIR/preserve_focus.sh 'swaymsg move container to output down'
+bindsym $mod+$alt+Control+k exec $SCRIPT_DIR/preserve_focus.sh 'swaymsg move container to output up'
+bindsym $mod+$alt+Control+l exec $SCRIPT_DIR/preserve_focus.sh 'swaymsg move container to output right'
+
+bindsym $mod+$alt+Shift+Control+h move workspace to output left
+bindsym $mod+$alt+Shift+Control+j move workspace to output down
+bindsym $mod+$alt+Shift+Control+k move workspace to output up
+bindsym $mod+$alt+Shift+Control+l move workspace to output right
+
+# / workspaces by name
+bindsym $mod+slash exec $SCRIPT_DIR/switch_to_ws.sh
+bindsym $mod+Shift+slash exec $SCRIPT_DIR/mv_to_ws.sh
+bindsym $mod+Control+slash exec $SCRIPT_DIR/switch_mv_to_ws.sh
+
+# n = new
+bindsym $mod+n exec $SCRIPT_DIR/switch_new_ws.sh
+bindsym $mod+Shift+n exec $SCRIPT_DIR/mv_new_ws.sh
+bindsym $mod+Control+n exec $SCRIPT_DIR/switch_mv_new_ws.sh
+
+# t = title
+bindsym $mod+t exec $SCRIPT_DIR/title_ws.sh
+
+bindsym $mod+Tab       exec $SCRIPT_DIR/window_switcher.sh
+bindsym $mod+Shift+Tab exec $SCRIPT_DIR/window_switcher_scratch.sh
+
+bindsym $mod+Shift+r reload
+bindsym $mod+Control+r exec "pkill waybar; waybar"
+
+bindsym button2 kill
+
+
+
+mode "Resize" {
+	bindsym h resize shrink width  25px or 5ppt
+	bindsym j resize grow   height 25px or 5ppt
+	bindsym k resize shrink height 25px or 5ppt
+	bindsym l resize grow   width  25px or 5ppt
+
+	bindsym Left  resize shrink width  25px or 5ppt
+	bindsym Down  resize grow   height 25px or 5ppt
+	bindsym Up    resize shrink height 25px or 5ppt
+	bindsym Right resize grow   width  25px or 5ppt
+
+	bindsym Shift+h resize shrink width  1px
+	bindsym Shift+j resize grow   height 1px
+	bindsym Shift+k resize shrink height 1px
+	bindsym Shift+l resize grow   width  1px
+
+	bindsym Shift+Left  resize shrink width  1px
+	bindsym Shift+Down  resize grow   height 1px
+	bindsym Shift+Up    resize shrink height 1px
+	bindsym Shift+Right resize grow   width  1px
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "Resize"
+
+bindsym $mod+Control+h resize shrink width  25px or 5ppt
+bindsym $mod+Control+j resize grow   height 25px or 5ppt
+bindsym $mod+Control+k resize shrink height 25px or 5ppt
+bindsym $mod+Control+l resize grow   width  25px or 5ppt
+
+bindsym $mod+Control+Left  resize shrink width  25px or 5ppt
+bindsym $mod+Control+Down  resize grow   height 25px or 5ppt
+bindsym $mod+Control+Up    resize shrink height 25px or 5ppt
+bindsym $mod+Control+Right resize grow   width  25px or 5ppt
+
+bindsym $mod+Control+Shift+h resize shrink width  1px
+bindsym $mod+Control+Shift+j resize grow   height 1px
+bindsym $mod+Control+Shift+k resize shrink height 1px
+bindsym $mod+Control+Shift+l resize grow   width  1px
+
+bindsym $mod+Control+Shift+Left  resize shrink width  1px
+bindsym $mod+Control+Shift+Down  resize grow   height 1px
+bindsym $mod+Control+Shift+Up    resize shrink height 1px
+bindsym $mod+Control+Shift+Right resize grow   width  1px
+
+
+
+set $mode_gaps Gaps | h/j/k/l/-/+/0 | 1 2 3 4 5
+mode "$mode_gaps" {
+	bindsym 1 gaps inner current set $inner_gap;\
+	          gaps outer current set $outer_gap;\
+	          gaps top current set $top_gap;\
+	          gaps bottom current set $bottom_gap;\
+	          mode "default"
+	bindsym 2 gaps inner current set 0;\
+ 	          gaps outer current set 0;\
+ 	          mode "default
+	bindsym 3 gaps inner current set $inner_gap;\
+ 	          gaps outer current set -$inner_gap;\
+ 	          mode "default"
+	bindsym 4 gaps inner current set 0;\
+ 	          gaps outer current set $inner_gap;\
+ 	          gaps outer current plus $outer_gap;\
+ 	          gaps top current set $top_gap;\
+	          gaps bottom current set $bottom_gap;\
+ 	          mode "default"
+	bindsym 5 gaps inner current set $inner_gap;\
+	          gaps top current set $top_gap;\
+	          gaps bottom current set $bottom_gap;\
+	          exec "\
+			    ws_width=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true).rect.width');\
+	            horz_gaps=$((($ws_width / $gutter_ratio)));\
+	            swaymsg gaps horizontal current set $horz_gaps;\
+	          ";\
+	          gaps vertical current set -$inner_gap;\
+	          mode "default"
+	
+	bindsym h gaps horizontal current minus $gaps_inc
+	bindsym j gaps vertical   current plus  $gaps_inc
+	bindsym k gaps vertical   current minus $gaps_inc
+	bindsym l gaps horizontal current plus  $gaps_inc
+
+	bindsym Left  gaps horizontal current minus $gaps_inc
+	bindsym Down  gaps vertical   current plus  $gaps_inc
+	bindsym Up    gaps vertical   current minus $gaps_inc
+	bindsym Right gaps horizontal current plus  $gaps_inc
+	bindsym Shift+h gaps horizontal current minus 1
+	bindsym Shift+j gaps vertical   current plus  1
+	bindsym Shift+k gaps vertical   current minus 1
+	bindsym Shift+l gaps horizontal current plus  1
+
+	bindsym Shift+Left  gaps horizontal current minus 1
+	bindsym Shift+Down  gaps vertical   current plus  1
+	bindsym Shift+Up    gaps vertical   current minus 1
+	bindsym Shift+Right gaps horizontal current plus  1
+
+	bindsym equal        gaps inner current plus  $gaps_inc
+	bindsym minus        gaps inner current minus $gaps_inc
+	bindsym Shift+equal  gaps inner current plus  1
+	bindsym Shift+minus  gaps inner current minus 1
+	bindsym 0            gaps inner current set	  0
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+Shift+g mode "default"
+}
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+set $mode_system System | l/e/s/h/r/p/u/S
+mode "$mode_system" {
+	bindsym l exec loginctl lock-session,                  mode "default"
+	bindsym e exec swaymsg exit,                           mode "default"
+	bindsym s exec systemctl suspend,                      mode "default"
+	bindsym h exec systemctl hibernate,                    mode "default"
+	bindsym r exec systemctl reboot,                       mode "default"
+	bindsym p exec systemctl poweroff -i,                  mode "default"
+	bindsym u exec systemctl reboot --firmware-setup,      mode "default"
+	bindsym Shift+s exec systemctl suspend-then-hibernate, mode "default"
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+bindsym $mod+x mode "$mode_system"
+
+bindsym --locked $mod+equal         $volume_inc
+bindsym --locked $mod+minus         $volume_dec
+bindsym --locked $mod+Shift+equal   $volume_inc_1
+bindsym --locked $mod+Shift+minus   $volume_dec_1
+bindsym --locked $mod+Control+equal $volume_inc_5
+bindsym --locked $mod+Control+minus $volume_dec_5
+set $mode_control_volume Control volume | -/+ | (m) mute | Shift+(m)ic mute
+mode "$mode_control_volume" {
+	bindsym minus         $volume_dec
+	bindsym equal         $volume_inc
+	bindsym Shift+equal   $volume_inc_1
+	bindsym Shift+minus   $volume_dec_1
+	bindsym Control+equal $volume_inc_5
+	bindsym Control+minus $volume_dec_5
+	bindsym m             $volume_mute
+	bindsym Shift+m       $volume_mic_mute
+	
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+set $mode_control_player Control player | o/p/[/]
+mode "$mode_control_player" {
+	bindsym o            $play_stop
+	bindsym p            $play_pause
+	bindsym bracketleft  $play_prev
+	bindsym bracketright $play_next
+
+	bindsym 1 exec $SCRIPT_DIR/pause_player.sh 1
+	bindsym 2 exec $SCRIPT_DIR/pause_player.sh 2
+	bindsym 3 exec $SCRIPT_DIR/pause_player.sh 3
+	bindsym 4 exec $SCRIPT_DIR/pause_player.sh 4
+	bindsym 5 exec $SCRIPT_DIR/pause_player.sh 5
+	bindsym 6 exec $SCRIPT_DIR/pause_player.sh 6
+	bindsym 7 exec $SCRIPT_DIR/pause_player.sh 7
+	bindsym 8 exec $SCRIPT_DIR/pause_player.sh 8
+	bindsym 9 exec $SCRIPT_DIR/pause_player.sh 9
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+
+	bindsym $mod+p $play_pause; mode "default"
+}
+bindsym $mod+o mode "$mode_control_player"
+bindsym $mod+bracketleft  $play_prev
+bindsym $mod+bracketright $play_next
+bindsym $mod+Shift+p      $play_ppause
+
+set $mode_control_backlight Control backlight | -/+
+mode "$mode_control_backlight" {
+	bindsym minus         $backlight_dec
+	bindsym equal         $backlight_inc
+	bindsym Shift+equal   $backlight_inc_1
+	bindsym Shift+minus   $backlight_dec_1
+	bindsym Control+equal $backlight_inc_5
+	bindsym Control+minus $backlight_dec_5
+	
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+bindsym $mod+u mode "$mode_control_backlight"
+
+set $mode_control_dwt Control DWT | (e)nabled (d)isabled
+mode "$mode_control_dwt" {
+	bindsym e input type:touchpad dwt enabled;  mode "default"
+	bindsym d input type:touchpad dwt disabled; mode "default"
+	
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+set $mode_control Control v/p/b/d
+mode "$mode_control" {
+	bindsym v mode "$mode_control_volume"
+	bindsym p mode "$mode_control_player"
+	bindsym b mode "$mode_control_backlight"
+	bindsym d mode "$mode_control_dwt"
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+bindsym $mod+c mode "$mode_control"
+
+set $idle_mode Idle mode i/d/l/s
+mode "$idle_mode" {
+	bindsym i exec $SCRIPT_DIR/swayidle_inhibit.sh; mode "default
+	bindsym d exec $SCRIPT_DIR/swayidle_dpms.sh;    mode "default"
+	bindsym l exec $SCRIPT_DIR/swayidle_lock.sh;    mode "default"
+	bindsym s exec $SCRIPT_DIR/swayidle_suspend.sh; mode "default"
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+bindsym $mod+b       exec $browser
+bindsym $mod+Shift+b exec $browser -private-window
+
+bindsym $mod+backslash exec xdg-open ~
+
+set $emoji_selector   exec rofimoji --selector wofi --skin-tone neutral --prompt "" -a copy
+set $unicode_selector exec rofimoji --selector wofi --skin-tone neutral --prompt "" --files all -a copy
+bindsym $mod+apostrophe       $emoji_selector
+bindsym $mod+Shift+apostrophe $unicode_selector
+
+bindsym $mod+semicolon         exec $SCRIPT_DIR/bluetooth_device.sh
+bindsym $mod+Shift+semicolon   exec $SCRIPT_DIR/bluetooth_device.sh disconnect
+bindsym $mod+Control+semicolon exec $SCRIPT_DIR/wifi.sh
+
+bindsym $mod+i mode "$idle_mode"
+
+bindsym $mod+Shift+i   exec $SCRIPT_DIR/dpms_off.sh
+bindsym $mod+Control+i exec $SCRIPT_DIR/dpms_toggle.sh
+
+bindsym Print              exec grim - | wl-copy
+bindsym Shift+Print        exec grim - | swappy -f -
+bindsym Control+Print      exec grim $HOME/pictures/capture/screenshot"_$(date -Iseconds)".png
+bindsym $mod+Print         exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | wl-copy
+bindsym $mod+Shift+Print   exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | swappy -f -
+bindsym $mod+Control+Print exec grim -g "$($SCRIPT_DIR/slurp_point.sh)"\
+	$HOME/pictures/capture/screenshot"_$(date -Iseconds)".png
+
+bindsym $mod+$alt+Print         exec grim -g "$($SCRIPT_DIR/slurp_windows.sh)" - | wl-copy
+bindsym $mod+$alt+Shift+Print   exec grim -g "$($SCRIPT_DIR/slurp_windows.sh)" - | swappy -f -
+bindsym $mod+$alt+Control+Print exec grim -g "$($SCRIPT_DIR/slurp_windows.sh)"\
+	$HOME/pictures/capture/screenshot"_$(date -Iseconds)".png
+
+bindsym $alt+Shift+Print exec wf-recorder\
+	-o $(swaymsg -t get_outputs | jq -r '.[] | select(.type=="output" and .focused).name')\
+	-f $HOME/pictures/capture/recording"_$(date -Iseconds)".mp4
+
+bindsym $alt+Print exec pkill -SIGINT wf-recorder
+
+bindsym $mod+y       exec $SCRIPT_DIR/cycle_sink.sh
+bindsym $mod+Shift+y exec $SCRIPT_DIR/cycle_sink.sh back
+bindsym $mod+m       $volume_mute
+bindsym $mod+Shift+m $volume_mic_mute
+
+bindsym $mod+BackSpace exec makoctl dismiss --all
+bindsym $mod+Shift+BackSpace exec makoctl dismiss
+
+bindsym $mod+p exec wdisplays
+
+# for when latop output is disabled on resume
+bindsym $mod+Control+p output * enable; output * dpms on
+
+bindsym $mod+Shift+w   exec $SCRIPT_DIR/set_random_wallpaper.sh
+bindsym $mod+Control+w exec $SCRIPT_DIR/set_selected_wallpaper.sh
+
+bindsym $mod+Shift+c exec echo -n "$(zenity --calendar --text "")" | wl-copy
+
+bindsym $mod+Shift+v   exec copyq toggle
+bindsym $mod+Control+v exec wtype "$(copyq read 0)"
+
+# disable firefox quit shortcut
+bindsym Control+q nop

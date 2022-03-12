@@ -1,0 +1,44 @@
+exec $SCRIPT_DIR/set_random_wallpaper.sh
+
+output * bg ~/pictures/wallpapers/default fill
+
+hide_edge_borders smart
+smart_borders on
+smart_gaps on
+
+gaps inner  $inner_gap
+gaps outer  $outer_gap
+gaps top    $top_gap
+gaps bottom $bottom_gap
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #5e81ac #5e81ac #eceff4 #85b6f2   #5e81ac
+client.focused_inactive #434c5e #4c566a #eceff4 #72819e   #434c5e
+client.unfocused        #434c5e #272930 #eceff4 #535d73   #434c5e
+client.urgent           #bf616a #bf616a #eceff4 #ffdc96   #bf616a
+client.placeholder      #000000 #0c0c0c #eceff4 #000000   #0c0c0c
+
+client.background #ffffff
+
+focus_follows_mouse no
+
+default_border pixel 4
+
+for_window [app_id="zenity"] floating enable
+for_window [app_id="zoom"] floating enable
+for_window [app_id="zoom" title="Choose ONE of the audio conference options"] floating enable
+for_window [app_id="zoom" title="zoom"] floating enable
+for_window [app_id="zoom" title="Zoom Meeting"] floating disable
+for_window [app_id="zoom" title="Zoom - Free Account"] floating disable
+
+for_window [app_id="copyq"] floating enable, sticky enable, resize set height 600px width 550px, move position cursor, move down 330
+
+set $gnome-schema org.gnome.desktop.interface
+
+#exec_always {
+#	gsettings set $gnome-schema gtk-theme 'Arc-Dark'
+#	gsettings set $gnome-schema icon-theme 'Papirus'
+#	gsettings set $gnome-schema cursor-theme 'Adwaita'
+#	gsettings set $gnome-schema font-name 'Noto Sans 11'
+#	seat seat0 xcursor_theme 'Adwaita' 48
+#}

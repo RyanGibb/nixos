@@ -1,0 +1,47 @@
+*{
+	font-family: monospace;
+	outline-style: none;
+}
+
+window {
+	background-color: #2e3440;
+}
+
+#input {
+	margin: 5px;
+	border-radius: 0px;
+	border: none;
+	background-color: #2e3440;
+	color: #eceff4;
+}
+
+#inner-box {
+	background-color: #2e3440;
+}
+
+#outer-box {
+	margin: 5px;
+	padding: 5px;
+	background-color: #2e3440;
+}
+
+#text {
+	padding: 5px;
+	color: #eceff4;
+}
+
+#entry:nth-child(odd){
+	background-color: #3b4252;
+}
+
+#entry:selected {
+	background-color: #5e81ac;
+}
+
+#text:selected {
+	background-color: #5e81ac;
+}
+
+#img:selected {
+	background-color: #5e81ac;
+}

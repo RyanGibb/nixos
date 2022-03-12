@@ -120,6 +120,7 @@
       wdisplays
       jq
       wtype
+      playerctl
     ];
   };
 
@@ -160,6 +161,17 @@
     provider = "geoclue2";
     latitude = 52.17;
     longitude = 0.13;
+  };
+
+  systemd.user.services.fusuma = {
+    enable = true;
+    description = "Fusuma touchpad gestures";
+    serviceConfig = {
+      DynamicUser = true;
+      ExecStart = "${pkgs.nodejs}/bin/fusuma";
+      Restart = "on-failure";
+      RestartSec = "10s";
+    };
   };
 
   services.geoclue2.enableDemoAgent = true;

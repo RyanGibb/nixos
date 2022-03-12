@@ -1,0 +1,31 @@
+dynamic_title: true
+window:
+  opacity: 1
+# Colors (Nord)
+colors:
+  # Default colors
+  primary:
+    background: '#272930'
+    foreground: '#d8dee9'
+
+  # Normal colors
+  normal:
+    black:   '#0d0e12'
+    red:     '#bf616a'
+    green:   '#a3be8c'
+    yellow:  '#ebcb8b'
+    blue:    '#5e81ac'
+    magenta: '#b48ead'
+    cyan:    '#88c0d0'
+    white:   '#e5e9f0'
+
+  # Bright colors
+  bright:
+    black:   '#4c566a'
+    red:     '#bf616a'
+    green:   '#a3be8c'
+    yellow:  '#ebcb8b'
+    blue:    '#5e81ac'
+    magenta: '#b48ead'
+    cyan:    '#8fbcbb'
+    white:   '#eceff4'

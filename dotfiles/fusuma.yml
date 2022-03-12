@@ -1,0 +1,41 @@
+swipe:
+  3:
+    threshhold: 1
+    interval: 1
+    left:
+      sendkey: "LEFTALT+RIGHT"
+    right:
+      sendkey: "LEFTALT+LEFT"
+    up:
+      sendkey: "LEFTCTRL+TAB"
+    down:
+      sendkey: "LEFTCTRL+LEFTSHIFT+TAB"
+  4:
+    threshhold: 0
+    interval: 1
+    left:
+      sendkey: "LEFTMETA+DOT"
+    right:
+      sendkey: "LEFTMETA+COMMA"
+    up:
+      command: "light -A 1"
+      threshold: 0
+      interval: 0.05
+      keypress:
+        LEFTSHIFT:
+          command: "pactl set-sink-volume @DEFAULT_SINK@ +1%"
+          threshold: 0
+          interval: 0.05
+    down:
+      command: "light -U 1"
+      threshold: 0
+      interval: 0.05
+      keypress:
+        LEFTSHIFT:
+          command: "pactl set-sink-volume @DEFAULT_SINK@ -1%"
+          threshold: 0
+          interval: 0.05
+plugin:
+  inputs:
+    libinput_command_input:
+      show-keycodes: true
