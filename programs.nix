@@ -71,6 +71,12 @@
     };
   };
 
-  programs.tmux.enable = true;
+  programs.tmux = {
+    enable = true;
+    extraConfig = ''
+      set -g mouse on
+      set-window-option -g mode-keys vi
+    '';
+  };
 }
 

@@ -8,7 +8,6 @@
     ./packages.nix
     ./programs.nix
     ./secret.nix
-    <home-manager/nixos> 
   ];
 
   boot.loader.grub = {
@@ -32,11 +31,6 @@
     openssh.authorizedKeys.keyFiles = [
       /etc/nixos/authorized_keys
     ];
-  };
-
-  home-manager = {
-    useGlobalPkgs = true;
-    users.ryan = import ./home.nix;
   };
 
   environment = {

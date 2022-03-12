@@ -3,6 +3,7 @@
 {
   imports = [
     ./common.nix
+    <home-manager/nixos> 
   ];
 
   boot.loader.grub = {
@@ -61,9 +62,19 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  home-manager = {
+    useGlobalPkgs = true;
+    users.ryan = import ./home.nix;
+  };
+
+  # NUR for firefox extensions
+  nixpkgs.config.packageOverrides = pkgs: {
+    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+      inherit pkgs;
+    };
+  };
+
   environment.systemPackages = with pkgs; [
-    git
-    sway
     firefox-wayland
     thunderbird-wayland
     element-desktop
@@ -72,13 +83,13 @@
     obsidian
     spotify
     gparted
-    ncdu
-    papirus-icon-theme
     xfce.thunar
     xfce.xfconf # Needed to save the preferences
     xfce.exo # Used by default for `open terminal here`, but can be changed
-    pavucontrol
     vscodium
+    vlc
+    gimp
+    go
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -95,20 +106,40 @@
     extraPackages = with pkgs; [
       swaylock
       swayidle
-      wl-clipboard
+      pavucontrol
+      copyq
       mako
       alacritty
       wofi
       waybar
       gnome.networkmanagerapplet
-      glib
+      xdg-utils
+      fusuma
+      feh
+      kanshi
+      wdisplays
+      jq
+      wtype
     ];
+  };
+
+  services.pipewire.enable = true;
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+      ];
+      gtkUsePortal = true;
+    };
   };
 
   fonts.fonts = with pkgs; [
     noto-fonts
     noto-fonts-emoji
     (nerdfonts.override { fonts = [ "DroidSansMono" ]; })
+    font-awesome
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
@@ -118,6 +149,22 @@
   # thunar
   services.gvfs.enable = true; # Mount, trash, and other functionalities
   services.tumbler.enable = true; # Thumbnail support for images
+
+  services.redshift = {
+    enable = true;
+    package = pkgs.gammastep;
+    executable = "/bin/gammastep-indicator -r";
+  };
+
+  location  = {
+    provider = "geoclue2";
+    latitude = 52.17;
+    longitude = 0.13;
+  };
+
+  services.geoclue2.enableDemoAgent = true;
+    
+  users.users.ryan.extraGroups = [ "input" ];
 
   system.stateVersion = "21.11";
 }
