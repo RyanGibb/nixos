@@ -12,7 +12,7 @@
         s = "status";
         c = "commit";
        	cm = "commit --message";
-       	ca = "commit --amend --no-edit";
+       	ca = "commit --amend";
        	cu = "commit --message update";
        	ci = "commit --message initial";
        	br = "branch";
