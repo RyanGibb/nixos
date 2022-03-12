@@ -88,7 +88,6 @@
       facebook-container
       news-feed-eradicator
       lastpass-password-manager
-      kristofferhagen-nord-theme
       search-by-image
       simple-tab-groups
       tabliss
