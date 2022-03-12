@@ -120,16 +120,6 @@
     };
   };
 
-  programs.zsh = {
-    enable = true;
-    profileExtra = ''
-      # Autostart sway at login on TTY 1
-      if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
-      	exec sway &> $HOME/.sway_log
-      fi
-    '';
-  };
-
   xdg = {
     configFile = {
       "Thunar/uca.xml".source = ./dotfiles/thunar.xml;
@@ -153,6 +143,12 @@
         [manual]
         lat=52.17
         lon=0.13
+      '';
+      ".zprofile".text = ''
+        # Autostart sway at login on TTY 1
+        if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
+          exec sway &> $HOME/.sway_log
+        fi
       '';
       "../.xkb/symbols/gb_alt_gr_remapped_to_super".source = ./dotfiles/gb_alt_gr_remapped_to_super.xkb;
       "sway".source = ./dotfiles/sway;
@@ -184,6 +180,41 @@
       templates   = "$HOME";
       publicShare = "$HOME";
     };
+  };
+
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscodium;
+    extensions = with pkgs.vscode-extensions; [
+      bbenoist.nix
+      james-yu.latex-workshop
+      streetsidesoftware.code-spell-checker
+      ms-vscode-remote.remote-ssh
+      ocamllabs.ocaml-platform
+      valentjn.vscode-ltex
+    ];
+    userSettings = import ./dotfiles/vscode.nix;
+  };
+  # https://github.com/nix-community/home-manager/issues/1800#issuecomment-853589961
+  home.activation.boforeCheckLinkTargets = {
+    after = [];
+    before = [ "checkLinkTargets" ];
+    data = ''
+      userDir=/home/ryan/.config/VSCodium/User
+      rm -rf $userDir/settings.json
+    '';
+  };
+  home.activation.afterWriteBoundary = {
+    after = [ "writeBoundary" ];
+    before = [];
+    data = ''
+      userDir=/home/ryan/.config/VSCodium/User
+      rm -rf $userDir/settings.json
+      cat \
+        ${(pkgs.formats.json {}).generate "vscode-user-settings"
+          (import ./dotfiles/vscode.nix)} \
+        > $userDir/settings.json
+    '';
   };
 
   programs.go.goPath = "~/.go";

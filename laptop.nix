@@ -85,6 +85,7 @@
     vlc
     gimp
     go
+    texlive.combined.scheme-full
   ];
 
   programs.sway = {
@@ -105,6 +106,7 @@
       alacritty
       mako
       wofi
+      gnome.zenity
       feh
       copyq
       gnome.networkmanagerapplet
