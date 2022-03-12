@@ -92,14 +92,6 @@
     go
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true; # so that gtk works properly
@@ -174,8 +166,10 @@
   };
 
   services.geoclue2.enableDemoAgent = true;
+
+  programs.light.enable = true;
     
-  users.users.ryan.extraGroups = [ "input" ];
+  users.users.ryan.extraGroups = [ "input" "light" ];
 
   system.stateVersion = "21.11";
 }

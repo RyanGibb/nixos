@@ -139,7 +139,7 @@
         unbind <F1>
         set modeindicator false
       '';
-      ".xkb/symbols/gb_alt_gr_remapped_to_super".source = ./dotfiles/gb_alt_gr_remapped_to_super.xkb;
+      "../.xkb/symbols/gb_alt_gr_remapped_to_super".source = ./dotfiles/gb_alt_gr_remapped_to_super.xkb;
       "sway".source = ./dotfiles/sway;
       "waybar".source = ./dotfiles/waybar;
     };
