@@ -50,7 +50,7 @@
   };
 
   home.sessionVariables = {
-    XDG_CURRENT_DESKTOP = "sway"; 
+    XDG_CURRENT_DESKTOP = "sway";
     QT_QPA_PLATFORM = "wayland";
     SDL_VIDEODRIVER = "wayland";
     MOZ_ENABLE_WAYLAND = 1;
@@ -145,6 +145,7 @@
         lon=0.13
       '';
       ".zprofile".text = ''
+        source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
         # Autostart sway at login on TTY 1
         if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
           exec sway &> $HOME/.sway_log
@@ -162,7 +163,9 @@
         "text/plain" = [ "neovim.desktop" "codium.desktop" ];
         "text/markdown" = [ "neovim.desktop" "codium.desktop" ];
         "application/pdf" = "org.gnome.Evince.desktop";
-        "image" = [ "feh.desktop" "gimp.desktop" ];
+        "image/jpg" = [ "feh.desktop" "gimp.desktop" ];
+        "image/png" = [ "feh.desktop" "gimp.desktop" ];
+        "image/svg" = [ "feh.desktop" "gimp.desktop" ];
         "application/xbittorrent" = "transmission.desktop";
         "x-scheme-handler/magnet" = "transmission.desktop";
         "x-scheme-handler" = "firefox.desktop";

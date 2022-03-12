@@ -40,8 +40,14 @@
   users.users.ryan.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
   users.users.root.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
 
-  networking.firewall.allowedTCPPorts = [ 53 ]; # ssh
-  networking.firewall.allowedUDPPorts = [ 53 ]; # mosh
+  networking.firewall.allowedTCPPorts = [
+    53 # ssh
+    631 # printing
+  ]; 
+  networking.firewall.allowedUDPPorts = [
+    53 # mosh
+    631 # printing
+  ];
   
   sound.enable = true;
   hardware.pulseaudio.enable = true;
@@ -57,7 +63,17 @@
 
   boot.supportedFilesystems = [ "ntfs" ];
 
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    browsing = true;
+    defaultShared = true;
+  };
+  services.avahi = {
+    enable = true;
+    publish.enable = true;
+    publish.userServices = true;
+    nssmdns = true;
+  };
 
   nixpkgs.config.allowUnfree = true;
 
@@ -74,6 +90,7 @@
 
   environment.systemPackages = with pkgs; [
     firefox-wayland
+    chromium
     thunderbird-wayland
     element-desktop
     signal-desktop
@@ -86,6 +103,11 @@
     gimp
     go
     texlive.combined.scheme-full
+    evince
+    pdfpc
+    calibre
+    transmission
+    drive
   ];
 
   programs.sway = {
@@ -115,6 +137,7 @@
       xfce.thunar
       xfce.xfconf # Needed to save the preferences
       xfce.exo # Used by default for `open terminal here`, but can be changed
+      rofimoji
     ];
   };
 

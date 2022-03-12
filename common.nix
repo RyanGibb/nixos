@@ -51,6 +51,8 @@
   services.openssh.passwordAuthentication = false;
   services.tailscale.enable = true;
 
+  networking.nameservers = [ "1.1.1.1" ];
+
   system.stateVersion = "21.11";
 }
 
