@@ -153,18 +153,7 @@
     latitude = 52.17;
     longitude = 0.13;
   };
-
-  systemd.user.services.fusuma = {
-    enable = true;
-    description = "Fusuma touchpad gestures";
-    serviceConfig = {
-      EnvironmentFile = builtins.toFile "fusuma-environment" "DISPLAY=:0";
-      ExecStart = "${pkgs.fusuma}/bin/fusuma";
-      Restart = "on-failure";
-      RestartSec = "10s";
-    };
-  };
-
+  
   services.geoclue2.enableDemoAgent = true;
 
   programs.light.enable = true;

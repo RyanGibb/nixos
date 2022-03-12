@@ -17,7 +17,7 @@ exec kdeconnect-indicator
 exec mako
 exec "kanshi &> ~/.kanshi_log"
 exec fcitx5 -d --replace
-exec systemctl --user start fusuma
+exec fusuma
 
 exec waybar
 
