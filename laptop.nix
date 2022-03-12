@@ -35,7 +35,6 @@
   };
 
   networking.useDHCP = false;
-  networking.interfaces.enp4s0u2u4.useDHCP = true;
   networking.interfaces.wlp0s20f3.useDHCP = true;
 
   users.users.ryan.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
@@ -50,7 +49,7 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
-  # Needed for Keychron K2  
+  # Needed for Keychron K2
   boot.extraModprobeConfig = ''
     options hid_apple fnmode=2
   '';
@@ -67,11 +66,10 @@
     users.ryan = import ./home.nix;
   };
 
-  # NUR for firefox extensions
   nixpkgs.config.packageOverrides = pkgs: {
-    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-      inherit pkgs;
-    };
+    nur = import (
+      builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz"
+    ) { inherit pkgs; };
   };
 
   environment.systemPackages = with pkgs; [
@@ -83,9 +81,6 @@
     obsidian
     spotify
     gparted
-    xfce.thunar
-    xfce.xfconf # Needed to save the preferences
-    xfce.exo # Used by default for `open terminal here`, but can be changed
     vscodium
     vlc
     gimp
@@ -96,25 +91,28 @@
     enable = true;
     wrapperFeatures.gtk = true; # so that gtk works properly
     extraPackages = with pkgs; [
+      jq
       swaylock
       swayidle
-      pavucontrol
-      copyq
-      mako
-      alacritty
-      wofi
-      waybar
-      gnome.networkmanagerapplet
-      xdg-utils
       fusuma
-      feh
       kanshi
-      wdisplays
-      jq
       wtype
       playerctl
       brightnessctl
+      xdg-utils
       gammastep
+      waybar
+      alacritty
+      mako
+      wofi
+      feh
+      copyq
+      gnome.networkmanagerapplet
+      wdisplays
+      pavucontrol
+      xfce.thunar
+      xfce.xfconf # Needed to save the preferences
+      xfce.exo # Used by default for `open terminal here`, but can be changed
     ];
   };
 

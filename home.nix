@@ -29,7 +29,12 @@
   xsession.pointerCursor = {
       package = pkgs.gnome.adwaita-icon-theme;
       name = "Adwaita";
-      size = 64;
+      size = 48;
+  };
+  # Fix overly large cursor in some applications
+  gtk.gtk3.extraConfig = {
+    "gtk-cursor-theme-name" = pkgs.lib.mkForce "";
+    "gtk-cursor-theme-size" = pkgs.lib.mkForce "";
   };
 
   xdg.desktopEntries = {
@@ -45,12 +50,19 @@
   };
 
   home.sessionVariables = {
-    MOZ_ENABLE_WAYLAND = 1;
     XDG_CURRENT_DESKTOP = "sway"; 
+    QT_QPA_PLATFORM = "wayland";
+    SDL_VIDEODRIVER = "wayland";
+    MOZ_ENABLE_WAYLAND = 1;
+    MOZ_DBUS_REMOTE = 1;
+    QT_STYLE_OVERRIDE = "Fusion";
+    TERMINAL = "alacritty";
+    WLR_NO_HARDWARE_CURSORS = 1;
+    WLR_DRM_NO_MODIFIERS = 1;
+
+    # for intellij
+    _JAVA_AWT_WM_NONREPARENTING = 1;
   };
-  # Sway users might achieve this by adding the following to their Sway config file
-  # This ensures all user units started after the command (not those already running) set the variables
-  # exec systemctl --user import-environment?
 
   programs.firefox =
   let
@@ -111,12 +123,9 @@
   programs.zsh = {
     enable = true;
     profileExtra = ''
-      # https://github.com/boltgolt/howdy/issues/241
-      export OPENCV_LOG_LEVEL=ERROR
-      
       # Autostart sway at login on TTY 1
       if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
-      	exec ~/.config/sway/scripts/start.sh
+      	exec sway &> $HOME/.sway_log
       fi
     '';
   };
@@ -178,6 +187,4 @@
   };
 
   programs.go.goPath = "~/.go";
-
-  home.keyboard = null;
 }

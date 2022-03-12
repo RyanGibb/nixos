@@ -32,13 +32,3 @@ for_window [app_id="zoom" title="Zoom Meeting"] floating disable
 for_window [app_id="zoom" title="Zoom - Free Account"] floating disable
 
 for_window [app_id="copyq"] floating enable, sticky enable, resize set height 600px width 550px, move position cursor, move down 330
-
-set $gnome-schema org.gnome.desktop.interface
-
-#exec_always {
-#	gsettings set $gnome-schema gtk-theme 'Arc-Dark'
-#	gsettings set $gnome-schema icon-theme 'Papirus'
-#	gsettings set $gnome-schema cursor-theme 'Adwaita'
-#	gsettings set $gnome-schema font-name 'Noto Sans 11'
-#	seat seat0 xcursor_theme 'Adwaita' 48
-#}
