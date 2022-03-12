@@ -66,6 +66,8 @@
 
       # Use userChrome.css
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
+      "browser.shell.checkDefaultBrowser" = false; 
     };
     userChrome = ''
       #webrtcIndicator {
@@ -138,6 +140,11 @@
       "tridactyl/tridactyl".text = ''
         unbind <F1>
         set modeindicator false
+      '';
+      "gammastep/config.ini".text = ''
+        [manual]
+        lat=52.17
+        lon=0.13
       '';
       "../.xkb/symbols/gb_alt_gr_remapped_to_super".source = ./dotfiles/gb_alt_gr_remapped_to_super.xkb;
       "sway".source = ./dotfiles/sway;

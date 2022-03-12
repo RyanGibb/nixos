@@ -113,6 +113,8 @@
       jq
       wtype
       playerctl
+      brightnessctl
+      gammastep
     ];
   };
 
@@ -143,22 +145,9 @@
   services.gvfs.enable = true; # Mount, trash, and other functionalities
   services.tumbler.enable = true; # Thumbnail support for images
 
-  services.redshift = {
-    enable = true;
-    package = pkgs.gammastep;
-  };
-
-  location  = {
-    provider = "geoclue2";
-    latitude = 52.17;
-    longitude = 0.13;
-  };
-  
   services.geoclue2.enableDemoAgent = true;
-
-  programs.light.enable = true;
     
-  users.users.ryan.extraGroups = [ "input" "light" ];
+  users.users.ryan.extraGroups = [ "input" ];
 
   system.stateVersion = "21.11";
 }

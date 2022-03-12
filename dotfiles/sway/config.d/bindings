@@ -12,12 +12,12 @@ set $play_prev  exec playerctl previous
 set $play_next  exec playerctl next
 set $play_stop  exec playerctl stop
 
-set $backlight_inc   exec light -A $BRIGHTNESS_DELTA
-set $backlight_dec   exec light -U $BRIGHTNESS_DELTA
-set $backlight_inc_1 exec light -A 1
-set $backlight_dec_1 exec light -U 1
-set $backlight_inc_5 exec light -A 5
-set $backlight_dec_5 exec light -U 5
+set $backlight_inc   exec brightnessctl set $BRIGHTNESS_DELTA%+
+set $backlight_dec   exec brightnessctl set $BRIGHTNESS_DELTA%-
+set $backlight_inc_1 exec brightnessctl set 1%+
+set $backlight_dec_1 exec brightnessctl set 1%-
+set $backlight_inc_5 exec brightnessctl set 5%+
+set $backlight_dec_5 exec brightnessctl set 5%-
 
 bindsym --locked XF86AudioRaiseVolume         $volume_inc
 bindsym --locked XF86AudioLowerVolume         $volume_dec
