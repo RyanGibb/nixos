@@ -13,5 +13,6 @@
     ncdu
     nix-prefetch-git
     gnumake
+    bat
   ];
 }
