@@ -5,7 +5,7 @@
     enable = true;
     config = {
       user = {
-        email = "ryan@gibb.org";
+        email = "ryan@gibbr.org";
         name = "Ryan Gibb";
       };
       alias = {
