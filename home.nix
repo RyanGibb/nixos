@@ -144,11 +144,11 @@
         lat=52.17
         lon=0.13
       '';
-      ".zprofile".text = ''
-        source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+      "../.zprofile".text = ''
         # Autostart sway at login on TTY 1
         if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
-          exec sway &> $HOME/.sway_log
+        	source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+        	exec sway &> $HOME/.sway_log
         fi
       '';
       "../.xkb/symbols/gb_alt_gr_remapped_to_super".source = ./dotfiles/gb_alt_gr_remapped_to_super.xkb;

@@ -108,6 +108,7 @@
     calibre
     transmission
     drive
+    libreoffice
   ];
 
   programs.sway = {
@@ -138,6 +139,8 @@
       xfce.xfconf # Needed to save the preferences
       xfce.exo # Used by default for `open terminal here`, but can be changed
       rofimoji
+      # https://discourse.nixos.org/t/sway-wm-configuration-polkit-login-manager/3857/6
+      polkit_gnome
     ];
   };
 
