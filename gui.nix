@@ -88,6 +88,8 @@
       wf-recorder
       grim
       slurp
+      swappy
+      glib
     ];
   };
 
@@ -98,8 +100,8 @@
       extraPortals = with pkgs; [
         xdg-desktop-portal-wlr
         xdg-desktop-portal-gtk
+        xdg-desktop-portal-kde
       ];
-      gtkUsePortal = true;
     };
   };
 
