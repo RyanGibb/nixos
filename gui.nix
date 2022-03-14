@@ -34,9 +34,9 @@
   };
 
   environment.systemPackages = with pkgs; [
-    firefox-wayland
+    firefox
     chromium
-    thunderbird-wayland
+    thunderbird
     element-desktop
     signal-desktop
     zotero
