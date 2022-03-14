@@ -13,6 +13,7 @@ exec nm-applet --indicator
 exec /usr/lib/geoclue-2.0/demos/agent
 exec gammastep-indicator -r
 exec kdeconnect-indicator
+# exec ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
 
 exec mako
 exec "kanshi &> ~/.kanshi_log"

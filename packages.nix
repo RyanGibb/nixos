@@ -14,5 +14,6 @@
     nix-prefetch-git
     gnumake
     bat
+    killall
   ];
 }

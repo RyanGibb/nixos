@@ -107,6 +107,7 @@
     pdfpc
     calibre
     transmission
+    transmission-gtk
     drive
     libreoffice
   ];
@@ -172,8 +173,10 @@
   services.tumbler.enable = true; # Thumbnail support for images
 
   services.geoclue2.enableDemoAgent = true;
-    
+
   users.users.ryan.extraGroups = [ "input" ];
+
+  programs.kdeconnect.enable = true;
 
   system.stateVersion = "21.11";
 }
