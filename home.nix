@@ -62,6 +62,9 @@
 
     # for intellij
     _JAVA_AWT_WM_NONREPARENTING = 1;
+
+    # https://gitlab.gnome.org/GNOME/glib/-/issues/2249
+    GTK_USE_PORTAL = 0;
   };
 
   programs.firefox =
