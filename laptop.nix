@@ -142,6 +142,8 @@
       rofimoji
       # https://discourse.nixos.org/t/sway-wm-configuration-polkit-login-manager/3857/6
       polkit_gnome
+      wf-recorder
+      grim
     ];
   };
 

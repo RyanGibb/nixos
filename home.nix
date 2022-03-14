@@ -167,7 +167,7 @@
         "image/png" = [ "feh.desktop" "gimp.desktop" ];
         "image/svg" = [ "feh.desktop" "gimp.desktop" ];
         "application/xbittorrent" = "transmission.desktop";
-         "x-scheme-handler/magnet=userapp-transmission-gtk-F0QFI1.desktop;"
+        "x-scheme-handler/magnet" = "userapp-transmission-gtk-F0QFI1.desktop";
         "x-scheme-handler" = "firefox.desktop";
         "application/lrf" = "calibre-lrfviewer.desktop";
       };
