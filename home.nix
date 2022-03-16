@@ -27,14 +27,9 @@
   };
 
   xsession.pointerCursor = {
-      package = pkgs.gnome.adwaita-icon-theme;
       name = "Adwaita";
-      size = 48;
-  };
-  # Fix overly large cursor in some applications
-  gtk.gtk3.extraConfig = {
-    "gtk-cursor-theme-name" = pkgs.lib.mkForce "";
-    "gtk-cursor-theme-size" = pkgs.lib.mkForce "";
+      package = pkgs.gnome.adwaita-icon-theme;
+      size = 32;
   };
 
   xdg.desktopEntries = {
