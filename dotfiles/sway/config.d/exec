@@ -12,7 +12,7 @@ exec kdeconnect-indicator
 exec mako
 exec "kanshi &> ~/.kanshi_log"
 exec fcitx5 -d --replace
-exec fusuma
+exec "fusuma &> ~/.fusuma_log"
 
 exec waybar
 
