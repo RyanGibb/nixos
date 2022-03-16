@@ -18,7 +18,7 @@ swipe:
     right:
       command: "wtype -M logo -P comma"
     up:
-      command: "light -A 1"
+      command: "brightnessctl set 1%+"
       threshold: 0
       interval: 0.05
       keypress:
@@ -27,7 +27,7 @@ swipe:
           threshold: 0
           interval: 0.05
     down:
-      command: "light -U 1"
+      command: "brightnessctl set 1%-"
       threshold: 0
       interval: 0.05
       keypress:
