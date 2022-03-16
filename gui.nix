@@ -64,6 +64,8 @@
       jq
       swaylock
       swayidle
+      wl-clipboard
+      clipman
       wtype
       playerctl
       brightnessctl
@@ -75,7 +77,6 @@
       wofi
       gnome.zenity
       feh
-      copyq
       gnome.networkmanagerapplet
       wdisplays
       pavucontrol

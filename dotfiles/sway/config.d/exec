@@ -1,8 +1,3 @@
-# This has a problem with metadata, and using -P means persisance is lost:
-#	exec wl-paste -t text --watch clipman store
-# https://github.com/yory8/clipman/issues/59
-exec copyq
-
 exec $SCRIPT_DIR/swayidle_lock.sh
 
 exec playerctld daemon
@@ -30,4 +25,6 @@ exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec hash dbus-update-activation-environment 2>/dev/null && \
 	exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
 
-exec thunderbird
+# https://github.com/yory8/clipman/issues/59
+exec wl-paste -t text --watch clipman store -P
+
