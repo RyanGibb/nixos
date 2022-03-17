@@ -185,7 +185,6 @@
     package = pkgs.vscodium;
     extensions = with pkgs.vscode-extensions; [
       bbenoist.nix
-      james-yu.latex-workshop
       streetsidesoftware.code-spell-checker
       ms-vscode-remote.remote-ssh
       ocamllabs.ocaml-platform
