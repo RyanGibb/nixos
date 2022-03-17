@@ -72,19 +72,6 @@
     jupyter
     vagrant
   ];
-  
-  # systemd.user.services.fusuma = {
-  #   enable = true;
-  #   description = "Fusuma touchpad gestures";
-  #   serviceConfig = {
-  #     EnvironmentFile = builtins.toFile "fusuma-environment" "DISPLAY=:0";
-  #     ExecStart = "${pkgs.ruby}/bin/ruby ${pkgs.fusuma}/bin/.fusuma-wrapped";
-  #     Restart = "on-failure";
-  #     RestartSec = "10s";
-  #   };
-  # };
-
-  users.users.ryan.extraGroups = [ "input" ];
 
   system.stateVersion = "21.11";
 }
