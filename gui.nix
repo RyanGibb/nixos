@@ -55,6 +55,7 @@
     transmission-gtk
     drive
     libreoffice
+    obs-studio
   ];
 
   programs.sway = {
@@ -74,6 +75,7 @@
       waybar
       alacritty
       mako
+      libnotify
       wofi
       gnome.zenity
       feh
