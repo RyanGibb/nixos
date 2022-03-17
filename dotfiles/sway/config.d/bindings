@@ -495,8 +495,9 @@ bindsym $mod+Control+w exec $SCRIPT_DIR/set_selected_wallpaper.sh
 
 bindsym $mod+Shift+c exec echo -n "$(zenity --calendar --text "")" | wl-copy
 
-bindsym $mod+Shift+v   exec clipman pick -t wofi
-bindsym $mod+Control+v exec wtype "$(clipman pick -t STDOUT | head -n 1)"
+bindsym $mod+Shift+v         exec clipman pick -t wofi
+bindsym $mod+Control+v       exec wl-copy "$(clipman pick -t STDOUT | head -n 1)"
+bindsym $mod+Shift+Control+v exec wtype "$(clipman pick -t STDOUT | head -n 1)"
 
 # disable firefox quit shortcut
 bindsym Control+q nop
