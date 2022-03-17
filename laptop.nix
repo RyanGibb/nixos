@@ -52,10 +52,25 @@
     nssmdns = true;
   };
 
-  environment.systemPackages = with pkgs; [
+  users.users.ryan.extraGroups = [ "input" ];
+
+  services.tlp.enable = true;
+  virtualisation.libvirtd.enable = true;
+
+  environment.systemPackages = with pkgs;
+  let
+    python-with-packages = pkgs.python3.withPackages (p: with p; [
+      numpy
+      matplotlib
+      pandas
+    ]);
+  in [
     fusuma
     kanshi
     acpi
+    python-with-packages
+    jupyter
+    vagrant
   ];
   
   # systemd.user.services.fusuma = {
