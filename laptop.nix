@@ -71,6 +71,7 @@
     python-with-packages
     jupyter
     vagrant
+    (pkgs.callPackage ./pkgs/cctk.nix { })
   ];
 
   system.stateVersion = "21.11";
