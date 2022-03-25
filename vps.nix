@@ -1,8 +1,11 @@
+{ lib, ... }:
+
 {
   imports = [
     ./common.nix
     ./matrix.nix
     ./twitcher.nix
+    ./mailserver.nix
   ];
 
   boot.loader.grub.device = "/dev/vda";
@@ -18,8 +21,10 @@
   users.users.ryan.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
   users.users.root.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
 
-  networking.firewall.allowedTCPPorts = [ 53 80 443 ];
-  networking.firewall.allowedUDPPorts = [ 53 ];
+  networking.firewall.allowedTCPPorts = lib.mkForce [ 80 443 465 993 ];
+  networking.firewall.allowedUDPPorts = lib.mkForce [ 53 ];
+
+  networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
   services.nginx = {
     enable = true;
@@ -46,7 +51,7 @@
   swapDevices = [ { device = "/var/swap"; size = 2048; } ];
 
   services.journald.extraConfig = ''
-    SystemMaxUse=2G
+    SystemMaxUse=1G
   '';
 
   nix.autoOptimiseStore = true;

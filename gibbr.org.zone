@@ -1,16 +1,27 @@
 $TTL 4800
 @ IN SOA ns1.gibbr.org. dns (
 	2018011615 ; Serial
-	604800 ; Refresh
-	86400 ; Retry
-	2419200 ; Expire
-	604800 ) ; Negative Cache TTL
+	604800     ; Refresh
+	86400      ; Retry
+	2419200    ; Expire
+	604800 )   ; Negative Cache TTL
 ;
-@          IN NS    ns1.gibbr.org.
-ns1        IN A     45.77.205.198
-gibbr.org. IN A     45.77.205.198
-vps        IN A     45.77.205.198
-twitcher   IN A     45.77.205.198
-@ 10800    IN MX    10 spool.mail.gandi.net.
-@ 10800    IN MX    50 fb.mail.gandi.net.
-@ 10800    IN TXT   "v=spf1 include:_mailcust.gandi.net ?all"
+@               IN NS    ns1.gibbr.org.
+ns1             IN A     45.77.205.198
+
+gibbr.org.      IN A     45.77.205.198
+vps             IN A     45.77.205.198
+twitcher        IN A     45.77.205.198
+
+mail            IN A     45.77.205.198
+@               IN MX    10 mail
+@               IN TXT   "v=spf1 a:mail.gibbr.org -all"
+mail._domainkey IN 10800 TXT "v=DKIM1; p=p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC6YmYYvoFF7VqtGcozpVQa78aaGgZdvc5ZIHqzmkKdCBEyDF2FRbCEK4s2AlC8hhc8O4mSSe3S4AzEhlRgHXbU22GBaUZ3s2WHS8JJwZvWeTjsbXQwjN/U7xpkqXPHLH9IVfOJbHlp4HQmCAXw4NaypgkkxIGK0jaZHm2j6/1izQIDAQAB"
+_dmarc          IN 10800 TXT "v=DMARC1; p=none"
+
+pixel-4a.vpn    IN A     100.122.46.94
+dell-xps.vpn    IN A     100.92.111.117
+hp-pavilion.vpn IN A     100.91.12.120
+vps.vpn         IN A     100.125.253.71
+pc.vpn          IN A     100.0.0.0
+

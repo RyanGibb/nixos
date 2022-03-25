@@ -46,9 +46,12 @@
   };
 
   programs.mosh.enable = true;
-  services.openssh.enable = true;
-  services.openssh.permitRootLogin = "no";
-  services.openssh.passwordAuthentication = false;
+  services.openssh = {
+    enable = true;
+    openFirewall = false;
+    permitRootLogin = "no";
+    passwordAuthentication = false;
+  };
   services.tailscale.enable = true;
 
   networking.nameservers = [ "1.1.1.1" ];
