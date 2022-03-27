@@ -439,15 +439,13 @@ mode "$idle_mode" {
 	bindsym Escape mode "default"
 }
 
-bindsym $mod+b       exec $browser
-bindsym $mod+Shift+b exec $browser -private-window
+bindsym $mod+b         exec $browser
+bindsym $mod+Shift+b   exec $browser -P secondary
+bindsym $mod+Control+b exec $browser -private-window
 
 bindsym $mod+backslash exec xdg-open ~
 
-set $emoji_selector   exec rofimoji --selector wofi --skin-tone neutral --prompt "" -a copy
-set $unicode_selector exec rofimoji --selector wofi --skin-tone neutral --prompt "" --files all -a copy
-bindsym $mod+apostrophe       $emoji_selector
-bindsym $mod+Shift+apostrophe $unicode_selector
+bindsym $mod+apostrophe exec wofi-emoji
 
 bindsym $mod+semicolon         exec $SCRIPT_DIR/bluetooth_device.sh
 bindsym $mod+Shift+semicolon   exec $SCRIPT_DIR/bluetooth_device.sh disconnect
@@ -460,20 +458,20 @@ bindsym $mod+Control+i exec $SCRIPT_DIR/dpms_toggle.sh
 
 bindsym Print              exec grim - | wl-copy
 bindsym Shift+Print        exec grim - | swappy -f -
-bindsym Control+Print      exec grim $HOME/pictures/capture/screenshot"_$(date -Iseconds)".png
+bindsym Control+Print      exec grim $HOME/pictures/capture/screenshot"_$(date '+%Y-%m-%d %H.%M.%S')".png
 bindsym $mod+Print         exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | wl-copy
 bindsym $mod+Shift+Print   exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | swappy -f -
 bindsym $mod+Control+Print exec grim -g "$($SCRIPT_DIR/slurp_point.sh)"\
-	$HOME/pictures/capture/screenshot"_$(date -Iseconds)".png
+	$HOME/pictures/capture/"$(date '+%Y-%m-%d %H.%M.%S')".png
 
 bindsym $mod+$alt+Print         exec grim -g "$($SCRIPT_DIR/slurp_windows.sh)" - | wl-copy
 bindsym $mod+$alt+Shift+Print   exec grim -g "$($SCRIPT_DIR/slurp_windows.sh)" - | swappy -f -
 bindsym $mod+$alt+Control+Print exec grim -g "$($SCRIPT_DIR/slurp_windows.sh)"\
-	$HOME/pictures/capture/screenshot"_$(date -Iseconds)".png
+	$HOME/pictures/capture/"$(date '+%Y-%m-%d %H.%M.%S')".png
 
 bindsym $alt+Shift+Print exec wf-recorder\
 	-o $(swaymsg -t get_outputs | jq -r '.[] | select(.type=="output" and .focused).name')\
-	-f $HOME/pictures/capture/recording"_$(date -Iseconds)".mp4
+	-f $HOME/videos/"$(date '+%Y-%m-%d %H.%M')".mp4
 
 bindsym $alt+Print exec pkill -SIGINT wf-recorder
 

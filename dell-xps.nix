@@ -55,6 +55,7 @@
   users.users.ryan.extraGroups = [ "input" ];
 
   services.tlp.enable = true;
+  powerManagement.enable = true;
   virtualisation.libvirtd.enable = true;
 
   environment.systemPackages = with pkgs;
@@ -69,10 +70,21 @@
     kanshi
     acpi
     python-with-packages
+    python39Packages.pip
     jupyter
     vagrant
     (pkgs.callPackage ./pkgs/cctk.nix { })
+    kdenlive
+    tor-browser-bundle-bin
+    zoom-us
   ];
+
+  #  environment.etc."omreg.ini" = {
+  #   source = "${(pkgs.callPackage ./pkgs/cctk.nix { })}/omreg-hapi.cfg";
+  #   mode = "0777";
+  # };
+
+  programs.steam.enable = true;
 
   system.stateVersion = "21.11";
 }

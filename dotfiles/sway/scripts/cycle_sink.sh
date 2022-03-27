@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+sink_ids=($(pactl list short sinks | cut -f 1))
 sinks=($(pactl list short sinks | cut -f 2))
 
 default_sink=$(pactl info | sed -En 's/Default Sink: (.*)/\1/p')
@@ -18,14 +19,16 @@ fi
 
 prev_i=$i
 
-# find first sink succesfully set as default
-while [[ "$(pactl info | sed -En 's/Default Sink: (.*)/\1/p')" == "$default_sink" ]]; do
+while true; do
 	i=$(((i+j)%${#sinks[@]}))
-	pactl set-default-sink "${sinks[$i]}"
+	echo $i
+	if ! pactl list sinks | sed -n "/Sink #${sink_ids[$i]}/,\$p" | grep "\[Out\]" | head -n 1 | grep "not available"; then
+		pactl set-default-sink "${sinks[$i]}"
+		break
+	fi
 	#  break if no other sink
 	if [ $prev_i -eq $i ]; then
 		break
 	fi
-	echo $i
 done
 

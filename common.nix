@@ -42,6 +42,8 @@
       se = "sudoedit";
       su = "su -p";
       ssh = "TERM=xterm ssh";
+      nix-shell = "nix-shell --command zsh";
+      inhibit-lid = "systemd-inhibit --what=handle-lid-switch sleep 1d";
     };
   };
 

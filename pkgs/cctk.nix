@@ -1,6 +1,16 @@
-{ stdenv, lib, fetchurl, dpkg, autoPatchelfHook, libsmbios, openssl }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  dpkg,
+  autoPatchelfHook,
+  libsmbios,
+  openssl,
+  libredirect,
+  makeWrapper
+}:
 
-# Adapted from https://github.com/KenMacD/etc-nixos/blob/d3d28085586358a62b2bb4b427eb21aad05b5b23/pkgs/dcc/default.nix
+# Adapted from https://github.com/KenMacD/etc-nixos/blob/d3d28085586358a62b2bb4b427eb21aad05b5b23/cc/default.nix
 
 # Used https://github.com/NixOS/nixpkgs/pull/84926 as a template
 # then converted to use autoPatchelfHook instead, and link with
@@ -19,10 +29,12 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ libsmbios openssl stdenv.cc.cc.lib ];
-  nativeBuildInputs = [ dpkg autoPatchelfHook ];
+  nativeBuildInputs = [ dpkg autoPatchelfHook libredirect makeWrapper ];
   sourceRoot = pname;
   dontBuild = true;
   dontConfigure = true;
+
+  doCheck = false;
 
   unpackPhase = ''
     mkdir ${pname}
@@ -41,9 +53,19 @@ stdenv.mkDerivation rec {
     done
     install -t $out/ -m644 srvadmin-hapi/opt/dell/srvadmin/etc/omreg.d/omreg-hapi.cfg
   '';
+  
+  preFixup = ''
+    wrapProgram $out/bin/cctk \
+      --set LD_PRELOAD "${libredirect}/lib/libredirect.so" \
+      --set NIX_REDIRECTS /opt/dell/srvadmin/etc/omreg.cfg=$out/omreg-hapi.cfg
+  '';
+
+  # postCheck = ''
+  #   unset NIX_REDIRECTS LD_PRELOAD
+  # '';
 
   # requires running
-  #   $ cat $out/omreg-hapi.cfg > /opt/dell/srvadmin/etc/omreg.cfg
+  #   $ cat $out/omreg-hapi.cfg > /usr/lib/ext/dell/omreg.cfg
   # substituteInPlace doesn't work because the string does not appear to occur in the binary
 
   meta = with lib; {

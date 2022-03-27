@@ -14,7 +14,7 @@ do
 		if [ "$status" = Discharging -a "$capacity" -lt 5 ]; then
 			logger "Critical battery threshold"
 			systemctl hibernate
-		elif [ "$status" = Discharging -a "$capacity" -lt 20 ]; then
+		elif [ "$status" = Discharging -a "$capacity" -lt 10 ]; then
 			notify-send "warning: battery at $capacity%"	
 		fi
 	}

@@ -32,20 +32,7 @@
       size = 32;
   };
 
-  xdg.desktopEntries = {
-    nvim = {
-      name = "Neovim";
-      genericName = "Text Editor";
-      exec = "alacritty -e nvim %F";
-      terminal = false;
-      categories = [ "Application" "Utility" "TextEditor" ];
-      icon = "nvim";
-      mimeType = [ "text/english" "text/plain" ];
-    };
-  };
-
   home.sessionVariables = {
-    XDG_CURRENT_DESKTOP = "sway";
     QT_QPA_PLATFORM = "wayland";
     SDL_VIDEODRIVER = "wayland";
     MOZ_ENABLE_WAYLAND = 1;
@@ -57,6 +44,10 @@
 
     # for intellij
     _JAVA_AWT_WM_NONREPARENTING = 1;
+
+    # for screensharing
+    XDG_SESSION_TYPE = "wayland";
+    XDG_CURRENT_DESKTOP = "sway";
   };
 
   programs.firefox =
@@ -116,6 +107,17 @@
   };
 
   xdg = {
+    desktopEntries = {
+      nvim = {
+        name = "Neovim";
+        genericName = "Text Editor";
+        exec = "alacritty -e nvim %F";
+        terminal = false;
+        categories = [ "Application" "Utility" "TextEditor" ];
+        icon = "nvim";
+        mimeType = [ "text/english" "text/plain" ];
+      };
+    };
     configFile = {
       "Thunar/uca.xml".source = ./dotfiles/thunar.xml;
       "fusuma/config.yml".source = ./dotfiles/fusuma.yml;
@@ -169,14 +171,16 @@
     };
     userDirs = {
       enable = true;
+      createDirectories = true;
       download    = "$HOME/downloads";
       documents   = "$HOME/documents";
       pictures    = "$HOME/pictures";
-      videos      = "$HOME/pictures";
-      music       = "$HOME";
-      desktop     = "$HOME";
-      templates   = "$HOME";
-      publicShare = "$HOME";
+      videos      = "$HOME/videos";
+      music       = "$HOME/";
+      # https://bugzilla.mozilla.org/show_bug.cgi?id=1082717
+      desktop     = "$HOME/";
+      templates   = "$HOME/";
+      publicShare = "$HOME/";
     };
   };
 

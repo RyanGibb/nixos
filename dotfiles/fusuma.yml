@@ -3,20 +3,20 @@ swipe:
     threshhold: 1
     interval: 1
     left:
-      command: "wtype -M alt -P right"
+      command: "wtype -M alt -k right -m alt"
     right:
-      command: "wtype -M alt -P left"
+      command: "wtype -M alt -k left -m alt"
     up:
-      command: "wtype -M ctrl -P tab"
+      command: "wtype -M ctrl -k tab -m ctrl"
     down:
-      command: "wtype -M ctrl -M shift -P tab"
+      command: "wtype -M ctrl -M shift -k tab -m ctrl -m shift"
   4:
     threshhold: 0
     interval: 1
     left:
-      command: "wtype -M logo -P period"
+      command: "wtype -M logo -k period -m logo"
     right:
-      command: "wtype -M logo -P comma"
+      command: "wtype -M logo -k comma -m logo"
     up:
       command: "brightnessctl set 1%+"
       threshold: 0

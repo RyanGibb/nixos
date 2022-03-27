@@ -20,6 +20,8 @@ client.placeholder      #000000 #0c0c0c #eceff4 #000000   #0c0c0c
 
 client.background #ffffff
 
+seat seat0 hide_cursor when-typing enable
+
 focus_follows_mouse no
 
 default_border pixel 4

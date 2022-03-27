@@ -19,12 +19,9 @@ exec waybar
 exec $SCRIPT_DIR/bat_monitor.sh
 exec $SCRIPT_DIR/notification_log.sh $HOME/.notification_log
 
-# https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
-# https://github.com/emersion/xdg-desktop-portal-wlr#running
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-exec hash dbus-update-activation-environment 2>/dev/null && \
-	exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+# https://elis.nu/blog/2021/02/detailed-setup-of-screen-sharing-in-sway/#orga91b409
+exec systemctl --user import-environment XDG_SESSION_TYPE XDG_CURRENT_DESKTOP
+exec dbus-update-activation-environment WAYLAND_DISPLAY
 
 # https://github.com/yory8/clipman/issues/59
 exec wl-paste -t text --watch clipman store -P
-
