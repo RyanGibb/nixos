@@ -105,3 +105,43 @@ bindkey "${key[Control-Right]}"     forward-word
 bindkey "${key[Control-Backspace]}" backward-kill-word
 bindkey "${key[Control-Delete]}"    kill-word
 bindkey "${key[Control-R]}"         history-incremental-search-backward
+
+
+
+# https://unix.stackexchange.com/questions/258656/how-can-i-have-two-keystrokes-to-delete-to-either-a-slash-or-a-word-in-zsh
+
+# Alt+Backspace
+backward-kill-dir () {
+    local WORDCHARS=${WORDCHARS/\/}
+    zle backward-kill-word
+	# Ensure Ctrl+Y will restore repeated applications
+    zle -f kill
+}
+zle -N backward-kill-dir
+bindkey '^[^?' backward-kill-dir
+
+# Alt+Delete
+forward-kill-dir () {
+    local WORDCHARS=${WORDCHARS/\/}
+    zle kill-word
+	# Ensure Ctrl+Y will restore repeated applications
+    zle -f kill
+}
+zle -N forward-kill-dir
+bindkey '^[[3;3~' forward-kill-dir
+
+# Alt+Left
+backward-word-dir () {
+    local WORDCHARS=${WORDCHARS/\/}
+    zle backward-word
+}
+zle -N backward-word-dir
+bindkey "^[[1;3D" backward-word-dir
+
+# Alt+Right
+forward-word-dir () {
+    local WORDCHARS=${WORDCHARS/\/}
+    zle forward-word
+}
+zle -N forward-word-dir
+bindkey "^[[1;3C" forward-word-dir

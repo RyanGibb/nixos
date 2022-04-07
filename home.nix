@@ -135,6 +135,8 @@
       "tridactyl/tridactyl".text = ''
         unbind <F1>
         set modeindicator false
+        bind yd tabduplicate
+        bind <C-`> buffer #
       '';
       "gammastep/config.ini".text = ''
         [manual]
@@ -167,6 +169,7 @@
         "x-scheme-handler/magnet" = "userapp-transmission-gtk-F0QFI1.desktop";
         "x-scheme-handler" = "firefox.desktop";
         "application/lrf" = "calibre-lrfviewer.desktop";
+        "video/x-matroska" = [ "vlc.desktop" ];
       };
     };
     userDirs = {

@@ -77,6 +77,12 @@
     kdenlive
     tor-browser-bundle-bin
     zoom-us
+    discord
+    ffmpeg
+    audio-recorder
+    opam
+    ocaml
+    dune_2
   ];
 
   #  environment.etc."omreg.ini" = {
