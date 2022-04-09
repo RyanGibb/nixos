@@ -4,6 +4,7 @@
   imports = [
     ./common.nix
     ./gui.nix
+    ./kde.nix
     <home-manager/nixos> 
   ];
 
