@@ -7,11 +7,12 @@ $TTL 4800
 	604800 )   ; Negative Cache TTL
 ;
 @               IN NS    ns1.gibbr.org.
-@               IN NS    ns6.gandi.net.
+@               IN NS    ns2.gibbr.org.
 ns1             IN A     45.77.205.198
 ns2             IN A     45.77.205.198
 
-gibbr.org.      IN A     45.77.205.198
+@               IN A     45.77.205.198
+@               IN AAAA  2001:19f0:5:351a:5400:03ff:fede:b236 
 vps             IN A     45.77.205.198
 twitcher        IN A     45.77.205.198
 
