@@ -26,3 +26,5 @@ hp-pavilion.vpn IN A     100.91.12.120
 vps.vpn         IN A     100.125.253.71
 pc.vpn          IN A     100.0.0.0
 
+@               IN TXT   google-site-verification=xM7L59imw-53rUPQIWD0VSrAEa94z2WAZ-FccXqX9V0
+
