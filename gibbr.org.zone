@@ -9,6 +9,7 @@ $TTL 4800
 @               IN NS    ns1.gibbr.org.
 @               IN NS    ns6.gandi.net.
 ns1             IN A     45.77.205.198
+ns2             IN A     45.77.205.198
 
 gibbr.org.      IN A     45.77.205.198
 vps             IN A     45.77.205.198
