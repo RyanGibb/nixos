@@ -29,3 +29,6 @@ pc.vpn          IN A     100.0.0.0
 
 @               IN TXT   google-site-verification=xM7L59imw-53rUPQIWD0VSrAEa94z2WAZ-FccXqX9V0
 
+$INCLUDE Kgibbr.org.+013+06893.key
+$INCLUDE Kgibbr.org.+013+53256.key
+

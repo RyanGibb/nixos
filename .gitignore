@@ -1,3 +1,4 @@
 hardware-configuration.nix
 configuration.nix
 secret*
+*private
