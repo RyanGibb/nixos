@@ -45,6 +45,10 @@
     zones."gibbr.org" = {
       master = true;
       file = "/etc/nixos/gibbr.org.zone";
+      slaves = [
+        "217.70.177.40" # ns6.gandi.net
+        "127.0.0.1"
+      ];
     };
   };
 
