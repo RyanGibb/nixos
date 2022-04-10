@@ -21,7 +21,7 @@
   users.users.ryan.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
   users.users.root.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
 
-  networking.firewall.allowedTCPPorts = lib.mkForce [ 80 443 465 993 ];
+  networking.firewall.allowedTCPPorts = lib.mkForce [ 25 80 443 465 993 ];
   networking.firewall.allowedUDPPorts = lib.mkForce [ 53 ];
 
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
