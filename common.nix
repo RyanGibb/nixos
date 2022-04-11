@@ -55,7 +55,48 @@
   };
   services.tailscale.enable = true;
 
-  networking.nameservers = [ "1.1.1.1" ];
+  networking = {
+    nameservers = [ "1.1.1.1" ];
+    extraHosts = ''
+      100.122.46.94  pixel-4a
+      100.92.111.117 dell-xps
+      100.91.12.120  hp-pavilion
+      100.125.253.71 vps
+      100.0.0.0      pc
+    '';
+  };
+
+  programs.ssh = {
+    extraConfig = ''
+      Host hp-laptop.ryan.gibb.xyz
+      	Port 17226
+      
+      Host desktop.ryan.gibb.xyz
+      	Port 17227
+      
+      Host pixel-4a*
+      	User u0_a342
+      	Port 8022
+      
+      Host nf-test???
+      	User root
+      	Hostname %h.nf.cl.cam.ac.uk
+      	IdentityFile ~/.ssh/id_rsa-L50-2021
+      	ProxyJump rtg24@slogin-serv.cl.cam.ac.uk
+      	ForwardAgent yes
+      
+      Host slogin
+      	User rtg24
+      	Hostname slogin-serv.cl.cam.ac.uk
+      
+      Host l41
+      	User root
+      	Hostname rpi4-013.advopsys.cl.cam.ac.uk
+      	IdentityFile ~/.ssh/id_rsa_rpi4-013.advopsys.cl.cam.ac.uk
+      	ProxyJump rtg24@slogin-serv.cl.cam.ac.uk
+      	ForwardAgent yes
+    '';
+  };
 
   system.stateVersion = "21.11";
 }
