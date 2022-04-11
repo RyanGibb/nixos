@@ -68,22 +68,9 @@
 
   programs.ssh = {
     extraConfig = ''
-      Host hp-laptop.ryan.gibb.xyz
-      	Port 17226
-      
-      Host desktop.ryan.gibb.xyz
-      	Port 17227
-      
       Host pixel-4a*
       	User u0_a342
       	Port 8022
-      
-      Host nf-test???
-      	User root
-      	Hostname %h.nf.cl.cam.ac.uk
-      	IdentityFile ~/.ssh/id_rsa-L50-2021
-      	ProxyJump rtg24@slogin-serv.cl.cam.ac.uk
-      	ForwardAgent yes
       
       Host slogin
       	User rtg24
