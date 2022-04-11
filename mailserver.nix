@@ -23,6 +23,10 @@
               "postmaster@gibbr.org"
             ];
         };
+        "misc@gibbr.org" = {
+            hashedPasswordFile = "/etc/nixos/secret_email_pswd";
+            catchAll = [ "gibbr.org" ];
+        };
     };
 
     # Use Let's Encrypt certificates. Note that this needs to set up a stripped
