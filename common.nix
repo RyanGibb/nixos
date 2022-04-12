@@ -7,7 +7,6 @@
     ./hardware-configuration.nix
     ./packages.nix
     ./programs.nix
-    ./secret.nix
   ];
 
   boot.loader.grub = {
@@ -29,7 +28,7 @@
     extraGroups = [ "wheel" ]; # enable sudo
     shell = pkgs.zsh;
     openssh.authorizedKeys.keyFiles = [
-      /etc/nixos/authorized_keys
+      ./authorized_keys
     ];
   };
 

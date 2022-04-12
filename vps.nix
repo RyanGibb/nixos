@@ -6,6 +6,7 @@
     ./matrix.nix
     ./twitcher.nix
     ./mailserver.nix
+    ./secret.nix
   ];
 
   boot.loader.grub.device = "/dev/vda";
