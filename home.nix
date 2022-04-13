@@ -135,6 +135,7 @@
       '';
       "tridactyl/tridactyl".text = ''
         unbind <F1>
+        unbind <C-f>
         set modeindicator false
         bind yd tabduplicate
         bind <C-`> buffer #
