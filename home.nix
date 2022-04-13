@@ -18,6 +18,7 @@
     };
     gtk3 = {
       bookmarks = [
+        "file:///home/ryan/archive"
         "file:///home/ryan/documents"
         "file:///home/ryan/downloads"
         "file:///home/ryan/pictures"

@@ -15,5 +15,6 @@
     gnumake
     bat
     killall
+    ncat
   ];
 }

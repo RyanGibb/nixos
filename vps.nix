@@ -19,18 +19,19 @@
   networking = {
     hostName = "vps";
     domain = "gibbr.org";
+    useDHCP = false;
+    interfaces.enp1s0.useDHCP = true;
+    firewall = {
+      allowedTCPPorts = lib.mkForce [ 25 53 80 443 465 993 ];
+      allowedUDPPorts = lib.mkForce [ 53 ];
+      trustedInterfaces = [ "tailscale0" ];
+    };
   };
 
-  networking.useDHCP = false;
-  networking.interfaces.enp1s0.useDHCP = true;
-
-  users.users.ryan.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
-  users.users.root.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
-
-  networking.firewall.allowedTCPPorts = lib.mkForce [ 25 53 80 443 465 993 ];
-  networking.firewall.allowedUDPPorts = lib.mkForce [ 53 ];
-
-  networking.firewall.trustedInterfaces = [ "tailscale0" ];
+  users = {
+    users.ryan.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
+    users.root.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
+  };
 
   services.nginx = {
     enable = true;

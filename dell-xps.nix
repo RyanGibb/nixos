@@ -16,13 +16,16 @@
     useOSProber = true;
   };
 
-  networking.hostName = "dell-xps";
+  networking = {
+    hostName = "dell-xps";
+    useDHCP = false;
+    interfaces.wlp0s20f3.useDHCP = true;
+  };
 
-  networking.useDHCP = false;
-  networking.interfaces.wlp0s20f3.useDHCP = true;
-
-  users.users.ryan.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
-  users.users.root.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
+  users = {
+    users.ryan.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
+    users.root.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
+  };
 
   # Needed for Keychron K2
   boot.extraModprobeConfig = ''
