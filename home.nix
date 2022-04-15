@@ -160,9 +160,9 @@
       enable = true;
       defaultApplications = {
         "inode/directory" = [ "thunar.desktop" "code-oss.desktop" ];
-        "text/html" = [ "firefox.desktop" "codium.desktop" "neovim.desktop" ];
-        "text/plain" = [ "neovim.desktop" "codium.desktop" ];
-        "text/markdown" = [ "neovim.desktop" "codium.desktop" ];
+        "text/html" = [ "firefox.desktop" "codium.desktop" "nvim.desktop" ];
+        "text/plain" = [ "nvim.desktop" "codium.desktop" ];
+        "text/markdown" = [ "nvim.desktop" "codium.desktop" ];
         "application/pdf" = "org.gnome.Evince.desktop";
         "image/jpeg" = [ "feh.desktop" "gimp.desktop" ];
         "image/png" = [ "feh.desktop" "gimp.desktop" ];
