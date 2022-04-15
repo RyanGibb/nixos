@@ -153,7 +153,31 @@
         fi
       '';
       "../.xkb/symbols/gb_alt_gr_remapped_to_super".source = ./dotfiles/gb_alt_gr_remapped_to_super.xkb;
-      "sway".source = ./dotfiles/sway;
+      "sway/config.d".source = ./dotfiles/sway/config.d;
+      "sway/scripts".source = ./dotfiles/sway/scripts;
+      "sway/config".text = ''
+        set $mod Mod4
+        set $alt Mod1
+
+        set $term alacritty
+        set $browser exec firefox
+
+        set $SCRIPT_DIR $HOME/.config/sway/scripts
+
+        set $VOLUME_DELTA 10
+        set $BRIGHTNESS_DELTA 10
+
+        set $inner_gap    0
+        set $outer_gap    0
+        set $top_gap      0
+        set $bottom_gap   0
+        set $gutter_ratio 3
+        set $gaps_inc     10
+
+        include ~/.config/sway/config.d/*
+
+        exec ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
+      '';
       "waybar".source = ./dotfiles/waybar;
     };
     mimeApps = {
