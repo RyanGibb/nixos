@@ -8,6 +8,13 @@
     <home-manager/nixos> 
   ];
 
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
+
   boot.loader.grub = {
     enable = true;
     default = "saved";
@@ -26,7 +33,7 @@
     users.ryan = {
       hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
       extraGroups = [ "input" ];
-    ]:
+    };
     users.root.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
   };
 
@@ -83,9 +90,19 @@
     discord
     ffmpeg
     audio-recorder
+    speechd
+
+    teams
+
     opam
     ocaml
     dune_2
+    cabal-install
+    ghc
+    cabal2nix
+    ocamlPackages.utop
+    pkg-config
+    gcc
   ];
 
   programs.steam.enable = true;
