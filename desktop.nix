@@ -13,20 +13,6 @@
     default = "saved";
     device = "nodev";
     efiSupport = true;
-    extraEntries = ''
-      menuentry 'Windows Boot Manager (on /dev/sda1)' --class windows --class os $menuentry_id_option 'osprober-efi-1A24-F5E7F' {
-        savedefault
-        insmod part_gpt
-        insmod fat
-        set root='hd1,gpt1'
-        if [ x$feature_platform_search_hint = xy ]; then
-          search --no-floppy --fs-uuid --set=root --hint-bios=hd1,gpt1 --hint-efi=hd1,gpt1 --hint-baremetal=ahci1,gpt1  1A24-F5E7
-        else
-          search --no-floppy --fs-uuid --set=root 1A24-F5E7
-        fi
-        chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-      }
-    '';
   };
 
   networking = {
