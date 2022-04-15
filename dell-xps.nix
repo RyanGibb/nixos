@@ -23,7 +23,10 @@
   };
 
   users = {
-    users.ryan.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
+    users.ryan = {
+      hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
+      extraGroups = [ "input" ];
+    ]:
     users.root.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
   };
 
@@ -53,8 +56,6 @@
     publish.userServices = true;
     nssmdns = true;
   };
-
-  users.users.ryan.extraGroups = [ "input" ];
 
   services.tlp.enable = true;
   powerManagement.enable = true;
@@ -86,11 +87,6 @@
     ocaml
     dune_2
   ];
-
-  #  environment.etc."omreg.ini" = {
-  #   source = "${(pkgs.callPackage ./pkgs/cctk.nix { })}/omreg-hapi.cfg";
-  #   mode = "0777";
-  # };
 
   programs.steam.enable = true;
 
