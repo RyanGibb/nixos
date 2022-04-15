@@ -197,6 +197,9 @@ bindsym $mod+$alt+Shift+Control+j move workspace to output down
 bindsym $mod+$alt+Shift+Control+k move workspace to output up
 bindsym $mod+$alt+Shift+Control+l move workspace to output right
 
+bindsym $mod+bracketleft  move workspace to output left
+bindsym $mod+bracketright move workspace to output right
+
 # / workspaces by name
 bindsym $mod+slash exec $SCRIPT_DIR/switch_to_ws.sh
 bindsym $mod+Shift+slash exec $SCRIPT_DIR/mv_to_ws.sh
@@ -389,9 +392,6 @@ mode "$mode_control_player" {
 	bindsym $mod+p $play_pause; mode "default"
 }
 bindsym $mod+o mode "$mode_control_player"
-bindsym $mod+bracketleft  $play_prev
-bindsym $mod+bracketright $play_next
-bindsym $mod+Shift+p      $play_ppause
 
 set $mode_control_backlight Control backlight | -/+
 mode "$mode_control_backlight" {
@@ -486,8 +486,8 @@ bindsym $mod+Shift+BackSpace exec makoctl dismiss
 bindsym $mod+p exec wdisplays
 
 # for when latop output is disabled on resume
-bindsym $mod+Control+p output * enable; output * dpms on
-bindsym $mod+Control+Shift+p output * disable
+bindsym $mod+Control+p       output * enable; output * dpms on
+bindsym $mod+Shift+p         exec swaymsg output "$($SCRIPT_DIR/get_focused_output.sh)" disable
 
 bindsym $mod+Shift+w   exec $SCRIPT_DIR/set_random_wallpaper.sh
 bindsym $mod+Control+w exec $SCRIPT_DIR/set_selected_wallpaper.sh
