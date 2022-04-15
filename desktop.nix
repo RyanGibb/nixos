@@ -32,7 +32,6 @@
   networking = {
     hostName = "desktop";
     useDHCP = false;
-    interfaces.wlp4s0.useDHCP = true;
   };
 
   users = {
