@@ -29,6 +29,7 @@ alias o='xdg-open'
 alias se='sudoedit'
 alias su='su -p'
 alias ssh='TERM=xterm ssh'
+alias vim="nvim"
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
