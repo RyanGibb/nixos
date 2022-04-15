@@ -196,6 +196,8 @@
         "x-scheme-handler" = "firefox.desktop";
         "application/lrf" = "calibre-lrfviewer.desktop";
         "video/x-matroska" = [ "vlc.desktop" ];
+        "x-scheme-handler/mailto" = [ "userapp-Thunderbird-BRGFK1.desktop" ];
+        "x-scheme-handler/mid" = [ "userapp-Thunderbird-BRGFK1.desktop" ];
       };
     };
     userDirs = {

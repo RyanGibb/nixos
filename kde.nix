@@ -15,8 +15,6 @@
           export DESKTOP_SESSION=plasma
           exec startplasma-x11
         '';
-        # stop kde overriding icon pack
-        "../.gtkrc-2.0".text = '''';
         };
       };
     };
