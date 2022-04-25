@@ -66,6 +66,11 @@
 
   swapDevices = [ { device = "/var/swap"; size = 2048; } ];
 
+  services.logind.extraConfig = ''
+    RuntimeDirectorySize=1G
+    RuntimeDirectoryInodesMax=402566
+  '';
+
   services.journald.extraConfig = ''
     SystemMaxUse=1G
   '';
