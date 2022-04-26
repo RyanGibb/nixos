@@ -69,6 +69,12 @@
   powerManagement.enable = true;
   virtualisation.libvirtd.enable = true;
 
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=1h
+  '';
+
+  services.logind.lidSwitch = "suspend-then-hibernate";
+
   environment.systemPackages = with pkgs;
   let
     python-with-packages = pkgs.python3.withPackages (p: with p; [
