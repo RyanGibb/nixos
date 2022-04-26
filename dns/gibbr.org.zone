@@ -1,13 +1,13 @@
 $TTL 4800
-@ IN SOA ns1.gibbr.org. dns (
+@ IN SOA ns1 dns (
 	2018011617 ; Serial
 	604800     ; Refresh
 	86400      ; Retry
 	2419200    ; Expire
 	604800 )   ; Negative Cache TTL
 ;
-@               IN NS    ns1.gibbr.org.
-@               IN NS    ns2.gibbr.org.
+@               IN NS    ns1
+@               IN NS    ns2
 ns1             IN A     45.77.205.198
 ns2             IN A     45.77.205.198
 
@@ -32,4 +32,6 @@ desktop.vpn     IN A     100.93.8.35
 
 $INCLUDE Kgibbr.org.+013+06893.key
 $INCLUDE Kgibbr.org.+013+53256.key
+
+@               IN LOC   51 53 23.990 N 1 28 34.190 E 0.00m 10.00m 1.00m 1.00m
 
