@@ -54,8 +54,9 @@
   };
   services.tailscale.enable = true;
 
-  networking = {
+  networking = rec {
     nameservers = [ "1.1.1.1" ];
+    networkmanager.dns = "none";
     extraHosts = ''
       100.122.46.94  pixel-4a
       100.92.111.117 dell-xps
