@@ -5,6 +5,7 @@
     ./common.nix
     ./gui.nix
     ./kde.nix
+    ./ocaml.nix
     <home-manager/nixos> 
   ];
 
@@ -91,18 +92,7 @@
     ffmpeg
     audio-recorder
     speechd
-
     teams
-
-    opam
-    ocaml
-    dune_2
-    cabal-install
-    ghc
-    cabal2nix
-    ocamlPackages.utop
-    pkg-config
-    gcc
   ];
 
   programs.steam.enable = true;
