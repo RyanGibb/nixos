@@ -29,6 +29,8 @@
         ps = "push";
         pf = "push --force";
         pu = "push --set-upstream";
+        pl = "pull";
+        pr = "pull --rebase";
       };
     };
   };

@@ -197,8 +197,14 @@ bindsym $mod+$alt+Shift+Control+j move workspace to output down
 bindsym $mod+$alt+Shift+Control+k move workspace to output up
 bindsym $mod+$alt+Shift+Control+l move workspace to output right
 
-bindsym $mod+bracketleft  move workspace to output left
-bindsym $mod+bracketright move workspace to output right
+bindsym $mod+bracketleft  focus output left
+bindsym $mod+bracketright focus output right
+bindsym $mod+Shift+bracketleft  move workspace to output left
+bindsym $mod+Shift+bracketright move workspace to output right
+bindsym $mod+$alt+Control+bracketleft  exec $SCRIPT_DIR/preserve_focus.sh 'swaymsg move container to output left'
+bindsym $mod+$alt+Control+bracketright exec $SCRIPT_DIR/preserve_focus.sh 'swaymsg move container to output right'
+bindsym $mod+$alt+Shift+Control+bracketleft  move workspace to output left
+bindsym $mod+$alt+Shift+Control+bracketright move workspace to output right
 
 # / workspaces by name
 bindsym $mod+slash exec $SCRIPT_DIR/switch_to_ws.sh
@@ -392,6 +398,8 @@ mode "$mode_control_player" {
 	bindsym $mod+p $play_pause; mode "default"
 }
 bindsym $mod+o mode "$mode_control_player"
+bindsym $mod+alt+period  $play_next
+bindsym $mod+alt+comma   $play_prev
 
 set $mode_control_backlight Control backlight | -/+
 mode "$mode_control_backlight" {

@@ -228,7 +228,7 @@
     userSettings = import ./dotfiles/vscode.nix;
   };
   # https://github.com/nix-community/home-manager/issues/1800#issuecomment-853589961
-  home.activation.boforeCheckLinkTargets = {
+  home.activation.beforeCheckLinkTargets = {
     after = [];
     before = [ "checkLinkTargets" ];
     data = ''
