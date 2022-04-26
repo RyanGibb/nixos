@@ -16,5 +16,6 @@
     bat
     killall
     ncat
+    gcc
   ];
 }
