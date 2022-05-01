@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-NAME=$($(dirname "$0")/select_ws.sh) || exit
+NAME="$(eval "$1")" || exit
 
 swaymsg workspace \"$NAME\"

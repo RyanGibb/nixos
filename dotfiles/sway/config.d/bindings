@@ -207,17 +207,21 @@ bindsym $mod+$alt+Shift+Control+bracketleft  move workspace to output left
 bindsym $mod+$alt+Shift+Control+bracketright move workspace to output right
 
 # / workspaces by name
-bindsym $mod+slash exec $SCRIPT_DIR/switch_to_ws.sh
-bindsym $mod+Shift+slash exec $SCRIPT_DIR/mv_to_ws.sh
-bindsym $mod+Control+slash exec $SCRIPT_DIR/switch_mv_to_ws.sh
+bindsym $mod+slash exec $SCRIPT_DIR/ws_switch.sh "$($SCRIPT_DIR/select_ws.sh)"
+bindsym $mod+Shift+slash exec $SCRIPT_DIR/ws_mv.sh "$($SCRIPT_DIR/select_ws.sh)"
+bindsym $mod+Control+slash exec $SCRIPT_DIR/ws_switch_mv.sh "$($SCRIPT_DIR/select_ws.sh)"
 
 # n = new
-bindsym $mod+n exec $SCRIPT_DIR/switch_new_ws.sh
-bindsym $mod+Shift+n exec $SCRIPT_DIR/mv_new_ws.sh
-bindsym $mod+Control+n exec $SCRIPT_DIR/switch_mv_new_ws.sh
+bindsym $mod+n exec $SCRIPT_DIR/ws_switch.sh            "$SCRIPT_DIR/get_free_ws_num.sh"
+bindsym $mod+Shift+n exec $SCRIPT_DIR/ws_mv.sh          "$SCRIPT_DIR/get_free_ws_num.sh"
+bindsym $mod+Control+n exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/get_free_ws_num.sh"
+
+bindsym $mod+$alt+n exec $SCRIPT_DIR/ws_switch.sh            "$SCRIPT_DIR/get_ws_title.sh $SCRIPT_DIR/get_free_ws_num.sh"
+bindsym $mod+$alt+Shift+n exec $SCRIPT_DIR/ws_mv.sh          "$SCRIPT_DIR/get_ws_title.sh $SCRIPT_DIR/get_free_ws_num.sh"
+bindsym $mod+$alt+Control+n exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/get_ws_title.sh $SCRIPT_DIR/get_free_ws_num.sh"
 
 # t = title
-bindsym $mod+t exec $SCRIPT_DIR/title_ws.sh
+bindsym $mod+t exec $SCRIPT_DIR/title_ws.sh "$SCRIPT_DIR/get_ws_title.sh $SCRIPT_DIR/get_cur_ws_name.sh"
 
 bindsym $mod+Tab       exec $SCRIPT_DIR/window_switcher.sh
 bindsym $mod+Shift+Tab exec $SCRIPT_DIR/window_switcher_scratch.sh
@@ -436,12 +440,13 @@ mode "$mode_control" {
 }
 bindsym $mod+c mode "$mode_control"
 
-set $idle_mode Idle mode i/d/l/s
+set $idle_mode Idle mode i/d/l/s/L
 mode "$idle_mode" {
-	bindsym i exec $SCRIPT_DIR/swayidle_inhibit.sh; mode "default
-	bindsym d exec $SCRIPT_DIR/swayidle_dpms.sh;    mode "default"
-	bindsym l exec $SCRIPT_DIR/swayidle_lock.sh;    mode "default"
-	bindsym s exec $SCRIPT_DIR/swayidle_suspend.sh; mode "default"
+	bindsym i exec $SCRIPT_DIR/swayidle_inhibit.sh;         mode "default
+	bindsym d exec $SCRIPT_DIR/swayidle_dpms.sh;            mode "default"
+	bindsym l exec $SCRIPT_DIR/swayidle_lock.sh;            mode "default"
+	bindsym s exec $SCRIPT_DIR/swayidle_suspend.sh;         mode "default"
+	bindsym Shift+l exec $SCRIPT_DIR/swayidle_lock_no_dpms.sh;    mode "default"
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
