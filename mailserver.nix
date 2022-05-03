@@ -1,11 +1,6 @@
-  {
-    imports = [
-      (builtins.fetchTarball {
-        # Pick a commit from the branch you are interested in
-        url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/6e3a7b2ea6f0d68b82027b988aa25d3423787303/nixos-mailserver-6e3a7b2ea6f0d68b82027b988aa25d3423787303.tar.gz";
-      # And set its hash
-      sha256 = "1i56llz037x416bw698v8j6arvv622qc0vsycd20lx3yx8n77n44";
-    })
+{
+  imports = [
+    ./modules/mailserver/default.nix
   ];
 
   mailserver = {
