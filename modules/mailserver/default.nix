@@ -1022,21 +1022,21 @@ in
   };
 
   imports = [
-    ./mail-server/borgbackup.nix
-    ./mail-server/debug.nix
-    ./mail-server/rsnapshot.nix
-    ./mail-server/clamav.nix
-    ./mail-server/monit.nix
-    ./mail-server/users.nix
-    ./mail-server/environment.nix
-    ./mail-server/networking.nix
-    ./mail-server/systemd.nix
-    ./mail-server/dovecot.nix
-    ./mail-server/opendkim.nix
-    ./mail-server/postfix.nix
-    ./mail-server/rspamd.nix
-    ./mail-server/nginx.nix
-    ./mail-server/kresd.nix
-    ./mail-server/post-upgrade-check.nix
+    ./borgbackup.nix
+    ./debug.nix
+    ./rsnapshot.nix
+    ./clamav.nix
+    ./monit.nix
+    ./users.nix
+    ./environment.nix
+    ./networking.nix
+    ./systemd.nix
+    ./dovecot.nix
+    ./opendkim.nix
+    ./postfix.nix
+    ./rspamd.nix
+    ./nginx.nix
+    ./kresd.nix
+    ./post-upgrade-check.nix
   ];
 }
