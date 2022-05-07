@@ -1,3 +1,4 @@
+$ORIGIN gibbr.org.
 $TTL 4800
 @ IN SOA ns1 dns (
 	2018011617 ; Serial
