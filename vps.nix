@@ -39,6 +39,9 @@
       forceSSL = true;
       enableACME = true;
       root = "/var/www/gibbr.org";
+      extraConfig = ''
+        error_page 404 /404.html;
+      '';
     };
   };
 
