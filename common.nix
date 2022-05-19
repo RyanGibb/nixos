@@ -5,7 +5,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./packages.nix
     ./programs.nix
   ];
 
@@ -31,6 +30,22 @@
       ./authorized_keys
     ];
   };
+
+  environment.systemPackages = with pkgs; [
+    tree
+    htop
+    bind
+    inetutils
+    ncdu
+    nix-prefetch-git
+    gnumake
+    bat
+    killall
+    ncat
+    gcc
+    direnv
+    fzf
+  ];
 
   environment = {
     variables.EDITOR = "nvim";

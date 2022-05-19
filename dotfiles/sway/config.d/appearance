@@ -41,3 +41,6 @@ set $gnome-schema org.gnome.desktop.interface
 exec_always { 
     gsettings set $gnome-schema cursor-theme 'Adwaita'
 }
+
+for_window [shell=".*"] title_format "%title :: %shell"
+

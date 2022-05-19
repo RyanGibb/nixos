@@ -119,7 +119,10 @@
     noto-fonts-emoji
     (nerdfonts.override { fonts = [ "DroidSansMono" ]; })
     # for projects/cv latex package fontawesome
-    font-awesome_4
+    font-awesome
+    source-code-pro
+    aileron
+    vistafonts
   ];
 
   nixpkgs.config.permittedInsecurePackages = [

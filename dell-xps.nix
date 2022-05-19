@@ -99,6 +99,7 @@
     audio-recorder
     speechd
     teams
+    xournalpp
   ];
 
   programs.steam.enable = true;

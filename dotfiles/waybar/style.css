@@ -75,6 +75,7 @@ tooltip label {
 	min-width: 20px;
 	background: @media_player;
 	color: @dark;
+	min-width: 31ex;
 }
 
 #pulseaudio {

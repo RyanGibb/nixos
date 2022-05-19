@@ -63,7 +63,10 @@ func main() {
 
 		fmt.Print(string(player_string_rune[i:min(len(player_string_rune), i+MAX_WIDTH)]))
 		fmt.Println(string(player_string_rune[0:min(max(0, MAX_WIDTH-len(player_string_rune)+i), i)]))
-		i = (i + 1) % len(player_string_rune)
+
+		if len(player_string) >= MAX_WIDTH {
+			i = (i + 1) % len(player_string_rune)
+		}
 
 		time.Sleep(SLEEP_TIME)
 	}

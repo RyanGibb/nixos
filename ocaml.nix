@@ -7,6 +7,7 @@
     dune_2
     ocamlPackages.utop
     pkg-config
+    gmp
   ];
 
   programs.zsh.interactiveShellInit = "eval $(opam env)";

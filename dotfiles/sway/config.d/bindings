@@ -44,7 +44,7 @@ bindsym --locked Control+XF86MonBrightnessDown $backlight_dec_5
 floating_modifier $mod
 
 bindsym $mod+Return exec $term
-bindsym $mod+Shift+Return exec $term -o background_opacity=1
+bindsym $mod+Shift+Return exec $term -o background_opacity=0.9
 bindsym $mod+Control+Return       exec $term -e zsh -c $SCRIPT_DIR/vault_file.sh
 bindsym $mod+Control+Shift+Return exec $term -e zsh -c $SCRIPT_DIR/vault_file_titled.sh
 
@@ -94,6 +94,7 @@ bindsym $mod+$alt+v split v; layout stacking;
 bindsym $mod+Shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
+bindsym $mod+Control+space sticky toggle
 
 bindsym $mod+a focus parent
 bindsym $mod+z focus child
@@ -217,9 +218,9 @@ bindsym $mod+n exec $SCRIPT_DIR/ws_switch.sh            "$SCRIPT_DIR/get_free_ws
 bindsym $mod+Shift+n exec $SCRIPT_DIR/ws_mv.sh          "$SCRIPT_DIR/get_free_ws_num.sh"
 bindsym $mod+Control+n exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/get_free_ws_num.sh"
 
-bindsym $mod+$alt+n exec $SCRIPT_DIR/ws_switch.sh            "$SCRIPT_DIR/get_ws_title.sh $SCRIPT_DIR/get_free_ws_num.sh"
-bindsym $mod+$alt+Shift+n exec $SCRIPT_DIR/ws_mv.sh          "$SCRIPT_DIR/get_ws_title.sh $SCRIPT_DIR/get_free_ws_num.sh"
-bindsym $mod+$alt+Control+n exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/get_ws_title.sh $SCRIPT_DIR/get_free_ws_num.sh"
+bindsym $mod+$alt+n exec $SCRIPT_DIR/ws_switch.sh            "$SCRIPT_DIR/get_ws.sh"
+bindsym $mod+$alt+Shift+n exec $SCRIPT_DIR/ws_mv.sh          "$SCRIPT_DIR/get_ws.sh"
+bindsym $mod+$alt+Control+n exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/get_ws.sh"
 
 # t = title
 bindsym $mod+t exec $SCRIPT_DIR/title_ws.sh "$SCRIPT_DIR/get_ws_title.sh $SCRIPT_DIR/get_cur_ws_name.sh"
@@ -402,9 +403,10 @@ mode "$mode_control_player" {
 
 	bindsym $mod+p $play_pause; mode "default"
 }
-bindsym $mod+o mode "$mode_control_player"
-bindsym $mod+alt+period  $play_next
-bindsym $mod+alt+comma   $play_prev
+bindsym $mod+Shift+o      mode "$mode_control_player"
+bindsym $mod+$alt+period  $play_next
+bindsym $mod+$alt+comma   $play_prev
+bindsym $mod+$alt         nop
 
 set $mode_control_backlight Control backlight | -/+
 mode "$mode_control_backlight" {
@@ -514,3 +516,6 @@ bindsym $mod+Shift+Control+v exec wtype "$(clipman pick -t STDOUT | head -n 1)"
 
 # disable firefox quit shortcut
 bindsym Control+q nop
+
+bindsym $mod+o exec $term -e zsh -c $SCRIPT_DIR/open_file.sh
+
