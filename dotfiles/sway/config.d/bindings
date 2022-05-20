@@ -208,19 +208,14 @@ bindsym $mod+$alt+Control+bracketright exec $SCRIPT_DIR/preserve_focus.sh 'swaym
 bindsym $mod+$alt+Shift+Control+bracketleft  move workspace to output left
 bindsym $mod+$alt+Shift+Control+bracketright move workspace to output right
 
-# / workspaces by name
-bindsym $mod+slash exec $SCRIPT_DIR/ws_switch.sh "$($SCRIPT_DIR/select_ws.sh)"
-bindsym $mod+Shift+slash exec $SCRIPT_DIR/ws_mv.sh "$($SCRIPT_DIR/select_ws.sh)"
-bindsym $mod+Control+slash exec $SCRIPT_DIR/ws_switch_mv.sh "$($SCRIPT_DIR/select_ws.sh)"
-
 # n = new
 bindsym $mod+n exec $SCRIPT_DIR/ws_switch.sh            "$SCRIPT_DIR/get_free_ws_num.sh"
 bindsym $mod+Shift+n exec $SCRIPT_DIR/ws_mv.sh          "$SCRIPT_DIR/get_free_ws_num.sh"
 bindsym $mod+Control+n exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/get_free_ws_num.sh"
 
-bindsym $mod+$alt+n exec $SCRIPT_DIR/ws_switch.sh            "$SCRIPT_DIR/get_ws.sh"
-bindsym $mod+$alt+Shift+n exec $SCRIPT_DIR/ws_mv.sh          "$SCRIPT_DIR/get_ws.sh"
-bindsym $mod+$alt+Control+n exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/get_ws.sh"
+bindsym $mod+$alt+n exec $SCRIPT_DIR/ws_switch.sh            "$SCRIPT_DIR/select_ws.sh"
+bindsym $mod+$alt+Shift+n exec $SCRIPT_DIR/ws_mv.sh          "$SCRIPT_DIR/select_ws.sh"
+bindsym $mod+$alt+Control+n exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/select_ws.sh"
 
 # t = title
 bindsym $mod+t exec $SCRIPT_DIR/title_ws.sh "$SCRIPT_DIR/get_ws_title.sh $SCRIPT_DIR/get_cur_ws_name.sh"
@@ -403,7 +398,7 @@ mode "$mode_control_player" {
 
 	bindsym $mod+p $play_pause; mode "default"
 }
-bindsym $mod+Shift+o      mode "$mode_control_player"
+bindsym $mod+o      mode "$mode_control_player"
 bindsym $mod+$alt+period  $play_next
 bindsym $mod+$alt+comma   $play_prev
 bindsym $mod+$alt         nop
@@ -517,5 +512,5 @@ bindsym $mod+Shift+Control+v exec wtype "$(clipman pick -t STDOUT | head -n 1)"
 # disable firefox quit shortcut
 bindsym Control+q nop
 
-bindsym $mod+o exec $term -e zsh -c $SCRIPT_DIR/open_file.sh
+bindsym $mod+slash exec $term -e zsh -c $SCRIPT_DIR/open_file.sh
 

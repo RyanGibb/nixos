@@ -16,15 +16,6 @@
       package = pkgs.arc-theme;
       name = "Arc-Dark";
     };
-    gtk3 = {
-      bookmarks = [
-        "file:///home/ryan/archive"
-        "file:///home/ryan/documents"
-        "file:///home/ryan/downloads"
-        "file:///home/ryan/pictures"
-        "file:///home/ryan/projects"
-      ];
-    };
   };
 
   xsession.pointerCursor = {
@@ -107,6 +98,31 @@
     };
   };
 
+  home.file = {
+    ".zprofile".text = ''
+      # Autostart sway at login on TTY 1
+      if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
+      	source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+      	exec sway &> $HOME/.sway_log
+      fi
+    '';
+    ".xkb/symbols/gb_alt_gr_remapped_to_super".source = ./dotfiles/gb_alt_gr_remapped_to_super.xkb;
+    ".config/gtk-3.0/bookmarks" = {
+      force = true;
+      text = ''
+        file:///home/ryan/archive
+        file:///home/ryan/documents
+        file:///home/ryan/downloads
+        file:///home/ryan/pictures
+        file:///home/ryan/projects
+      '';
+    };
+    ".config/mimeapps.list" = {
+      force = true;
+      source = ./dotfiles/mimeapps.list;
+    };
+  };
+
   xdg = {
     desktopEntries = {
       nvim = {
@@ -145,14 +161,6 @@
         lat=52.17
         lon=0.13
       '';
-      "../.zprofile".text = ''
-        # Autostart sway at login on TTY 1
-        if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
-        	source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
-        	exec sway &> $HOME/.sway_log
-        fi
-      '';
-      "../.xkb/symbols/gb_alt_gr_remapped_to_super".source = ./dotfiles/gb_alt_gr_remapped_to_super.xkb;
       "sway/config.d".source = ./dotfiles/sway/config.d;
       "sway/scripts".source = ./dotfiles/sway/scripts;
       "sway/config".text = ''
@@ -179,26 +187,6 @@
         exec ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
       '';
       "waybar".source = ./dotfiles/waybar;
-    };
-    mimeApps = {
-      enable = true;
-      defaultApplications = {
-        "inode/directory" = [ "thunar.desktop" "code-oss.desktop" ];
-        "text/html" = [ "firefox.desktop" "codium.desktop" "nvim.desktop" ];
-        "text/plain" = [ "nvim.desktop" "codium.desktop" ];
-        "text/markdown" = [ "nvim.desktop" "codium.desktop" ];
-        "application/pdf" = "org.gnome.Evince.desktop";
-        "image/jpeg" = [ "feh.desktop" "gimp.desktop" ];
-        "image/png" = [ "feh.desktop" "gimp.desktop" ];
-        "image/svg" = [ "feh.desktop" "gimp.desktop" ];
-        "application/xbittorrent" = "transmission.desktop";
-        "x-scheme-handler/magnet" = "userapp-transmission-gtk-F0QFI1.desktop";
-        "x-scheme-handler" = "firefox.desktop";
-        "application/lrf" = "calibre-lrfviewer.desktop";
-        "video/x-matroska" = [ "vlc.desktop" ];
-        "x-scheme-handler/mailto" = [ "userapp-Thunderbird-BRGFK1.desktop" ];
-        "x-scheme-handler/mid" = [ "userapp-Thunderbird-BRGFK1.desktop" ];
-      };
     };
     userDirs = {
       enable = true;

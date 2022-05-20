@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
 
-NEW_WS_NUM="$($(dirname "$0")/get_free_ws_num.sh)"
+NEW_WS_NUM="$($(dirname "$0")/get_free_ws_num.sh)" || exit 1
 
-WORKSPACES=$(swaymsg -t get_workspaces \
-  | jq '.[].name'\
-  | cut -d"\"" -f2\
-  | sort
-)
+WORKSPACES="$(swaymsg -t get_workspaces | jq -r '.[] | .name')"
 WORKSPACES="${WORKSPACES}
 $NEW_WS_NUM"
 
-NAME=$(echo "$WORKSPACES" | wofi -d -p "Select workspace:") || exit
+NAME=$(echo "$WORKSPACES" | wofi -d -i -o default -p "Select workspace:") || exit 1
 echo "$NAME"
+
