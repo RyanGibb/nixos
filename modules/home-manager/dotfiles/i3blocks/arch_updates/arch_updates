@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+arch_updates="$(checkupdates | wc -l)"
+aur_updates="$(yay -Qua | wc -l)"
+
+if [[ "$arch_updates" != "0" ]]; then
+	echo -n " $arch_updates"
+	if [[ "$aur_updates" != "0" ]]; then
+		echo -n " "
+	fi
+fi
+
+if [[ "$aur_updates" != "0" ]]; then
+	echo -n " $aur_updates"
+fi
+
+echo ""

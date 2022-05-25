@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+DATA="$(
+	nvidia-smi --format=csv --query-gpu=utilization.gpu,temperature.gpu --format=csv,noheader | grep -Eo "[0-9]*"
+)"
+
+[[ -z $DATA ]] && exit
+
+for name in UTIL TEMP; do
+	read $name
+done < <(echo "$DATA")
+
+echo "GPU $UTIL%   $TEMP°C"

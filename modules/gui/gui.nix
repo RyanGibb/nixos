@@ -34,6 +34,23 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
+    jq
+    playerctl
+    brightnessctl
+    xdg-utils
+    gnome.zenity
+    gnome.networkmanagerapplet
+    pavucontrol
+    (xfce.thunar.override { thunarPlugins = with xfce; [
+      thunar-archive-plugin
+      xfconf
+    ]; })
+    gnome.file-roller
+    # https://discourse.nixos.org/t/sway-wm-configuration-polkit-login-manager/3857/6
+    polkit_gnome
+    glib
+    feh
+
     firefox
     chromium
     thunderbird

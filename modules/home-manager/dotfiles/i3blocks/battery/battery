@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+function print_block {
+	acpi_output="$(acpi | grep "Battery")"
+	if [ "$acpi_output" == "" ]; then
+		exit 1
+	fi
+	status="$(echo "$acpi_output" | awk '{print $3}' | grep -Eo "[A-Za-z]*")"
+	percent="$(echo "$acpi_output" | awk '{print $4}' | grep -Eo "[0-9]*")"
+
+	string=""
+
+    if [ ! "$status" = "Discharging" ]; then
+		string+=" "
+	else
+		string+="  "
+	fi
+
+	if [ "$percent" -ge 100 ]; then
+		string+=" "
+	elif [ "$percent" -ge 75 ]; then
+		string+=" "
+	elif [ "$percent" -ge 50 ]; then
+		string+=" "
+	elif [ "$percent" -ge 25 ]; then
+		string+=" "
+	elif [ "$percent" -ge 0 ]; then
+		string+=" "
+	fi
+
+	string+="$(printf "%2s" "$percent")%"
+
+	echo "$string"
+}
+
+
+print_block
+while read -r EVENT; do
+	sleep 1
+	print_block
+done < <(\
+	{\
+		acpi_listen | stdbuf -oL grep battery\
+		& while true; do echo ""; sleep 60; done\
+	}\
+)

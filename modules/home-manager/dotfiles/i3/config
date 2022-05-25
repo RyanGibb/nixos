@@ -1,0 +1,374 @@
+ont pango:Roboto Mono 12px
+set $bar_height 23px
+
+set $DIR $HOME/.config/i3
+set $mod Mod4
+set $alt Mod1
+
+set $volume_inc      exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@   +$VOLUME_DELTA%
+set $volume_dec      exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@   -$VOLUME_DELTA%
+set $volume_inc_1    exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@   +1%
+set $volume_dec_1    exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@   -1%
+set $volume_inc_5    exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@   +5%
+set $volume_dec_5    exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@   -5%
+set $volume_mute     exec --no-startup-id pactl set-sink-mute   @DEFAULT_SINK@   toggle
+set $volume_mic_mute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+set $play_pause exec playerctl play-pause
+set $play_prev  exec playerctl previous
+set $play_next  exec playerctl next
+set $play_stop  exec playerctl stop
+
+set $backlight_inc   exec xbacklight -inc $BRIGHTNESS_DELTA
+set $backlight_dec   exec xbacklight -dec $BRIGHTNESS_DELTA
+set $backlight_inc_1 exec xbacklight -inc 1
+set $backlight_dec_1 exec xbacklight -dec 1
+set $backlight_inc_5 exec xbacklight -inc 5
+set $backlight_dec_5 exec xbacklight -dec 5
+
+bindsym XF86AudioRaiseVolume         $volume_inc
+bindsym XF86AudioLowerVolume         $volume_dec
+bindsym Shift+XF86AudioRaiseVolume   $volume_inc_1
+bindsym Shift+XF86AudioLowerVolume   $volume_dec_1
+bindsym Control+XF86AudioRaiseVolume $volume_inc_5
+bindsym Control+XF86AudioLowerVolume $volume_dec_5
+bindsym XF86AudioMute                $volume_mute
+bindsym XF86AudioMicMute             $volume_mic_mute
+
+bindsym XF86AudioPlay  $play_pause
+bindsym XF86AudioPause $play_pause
+bindsym XF86AudioPrev  $play_prev
+bindsym XF86AudioNext  $play_next
+bindsym XF86AudioStop  $play_stop
+
+bindsym XF86MonBrightnessUp           $backlight_inc
+bindsym XF86MonBrightnessDown         $backlight_dec
+bindsym Shift+XF86MonBrightnessUp     $backlight_inc_1
+bindsym Shift+XF86MonBrightnessDown   $backlight_dec_1
+bindsym Control+XF86MonBrightnessUp   $backlight_inc_5
+bindsym Control+XF86MonBrightnessDown $backlight_dec_5
+
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec alacritty
+
+# open a blank window (for padding)
+bindsym $mod+Shift+Return open
+
+bindsym $mod+Shift+q kill
+
+bindsym $mod+d         exec rofi -modi drun -show drun
+bindsym $mod+Shift+d   exec rofi -modi run -show run
+bindsym $mod+Control+d exec rofi -show ssh -ssh-command "{terminal} -e '{ssh-client} {host} [-p {port}]'" 
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+g split h
+bindsym $mod+v split v
+
+bindsym           $mod+f         fullscreen toggle
+bindsym --release $mod+Shift+f   exec --no-startup-id xdotool key --clearmodifiers F11
+bindsym           $mod+Control+f fullscreen toggle global
+
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+bindsym $mod+$alt+g split h; layout tabbed;
+bindsym $mod+$alt+v split v; layout stacking;
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+bindsym $mod+a focus parent
+bindsym $mod+q focus child
+
+set $ws1  "1"
+set $ws2  "2"
+set $ws3  "3"
+set $ws4  "4"
+set $ws5  "5"
+set $ws6  "6"
+set $ws7  "7"
+set $ws8  "8"
+set $ws9  "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# move focused container to workspace and switch to workspace
+# (maintaing focus)
+bindsym $mod+Control+1 exec $DIR/preserve_focus.sh \
+	'i3-msg move container to workspace number $ws1'
+bindsym $mod+Control+2 exec $DIR/preserve_focus.sh \
+	'i3-msg move container to workspace number $ws2'
+bindsym $mod+Control+3 exec $DIR/preserve_focus.sh \
+	'i3-msg move container to workspace number $ws3'
+bindsym $mod+Control+4 exec $DIR/preserve_focus.sh \
+	'i3-msg move container to workspace number $ws4'
+bindsym $mod+Control+5 exec $DIR/preserve_focus.sh \
+	'i3-msg move container to workspace number $ws5'
+bindsym $mod+Control+6 exec $DIR/preserve_focus.sh \
+	'i3-msg move container to workspace number $ws6'
+bindsym $mod+Control+7 exec $DIR/preserve_focus.sh \
+	'i3-msg move container to workspace number $ws7'
+bindsym $mod+Control+8 exec $DIR/preserve_focus.sh \
+	'i3-msg move container to workspace number $ws8'
+bindsym $mod+Control+9 exec $DIR/preserve_focus.sh \
+	'i3-msg move container to workspace number $ws9'
+bindsym $mod+Control+0 exec $DIR/preserve_focus.sh \
+	'i3-msg move container to workspace number $ws10'
+
+bindsym $mod+Tab               exec $DIR/tab_windows.sh cur_ws forward
+bindsym $mod+Shift+Tab         exec $DIR/tab_windows.sh cur_ws back
+bindsym $mod+Control+Tab       exec $DIR/tab_windows.sh all_ws forward
+bindsym $mod+Control+Shift+Tab exec $DIR/tab_windows.sh all_ws back
+
+bindsym $mod+grave workspace back_and_forth
+bindsym $mod+Shift+grave move container to workspace back_and_forth
+bindsym $mod+Control+grave exec $DIR/preserve_focus.sh \
+	'i3-msg move container to workspace back_and_forth'
+
+bindsym $mod+period workspace next_on_output
+bindsym $mod+comma workspace prev_on_output
+
+bindsym $mod+Shift+period move container to workspace next_on_output
+bindsym $mod+Shift+comma move container to workspace prev_on_output
+bindsym $mod+Control+period exec $DIR/preserve_focus.sh \
+	'i3-msg move container to workspace next_on_output'
+bindsym $mod+Control+comma exec $DIR/preserve_focus.sh \
+	'i3-msg move container to workspace prev_on_output'
+
+# monitors and workspaces
+bindsym $mod+bracketright focus output right
+bindsym $mod+bracketleft focus output left
+bindsym $mod+Shift+bracketright move container to output right
+bindsym $mod+Shift+bracketleft move container to output left
+bindsym $mod+Control+bracketright exec $DIR/preserve_focus.sh \
+	'i3-msg move container to output right'
+bindsym $mod+Control+bracketleft exec $DIR/preserve_focus.sh \
+	'i3-msg move container to output left'
+bindsym $mod+$alt+bracketright move workspace to output right
+bindsym $mod+$alt+bracketleft move workspace to output left
+
+# / workspaces by name
+bindsym $mod+slash exec $DIR/switch_to_ws.sh
+bindsym $mod+Shift+slash exec $DIR/mv_to_ws.sh
+bindsym $mod+Control+slash exec $DIR/switch_mv_to_ws.sh
+
+# n = new
+bindsym $mod+n exec $DIR/switch_new_ws.sh
+bindsym $mod+Shift+n exec $DIR/mv_new_ws.sh
+bindsym $mod+Control+n exec $DIR/switch_mv_new_ws.sh
+
+# t = title
+bindsym $mod+t exec $DIR/title_ws.sh
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r exec "$HOME/.config/scripts/generate_configs.sh"; restart
+
+mode "resize" {
+	bindsym h resize shrink width  5 px or 5 ppt
+	bindsym j resize grow   height 5 px or 5 ppt
+	bindsym k resize shrink height 5 px or 5 ppt
+	bindsym l resize grow   width  5 px or 5 ppt
+
+	bindsym Left  resize shrink width  5 px or 5 ppt
+	bindsym Down  resize grow   height 5 px or 5 ppt
+	bindsym Up    resize shrink height 5 px or 5 ppt
+	bindsym Right resize grow   width  5 px or 5 ppt
+
+	bindsym Shift+h resize shrink width  1 px
+	bindsym Shift+j resize grow   height 1 px
+	bindsym Shift+k resize shrink height 1 px
+	bindsym Shift+l resize grow   width  1 px
+
+	bindsym Shift+Left  resize shrink width  1 px
+	bindsym Shift+Down  resize grow   height 1 px
+	bindsym Shift+Up    resize shrink height 1 px
+	bindsym Shift+Right resize grow   width  1 px
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+bar {
+	i3bar_command   i3bar -t
+	status_command  SCRIPT_DIR=~/.config/i3blocks i3blocks
+	position        top
+	tray_output     primary
+	tray_padding    4
+	colors {
+		background   #00000000
+		statusline   #ffffff
+		separator    #ffffff
+		binding_mode #2f343f #ebcb8b #2f343f
+
+		# class                 border    background text
+		focused_workspace       #00000000 #78b9eb    #ffffff
+		active_workspace        #00000000 #00000000  #ffffff
+		inactive_workspace      #00000000 #00000000  #ffffff
+		urgent_workspace        #2f343f   #ebcb8b    #ffffff
+	}
+}
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #a6d9ff #4c7899 #d8dee8 #2e9ef4   #285577
+client.focused_inactive #5f676a #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #222222 #222222 #e5e9f0 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background #ffffff
+
+set $mode_system System (l)ock (e)xit (s)uspend (h)ibernate (r)eboot (p)oweroff
+mode "$mode_system" {
+	bindsym l exec --no-startup-id loginctl lock-session, mode "default"
+	bindsym e exec --no-startup-id i3-msg exit, mode "default"
+	bindsym s exec --no-startup-id systemctl suspend, mode "default"
+	bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+	bindsym r exec --no-startup-id systemctl reboot, mode "default"
+	bindsym p exec --no-startup-id systemctl poweroff -i, mode "default"  
+	
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+bindsym $mod+x mode "$mode_system"
+
+set $browser exec env GTK_THEME=Adwaita firefox
+bindsym $mod+b       $browser
+bindsym $mod+Shift+b $browser -private-window
+
+bindsym $mod+backslash exec xdg-open ~
+
+set $emoji_selector   exec rofimoji --skin-tone neutral --prompt "" -a copy
+set $unicode_selector exec rofimoji --skin-tone neutral --prompt "" --files all -a copy
+bindsym $mod+apostrophe       $emoji_selector
+bindsym $mod+Shift+apostrophe $unicode_selector
+
+set $mode_launch Launch (m)essenger (e)moji (f)iles (v)olume (b)luetooth
+mode "$mode_launch" {
+	bindsym m exec caprine; mode "default"
+	bindsym e $unicode_selector; mode "default"
+	bindsym f exec xdg-open ~; mode "default"
+	bindsym v exec exec pavucontrol; mode "default"
+	bindsym b exec exec blueman-manager; mode "default"
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+bindsym $mod+z mode "$mode_launch"
+
+
+
+bindsym $mod+equal         $volume_inc
+bindsym $mod+minus         $volume_dec
+bindsym $mod+Shift+equal   $volume_inc_1
+bindsym $mod+Shift+minus   $volume_dec_1
+bindsym $mod+Control+equal $volume_inc_5
+bindsym $mod+Control+minus $volume_dec_5
+set $mode_control_volume Control volume | -/+ | (m)ute | m(i)ke mute
+mode "$mode_control_volume" {
+	bindsym minus         $volume_dec
+	bindsym equal         $volume_inc
+	bindsym Shift+equal   $volume_inc_1
+	bindsym Shift+minus   $volume_dec_1
+	bindsym Control+equal $volume_inc_5
+	bindsym Control+minus $volume_dec_5
+	bindsym m             $volume_mute
+	bindsym i             $volume_mic_mute
+	
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+set $mode_control_player Control player | o stop | p play/pause | [ prev | ] next
+mode "$mode_control_player" {
+	bindsym o            $play_stop
+	bindsym p            $play_pause
+	bindsym bracketleft  $play_prev
+	bindsym bracketright $play_next
+	
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+bindsym $mod+p mode "$mode_control_player"
+
+set $mode_control Control (v)olume (p)layer
+mode "$mode_control" {
+	bindsym v mode "$mode_control_volume"
+	bindsym p mode "$mode_control_player"
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+bindsym $mod+c mode "$mode_control"
+
+
+
+bindsym Print      exec gnome-screenshot -f ~/pictures/screenshot.png
+bindsym $mod+Print exec gnome-screenshot -i
+
+bindsym $mod+y exec ~/.config/scripts/cycle_sink.sh
+bindsym $mod+u      $volume_mute
+bindsym $mod+i      $volume_mic_mute
+
+#focus_wrapping workspace
+focus_follows_mouse no
+
+for_window [class="Gnome-screenshot"] floating enable
+
+for_window [class="(?i)gsimplecal"] floating enable, move position mouse, move down $bar_height, border pixel 0
+
+# disable firefox quit shortcut
+bindsym Control+q nop
+

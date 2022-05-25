@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+case $(pacmd list-sources | grep -A 11 "*" | awk '/muted/ {print $2}') in
+    "yes")
+      echo ""
+      ;;
+    "no")
+      echo ""
+      ;;
+esac
