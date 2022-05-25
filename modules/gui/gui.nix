@@ -16,6 +16,12 @@ in {
     keyMap = "uk";
   };
 
+  services.xserver = {
+    desktopManager.xterm.enable = false;
+    displayManager.startx.enable = true;
+    layout = "gb";
+  };
+
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;

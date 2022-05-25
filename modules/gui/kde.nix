@@ -1,8 +1,8 @@
 {
-  services.xserver.enable = true;
-  services.xserver.displayManager.startx.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.layout = "gb";
+  services.xserver = {
+    enable = true;
+    desktopManager.plasma5.enable = true;
+  }
 
   home-manager = {
     useGlobalPkgs = true;

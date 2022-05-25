@@ -4,7 +4,6 @@
   imports = [
     ../common/default.nix
     ../gui/sway.nix
-    ../gui/kde.nix
     ../ocaml.nix
     <home-manager/nixos>
   ];
@@ -104,6 +103,8 @@
     inkscape
     krop
   ];
+
+  services.xserver.libinput.enable = true;
 
   programs.steam.enable = true;
 
