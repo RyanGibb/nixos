@@ -24,7 +24,7 @@
     extraGroups = [ "wheel" ]; # enable sudo
     shell = pkgs.zsh;
     openssh.authorizedKeys.keyFiles = [
-      ../../authorized_keys
+      ./authorized_keys
     ];
   };
 

@@ -5,8 +5,8 @@
     ../common/default.nix
     ../services/matrix.nix
     ../services/twitcher.nix
-    ../mailserver.nix
-    ../secret.nix
+    ../services/mailserver.nix
+    ../../secret/default.nix
     ../dns/bind.nix
   ];
 
@@ -51,24 +51,7 @@
     acceptTerms = true;
   };
 
-  dns.enable = true;
-
-  swapDevices = [ { device  services.bind = {
-    enable = true;
-    extraOptions = ''
-      dnssec-enable yes;
-      dnssec-validation yes;
-      dnssec-lookaside auto;
-    '';
-    zones."gibbr.org" = {
-      master = true;
-      file = "/etc/nixos/dns/gibbr.org.zone.signed";
-      # axfr zone transfer
-      slaves = [
-        "127.0.0.1"
-      ];
-    };
-  }; = "/var/swap"; size = 2048; } ];
+  swapDevices = [ { device = "/var/swap"; size = 2048; } ];
 
   services.logind.extraConfig = ''
     RuntimeDirectorySize=1G

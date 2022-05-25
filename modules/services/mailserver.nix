@@ -1,6 +1,6 @@
 {
   imports = [
-    ./modules/mailserver/default.nix
+    ../mailserver/default.nix
   ];
 
   mailserver = {
@@ -12,14 +12,14 @@
     # nix run nixpkgs.apacheHttpd -c htpasswd -nbB "" "super secret password" | cut -d: -f2
     loginAccounts = {
         "ryan@gibbr.org" = {
-            hashedPasswordFile = "/etc/nixos/secret_email_pswd";
+            hashedPasswordFile = "/etc/nixos/secret/email_pswd";
             aliases = [
               "dns@gibbr.org"
               "postmaster@gibbr.org"
             ];
         };
         "misc@gibbr.org" = {
-            hashedPasswordFile = "/etc/nixos/secret_email_pswd";
+            hashedPasswordFile = "/etc/nixos/secret/email_pswd";
             catchAll = [ "gibbr.org" ];
         };
     };
