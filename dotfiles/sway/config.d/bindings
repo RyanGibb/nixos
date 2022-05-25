@@ -201,8 +201,8 @@ bindsym $mod+$alt+Shift+Control+l move workspace to output right
 
 bindsym $mod+bracketleft  focus output left
 bindsym $mod+bracketright focus output right
-bindsym $mod+Shift+bracketleft  move workspace to output left
-bindsym $mod+Shift+bracketright move workspace to output right
+bindsym $mod+Shift+bracketleft  move container to output left
+bindsym $mod+Shift+bracketright move container to output right
 bindsym $mod+$alt+Control+bracketleft  exec $SCRIPT_DIR/preserve_focus.sh 'swaymsg move container to output left'
 bindsym $mod+$alt+Control+bracketright exec $SCRIPT_DIR/preserve_focus.sh 'swaymsg move container to output right'
 bindsym $mod+$alt+Shift+Control+bracketleft  move workspace to output left

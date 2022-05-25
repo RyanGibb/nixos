@@ -15,7 +15,7 @@
       experimental-features = nix-command flakes
     '';
   };
-
+  
   boot.loader.grub = {
     enable = true;
     default = "saved";
@@ -100,6 +100,8 @@
     speechd
     teams
     xournalpp
+    inkscape
+    krop
   ];
 
   programs.steam.enable = true;

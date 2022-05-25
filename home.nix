@@ -1,5 +1,4 @@
-
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   gtk = {
@@ -134,6 +133,38 @@
         icon = "nvim";
         mimeType = [ "text/english" "text/plain" ];
       };
+      obsidian = {
+        name = "Obsidian (wayland)";
+        exec = "obsidian --ozone-platform=wayland";
+        terminal = false;
+        categories = [ "Office" ];
+        comment = "Knowledge base";
+        icon = "obsidian";
+        type = "Application";
+      };
+      codium = {
+        name = "VSCodium (wayland)";
+        genericName = "Text Editor";
+        exec = "codium --ozone-platform=wayland %F";
+        icon = "code";
+        mimeType = [ "text/plain" "inode/directory" ];
+        terminal = false;
+      };
+      chromium = {
+        name = "Chromium (wayland)";
+        exec = "chromium --ozone-platform-hint=auto";
+        icon = "chromium";
+      };
+      signal-desktop = {
+        name = "Signal (wayland)";
+        exec = "signal-desktop --ozone-platform=wayland";
+        terminal = false;
+        type = "Application";
+        icon = "signal-desktop";
+        comment = "Private messaging from your desktop";
+        mimeType = [ "x-scheme-handler/sgnl" "x-scheme-handler/signalcaptcha" ];
+        categories = [ "Network" "InstantMessaging" "Chat" ];
+      };
     };
     configFile = {
       "Thunar/uca.xml".source = ./dotfiles/thunar.xml;
@@ -200,6 +231,19 @@
       desktop     = "$HOME/";
       templates   = "$HOME/";
       publicShare = "$HOME/";
+    };
+  };
+  
+  # https://github.com/nix-community/home-manager/issues/1439#issuecomment-1106208294
+  home.activation = {
+    linkDesktopApplications = {
+      after = [ "writeBoundary" "createXdgUserDirectories" ];
+      before = [ ];
+      data = ''
+        rm -rf ${config.xdg.dataHome}/"applications/home-manager"
+        mkdir -p ${config.xdg.dataHome}/"applications/home-manager"
+        cp -Lr ${config.home.homeDirectory}/.nix-profile/share/applications/* ${config.xdg.dataHome}/"applications/home-manager/"
+      '';
     };
   };
 

@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
-{
+let
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+in {
   networking.networkmanager.enable = true;
   programs.nm-applet = {
     enable = true;
@@ -48,10 +50,10 @@
     element-desktop
     signal-desktop
     zotero
-    obsidian
+    unstable.obsidian
     spotify
     gparted
-    vscodium
+    unstable.vscodium
     vlc
     gimp
     go
