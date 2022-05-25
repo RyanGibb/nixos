@@ -5,7 +5,6 @@
     ../common/default.nix
     ../gui/sway.nix
     ../gui/kde.nix
-    ../ocaml.nix
     <home-manager/nixos> 
   ];
 
