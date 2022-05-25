@@ -56,6 +56,7 @@ in {
     polkit_gnome
     glib
     feh
+    libnotify
 
     firefox
     chromium

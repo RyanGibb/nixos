@@ -2,21 +2,17 @@
   services.xserver = {
     enable = true;
     desktopManager.plasma5.enable = true;
-  }
+  };
 
-  home-manager = {
+  home-manager= {
     useGlobalPkgs = true;
-    users.ryan = { 
-      xdg = {
-        configFile = {
-        "../.xinitrc".text = ''
-          export XDG_SESSION_TYPE=x11
-          export GDK_BACKEND=x11
-          export DESKTOP_SESSION=plasma
-          exec startplasma-x11
-        '';
-        };
-      };
+    home.file = {
+      ".xinitrc".text = ''
+        export XDG_SESSION_TYPE=x11
+        export GDK_BACKEND=x11
+        export DESKTOP_SESSION=plasma
+        exec i3
+      '';
     };
   };
 }

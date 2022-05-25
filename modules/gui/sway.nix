@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./gui.nix
+    ./default.nix
   ];
   
   home-manager.users.ryan = import ../home-manager/sway.nix;
@@ -27,6 +27,7 @@
       grim
       slurp
       swappy
+      mako
     ];
   };
 

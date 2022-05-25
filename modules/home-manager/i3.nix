@@ -5,17 +5,22 @@
     ./home.nix
   ];
 
+  xsession.windowManager.i3.enable = true;
+
   home.file = {
+    ".xinitrc".text = ''
+      export XDG_SESSION_TYPE=x11
+      export GDK_BACKEND=x11
+      export DESKTOP_SESSION=plasma
+      exec i3
+    '';
     ".zprofile".text = ''
-      # Autostart i3 at login on TTY 1
+      # Autostart at login on TTY 1
       if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
       	exec xinit
       fi
     '';
-    ".xinitrc".source = ./dotfiles/xinitrc;
   };
-
-  xsession.windowManager.i3.enable = true;
 
   xdg.configFile = {
     # "rofi/".source = ./dotfiles/rofi;
