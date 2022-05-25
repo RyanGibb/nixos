@@ -2,11 +2,12 @@
 
 {
   imports = [
-    ./common.nix
-    ./matrix.nix
-    ./twitcher.nix
-    ./mailserver.nix
-    ./secret.nix
+    ../common/default.nix
+    ../services/matrix.nix
+    ../services/twitcher.nix
+    ../mailserver.nix
+    ../secret.nix
+    ../dns/bind.nix
   ];
 
   boot.loader.grub.device = "/dev/vda";
@@ -50,7 +51,9 @@
     acceptTerms = true;
   };
 
-  services.bind = {
+  dns.enable = true;
+
+  swapDevices = [ { device  services.bind = {
     enable = true;
     extraOptions = ''
       dnssec-enable yes;
@@ -65,9 +68,7 @@
         "127.0.0.1"
       ];
     };
-  };
-
-  swapDevices = [ { device = "/var/swap"; size = 2048; } ];
+  }; = "/var/swap"; size = 2048; } ];
 
   services.logind.extraConfig = ''
     RuntimeDirectorySize=1G

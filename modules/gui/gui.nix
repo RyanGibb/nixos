@@ -31,16 +31,6 @@ in {
 
   home-manager = {
     useGlobalPkgs = true;
-    users.ryan = import ./home.nix;
-  };
-
-  nixpkgs.config.packageOverrides = pkgs: {
-    nur = import (
-      builtins.fetchTarball {
-        url = "https://github.com/nix-community/NUR/archive/526d47ce95bd4d5e041a4fd3ffb831183d8654fe.tar.gz";
-        sha256 = "1v9q6kqcm331x2kca6a9grc0rkxawbl7hn3csbjicjm0v1cc4liq";
-      }
-    ) { inherit pkgs; };
   };
 
   environment.systemPackages = with pkgs; [
@@ -70,52 +60,6 @@ in {
     pulseaudio
   ];
 
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true; # so that gtk works properly
-    extraPackages = with pkgs; [
-      jq
-      swaylock
-      swayidle
-      wl-clipboard
-      clipman
-      wtype
-      playerctl
-      brightnessctl
-      xdg-utils
-      gammastep
-      waybar
-      alacritty
-      mako
-      libnotify
-      wofi
-      wofi-emoji
-      gnome.zenity
-      feh
-      gnome.networkmanagerapplet
-      wdisplays
-      pavucontrol
-      (xfce.thunar.override { thunarPlugins = with xfce; [
-        thunar-archive-plugin
-        xfconf
-      ]; })
-      gnome.file-roller
-      # https://discourse.nixos.org/t/sway-wm-configuration-polkit-login-manager/3857/6
-      polkit_gnome
-      wf-recorder
-      grim
-      slurp
-      swappy
-      glib
-    ];
-  };
-
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    gtkUsePortal = false;
-  };
-
   fonts.fonts = with pkgs; [
     noto-fonts
     noto-fonts-emoji
@@ -125,10 +69,6 @@ in {
     source-code-pro
     aileron
     vistafonts
-  ];
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-13.6.9"
   ];
 
   # thunar

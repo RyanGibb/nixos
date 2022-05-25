@@ -2,11 +2,11 @@
 
 {
   imports = [
-    ./common.nix
-    ./gui.nix
-    ./kde.nix
-    ./ocaml.nix
-    <home-manager/nixos> 
+    ../common/default.nix
+    ../gui/sway.nix
+    ../gui/kde.nix
+    ../ocaml.nix
+    <home-manager/nixos>
   ];
 
   nix = {
@@ -41,6 +41,7 @@
   # Needed for Keychron K2
   boot.extraModprobeConfig = ''
     options hid_apple fnmode=2
+    options i915 enable_psr=0
   '';
   boot.kernelModules = [ "hid-apple" ];
 
@@ -90,7 +91,7 @@
     python39Packages.pip
     jupyter
     vagrant
-    (pkgs.callPackage ./pkgs/cctk.nix { })
+    (pkgs.callPackage ../../pkgs/cctk.nix { })
     kdenlive
     tor-browser-bundle-bin
     zoom-us

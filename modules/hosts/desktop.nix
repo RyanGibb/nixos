@@ -2,9 +2,10 @@
 
 {
   imports = [
-    ./common.nix
-    ./gui.nix
-    ./kde.nix
+    ../common/default.nix
+    ../gui/sway.nix
+    ../gui/kde.nix
+    ../ocaml.nix
     <home-manager/nixos> 
   ];
 
