@@ -108,5 +108,12 @@
 
   programs.steam.enable = true;
 
+  nix.autoOptimiseStore = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 90d";
+  };
+
   system.stateVersion = "21.11";
 }

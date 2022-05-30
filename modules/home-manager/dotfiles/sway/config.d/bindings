@@ -205,8 +205,8 @@ bindsym $mod+Shift+bracketleft  move container to output left
 bindsym $mod+Shift+bracketright move container to output right
 bindsym $mod+$alt+Control+bracketleft  exec $SCRIPT_DIR/preserve_focus.sh 'swaymsg move container to output left'
 bindsym $mod+$alt+Control+bracketright exec $SCRIPT_DIR/preserve_focus.sh 'swaymsg move container to output right'
-bindsym $mod+$alt+Shift+Control+bracketleft  move workspace to output left
-bindsym $mod+$alt+Shift+Control+bracketright move workspace to output right
+bindsym $mod+$alt+bracketleft  move workspace to output left
+bindsym $mod+$alt+bracketright move workspace to output right
 
 # n = new
 bindsym $mod+n exec $SCRIPT_DIR/ws_switch.sh            "$SCRIPT_DIR/get_free_ws_num.sh"

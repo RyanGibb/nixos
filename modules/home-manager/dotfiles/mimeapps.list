@@ -1,20 +1,24 @@
 [Added Associations]
 
 [Default Applications]
-application/lrf=calibre-lrfviewer.desktop
-application/pdf=org.gnome.Evince.desktop
-application/xbittorrent=transmission.desktop
-image/jpeg=feh.desktop;gimp.desktop
-image/png=feh.desktop;gimp.desktop
-image/svg=feh.desktop;gimp.desktop
-inode/directory=thunar.desktop;code-oss.desktop
-text/html=firefox.desktop;codium.desktop;nvim.desktop
-text/markdown=nvim.desktop;codium.desktop
-text/plain=nvim.desktop;codium.desktop
-video/x-matroska=vlc.desktop
-x-scheme-handler=firefox.desktop
-x-scheme-handler/magnet=userapp-transmission-gtk-F0QFI1.desktop
-x-scheme-handler/mailto=userapp-Thunderbird-BRGFK1.desktop
-x-scheme-handler/mid=userapp-Thunderbird-BRGFK1.desktop
+application/lrf=calibre-lrfviewer.desktop;
+application/pdf=org.gnome.Evince.desktop;krop.desktop;
+application/postscript=org.gnome.Evince.desktop;
+application/xbittorrent=transmission.desktop;
+image/jpeg=feh.desktop;gimp.desktop;
+image/png=feh.desktop;gimp.desktop;
+image/svg=feh.desktop;gimp.desktop;
+image/svg+xml=nvim.desktop;
+inode/directory=thunar.desktop;code-oss.desktop;
+text/html=firefox.desktop;codium.desktop;nvim.desktop;
+text/markdown=nvim.desktop;codium.desktop;
+text/plain=nvim.desktop;codium.desktop;
+video/x-matroska=vlc.desktop;
+video/mp4=vlc.desktop;
+x-scheme-handler=firefox.desktop;
+x-scheme-handler/magnet=userapp-transmission-gtk-F0QFI1.desktop;
+x-scheme-handler/mailto=userapp-Thunderbird-BRGFK1.desktop;
+x-scheme-handler/mid=userapp-Thunderbird-BRGFK1.desktop;
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=writer.desktop;
 
 [Removed Associations]

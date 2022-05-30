@@ -63,7 +63,7 @@ in {
     thunderbird
     element-desktop
     signal-desktop
-    zotero
+    unstable.zotero
     unstable.obsidian
     spotify
     gparted
