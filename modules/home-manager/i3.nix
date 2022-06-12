@@ -5,8 +5,6 @@
     ./home.nix
   ];
 
-  xsession.windowManager.i3.enable = true;
-
   home.file = {
     ".xinitrc".text = ''
       export XDG_SESSION_TYPE=x11
@@ -24,7 +22,7 @@
 
   xdg.configFile = {
     "i3/".source = ./dotfiles/i3;
-    "i3status/config".source = ./dotfiles/i3status;
+    "i3blocks".source = ./dotfiles/i3blocks;
     "rofi/config.rasi".source = ./dotfiles/rofi.rasi;
   };
 }

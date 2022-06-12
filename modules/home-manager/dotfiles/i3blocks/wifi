@@ -8,7 +8,7 @@ INTERFACE=$(ip a | grep '^[0-9]: wl' | awk '{print $2}' | grep -Eo "[A-Za-z0-9]*
 
 # If the wifi interface exists but no connection is active, "down" shall be displayed.
 if [[ "$(cat /sys/class/net/$INTERFACE/operstate)" = 'down' ]]; then
-    echo "🗙"
+    echo "睊"
     exit
 fi
 
@@ -17,6 +17,6 @@ WIRELESS_INFO="$(cat /proc/net/wireless)"
 SIGNAL="$(echo "$WIRELESS_INFO" | grep "$INTERFACE" | awk '{print $4}' | grep -Eoe '-[0-9]{2}')"
 QUALITY="$(echo "$SIGNAL" | awk '{print  ($1 > -50 ? 100 :($1 < -100 ? 0 : ($1+100)*2))}')"
 
-SSID="$(iwgetid | head -n 1 | sed 's/[^:]*:"//; s/"//')"
+SSID="$(nmcli -t -f name connection show --active | head -1)"
 
 echo " $QUALITY% $SSID"

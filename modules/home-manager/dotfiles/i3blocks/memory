@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 
 awk '
 /^MemTotal:/ {
@@ -37,11 +38,9 @@ END {
 		pct=used/total*100
 	}
 
-	# full text
-	printf(" %.1fG(%.1fG)/%.1fG\n", used, swap_used, total)
+	# printf("%.1fG(%.1fG)/%.1fG\n", used, swap_used, total)
 
-	# short text
-	printf(" %.f%%(%.f%%)\n", pct, swap_pct)
+	printf("%.f%%(%.f%%)\n", pct, swap_pct)
 
 	# color
 	#if (pct > 90) {		

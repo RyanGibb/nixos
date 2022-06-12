@@ -15,6 +15,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    i3
     i3blocks
     redshift
     alacritty

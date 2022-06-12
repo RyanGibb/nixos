@@ -14,8 +14,6 @@ exec "kanshi &> ~/.kanshi_log"
 exec fcitx5 -d --replace
 exec "fusuma &> ~/.fusuma_log"
 
-exec waybar
-
 exec $SCRIPT_DIR/bat_monitor.sh
 exec $SCRIPT_DIR/notification_log.sh $HOME/.notification_log
 

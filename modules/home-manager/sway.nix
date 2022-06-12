@@ -114,7 +114,7 @@
 
         exec ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
       '';
-    "i3status/config".source = ./dotfiles/i3status;
+    "i3blocks".source = ./dotfiles/i3blocks;
     };
   };
 }

@@ -1,70 +1,49 @@
 
-command=$SCRIPT_DIR/$BLOCK_NAME/$BLOCK_NAME
+command=./$BLOCK_NAME
 separator_block_width=15
 markup=none
 
-[media_players]
+[idle]
+interval=1
+signal=8
+label= 
+
+[brightness]
 interval=persist
+label=☾ 
 
 [disk]
 LABEL= 
 DIR=/
 interval=60
-separator=false
-[disk-io]
-interval=60
+
+[cpu]
 interval=persist
-markup=pango
-label=/  
-min_width=/  000 /  000 kB/s
-align=right
+align=left
+label= 
+min_width= 000.0%
 
-[gpu_usage]
-interval=10
-min_width=GPU 00%  00°C
-
-[cpu_usage]
-LABEL=CPU 
-interval=10
-DECIMALS=1
-align=center
-separator=false
-min_width=CPU 00.0%
 [temperature]
 interval=10
-separator=false
+label= 
+
 [load_average]
-interval=10
+interval=60
 
 [memory]
-interval=60
+interval=10
+label= 
 
 [wifi]
-interval=60
-align=center
-separator=false
-[bandwidth3]
-interval=persist
+interval=10
+align=left
 
-[pulseaudio]
+[pulse]
 interval=persist
-SUBSCRIBE=1
-AUDIO_DELTA=10
-LONG_FORMAT=" ${NAME} ${SYMB} ${VOL}% ${MIC}"
-USE_DESCRIPTION=1
-AUDIO_HIGH_SYMBOL=
-AUDIO_MED_SYMBOL=
-AUDIO_LOW_SYMBOL=
-AUDIO_MUTED_SYMBOL=
-AUDIO_MED_THRESH=99
-AUDIO_LOW_THRESH=0
 
 [battery]
-interval=persist
-
-[arch_updates]
-interval=3600
+interval=10
 
 [time]
-command=date "+ %a %d/%m/%y  %I:%M:%S %p"; [[ -z "${BLOCK_BUTTON}" ]] || gsimplecal &
+command=date "+%a %d/%m/%y %I:%M:%S%p"
 interval=1

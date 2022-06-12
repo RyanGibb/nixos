@@ -81,7 +81,7 @@ bindsym $mod+f         fullscreen toggle
 bindsym $mod+Shift+f   exec wtype -k F11
 bindsym $mod+Control+f fullscreen toggle global
 # toggle bar
-bindsym $mod+$alt+f    exec killall -SIGUSR1 .waybar-wrapped
+bindsym $mod+$alt+f    exec pgrep swaybar && pkill swaybar || swaybar --bar_id bar-0
 
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
@@ -224,7 +224,7 @@ bindsym $mod+Tab       exec $SCRIPT_DIR/window_switcher.sh
 bindsym $mod+Shift+Tab exec $SCRIPT_DIR/window_switcher_scratch.sh
 
 bindsym $mod+Shift+r reload
-bindsym $mod+Control+r exec "pkill waybar; waybar"
+bindsym $mod+Control+r exec "pkill swaybar; swaybar --bar_id bar-0"
 
 bindsym button2 kill
 

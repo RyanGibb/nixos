@@ -39,8 +39,23 @@ for_window [app_id="copyq"] floating enable, sticky enable, resize set height 60
 # requires glib
 set $gnome-schema org.gnome.desktop.interface
 exec_always { 
-    gsettings set $gnome-schema cursor-theme 'Adwaita'
+	gsettings set $gnome-schema cursor-theme 'Adwaita'
 }
 
 for_window [shell=".*"] title_format "%title :: %shell"
 
+bar {
+	position bottom
+	status_command i3blocks
+	colors {
+		statusline #eceff4
+		background #272930
+		separator  #d8dee9
+		focused_workspace  #88c0d0 #88c0d0 #272930
+		active_workspace   #81a1c1 #81a1c1 #272930
+		inactive_workspace #5e81ac #5e81ac #272930
+        urgent_workspace   #bf616a #bf616a #272930
+	}
+	workspace_min_width 30px
+	icon_theme Papirus
+}
