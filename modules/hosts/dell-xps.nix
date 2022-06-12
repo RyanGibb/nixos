@@ -4,6 +4,7 @@
   imports = [
     ../common/default.nix
     ../gui/sway.nix
+    ../gui/i3.nix
     ../ocaml.nix
     <home-manager/nixos>
   ];

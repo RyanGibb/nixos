@@ -1,0 +1,70 @@
+
+general {
+	colors = false
+	markup = pango
+	interval = 1
+}
+
+order += "wireless wlp0s20f3"
+order += "disk /"
+order += "cpu_temperature 0"
+order += "cpu_usage"
+order += "load"
+order += "volume device"
+order += "volume volume"
+order += "battery 0"
+order += "tztime local"
+
+
+wireless wlp0s20f3 {
+	format_up = " %essid %bitrate %quality"
+	format_down = "睊"
+}
+
+disk "/" {
+	format = " %free"
+}
+
+cpu_temperature 0 {
+	format = " %degrees°C"
+	path = "/sys/class/thermal/thermal_zone0/temp"
+}
+
+cpu_usage {
+	format = " %usage"
+}
+
+load {
+	format = " %5min"
+}
+
+volume volume {
+	format = " %volume"
+	format_muted = " %volume"
+	device = "default"
+	mixer = "Master"
+	mixer_idx = 0
+}
+
+volume device {
+	format = "%devicename"
+	format_muted = "%devicename"
+	device = "default"
+	mixer = "Master"
+	mixer_idx = 0
+}
+
+battery 0 {
+	format = "%status %percentage"
+	format_down = "X"
+	status_chr = ""
+	status_bat = "B"
+	status_unk = ""
+	status_full = ""
+	path = "/sys/class/power_supply/BAT%d/uevent"
+	low_threshold = 10
+}
+
+tztime local {
+	format = "%a %d/%m/%y %I:%M:%S%p"
+}

@@ -15,16 +15,16 @@
       exec i3
     '';
     ".zprofile".text = ''
-      # Autostart at login on TTY 1
-      if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
+      # Autostart at login on TTY 2
+      if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 2 ]; then
       	exec xinit
       fi
     '';
   };
 
   xdg.configFile = {
-    # "rofi/".source = ./dotfiles/rofi;
     "i3/".source = ./dotfiles/i3;
-    "i3blocks/".source = ./dotfiles/i3blocks;
+    "i3status/config".source = ./dotfiles/i3status;
+    "rofi/config.rasi".source = ./dotfiles/rofi.rasi;
   };
 }

@@ -1,4 +1,4 @@
-ont pango:Roboto Mono 12px
+font pango:Roboto Mono 12px
 set $bar_height 23px
 
 set $DIR $HOME/.config/i3
@@ -243,7 +243,7 @@ bindsym $mod+r mode "resize"
 
 bar {
 	i3bar_command   i3bar -t
-	status_command  SCRIPT_DIR=~/.config/i3blocks i3blocks
+	status_command  SCRIPT_DIR=~/.config/i3status i3status
 	position        top
 	tray_output     primary
 	tray_padding    4

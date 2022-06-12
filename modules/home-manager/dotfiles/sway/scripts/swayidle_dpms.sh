@@ -9,5 +9,3 @@ swayidle -w\
 		resume 'swaymsg "output * dpms on"'\
 	before-sleep 'playterctl -a pause; loginctl lock-session'\
 	&> ~/.swayidle_log
-
-pkill -RTMIN+8 waybar
