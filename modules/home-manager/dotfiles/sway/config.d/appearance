@@ -13,8 +13,8 @@ gaps bottom $bottom_gap
 
 # class                 border  backgr. text    indicator child_border
 client.focused          #5e81ac #5e81ac #eceff4 #85b6f2   #5e81ac
-client.focused_inactive #434c5e #4c566a #eceff4 #72819e   #434c5e
-client.unfocused        #434c5e #272930 #eceff4 #535d73   #434c5e
+client.focused_inactive #434c5e #434c5e #eceff4 #72819e   #434c5e
+client.unfocused        #434c5e #434c5e #eceff4 #535d73   #434c5e
 client.urgent           #bf616a #bf616a #eceff4 #ffdc96   #bf616a
 client.placeholder      #000000 #0c0c0c #eceff4 #000000   #0c0c0c
 
@@ -50,7 +50,7 @@ bar {
 	colors {
 		statusline #eceff4
 		background #272930
-		separator  #d8dee9
+		separator  #434c5e 
 		focused_workspace  #88c0d0 #88c0d0 #272930
 		active_workspace   #81a1c1 #81a1c1 #272930
 		inactive_workspace #5e81ac #5e81ac #272930
