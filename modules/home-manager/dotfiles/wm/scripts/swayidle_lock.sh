@@ -5,10 +5,9 @@ pkill swayidle
 swayidle -w\
 	lock 'swaylock -f -i ~/pictures/wallpapers/default'\
 	timeout 120 "notify-send 'going to sleep soon!' -t 3000"\
-	timeout 180 'swaymsg "output * dpms off"'\
-		resume 'swaymsg "output * dpms on"'\
+	timeout 180 '@wmmsg@ "output * dpms off"'\
+		resume '@wmmsg@ "output * dpms on"'\
 	timeout 240 'loginctl lock-session'\
-	timeout 300 'systemctl suspend-then-hibernate'\
 	before-sleep 'playerctl -a pause; loginctl lock-session'\
 	&> ~/.swayidle_log
 

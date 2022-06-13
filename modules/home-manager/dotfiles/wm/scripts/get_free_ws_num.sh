@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ws_nums=($(swaymsg -t get_workspaces \
+ws_nums=($(@wmmsg@ -t get_workspaces \
 	| jq '[.[] | select(.num != -1) | .num ] | sort | .[]'))
 
 # find first non-sequential element of ws_nums from i

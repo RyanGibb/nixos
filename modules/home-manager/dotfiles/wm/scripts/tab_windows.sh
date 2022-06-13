@@ -2,10 +2,10 @@
 
 jq_cmd="recurse(.nodes[];.nodes!=null) |"
 
-cur_ws_id="$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true).id')"
+cur_ws_id="$(@wmmsg@ -t get_workspaces | jq '.[] | select(.focused==true).id')"
 jq_cmd+="select(.id==$cur_ws_id).nodes | .[] | recurse(.nodes[];.nodes!=null) | select(.nodes==[])"
 
-windows="$(swaymsg -t get_tree | jq -r "$jq_cmd")"
+windows="$(@wmmsg@ -t get_tree | jq -r "$jq_cmd")"
 
 echo "$windows"
 

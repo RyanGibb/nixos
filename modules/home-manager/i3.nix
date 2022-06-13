@@ -23,19 +23,18 @@
   xdg.configFile  =
     let entries = {
       "i3/config".text =
-        let dir = ./dotfiles/sway/config.d; in
+        let dir = ./dotfiles/wm/config; in
         let filenames = lib.attrsets.mapAttrsToList (name: value: "${dir}/${name}") (builtins.readDir dir); in
         builtins.concatStringsSep "\n" (builtins.map (builtins.readFile) filenames);
       "i3blocks".source = ./dotfiles/i3blocks;
       "rofi/config.rasi".source = ./dotfiles/rofi.rasi;
     }; in
+    let dir = ./dotfiles/wm/scripts; in
+    let filenames = lib.attrsets.mapAttrsToList (name: value: "${name}") (builtins.readDir dir); in
     let replacements = {
-      "wmmsg" = "swaymsg";
+      wmmsg = "i3msg";
     }; in
-    let dir = ./dotfiles/sway/scripts; in
-    let filenames =   lib.attrsets.mapAttrsToList (name: value: "${name}")   (builtins.readDir dir); in
-    let fromstrings = lib.attrsets.mapAttrsToList (name: value: "@${name}@") replacements; in
-    let tostrings =   lib.attrsets.mapAttrsToList (name: value: "${value}")  replacements; in
-    let attrs = builtins.map (file: lib.attrsets.nameValuePair "i3/scripts/${file}" {text = builtins.replaceStrings fromstrings tostrings (builtins.readFile "${dir}/${file}");}) filenames; in
+    let substitutedSource = file: { source = (pkgs.substituteAll ({src=/${dir}/${file}; isExecutable = true;} // replacements)); }; in
+    let attrs = builtins.map (file: lib.attrsets.nameValuePair "i3/scripts/${file}" (substitutedSource file)) filenames; in
     builtins.listToAttrs attrs // entries;
 }

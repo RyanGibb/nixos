@@ -5,10 +5,10 @@ lockfile=/tmp/screen-off-lock
 if [ -f $lockfile ];
 then
     rm "$lockfile"
-	swaymsg "output * enable"
-	swaymsg "output * dpms on"
+	@wmmsg@ "output * enable"
+	@wmmsg@ "output * dpms on"
 else
     touch "$lockfile"
-	swaymsg "output * dpms off"
+	@wmmsg@ "output * dpms off"
 fi
 

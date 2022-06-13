@@ -6,4 +6,4 @@ WALLPAPER=$(ls $WALLPAPER_DIR | wofi -d -p "$(basename "$(readlink -f $WALLPAPER
 
 ln -sf "$WALLPAPER_DIR/$WALLPAPER" $WALLPAPER_DIR/default || exit 1
 
-swaymsg "output * bg $WALLPAPER_DIR/default fill"
+@wmmsg@ "output * bg $WALLPAPER_DIR/default fill"

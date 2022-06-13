@@ -2,4 +2,4 @@
 
 NAME="$(eval "$1")" || exit
 
-swaymsg workspace \"$NAME\"
+@wmmsg@ workspace \"$NAME\"

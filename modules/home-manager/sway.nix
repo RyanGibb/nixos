@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -34,51 +34,52 @@
     '';
   };
 
-  xdg = {
-    desktopEntries = {
-      nvim = {
-          name = "Neovim";
-          genericName = "Text Editor";
-          exec = "alacritty -e nvim %F";
-          terminal = false;
-          categories = [ "Application" "Utility" "TextEditor" ];
-          icon = "nvim";
-          mimeType = [ "text/english" "text/plain" ];
-      };
-      obsidian = {
-          name = "Obsidian (wayland)";
-          exec = "obsidian --ozone-platform=wayland";
-          terminal = false;
-          categories = [ "Office" ];
-          comment = "Knowledge base";
-          icon = "obsidian";
-          type = "Application";
-      };
-      codium = {
-          name = "VSCodium (wayland)";
-          genericName = "Text Editor";
-          exec = "codium --ozone-platform=wayland %F";
-          icon = "code";
-          mimeType = [ "text/plain" "inode/directory" ];
-          terminal = false;
-      };
-      chromium = {
-          name = "Chromium (wayland)";
-          exec = "chromium --ozone-platform-hint=auto";
-          icon = "chromium";
-      };
-      signal-desktop = {
-          name = "Signal (wayland)";
-          exec = "signal-desktop --ozone-platform=wayland";
-          terminal = false;
-          type = "Application";
-          icon = "signal-desktop";
-          comment = "Private messaging from your desktop";
-          mimeType = [ "x-scheme-handler/sgnl" "x-scheme-handler/signalcaptcha" ];
-          categories = [ "Network" "InstantMessaging" "Chat" ];
-      };
+  xdg.desktopEntries = {
+    nvim = {
+        name = "Neovim";
+        genericName = "Text Editor";
+        exec = "alacritty -e nvim %F";
+        terminal = false;
+        categories = [ "Application" "Utility" "TextEditor" ];
+        icon = "nvim";
+        mimeType = [ "text/english" "text/plain" ];
     };
-    configFile = {
+    obsidian = {
+        name = "Obsidian (wayland)";
+        exec = "obsidian --ozone-platform=wayland";
+        terminal = false;
+        categories = [ "Office" ];
+        comment = "Knowledge base";
+        icon = "obsidian";
+        type = "Application";
+    };
+    codium = {
+        name = "VSCodium (wayland)";
+        genericName = "Text Editor";
+        exec = "codium --ozone-platform=wayland %F";
+        icon = "code";
+        mimeType = [ "text/plain" "inode/directory" ];
+        terminal = false;
+    };
+    chromium = {
+        name = "Chromium (wayland)";
+        exec = "chromium --ozone-platform-hint=auto";
+        icon = "chromium";
+    };
+    signal-desktop = {
+        name = "Signal (wayland)";
+        exec = "signal-desktop --ozone-platform=wayland";
+        terminal = false;
+        type = "Application";
+        icon = "signal-desktop";
+        comment = "Private messaging from your desktop";
+        mimeType = [ "x-scheme-handler/sgnl" "x-scheme-handler/signalcaptcha" ];
+        categories = [ "Network" "InstantMessaging" "Chat" ];
+    };
+  };
+
+  xdg.configFile  =
+    let entries = {
       "fusuma/config.yml".source = ./dotfiles/fusuma.yml;
       "kanshi/config".source = ./dotfiles/kanshi;
       "mako/config".source = ./dotfiles/mako;
@@ -89,8 +90,11 @@
         save_dir=$HOME/pictures/capture/
         save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
       '';
-      "sway/config.d".source = ./dotfiles/sway/config.d;
-      "sway/scripts".source = ./dotfiles/sway/scripts;
+      "sway/config.d".source = ./dotfiles/wm/config;
+      # "i3/config".text =
+      #   let dir = ./dotfiles/sway/config.d; in
+      #   let filenames = lib.attrsets.mapAttrsToList (name: value: "${dir}/${name}") (builtins.readDir dir); in
+      #   builtins.concatStringsSep "\n" (builtins.map (builtins.readFile) filenames);
       "sway/config".text = ''
         set $mod Mod4
         set $alt Mod1
@@ -114,7 +118,14 @@
 
         exec ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
       '';
-    "i3blocks".source = ./dotfiles/i3blocks;
-    };
-  };
+      "i3blocks".source = ./dotfiles/i3blocks;
+    }; in
+    let dir = ./dotfiles/wm/scripts; in
+    let filenames = lib.attrsets.mapAttrsToList (name: value: "${name}") (builtins.readDir dir); in
+    let replacements = {
+      wmmsg = "swaymsg";
+    }; in
+    let substitutedSource = file: { source = (pkgs.substituteAll ({src=/${dir}/${file}; isExecutable = true;} // replacements)); }; in
+    let attrs = builtins.map (file: lib.attrsets.nameValuePair "sway/scripts/${file}" (substitutedSource file)) filenames; in
+    builtins.listToAttrs attrs // entries;
 }
