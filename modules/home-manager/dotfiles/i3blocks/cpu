@@ -4,7 +4,6 @@ prev="$(grep 'cpu ' /proc/stat)"
 while true; do
     sleep 1
     cur="$(grep 'cpu ' /proc/stat)"
-    usage="$(awk '{u=$2+$4; t=$2+$4+$5; if (NR==1){u1=u; t1=t;} else printf "%3.1f\n", ($2+$4-u1) * 100 / (t-t1) "%"; }' <(echo $cur) <(echo $prev))"
-    echo "$usage%"
+    awk '{u=$2+$4; t=$2+$4+$5; if (NR==1){u1=u; t1=t;} else printf "%5.1f%%\n", ($2+$4-u1) * 100 / (t-t1) "%"; }' <(echo $cur) <(echo $prev)
     prev=$cur
 done

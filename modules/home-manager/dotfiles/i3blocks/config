@@ -20,9 +20,6 @@ interval=once
 
 [cpu]
 interval=persist
-align=left
-label= 
-min_width= 000.0%
 
 [temperature]
 interval=10
@@ -37,7 +34,6 @@ label=
 
 [wifi]
 interval=10
-align=left
 
 [brightness]
 interval=persist
