@@ -13,8 +13,7 @@ signal=8
 label= 
 
 [disk]
-LABEL= 
-DIR=/
+label= 
 interval=60
 
 [cpu]
