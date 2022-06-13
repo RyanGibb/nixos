@@ -3,14 +3,14 @@ command=./$BLOCK_NAME
 separator_block_width=15
 markup=none
 
+[weather]
+command=echo "$(curl "https://wttr.in/?format=%S-%s+%c%p+%P+%w+%uuv+%t+%m" 2> /dev/null)"
+interval=3600
+
 [idle]
 interval=1
 signal=8
 label= 
-
-[brightness]
-interval=persist
-label=☾ 
 
 [disk]
 LABEL= 
@@ -38,6 +38,10 @@ label=
 interval=10
 align=left
 
+[brightness]
+interval=persist
+label=☾ 
+
 [pulse]
 interval=persist
 
@@ -47,3 +51,4 @@ interval=10
 [time]
 command=date "+%a %d/%m/%y %I:%M:%S%p"
 interval=1
+
