@@ -5,16 +5,18 @@ markup=none
 
 [weather]
 command=echo "$(curl "https://wttr.in/?format=%S-%s+%c%p+%P+%w+%uuv+%t+%m" 2> /dev/null)"
+signal=12
 interval=3600
 
 [idle]
-interval=1
-signal=8
+interval=once
+signal=11
 label= 
 
 [disk]
 label= 
-interval=60
+signal=10
+interval=once
 
 [cpu]
 interval=persist
