@@ -12,4 +12,4 @@ swayidle -w\
 	before-sleep 'playerctl -a pause; loginctl lock-session'\
 	&> ~/.swayidle_log
 
-pkill -RTMIN+8 i3blocks
+pkill -RTMIN+11 i3blocks
