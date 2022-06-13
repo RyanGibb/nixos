@@ -30,7 +30,7 @@ function print_block {
         mic=""
     fi
 
-    echo "$label $vol ${sink_ids[$i]} $mic"
+    echo "$label $vol [${sink_ids[$i]}] $mic"
 }
 
 print_block
