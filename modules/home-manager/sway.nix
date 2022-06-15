@@ -1,5 +1,17 @@
 { pkgs, lib, ... }:
 
+let replacements = {
+  wm = "sway";
+  wmmsg = "swaymsg";
+  rofi = "wofi";
+  polkit_gnome = "${pkgs.polkit_gnome}";
+  # TODO wallpaper bindings
+  wallpaper = ''
+    exec $SCRIPT_DIR/set_random_wallpaper.sh
+    output * bg ~/pictures/wallpapers/default fill
+  '';
+}; in
+let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
 {
   imports = [
     ./home.nix
@@ -28,7 +40,7 @@
     ".zprofile".text = ''
       # Autostart sway at login on TTY 1
       if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
-      	source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+      	source $HOME/.nix-prof${pkgs.polkit_gnome}/le/etc/profile.d/hm-session-vars.sh
       	exec sway &> $HOME/.sway_log
       fi
     '';
@@ -90,42 +102,11 @@
         save_dir=$HOME/pictures/capture/
         save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
       '';
-      "sway/config.d".source = ./dotfiles/wm/config;
-      # "i3/config".text =
-      #   let dir = ./dotfiles/sway/config.d; in
-      #   let filenames = lib.attrsets.mapAttrsToList (name: value: "${dir}/${name}") (builtins.readDir dir); in
-      #   builtins.concatStringsSep "\n" (builtins.map (builtins.readFile) filenames);
-      "sway/config".text = ''
-        set $mod Mod4
-        set $alt Mod1
-
-        set $term alacritty
-        set $browser exec firefox
-
-        set $SCRIPT_DIR $HOME/.config/sway/scripts
-
-        set $VOLUME_DELTA 10
-        set $BRIGHTNESS_DELTA 10
-
-        set $inner_gap    0
-        set $outer_gap    0
-        set $top_gap      0
-        set $bottom_gap   0
-        set $gutter_ratio 3
-        set $gaps_inc     10
-
-        include ~/.config/sway/config.d/*
-
-        exec ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
-      '';
+      "sway/config".text =
+        let src = ./dotfiles/wm/config.d; in
+        let filenames = lib.attrsets.mapAttrsToList (name: value: "${src}/${name}") (builtins.readDir src); in
+        (util.concatFilesReplace ([ ./dotfiles/wm/config ] ++ filenames ++ [ ./dotfiles/wm/sway/input ]) replacements);
       "i3blocks".source = ./dotfiles/i3blocks;
     }; in
-    let dir = ./dotfiles/wm/scripts; in
-    let filenames = lib.attrsets.mapAttrsToList (name: value: "${name}") (builtins.readDir dir); in
-    let replacements = {
-      wmmsg = "swaymsg";
-    }; in
-    let substitutedSource = file: { source = (pkgs.substituteAll ({src=/${dir}/${file}; isExecutable = true;} // replacements)); }; in
-    let attrs = builtins.map (file: lib.attrsets.nameValuePair "sway/scripts/${file}" (substitutedSource file)) filenames; in
-    builtins.listToAttrs attrs // entries;
+    (util.inDirReplace ./dotfiles/wm/scripts "sway/scripts" replacements) // entries;
 }

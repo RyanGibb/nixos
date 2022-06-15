@@ -15,7 +15,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    i3
+    i3-gaps
     i3blocks
     redshift
     alacritty

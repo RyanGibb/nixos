@@ -1,5 +1,14 @@
 { pkgs, lib, ... }:
 
+let replacements = {
+  wm = "i3";
+  wmmsg = "i3msg";
+  rofi = "rofi";
+  polkit_gnome = "${pkgs.polkit_gnome}";
+  wallpaper = ''
+  '';
+}; in
+let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
 {
   imports = [
     ./home.nix
@@ -23,18 +32,11 @@
   xdg.configFile  =
     let entries = {
       "i3/config".text =
-        let dir = ./dotfiles/wm/config; in
-        let filenames = lib.attrsets.mapAttrsToList (name: value: "${dir}/${name}") (builtins.readDir dir); in
-        builtins.concatStringsSep "\n" (builtins.map (builtins.readFile) filenames);
+        let src = ./dotfiles/wm/config.d; in
+        let filenames = lib.attrsets.mapAttrsToList (name: value: "${src}/${name}") (builtins.readDir src); in
+        (util.concatFilesReplace ([ ./dotfiles/wm/config ] ++ filenames) replacements);
       "i3blocks".source = ./dotfiles/i3blocks;
       "rofi/config.rasi".source = ./dotfiles/rofi.rasi;
     }; in
-    let dir = ./dotfiles/wm/scripts; in
-    let filenames = lib.attrsets.mapAttrsToList (name: value: "${name}") (builtins.readDir dir); in
-    let replacements = {
-      wmmsg = "i3msg";
-    }; in
-    let substitutedSource = file: { source = (pkgs.substituteAll ({src=/${dir}/${file}; isExecutable = true;} // replacements)); }; in
-    let attrs = builtins.map (file: lib.attrsets.nameValuePair "i3/scripts/${file}" (substitutedSource file)) filenames; in
-    builtins.listToAttrs attrs // entries;
+    (util.inDirReplace ./dotfiles/wm/scripts "i3/scripts" replacements) // entries;
 }

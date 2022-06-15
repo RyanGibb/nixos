@@ -28,3 +28,5 @@ input type:touchpad {
 	click_method clickfinger
 	scroll_factor 0.5
 }
+
+seat seat0 hide_cursor when-typing enable
