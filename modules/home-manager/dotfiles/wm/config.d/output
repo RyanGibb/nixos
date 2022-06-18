@@ -1,10 +1,9 @@
-set $laptop_output eDP-1
 
 bindswitch --reload --locked lid:on\
 	exec $SCRIPT_DIR/lock_on_lid_close.sh;\
-	exec $SCRIPT_DIR/laptop_clamshell.sh $laptop_output;
+	exec $SCRIPT_DIR/laptop_clamshell.sh;
 bindswitch --reload --locked lid:off\
 	exec $SCRIPT_DIR/lock_on_lid_close.sh;\
-	exec $SCRIPT_DIR/laptop_clamshell.sh $laptop_output;
+	exec $SCRIPT_DIR/laptop_clamshell.sh;
 
-exec_always $SCRIPT_DIR/laptop_clamshell.sh $laptop_output
+exec_always $SCRIPT_DIR/laptop_clamshell.sh

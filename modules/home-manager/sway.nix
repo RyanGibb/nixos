@@ -4,12 +4,30 @@ let replacements = {
   wm = "sway";
   wmmsg = "swaymsg";
   rofi = "wofi";
+  app_id = "app_id";
+  bar_extra = ''
+    icon_theme Papirus
+	  tray_output none
+  '';
+  preamble = "";
+  locked = "--locked";
   polkit_gnome = "${pkgs.polkit_gnome}";
   # TODO wallpaper bindings
   wallpaper = ''
-    exec $SCRIPT_DIR/set_random_wallpaper.sh
     output * bg ~/pictures/wallpapers/default fill
   '';
+  set_wallpaper = ''
+    swaymsg "output * bg $WALLPAPER_DIR/default fill"
+  '';
+  locker = "swaylock";
+  enable_output  = "swaymsg output $laptop_output enable";
+  disable_output = "swaymsg output $laptop_output disable";
+  drun = "wofi -i --show drun --allow-images -a";
+  run = "wofi -i --show run";
+  dmenu = "wofi -d -i -p";
+  rofimoji = "wofi-emoji";
+  displays = "wdisplays";
+  bar = "swaybar";
 }; in
 let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
 {

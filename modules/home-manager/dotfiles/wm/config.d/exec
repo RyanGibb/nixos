@@ -1,10 +1,7 @@
-exec $SCRIPT_DIR/swayidle_lock.sh
 
 exec playerctld daemon
 exec thunar --daemon
 
-exec blueman-applet
-exec nm-applet --indicator
 exec /usr/lib/geoclue-2.0/demos/agent
 exec gammastep-indicator -r
 exec kdeconnect-indicator

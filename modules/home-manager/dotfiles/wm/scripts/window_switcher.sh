@@ -9,6 +9,6 @@ windows=$(\
 	'
 )
 
-selected=$(echo "$windows" | wofi -d -i -p "Select window:" | awk '{print $1}')
+selected=$(echo "$windows" | @dmenu@ "Select window:" | awk '{print $1}')
 
 @wmmsg@ "[con_id="$selected"] focus"

@@ -6,6 +6,6 @@ WORKSPACES="$(@wmmsg@ -t get_workspaces | jq -r '.[] | .name')"
 WORKSPACES="${WORKSPACES}
 $NEW_WS_NUM"
 
-NAME=$(echo "$WORKSPACES" | wofi -d -i -o default -p "Select workspace:") || exit 1
+NAME=$(echo "$WORKSPACES" | @dmenu@ "Select workspace:" -o default) || exit 1
 echo "$NAME"
 

@@ -19,27 +19,27 @@ set $backlight_dec_1 exec brightnessctl set 1%-
 set $backlight_inc_5 exec brightnessctl set 5%+
 set $backlight_dec_5 exec brightnessctl set 5%-
 
-bindsym --locked XF86AudioRaiseVolume         $volume_inc
-bindsym --locked XF86AudioLowerVolume         $volume_dec
-bindsym --locked Shift+XF86AudioRaiseVolume   $volume_inc_1
-bindsym --locked Shift+XF86AudioLowerVolume   $volume_dec_1
-bindsym --locked Control+XF86AudioRaiseVolume $volume_inc_5
-bindsym --locked Control+XF86AudioLowerVolume $volume_dec_5
-bindsym --locked XF86AudioMute                $volume_mute
-bindsym --locked XF86AudioMicMute             $volume_mic_mute
+bindsym @locked@ XF86AudioRaiseVolume         $volume_inc
+bindsym @locked@ XF86AudioLowerVolume         $volume_dec
+bindsym @locked@ Shift+XF86AudioRaiseVolume   $volume_inc_1
+bindsym @locked@ Shift+XF86AudioLowerVolume   $volume_dec_1
+bindsym @locked@ Control+XF86AudioRaiseVolume $volume_inc_5
+bindsym @locked@ Control+XF86AudioLowerVolume $volume_dec_5
+bindsym @locked@ XF86AudioMute                $volume_mute
+bindsym @locked@ XF86AudioMicMute             $volume_mic_mute
 
-bindsym --locked XF86AudioPlay  $play_pause
-bindsym --locked XF86AudioPause $play_pause
-bindsym --locked XF86AudioPrev  $play_prev
-bindsym --locked XF86AudioNext  $play_next
-bindsym --locked XF86AudioStop  $play_stop
+bindsym @locked@ XF86AudioPlay  $play_pause
+bindsym @locked@ XF86AudioPause $play_pause
+bindsym @locked@ XF86AudioPrev  $play_prev
+bindsym @locked@ XF86AudioNext  $play_next
+bindsym @locked@ XF86AudioStop  $play_stop
 
-bindsym --locked XF86MonBrightnessUp           $backlight_inc
-bindsym --locked XF86MonBrightnessDown         $backlight_dec
-bindsym --locked Shift+XF86MonBrightnessUp     $backlight_inc_1
-bindsym --locked Shift+XF86MonBrightnessDown   $backlight_dec_1
-bindsym --locked Control+XF86MonBrightnessUp   $backlight_inc_5
-bindsym --locked Control+XF86MonBrightnessDown $backlight_dec_5
+bindsym @locked@ XF86MonBrightnessUp           $backlight_inc
+bindsym @locked@ XF86MonBrightnessDown         $backlight_dec
+bindsym @locked@ Shift+XF86MonBrightnessUp     $backlight_inc_1
+bindsym @locked@ Shift+XF86MonBrightnessDown   $backlight_dec_1
+bindsym @locked@ Control+XF86MonBrightnessUp   $backlight_inc_5
+bindsym @locked@ Control+XF86MonBrightnessDown $backlight_dec_5
 
 floating_modifier $mod
 
@@ -50,8 +50,8 @@ bindsym $mod+Control+Shift+Return exec $term -e zsh -c $SCRIPT_DIR/vault_file_ti
 
 bindsym $mod+Shift+q kill
 
-bindsym $mod+d         exec wofi -i --show drun --allow-images -a
-bindsym $mod+Shift+d   exec wofi -i --show run
+bindsym $mod+d         exec @drun@
+bindsym $mod+Shift+d   exec @run@
 bindsym $mod+Control+d exec "$(zenity --entry --text "run")"
 
 bindsym $mod+h focus left
@@ -81,7 +81,7 @@ bindsym $mod+f         fullscreen toggle
 bindsym $mod+Shift+f   exec wtype -k F11
 bindsym $mod+Control+f fullscreen toggle global
 # toggle bar
-bindsym $mod+$alt+f    exec pgrep swaybar && pkill swaybar || swaybar --bar_id bar-0
+bindsym $mod+$alt+f    exec pgrep @bar@ && pkill @bar@ || @bar@ --bar_id bar-0
 
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
@@ -139,25 +139,25 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # move focused container to workspace and switch to workspace
 # (maintaing focus)
 bindsym $mod+Control+1 exec $SCRIPT_DIR/preserve_focus.sh \
-	'swaymsg move container to workspace number $ws1'
+	'@wmmsg@ move container to workspace number $ws1'
 bindsym $mod+Control+2 exec $SCRIPT_DIR/preserve_focus.sh \
-	'swaymsg move container to workspace number $ws2'
+	'@wmmsg@ move container to workspace number $ws2'
 bindsym $mod+Control+3 exec $SCRIPT_DIR/preserve_focus.sh \
-	'swaymsg move container to workspace number $ws3'
+	'@wmmsg@ move container to workspace number $ws3'
 bindsym $mod+Control+4 exec $SCRIPT_DIR/preserve_focus.sh \
-	'swaymsg move container to workspace number $ws4'
+	'@wmmsg@ move container to workspace number $ws4'
 bindsym $mod+Control+5 exec $SCRIPT_DIR/preserve_focus.sh \
-	'swaymsg move container to workspace number $ws5'
+	'@wmmsg@ move container to workspace number $ws5'
 bindsym $mod+Control+6 exec $SCRIPT_DIR/preserve_focus.sh \
-	'swaymsg move container to workspace number $ws6'
+	'@wmmsg@ move container to workspace number $ws6'
 bindsym $mod+Control+7 exec $SCRIPT_DIR/preserve_focus.sh \
-	'swaymsg move container to workspace number $ws7'
+	'@wmmsg@ move container to workspace number $ws7'
 bindsym $mod+Control+8 exec $SCRIPT_DIR/preserve_focus.sh \
-	'swaymsg move container to workspace number $ws8'
+	'@wmmsg@ move container to workspace number $ws8'
 bindsym $mod+Control+9 exec $SCRIPT_DIR/preserve_focus.sh \
-	'swaymsg move container to workspace number $ws9'
+	'@wmmsg@ move container to workspace number $ws9'
 bindsym $mod+Control+0 exec $SCRIPT_DIR/preserve_focus.sh \
-	'swaymsg move container to workspace number $ws10'
+	'@wmmsg@ move container to workspace number $ws10'
 
 bindsym $mod+Shift+numbersign move scratchpad
 bindsym $mod+numbersign scratchpad show
@@ -166,7 +166,7 @@ bindsym $mod+numbersign scratchpad show
 bindsym $mod+grave workspace back_and_forth
 bindsym $mod+Shift+grave move container to workspace back_and_forth
 bindsym $mod+Control+grave exec $SCRIPT_DIR/preserve_focus.sh \
-	'swaymsg move container to workspace back_and_forth'
+	'@wmmsg@ move container to workspace back_and_forth'
 
 bindsym $mod+period workspace next_on_output
 bindsym $mod+comma workspace prev_on_output
@@ -174,9 +174,9 @@ bindsym $mod+comma workspace prev_on_output
 bindsym $mod+Shift+period move container to workspace next_on_output
 bindsym $mod+Shift+comma move container to workspace prev_on_output
 bindsym $mod+Control+period exec $SCRIPT_DIR/preserve_focus.sh \
-	'swaymsg move container to workspace next_on_output'
+	'@wmmsg@ move container to workspace next_on_output'
 bindsym $mod+Control+comma exec $SCRIPT_DIR/preserve_focus.sh \
-	'swaymsg move container to workspace prev_on_output'
+	'@wmmsg@ move container to workspace prev_on_output'
 
 # monitors and workspaces
 bindsym $mod+$alt+h focus output left
@@ -189,10 +189,10 @@ bindsym $mod+$alt+Shift+j move container to output down
 bindsym $mod+$alt+Shift+k move container to output up
 bindsym $mod+$alt+Shift+l move container to output right
 
-bindsym $mod+$alt+Control+h exec $SCRIPT_DIR/preserve_focus.sh 'swaymsg move container to output left'
-bindsym $mod+$alt+Control+j exec $SCRIPT_DIR/preserve_focus.sh 'swaymsg move container to output down'
-bindsym $mod+$alt+Control+k exec $SCRIPT_DIR/preserve_focus.sh 'swaymsg move container to output up'
-bindsym $mod+$alt+Control+l exec $SCRIPT_DIR/preserve_focus.sh 'swaymsg move container to output right'
+bindsym $mod+$alt+Control+h exec $SCRIPT_DIR/preserve_focus.sh '@wmmsg@ move container to output left'
+bindsym $mod+$alt+Control+j exec $SCRIPT_DIR/preserve_focus.sh '@wmmsg@ move container to output down'
+bindsym $mod+$alt+Control+k exec $SCRIPT_DIR/preserve_focus.sh '@wmmsg@ move container to output up'
+bindsym $mod+$alt+Control+l exec $SCRIPT_DIR/preserve_focus.sh '@wmmsg@ move container to output right'
 
 bindsym $mod+$alt+Shift+Control+h move workspace to output left
 bindsym $mod+$alt+Shift+Control+j move workspace to output down
@@ -203,8 +203,8 @@ bindsym $mod+bracketleft  focus output left
 bindsym $mod+bracketright focus output right
 bindsym $mod+Shift+bracketleft  move container to output left
 bindsym $mod+Shift+bracketright move container to output right
-bindsym $mod+$alt+Control+bracketleft  exec $SCRIPT_DIR/preserve_focus.sh 'swaymsg move container to output left'
-bindsym $mod+$alt+Control+bracketright exec $SCRIPT_DIR/preserve_focus.sh 'swaymsg move container to output right'
+bindsym $mod+$alt+Control+bracketleft  exec $SCRIPT_DIR/preserve_focus.sh '@wmmsg@ move container to output left'
+bindsym $mod+$alt+Control+bracketright exec $SCRIPT_DIR/preserve_focus.sh '@wmmsg@ move container to output right'
 bindsym $mod+$alt+bracketleft  move workspace to output left
 bindsym $mod+$alt+bracketright move workspace to output right
 
@@ -224,7 +224,7 @@ bindsym $mod+Tab       exec $SCRIPT_DIR/window_switcher.sh
 bindsym $mod+Shift+Tab exec $SCRIPT_DIR/window_switcher_scratch.sh
 
 bindsym $mod+Shift+r reload
-bindsym $mod+Control+r exec "pkill swaybar; swaybar --bar_id bar-0"
+bindsym $mod+Control+r exec "pkill @bar@; @bar@ --bar_id bar-0"
 
 bindsym button2 kill
 
@@ -302,9 +302,9 @@ mode "$mode_gaps" {
 	          gaps top current set $top_gap;\
 	          gaps bottom current set $bottom_gap;\
 	          exec "\
-			    ws_width=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true).rect.width');\
+			    ws_width=$(@wmmsg@ -t get_workspaces | jq '.[] | select(.focused==true).rect.width');\
 	            horz_gaps=$((($ws_width / $gutter_ratio)));\
-	            swaymsg gaps horizontal current set $horz_gaps;\
+	            @wmmsg@ gaps horizontal current set $horz_gaps;\
 	          ";\
 	          gaps vertical current set -$inner_gap;\
 	          mode "default"
@@ -343,7 +343,7 @@ bindsym $mod+Shift+g mode "$mode_gaps"
 set $mode_system System | l/e/s/h/r/p/u/S
 mode "$mode_system" {
 	bindsym l exec loginctl lock-session,                  mode "default"
-	bindsym e exec swaymsg exit,                           mode "default"
+	bindsym e exec @wmmsg@ exit,                           mode "default"
 	bindsym s exec systemctl suspend,                      mode "default"
 	bindsym h exec systemctl hibernate,                    mode "default"
 	bindsym r exec systemctl reboot,                       mode "default"
@@ -355,12 +355,12 @@ mode "$mode_system" {
 }
 bindsym $mod+x mode "$mode_system"
 
-bindsym --locked $mod+equal         $volume_inc
-bindsym --locked $mod+minus         $volume_dec
-bindsym --locked $mod+Shift+equal   $volume_inc_1
-bindsym --locked $mod+Shift+minus   $volume_dec_1
-bindsym --locked $mod+Control+equal $volume_inc_5
-bindsym --locked $mod+Control+minus $volume_dec_5
+bindsym @locked@ $mod+equal         $volume_inc
+bindsym @locked@ $mod+minus         $volume_dec
+bindsym @locked@ $mod+Shift+equal   $volume_inc_1
+bindsym @locked@ $mod+Shift+minus   $volume_dec_1
+bindsym @locked@ $mod+Control+equal $volume_inc_5
+bindsym @locked@ $mod+Control+minus $volume_dec_5
 set $mode_control_volume Control volume | -/+ | (m) mute | Shift+(m)ic mute
 mode "$mode_control_volume" {
 	bindsym minus         $volume_dec
@@ -401,7 +401,6 @@ mode "$mode_control_player" {
 bindsym $mod+o      mode "$mode_control_player"
 bindsym $mod+$alt+period  $play_next
 bindsym $mod+$alt+comma   $play_prev
-bindsym $mod+$alt         nop
 
 set $mode_control_backlight Control backlight | -/+
 mode "$mode_control_backlight" {
@@ -426,29 +425,20 @@ mode "$mode_control_dwt" {
 	bindsym Escape mode "default"
 }
 
-set $mode_control Control v/p/b/d
+set $mode_control Control v(V)/p/b/B/d/n
 mode "$mode_control" {
 	bindsym v mode "$mode_control_volume"
 	bindsym p mode "$mode_control_player"
 	bindsym b mode "$mode_control_backlight"
 	bindsym d mode "$mode_control_dwt"
+	bindsym Shift+v exec pavucontrol
+	bindsym Shift+b exec blueman-manager
+	bindsym n exec $term -e zsh -c nmtui
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
 bindsym $mod+c mode "$mode_control"
-
-set $idle_mode Idle mode i/d/l/s/L
-mode "$idle_mode" {
-	bindsym i exec $SCRIPT_DIR/swayidle_inhibit.sh;         mode "default
-	bindsym d exec $SCRIPT_DIR/swayidle_dpms.sh;            mode "default"
-	bindsym l exec $SCRIPT_DIR/swayidle_lock.sh;            mode "default"
-	bindsym s exec $SCRIPT_DIR/swayidle_suspend.sh;         mode "default"
-	bindsym Shift+l exec $SCRIPT_DIR/swayidle_lock_no_dpms.sh;    mode "default"
-
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-}
 
 bindsym $mod+b         exec $browser
 bindsym $mod+Shift+b   exec $browser -P secondary
@@ -456,7 +446,7 @@ bindsym $mod+Control+b exec $browser -private-window
 
 bindsym $mod+backslash exec xdg-open ~
 
-bindsym $mod+apostrophe exec wofi-emoji
+bindsym $mod+apostrophe exec @rofimoji@
 
 bindsym $mod+semicolon         exec $SCRIPT_DIR/bluetooth_device.sh
 bindsym $mod+Shift+semicolon   exec $SCRIPT_DIR/bluetooth_device.sh disconnect
@@ -481,7 +471,7 @@ bindsym $mod+$alt+Control+Print exec grim -g "$($SCRIPT_DIR/slurp_windows.sh)"\
 	$HOME/pictures/capture/"$(date '+%Y-%m-%d %H.%M.%S')".png
 
 bindsym $alt+Shift+Print exec wf-recorder\
-	-o $(swaymsg -t get_outputs | jq -r '.[] | select(.type=="output" and .focused).name')\
+	-o $(@wmmsg@ -t get_outputs | jq -r '.[] | select(.type=="output" and .focused).name')\
 	-f $HOME/videos/"$(date '+%Y-%m-%d %H.%M')".mp4
 
 bindsym $alt+Print exec pkill -SIGINT wf-recorder
@@ -494,23 +484,18 @@ bindsym $mod+Shift+m $volume_mic_mute
 bindsym $mod+BackSpace exec makoctl dismiss --all
 bindsym $mod+Shift+BackSpace exec makoctl dismiss
 
-bindsym $mod+p exec wdisplays
+bindsym $mod+p exec @displays@
 
 # for when latop output is disabled on resume
 bindsym $mod+Control+p       output * enable; output * dpms on
-bindsym $mod+Shift+p         exec swaymsg output "$($SCRIPT_DIR/get_focused_output.sh)" disable
+bindsym $mod+Shift+p         exec @wmmsg@ output "$($SCRIPT_DIR/get_focused_output.sh)" disable
 
 bindsym $mod+Shift+w   exec $SCRIPT_DIR/set_random_wallpaper.sh
 bindsym $mod+Control+w exec $SCRIPT_DIR/set_selected_wallpaper.sh
 
 bindsym $mod+Shift+c exec echo -n "$(zenity --calendar --text "")" | wl-copy
 
-bindsym $mod+Shift+v         exec clipman pick -t wofi
-bindsym $mod+Control+v       exec wl-copy "$(clipman pick -t STDOUT | head -n 1)"
-bindsym $mod+Shift+Control+v exec wtype "$(clipman pick -t STDOUT | head -n 1)"
-
 # disable firefox quit shortcut
 bindsym Control+q nop
 
 bindsym $mod+slash exec $term -e zsh -c $SCRIPT_DIR/open_file.sh
-

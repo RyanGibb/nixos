@@ -7,4 +7,4 @@ WALLPAPER="$1"
 echo $WALLPAPER
 ln -sf "$WALLPAPER" $WALLPAPER_DIR/default || exit 1
 
-@wmmsg@ "output * bg $WALLPAPER_DIR/default fill"
+@set_wallpaper@

@@ -3,7 +3,7 @@
 pkill swayidle
 
 swayidle -w\
-	lock 'swaylock -f -i ~/pictures/wallpapers/default'\
+	lock '@locker@ -f -i ~/pictures/wallpapers/default'\
 	timeout 120 "notify-send 'going to sleep soon!' -t 3000"\
 	timeout 180 '@wmmsg@ "output * dpms off"'\
 		resume '@wmmsg@ "output * dpms on"'\

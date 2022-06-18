@@ -16,11 +16,15 @@
 
   environment.systemPackages = with pkgs; [
     i3-gaps
+    xorg.xrandr
+    arandr
+    i3lock
     i3blocks
     redshift
     alacritty
     rofi
     dconf
+    rofimoji
   ];
 
   xdg.portal = {

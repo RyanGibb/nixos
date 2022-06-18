@@ -1,4 +1,5 @@
 
+exec $SCRIPT_DIR/set_random_wallpaper.sh
 @wallpaper@
 
 hide_edge_borders smart
@@ -23,20 +24,18 @@ focus_follows_mouse no
 
 default_border pixel 4
 
-for_window [app_id="zenity"] floating enable
-for_window [app_id="zoom"] floating enable
-for_window [app_id="zoom" title="Choose ONE of the audio conference options"] floating enable
-for_window [app_id="zoom" title="zoom"] floating enable
-for_window [app_id="zoom" title="Zoom Meeting"] floating disable
-for_window [app_id="zoom" title="Zoom - Free Account"] floating disable
+for_window [@app_id@="zenity"] floating enable
+for_window [@app_id@="zoom"] floating enable
+for_window [@app_id@="zoom" title="Choose ONE of the audio conference options"] floating enable
+for_window [@app_id@="zoom" title="zoom"] floating enable
+for_window [@app_id@="zoom" title="Zoom Meeting"] floating disable
+for_window [@app_id@="zoom" title="Zoom - Free Account"] floating disable
 
-for_window [app_id="copyq"] floating enable, sticky enable, resize set height 600px width 550px, move position cursor, move down 330
+for_window [@app_id@="copyq"] floating enable, sticky enable, resize set height 600px width 550px, move position cursor, move down 330
 
 # for some reason fixes double headed arrow not appearing in some applications
 # requires glib
 exec_always gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
-
-for_window [shell=".*"] title_format "%title :: %shell"
 
 bar {
 	position bottom
@@ -51,5 +50,5 @@ bar {
 		urgent_workspace   #bf616a #bf616a #272930
 	}
 	workspace_min_width 30px
-	icon_theme Papirus
+	@bar_extra@
 }

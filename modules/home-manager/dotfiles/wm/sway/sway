@@ -1,0 +1,22 @@
+
+for_window [shell=".*"] title_format "%title :: %shell"
+
+bindsym $mod+$alt nop
+
+bindsym $mod+Shift+v         exec clipman pick -t wofi
+bindsym $mod+Control+v       exec wl-copy "$(clipman pick -t STDOUT | head -n 1)"
+bindsym $mod+Shift+Control+v exec wtype "$(clipman pick -t STDOUT | head -n 1)"
+
+exec $SCRIPT_DIR/swayidle_lock.sh
+
+set $idle_mode Idle mode i/d/l/s/L
+mode "$idle_mode" {
+	bindsym i exec $SCRIPT_DIR/swayidle_inhibit.sh;         mode "default"
+	bindsym d exec $SCRIPT_DIR/swayidle_dpms.sh;            mode "default"
+	bindsym l exec $SCRIPT_DIR/swayidle_lock.sh;            mode "default"
+	bindsym s exec $SCRIPT_DIR/swayidle_suspend.sh;         mode "default"
+	bindsym Shift+l exec $SCRIPT_DIR/swayidle_lock_no_dpms.sh;    mode "default"
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
