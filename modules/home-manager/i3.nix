@@ -51,8 +51,7 @@ let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
   xdg.configFile  =
     let entries = {
       "i3/config".text =
-        let src = ./dotfiles/wm/config.d; in
-        let filenames = lib.attrsets.mapAttrsToList (name: value: "${src}/${name}") (builtins.readDir src); in
+        let filenames = util.listFilesInDir ./dotfiles/wm/config.d; in
         (util.concatFilesReplace ([ ./dotfiles/wm/config ] ++ filenames) replacements);
       "i3blocks".source = ./dotfiles/i3blocks;
       "rofi/config.rasi".source = ./dotfiles/rofi.rasi;

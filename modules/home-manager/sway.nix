@@ -121,9 +121,9 @@ let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
         save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
       '';
       "sway/config".text =
-        let src = ./dotfiles/wm/config.d; in
-        let filenames = lib.attrsets.mapAttrsToList (name: value: "${src}/${name}") (builtins.readDir src); in
-        (util.concatFilesReplace ([ ./dotfiles/wm/config ] ++ filenames ++ [ ./dotfiles/wm/sway/input ]) replacements);
+        let wmFilenames = util.listFilesInDir ./dotfiles/wm/config.d; in
+        let swayFilenames = util.listFilesInDir ./dotfiles/wm/sway; in
+        (util.concatFilesReplace ([ ./dotfiles/wm/config ] ++ wmFilenames ++ swayFilenames) replacements);
       "i3blocks".source = ./dotfiles/i3blocks;
     }; in
     (util.inDirReplace ./dotfiles/wm/scripts "sway/scripts" replacements) // entries;
