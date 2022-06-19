@@ -1,14 +1,38 @@
 {
   appimageTools,
-  fetchurl
+  fetchurl,
+  makeDesktopItem
 }:
 
-appimageTools.wrapType2 {
+let
   name = "beeper";
   src = fetchurl {
     url = "https://download.beeper.com/linux/appImage/x64";
     sha256 = "0kfigksacihr0cwjmh2lpijq3llgvfvxbj77yxm0q10x269yp422";
   };
+in
+let
+  desktopItem = (makeDesktopItem {
+    name = "Beeper";
+    desktopName = "Beeper";
+    exec = "beeper";
+    type = "Application";
+    icon = "beeper";
+    comment = "Beeper: Unified Messenger";
+    categories = [ "Utility" ];
+  });
+  appimageContents = appimageTools.extractType2 {
+    inherit name src;
+  };
+in
+appimageTools.wrapType2 rec {
+  inherit name src;
+
+  extraInstallCommands = ''
+    mkdir -p $out/share/applications
+    install -Dm644 ${appimageContents}/beeper.png $out/share/icons/hicolor/256x256/apps/beeper.png
+    install -Dm644 ${desktopItem}/share/applications/* $out/share/applications
+  '';
 
   # from nixpkgs/pkgs/build-support/appimage/default.nix#L77 multiPkgs
   # TODO figure out which of these is actually required
