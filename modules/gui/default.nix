@@ -82,6 +82,8 @@ in {
     obs-studio
     # https://nixos.wiki/wiki/PipeWire#pactl_not_found
     pulseaudio
+
+    (pkgs.callPackage ../../pkgs/beeper.nix { })
   ];
 
   fonts.fonts = with pkgs; [
