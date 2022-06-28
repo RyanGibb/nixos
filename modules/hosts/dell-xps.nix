@@ -1,23 +1,12 @@
 { pkgs, ... }:
 
-let
-  pkgs = import (builtins.fetchTarball {
-    name = "nixos-22.05-2022-06-13";
-    url = "https://github.com/nixos/nixpkgs/archive/1f8d88087a3753e55a29b5207f7f0997f7c813fa.tar.gz";
-    sha256 = "1cghhxwv3gpmc9h19riwqyyhpqxbnx48mbl9519cc5a564fvfnqw";
-  }) { config = { allowUnfree = true; }; };
-  home-manager = builtins.fetchTarball {
-    name = "home-manager.2022-05-2";
-    url = "https://github.com/nix-community/home-manager/archive/d93d56ab8c1c6aa575854a79b9d2f69d491db7d0.tar.gz";
-    sha256 = "1fi27zabvqlyc2ggg7wr01j813gs46rswg1i897h9hqkbgqsjkny";
-  };
-in {
+{
   imports = [
     ../common/default.nix
     ../gui/sway.nix
     ../gui/i3.nix
     ../ocaml.nix
-    (import "${home-manager}/nixos")
+    <home-manager/nixos>
   ];
 
   nix = {
@@ -114,6 +103,8 @@ in {
     xournalpp
     inkscape
     krop
+
+    (pkgs.callPackage ../../pkgs/beeper.nix { })
   ];
 
   services.xserver.libinput.enable = true;

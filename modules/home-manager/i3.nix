@@ -33,6 +33,8 @@ let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
     ./home.nix
   ];
 
+  home.pointerCursor.x11.enable = true;
+
   home.file = {
     ".xinitrc".text = ''
       export XDG_SESSION_TYPE=x11

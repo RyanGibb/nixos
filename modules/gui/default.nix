@@ -49,7 +49,7 @@ in {
     brightnessctl
     xdg-utils
     gnome.zenity
-    gnome.networkmanagerapplet
+    networkmanagerapplet
     pavucontrol
     (xfce.thunar.override { thunarPlugins = with xfce; [
       thunar-archive-plugin
@@ -86,8 +86,6 @@ in {
     obs-studio
     # https://nixos.wiki/wiki/PipeWire#pactl_not_found
     pulseaudio
-
-    (pkgs.callPackage ../../pkgs/beeper.nix { })
   ];
 
   fonts.fonts = with pkgs; [

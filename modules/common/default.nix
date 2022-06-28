@@ -29,6 +29,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    nix
     tree
     htop
     bind
@@ -38,7 +39,7 @@
     gnumake
     bat
     killall
-    ncat
+    nmap
     gcc
     direnv
     fzf
@@ -77,6 +78,9 @@
       100.93.8.35    desktop
     '';
   };
+
+  # Strict reverse path filtering breaks Tailscale exit node use and some subnet routing setups.
+  networking.firewall.checkReversePath = "loose";
 
   programs = {
     ssh.extraConfig = ''
