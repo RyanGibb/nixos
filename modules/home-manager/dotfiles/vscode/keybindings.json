@@ -1,0 +1,74 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+    {
+        "key": "alt+left",
+        "command": "workbench.action.navigateBack"
+    },
+    {
+        "key": "alt+right",
+        "command": "workbench.action.navigateForward"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "ctrl+0",
+        "command": "workbench.action.zoomReset"
+    },
+    {
+        "key": "ctrl+`",
+        "command": "workbench.action.quickOpenPreviousRecentlyUsedEditor",
+        "when": "!activeEditorGroupEmpty"
+    },
+    {
+        "key": "ctrl+`",
+        "command": "workbench.action.quickOpenNavigateNextInEditorPicker",
+        "when": "inEditorsPicker && inQuickOpen"
+    },
+    {
+        "key": "ctrl+shift+`",
+        "command": "workbench.action.quickOpenLeastRecentlyUsedEditorInGroup",
+        "when": "!activeEditorGroupEmpty"
+    },
+    {
+        "key": "ctrl+shift+`",
+        "command": "workbench.action.quickOpenNavigatePreviousInEditorPicker",
+        "when": "inEditorsPicker && inQuickOpen"
+    },
+    {
+        "key": "ctrl+t",
+        "command": "workbench.action.terminal.toggleTerminal",
+        "when": "terminal.active"
+    },
+    { "key": "f8",
+       "command": "macros.nextError",
+       "when": "editorFocus"
+    },
+    { "key": "alt+f8",
+       "command": "macros.nextNextError",
+       "when": "editorFocus"
+    },
+    { "key": "shift+f8",
+       "command": "macros.prevError",
+       "when": "editorFocus"
+    },
+    { "key": "alt+shift+f8",
+       "command": "macros.prevPrevError",
+       "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+c",
+        "command": "-vscode-neovim.escape",
+        "when": "editorTextFocus && neovim.ctrlKeysNormal && neovim.init && !dirtyDiffVisible && !inReferenceSearchEditor && !markersNavigationVisible && !notebookCellFocused && !parameterHintsVisible && !referenceSearchVisible && neovim.mode == 'normal'"
+    },
+    {
+        "key": "ctrl+c",
+        "command": "-vscode-neovim.escape",
+        "when": "editorTextFocus && neovim.ctrlKeysInsert && neovim.init && neovim.mode != 'normal'"
+    },
+]
