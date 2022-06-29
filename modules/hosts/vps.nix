@@ -45,11 +45,19 @@
         error_page 404 /404.html;
       '';
     };
+    virtualHosts."www.gibbr.org" = {
+      addSSL = true;
+      useACMEHost = "gibbr.org";
+      extraConfig = ''
+        return 301 $scheme://gibbr.org$request_uri;
+      '';
+    };
   };
 
   security.acme = {
     email = "ryan@gibbr.org";
     acceptTerms = true;
+    certs."gibbr.org".extraDomainNames = [ "www.gibbr.org" ];
   };
 
   swapDevices = [ { device = "/var/swap"; size = 2048; } ];
