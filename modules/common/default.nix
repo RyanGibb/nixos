@@ -182,5 +182,5 @@
     };
   };
 
-  system.stateVersion = "21.11";
+  system.stateVersion = "22.05";
 }
