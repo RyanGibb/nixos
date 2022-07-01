@@ -4,7 +4,7 @@
   imports = [
     ../common/default.nix
     ../gui/sway.nix
-    ../gui/kde.nix
+    ../gui/i3.nix
     <home-manager/nixos> 
   ];
 
