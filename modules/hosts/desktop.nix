@@ -55,5 +55,7 @@
     audio-recorder
   ];
 
+  machineColour = "magenta";
+
   programs.steam.enable = true;
 }

@@ -78,4 +78,5 @@
     options = "--delete-older-than 30d";
   };
 
+  machineColor = "yellow";
 }
