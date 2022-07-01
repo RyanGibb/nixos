@@ -39,6 +39,9 @@
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
       "browser.shell.checkDefaultBrowser" = false; 
+
+      # sync toolbar
+      "services.sync.prefs.sync.browser.uiCustomization.state" = true;
     };
     userChrome = ''
       #webrtcIndicator {
