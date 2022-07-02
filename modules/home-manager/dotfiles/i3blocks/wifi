@@ -8,8 +8,8 @@ INTERFACE=$(ip a | grep '^[0-9]: wl' | awk '{print $2}' | grep -Eo "[A-Za-z0-9]*
 
 # If the wifi interface exists but no connection is active, "down" shall be displayed.
 if [[ "$(cat /sys/class/net/$INTERFACE/operstate)" = 'down' ]]; then
-    echo "睊"
-    exit
+	echo "睊"
+	exit
 fi
 
 WIRELESS_INFO="$(cat /proc/net/wireless)"
