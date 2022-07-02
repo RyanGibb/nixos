@@ -58,7 +58,7 @@ let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
     ".zprofile".text = ''
       # Autostart sway at login on TTY 1
       if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
-      	source $HOME/.nix-prof${pkgs.polkit_gnome}/le/etc/profile.d/hm-session-vars.sh
+        source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
       	exec sway &> $HOME/.sway_log
       fi
     '';
