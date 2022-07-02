@@ -43,7 +43,6 @@ let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
     QT_STYLE_OVERRIDE = "Fusion";
     TERMINAL = "alacritty";
     WLR_NO_HARDWARE_CURSORS = 1;
-    WLR_DRM_NO_MODIFIERS = 1;
 
     # for intellij
     _JAVA_AWT_WM_NONREPARENTING = 1;
