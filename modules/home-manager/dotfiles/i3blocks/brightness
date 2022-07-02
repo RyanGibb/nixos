@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 function print_block {
-    echo "$(brightnessctl -m | awk -F, '{print substr($4, 0, length($4)-1)}')%"
+    s="$(brightnessctrl -m)" || exit 1
+    echo "$(echo $s | awk -F, '{print substr($4, 0, length($4)-1)}')%"
 }
 
 print_block
@@ -10,7 +11,7 @@ while read -r EVENT; do
     time="$(date +%s%3N)"
     # only update every 100ms
     if ((time-last_time > 100)); then
-        print_block
+        print_block || exit 1
         last_time=$time
     fi
 done < <(udevadm monitor --s=backlight)
