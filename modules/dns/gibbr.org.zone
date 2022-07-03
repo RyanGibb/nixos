@@ -30,7 +30,7 @@ dell-xps.vpn    IN A     100.92.111.117
 hp-pavilion.vpn IN A     100.91.12.120
 vps.vpn         IN A     100.125.253.71
 desktop.vpn     IN A     100.93.8.35
-rasp-pi.vpn     IN A     100.110.247.52
+rasp-pi.vpn     IN A     100.92.63.87
 
 @               IN TXT   google-site-verification=xM7L59imw-53rUPQIWD0VSrAEa94z2WAZ-FccXqX9V0
 
