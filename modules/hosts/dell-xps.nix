@@ -104,8 +104,6 @@
     xournalpp
     inkscape
     krop
-
-    (pkgs.callPackage ../../pkgs/beeper.nix { })
   ];
 
   services.xserver.libinput.enable = true;
