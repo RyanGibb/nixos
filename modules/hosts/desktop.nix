@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../../hardware-configuration.nix
     ../common/default.nix
     ../gui/sway.nix
     ../gui/i3.nix

@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../../hardware-configuration.nix
     ../common/default.nix
     ../services/matrix.nix
     ../services/twitcher.nix
