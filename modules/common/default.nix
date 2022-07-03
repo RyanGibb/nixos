@@ -159,8 +159,13 @@
     tmux = {
       enable = true;
       extraConfig = ''
+        set-option -g prefix `
+        bind ` send-prefix
         set -g mouse on
         set-window-option -g mode-keys vi
+        set -g lock-command vlock
+        set -g lock-after-time 0 # Seconds; 0 = never
+        bind L lock-session
       '';
     };
   };
