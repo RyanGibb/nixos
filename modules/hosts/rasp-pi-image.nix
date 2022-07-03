@@ -4,6 +4,7 @@
   imports = [
     <nixpkgs/nixos/modules/installer/sd-card/sd-image-aarch64.nix>
     ../common/default.nix
+    ../../secret/wifi.nix
   ];
 
   boot.loader.grub.enable = lib.mkForce false;

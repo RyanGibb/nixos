@@ -4,6 +4,7 @@
   imports = [
     ../../hardware-configuration.nix
     ../common/default.nix
+    ../../secret/wifi.nix
   ];
 
   boot.loader.grub.enable = lib.mkForce false;
