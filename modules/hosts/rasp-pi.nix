@@ -50,7 +50,7 @@
   };
 
   security.acme = {
-    email = "ryan@gibbr.org";
+    defaults.email = "ryan@gibbr.org";
     acceptTerms = true;
     certs."gibbr.org".extraDomainNames = [ "www.gibbr.org" ];
   };
