@@ -52,7 +52,6 @@ let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
     XDG_CURRENT_DESKTOP = "sway";
   };
 
-
   home.file = {
     ".zprofile".text = ''
       # Autostart sway at login on TTY 1
@@ -60,6 +59,9 @@ let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
         source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
       	exec sway &> $HOME/.sway_log
       fi
+    '';
+    ".profile".text = ''
+      source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
     '';
   };
 

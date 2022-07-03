@@ -44,7 +44,7 @@ bindsym @locked@ Control+XF86MonBrightnessDown $backlight_dec_5
 floating_modifier $mod
 
 bindsym $mod+Return exec $term
-bindsym $mod+Shift+Return exec $term -o background_opacity=0.9
+bindsym $mod+Shift+Return exec $term -o window.opacity=0.9
 bindsym $mod+Control+Return       exec $term -e zsh -c $SCRIPT_DIR/vault_file.sh
 bindsym $mod+Control+Shift+Return exec $term -e zsh -c $SCRIPT_DIR/vault_file_titled.sh
 
@@ -223,7 +223,7 @@ bindsym $mod+t exec $SCRIPT_DIR/title_ws.sh "$SCRIPT_DIR/get_ws_title.sh $SCRIPT
 bindsym $mod+Tab       exec $SCRIPT_DIR/window_switcher.sh
 bindsym $mod+Shift+Tab exec $SCRIPT_DIR/window_switcher_scratch.sh
 
-bindsym $mod+Shift+r reload
+bindsym $mod+Shift+r   exec "pkill @bar@; swaymsg reload"
 bindsym $mod+Control+r exec "pkill @bar@; @bar@ --bar_id bar-0"
 
 bindsym button2 kill
