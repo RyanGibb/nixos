@@ -6,6 +6,7 @@ let
     in join config.networking.hostName config.networking.domain;
 in {
   services.postgresql.enable = true;
+  services.postgresql.package = pkgs.postgresql_13;
   services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
     CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
     CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
