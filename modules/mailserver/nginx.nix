@@ -36,9 +36,9 @@ in
       };
     };
 
-    security.acme.certs."${cfg.fqdn}".postRun = ''
-      systemctl reload postfix
-      systemctl reload dovecot2
-    '';
+    security.acme.certs."${cfg.fqdn}".reloadServices = [
+      "postfix.service"
+      "dovecot2.service"
+    ];
   };
 }

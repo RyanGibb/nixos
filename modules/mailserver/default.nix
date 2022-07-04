@@ -243,7 +243,7 @@ in
         description = ''
           Fail searches when no index is available. If set to
           <literal>body</literal>, then only body searches (as opposed to
-          header) are affected. If set to <literal>no<literal>, searches may
+          header) are affected. If set to <literal>no</literal>, searches may
           fall back to a very slow brute force search.
         '';
       };
@@ -488,7 +488,7 @@ in
       description = ''
         Scheme 2)
         This is the folder where the certificate will be created. The name is
-        hardcoded to "cert-<domain>.pem" and "key-<domain>.pem" and the
+        hardcoded to "cert-DOMAIN.pem" and "key-DOMAIN.pem" and the
         certificate is valid for 10 years.
       '';
     };
@@ -668,7 +668,7 @@ in
         type = types.str;
         # read the default from nixos' redis module
         default = let
-          cf = config.services.redis.bind;
+          cf = config.services.redis.servers.rspamd.bind;
           cfdefault = if cf == null then "127.0.0.1" else cf;
           ips = lib.strings.splitString " " cfdefault;
           ip = lib.lists.head (ips ++ [ "127.0.0.1" ]);
@@ -677,28 +677,27 @@ in
         if (ip == "0.0.0.0" || ip == "::")
         then "127.0.0.1"
         else if isIpv6 ip then "[${ip}]" else ip;
+        defaultText = lib.literalDocBook "computed from <option>config.services.redis.servers.rspamd.bind</option>";
         description = ''
-          Address that rspamd should use to contact redis. The default value
-          is read from <literal>config.services.redis.bind</literal>.
+          Address that rspamd should use to contact redis.
         '';
       };
 
       port = mkOption {
         type = types.port;
-        default = config.services.redis.port;
+        default = config.services.redis.servers.rspamd.port;
+        defaultText = lib.literalExpression "config.services.redis.servers.rspamd.port";
         description = ''
-          Port that rspamd should use to contact redis. The default value is
-          read from <literal>config.services.redis.port<literal>.
+          Port that rspamd should use to contact redis.
         '';
       };
 
       password = mkOption {
         type = types.nullOr types.str;
-        default = config.services.redis.requirePass;
+        default = config.services.redis.servers.rspamd.requirePass;
+        defaultText = lib.literalExpression "config.services.redis.servers.rspamd.requirePass";
         description = ''
-          Password that rspamd should use to contact redis, or null if not
-          required. The default value is read from
-          <literal>config.services.redis.requirePass<literal>.
+          Password that rspamd should use to contact redis, or null if not required.
         '';
       };
     };
@@ -800,10 +799,11 @@ in
                 stop program = "${pkgs.systemd}/bin/systemctl stop dovecot2"
                 if failed host ${cfg.fqdn} port 993 type tcpssl sslauto protocol imap for 5 cycles then restart
 
-          check process rspamd with pidfile /var/run/rspamd.pid
+          check process rspamd with matching "rspamd: main process"
                 start program = "${pkgs.systemd}/bin/systemctl start rspamd"
                 stop program = "${pkgs.systemd}/bin/systemctl stop rspamd"
         '';
+        defaultText = lib.literalDocBook "see source";
         description = ''
           The configuration used for monitoring via monit.
           Use a mail address that you actively check and set it via 'set alert ...'.
@@ -887,6 +887,7 @@ in
         passphraseFile = mkOption {
           type = types.nullOr types.path;
           default = null;
+          description = "Path to a file containing the encryption password or passphrase.";
         };
       };
 

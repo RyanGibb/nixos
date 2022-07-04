@@ -98,11 +98,14 @@ in
 
     };
 
-    services.redis.enable = true;
+    services.redis.servers.rspamd = {
+      enable = lib.mkDefault true;
+      port = lib.mkDefault 6380;
+    };
 
     systemd.services.rspamd = {
-      requires = [ "redis.service" ] ++ (lib.optional cfg.virusScanning "clamav-daemon.service");
-      after = [ "redis.service" ] ++ (lib.optional cfg.virusScanning "clamav-daemon.service");
+      requires = [ "redis-rspamd.service" ] ++ (lib.optional cfg.virusScanning "clamav-daemon.service");
+      after = [ "redis-rspamd.service" ] ++ (lib.optional cfg.virusScanning "clamav-daemon.service");
     };
 
     systemd.services.postfix = {
