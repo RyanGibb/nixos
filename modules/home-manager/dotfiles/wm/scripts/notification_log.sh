@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # https://askubuntu.com/questions/770218/how-can-i-log-all-notify-send-actions
 
