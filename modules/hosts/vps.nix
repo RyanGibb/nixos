@@ -35,16 +35,18 @@
     users.root.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
   };
 
+  # TODO change to https once letsencrypt ratelimit cools off
   services.nginx = {
     enable = true;
     virtualHosts."gibbr.org" = {
-      forceSSL = true;
-      enableACME = true;
-      root = "/var/www/gibbr.org";
-      extraConfig = ''
-        error_page 403 =404 /404.html;
-        error_page 404 /404.html;
-      '';
+      locations."/".proxyPass = "http://rasp-pi/";
+      # forceSSL = true;
+      # enableACME = true;
+      # root = "/var/www/gibbr.org";
+      # extraConfig = ''
+      #   error_page 403 =404 /404.html;
+      #   error_page 404 /404.html;
+      # '';
     };
     virtualHosts."www.gibbr.org" = {
       addSSL = true;
@@ -54,6 +56,29 @@
       '';
     };
   };
+
+  # iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 100.110.247.52:80
+  # iptables -t nat -A POSTROUTING -j MASQUERADE
+  #iptables -A nixos-fw -p udp --source-port 1900 -s localhost -d localhost -j nixos-fw-accept
+  networking.firewall.extraCommands = ''
+    iptables -P FORWARD DROP
+
+    # forward syn packet
+    iptables -A FORWARD -i enp1s0 -o tailscale0 -p tcp --syn --match multiport --dports 80,443 -m conntrack --ctstate NEW -j ACCEPT
+
+    # forward packets for established flows bidirectionally
+    iptables -A FORWARD -i enp1s0 -o tailscale0 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+    iptables -A FORWARD -i tailscale0 -o enp1s0 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+    iptables -t nat -A PREROUTING -i enp1s0 -p tcp --match multiport --dports 80,443 -j DNAT --to-destination 100.92.63.87
+    iptables -t nat -A POSTROUTING -o tailscale0 -p tcp --match multiport --dports 80,443 -d 100.92.63.87 -j SNAT --to-source 100.125.253.71
+
+    # proxy DNS
+    # iptables -A FORWARD -i enp1s0 -o tailscale0 -p udp -j ACCEPT
+    # iptables -A FORWARD -i tailscale0 -o enp1s0 -p udp -j ACCEPT
+    # iptables -t nat -A PREROUTING -i enp1s0 -p udp --dport 53 -j DNAT --to-destination 100.92.63.87
+    # iptables -t nat -A POSTROUTING -o tailscale0 -p udp --dport 53 -d 100.92.63.87 -j SNAT --to-source 100.125.253.71
+  '';
 
   security.acme = {
     defaults.email = "ryan@gibbr.org";
