@@ -1,2 +1,8 @@
 
+# no mouse acceleration
+# TODO make for specific device
 exec xset m 0 0
+
+# natural scroll
+xinput set-prop 11 326 1
+
