@@ -29,6 +29,7 @@
     dunst
     haskellPackages.greenclip
     xdotool
+    xclip
   ];
 
   xdg.portal = {
