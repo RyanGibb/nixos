@@ -52,7 +52,7 @@ bindsym $mod+Shift+q kill
 
 bindsym $mod+d         exec @drun@
 bindsym $mod+Shift+d   exec @run@
-bindsym $mod+Control+d exec "$(zenity --entry --text "run")"
+bindsym $mod+Control+d exec "$(zenity --entry --text run)"
 
 bindsym $mod+h focus left
 bindsym $mod+j focus down
