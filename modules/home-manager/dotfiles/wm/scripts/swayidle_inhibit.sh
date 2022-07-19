@@ -3,7 +3,7 @@
 pkill swayidle
 
 swayidle -w\
-	lock '@locker@ -f -i ~/pictures/wallpapers/default'\
+	lock '@locker@'\
 	before-sleep 'playterctl -a pause; loginctl lock-session'\
 	&> ~/.swayidle_log
 

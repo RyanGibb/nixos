@@ -114,11 +114,6 @@
         bind yd tabduplicate
         bind <C-`> buffer #
       '';
-      "gammastep/config.ini".text = ''
-        [manual]
-        lat=52.17
-        lon=0.13
-      '';
       # better version of `system.copySystemConfiguration = true;`
       "nixos".source = /etc/nixos;
     };

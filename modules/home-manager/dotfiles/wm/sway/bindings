@@ -1,5 +1,9 @@
 
-for_window [shell=".*"] title_format "%title :: %shell"
+bindsym $mod+Shift+r   exec "pkill swaybar; swaymsg reload"
+bindsym $mod+Control+r exec "pkill swaybar; swaybar --bar_id bar-0"
+
+bindsym $mod+BackSpace exec makoctl dismiss --all
+bindsym $mod+Shift+BackSpace exec makoctl dismiss
 
 bindsym $mod+$alt nop
 
@@ -7,7 +11,6 @@ bindsym $mod+Shift+v         exec clipman pick -t wofi
 bindsym $mod+Control+v       exec wl-copy "$(clipman pick -t STDOUT | head -n 1)"
 bindsym $mod+Shift+Control+v exec wtype "$(clipman pick -t STDOUT | head -n 1)"
 
-exec $SCRIPT_DIR/swayidle_lock.sh
 
 set $idle_mode Idle mode i/d/l/s/L
 mode "$idle_mode" {
@@ -20,3 +23,4 @@ mode "$idle_mode" {
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
+bindsym $mod+i mode "$idle_mode"

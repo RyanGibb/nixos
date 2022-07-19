@@ -1,0 +1,15 @@
+[global]
+
+origin=top-right
+
+width=500
+height=1000
+
+background="#2e3440e0"
+foreground="#eceff4"
+frame_color="#4c566a"
+
+timeout=10000ms
+
+separator_height=2
+frame_width=2

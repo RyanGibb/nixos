@@ -7,19 +7,14 @@ let replacements = {
   app_id = "app_id";
   bar_extra = ''
     icon_theme Papirus
-	  tray_output none
   '';
-  preamble = "";
   locked = "--locked";
   polkit_gnome = "${pkgs.polkit_gnome}";
-  # TODO wallpaper bindings
-  wallpaper = ''
-    output * bg ~/pictures/wallpapers/default fill
-  '';
+  geoclue2 = "${pkgs.geoclue2}";
   set_wallpaper = ''
     swaymsg "output * bg $WALLPAPER_DIR/default fill"
   '';
-  locker = "swaylock";
+  locker = "swaylock -f -i ~/pictures/wallpapers/default";
   enable_output  = "swaymsg output $laptop_output enable";
   disable_output = "swaymsg output $laptop_output disable";
   drun = "wofi -i --show drun --allow-images -a";
@@ -28,6 +23,8 @@ let replacements = {
   rofimoji = "wofi-emoji";
   displays = "wdisplays";
   bar = "swaybar";
+  notification_deamon = "mako";
+  redshift = "gammastep-indicator -r";
 }; in
 let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
 {
@@ -75,7 +72,7 @@ let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
         icon = "nvim";
         mimeType = [ "text/english" "text/plain" ];
     };
-    obsidian = {
+    obsidian-wayland = {
         name = "Obsidian (wayland)";
         exec = "obsidian --ozone-platform=wayland";
         terminal = false;
@@ -84,7 +81,7 @@ let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
         icon = "obsidian";
         type = "Application";
     };
-    codium = {
+    codium-wayland = {
         name = "VSCodium (wayland)";
         genericName = "Text Editor";
         exec = "codium --ozone-platform=wayland %F";
@@ -92,12 +89,12 @@ let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
         mimeType = [ "text/plain" "inode/directory" ];
         terminal = false;
     };
-    chromium = {
+    chromium-wayland = {
         name = "Chromium (wayland)";
         exec = "chromium --ozone-platform-hint=auto";
         icon = "chromium";
     };
-    signal-desktop = {
+    signal-desktop-wayland = {
         name = "Signal (wayland)";
         exec = "signal-desktop --ozone-platform=wayland";
         terminal = false;
@@ -111,6 +108,11 @@ let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
 
   xdg.configFile  =
     let entries = {
+      "gammastep/config.ini".text = ''
+        [general]
+        dawn-time=06:00-07:00
+        dusk-time=18:00-19:00
+      '';
       "fusuma/config.yml".source = ./dotfiles/fusuma.yml;
       "kanshi/config".source = ./dotfiles/kanshi;
       "mako/config".source = ./dotfiles/mako;

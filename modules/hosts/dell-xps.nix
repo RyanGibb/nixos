@@ -101,8 +101,6 @@
     audio-recorder
     speechd
     teams
-    xournalpp
-    inkscape
     krop
   ];
 

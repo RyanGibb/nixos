@@ -1,7 +1,4 @@
 
-exec $SCRIPT_DIR/set_random_wallpaper.sh
-@wallpaper@
-
 hide_edge_borders smart
 smart_borders on
 smart_gaps on
@@ -50,5 +47,6 @@ bar {
 		urgent_workspace   #bf616a #bf616a #272930
 	}
 	workspace_min_width 30px
+	tray_output none
 	@bar_extra@
 }

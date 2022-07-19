@@ -3,7 +3,7 @@
 pkill swayidle
 
 swayidle -w\
-	lock '@locker@ -f -i ~/pictures/wallpapers/default'\
+	lock '@locker@'\
 	timeout 120 "notify-send 'going to lock soon!' -t 3000"\
 	timeout 240 'loginctl lock-session'\
 	before-sleep 'playerctl -a pause; loginctl lock-session'\

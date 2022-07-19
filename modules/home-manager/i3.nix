@@ -5,19 +5,16 @@ let replacements = {
   wmmsg = "i3-msg";
   rofi = "rofi";
   app_id = "class";
-  preamble = ''
-    font pango:Noto Sans Mono 12px
-    set $bar_height 23px
-  '';
   bar_extra = "";
   locked = "";
   polkit_gnome = "${pkgs.polkit_gnome}";
+  geoclue2 = "${pkgs.geoclue2}";
   wallpaper = ''
   '';
   set_wallpaper = ''
-    feh --bg-scale $WALLPAPER_DIR/default
+    feh --bg-fill $WALLPAPER_DIR/default
   '';
-  locker = "i3lock";
+  locker = "xsecurelock";
   enable_output  = "xrandr --output $laptop_output --auto";
   disable_output = "xrandr --output $laptop_output --off";
   drun = "rofi -modi drun -show drun";
@@ -26,12 +23,17 @@ let replacements = {
   rofimoji = "rofimoji";
   displays = "arandr";
   bar = "i3bar";
+  notification_deamon = "dunst";
+  redshift = "redshift-gtk";
 }; in
 let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
 {
   imports = [
     ./home.nix
   ];
+
+  # TODO
+  # idling
 
   home.pointerCursor.x11.enable = true;
 
@@ -52,9 +54,16 @@ let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
 
   xdg.configFile  =
     let entries = {
+      "redshift/redshift.conf".text = ''
+        [redshift]
+        dawn-time=06:00-07:00
+        dusk-time=18:00-19:00
+      '';
+      "dunst/dunstrc".source = ./dotfiles/dunst;
       "i3/config".text =
-        let filenames = util.listFilesInDir ./dotfiles/wm/config.d; in
-        (util.concatFilesReplace ([ ./dotfiles/wm/config ] ++ filenames) replacements);
+        let wmFilenames = util.listFilesInDir ./dotfiles/wm/config.d; in
+        let i3Filenames = util.listFilesInDir ./dotfiles/wm/i3; in
+        (util.concatFilesReplace ([ ./dotfiles/wm/config ] ++ wmFilenames ++ i3Filenames) replacements);
       "i3blocks".source = ./dotfiles/i3blocks;
       "rofi/config.rasi".source = ./dotfiles/rofi.rasi;
     }; in

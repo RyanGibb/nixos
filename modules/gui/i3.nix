@@ -18,13 +18,17 @@
     i3-gaps
     xorg.xrandr
     arandr
-    i3lock
+    xss-lock
+    xsecurelock
     i3blocks
     redshift
     alacritty
     rofi
     dconf
     rofimoji
+    dunst
+    haskellPackages.greenclip
+    xdotool
   ];
 
   xdg.portal = {

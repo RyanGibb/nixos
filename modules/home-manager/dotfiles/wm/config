@@ -1,4 +1,4 @@
-@preamble@
+font pango:Noto Sans Mono 14px
 
 set $mod Mod4
 set $alt Mod1
@@ -7,9 +7,6 @@ set $term alacritty
 set $browser exec firefox
 
 set $SCRIPT_DIR $HOME/.config/@wm@/scripts
-
-set $VOLUME_DELTA 10
-set $BRIGHTNESS_DELTA 10
 
 set $inner_gap    0
 set $outer_gap    0

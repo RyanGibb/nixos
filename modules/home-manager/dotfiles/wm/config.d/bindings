@@ -1,5 +1,5 @@
-set $volume_inc      exec pactl set-sink-volume @DEFAULT_SINK@   +$VOLUME_DELTA%
-set $volume_dec      exec pactl set-sink-volume @DEFAULT_SINK@   -$VOLUME_DELTA%
+set $volume_inc      exec pactl set-sink-volume @DEFAULT_SINK@   +10%
+set $volume_dec      exec pactl set-sink-volume @DEFAULT_SINK@   -10%
 set $volume_inc_1    exec pactl set-sink-volume @DEFAULT_SINK@   +1%
 set $volume_dec_1    exec pactl set-sink-volume @DEFAULT_SINK@   -1%
 set $volume_inc_5    exec pactl set-sink-volume @DEFAULT_SINK@   +5%
@@ -12,8 +12,8 @@ set $play_prev  exec playerctl previous
 set $play_next  exec playerctl next
 set $play_stop  exec playerctl stop
 
-set $backlight_inc   exec brightnessctl set $BRIGHTNESS_DELTA%+
-set $backlight_dec   exec brightnessctl set $BRIGHTNESS_DELTA%-
+set $backlight_inc   exec brightnessctl set 10%+
+set $backlight_dec   exec brightnessctl set 10%-
 set $backlight_inc_1 exec brightnessctl set 1%+
 set $backlight_dec_1 exec brightnessctl set 1%-
 set $backlight_inc_5 exec brightnessctl set 5%+
@@ -222,9 +222,6 @@ bindsym $mod+t exec $SCRIPT_DIR/title_ws.sh "$SCRIPT_DIR/get_ws_title.sh $SCRIPT
 
 bindsym $mod+Tab       exec $SCRIPT_DIR/window_switcher.sh
 bindsym $mod+Shift+Tab exec $SCRIPT_DIR/window_switcher_scratch.sh
-
-bindsym $mod+Shift+r   exec "pkill @bar@; swaymsg reload"
-bindsym $mod+Control+r exec "pkill @bar@; @bar@ --bar_id bar-0"
 
 bindsym button2 kill
 
@@ -452,8 +449,6 @@ bindsym $mod+semicolon         exec $SCRIPT_DIR/bluetooth_device.sh
 bindsym $mod+Shift+semicolon   exec $SCRIPT_DIR/bluetooth_device.sh disconnect
 bindsym $mod+Control+semicolon exec $SCRIPT_DIR/wifi.sh
 
-bindsym $mod+i mode "$idle_mode"
-
 bindsym $mod+Shift+i   exec $SCRIPT_DIR/dpms_off.sh
 bindsym $mod+Control+i exec $SCRIPT_DIR/dpms_toggle.sh
 
@@ -480,9 +475,6 @@ bindsym $mod+y       exec $SCRIPT_DIR/cycle_sink.sh
 bindsym $mod+Shift+y exec $SCRIPT_DIR/cycle_sink.sh back
 bindsym $mod+m       $volume_mute
 bindsym $mod+Shift+m $volume_mic_mute
-
-bindsym $mod+BackSpace exec makoctl dismiss --all
-bindsym $mod+Shift+BackSpace exec makoctl dismiss
 
 bindsym $mod+p exec @displays@
 

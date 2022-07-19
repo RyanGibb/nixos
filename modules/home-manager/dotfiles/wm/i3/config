@@ -1,0 +1,2 @@
+
+exec xss-lock --transfer-sleep-lock -- @locker@

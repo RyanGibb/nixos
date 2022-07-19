@@ -86,6 +86,9 @@ in {
     obs-studio
     # https://nixos.wiki/wiki/PipeWire#pactl_not_found
     pulseaudio
+
+    xournalpp
+    inkscape
   ];
 
   fonts.fonts = with pkgs; [
@@ -106,8 +109,6 @@ in {
   };
   # thunar thumbnail support for images
   services.tumbler.enable = true;
-
-  services.geoclue2.enableDemoAgent = true;
 
   programs.kdeconnect.enable = true;
 }

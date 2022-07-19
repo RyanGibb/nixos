@@ -28,6 +28,7 @@
       slurp
       swappy
       mako
+      kanshi
     ];
   };
 
