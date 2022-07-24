@@ -16,7 +16,7 @@ profile {
 }
 
 profile {
-	output "Ancor Communications Inc VG248 FALMQS093846" mode 1920x1080@60Hz transform 270 position 0,240
-	output "Acer Technologies VG270U TEHEE004852A" mode 2560x1440@60Hz position 1920,0
+	output "Ancor Communications Inc VG248 FALMQS093846" mode 1920x1080@60Hz transform 270 position 0,0
+	output "Acer Technologies VG270U TEHEE004852A" mode 2560x1440@60Hz position 1080,240
 	exec ~/.config/sway/scripts/swayidle_dpms.sh
 }
