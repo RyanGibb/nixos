@@ -102,6 +102,7 @@
     speechd
     teams
     krop
+    slack
   ];
 
   services.xserver.libinput.enable = true;

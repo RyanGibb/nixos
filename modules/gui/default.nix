@@ -63,6 +63,7 @@ in {
     libnotify
 
     firefox
+    tridactyl-native
     chromium
     thunderbird
     element-desktop
