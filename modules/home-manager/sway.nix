@@ -40,6 +40,7 @@ let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
     QT_STYLE_OVERRIDE = "Fusion";
     TERMINAL = "alacritty";
     WLR_NO_HARDWARE_CURSORS = 1;
+    NIXOS_OZONE_WL = 1;
 
     # for intellij
     _JAVA_AWT_WM_NONREPARENTING = 1;
@@ -54,7 +55,7 @@ let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
       # Autostart sway at login on TTY 1
       if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
         source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
-      	exec sway &> $HOME/.sway_log
+      	exec sway -d 2> $HOME/.sway_log
       fi
     '';
     ".profile".text = ''

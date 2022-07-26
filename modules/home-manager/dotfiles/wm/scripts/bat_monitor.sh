@@ -4,9 +4,10 @@ while :
 do
 	echo "$(date -Ins) $(acpi -b)"\
 		| tee -a ~/.bat_hist\
-		| awk -F'[,:%]' '{print $6, $7}' | {
-		read -r status capacity
-	
+		| awk -F'[,:%]' '{print $6; print $7}' | {
+		read -r status
+		read -r capacity
+
 		#if [ "$status" = Charging -o "$status" = Full ]; then
 		#	~/.config/sway/scripts/swayidle_lock.sh
 		#fi

@@ -62,7 +62,11 @@ in {
     feh
     libnotify
 
-    firefox
+    (firefox.override {
+      cfg = {
+        enableTridactylNative = true;
+      };
+    })
     tridactyl-native
     chromium
     thunderbird

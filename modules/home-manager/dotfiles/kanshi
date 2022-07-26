@@ -26,3 +26,10 @@ profile {
 	exec ~/.config/sway/scripts/swayidle_suspend.sh
 }
 
+profile {
+	output "Unknown 0x2036 0x00000000" mode 2560x1440@60Hz scale 1.33
+	output "Ancor Communications Inc VG248 FALMQS093846" mode 1920x1080@60Hz transform 270 position 1928,0
+	output "Acer Technologies VG270U TEHEE004852A" mode 2560x1440@60Hz position 3008,0
+	exec ~/.config/sway/scripts/swayidle_dpms.sh
+}
+
