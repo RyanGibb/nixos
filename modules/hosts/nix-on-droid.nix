@@ -25,7 +25,6 @@
     which
 
     openssh
-    git
     iputils
     curl
 
@@ -35,7 +34,6 @@
     bind
     inetutils
     ncdu
-    nix-prefetch-git
     gnumake
     bat
     killall
@@ -43,6 +41,8 @@
     gcc
     direnv
     fzf
+
+    top
   ];
 
   environment.etcBackupExtension = ".bak";
@@ -68,6 +68,7 @@
       };
 
       programs.git = {
+        enable = true;
         userEmail = "ryan@gibbr.org";
         userName = "Ryan Gibb";
         aliases = {
