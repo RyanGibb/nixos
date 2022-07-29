@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 
 {
-  user.shell = "${packageInfo.zsh}/bin/zsh";
+  user.shell = "${pkgs.zsh}/bin/zsh";
 
   environment.packages = with pkgs; [
     neovim
@@ -41,8 +41,6 @@
     gcc
     direnv
     fzf
-
-    top
   ];
 
   environment.etcBackupExtension = ".bak";
