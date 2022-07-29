@@ -1,4 +1,5 @@
 hardware-configuration.nix
-configuration.nix
+/configuration.nix
+/nix-on-droid.nix
 secret*
 *private
