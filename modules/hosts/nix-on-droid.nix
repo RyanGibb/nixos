@@ -56,7 +56,7 @@
       programs.zsh = {
         enable = true;
         history.size = 100000;
-        enableAutosuggestions true;
+        enableAutosuggestions = true;
         enableSyntaxHighlighting = true;
         initExtraFirst = builtins.readFile ../common/zsh.cfg;
         initExtra = ''
