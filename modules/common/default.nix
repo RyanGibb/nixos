@@ -85,9 +85,14 @@
 
   programs = {
     ssh.extraConfig = ''
-      Host pixel-4a*
+      Host termux-pixel-4a
+        HostName pixel-4a
       	User u0_a342
-      	Port 8022
+        Port 8022
+
+      Host pixel-4a*
+        User nix-on-droid
+        Port 8022
       
       Host slogin
       	User rtg24

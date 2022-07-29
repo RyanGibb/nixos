@@ -1,12 +1,9 @@
 { pkgs, config, ... }:
 
 {
-  # Simply install just the packages
   environment.packages = with pkgs; [
-    # User-facing stuff that you really really want to have
-    vim  # or some other editor, e.g. nano or neovim
+    neovim
 
-    # Some common stuff that people expect to have
     diffutils
     findutils
     utillinux
@@ -22,35 +19,114 @@
     xz
     zip
     unzip
+
+    which
+    pgrep
+    ps
+
     openssh
     git
     iputils
     curl
-    git
+
+    nix
+    tree
+    htop
+    bind
+    inetutils
+    ncdu
+    nix-prefetch-git
+    gnumake
+    bat
+    killall
+    nmap
+    gcc
+    direnv
+    fzf
   ];
-# Backup etc files instead of failing to activate generation if a file already exists in /etc
+
   environment.etcBackupExtension = ".bak";
+  
+  home-manager.config =
+    { pkgs, lib, ... }:
+    {
+      # Use the same overlays as the system packages
+      nixpkgs = { inherit (config.nixpkgs) overlays; };
 
-  # Read the changelog before changing this value
-  system.stateVersion = "21.11";
+      programs.zsh = {
+        enable = true;
+        history.size = 100000;
+        enableAutosuggestions true;
+        enableSyntaxHighlighting = true;
+        initExtraFirst = builtins.readFile ../common/zsh.cfg;
+        initExtra = ''
+          PROMPT='%(?..%F{red}%3?%f )%D{%I:%M:%S%p} %F{cyan}%n@%m%f:%F{cyan}%~%f%<<''${vcs_info_msg_0_}'" %#"$'\n'
+          
+          export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
+        '';
+      };
 
-  # After installing home-manager channel like
-  #   nix-channel --add https://github.com/rycee/home-manager/archive/release-21.11.tar.gz home-manager
-  #   nix-channel --update
-  # you can configure home-manager in here like
-  #home-manager.config =
-  #  { pkgs, lib, ... }:
-  #  {
-  #    # Read the changelog before changing this value
-  #    home.stateVersion = "21.11";
-  #
-  #    # Use the same overlays as the system packages
-  #    nixpkgs = { inherit (config.nixpkgs) overlays; };
-  #
-  #    # insert home-manager config
-  #  };
-  # If you want the same pkgs instance to be used for nix-on-droid and home-manager
-  #home-manager.useGlobalPkgs = true;
+      programs.git = {
+        userEmail = "ryan@gibbr.org";
+        userName = "Ryan Gibb";
+        aliases = {
+          s = "status";
+          c = "commit";
+          cm = "commit --message";
+          ca = "commit --amend";
+          cu = "commit --message update";
+          ci = "commit --message initial";
+          br = "branch";
+          co = "checkout";
+          df = "diff";
+          lg = "log -p";
+          lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
+          lola = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
+          ls = "ls-files";
+          a = "add";
+          aa = "add --all";
+          au = "add -u";
+          ap = "add --patch";
+          ps = "push";
+          pf = "push --force";
+          pu = "push --set-upstream";
+          pl = "pull";
+          pr = "pull --rebase";
+          acp = "!git add --all && git commit --message update && git push";
+        };
+      };
+
+      programs.neovim = {
+        viAlias = true;
+        vimAlias = true;
+        extraConfig = builtins.readFile ../common/nvim.cfg;
+        plugins = with pkgs.vimPlugins; [
+          vimtex
+          vim-auto-save
+          vim-airline
+          vim-airline-themes
+          palenight-vim
+          vim-nix
+        ];
+      };
+
+      programs.tmux = {
+        enable = true;
+        extraConfig = ''
+          set-option -g prefix `
+          bind ` send-prefix
+          set -g mouse on
+          set-window-option -g mode-keys vi
+          set -g lock-command vlock
+          set -g lock-after-time 0 # Seconds; 0 = never
+          bind L lock-session
+        '';
+      };
+
+      home.file = {
+        ".ssh/authorized_keys".source = ./common/authorized_keys;
+      };
+    };
+  home-manager.useGlobalPkgs = true;
+  system.stateVersion = "22.05";
 }
-
-# vim: ft=nix"
