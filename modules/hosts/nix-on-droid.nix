@@ -4,8 +4,6 @@
   user.shell = "${pkgs.zsh}/bin/zsh";
 
   environment.packages = with pkgs; [
-    neovim
-
     diffutils
     findutils
     utillinux
