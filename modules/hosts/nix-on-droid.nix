@@ -122,7 +122,7 @@
       };
 
       home.file = {
-        ".ssh/authorized_keys".source = ./common/authorized_keys;
+        ".ssh/authorized_keys".source = ../common/authorized_keys;
       };
     };
   home-manager.useGlobalPkgs = true;
