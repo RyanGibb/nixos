@@ -1,6 +1,8 @@
 { pkgs, config, ... }:
 
 {
+  user.shell = "${packageInfo.zsh}/bin/zsh";
+
   environment.packages = with pkgs; [
     neovim
 
