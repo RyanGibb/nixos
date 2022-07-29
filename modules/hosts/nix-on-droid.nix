@@ -61,6 +61,7 @@
           PROMPT='%(?..%F{red}%3?%f )%D{%I:%M:%S%p} %F{cyan}%n@%m%f:%F{cyan}%~%f%<<''${vcs_info_msg_0_}'" %#"$'\n'
           
           export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
+          export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=5"
         '';
       };
 
@@ -95,6 +96,7 @@
       };
 
       programs.neovim = {
+        enable = true;
         viAlias = true;
         vimAlias = true;
         extraConfig = builtins.readFile ../common/nvim.cfg;
