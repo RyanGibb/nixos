@@ -21,8 +21,6 @@
     unzip
 
     which
-    pgrep
-    ps
 
     openssh
     git
