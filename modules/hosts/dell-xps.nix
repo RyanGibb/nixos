@@ -7,6 +7,7 @@
     ../gui/sway.nix
     ../gui/i3.nix
     ../ocaml.nix
+    ../services/wireguard_client.nix
     <home-manager/nixos>
   ];
 
@@ -49,11 +50,9 @@
   boot.supportedFilesystems = [ "ntfs" ];
 
   # printing
-  networking.firewall = rec {
-    allowedTCPPorts = [
-      631 
-    ]; 
-    allowedUDPPorts = allowedTCPPorts;
+  networking.firewall = {
+    allowedTCPPorts = [ 631 ];
+    allowedUDPPorts = [ 631 ];
   };
   services.printing = {
     enable = true;

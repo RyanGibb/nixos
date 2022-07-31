@@ -43,6 +43,8 @@
     gcc
     direnv
     fzf
+    tcpdump
+    sshfs
   ];
 
   environment = {
