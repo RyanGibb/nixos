@@ -54,13 +54,14 @@
         history.size = 100000;
         enableAutosuggestions = true;
         enableSyntaxHighlighting = true;
-        initExtraFirst = builtins.readFile ../common/zsh.cfg;
-        initExtra = ''
-          PROMPT='%(?..%F{red}%3?%f )%D{%I:%M:%S%p} %F{cyan}%n@%m%f:%F{cyan}%~%f%<<''${vcs_info_msg_0_}'" %#"$'\n'
-          
+        initExtraFirst = '' 
+          key[Up]="^[[A"
+          key[Down]="^[[B"
           export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
           export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=5"
+          PROMPT='%(?..%F{red}%3?%f )%D{%I:%M:%S%p} %F{cyan}%n@%m%f:%F{cyan}%~%f%<<''${vcs_info_msg_0_}'" %#"$'\n'
         '';
+        initExtra = builtins.readFile ../common/zsh.cfg;
       };
 
       programs.git = {
