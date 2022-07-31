@@ -7,6 +7,7 @@
     ../services/matrix.nix
     ../services/twitcher.nix
     ../services/mailserver.nix
+    ../services/wireguard_server.nix
     ../../secret/default.nix
     ../dns/bind.nix
   ];
