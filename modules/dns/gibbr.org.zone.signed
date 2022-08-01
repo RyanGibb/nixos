@@ -112,42 +112,6 @@ twitcher.gibbr.org.	3600	IN CNAME vps.gibbr.org.
 					en6zU8dzlO+bM93kb0Q1EWgG6Tijsccmj0MP
 					mmkmdKXt5n4Xk4WMQfjzQLPCJ4ntFiQEXHG1
 					lOdHnMTltbfuLg== )
-dell-xps.vpn.gibbr.org.	3600	IN A	100.92.111.117
-			3600	RRSIG	A 13 4 3600 (
-					20220803120910 20220704120910 6893 gibbr.org.
-					fnFGvj00wyn+wpTUY57ARXLXU7BP7+XALbS7
-					hCP88Uokcye+7CSXpx8MvOBTOzGkaIqCJ1f5
-					Aeeb+qy8t3MOAg== )
-desktop.vpn.gibbr.org.	3600	IN A	100.93.8.35
-			3600	RRSIG	A 13 4 3600 (
-					20220803120910 20220704120910 6893 gibbr.org.
-					bMsJqm5WKH0YHoYYOtMY45DMxbKLsOd8WlAh
-					7mq0AIhtNfKJcGfgcEUUw49lbA8LhfTGZpj8
-					6aCifbRGiOBTlQ== )
-hp-pavilion.vpn.gibbr.org. 3600	IN A	100.91.12.120
-			3600	RRSIG	A 13 4 3600 (
-					20220803120910 20220704120910 6893 gibbr.org.
-					0puz0Dlg27iihs7Japd6OsnA95V6Eb6MsT1b
-					LnnGJJywOXwVVHD9AtSGnn6NQu95Wz+eG2QQ
-					rrkMZY2HFVRtFQ== )
-rasp-pi.vpn.gibbr.org.	3600	IN A	100.92.63.87
-			3600	RRSIG	A 13 4 3600 (
-					20220803120910 20220704120910 6893 gibbr.org.
-					T2rJdCKhDSWWWnvGQUKUvZq+hE7gS3L/UFEj
-					jq3XXtthplFiUl+lTJVTgtj71XIeMyHc5QhA
-					iZl7tFt5YO71Bg== )
-pixel-4a.vpn.gibbr.org.	3600	IN A	100.122.46.94
-			3600	RRSIG	A 13 4 3600 (
-					20220803120910 20220704120910 6893 gibbr.org.
-					q6MCWAqAcbRJj/tWgz11yJvA/GcECuHtOYuV
-					59fXXD5uOi87Ap1A2rRaDaM7DIeQu2RACam5
-					SpdlURu2GrQKpA== )
-vps.vpn.gibbr.org.	3600	IN A	100.125.253.71
-			3600	RRSIG	A 13 4 3600 (
-					20220803120910 20220704120910 6893 gibbr.org.
-					p4Rcub+B/gb2JWi2G0y9aVMXn0YElFtmVBze
-					9UDC7aNEhvfti0iV/W+pgVRDaMqvXPGQ9v01
-					Xxh395JmpSZi4g== )
 vps.gibbr.org.		3600	IN A	45.77.205.198
 			3600	RRSIG	A 13 3 3600 (
 					20220803120910 20220704120910 6893 gibbr.org.

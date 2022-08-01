@@ -7,6 +7,9 @@
     ../../secret/wifi.nix
   ];
 
+  machineColour = "red";
+  };
+
   boot.loader.grub.enable = lib.mkForce false;
 
   networking.wireless.enable = true;
@@ -22,6 +25,4 @@
     interfaces.eth0.useDHCP = true;
     interfaces.wlan0.useDHCP = true;
   };
-
-  machineColour = "red";
 }

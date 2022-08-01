@@ -1,8 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   imports = [
     ./shell.nix
+    ./vpn_addresses.nix
   ];
 
   boot.loader.grub = {
@@ -71,14 +72,10 @@
   networking = rec {
     nameservers = [ "1.1.1.1" ];
     networkmanager.dns = "none";
-    extraHosts = ''
-      100.122.46.94  pixel-4a
-      100.92.111.117 dell-xps
-      100.91.12.120  hp-pavilion
-      100.125.253.71 vps
-      100.93.8.35    desktop
-      100.110.247.52 rasp-pi
-    '';
+    extraHosts =
+      let entryToString = hostName: vpnAddress: "${vpnAddress} ${hostName}"; in
+      let entries = lib.attrsets.mapAttrsToList entryToString config.vpnAddresses; in
+      builtins.concatStringsSep "\n" entries;
   };
 
   programs = {

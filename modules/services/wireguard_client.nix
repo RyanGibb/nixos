@@ -1,4 +1,10 @@
+{ lib, config, ... }:
+
 {
+  imports = [
+    ../common/vpn_addresses.nix
+  ];
+
   networking = {
     firewall = {
         allowedUDPPorts = [ 51820 ];
@@ -7,8 +13,9 @@
 
     wireguard = {
       enable = true;
-      interfaces.wg0 = {
-        ips = [ "10.100.0.2/24" ];
+      interfaces.wg0 =
+        let vpnAddress = config.vpnAddresses.${config.networking.hostName}; in {
+        ips = [ "${vpnAddress}/24" ];
         listenPort = 51820;
 
         privateKeyFile = "/etc/nixos/secret/wireguard_key";
