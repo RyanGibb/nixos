@@ -13,6 +13,7 @@
         iptables -I FORWARD -i wg0 -o wg0 -j ACCEPT
       '';
       checkReversePath = false;
+      trustedInterfaces = [ "wg0" ];
     };
 
     wireguard = {
