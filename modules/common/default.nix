@@ -67,7 +67,6 @@
     permitRootLogin = "no";
     passwordAuthentication = false;
   };
-  services.tailscale.enable = true;
 
   networking = rec {
     nameservers = [ "1.1.1.1" ];
@@ -81,9 +80,6 @@
       100.110.247.52 rasp-pi
     '';
   };
-
-  # Strict reverse path filtering breaks Tailscale exit node use and some subnet routing setups.
-  networking.firewall.checkReversePath = "loose";
 
   programs = {
     ssh.extraConfig = ''

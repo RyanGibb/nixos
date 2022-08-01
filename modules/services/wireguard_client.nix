@@ -2,10 +2,7 @@
   networking = {
     firewall = {
         allowedUDPPorts = [ 51820 ];
-        # https://wiki.archlinux.org/title/WireGuard#Loop_routing
-        extraCommands = ''
-          ip route add 192.168.1.214 via 10.100.0.1 dev wg0
-        '';
+        checkReversePath = false;
     };
 
     wireguard = {

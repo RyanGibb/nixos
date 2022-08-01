@@ -26,7 +26,7 @@
     interfaces.enp1s0.useDHCP = true;
     firewall = {
       allowedTCPPorts = lib.mkForce [ 25 53 80 443 465 993 ];
-      allowedUDPPorts = lib.mkForce [ 53 ];
+      allowedUDPPorts = lib.mkForce [ 53 51820 ];
       trustedInterfaces = [ "tailscale0" ];
     };
   };
