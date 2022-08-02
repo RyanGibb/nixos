@@ -18,7 +18,7 @@
   boot.loader.grub= {
     enable = true;
     device = "/dev/vda";
-  }
+  };
 
   swapDevices = [ { device = "/var/swap"; size = 2048; } ];
 
