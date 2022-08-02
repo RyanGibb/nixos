@@ -12,6 +12,7 @@ let cfg = config.services.wireguard; in
         "vps" = "10.0.0.1";
         "dell-xps" = "10.0.0.2";
         "pixel-4a" = "10.0.0.3";
+        "desktop" = "10.0.0.4";
       };
     };
     enable = lib.mkOption {
