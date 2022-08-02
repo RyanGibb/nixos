@@ -11,7 +11,7 @@ in {
       example = "example.com";
       default = "gibbr.org";
     };
-  }
+  };
 
   config = {
     services.postgresql.enable = true;
