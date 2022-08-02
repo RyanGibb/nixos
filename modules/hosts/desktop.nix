@@ -10,28 +10,19 @@
     <home-manager/nixos> 
   ];
 
+  networking.hostName = "desktop";
+  machineColour = "magenta";
+
   boot.loader.grub = {
     enable = true;
     default = "saved";
     device = "nodev";
     efiSupport = true;
   };
+  
+  swapDevices = [ { device = "/swapfile"; size = 8192; } ];
 
-  networking = {
-    hostName = "desktop";
-    useDHCP = false;
-  };
-
-  users = {
-    users.ryan.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
-    users.root.hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
-  };
-
-  # Needed for Keychron K2
-  boot.extraModprobeConfig = ''
-    options hid_apple fnmode=2
-  '';
-  boot.kernelModules = [ "hid-apple" ];
+  networking.useDHCP = false;
 
   boot.supportedFilesystems = [ "ntfs" ];
 
@@ -40,14 +31,7 @@
     options = [ "nofail" "x-systemd.device-timeout=1ms" "x-systemd.automount" "x-systemd.idle-timeout=10min" ];
   };
 
-  swapDevices = [ { device = "/swapfile"; size = 8192; } ];
-
-  services.avahi = {
-    enable = true;
-    publish.enable = true;
-    publish.userServices = true;
-    nssmdns = true;
-  };
+  services.avahi.enable = true;
 
   environment.systemPackages = with pkgs; [
     pciutils
@@ -56,8 +40,6 @@
     ffmpeg
     audio-recorder
   ];
-
-  machineColour = "magenta";
 
   programs.steam.enable = true;
 }

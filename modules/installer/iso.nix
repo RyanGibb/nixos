@@ -11,14 +11,12 @@
     <home-manager/nixos>
   ];
 
-  boot.loader.grub.enable = lib.mkForce false;
   services.openssh.permitRootLogin = lib.mkForce "no";
   networking.wireless.enable = lib.mkForce false;
 
   users.users.ryan = {
-    isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" ];
-    initialHashedPassword = "";
+    initialHashedPassword = lib.mkForce "";
   };
 
   services.getty.autologinUser = lib.mkForce "ryan";

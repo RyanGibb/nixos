@@ -20,6 +20,13 @@ in {
     keyMap = "uk";
   };
 
+  # Needed for Keychron K2
+  boot.extraModprobeConfig = ''
+    options hid_apple fnmode=2
+    options i915 enable_psr=0
+  '';
+  boot.kernelModules = [ "hid-apple" ];
+
   services.xserver = {
     desktopManager.xterm.enable = false;
     displayManager.startx.enable = true;
@@ -94,6 +101,14 @@ in {
 
     xournalpp
     inkscape
+
+    kdenlive
+    tor-browser-bundle-bin
+    zoom-us
+    ffmpeg
+    audio-recorder
+    speechd
+    krop
   ];
 
   fonts.fonts = with pkgs; [
