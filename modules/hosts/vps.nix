@@ -90,5 +90,5 @@
     certs."gibbr.org".extraDomainNames = [ "www.gibbr.org" ];
   };
 
-  wireguard.server = true;
+  services.wireguard.server = true;
 }
