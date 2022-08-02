@@ -13,6 +13,7 @@ let cfg = config.services.wireguard; in
         "dell-xps" = "10.0.0.2";
         "pixel-4a" = "10.0.0.3";
         "desktop" = "10.0.0.4";
+        "rasp-pi" = "10.0.0.5";
       };
     };
     enable = lib.mkOption {

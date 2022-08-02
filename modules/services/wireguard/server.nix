@@ -39,6 +39,10 @@ let cfg = config.services.wireguard; in
           allowedIPs = [ "${cfg.addresses.desktop}/32" ];
           publicKey = "a6a+r5sFiTwrQXKpto+WXiD1tIa4SbDJKtulvjnwVzs=";
         }
+        {
+          allowedIPs = [ "${cfg.addresses.rasp-pi}/32" ];
+          publicKey = "8i0ksY8berVXX1qILC4cFQ17Djjn6Sn2HRvcfTe6Vh0=";
+        }
       ];
     };
   };
