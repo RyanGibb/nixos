@@ -12,6 +12,8 @@
     ../dns/bind.nix
   ];
 
+  services.tailscale.enable = true;
+
   networking.hostName = "vps";
   machineColour = "yellow";
 

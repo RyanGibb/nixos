@@ -15,8 +15,6 @@
   networking.hostName = "dell-xps";
   machineColour = "blue";
 
-  services.tailscale.enable = true;
-
   boot.loader.grub = {
     enable = true;
     default = "saved";
