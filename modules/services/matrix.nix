@@ -6,8 +6,8 @@ let
     in join config.networking.hostName config.services.matrix.domain;
 in {
   options.services.matrix = {
-    domain = mkOption {
-      type = types.str;
+    domain = lib.mkOption {
+      type = lib.types.str;
       example = "example.com";
       default = "gibbr.org";
     };
