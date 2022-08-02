@@ -24,14 +24,7 @@
   
   swapDevices = [ { device = "/swapfile"; size = 8192; } ];
 
-  networking.useDHCP = false;
-
   boot.supportedFilesystems = [ "ntfs" ];
-
-  fileSystems."/media/hdd" = { 
-    device = "/dev/disk/by-label/HDD";
-    options = [ "nofail" "x-systemd.device-timeout=1ms" "x-systemd.automount" "x-systemd.idle-timeout=10min" ];
-  };
 
   services.avahi.enable = true;
 
