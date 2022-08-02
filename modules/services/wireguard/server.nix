@@ -3,7 +3,7 @@
 
 let cfg = config.services.wireguard; in
 {
-  config.networking = lib.mkIf cfg.server {
+  networking = lib.mkIf cfg.server {
     nat = {
       enable = true;
       externalInterface = "enp1s0";
