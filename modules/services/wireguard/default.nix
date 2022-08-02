@@ -9,9 +9,9 @@ let cfg = config.services.wireguard; in
   options.services.wireguard = {
     addresses = lib.mkOption {
       default = {
-        "vps" = "10.100.0.1";
-        "dell-xps" = "10.100.0.2";
-        "pixel-4a" = "10.100.0.3";
+        "vps" = "10.0.0.1";
+        "dell-xps" = "10.0.0.2";
+        "pixel-4a" = "10.0.0.3";
       };
     };
     enable = lib.mkOption {
@@ -50,7 +50,7 @@ let cfg = config.services.wireguard; in
 
         peers = [
           {
-            allowedIPs = [ "10.100.0.0/24" ];
+            allowedIPs = [ "10.0.0.0/24" ];
             publicKey = "Jg/zcR6fUiyZAONqB0csIwaN8BYHa5ccfwmKN5INmA8=";
             endpoint = "45.77.205.198:51820";
             persistentKeepalive = 25;

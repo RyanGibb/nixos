@@ -5,6 +5,8 @@ let
       join = hostName: domain: hostName + lib.optionalString (domain != null) ".${domain}";
     in join config.networking.hostName config.services.matrix.domain;
 in {
+  # TODO refactor https://nixos.org/manual/nixos/stable/index.html#module-services-matrix-synapse
+
   options.services.matrix = {
     domain = lib.mkOption {
       type = lib.types.str;

@@ -6,6 +6,7 @@
     ./ssh.nix
   ];
 
+  # TODO make this repo a flake
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''
