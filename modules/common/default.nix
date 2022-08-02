@@ -3,7 +3,7 @@
 {
   imports = [
     ./shell.nix
-    ./vpn_addresses.nix
+    ./ssh.nix
   ];
 
   boot.loader.grub = {
@@ -24,9 +24,6 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # enable sudo
     shell = pkgs.zsh;
-    openssh.authorizedKeys.keyFiles = [
-      ./authorized_keys
-    ];
   };
 
   environment.systemPackages = with pkgs; [
@@ -61,45 +58,13 @@
       inhibit-lid = "systemd-inhibit --what=handle-lid-switch sleep 1d";
     };
   };
-
-  programs.mosh.enable = true;
-  services.openssh = {
-    enable = true;
-    permitRootLogin = "no";
-    passwordAuthentication = false;
-  };
-
+  
   networking = rec {
     nameservers = [ "1.1.1.1" ];
     networkmanager.dns = "none";
-    extraHosts =
-      let entryToString = hostName: vpnAddress: "${vpnAddress} ${hostName}"; in
-      let entries = lib.attrsets.mapAttrsToList entryToString config.vpnAddresses; in
-      builtins.concatStringsSep "\n" entries;
   };
 
   programs = {
-    ssh.extraConfig = ''
-      Host termux-pixel-4a
-        HostName pixel-4a
-      	User u0_a342
-        Port 8022
-
-      Host pixel-4a*
-        User nix-on-droid
-        Port 8022
-      
-      Host slogin
-      	User rtg24
-      	Hostname slogin-serv.cl.cam.ac.uk
-      
-      Host l41
-      	User root
-      	Hostname rpi4-013.advopsys.cl.cam.ac.uk
-      	IdentityFile ~/.ssh/id_rsa_rpi4-013.advopsys.cl.cam.ac.uk
-      	ProxyJump rtg24@slogin-serv.cl.cam.ac.uk
-      	ForwardAgent yes
-    '';
     git = {
       enable = true;
       config = {

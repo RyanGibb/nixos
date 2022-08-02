@@ -7,9 +7,11 @@
     ../gui/sway.nix
     ../gui/i3.nix
     ../ocaml.nix
-    ../services/wireguard_client.nix
+    ../services/wireguard/default.nix
     <home-manager/nixos>
   ];
+
+  services.tailscale.enable = true;
 
   nix = {
     package = pkgs.nixFlakes;

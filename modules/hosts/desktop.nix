@@ -6,6 +6,7 @@
     ../common/default.nix
     ../gui/sway.nix
     ../gui/i3.nix
+    ../services/wireguard/default.nix
     <home-manager/nixos> 
   ];
 

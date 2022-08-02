@@ -5,6 +5,7 @@
     ../../hardware-configuration.nix
     ../common/default.nix
     ../../secret/wifi.nix
+    ../services/wireguard/default.nix
   ];
 
   boot.loader.grub.enable = lib.mkForce false;

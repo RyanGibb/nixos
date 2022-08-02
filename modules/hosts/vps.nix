@@ -7,7 +7,7 @@
     ../services/matrix.nix
     ../services/twitcher.nix
     ../services/mailserver.nix
-    ../services/wireguard_server.nix
+    ../services/wireguard/default.nix
     ../../secret/default.nix
     ../dns/bind.nix
   ];
@@ -102,6 +102,8 @@
     dates = "weekly";
     options = "--delete-older-than 30d";
   };
+
+  wireguard.server = true;
 
   machineColour = "yellow";
 }
