@@ -35,8 +35,8 @@ let cfg = config.services.wireguard; in
       builtins.concatStringsSep "\n" entries;
 
     firewall = {
-        allowedUDPPorts = [ 51820 ];
-        checkReversePath = false;
+      allowedUDPPorts = [ 51820 ];
+      checkReversePath = false;
     };
 
     wireguard = {
@@ -52,7 +52,7 @@ let cfg = config.services.wireguard; in
           {
             allowedIPs = [ "10.100.0.0/24" ];
             publicKey = "Jg/zcR6fUiyZAONqB0csIwaN8BYHa5ccfwmKN5INmA8=";
-            endpoint = "gibbr.org:51820";
+            endpoint = "45.77.205.198:51820";
             persistentKeepalive = 25;
           }
         ];
