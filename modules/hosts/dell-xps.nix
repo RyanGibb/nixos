@@ -12,6 +12,8 @@
     <home-manager/nixos>
   ];
 
+  services.tailscale.enable = true;
+
   networking.hostName = "dell-xps";
   machineColour = "blue";
 

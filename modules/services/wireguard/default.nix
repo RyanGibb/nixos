@@ -29,35 +29,38 @@ let cfg = config.services.wireguard; in
     };
   };
 
-  config.networking = lib.mkIf config.services.wireguard.enable {
-    # populate /etc/hosts with wireguard.addresses
-    extraHosts =
-      let entryToString = hostName: address: "${address} ${hostName}"; in
-      let entries = lib.attrsets.mapAttrsToList entryToString cfg.addresses; in
-      builtins.concatStringsSep "\n" entries;
+  config = {
+    environment.systemPackages = with pkgs; [ wireguard-tools ];
+    networking = lib.mkIf config.services.wireguard.enable {
+      # populate /etc/hosts with wireguard.addresses
+      extraHosts =
+        let entryToString = hostName: address: "${address} ${hostName}"; in
+        let entries = lib.attrsets.mapAttrsToList entryToString cfg.addresses; in
+        builtins.concatStringsSep "\n" entries;
 
-    firewall = {
-      allowedUDPPorts = [ 51820 ];
-      checkReversePath = false;
-    };
+      firewall = {
+        allowedUDPPorts = [ 51820 ];
+        checkReversePath = false;
+      };
 
-    wireguard = {
-      enable = true;
-      interfaces.wg0 =
-        let address = cfg.addresses.${config.networking.hostName}; in {
-        ips = [ "${address}/24" ];
-        listenPort = 51820;
+      wireguard = {
+        enable = true;
+        interfaces.wg0 =
+          let address = cfg.addresses.${config.networking.hostName}; in {
+          ips = [ "${address}/24" ];
+          listenPort = 51820;
 
-        privateKeyFile = "/etc/nixos/secret/wireguard_key";
+          privateKeyFile = "/etc/nixos/secret/wireguard_key";
 
-        peers = [
-          {
-            allowedIPs = [ "10.0.0.0/24" ];
-            publicKey = "Jg/zcR6fUiyZAONqB0csIwaN8BYHa5ccfwmKN5INmA8=";
-            endpoint = "45.77.205.198:51820";
-            persistentKeepalive = 25;
-          }
-        ];
+          peers = [
+            {
+              allowedIPs = [ "10.0.0.0/24" ];
+              publicKey = "Jg/zcR6fUiyZAONqB0csIwaN8BYHa5ccfwmKN5INmA8=";
+              endpoint = "45.77.205.198:51820";
+              persistentKeepalive = 25;
+            }
+          ];
+        };
       };
     };
   };

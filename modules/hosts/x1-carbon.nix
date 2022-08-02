@@ -14,6 +14,8 @@
   networking.hostName = "x1-carbon";
   machineColour = "green";
 
+  services.tailscale.enable = true;
+
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''

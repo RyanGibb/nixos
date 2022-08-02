@@ -12,10 +12,10 @@
     ../dns/bind.nix
   ];
 
-  services.tailscale.enable = true;
-
   networking.hostName = "vps";
   machineColour = "yellow";
+
+  services.tailscale.enable = true;
 
   boot.loader.grub= {
     enable = true;

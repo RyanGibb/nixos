@@ -10,6 +10,8 @@
     <home-manager/nixos> 
   ];
 
+  services.tailscale.enable = true;
+
   networking.hostName = "desktop";
   machineColour = "magenta";
 
