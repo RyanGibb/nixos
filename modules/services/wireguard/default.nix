@@ -14,7 +14,7 @@ let hosts = import ./hosts.nix; in
     };
     server = lib.mkOption {
       type = with pkgs.lib.types; bool;
-      default = false;
+      default = config.networking.hostName == "vps";
     };
   };
 
@@ -39,7 +39,7 @@ let hosts = import ./hosts.nix; in
           ips = [ "${hosts.${config.networking.hostName}.ip}/24" ];
           listenPort = 51820;
           privateKeyFile = "/etc/nixos/secret/wireguard_key";
-          peers = [
+          peers = lib.mkIf !cfg.server [
             {
               allowedIPs = [ "10.0.0.0/24" ];
               publicKey = "${hosts.vps.publicKey}";

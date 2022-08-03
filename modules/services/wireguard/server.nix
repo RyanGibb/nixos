@@ -1,9 +1,9 @@
 { pkgs, lib, config, ... }:
 
-
+let cfg = config.services.wireguard; in
 let hosts = import ./hosts.nix; in
 {
-  networking = lib.mkIf (config.networking.hostName == "vps") {
+  networking = lib.mkIf cfg.server {
     nat = {
       enable = true;
       externalInterface = "enp1s0";
