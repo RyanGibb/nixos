@@ -109,6 +109,8 @@ in {
     audio-recorder
     speechd
     krop
+
+    bitwarden
   ];
 
   fonts.fonts = with pkgs; [
