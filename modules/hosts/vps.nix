@@ -71,6 +71,7 @@
     virtualHosts."gibbr.org" = {
       forceSSL = true;
       enableACME = true;
+      # TODO make gibbr.org nix derivation
       root = "/var/www/gibbr.org";
       extraConfig = ''
         error_page 403 =404 /404.html;
@@ -91,6 +92,4 @@
     acceptTerms = true;
     certs."gibbr.org".extraDomainNames = [ "www.gibbr.org" ];
   };
-
-  services.wireguard.server = true;
 }

@@ -1,4 +1,5 @@
 {
+  # TODO make zonefile nix derivation
   services.bind = {
     enable = true;
     zones."gibbr.org" = {

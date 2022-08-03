@@ -1,9 +1,9 @@
 { pkgs, lib, config, ... }:
 
 
-let cfg = config.services.wireguard; in
+let hosts = import ./hosts.nix; in
 {
-  networking = lib.mkIf cfg.server {
+  networking = lib.mkIf (config.networking.hostName == "vps") {
     nat = {
       enable = true;
       externalInterface = "enp1s0";
@@ -26,24 +26,14 @@ let cfg = config.services.wireguard; in
       #   ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.0.0.0/24 -o eth0 -j MASQUERADE
       # '';
 
-      peers = [
-        {
-          allowedIPs = [ "${cfg.addresses.dell-xps}/32" ];
-          publicKey = "+4FaBAbC8IeQz5LnA0fL2pfhhd2g5wKLse/vDTLpRxo=";
-        }
-        {
-          allowedIPs = [ "${cfg.addresses.pixel-4a}/32" ];
-          publicKey = "KPstJ3Dd8YgZ2vsu0RIzjxdZhv1RlAVw2PGqyV1+eX4=";
-        }
-        {
-          allowedIPs = [ "${cfg.addresses.desktop}/32" ];
-          publicKey = "a6a+r5sFiTwrQXKpto+WXiD1tIa4SbDJKtulvjnwVzs=";
-        }
-        {
-          allowedIPs = [ "${cfg.addresses.rasp-pi}/32" ];
-          publicKey = "8i0ksY8berVXX1qILC4cFQ17Djjn6Sn2HRvcfTe6Vh0=";
-        }
-      ];
+      # add clients
+      peers = with lib.attrsets;
+        mapAttrsToList (
+          hostName: values: {
+            allowedIPs = [ "${values.ip}/32" ];
+            publicKey = values.publicKey;
+          }
+        ) hosts;
     };
   };
 }
