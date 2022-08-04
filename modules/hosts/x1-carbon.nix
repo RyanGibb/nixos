@@ -16,13 +16,6 @@
 
   services.tailscale.enable = true;
 
-  nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-  };
-  
   boot.loader.grub = {
     enable = true;
     default = "saved";
@@ -31,6 +24,8 @@
 
   environment.systemPackages = with pkgs; [
     slack
+
+    (pkgs.callPackage ../../pkgs/opam2nix.nix { })
   ];
 
   # https://www.dell.com/community/Precision-Mobile-Workstations/WD19TBS-Issues-with-Thinkpad-X1-Carbon-Gen-6/td-p/8182725
