@@ -22,6 +22,8 @@
     device = "nodev";
   };
 
+  swapDevices = [ { device = "/swapfile"; size = 8192; } ];
+
   environment.systemPackages = with pkgs; [
     slack
 
