@@ -19,6 +19,7 @@
                 networking.hostName = "${hostname}";
                 # https://www.tweag.io/blog/2020-07-31-nixos-flakes#pinning-nixpkgs
                 nix.registry.nixpkgs.flake = nixpkgs;
+                system.stateVersion = "22.05";
               }
             ];
         };
