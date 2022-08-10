@@ -4,7 +4,7 @@
     enable = true;
     zones."gibbr.org" = {
       master = true;
-      file = "/etc/nixos/modules/dns/gibbr.org.zone.signed";
+      file = "/etc/nixos/modules/dns/gibbr.org.zone";
       # axfr zone transfer
       slaves = [
         "127.0.0.1"

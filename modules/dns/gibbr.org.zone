@@ -27,8 +27,5 @@ _dmarc          IN 10800 TXT "v=DMARC1; p=none"
 
 @               IN TXT   google-site-verification=xM7L59imw-53rUPQIWD0VSrAEa94z2WAZ-FccXqX9V0
 
-$INCLUDE Kgibbr.org.+013+06893.key
-$INCLUDE Kgibbr.org.+013+53256.key
-
 @               IN LOC  52 12 40.4 N 0 5 31.9 E 22m 10m 10m 10m 
 
