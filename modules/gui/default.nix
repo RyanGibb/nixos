@@ -1,13 +1,6 @@
 { pkgs, home-manager, ... }:
 
-# TODO use flake input
-let
-  unstable = import (builtins.fetchTarball {
-    name = "nixos-unstable-2022-05-27";
-    url = "https://github.com/nixos/nixpkgs/archive/5ce6597eca7d7b518c03ecda57d45f9404b5e060.tar.gz";
-    sha256 = "1hs1lnnbp1dky3nfp7xlricpp5c63sr46jyrnvykci8bl8jnxnl3";
-  }) { config = { allowUnfree = true; }; };
-in {
+{
   imports = [
     home-manager.nixosModule
   ];
@@ -84,11 +77,11 @@ in {
     thunderbird
     element-desktop
     signal-desktop
-    unstable.zotero
-    unstable.obsidian
+    pkgs.unstable.zotero
+    pkgs.unstable.obsidian
     spotify
     gparted
-    unstable.vscodium
+    pkgs.unstable.vscodium
     vlc
     gimp
     go
