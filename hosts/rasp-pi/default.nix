@@ -2,10 +2,10 @@
 
 {
   imports = [
-    ../hardware-configuration.nix
-    ../modules/common/default.nix
-    ../modules/../secret/wifi.nix
-    ../modules/services/wireguard/default.nix
+    ./hardware-configuration.nix
+    ../../modules/common/default.nix
+    ../../modules/../secret/wifi.nix
+    ../../modules/services/wireguard/default.nix
   ];
 
   machineColour = "red";

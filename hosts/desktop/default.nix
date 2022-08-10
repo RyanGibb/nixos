@@ -2,11 +2,11 @@
 
 {
   imports = [
-    ../hardware-configuration.nix
-    ../modules/common/default.nix
-    ../modules/gui/sway.nix
-    ../modules/gui/i3.nix
-    ../modules/services/wireguard/default.nix
+    ./hardware-configuration.nix
+    ../../modules/common/default.nix
+    ../../modules/gui/sway.nix
+    ../../modules/gui/i3.nix
+    ../../modules/services/wireguard/default.nix
   ];
 
   services.tailscale.enable = true;

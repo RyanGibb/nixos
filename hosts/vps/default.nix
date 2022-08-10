@@ -2,14 +2,14 @@
 
 {
   imports = [
-    ../hardware-configuration.nix
-    ../modules/common/default.nix
-    ../modules/services/matrix.nix
-    ../modules/services/twitcher.nix
-    ../modules/services/mailserver.nix
-    ../modules/services/wireguard/default.nix
-    ../modules/../secret/default.nix
-    ../modules/dns/bind.nix
+    ./hardware-configuration.nix
+    ../../modules/common/default.nix
+    ../../modules/services/matrix.nix
+    ../../modules/services/twitcher.nix
+    ../../modules/services/mailserver.nix
+    ../../modules/services/wireguard/default.nix
+    ../../modules/../secret/default.nix
+    ../../modules/dns/bind.nix
   ];
 
   machineColour = "yellow";
