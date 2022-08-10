@@ -2,17 +2,15 @@
 
 {
   imports = [
-    ../../hardware-configuration.nix
-    ../common/default.nix
-    ../gui/sway.nix
-    ../gui/i3.nix
-    ../services/wireguard/default.nix
-    <home-manager/nixos> 
+    ../hardware-configuration.nix
+    ../modules/common/default.nix
+    ../modules/gui/sway.nix
+    ../modules/gui/i3.nix
+    ../modules/services/wireguard/default.nix
   ];
 
   services.tailscale.enable = true;
 
-  networking.hostName = "desktop";
   machineColour = "magenta";
 
   boot.loader.grub = {

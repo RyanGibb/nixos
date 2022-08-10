@@ -1,5 +1,3 @@
-hardware-configuration.nix
-/configuration.nix
-/nix-on-droid.nix
+# TODO move to secret repo so don't have to use `--impure` flag when building
 secret*
 *private

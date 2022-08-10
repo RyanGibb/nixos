@@ -6,12 +6,8 @@
     ./ssh.nix
   ];
 
-  # TODO make this repo a flake
   nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+    settings.experimental-features = [ "nix-command" "flakes" ];
     autoOptimiseStore = true;
     gc = {
       automatic = true;
@@ -70,6 +66,10 @@
       ssh = "TERM=xterm ssh";
       nix-shell = "nix-shell --command zsh";
       inhibit-lid = "systemd-inhibit --what=handle-lid-switch sleep 1d";
+    };
+    sessionVariables = {
+      NIX_AUTO_RUN = "y";
+      NIX_AUTO_RUN_INTERACTIVE = "y";
     };
   };
   
@@ -151,5 +151,4 @@
   };
 
   system.copySystemConfiguration = true;
-  system.stateVersion = "22.05";
 }

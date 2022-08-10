@@ -2,13 +2,12 @@
 
 {
   imports = [
-    ../../hardware-configuration.nix
-    ../common/default.nix
-    ../../secret/wifi.nix
-    ../services/wireguard/default.nix
+    ../hardware-configuration.nix
+    ../modules/common/default.nix
+    ../modules/../secret/wifi.nix
+    ../modules/services/wireguard/default.nix
   ];
 
-  networking.hostName = "rasp-pi";
   machineColour = "red";
 
   networking.wireless.enable = true;

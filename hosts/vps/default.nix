@@ -2,17 +2,16 @@
 
 {
   imports = [
-    ../../hardware-configuration.nix
-    ../common/default.nix
-    ../services/matrix.nix
-    ../services/twitcher.nix
-    ../services/mailserver.nix
-    ../services/wireguard/default.nix
-    ../../secret/default.nix
-    ../dns/bind.nix
+    ../hardware-configuration.nix
+    ../modules/common/default.nix
+    ../modules/services/matrix.nix
+    ../modules/services/twitcher.nix
+    ../modules/services/mailserver.nix
+    ../modules/services/wireguard/default.nix
+    ../modules/../secret/default.nix
+    ../modules/dns/bind.nix
   ];
 
-  networking.hostName = "vps";
   machineColour = "yellow";
 
   services.tailscale.enable = true;

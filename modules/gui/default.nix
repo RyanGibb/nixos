@@ -1,5 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, home-manager, ... }:
 
+# TODO use flake input
 let
   unstable = import (builtins.fetchTarball {
     name = "nixos-unstable-2022-05-27";
@@ -7,6 +8,10 @@ let
     sha256 = "1hs1lnnbp1dky3nfp7xlricpp5c63sr46jyrnvykci8bl8jnxnl3";
   }) { config = { allowUnfree = true; }; };
 in {
+  imports = [
+    home-manager.nixosModule
+  ];
+
   networking.networkmanager.enable = true;
   programs.nm-applet = {
     enable = true;

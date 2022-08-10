@@ -1,17 +1,15 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
-    ../../hardware-configuration.nix
-    ../common/default.nix
-    ../common/laptop.nix
-    ../gui/sway.nix
-    ../gui/i3.nix
-    ../ocaml.nix
-    <home-manager/nixos>
+    ./hardware-configuration.nix
+    ../../modules/common/default.nix
+    ../../modules/common/laptop.nix
+    ../../modules/gui/sway.nix
+    ../../modules/gui/i3.nix
+    ../../modules/ocaml.nix
   ];
 
-  networking.hostName = "x1-carbon";
   machineColour = "green";
 
   services.tailscale.enable = true;
@@ -21,8 +19,6 @@
     default = "saved";
     device = "nodev";
   };
-
-  swapDevices = [ { device = "/swapfile"; size = 8192; } ];
 
   environment.systemPackages = with pkgs; [
     slack

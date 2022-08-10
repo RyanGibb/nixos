@@ -2,19 +2,17 @@
 
 {
   imports = [
-    ../../hardware-configuration.nix
-    ../common/default.nix
-    ../common/laptop.nix
-    ../gui/sway.nix
-    ../gui/i3.nix
-    ../ocaml.nix
-    ../services/wireguard/default.nix
-    <home-manager/nixos>
+    ../hardware-configuration.nix
+    ../modules/common/default.nix
+    ../modules/common/laptop.nix
+    ../modules/gui/sway.nix
+    ../modules/gui/i3.nix
+    ../modules/ocaml.nix
+    ../modules/services/wireguard/default.nix
   ];
 
   services.tailscale.enable = true;
 
-  networking.hostName = "dell-xps";
   machineColour = "blue";
 
   boot.loader.grub = {
