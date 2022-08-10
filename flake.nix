@@ -10,7 +10,7 @@
       let
         hosts = builtins.attrNames (builtins.readDir ./hosts);
         mkHost = hostname: nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+          system = builtins.readFile ./hosts/${hostname}/system;
           specialArgs = inputs;
           modules =
             [
