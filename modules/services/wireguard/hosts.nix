@@ -24,7 +24,7 @@
     server = false;
   };
   "x1-carbon" = {
-    ip = "10.0.1.1";
+    ip = "10.0.0.10";
     publicKey = "UzaLkLegmxoKQaq5xsAxa8/2qdVoGMfcU46xmiT2/Q0=";
     server = false;
   };
