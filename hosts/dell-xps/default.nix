@@ -7,6 +7,7 @@
     ../../modules/common/laptop.nix
     ../../modules/gui/sway.nix
     ../../modules/gui/i3.nix
+    ../../modules/gui/extra.nix
     ../../modules/ocaml.nix
     ../../modules/services/wireguard/default.nix
   ];

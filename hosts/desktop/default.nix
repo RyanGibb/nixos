@@ -6,6 +6,7 @@
     ../../modules/common/default.nix
     ../../modules/gui/sway.nix
     ../../modules/gui/i3.nix
+    ../../modules/gui/extra.nix
     ../../modules/services/wireguard/default.nix
   ];
 

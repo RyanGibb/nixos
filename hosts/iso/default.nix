@@ -1,14 +1,14 @@
-{ config, lib, ...}:
+{ config, lib, nixpkgs, ... }:
 
 {
   imports = [
-    <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-base.nix>
-    <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
-    ../common/default.nix
-    ../gui/sway.nix
-    ../gui/i3.nix
-    ../../secret/wifi.nix
-    <home-manager/nixos>
+    "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
+    "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+    ../../modules/common/default.nix
+    ../../modules/gui/sway.nix
+    ../../modules/gui/i3.nix
+    # TODO secrets repo
+    # ../../secret/wifi.nix
   ];
 
   services.openssh.permitRootLogin = lib.mkForce "no";

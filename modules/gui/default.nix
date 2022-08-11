@@ -63,6 +63,9 @@
     feh
     libnotify
 
+    # https://nixos.wiki/wiki/PipeWire#pactl_not_found
+    pulseaudio
+
     (firefox.override {
       cfg = {
         enableTridactylNative = true;
@@ -70,41 +73,9 @@
     })
     tridactyl-native
     chromium
-    thunderbird
-    element-desktop
-    signal-desktop
-    pkgs.unstable.zotero
-    pkgs.unstable.obsidian
-    spotify
     gparted
-    pkgs.unstable.vscodium
     vlc
-    gimp
-    go
-    texlive.combined.scheme-full
-    evince
-    pdfpc
-    calibre
-    transmission
-    transmission-gtk
-    drive
-    libreoffice
-    obs-studio
-    # https://nixos.wiki/wiki/PipeWire#pactl_not_found
-    pulseaudio
-
-    xournalpp
-    inkscape
-
-    kdenlive
-    tor-browser-bundle-bin
-    zoom-us
-    ffmpeg
-    audio-recorder
-    speechd
-    krop
-
-    bitwarden
+    pkgs.unstable.vscodium
   ];
 
   fonts.fonts = with pkgs; [

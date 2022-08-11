@@ -5,7 +5,7 @@
     home-manager.url = "github:nix-community/home-manager/release-22.05";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager }: {
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager }@inputs: {
     overlays.unstable = final: prev: {
       unstable = import nixpkgs-unstable { config.allowUnfree = true; };
     };
@@ -15,13 +15,12 @@
         hosts = builtins.attrNames (builtins.readDir ./hosts);
         mkHost = hostname: nixpkgs.lib.nixosSystem {
           system = builtins.readFile ./hosts/${hostname}/system;
+          specialArgs = inputs;
           modules =
             [
               ./hosts/${hostname}/default.nix
+              home-manager.nixosModule
               {
-                imports = [
-                  home-manager.nixosModule
-                ];
                 networking.hostName = "${hostname}";
                 # https://www.tweag.io/blog/2020-07-31-nixos-flakes#pinning-nixpkgs
                 nix.registry.nixpkgs.flake = nixpkgs;
