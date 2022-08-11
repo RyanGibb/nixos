@@ -32,4 +32,7 @@
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
   '';
+
+  # https://github.com/swaywm/sway/issues/5315
+  # WLR_DRM_NO_MODIFIERS = 1;
 }

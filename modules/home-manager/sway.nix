@@ -40,8 +40,6 @@ let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
     QT_STYLE_OVERRIDE = "Fusion";
     TERMINAL = "alacritty";
     WLR_NO_HARDWARE_CURSORS = 1;
-    # https://github.com/swaywm/sway/issues/5315
-    WLR_DRM_NO_MODIFIERS = 1;
     NIXOS_OZONE_WL = 1;
 
     # for intellij
