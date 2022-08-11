@@ -23,6 +23,11 @@
     publicKey = "8i0ksY8berVXX1qILC4cFQ17Djjn6Sn2HRvcfTe6Vh0=";
     server = false;
   };
+  "t460s" = {
+    ip = "10.0.0.6";
+    publicKey = "W01RYQUZbJ4NJc24U3JbaX9yCGLd62/4gwXBwSUSewE=";
+    server = false;
+  };
   "x1-carbon" = {
     ip = "10.0.0.10";
     publicKey = "cqf9NIj4sduelESZoU1suqhegy5+Jr2sSN6a5fvKQis=";
