@@ -8,6 +8,7 @@
     ../../modules/gui/sway.nix
     ../../modules/gui/i3.nix
     ../../modules/ocaml.nix
+    ../../modules/services/wireguard/default.nix
   ];
 
   machineColour = "green";

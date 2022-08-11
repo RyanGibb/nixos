@@ -23,4 +23,9 @@
     publicKey = "8i0ksY8berVXX1qILC4cFQ17Djjn6Sn2HRvcfTe6Vh0=";
     server = false;
   };
+  "x1-carbon" = {
+    ip = "10.0.1.1";
+    publicKey = "UzaLkLegmxoKQaq5xsAxa8/2qdVoGMfcU46xmiT2/Q0=";
+    server = false;
+  };
 }
