@@ -1,10 +1,6 @@
-{ pkgs, home-manager, ... }:
+{ pkgs, ... }:
 
 {
-  imports = [
-    home-manager.nixosModule
-  ];
-
   networking.networkmanager.enable = true;
   programs.nm-applet = {
     enable = true;

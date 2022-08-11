@@ -15,11 +15,13 @@
         hosts = builtins.attrNames (builtins.readDir ./hosts);
         mkHost = hostname: nixpkgs.lib.nixosSystem {
           system = builtins.readFile ./hosts/${hostname}/system;
-          specialArgs.home-manager = home-manager;
           modules =
             [
               ./hosts/${hostname}/default.nix
               {
+                imports = [
+                  home-manager.nixosModule
+                ];
                 networking.hostName = "${hostname}";
                 # https://www.tweag.io/blog/2020-07-31-nixos-flakes#pinning-nixpkgs
                 nix.registry.nixpkgs.flake = nixpkgs;

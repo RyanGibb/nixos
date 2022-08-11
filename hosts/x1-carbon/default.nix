@@ -34,5 +34,5 @@
   '';
 
   # https://github.com/swaywm/sway/issues/5315
-  # WLR_DRM_NO_MODIFIERS = 1;
+  home-manager.users.ryan.home.sessionVariables.WLR_DRM_NO_MODIFIERS = 1;
 }
