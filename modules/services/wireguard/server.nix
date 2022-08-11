@@ -10,9 +10,9 @@ let hosts = import ./hosts.nix; in
       internalInterfaces = [ "wg0" ];
     };
     firewall = {
-      #extraCommands = ''
-      #  iptables -I FORWARD -i wg0 -o wg0 -j ACCEPT
-      #'';
+      extraCommands = ''
+        iptables -I FORWARD -i wg0 -o wg0 -j ACCEPT
+      '';
       trustedInterfaces = [ "wg0" ];
     };
 
