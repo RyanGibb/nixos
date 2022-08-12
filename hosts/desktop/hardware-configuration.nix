@@ -18,14 +18,14 @@
       fsType = "ext4";
     };
 
-  fileSystems."/media/hdd" =
-    { device = "systemd-1";
-      fsType = "autofs";
-    };
-
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/1A24-F5E7";
       fsType = "vfat";
+    };
+
+  fileSystems."/media/hdd" =
+    { device = "/dev/disk/by-label/HDD";
+      options = [ "nofail" "x-systemd.device-timeout=1ms" "x-systemd.automount" "x-systemd.idle-timeout=10min" ];
     };
 
   swapDevices = [ ];
