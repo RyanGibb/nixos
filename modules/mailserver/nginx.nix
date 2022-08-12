@@ -25,16 +25,19 @@ let
 in
 {
   config = lib.mkIf (cfg.enable && cfg.certificateScheme == 3) {
-    #services.nginx = {
-    #  enable = true;
-    #  virtualHosts."${cfg.fqdn}" = {
-    #    serverName = cfg.fqdn;
-    #    serverAliases = cfg.certificateDomains;
-    #    forceSSL = true;
-    #    enableACME = true;
-    #    acmeRoot = acmeRoot;
-    #  };
-    #};
+    services.nginx = {
+      enable = true;
+      virtualHosts."${cfg.fqdn}" = {
+        serverName = cfg.fqdn;
+        serverAliases = cfg.certificateDomains;
+        forceSSL = true;
+        enableACME = true;
+        acmeRoot = acmeRoot;
+        extraConfig = ''
+          return 301 $scheme://gibbr.org$request_uri;
+        '';
+      };
+    };
 
     security.acme.certs."${cfg.fqdn}".reloadServices = [
       "postfix.service"
