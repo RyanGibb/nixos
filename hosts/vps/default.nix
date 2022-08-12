@@ -85,8 +85,10 @@
       '';
     };
     virtualHosts."_.gibbr.org" = {
+      addSSL = true;
+      useACMEHost = "gibbr.org";
       extraConfig = ''
-        return 404;
+        return 301 $scheme://gibbr.org$request_uri;
       '';
     };
   };
