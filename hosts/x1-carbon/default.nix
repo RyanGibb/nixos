@@ -25,7 +25,7 @@
   environment.systemPackages = with pkgs; [
     slack
 
-    (pkgs.callPackage ../../pkgs/opam2nix.nix { })
+    # (pkgs.callPackage ../../pkgs/opam2nix.nix { })
   ];
 
   # https://www.dell.com/community/Precision-Mobile-Workstations/WD19TBS-Issues-with-Thinkpad-X1-Carbon-Gen-6/td-p/8182725

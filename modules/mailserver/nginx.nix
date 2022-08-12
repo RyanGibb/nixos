@@ -25,16 +25,16 @@ let
 in
 {
   config = lib.mkIf (cfg.enable && cfg.certificateScheme == 3) {
-    services.nginx = {
-      enable = true;
-      virtualHosts."${cfg.fqdn}" = {
-        serverName = cfg.fqdn;
-        serverAliases = cfg.certificateDomains;
-        forceSSL = true;
-        enableACME = true;
-        acmeRoot = acmeRoot;
-      };
-    };
+    #services.nginx = {
+    #  enable = true;
+    #  virtualHosts."${cfg.fqdn}" = {
+    #    serverName = cfg.fqdn;
+    #    serverAliases = cfg.certificateDomains;
+    #    forceSSL = true;
+    #    enableACME = true;
+    #    acmeRoot = acmeRoot;
+    #  };
+    #};
 
     security.acme.certs."${cfg.fqdn}".reloadServices = [
       "postfix.service"
