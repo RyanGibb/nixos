@@ -33,9 +33,6 @@ in
         forceSSL = true;
         enableACME = true;
         acmeRoot = acmeRoot;
-        extraConfig = ''
-          return 301 $scheme://gibbr.org$request_uri;
-        '';
       };
     };
 

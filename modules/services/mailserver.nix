@@ -1,3 +1,5 @@
+{ config, ... }:
+
 {
   imports = [
     ../mailserver/default.nix
@@ -30,4 +32,8 @@
 
     localDnsResolver = false;
   };
+
+  services.nginx.virtualHosts."${config.mailserver.fqdn}".extraConfig = ''
+    return 301 $scheme://gibbr.org$request_uri;
+  '';
 }
