@@ -74,7 +74,7 @@
   };
   
   networking = rec {
-    nameservers = [ "ns1.gibbr.org" ];
+    nameservers = [ "45.77.205.198" ];
     networkmanager.dns = "none";
   };
 
