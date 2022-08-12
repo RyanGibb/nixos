@@ -84,6 +84,11 @@
         return 301 $scheme://gibbr.org$request_uri;
       '';
     };
+    virtualHosts."_.gibbr.org" = {
+      extraConfig = ''
+        return 404;
+      '';
+    };
   };
 
   security.acme = {
