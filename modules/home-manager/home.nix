@@ -114,8 +114,6 @@
         bind yd tabduplicate
         bind <C-`> buffer #
       '';
-      # better version of `system.copySystemConfiguration = true;`
-      "nixos".source = /etc/nixos;
     };
     userDirs = {
       enable = true;
