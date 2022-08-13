@@ -6,15 +6,14 @@
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager }@inputs: {
-    overlays.unstable = final: prev: {
-      unstable = import nixpkgs-unstable { config.allowUnfree = true; };
-    };
 
     nixosConfigurations =
       let
         hosts = builtins.attrNames (builtins.readDir ./hosts);
-        mkHost = hostname: nixpkgs.lib.nixosSystem {
-          system = builtins.readFile ./hosts/${hostname}/system;
+        mkHost = hostname:
+          let system = builtins.readFile ./hosts/${hostname}/system; in
+        nixpkgs.lib.nixosSystem {
+          inherit system;
           specialArgs = inputs;
           modules =
             [
@@ -25,7 +24,10 @@
                 # https://www.tweag.io/blog/2020-07-31-nixos-flakes#pinning-nixpkgs
                 nix.registry.nixpkgs.flake = nixpkgs;
                 # https://nixos.wiki/wiki/Flakes#Importing_packages_from_multiple_channels
-                nixpkgs.overlays = [ self.overlays.unstable ];
+                nixpkgs.overlays =
+                  let overlay-unstable = final: prev: {
+                    unstable = import nixpkgs-unstable { config.allowUnfree = true; inherit system; };
+                  }; in [ overlay-unstable ];
                 system.stateVersion = "22.05";
               }
             ];
