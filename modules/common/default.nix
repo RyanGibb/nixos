@@ -150,6 +150,4 @@
       bind L lock-session
     '';
   };
-
-  system.copySystemConfiguration = true;
 }
