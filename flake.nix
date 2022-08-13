@@ -11,10 +11,16 @@
       let
         hosts = builtins.attrNames (builtins.readDir ./hosts);
         mkHost = hostname:
-          let system = builtins.readFile ./hosts/${hostname}/system; in
+        let system = builtins.readFile ./hosts/${hostname}/system; in
         nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = inputs;
+          pkgs =
+            let nixpkgs-config = { inherit system; config.allowUnfree = true; }; in
+            import nixpkgs (
+              nixpkgs-config //
+              { overlays = [ (final: prev: { unstable = import nixpkgs-unstable nixpkgs-config; }) ]; }
+            );
           modules =
             [
               ./hosts/${hostname}/default.nix
@@ -23,15 +29,10 @@
                 networking.hostName = "${hostname}";
                 # https://www.tweag.io/blog/2020-07-31-nixos-flakes#pinning-nixpkgs
                 nix.registry.nixpkgs.flake = nixpkgs;
-                # https://nixos.wiki/wiki/Flakes#Importing_packages_from_multiple_channels
-                nixpkgs.overlays =
-                  let overlay-unstable = final: prev: {
-                    unstable = import nixpkgs-unstable { config.allowUnfree = true; inherit system; };
-                  }; in [ overlay-unstable ];
                 system.stateVersion = "22.05";
               }
             ];
-        };
+          };
       in nixpkgs.lib.genAttrs hosts mkHost;
-  };
-}
+    };
+  }
