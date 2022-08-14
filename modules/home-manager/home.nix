@@ -113,9 +113,10 @@
         set modeindicator false
         bind yd tabduplicate
         bind <C-`> buffer #
-        bind i hint -JFc [id] e => {tri.excmds.yank(e.id)}
-        bind I hint -JF e => {tri.excmds.yank(e.href)}
         bind e hint -JF e => {tri.excmds.tabopen("-b",e.href); e.remove()}`
+        bind I hint -JFc [id] e => { tri.excmds.yank(e.id) }
+        bind i hint -JFc [id] e => { tri.excmds.yank(document.URL + "#" + e.id) }
+        # ;y
       '';
     };
     userDirs = {
