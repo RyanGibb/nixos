@@ -35,3 +35,7 @@ let g:auto_save_silent = 0
 
 set rtp^="/home/ryan/.opam/default/share/ocp-indent/vim"
 
+" https://stackoverflow.com/questions/9952031/how-to-swap-the-semicolon-and-colon-keys-in-normal-mode-mappings-in-vim
+noremap ; :
+noremap : ;
+
