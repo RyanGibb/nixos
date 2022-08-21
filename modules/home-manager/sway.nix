@@ -10,7 +10,6 @@ let replacements = {
   '';
   locked = "--locked";
   polkit_gnome = "${pkgs.polkit_gnome}";
-  geoclue2 = "${pkgs.geoclue2}";
   set_wallpaper = ''
     swaymsg "output * bg $WALLPAPER_DIR/default fill #2e3440"
   '';

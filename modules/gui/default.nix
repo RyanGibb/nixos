@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, nixpkgs-unstable, ... }:
 
 {
   networking.networkmanager.enable = true;
@@ -7,8 +7,19 @@
     indicator = true;
   };
 
-  time.timeZone = "Europe/London";
-  services.localtime.enable = true;
+  # used localtimed that is fixed in unstable
+  # https://discourse.nixos.org/t/how-to-use-service-definitions-from-unstable-channel/14767
+  disabledModules = [ "services/system/localtime.nix" ];
+  imports = [
+    "${nixpkgs-unstable}/nixos/modules/services/system/localtimed.nix"
+    "${nixpkgs-unstable}/nixos/modules/services/system/localtimed.nix"
+  ];
+  ids.uids.localtimed = 325;
+  ids.gids.localtimed = 325;
+  # once merged into 22.05 delete the above 9 lines
+  services.localtimed.enable = true;
+
+
   i18n.defaultLocale = "en_GB.UTF-8";
   console = {
     font = "Lat2-Terminus16";

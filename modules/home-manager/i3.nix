@@ -8,7 +8,6 @@ let replacements = {
   bar_extra = "";
   locked = "";
   polkit_gnome = "${pkgs.polkit_gnome}";
-  geoclue2 = "${pkgs.geoclue2}";
   wallpaper = ''
   '';
   set_wallpaper = ''
