@@ -4,7 +4,7 @@
   environment.systemPackages = with pkgs; [
     ocaml
     opam
-    dune_2
+    dune_3
     ocamlPackages.utop
     pkg-config
     gcc
