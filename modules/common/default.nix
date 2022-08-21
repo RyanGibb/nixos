@@ -55,6 +55,7 @@
       fzf
       tcpdump
       sshfs
+      nix-index
     ];
     variables.EDITOR = "nvim";
     shellAliases = {
