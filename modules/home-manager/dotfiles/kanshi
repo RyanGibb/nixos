@@ -58,3 +58,9 @@ profile {
 	exec ~/.config/sway/scripts/swayidle_dpms.sh
 }
 
+profile {
+	output "Unknown 0x2036 0x00000000" mode 2560x1440@60Hz scale 1.5 position 0,0
+	output "Samsung Electric Company U32J59x H4ZN401011" mode 3840x2160@60Hz position 1707,0 scale 1.5
+	exec ~/.config/sway/scripts/swayidle_lock.sh
+}
+
