@@ -56,6 +56,7 @@
       tcpdump
       sshfs
       nix-index
+      nix-tree
     ];
     variables.EDITOR = "nvim";
     shellAliases = {
@@ -83,6 +84,9 @@
   programs.git = {
     enable = true;
     config = {
+      init = {
+        defaultBranch = "main";
+      };
       user = {
         email = "ryan@gibbr.org";
         name = "Ryan Gibb";
