@@ -4,6 +4,7 @@
   imports = [
     ./shell.nix
     ./ssh.nix
+    ./nix-tree.nix
   ];
 
   nix = {
@@ -55,7 +56,6 @@
       fzf
       tcpdump
       sshfs
-      nix-index
       nix-tree
     ];
     variables.EDITOR = "nvim";
