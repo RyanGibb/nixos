@@ -36,4 +36,9 @@
   ];
 
   programs.steam.enable = true;
+
+  # uncomment to enable nvidia drivers instead of nouveau
+  #services.xserver.videoDrivers = [ "nvidia" ];
+
+  #hardware.opengl.enable = true;
 }
