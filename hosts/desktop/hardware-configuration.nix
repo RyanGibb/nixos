@@ -7,8 +7,11 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
+  # kvm for virtualisation, wl for broadcom_sta kernel module
   boot.kernelModules = [ "kvm-intel" "wl" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
+  # loading bcma/b43 at the same time as wl seems to cause issues
+  boot.blacklistedKernelModules = [ "bcma" "b43" ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/bcdaa4ef-d5c4-4427-9000-aa3ba8614129";
