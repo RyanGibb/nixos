@@ -18,6 +18,7 @@
   ids.gids.localtimed = 325;
   # once merged into 22.05 delete the above 9 lines
   services.localtimed.enable = true;
+  services.geoclue2.enable = true;
 
 
   i18n.defaultLocale = "en_GB.UTF-8";
