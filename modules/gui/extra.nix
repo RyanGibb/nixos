@@ -5,8 +5,8 @@
     thunderbird
     element-desktop
     signal-desktop
-    pkgs.unstable.zotero
-    pkgs.unstable.obsidian
+    unstable.zotero
+    unstable.obsidian
     spotify
     gimp
     texlive.combined.scheme-full
