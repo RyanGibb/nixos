@@ -9,6 +9,7 @@
 
   # used localtimed that is fixed in unstable
   # https://discourse.nixos.org/t/how-to-use-service-definitions-from-unstable-channel/14767
+  # TODO use localtime package from unstable
   disabledModules = [ "services/system/localtime.nix" ];
   imports = [
     "${nixpkgs-unstable}/nixos/modules/services/system/localtimed.nix"
