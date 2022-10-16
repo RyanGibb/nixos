@@ -46,6 +46,6 @@ interval=persist
 interval=10
 
 [time]
-command=date "+%a %d/%m/%y %I:%M:%S%p"
+command=date "+%a %Y-%m-%d %I:%M:%S%p"
 interval=1
 
