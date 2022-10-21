@@ -21,8 +21,8 @@
             let overlays = [
               (final: prev: {
                 unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
+                "gibbr.org" = gibbrdotorg.packages.${system}.defaultPackage;
               })
-              gibbrdotorg.overlays.default
             ]; in
             import nixpkgs { inherit overlays system; config.allowUnfree = true; };
           modules =
