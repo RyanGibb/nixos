@@ -13,20 +13,18 @@
       let
         hosts = builtins.attrNames (builtins.readDir ./hosts);
         mkHost = hostname:
-        let
-          system = builtins.readFile ./hosts/${hostname}/system;
-          overlays = [ gibbrdotorg.overlay ];
-        in
+        let system = builtins.readFile ./hosts/${hostname}/system; in
         nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = inputs;
           pkgs =
-            import nixpkgs (
-              { inherit overlays system; config.allowUnfree = true; } //
-              { overlays = [ (final: prev: { unstable =
-                import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
-              }) ]; }
-            );
+            let overlays = [
+              (final: prev: {
+                unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
+              })
+              gibbrdotorg.overlay
+            ]; in
+            import nixpkgs { inherit overlays system; config.allowUnfree = true; };
           modules =
             [
               ./hosts/${hostname}/default.nix
