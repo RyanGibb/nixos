@@ -21,7 +21,8 @@
             let overlays = [
               (final: prev: {
                 unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
-                "gibbr.org" = gibbrdotorg.packages.${system}.default;
+                # To add package from flake
+                #<package name> = <input flake>.packages.${system}.default;
               })
             ]; in
             import nixpkgs { inherit overlays system; config.allowUnfree = true; };
@@ -37,6 +38,7 @@
                 # record git revision (can be queried with `nixos-version --json)
                 system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
               }
+              gibbrdotorg.nixosModules."gibbr.org"
             ];
           };
       in nixpkgs.lib.genAttrs hosts mkHost;
