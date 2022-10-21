@@ -15,7 +15,7 @@
         let system = builtins.readFile ./hosts/${hostname}/system; in
         nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = inputs;
+          _module.args = inputs;
           pkgs =
             let nixpkgs-config = { inherit system; config.allowUnfree = true; }; in
             import nixpkgs (
