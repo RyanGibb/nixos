@@ -22,7 +22,7 @@
               (final: prev: {
                 unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
               })
-              gibbrdotorg.overlay
+              gibbrdotorg.overlays.default
             ]; in
             import nixpkgs { inherit overlays system; config.allowUnfree = true; };
           modules =
