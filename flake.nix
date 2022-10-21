@@ -15,7 +15,7 @@
         mkHost = hostname:
         let
           system = builtins.readFile ./hosts/${hostname}/system;
-          overlays = gibbrdotorg.overlay;
+          overlays = [ gibbrdotorg.overlay ];
         in
         nixpkgs.lib.nixosSystem {
           inherit system;
