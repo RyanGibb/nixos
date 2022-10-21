@@ -4,23 +4,28 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-22.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    gibbrdotorg.url = "github:RyanGibb/gibbr.org";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager }@inputs: {
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, gibbrdotorg }@inputs: {
 
     nixosConfigurations =
       let
         hosts = builtins.attrNames (builtins.readDir ./hosts);
         mkHost = hostname:
-        let system = builtins.readFile ./hosts/${hostname}/system; in
+        let
+          system = builtins.readFile ./hosts/${hostname}/system;
+          overlays = gibbrdotorg.overlay;
+        in
         nixpkgs.lib.nixosSystem {
           inherit system;
           _module.args = inputs;
           pkgs =
-            let nixpkgs-config = { inherit system; config.allowUnfree = true; }; in
             import nixpkgs (
-              nixpkgs-config //
-              { overlays = [ (final: prev: { unstable = import nixpkgs-unstable nixpkgs-config; }) ]; }
+              { inherit overlays system; config.allowUnfree = true; } //
+              { overlays = [ (final: prev: { unstable =
+                import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
+              }) ]; }
             );
           modules =
             [
