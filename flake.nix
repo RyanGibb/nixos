@@ -19,7 +19,7 @@
         in
         nixpkgs.lib.nixosSystem {
           inherit system;
-          _module.args = inputs;
+          specialArgs = inputs;
           pkgs =
             import nixpkgs (
               { inherit overlays system; config.allowUnfree = true; } //
