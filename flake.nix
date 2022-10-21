@@ -22,8 +22,8 @@
             let overlays = [
               (final: prev: {
                 unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
-                # To add package from flake
-                #<package name> = <input flake>.packages.${system}.default;
+                # `gibbrdotorg.nixosModules.default` uses `pkgs."gibbr.org"`
+                "gibbr.org" = gibbrdotorg.packages.${system}.default;
               })
             ]; in
             import nixpkgs { inherit overlays system; config.allowUnfree = true; };
