@@ -39,7 +39,7 @@
                 # record git revision (can be queried with `nixos-version --json)
                 system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
               }
-              gibbrdotorg.nixosModules."gibbr.org"
+              gibbrdotorg.nixosModules.default
             ];
           };
       in nixpkgs.lib.genAttrs hosts mkHost;
