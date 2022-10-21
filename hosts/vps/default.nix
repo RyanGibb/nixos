@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -65,13 +65,15 @@
     '';
   };
 
+  # services."gibbr.org".enable = true;
+
   services.nginx = {
     enable = true;
     virtualHosts."gibbr.org" = {
       forceSSL = true;
       enableACME = true;
       # TODO make gibbr.org nix derivation
-      root = "${pkgs.gibbrdotorg}";
+      root = "${pkgs."gibbr.org"}";
       extraConfig = ''
         error_page 403 =404 /404.html;
         error_page 404 /404.html;
