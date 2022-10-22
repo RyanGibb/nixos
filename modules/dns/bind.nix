@@ -1,12 +1,14 @@
+{ pkgs, ... }:
+
+let zonefile = import ./gibbr.org.zone.nix { inherit pkgs; }; in
 {
-  # TODO make zonefile nix derivation
   services.bind = {
     enable = true;
     # recursive resolver
     # cacheNetworks = [ "0.0.0.0/0" ];
     zones."gibbr.org" = {
       master = true;
-      file = "/etc/nixos/modules/dns/gibbr.org.zone";
+      file = "${zonefile}";
       # axfr zone transfer
       slaves = [
         "127.0.0.1"
