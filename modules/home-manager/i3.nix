@@ -25,7 +25,7 @@ let replacements = {
   notification_deamon = "dunst";
   redshift = "redshift-gtk";
 }; in
-let util = import ./util.nix { pkgs = pkgs; lib = lib; }; in
+let util = import ./util.nix { inherit pkgs lib; }; in
 {
   imports = [
     ./home.nix
