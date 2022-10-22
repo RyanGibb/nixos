@@ -1,3 +1,0 @@
-# TODO move to secret repo so don't have to use `--impure` flag when building
-secret*
-*private
