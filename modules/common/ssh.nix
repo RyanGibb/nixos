@@ -7,7 +7,7 @@
   programs.mosh.enable = true;
   services.openssh = {
     enable = true;
-    permitRootLogin = "no";
+    permitRootLogin = "yes";
     passwordAuthentication = false;
   };
 
