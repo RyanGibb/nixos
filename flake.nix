@@ -6,9 +6,15 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     gibbrdotorg.url = "github:RyanGibb/gibbr.org";
     gibbrdotorg.inputs.nixpkgs.follows = "nixpkgs";
+    gibbrdotorg.inputs.cv.follows = "cv";
+    gibbrdotorg.inputs.flake-utils.follows = "flake-utils";
+    flake-utils.url = "github:numtide/flake-utils";
+    cv.url = "git+ssh://git@github.com/RyanGibb/cv.git?ref=main";
+    cv.inputs.nixpkgs.follows = "nixpkgs";
+    cv.inputs.flake-utils.follows = "flake-utils";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, gibbrdotorg }@inputs: {
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, gibbrdotorg, ... }@inputs: {
 
     nixosConfigurations =
       let
