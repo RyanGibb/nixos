@@ -1,27 +1,16 @@
 {
   "nodes": {
     "cv": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
+      "flake": false,
       "locked": {
-        "lastModified": 1666452494,
-        "narHash": "sha256-EfeA+ndzlYwQadp4bq+0tTfKSGHqOC1gFis20p1XZnQ=",
-        "ref": "main",
-        "rev": "a21b3ad535c7f7ceb5b768c0ccc71d9438fa290e",
-        "revCount": 24,
-        "type": "git",
-        "url": "ssh://git@github.com/RyanGibb/cv.git"
+        "lastModified": 1,
+        "narHash": "sha256-TIEAoFhFsRyU0zX8sD6cyMgr3lujKfVnb23wKQSKuKU=",
+        "path": "/nix/store/rb5hxmyjcvsy2s1aq3145aa8ch6k7dhi-source/flake.nix",
+        "type": "path"
       },
       "original": {
-        "ref": "main",
-        "type": "git",
-        "url": "ssh://git@github.com/RyanGibb/cv.git"
+        "path": "/nix/store/rb5hxmyjcvsy2s1aq3145aa8ch6k7dhi-source/flake.nix",
+        "type": "path"
       }
     },
     "flake-compat": {
@@ -50,20 +39,15 @@
         "type": "github"
       },
       "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
+        "id": "flake-utils",
+        "type": "indirect"
       }
     },
     "gibbrdotorg": {
       "inputs": {
-        "cv": [
-          "cv"
-        ],
+        "cv": "cv",
         "flake-compat": "flake-compat",
-        "flake-utils": [
-          "flake-utils"
-        ],
+        "flake-utils": "flake-utils",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -137,8 +121,6 @@
     },
     "root": {
       "inputs": {
-        "cv": "cv",
-        "flake-utils": "flake-utils",
         "gibbrdotorg": "gibbrdotorg",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
