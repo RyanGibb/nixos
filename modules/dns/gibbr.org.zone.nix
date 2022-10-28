@@ -25,6 +25,7 @@ pkgs.writeTextFile {
     twitcher        IN CNAME vps
 
     mail            IN A     45.77.205.198
+    mail            IN AAAA  2001:19f0:5:351a:5400:03ff:fede:b236
     @               IN MX    10 mail
     @               IN TXT   "v=spf1 a:mail.gibbr.org -all"
     mail._domainkey IN 10800 TXT "v=DKIM1; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC6YmYYvoFF7VqtGcozpVQa78aaGgZdvc5ZIHqzmkKdCBEyDF2FRbCEK4s2AlC8hhc8O4mSSe3S4AzEhlRgHXbU22GBaUZ3s2WHS8JJwZvWeTjsbXQwjN/U7xpkqXPHLH9IVfOJbHlp4HQmCAXw4NaypgkkxIGK0jaZHm2j6/1izQIDAQAB"
