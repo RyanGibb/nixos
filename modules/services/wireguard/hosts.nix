@@ -5,7 +5,7 @@
   };
   "dell-xps" = {
     ip = "10.0.0.2";
-    publicKey = "+4FaBAbC8IeQz5LnA0fL2pfhhd2g5wKLse/vDTLpRxo=";
+    publicKey = "igTlORjLA5TFaeYX6nkpgY3dHht+HIqG8zzXLwfsmk0=";
     server = false;
   };
   "pixel-4a" = {
