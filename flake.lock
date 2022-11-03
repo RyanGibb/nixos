@@ -132,12 +132,33 @@
         "type": "github"
       }
     },
+    "patchelf-raphi": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1661880995,
+        "narHash": "sha256-fJXkByP2QXo/3tpP1mPCYKmGolwlWLxubGV6xdytmCg=",
+        "ref": "refs/heads/replace-symbol",
+        "rev": "9079354d2b94050f38594b5fab5f764f73e4b7e0",
+        "revCount": 676,
+        "type": "git",
+        "url": "https://git.sr.ht/~raphi/patchelf"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.sr.ht/~raphi/patchelf"
+      }
+    },
     "root": {
       "inputs": {
         "gibbrdotorg": "gibbrdotorg",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "patchelf-raphi": "patchelf-raphi"
       }
     }
   },

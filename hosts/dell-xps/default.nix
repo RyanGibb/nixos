@@ -9,6 +9,7 @@
     ../../modules/gui/i3.nix
     ../../modules/gui/extra.nix
     ../../modules/ocaml.nix
+    ../../modules/common/printing.nix
     ../../modules/services/wireguard/default.nix
   ];
 
@@ -27,7 +28,7 @@
   boot.supportedFilesystems = [ "ntfs" ];
 
   environment.systemPackages = with pkgs; [
-    (pkgs.callPackage ../../pkgs/cctk.nix { })
+    cctk
     (python3.withPackages (p: with p; [
       numpy
       matplotlib
