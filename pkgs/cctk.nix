@@ -5,7 +5,7 @@
   dpkg,
   autoPatchelfHook,
   libsmbios,
-  openssl,
+  openssl_1_1,
   libredirect,
   makeWrapper
 }:
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sha256 = "d4e6e6cdfb34dac699e7521d4149e34647a9bc56d93eecf7ba3dffef4665c457";
   };
 
-  buildInputs = [ libsmbios openssl stdenv.cc.cc.lib ];
+  buildInputs = [ libsmbios openssl_1_1 stdenv.cc.cc.lib ];
   nativeBuildInputs = [ dpkg autoPatchelfHook libredirect makeWrapper ];
   sourceRoot = pname;
   dontBuild = true;
