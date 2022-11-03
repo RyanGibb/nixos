@@ -4,7 +4,6 @@
   fetchurl,
   dpkg,
   autoPatchelfHook,
-  libsmbios,
   openssl_1_1,
   libredirect,
   makeWrapper
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "d4e6e6cdfb34dac699e7521d4149e34647a9bc56d93eecf7ba3dffef4665c457";
   };
 
-  buildInputs = [ libsmbios openssl_1_1 stdenv.cc.cc.lib ];
+  buildInputs = [ openssl_1_1 stdenv.cc.cc.lib ];
   nativeBuildInputs = [ dpkg autoPatchelfHook libredirect makeWrapper ];
   sourceRoot = pname;
   dontBuild = true;
@@ -51,6 +50,7 @@ stdenv.mkDerivation rec {
     for lib in $(find srvadmin-hapi/opt/dell/srvadmin/lib64 -type l); do
         install -t $out/lib -m644 -v $lib
     done
+    install -t $out/lib -m644 -v command-configure/opt/dell/dcc/libsmbios_c.so.2
     install -t $out/ -m644 srvadmin-hapi/opt/dell/srvadmin/etc/omreg.d/omreg-hapi.cfg
   '';
   
