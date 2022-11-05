@@ -8,7 +8,7 @@
     # ../../secret/wifi.nix
   ];
 
-  networking.hostName = "rasp-pi";
+  networking.hostName = "sd-image";
   machineColour = "red";
 
   networking.wireless.enable = true;
