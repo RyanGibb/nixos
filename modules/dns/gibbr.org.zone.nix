@@ -14,18 +14,18 @@ pkgs.writeTextFile {
     ;
     @               IN NS    ns1
     @               IN NS    ns2
-    ns1             IN A     45.77.205.198
-    ns2             IN A     45.77.205.198
+    ns1             IN A     78.141.192.229
+    ns2             IN A     78.141.192.229
 
-    www             IN A     45.77.205.198
+    www             IN A     78.141.192.229
 
-    @               IN A     45.77.205.198
-    @               IN AAAA  2001:19f0:5:351a:5400:03ff:fede:b236 
-    vps             IN A     45.77.205.198
+    @               IN A     78.141.192.229
+    @               IN AAAA  2001:19f0:7401:8653:5400:04ff:fe32:f18b
+    vps             IN A     78.141.192.229
     twitcher        IN CNAME vps
 
-    mail            IN A     45.77.205.198
-    mail            IN AAAA  2001:19f0:5:351a:5400:03ff:fede:b236
+    mail            IN A     78.141.192.229
+    mail            IN AAAA  2001:19f0:7401:8653:5400:04ff:fe32:f18b
     @               IN MX    10 mail
     @               IN TXT   "v=spf1 a:mail.gibbr.org -all"
     mail._domainkey IN 10800 TXT "v=DKIM1; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC6YmYYvoFF7VqtGcozpVQa78aaGgZdvc5ZIHqzmkKdCBEyDF2FRbCEK4s2AlC8hhc8O4mSSe3S4AzEhlRgHXbU22GBaUZ3s2WHS8JJwZvWeTjsbXQwjN/U7xpkqXPHLH9IVfOJbHlp4HQmCAXw4NaypgkkxIGK0jaZHm2j6/1izQIDAQAB"

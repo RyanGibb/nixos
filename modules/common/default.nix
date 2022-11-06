@@ -79,7 +79,7 @@
   };
   
   networking = rec {
-    # nameservers = [ "45.77.205.198" ];
+    # nameservers = [ "78.141.192.229" ];
     nameservers = [ "1.1.1.1" ];
     networkmanager.dns = "none";
   };

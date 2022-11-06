@@ -43,7 +43,7 @@ let hosts = import ./hosts.nix; in
             {
               allowedIPs = [ "10.0.0.0/24" ];
               publicKey = "${hosts.vps.publicKey}";
-              endpoint = "45.77.205.198:51820";
+              endpoint = "78.141.192.229:51820";
             }
           ];
         };
