@@ -1,0 +1,7 @@
+keys:
+  - &dell-xps age1rkzxz8zrps883cnjrkc7s9frhuc08kf6uhah7snw5trjtnqt032q5wx3r7
+creation_rules:
+  - path_regex: secrets2/*
+    key_groups:
+    - age:
+      - *dell-xps

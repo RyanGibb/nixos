@@ -8,9 +8,11 @@
     gibbrdotorg.inputs.nixpkgs.follows = "nixpkgs";
     patchelf-raphi.url = "git+https://git.sr.ht/~raphi/patchelf";
     patchelf-raphi.inputs.nixpkgs.follows = "nixpkgs";
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, gibbrdotorg, patchelf-raphi, ... }@inputs: rec {
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, gibbrdotorg, patchelf-raphi, sops-nix, ... }@inputs: rec {
 
     getPkgs = system:
       let overlays = [
@@ -48,6 +50,7 @@
                   system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
                 }
                 gibbrdotorg.nixosModules.default
+                sops-nix.nixosModule
               ];
             };
       in nixpkgs.lib.genAttrs hosts mkHost;
