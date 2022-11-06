@@ -59,7 +59,7 @@
       tcpdump
       sshfs
       nix-tree
-      git-crypt
+      atuin
     ];
     variables.EDITOR = "nvim";
     shellAliases = {
