@@ -7,8 +7,7 @@
     ../../modules/common/default.nix
     ../../modules/gui/sway.nix
     ../../modules/gui/i3.nix
-    # TODO secrets repo
-    # ../../secret/wifi.nix
+    ../../secret/wifi.nix
   ];
 
   services.openssh.permitRootLogin = lib.mkForce "no";

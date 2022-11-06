@@ -8,7 +8,7 @@
     ../../modules/services/twitcher.nix
     ../../modules/services/mailserver.nix
     ../../modules/services/wireguard/default.nix
-    ../../modules/../secret/default.nix
+    ../../secrets/matrix.nix
     ../../modules/dns/bind.nix
   ];
 

@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-dir=/etc/nixos/secret
-file=wireguard_key
-
+dir=/etc/nixos/secrets
+file=wireguard_key_"$(hostname)"
+A
 umask 077
-mkdir /etc/nixos/secret
 chmod 700 "$dir"
 
 wg genkey > "$dir/$file"
