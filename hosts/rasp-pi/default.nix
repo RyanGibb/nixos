@@ -6,7 +6,7 @@
     ../../modules/common/default.nix
     ../../modules/services/wireguard/default.nix
     ../../modules/dns/bind.nix
-    ../../secret/wifi.nix
+    ../../secrets/wifi.nix
   ];
 
   machineColour = "red";

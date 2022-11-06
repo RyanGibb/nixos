@@ -38,7 +38,7 @@ let hosts = import ./hosts.nix; in
         interfaces.wg0 = {
           ips = [ "${hosts.${config.networking.hostName}.ip}/24" ];
           listenPort = 51820;
-          privateKeyFile = "/etc/nixos/secret/wireguard_key_${config.networking.hostName}";
+          privateKeyFile = "/etc/nixos/secrets/wireguard_key_${config.networking.hostName}";
           peers = lib.mkIf (!cfg.server) [
             {
               allowedIPs = [ "10.0.0.0/24" ];

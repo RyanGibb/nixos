@@ -7,7 +7,7 @@
     ../../modules/common/default.nix
     ../../modules/gui/sway.nix
     ../../modules/gui/i3.nix
-    ../../secret/wifi.nix
+    ../../secrets/wifi.nix
   ];
 
   services.openssh.permitRootLogin = lib.mkForce "no";
