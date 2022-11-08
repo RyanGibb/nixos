@@ -6,14 +6,12 @@
     ../../modules/common/default.nix
     ../../modules/services/wireguard/default.nix
     ../../modules/dns/bind.nix
-    ../../secrets/wifi.nix
   ];
 
   machineColour = "red";
 
   services.tailscale.enable = true;
 
-  boot.loader.grub.enable = false;
   services.nginx = {
     enable = true;
     virtualHosts."gibbr.org" = {
@@ -40,7 +38,7 @@
   #  certs."gibbr.org".extraDomainNames = [ "www.gibbr.org" ];
   #};
 
-  networking.wireless.enable = true;
+  networking.networkmanager.enable = true;
 
   services.journald.extraConfig = ''
     SystemMaxUse=4G
