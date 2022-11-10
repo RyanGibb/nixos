@@ -4,7 +4,7 @@
   imports = [
     ./shell.nix
     ./ssh.nix
-    ./nix-tree.nix
+    ./nix-index.nix
     ./secrets.nix
   ];
 
