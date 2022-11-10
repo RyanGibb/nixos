@@ -12,11 +12,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1666452494,
-        "narHash": "sha256-EfeA+ndzlYwQadp4bq+0tTfKSGHqOC1gFis20p1XZnQ=",
+        "lastModified": 1668038547,
+        "narHash": "sha256-EVsaBFdrDrp5OzwX2Wldkvse474TyUs3sEx9UO8dvwE=",
         "ref": "main",
-        "rev": "a21b3ad535c7f7ceb5b768c0ccc71d9438fa290e",
-        "revCount": 24,
+        "rev": "7f0547b7b7f16c6e14760a72f23e62f9a41de00c",
+        "revCount": 27,
         "type": "git",
         "url": "ssh://git@github.com/RyanGibb/cv.git"
       },
@@ -66,11 +66,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1667322576,
-        "narHash": "sha256-NvDh7Z020959qb/HwU9+BgONWedRL+jWzWaFZbN0fzk=",
+        "lastModified": 1668038636,
+        "narHash": "sha256-LvXBi/QcsycfXm+UTLpescMPb+z8qVBj0x590eCK9ig=",
         "owner": "RyanGibb",
         "repo": "gibbr.org",
-        "rev": "1c60bc2aeb118499e190d9b8246482e9b79eb712",
+        "rev": "e32ba4084511d8e329462c990c54dc2840eee265",
         "type": "github"
       },
       "original": {
