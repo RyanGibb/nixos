@@ -14,14 +14,14 @@
     # nix run nixpkgs.apacheHttpd -c htpasswd -nbB "" "super secret password" | cut -d: -f2
     loginAccounts = {
         "ryan@gibbr.org" = {
-            hashedPasswordFile = "/etc/nixos/secrets/email_pswd";
+            hashedPasswordFile = "${config.secretsDir}/email_pswd";
             aliases = [
               "dns@gibbr.org"
               "postmaster@gibbr.org"
             ];
         };
         "misc@gibbr.org" = {
-            hashedPasswordFile = "/etc/nixos/secrets/email_pswd";
+            hashedPasswordFile = "${config.secretsDir}/email_pswd";
             catchAll = [ "gibbr.org" ];
         };
     };

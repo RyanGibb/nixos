@@ -13,6 +13,7 @@ in {
       example = "example.com";
       default = "gibbr.org";
     };
+    extraConfigFiles = "${config.secretDir}/matrix_shared_secret";
   };
 
   config = {

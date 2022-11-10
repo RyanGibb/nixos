@@ -5,6 +5,7 @@
     ./shell.nix
     ./ssh.nix
     ./nix-tree.nix
+    ./secrets.nix
   ];
 
   nix = {
