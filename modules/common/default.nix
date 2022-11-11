@@ -61,6 +61,7 @@
       sshfs
       nix-tree
       atuin
+      git-crypt
     ];
     variables.EDITOR = "nvim";
     shellAliases = {
