@@ -1,11 +1,11 @@
 {
   "vps" = {
     ip = "10.0.0.1";
-    publicKey = "JOGv8WlexpgiznbYHmT0CCt/lIrUP5kPBGNOI8Px6gI=";
+    publicKey = "2nS3QA2XVG4IgRmtTsOQbpjbqKgRhoZ4gL8PeQhJLGE=";
   };
   "dell-xps" = {
     ip = "10.0.0.2";
-    publicKey = "HUpajQMPngJUcvmUWZgv50s4D+qI/8Sh8qpqjM0jcDk=";
+    publicKey = "K9Lq7lQeueo4/fjCRBHOWQjcTHd5vhCHljI6m/ZOcUM=";
     server = false;
   };
   "pixel-4a" = {
@@ -20,7 +20,7 @@
   };
   "rasp-pi" = {
     ip = "10.0.0.5";
-    publicKey = "8i0ksY8berVXX1qILC4cFQ17Djjn6Sn2HRvcfTe6Vh0=";
+    publicKey = "xG1dOV/C/rvPUbAMp6F+cEAC3t1DxNFJLPF457RTmQ4=";
     server = false;
   };
 }
