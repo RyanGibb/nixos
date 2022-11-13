@@ -66,11 +66,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1668038636,
-        "narHash": "sha256-LvXBi/QcsycfXm+UTLpescMPb+z8qVBj0x590eCK9ig=",
+        "lastModified": 1668173278,
+        "narHash": "sha256-uaEy7GMHz/KcatTlr/y8YbLbGFTUAc/2/NTxHCk2msE=",
         "owner": "RyanGibb",
         "repo": "gibbr.org",
-        "rev": "e32ba4084511d8e329462c990c54dc2840eee265",
+        "rev": "53dd20efda975f8df150a149b5beebbfd008c805",
         "type": "github"
       },
       "original": {
