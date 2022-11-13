@@ -15,7 +15,7 @@
   };
   "desktop" = {
     ip = "10.0.0.4";
-    publicKey = "RPDnr8twGgyFQfZKdOb/oBj5/OhN5SZU7wy8j/56lHo=";
+    publicKey = "aP0A0Lc7ABFvITmi9DIZiRKen3kBspMa6nsfrMrep2Y=";
     server = false;
   };
   "rasp-pi" = {
