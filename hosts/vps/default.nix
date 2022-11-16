@@ -42,7 +42,7 @@
   };
   
   networking.firewall = {
-    allowedTCPPorts = lib.mkForce [ 22 25 53 80 443 465 993 ];
+    allowedTCPPorts = lib.mkForce [ 22 3001 25 53 80 443 465 993 ];
     allowedUDPPorts = lib.mkForce [ 53 51820 ];
     trustedInterfaces = [ "tailscale0" ];
     extraCommands = ''
@@ -66,8 +66,18 @@
       # iptables -A FORWARD -i tailscale0 -o enp1s0 -p udp -j ACCEPT
       # iptables -t nat -A PREROUTING -i enp1s0 -p udp --dport 53 -j DNAT --to-destination 100.92.63.87
       # iptables -t nat -A POSTROUTING -o tailscale0 -p udp --dport 53 -d 100.92.63.87 -j SNAT --to-source 100.125.253.71
+
+      iptables -A PREROUTING -t nat -i enp1s0 -p tcp --dport 22 -j REDIRECT --to-port 3001
     '';
   };
 
+  services.gitea.settings.server = {
+    START_SSH_SERVER = true;
+    SSH_LISTEN_PORT = 3001;
+  };
+
+  services.openssh.listenAddresses = 
+    # only listen on wireguard
+    [ { addr = "10.0.0.1"; port = 22; } ];
   services."gibbr.org".enable = true;
 }
