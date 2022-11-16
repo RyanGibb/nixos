@@ -76,8 +76,5 @@
     SSH_LISTEN_PORT = 3001;
   };
 
-  services.openssh.listenAddresses = 
-    # only listen on wireguard
-    [ { addr = "10.0.0.1"; port = 22; } ];
   services."gibbr.org".enable = true;
 }
