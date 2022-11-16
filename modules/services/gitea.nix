@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   services.nginx.virtualHosts."gitea.gibbr.org" = {
@@ -20,8 +20,10 @@
         MAILER_TYPE = "sendmail";
         FROM = "gitea@gibbr.org";
         SENDMAIL_PATH = "${pkgs.system-sendmail}/bin/sendmail";
+        SENDMAIL_ARGS = "--";
       };
       repository.DEFAULT_BRANCH = "main";
+      service.DISABLE_REGISTRATION = true;
     };
     database = {
       type = "postgres";
@@ -36,5 +38,25 @@
     };
     httpPort = 3000;
     stateDir = "/var/lib/gitea";
+  };
+
+  # https://github.com/NixOS/nixpkgs/issues/103446
+  systemd.services.gitea.serviceConfig = {
+    ReadWritePaths = [ "/var/lib/postfix/queue/maildrop" ];
+    NoNewPrivileges = lib.mkForce false;
+    PrivateDevices = lib.mkForce false;
+    PrivateUsers = lib.mkForce false;
+    ProtectHostname = lib.mkForce false;
+    ProtectClock = lib.mkForce false;
+    ProtectKernelTunables = lib.mkForce false;
+    ProtectKernelModules = lib.mkForce false;
+    ProtectKernelLogs = lib.mkForce false;
+    RestrictAddressFamilies = lib.mkForce [ ];
+    LockPersonality = lib.mkForce false;
+    MemoryDenyWriteExecute = lib.mkForce false;
+    RestrictRealtime = lib.mkForce false;
+    RestrictSUIDSGID = lib.mkForce false;
+    SystemCallArchitectures = lib.mkForce "";
+    SystemCallFilter = lib.mkForce [];
   };
 }
