@@ -8,6 +8,7 @@
     ../../modules/services/twitcher.nix
     ../../modules/services/mailserver.nix
     ../../modules/services/wireguard/default.nix
+    ../../modules/services/gitea.nix
     ../../modules/dns/bind.nix
   ];
 
@@ -41,7 +42,7 @@
   };
   
   networking.firewall = {
-    allowedTCPPorts = lib.mkForce [ 25 53 80 443 465 993 ];
+    allowedTCPPorts = lib.mkForce [ 22 25 53 80 443 465 993 ];
     allowedUDPPorts = lib.mkForce [ 53 51820 ];
     trustedInterfaces = [ "tailscale0" ];
     extraCommands = ''
