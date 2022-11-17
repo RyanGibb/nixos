@@ -12,6 +12,7 @@ in
     ../../modules/services/mailserver.nix
     ../../modules/services/wireguard/default.nix
     ../../modules/services/gitea.nix
+    ../../modules/services/mastodon.nix
     ../../modules/dns/bind.nix
   ];
 

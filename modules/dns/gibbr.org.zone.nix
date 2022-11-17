@@ -25,6 +25,7 @@ pkgs.writeTextFile {
     vps             IN AAAA  2001:19f0:7401:8653:5400:04ff:fe32:f18b
     twitcher        IN CNAME vps
     git             IN CNAME vps
+    mastodon        IN CNAME vps
 
     mail            IN A     78.141.192.229
     mail            IN AAAA  2001:19f0:7401:8653:5400:04ff:fe32:f18b
