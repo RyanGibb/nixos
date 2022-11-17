@@ -28,16 +28,13 @@
     database = {
       type = "postgres";
       passwordFile = "${config.secretsDir}/gitea-db";
-    } //
-    # below isn't neccasary, but including for the sake of clarity
-    {
-      user = "gitea";
-      name = "gitea";
-      createDatabase = true;
-      socket = "/run/postgresql";
+      #user = "gitea";
+      #name = "gitea";
+      #createDatabase = true;
+      #socket = "/run/postgresql";
     };
-    httpPort = 3000;
-    stateDir = "/var/lib/gitea";
+    #httpPort = 3000;
+    #stateDir = "/var/lib/gitea";
   };
 
   # https://github.com/NixOS/nixpkgs/issues/103446
