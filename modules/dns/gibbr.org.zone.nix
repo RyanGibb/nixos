@@ -6,7 +6,7 @@ pkgs.writeTextFile {
     $ORIGIN gibbr.org.
     $TTL 3600
     @ IN SOA ns1 dns (
-      2018011619 ; Serial
+      2018011620 ; Serial
       3600       ; 1hr Refresh
       900        ; 15m Retry
       1814400    ; 21d Expire
@@ -24,7 +24,7 @@ pkgs.writeTextFile {
     vps             IN A     78.141.192.229
     vps             IN AAAA  2001:19f0:7401:8653:5400:04ff:fe32:f18b
     twitcher        IN CNAME vps
-    gitea           IN CNAME vps
+    git             IN CNAME vps
 
     mail            IN A     78.141.192.229
     mail            IN AAAA  2001:19f0:7401:8653:5400:04ff:fe32:f18b

@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 
 {
-  services.nginx.virtualHosts."gitea.gibbr.org" = {
+  services.nginx.virtualHosts."git.gibbr.org" = {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
@@ -11,14 +11,14 @@
 
   services.gitea = {
     enable = true;
-    appName = "gitea | gibbr.org";
-    domain = "gitea.gibbr.org";
-    rootUrl = "https://gitea.gibbr.org/";
+    appName = "gitea gibbr.org";
+    domain = "git.gibbr.org";
+    rootUrl = "https://git.gibbr.org/";
     settings = {
       mailer = {
         ENABLED = true;
         MAILER_TYPE = "sendmail";
-        FROM = "gitea@gibbr.org";
+        FROM = "git@gibbr.org";
         SENDMAIL_PATH = "${pkgs.system-sendmail}/bin/sendmail";
         SENDMAIL_ARGS = "--";
       };
