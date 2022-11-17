@@ -64,12 +64,16 @@ in
     trustedInterfaces = [ "tailscale0" ];
   };
 
+  # proxy port 22 on ethernet interface to internal gitea ssh server
+  # openssh server remains accessible on port 22 via vpn(s)
+  # to avoid having to proxy lo (localhost interface), the server repo can use `ssh://gitea@localhost:3001/ryan/nixos` as a remote
   services.gitea.settings.server = {
     START_SSH_SERVER = true;
     SSH_LISTEN_PORT = giteaSshPort;
   };
   networking.firewall.extraCommands = ''
     iptables -A PREROUTING -t nat -i enp1s0 -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
+    ip6tables -A PREROUTING -t nat -i enp1s0 -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
   '';
 
   services."gibbr.org".enable = true;

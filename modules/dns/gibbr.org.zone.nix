@@ -6,7 +6,7 @@ pkgs.writeTextFile {
     $ORIGIN gibbr.org.
     $TTL 3600
     @ IN SOA ns1 dns (
-      2018011620 ; Serial
+      2018011623 ; Serial
       3600       ; 1hr Refresh
       900        ; 15m Retry
       1814400    ; 21d Expire
