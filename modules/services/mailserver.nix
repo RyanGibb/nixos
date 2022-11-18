@@ -24,6 +24,7 @@
             hashedPasswordFile = "${config.secretsDir}/email-pswd";
             aliases = [
               "gitea@gibbr.org"
+              "mastodon@gibbr.org"
             ];
             catchAll = [ "gibbr.org" ];
         };
