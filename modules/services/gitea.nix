@@ -14,13 +14,15 @@
     appName = "gitea gibbr.org";
     domain = "git.gibbr.org";
     rootUrl = "https://git.gibbr.org/";
+    mailerPasswordFile = "${config.secretsDir}/email-pswd-unhashed";
     settings = {
       mailer = {
         ENABLED = true;
-        MAILER_TYPE = "sendmail";
-        FROM = "git@gibbr.org";
-        SENDMAIL_PATH = "${pkgs.system-sendmail}/bin/sendmail";
-        SENDMAIL_ARGS = "--";
+        FROM = "gitea@gibbr.org";
+        MAILER_TYPE = "smtp";
+        HOST = "mail.gibbr.org:465";
+        USER = "misc@gibbr.org";
+        IS_TLS_ENABLED = true;
       };
       repository.DEFAULT_BRANCH = "main";
       service.DISABLE_REGISTRATION = true;

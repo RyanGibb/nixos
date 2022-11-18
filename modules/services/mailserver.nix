@@ -22,6 +22,9 @@
         };
         "misc@gibbr.org" = {
             hashedPasswordFile = "${config.secretsDir}/email-pswd";
+            aliases = [
+              "gitea@gibbr.org"
+            ];
             catchAll = [ "gibbr.org" ];
         };
     };
