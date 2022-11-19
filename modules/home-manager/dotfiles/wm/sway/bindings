@@ -24,3 +24,12 @@ mode "$idle_mode" {
 	bindsym Escape mode "default"
 }
 bindsym $mod+i mode "$idle_mode"
+
+# workaround for https://github.com/alacritty/alacritty/issues/2734
+bindsym $mod+$alt+Return exec WAYLAND_DISPLAY= $term
+
+# input from zenity anywhere (allowing use of fctix)
+# TODO get better bindings
+bindsym $mod+$alt+space       zenity --entry --text input | wl-copy
+bindsym $mod+$alt+Shift+space zenity --entry --text input | xargs wtype
+
