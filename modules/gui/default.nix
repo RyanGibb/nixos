@@ -1,4 +1,4 @@
-{ pkgs, nixpkgs-unstable, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -84,7 +84,7 @@
     chromium
     gparted
     vlc
-    pkgs.unstable.vscodium
+    vscodium
   ];
 
   fonts.fonts = with pkgs; [
