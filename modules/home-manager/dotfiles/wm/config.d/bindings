@@ -47,6 +47,8 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+Return exec $term -o window.opacity=0.9
 bindsym $mod+Control+Return       exec $term -e zsh -c $SCRIPT_DIR/vault_file.sh
 bindsym $mod+Control+Shift+Return exec $term -e zsh -c $SCRIPT_DIR/vault_file_titled.sh
+# workaround for https://github.com/alacritty/alacritty/issues/2734
+bindsym $mod+$alt+Return exec WAYLAND_DISPLAY= $term
 
 bindsym $mod+Shift+q kill
 
