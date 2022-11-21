@@ -16,6 +16,8 @@
   #boot.loader.raspberryPi.enable = true;
   #boot.loader.raspberryPi.version = 4;
   boot.loader.generic-extlinux-compatible.enable = true;
+  # https://github.com/NixOS/nixpkgs/issues/191095#issuecomment-1320982678
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
