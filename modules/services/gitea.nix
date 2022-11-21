@@ -9,8 +9,17 @@
     };
   };
 
+  users.users.git = {
+    description = "Git Service";
+    home = config.services.gitea.stateDir;
+    useDefaultShell = true;
+    group = "gitea";
+    isSystemUser = true;
+  };
+
   services.gitea = {
     enable = true;
+    user = "git";
     appName = "gitea gibbr.org";
     domain = "git.gibbr.org";
     rootUrl = "https://git.gibbr.org/";
@@ -30,8 +39,8 @@
     database = {
       type = "postgres";
       passwordFile = "${config.secretsDir}/gitea-db";
-      #user = "gitea";
-      #name = "gitea";
+      user = "git";
+      name = "git";
       #createDatabase = true;
       #socket = "/run/postgresql";
     };
