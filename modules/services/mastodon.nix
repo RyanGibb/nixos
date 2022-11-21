@@ -25,8 +25,6 @@
       SMTP_SSL="true";
       SMTP_ENABLE_STARTTLS="false";
       SMTP_OPENSSL_VERIFY_MODE="none";
-
-      SINGLE_USER_MODE = true;
     };
   };
 
