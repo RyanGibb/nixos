@@ -20,7 +20,7 @@
   services.gitea = {
     enable = true;
     user = "git";
-    appName = "gitea gibbr.org";
+    appName = "git | gibbr.org";
     domain = "git.gibbr.org";
     rootUrl = "https://git.gibbr.org/";
     mailerPasswordFile = "${config.secretsDir}/email-pswd-unhashed";
