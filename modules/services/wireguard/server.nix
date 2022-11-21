@@ -32,6 +32,7 @@ let hosts = import ./hosts.nix; in
           hostName: values: {
             allowedIPs = [ "${values.ip}/32" ];
             publicKey = values.publicKey;
+            persistentKeepalive = lib.mkIf (hostName == "rasp-pi") 25;
           }
         ) hosts;
     };
