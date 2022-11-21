@@ -18,12 +18,12 @@
         "rev": "7f0547b7b7f16c6e14760a72f23e62f9a41de00c",
         "revCount": 27,
         "type": "git",
-        "url": "ssh://git@github.com/RyanGibb/cv.git"
+        "url": "ssh://git@git.gibbr.org/ryan/cv.git"
       },
       "original": {
         "ref": "main",
         "type": "git",
-        "url": "ssh://git@github.com/RyanGibb/cv.git"
+        "url": "ssh://git@git.gibbr.org/ryan/cv.git"
       }
     },
     "flake-compat": {
@@ -66,17 +66,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1668173278,
-        "narHash": "sha256-uaEy7GMHz/KcatTlr/y8YbLbGFTUAc/2/NTxHCk2msE=",
-        "owner": "RyanGibb",
-        "repo": "gibbr.org",
-        "rev": "53dd20efda975f8df150a149b5beebbfd008c805",
-        "type": "github"
+        "lastModified": 1669055966,
+        "narHash": "sha256-utgOUZVKugAMuXQJ92MIm7s4P6vNOjq3DMmDMgefgiQ=",
+        "ref": "refs/heads/master",
+        "rev": "2d4745cb5be4939d5d3a6bc9087deb64094a2846",
+        "revCount": 363,
+        "type": "git",
+        "url": "ssh://git@git.gibbr.org/ryan/gibbr.org.git"
       },
       "original": {
-        "owner": "RyanGibb",
-        "repo": "gibbr.org",
-        "type": "github"
+        "type": "git",
+        "url": "ssh://git@git.gibbr.org/ryan/gibbr.org.git"
       }
     },
     "home-manager": {
