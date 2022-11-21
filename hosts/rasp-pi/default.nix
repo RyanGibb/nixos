@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
     ../../modules/common/default.nix
     ../../modules/services/wireguard/default.nix
-    ../../modules/dns/bind.nix
+    #../../modules/dns/bind.nix
   ];
 
   machineColour = "red";
@@ -17,5 +17,5 @@
     SystemMaxUse=4G
   '';
 
-  services."gibbr.org".enable = true;
+  #services."gibbr.org".enable = true;
 }
