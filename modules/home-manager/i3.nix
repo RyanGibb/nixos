@@ -19,7 +19,9 @@ let replacements = {
   drun = "rofi -modi drun -show drun";
   run = "rofi -modi run -show run";
   dmenu = "rofi -dmenu -i -p";
-  rofimoji = "rofimoji";
+  rofimoji = ''
+    rofimoji --selector rofi --skin-tone neutral --prompt "" -a copy
+  '';
   displays = "arandr";
   bar = "i3bar";
   notification_deamon = "dunst";
