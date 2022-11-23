@@ -1,4 +1,4 @@
-{ lib }:
+{ lib, ... }:
 
 {
   options = {
@@ -10,6 +10,6 @@
     };
     custom.serverIpv6 = lib.mkOption {
       type = lib.types.str;
-    }
+    };
   };
 }

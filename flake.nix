@@ -4,20 +4,20 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-22.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    gibbrdotorg.url = "git+ssh://git@git.gibbr.org/ryan/gibbr.org.git";
-    gibbrdotorg.inputs.nixpkgs.follows = "nixpkgs";
+    ryan-website.url = "git+ssh://git@git.gibbr.org/ryan/website.git";
+    ryan-website.inputs.nixpkgs.follows = "nixpkgs";
     patchelf-raphi.url = "git+https://git.sr.ht/~raphi/patchelf";
     patchelf-raphi.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, gibbrdotorg, patchelf-raphi, ... }@inputs: rec {
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ryan-website, patchelf-raphi, ... }@inputs: rec {
 
     getPkgs = system:
       let overlays = [
         (final: prev: {
           unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
-          # `gibbrdotorg.nixosModules.default` uses `pkgs."gibbr.org"`
-          "gibbr.org" = gibbrdotorg.packages.${system}.with-cv;
+          # `ryan-website.nixosModules.default` uses `pkgs.ryan-website`
+          "ryan-website" = ryan-website.packages.${system}.with-cv;
           # can uncomment if want to use patchelf-rafi elsewhere
           #"patchelf-raphi" = patchelf-raphi.packages.${system}.patchelf;
           # "cctk" = final.callPackage ./pkgs/cctk/default.nix { };
@@ -47,7 +47,7 @@
                   # record git revision (can be queried with `nixos-version --json)
                   system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
                 }
-                gibbrdotorg.nixosModules.default
+                ryan-website.nixosModules.default
               ];
             };
       in nixpkgs.lib.genAttrs hosts mkHost;

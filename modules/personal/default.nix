@@ -85,7 +85,7 @@
         defaultBranch = "main";
       };
       user = {
-        email = "${config.custom.username}@${config.custom}}";
+        email = "${config.custom.username}@${config.networking.domain}}";
         name = "Ryan Gibb";
       };
       alias = {

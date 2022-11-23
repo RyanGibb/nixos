@@ -3,11 +3,11 @@
     "cv": {
       "inputs": {
         "flake-utils": [
-          "gibbrdotorg",
+          "ryan-website",
           "flake-utils"
         ],
         "nixpkgs": [
-          "gibbrdotorg",
+          "ryan-website",
           "nixpkgs"
         ]
       },
@@ -54,29 +54,6 @@
       "original": {
         "id": "flake-utils",
         "type": "indirect"
-      }
-    },
-    "gibbrdotorg": {
-      "inputs": {
-        "cv": "cv",
-        "flake-compat": "flake-compat",
-        "flake-utils": "flake-utils",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1669055966,
-        "narHash": "sha256-utgOUZVKugAMuXQJ92MIm7s4P6vNOjq3DMmDMgefgiQ=",
-        "ref": "refs/heads/master",
-        "rev": "2d4745cb5be4939d5d3a6bc9087deb64094a2846",
-        "revCount": 363,
-        "type": "git",
-        "url": "ssh://git@git.gibbr.org/ryan/gibbr.org.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@git.gibbr.org/ryan/gibbr.org.git"
       }
     },
     "home-manager": {
@@ -154,11 +131,34 @@
     },
     "root": {
       "inputs": {
-        "gibbrdotorg": "gibbrdotorg",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "patchelf-raphi": "patchelf-raphi"
+        "patchelf-raphi": "patchelf-raphi",
+        "ryan-website": "ryan-website"
+      }
+    },
+    "ryan-website": {
+      "inputs": {
+        "cv": "cv",
+        "flake-compat": "flake-compat",
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1669204905,
+        "narHash": "sha256-8vv9+8+xd2bvtj6R5lrZ26h269PppxscLKQD1BgumuQ=",
+        "ref": "refs/heads/master",
+        "rev": "55048baf3206d4d1e2a7a820ff1feeffd74f1538",
+        "revCount": 364,
+        "type": "git",
+        "url": "ssh://git@git.gibbr.org/ryan/website.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@git.gibbr.org/ryan/website.git"
       }
     }
   },
