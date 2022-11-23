@@ -6,6 +6,7 @@ in
 {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/default.nix
     ../../modules/personal/default.nix
     #../../modules/services/matrix.nix
     #../../modules/services/twitcher.nix

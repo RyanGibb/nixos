@@ -1,21 +1,6 @@
 { config, pkgs, lib, ... }:
-let
-  fqdn =
-    let
-      join = hostName: domain: hostName + lib.optionalString (domain != null) ".${domain}";
-    in join config.networking.hostName config.services.matrix.domain;
-in {
-  # TODO refactor https://nixos.org/manual/nixos/stable/index.html#module-services-matrix-synapse
 
-  options.services.matrix = {
-    domain = lib.mkOption {
-      type = lib.types.str;
-      example = "example.com";
-      default = "gibbr.org";
-    };
-    extraConfigFiles = "${config.secretsDir}/matrix-shared-secret";
-  };
-
+{
   config = {
     services.postgresql.enable = true;
     services.postgresql.package = pkgs.postgresql_13;
@@ -48,7 +33,7 @@ in {
             let
               # use 443 instead of the default 8448 port to unite
               # the client-server and server-server port for simplicity
-              server = { "m.server" = "${fqdn}:443"; };
+              server = { "m.server" = "${networking.fqdn}:443"; };
             in ''
               add_header Content-Type application/json;
               return 200 '${builtins.toJSON server}';
@@ -56,7 +41,7 @@ in {
           locations."= /.well-known/matrix/client".extraConfig =
             let
               client = {
-                "m.homeserver" =  { "base_url" = "https://${fqdn}"; };
+                "m.homeserver" =  { "base_url" = "https://${networking.fqdn}"; };
                 "m.identity_server" =  { "base_url" = "https://vector.im"; };
               };
             # ACAO required to allow element-web on any URL to request this json file
@@ -68,7 +53,7 @@ in {
         };
 
         # Reverse proxy for Matrix client-server and server-server communication
-        ${fqdn} = {
+        ${networking.fqdn} = {
           enableACME = true;
           forceSSL = true;
 
@@ -88,6 +73,7 @@ in {
 
     services.matrix-synapse = {
       enable = true;
+      extraConfigFiles = "${config.secretsDir}/matrix-shared-secret";
       settings = {
         server_name = config.services.matrix.domain;
         listeners = [

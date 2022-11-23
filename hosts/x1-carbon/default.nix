@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/default.nix
     ../../modules/personal/default.nix
     ../../modules/personal/laptop.nix
     ../../modules/personal/gui/sway.nix

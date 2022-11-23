@@ -4,6 +4,7 @@
   imports = [
     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
     "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+    ../../modules/default.nix
     ../../modules/personal/default.nix
     ../../modules/personal/gui/sway.nix
     ../../modules/personal/gui/i3.nix
