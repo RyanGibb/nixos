@@ -5,7 +5,7 @@
     ./default.nix
   ];
   
-  home-manager.users.ryan = import ../home-manager/i3.nix;
+  home-manager.users.${config.custom.username} = import ../home/i3.nix;
 
   services.xserver = {
     enable = true;

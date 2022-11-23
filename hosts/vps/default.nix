@@ -6,7 +6,7 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/common/default.nix
+    ../../modules/personal/default.nix
     #../../modules/services/matrix.nix
     #../../modules/services/twitcher.nix
     #../../modules/services/mailserver.nix
@@ -18,14 +18,10 @@ in
 
   boot.cleanTmpDir = true;
   zramSwap.enable = true;
-  networking.hostName = "vps";
-  networking.domain = "freumh.org";
-  services.openssh.enable = true;
-  users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAGNcdBuEeoJiMH8TMO4k/w3OVKfiSZ9IZ3xrzFOZEi8 ryan@dell-xps"
-  ];
 
-  machineColour = "yellow";
+  networking.hostName = "vps";
+
+  custom.machineColour = "yellow";
 
   services.tailscale.enable = true;
 
@@ -79,9 +75,9 @@ in
   #  ip6tables -A PREROUTING -t nat -i enp1s0 -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
 
   #  # proxy locally originating outgoing packets
-  #  iptables -A OUTPUT -d 78.141.192.229 -t nat -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
-  #  ip6tables -A OUTPUT -d 2001:19f0:7401:8653:5400:4ff:fe32:f18b -t nat -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
+  #  iptables -A OUTPUT -d ${config.custom.serverIpv4} -t nat -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
+  #  ip6tables -A OUTPUT -d ${config.custom.serverIpv6} -t nat -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
   #'';
 
-  #services."gibbr.org".enable = true;
+  services.ryan-website.enable = true;
 }

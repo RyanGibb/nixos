@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  users.users.ryan.extraGroups = [ "input" ];
+  users.users.${config.custom.username}.extraGroups = [ "input" ];
 
   services.xserver.libinput.enable = true;
 

@@ -8,21 +8,13 @@
     ./secrets.nix
   ];
 
-  nix = {
-    settings = {
-      experimental-features = [ "nix-command" "flakes" ];
-      auto-optimise-store = true;
-    };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 90d";
-    };
+  custom = {
+    username = "ryan";
+    serverIpv4 = "135.181.100.27";
+    serverIpv6 = "fe80::9400:1ff:feaf:e808::1"
   };
+  networking.domain = "freumh.org";
 
-  time.timeZone = "Europe/London";
-
-  i18n.defaultLocale = "en_GB.UTF-8";
   console = {
     font = "Lat2-Terminus16";
     keyMap = "uk";
@@ -32,7 +24,7 @@
     hashedPassword = "$6$tX0uyjRP0KEeHbCe$tz2MmUInPh/y/nE6Xy1am4OfNvffLvynb/tB9HskzmaGiatCzlSEcVnPkM6vCXNxzjU4dDgda85HG3kz/XZEs/";
   in {
     mutableUsers = false;
-    users.ryan = {
+    users.${config.custom.username} = {
       isNormalUser = true;
       extraGroups = [ "wheel" ]; # enable sudo
       shell = pkgs.zsh;
@@ -81,7 +73,7 @@
   };
   
   networking = rec {
-    # nameservers = [ "78.141.192.229" ];
+    # nameservers = [ ${config.custom.serverIpv4} ];
     nameservers = [ "1.1.1.1" ];
     networkmanager.dns = "none";
   };
@@ -93,7 +85,7 @@
         defaultBranch = "main";
       };
       user = {
-        email = "ryan@gibbr.org";
+        email = "${config.custom.username}@${config.custom}}";
         name = "Ryan Gibb";
       };
       alias = {

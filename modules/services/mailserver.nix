@@ -1,5 +1,6 @@
 { config, ... }:
 
+let domain = domain; in
 {
   imports = [
     ../mailserver/default.nix
@@ -7,26 +8,26 @@
 
   mailserver = {
     enable = true;
-    fqdn = "mail.gibbr.org";
-    domains = [ "gibbr.org" ];
+    fqdn = "mail.${domain}";
+    domains = [ "${domain}" ];
 
     # A list of all login accounts. To create the password hashes, use
     # nix run nixpkgs.apacheHttpd -c htpasswd -nbB "" "super secret password" | cut -d: -f2
     loginAccounts = {
-        "ryan@gibbr.org" = {
+        "${config.custom.username}@${domain}" = {
             hashedPasswordFile = "${config.secretsDir}/email-pswd";
             aliases = [
-              "dns@gibbr.org"
-              "postmaster@gibbr.org"
+              "dns@${domain}"
+              "postmaster@${domain}"
             ];
         };
-        "misc@gibbr.org" = {
+        "misc@${domain}" = {
             hashedPasswordFile = "${config.secretsDir}/email-pswd";
             aliases = [
-              "gitea@gibbr.org"
-              "mastodon@gibbr.org"
+              "gitea@${domain}"
+              "mastodon@${domain}"
             ];
-            catchAll = [ "gibbr.org" ];
+            catchAll = [ "${domain}" ];
         };
     };
 
@@ -38,6 +39,6 @@
   };
 
   services.nginx.virtualHosts."${config.mailserver.fqdn}".extraConfig = ''
-    return 301 $scheme://gibbr.org$request_uri;
+    return 301 $scheme://${domain}$request_uri;
   '';
 }

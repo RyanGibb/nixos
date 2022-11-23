@@ -59,7 +59,7 @@
           export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=5"
           PROMPT='%(?..%F{red}%3?%f )%D{%I:%M:%S%p} %F{cyan}%n@%m%f:%F{cyan}%~%f%<<''${vcs_info_msg_0_}'" %#"$'\n'
         '';
-        initExtra = builtins.readFile ../common/zsh.cfg + ''
+        initExtra = builtins.readFile ../personal/zsh.cfg + ''
           bindkey "^[[A" up-line-or-beginning-search
           bindkey "^[[B" down-line-or-beginning-search
         '';
@@ -67,7 +67,7 @@
 
       programs.git = {
         enable = true;
-        userEmail = "ryan@gibbr.org";
+        userEmail = "${config.custom.username}@${config.networking.domain}";
         userName = "Ryan Gibb";
         aliases = {
           s = "status";
@@ -100,7 +100,7 @@
         enable = true;
         viAlias = true;
         vimAlias = true;
-        extraConfig = builtins.readFile ../common/nvim.cfg;
+        extraConfig = builtins.readFile ../personal/nvim.cfg;
         plugins = with pkgs.vimPlugins; [
           vimtex
           vim-auto-save
@@ -125,7 +125,7 @@
       };
 
       home.file = {
-        ".ssh/authorized_keys".source = ../common/authorized_keys;
+        ".ssh/authorized_keys".source = ../personal/authorized_keys;
       };
     };
   home-manager.useGlobalPkgs = true;

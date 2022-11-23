@@ -17,7 +17,7 @@
 
 { config, pkgs, lib, ... }:
 
-with (import ./common.nix { inherit config; });
+with (import ./personal.nix { inherit config; });
 
 let
   cfg = config.mailserver;

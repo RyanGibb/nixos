@@ -1,7 +1,8 @@
 { pkgs, lib, config, ... }:
 
+let domain = config.networking.domain; in
 {
-  services.nginx.virtualHosts."git.gibbr.org" = {
+  services.nginx.virtualHosts."git.${domain}" = {
     enableACME = true;
     forceSSL = true;
     locations."/" = {
@@ -20,17 +21,17 @@
   services.gitea = {
     enable = true;
     user = "git";
-    appName = "git | gibbr.org";
-    domain = "git.gibbr.org";
-    rootUrl = "https://git.gibbr.org/";
+    appName = "git | ${domain}";
+    domain = "git.${domain}";
+    rootUrl = "https://git.${domain}/";
     mailerPasswordFile = "${config.secretsDir}/email-pswd-unhashed";
     settings = {
       mailer = {
         ENABLED = true;
-        FROM = "gitea@gibbr.org";
+        FROM = "gitea@${domain}";
         MAILER_TYPE = "smtp";
-        HOST = "mail.gibbr.org:465";
-        USER = "misc@gibbr.org";
+        HOST = "mail.${domain}:465";
+        USER = "misc@${domain}";
         IS_TLS_ENABLED = true;
       };
       repository.DEFAULT_BRANCH = "main";

@@ -73,11 +73,11 @@
     ".config/gtk-3.0/bookmarks" = {
       force = true;
       text = ''
-        file:///home/ryan/archive
-        file:///home/ryan/documents
-        file:///home/ryan/downloads
-        file:///home/ryan/pictures
-        file:///home/ryan/projects
+        file:///home/${config.custom.username}/archive
+        file:///home/${config.custom.username}/documents
+        file:///home/${config.custom.username}/downloads
+        file:///home/${config.custom.username}/pictures
+        file:///home/${config.custom.username}/projects
       '';
     };
     ".config/mimeapps.list" = {

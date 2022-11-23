@@ -4,7 +4,7 @@
   services.nginx = {
     enable = true;
     recommendedProxySettings = true;
-    virtualHosts."twitcher.gibbr.org" = {
+    virtualHosts."twitcher.${config.networking.domain}" = {
       forceSSL = true;
       enableACME = true;
       locations."/" = {

@@ -1,12 +1,14 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
-let zonefile = import ./gibbr.org.zone.nix { inherit pkgs; }; in
+let
+  domain = ;
+  zonefile = import ./zone.nix { inherit pkgs; }; in
 {
   services.bind = {
     enable = true;
     # recursive resolver
     # cacheNetworks = [ "0.0.0.0/0" ];
-    zones."gibbr.org" = {
+    zones."${config.networking.domain}" = {
       master = true;
       file = "${zonefile}";
       # axfr zone transfer
