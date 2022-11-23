@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   users.users.${config.custom.username}.extraGroups = [ "input" ];
