@@ -1,9 +1,8 @@
 { pkgs, config, ... }:
 
 let
-  domain = ;
-  zonefile = import ./zone.nix { inherit pkgs; }; in
-{
+  zonefile = import ./zonefile.nix { inherit pkgs config; };
+in {
   services.bind = {
     enable = true;
     # recursive resolver
