@@ -37,7 +37,7 @@ pkgs.writeTextFile {
     pixel-4a.vpn    IN A     100.122.46.94
     dell-xps.vpn    IN A     100.92.111.117
     hp-pavilion.vpn IN A     100.91.12.120
-    vps.vpn         IN A     100.125.253.71
+    vps.vpn         IN A     100.88.115.118
     desktop.vpn     IN A     100.93.8.35
     rasp-pi.vpn     IN A     100.92.63.87
 
