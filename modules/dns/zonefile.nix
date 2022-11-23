@@ -1,21 +1,21 @@
 { pkgs, config, ... }:
 
-pkgs.writeTextFile {
+let cfg = config.dns; in pkgs.writeTextFile {
   name = "zonefile";
   text = ''
-    $ORIGIN ${config.networking.domain}.
-    $TTL 3600
-    @ IN SOA ns1 dns (
-      2018011623 ; Serial
-      3600       ; 1hr Refresh
-      900        ; 15m Retry
-      1814400    ; 21d Expire
-      3600 )     ; 1hr Negative Cache TTL
-    ;
-    @               IN NS    ns1
-    @               IN NS    ns2
-    ns1             IN A     ${config.custom.serverIpv4}
-    ns2             IN A     ${config.custom.serverIpv4}
+    $ORIGIN ${cfg.domain}.
+    $TTL ${cfg.ttl}
+    @ IN SOA ${cfg.soa.ns} ${cfg.soa.email} (
+      ${cfg.soa.serial}
+      ${cfg.soa.refresh}
+      ${cfg.soa.retry}
+      ${cfg.soa.expire}
+      ${cfg.soa.negativeCacheTtl}
+    )
+    ${
+      lib.strings.concatMapStringsSep "\n"
+        (builtins.map (rr: "${rr.name} IN ${rr.type} ${rr.data}") cfg.records)
+    }
 
     www             IN A     ${config.custom.serverIpv4}
 
