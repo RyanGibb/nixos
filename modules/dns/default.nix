@@ -74,6 +74,11 @@ let mkOption = lib.mkOption; in
             data = config.custom.serverIpv6;
           }
           {
+            name = "ryan";
+            type = "CNAME";
+            data = "vps";
+          }
+          {
             name = "twitcher";
             type = "CNAME";
             data = "vps";
