@@ -23,9 +23,9 @@
 
       virtualHosts = {
         # This host section can be placed on a different host than the rest,
-        # i.e. to delegate from the host being accessible as ${config.services.matrix.domain}
+        # i.e. to delegate from the host being accessible as ${config.networking.domain}
         # to another host actually running the Matrix homeserver.
-        "${config.services.matrix.domain}" = {
+        "${config.networking.domain}" = {
           enableACME = true;
           forceSSL = true;
 
@@ -33,7 +33,7 @@
             let
               # use 443 instead of the default 8448 port to unite
               # the client-server and server-server port for simplicity
-              server = { "m.server" = "${networking.fqdn}:443"; };
+              server = { "m.server" = "${config.networking.fqdn}:443"; };
             in ''
               add_header Content-Type application/json;
               return 200 '${builtins.toJSON server}';
@@ -41,7 +41,7 @@
           locations."= /.well-known/matrix/client".extraConfig =
             let
               client = {
-                "m.homeserver" =  { "base_url" = "https://${networking.fqdn}"; };
+                "m.homeserver" =  { "base_url" = "https://${config.networking.fqdn}"; };
                 "m.identity_server" =  { "base_url" = "https://vector.im"; };
               };
             # ACAO required to allow element-web on any URL to request this json file
@@ -53,7 +53,7 @@
         };
 
         # Reverse proxy for Matrix client-server and server-server communication
-        ${networking.fqdn} = {
+        ${config.networking.fqdn} = {
           enableACME = true;
           forceSSL = true;
 
@@ -73,9 +73,9 @@
 
     services.matrix-synapse = {
       enable = true;
-      extraConfigFiles = "${config.secretsDir}/matrix-shared-secret";
+      extraConfigFiles = [ "${config.secretsDir}/matrix-shared-secret" ];
       settings = {
-        server_name = config.services.matrix.domain;
+        server_name = config.networking.domain;
         listeners = [
           {
             port = 8008;

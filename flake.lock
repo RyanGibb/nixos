@@ -148,11 +148,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1669293988,
-        "narHash": "sha256-tsylZigdY9NpdE4JDjcqifMAyq38dtFobhrZPjTWAs4=",
+        "lastModified": 1669311815,
+        "narHash": "sha256-+oXqNB1yciaathr7+rRXdPso8aW+G1Qcs3SZ9nPdd9Q=",
         "ref": "refs/heads/master",
-        "rev": "2a1819b1359cc263dafe539df06c79bdc14c53da",
-        "revCount": 367,
+        "rev": "73ce50a91262c481ba795012d0abeb3b122f1d41",
+        "revCount": 368,
         "type": "git",
         "url": "ssh://git@git.gibbr.org/ryan/website.git"
       },

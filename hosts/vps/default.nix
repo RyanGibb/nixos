@@ -7,12 +7,11 @@ let giteaSshPort = 3001; in
     ../../modules/default.nix
     ../../modules/personal/default.nix
     ../../modules/services/dns.nix
-    #../../modules/services/matrix.nix
-    #../../modules/services/twitcher.nix
+    ../../modules/services/matrix.nix
     ../../modules/services/mailserver.nix
     ../../modules/services/wireguard/default.nix
-    #../../modules/services/gitea.nix
-    #../../modules/services/mastodon.nix
+    ../../modules/services/gitea.nix
+    ../../modules/services/mastodon.nix
   ];
 
   networking.hostName = "vps";
@@ -25,14 +24,13 @@ let giteaSshPort = 3001; in
 
   services.ryan-website.enable = true;
   services.ryan-website.domain = "${config.custom.username}.${config.networking.domain}";
-  services.ryan-website.acmeDomain = config.networking.domain;
 
   services.nginx.virtualHosts."${config.networking.domain}" = {
     enableACME = true;
-    addSSL = true;
-    extraConfig = ''
-      return 301 $scheme://${config.custom.username}.${config.networking.domain}$request_uri;
-    '';
+    forceSSL = true;
+    #locations."/index.html".extraConfig = ''
+    #  return 301 $scheme://${config.custom.username}.${config.networking.domain}$request_uri;
+    #'';
   };
 
   boot.cleanTmpDir = true;

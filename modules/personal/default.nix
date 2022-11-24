@@ -65,6 +65,7 @@
       ssh = "TERM=xterm ssh";
       nix-shell = "nix-shell --command zsh";
       inhibit-lid = "systemd-inhibit --what=handle-lid-switch sleep 1d";
+      tmux = "tmux -2";
     };
     sessionVariables = {
       NIX_AUTO_RUN = "y";

@@ -24,7 +24,7 @@ let domain = config.networking.domain; in
         "misc@${domain}" = {
             hashedPasswordFile = "${config.secretsDir}/email-pswd";
             aliases = [
-              "gitea@${domain}"
+              "git@${domain}"
               "mastodon@${domain}"
             ];
             catchAll = [ "${domain}" ];

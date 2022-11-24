@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 
-let domain = domain; in
+let domain = config.networking.domain; in
 {
   services.mastodon = {
     enable = true;
@@ -28,6 +28,8 @@ let domain = domain; in
       SMTP_OPENSSL_VERIFY_MODE="none";
     };
   };
+
+  users.groups.${config.services.mastodon.group}.members = [ config.services.nginx.user ];
 
   services.nginx = {
     enable = true;
