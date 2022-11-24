@@ -15,12 +15,28 @@ let giteaSshPort = 3001; in
     #../../modules/services/mastodon.nix
   ];
 
+  networking.hostName = "vps";
+  custom.machineColour = "yellow";
+
+  security.acme = {
+    defaults.email = "${config.custom.username}@${config.networking.domain}";
+    acceptTerms = true;
+  };
+
+  services.ryan-website.enable = true;
+  services.ryan-website.domain = "${config.custom.username}.${config.networking.domain}";
+  services.ryan-website.acmeDomain = config.networking.domain;
+
+  services.nginx.virtualHosts."${config.networking.domain}" = {
+    enableACME = true;
+    addSSL = true;
+    extraConfig = ''
+      return 301 $scheme://${config.custom.username}.${config.networking.domain}$request_uri;
+    '';
+  };
+
   boot.cleanTmpDir = true;
   zramSwap.enable = true;
-
-  networking.hostName = "vps";
-
-  custom.machineColour = "yellow";
 
   services.tailscale.enable = true;
 
@@ -64,6 +80,4 @@ let giteaSshPort = 3001; in
     iptables -A OUTPUT -d ${config.custom.serverIpv4} -t nat -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
     ip6tables -A OUTPUT -d ${config.custom.serverIpv6} -t nat -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
   '';
-
-  services.ryan-website.enable = true;
 }

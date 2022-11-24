@@ -50,6 +50,11 @@
       data = "vps";
     }
     {
+      name = "www.ryan";
+      type = "CNAME";
+      data = "ryan";
+    }
+    {
       name = "twitcher";
       type = "CNAME";
       data = "vps";
