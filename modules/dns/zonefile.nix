@@ -4,13 +4,13 @@ let cfg = config.dns; in pkgs.writeTextFile {
   name = "zonefile";
   text = ''
     $ORIGIN ${cfg.domain}.
-    $TTL ${cfg.ttl}
+    $TTL ${builtins.toString cfg.ttl}
     @ IN SOA ${cfg.soa.ns} ${cfg.soa.email} (
-      ${cfg.soa.serial}
-      ${cfg.soa.refresh}
-      ${cfg.soa.retry}
-      ${cfg.soa.expire}
-      ${cfg.soa.negativeCacheTtl}
+      ${builtins.toString cfg.soa.serial}
+      ${builtins.toString cfg.soa.refresh}
+      ${builtins.toString cfg.soa.retry}
+      ${builtins.toString cfg.soa.expire}
+      ${builtins.toString cfg.soa.negativeCacheTtl}
     )
     ${
       lib.strings.concatStringsSep "\n"

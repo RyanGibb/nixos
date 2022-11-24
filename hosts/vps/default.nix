@@ -6,8 +6,7 @@ let giteaSshPort = 3001; in
     ./hardware-configuration.nix
     ../../modules/default.nix
     ../../modules/personal/default.nix
-    ../../modules/dns/bind.nix
-    ../../modules/services/bind.nix
+    ../../modules/services/dns.nix
     #../../modules/services/matrix.nix
     #../../modules/services/twitcher.nix
     #../../modules/services/mailserver.nix

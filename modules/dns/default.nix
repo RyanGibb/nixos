@@ -1,21 +1,22 @@
 { config, lib, ... }:
 
+with lib;
 
 let
-  mkOption = lib.mkOption;
   recordOpts = {
     options = {
-      name = {
-        type = types.string;
+      name = mkOption {
+        type = types.str;
       };
-      ttl = {
-        type = types.string;
+      ttl = mkOption {
+        type = with types; nullOr int;
+        default = null;
       };
-      type = {
-        type = types.string;
+      type = mkOption {
+        type = types.str;
       };
-      data = {
-        type = types.string;
+      data = mkOption {
+        type = types.str;
       };
     };
   };
@@ -31,11 +32,11 @@ in
     };
     soa = {
       ns = mkOption {
-        type = types.string;
+        type = types.str;
         default = "ns1";
       };
       email = mkOption {
-        type = types.string;
+        type = types.str;
         default = "dns";
       };
       serial = mkOption {
