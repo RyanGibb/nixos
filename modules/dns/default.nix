@@ -60,7 +60,7 @@ let mkOption = lib.mkOption; in
           }
           {
             name = "@";
-            type = "AAA";
+            type = "AAAA";
             data = config.custom.serverIpv6;
           }
           {
@@ -70,7 +70,7 @@ let mkOption = lib.mkOption; in
           }
           {
             name = "vps";
-            type = "AAA";
+            type = "AAAA";
             data = config.custom.serverIpv6;
           }
           {
