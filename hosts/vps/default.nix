@@ -9,7 +9,7 @@ let giteaSshPort = 3001; in
     ../../modules/services/dns.nix
     #../../modules/services/matrix.nix
     #../../modules/services/twitcher.nix
-    #../../modules/services/mailserver.nix
+    ../../modules/services/mailserver.nix
     ../../modules/services/wireguard/default.nix
     #../../modules/services/gitea.nix
     #../../modules/services/mastodon.nix

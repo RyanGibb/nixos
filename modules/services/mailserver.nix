@@ -1,6 +1,6 @@
 { config, ... }:
 
-let domain = domain; in
+let domain = config.networking.domain; in
 {
   imports = [
     ../mailserver/default.nix
