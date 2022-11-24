@@ -11,7 +11,7 @@
   custom = {
     username = "ryan";
     serverIpv4 = "135.181.100.27";
-    serverIpv6 = "fe80::9400:1ff:feaf:e808::1";
+    serverIpv6 = "fe80:0:9400:1ff:feaf:e808:0:1";
   };
   networking.domain = "freumh.org";
 
