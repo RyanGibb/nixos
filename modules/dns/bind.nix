@@ -1,9 +1,9 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 let
-  zonefile = import ./zonefile.nix { inherit pkgs config; };
+  zonefile = import ./zonefile.nix { inherit pkgs lib config; };
 in {
-  import = [ ./default.nix ];
+  imports = [ ./default.nix ];
   
   services.bind = {
     enable = true;

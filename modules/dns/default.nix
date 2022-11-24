@@ -2,7 +2,7 @@
 
 let mkOption = lib.mkOption; in
 {
-  config.dns = {
+  options.dns = {
     domain = mkOption {
       default = config.networking.domain;
     };
@@ -22,32 +22,31 @@ let mkOption = lib.mkOption; in
       refresh = mkOption {
         default = "3600"; # 1hr
       };
-      retry = mkOption mkOption {
+      retry = mkOption {
         default = "15"; # 15m
       };
-      expire = mkOption mkOption {
+      expire = mkOption {
         default = "1814400"; # 21d
       };
-      negativeCacheTtl = mkOption mkOption {
+      negativeCacheTtl = mkOption {
         default = "3600"; # 1hr
       };
     };
     records = mkOption {
       default =
-        builtins.concatMap (
-          buildins.map (ns: [
-            {
-              name = "@";
-              type = "NS";
-              data = ns;
-            }
-            {
-              name = ns;
-              type = "A";
-              data = config.custom.serverIpv4;
-            }
-          ]) [ "ns1" "ns2" ];
-        );# ++ [
+        builtins.concatMap (ns: [
+          {
+            name = "@";
+            type = "NS";
+            data = ns;
+          }
+          {
+            name = ns;
+            type = "A";
+            data = config.custom.serverIpv4;
+          }
+        ]) [ "ns1" "ns2" ]
+        ;# ++ [
           
         #]
     };

@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 let cfg = config.dns; in pkgs.writeTextFile {
   name = "zonefile";
@@ -13,7 +13,7 @@ let cfg = config.dns; in pkgs.writeTextFile {
       ${cfg.soa.negativeCacheTtl}
     )
     ${
-      lib.strings.concatMapStringsSep "\n"
+      lib.strings.concatStringsSep "\n"
         (builtins.map (rr: "${rr.name} IN ${rr.type} ${rr.data}") cfg.records)
     }
 
