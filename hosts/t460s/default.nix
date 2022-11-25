@@ -3,11 +3,12 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/common/default.nix
+    ../../modules/default.nix
+    ../../modules/personal/default.nix
     ../../modules/services/wireguard/default.nix
   ];
 
-  machineColour = "white";
+  custom.machineColour = "white";
 
   services.tailscale.enable = true;
 

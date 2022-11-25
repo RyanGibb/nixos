@@ -3,11 +3,11 @@
     "cv": {
       "inputs": {
         "flake-utils": [
-          "gibbrdotorg",
+          "ryan-website",
           "flake-utils"
         ],
         "nixpkgs": [
-          "gibbrdotorg",
+          "ryan-website",
           "nixpkgs"
         ]
       },
@@ -18,12 +18,12 @@
         "rev": "7f0547b7b7f16c6e14760a72f23e62f9a41de00c",
         "revCount": 27,
         "type": "git",
-        "url": "ssh://git@git.gibbr.org/ryan/cv.git"
+        "url": "ssh://git@git.freumh.org/ryan/cv.git"
       },
       "original": {
         "ref": "main",
         "type": "git",
-        "url": "ssh://git@git.gibbr.org/ryan/cv.git"
+        "url": "ssh://git@git.freumh.org/ryan/cv.git"
       }
     },
     "flake-compat": {
@@ -54,29 +54,6 @@
       "original": {
         "id": "flake-utils",
         "type": "indirect"
-      }
-    },
-    "gibbrdotorg": {
-      "inputs": {
-        "cv": "cv",
-        "flake-compat": "flake-compat",
-        "flake-utils": "flake-utils",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1669055966,
-        "narHash": "sha256-utgOUZVKugAMuXQJ92MIm7s4P6vNOjq3DMmDMgefgiQ=",
-        "ref": "refs/heads/master",
-        "rev": "2d4745cb5be4939d5d3a6bc9087deb64094a2846",
-        "revCount": 363,
-        "type": "git",
-        "url": "ssh://git@git.gibbr.org/ryan/gibbr.org.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@git.gibbr.org/ryan/gibbr.org.git"
       }
     },
     "home-manager": {
@@ -154,11 +131,34 @@
     },
     "root": {
       "inputs": {
-        "gibbrdotorg": "gibbrdotorg",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "patchelf-raphi": "patchelf-raphi"
+        "patchelf-raphi": "patchelf-raphi",
+        "ryan-website": "ryan-website"
+      }
+    },
+    "ryan-website": {
+      "inputs": {
+        "cv": "cv",
+        "flake-compat": "flake-compat",
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1669380429,
+        "narHash": "sha256-sQPNoC2vBiH6hwsAInY7uKHdPx7949F0Kl3hogRUJ0A=",
+        "ref": "refs/heads/master",
+        "rev": "3788c636ad694ab6b81a695b88fa7eb7d55b8e65",
+        "revCount": 369,
+        "type": "git",
+        "url": "ssh://git@git.freumh.org/ryan/website.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@git.freumh.org/ryan/website.git"
       }
     }
   },

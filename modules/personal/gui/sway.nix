@@ -1,11 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   imports = [
     ./default.nix
   ];
   
-  home-manager.users.ryan = import ../home-manager/sway.nix;
+  home-manager.users.${config.custom.username} = import ../home/sway.nix;
 
   programs.sway =
   let

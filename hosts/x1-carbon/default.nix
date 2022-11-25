@@ -3,16 +3,17 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/common/default.nix
-    ../../modules/common/laptop.nix
-    ../../modules/gui/sway.nix
-    ../../modules/gui/i3.nix
-    ../../modules/gui/extra.nix
+    ../../modules/default.nix
+    ../../modules/personal/default.nix
+    ../../modules/personal/laptop.nix
+    ../../modules/personal/gui/sway.nix
+    ../../modules/personal/gui/i3.nix
+    ../../modules/personal/gui/extra.nix
     ../../modules/ocaml.nix
     ../../modules/services/wireguard/default.nix
   ];
 
-  machineColour = "green";
+  custom.machineColour = "green";
 
   services.tailscale.enable = true;
 
@@ -35,5 +36,5 @@
   '';
 
   # https://github.com/swaywm/sway/issues/5315
-  home-manager.users.ryan.home.sessionVariables.WLR_DRM_NO_MODIFIERS = 1;
+  home-manager.users.${config.custom.username}.home.sessionVariables.WLR_DRM_NO_MODIFIERS = 1;
 }

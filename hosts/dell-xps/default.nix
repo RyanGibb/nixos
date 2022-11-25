@@ -3,19 +3,20 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/common/default.nix
-    ../../modules/common/laptop.nix
-    ../../modules/gui/sway.nix
-    ../../modules/gui/i3.nix
-    ../../modules/gui/extra.nix
+    ../../modules/default.nix
+    ../../modules/personal/default.nix
+    ../../modules/personal/laptop.nix
+    ../../modules/personal/gui/sway.nix
+    ../../modules/personal/gui/i3.nix
+    ../../modules/personal/gui/extra.nix
     ../../modules/ocaml.nix
-    ../../modules/common/printing.nix
+    ../../modules/personal/printing.nix
     ../../modules/services/wireguard/default.nix
   ];
 
   services.tailscale.enable = true;
 
-  machineColour = "blue";
+  custom.machineColour = "blue";
 
   boot.loader.grub = {
     enable = true;

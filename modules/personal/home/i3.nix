@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 
 let replacements = {
   wm = "i3";
@@ -60,13 +60,13 @@ let util = import ./util.nix { inherit pkgs lib; }; in
         dawn-time=06:00-07:00
         dusk-time=18:00-19:00
       '';
-      "dunst/dunstrc".source = ./dotfiles/dunst;
+      "dunst/dunstrc".source = ./dunst;
       "i3/config".text =
-        let wmFilenames = util.listFilesInDir ./dotfiles/wm/config.d; in
-        let i3Filenames = util.listFilesInDir ./dotfiles/wm/i3; in
-        (util.concatFilesReplace ([ ./dotfiles/wm/config ] ++ wmFilenames ++ i3Filenames) replacements);
-      "i3blocks".source = ./dotfiles/i3blocks;
-      "rofi/config.rasi".source = ./dotfiles/rofi.rasi;
+        let wmFilenames = util.listFilesInDir ./wm/config.d; in
+        let i3Filenames = util.listFilesInDir ./wm/i3; in
+        (util.concatFilesReplace ([ ./wm/config ] ++ wmFilenames ++ i3Filenames) replacements);
+      "i3blocks".source = ./i3blocks;
+      "rofi/config.rasi".source = ./rofi.rasi;
     }; in
-    (util.inDirReplace ./dotfiles/wm/scripts "i3/scripts" replacements) // entries;
+    (util.inDirReplace ./wm/scripts "i3/scripts" replacements) // entries;
 }

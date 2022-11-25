@@ -1,5 +1,6 @@
 { pkgs, config, ... }:
 
+let domain = config.networking.domain; in
 {
   services.mastodon = {
     enable = true;
@@ -9,17 +10,17 @@
     sidekiqThreads = 5;
     smtp = {
       #createLocally = false;
-      user = "misc@gibbr.org";
+      user = "misc@${domain}";
       port = 465;
-      host = "mail.gibbr.org";
+      host = "mail.${domain}";
       authenticate = true;
       passwordFile = "${config.secretsDir}/email-pswd-unhashed";
-      fromAddress = "mastodon@gibbr.org";
+      fromAddress = "mastodon@${domain}";
     };
     extraConfig = {
       # override localDomain
-      LOCAL_DOMAIN = "gibbr.org";
-      WEB_DOMAIN = "mastodon.gibbr.org";
+      LOCAL_DOMAIN = "${domain}";
+      WEB_DOMAIN = "mastodon.${domain}";
 
       # https://peterbabic.dev/blog/setting-up-smtp-in-mastodon/
       SMTP_SSL="true";
@@ -28,15 +29,17 @@
     };
   };
 
+  users.groups.${config.services.mastodon.group}.members = [ config.services.nginx.user ];
+
   services.nginx = {
     enable = true;
     recommendedProxySettings = true;
     virtualHosts = {
-      # relies on gibbr.org being set up
-      "gibbr.org".locations."/.well-known/host-meta".extraConfig = ''
-        return 301 https://mastodon.gibbr.org$request_uri;
+      # relies on root domain being set up
+      "${domain}".locations."/.well-known/host-meta".extraConfig = ''
+        return 301 https://mastodon.${domain}$request_uri;
       '';
-      "mastodon.gibbr.org" = {
+      "mastodon.${domain}" = {
         root = "${config.services.mastodon.package}/public/";
         forceSSL = true;
         enableACME = true;

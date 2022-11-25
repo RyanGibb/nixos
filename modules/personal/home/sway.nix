@@ -71,21 +71,21 @@ let util = import ./util.nix { inherit pkgs lib; }; in
         dawn-time=06:00-07:00
         dusk-time=18:00-19:00
       '';
-      "fusuma/config.yml".source = ./dotfiles/fusuma.yml;
-      "kanshi/config".source = ./dotfiles/kanshi;
-      "mako/config".source = ./dotfiles/mako;
-      "swaylock/config".source = ./dotfiles/swaylock;
-      "wofi/style.css".source = ./dotfiles/wofi.css;
+      "fusuma/config.yml".source = ./fusuma.yml;
+      "kanshi/config".source = ./kanshi;
+      "mako/config".source = ./mako;
+      "swaylock/config".source = ./swaylock;
+      "wofi/style.css".source = ./wofi.css;
       "swappy/config".text = ''
         [Default]
         save_dir=$HOME/pictures/capture/
         save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
       '';
       "sway/config".text =
-        let wmFilenames = util.listFilesInDir ./dotfiles/wm/config.d; in
-        let swayFilenames = util.listFilesInDir ./dotfiles/wm/sway; in
-        (util.concatFilesReplace ([ ./dotfiles/wm/config ] ++ wmFilenames ++ swayFilenames) replacements);
-      "i3blocks".source = ./dotfiles/i3blocks;
+        let wmFilenames = util.listFilesInDir ./wm/config.d; in
+        let swayFilenames = util.listFilesInDir ./wm/sway; in
+        (util.concatFilesReplace ([ ./wm/config ] ++ wmFilenames ++ swayFilenames) replacements);
+      "i3blocks".source = ./i3blocks;
     }; in
-    (util.inDirReplace ./dotfiles/wm/scripts "sway/scripts" replacements) // entries;
+    (util.inDirReplace ./wm/scripts "sway/scripts" replacements) // entries;
 }

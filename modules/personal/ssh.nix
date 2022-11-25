@@ -2,7 +2,7 @@
 
 {
   users.mutableUsers = false;
-  users.users.ryan.openssh.authorizedKeys.keyFiles = [ ./authorized_keys ];
+  users.users.${config.custom.username}.openssh.authorizedKeys.keyFiles = [ ./authorized_keys ];
   users.users.root.openssh.authorizedKeys.keyFiles = [ ./authorized_keys ];
 
   programs.mosh.enable = true;

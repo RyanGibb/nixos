@@ -1,21 +1,6 @@
 { config, pkgs, lib, ... }:
-let
-  fqdn =
-    let
-      join = hostName: domain: hostName + lib.optionalString (domain != null) ".${domain}";
-    in join config.networking.hostName config.services.matrix.domain;
-in {
-  # TODO refactor https://nixos.org/manual/nixos/stable/index.html#module-services-matrix-synapse
 
-  options.services.matrix = {
-    domain = lib.mkOption {
-      type = lib.types.str;
-      example = "example.com";
-      default = "gibbr.org";
-    };
-    extraConfigFiles = "${config.secretsDir}/matrix-shared-secret";
-  };
-
+{
   config = {
     services.postgresql.enable = true;
     services.postgresql.package = pkgs.postgresql_13;
@@ -38,9 +23,9 @@ in {
 
       virtualHosts = {
         # This host section can be placed on a different host than the rest,
-        # i.e. to delegate from the host being accessible as ${config.services.matrix.domain}
+        # i.e. to delegate from the host being accessible as ${config.networking.domain}
         # to another host actually running the Matrix homeserver.
-        "${config.services.matrix.domain}" = {
+        "${config.networking.domain}" = {
           enableACME = true;
           forceSSL = true;
 
@@ -48,7 +33,7 @@ in {
             let
               # use 443 instead of the default 8448 port to unite
               # the client-server and server-server port for simplicity
-              server = { "m.server" = "${fqdn}:443"; };
+              server = { "m.server" = "matrix.${config.networking.domain}:443"; };
             in ''
               add_header Content-Type application/json;
               return 200 '${builtins.toJSON server}';
@@ -56,7 +41,7 @@ in {
           locations."= /.well-known/matrix/client".extraConfig =
             let
               client = {
-                "m.homeserver" =  { "base_url" = "https://${fqdn}"; };
+                "m.homeserver" =  { "base_url" = "https://matrix.${config.networking.domain}"; };
                 "m.identity_server" =  { "base_url" = "https://vector.im"; };
               };
             # ACAO required to allow element-web on any URL to request this json file
@@ -68,7 +53,7 @@ in {
         };
 
         # Reverse proxy for Matrix client-server and server-server communication
-        ${fqdn} = {
+        "matrix.${config.networking.domain}" = {
           enableACME = true;
           forceSSL = true;
 
@@ -80,7 +65,8 @@ in {
 
           # forward all Matrix API calls to the synapse Matrix homeserver
           locations."/_matrix" = {
-            proxyPass = "http://[::1]:8008"; # without a trailing /
+            proxyPass = "http://127.0.0.1:8008"; # without a trailing /
+            #proxyPassReverse = "http://127.0.0.1:8008"; # without a trailing /
           };
         };
       };
@@ -89,11 +75,15 @@ in {
     services.matrix-synapse = {
       enable = true;
       settings = {
-        server_name = config.services.matrix.domain;
+        server_name = config.networking.domain;
+        enable_registration = true;
+        registration_requires_token = true;
+        auto_join_rooms = [ "#freumh:freumh.org" ];
+        registration_shared_secret_path = "${config.secretsDir}/matrix-shared-secret";
         listeners = [
           {
             port = 8008;
-            bind_addresses = [ "::1" ];
+            bind_addresses = [ "::1" "127.0.0.1" ];
             type = "http";
             tls = false;
             x_forwarded = true;

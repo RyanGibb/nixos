@@ -3,16 +3,17 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/common/default.nix
-    ../../modules/gui/sway.nix
-    ../../modules/gui/i3.nix
-    ../../modules/gui/extra.nix
+    ../../modules/default.nix
+    ../../modules/personal/default.nix
+    ../../modules/personal/gui/sway.nix
+    ../../modules/personal/gui/i3.nix
+    ../../modules/personal/gui/extra.nix
     ../../modules/services/wireguard/default.nix
   ];
 
   services.tailscale.enable = true;
 
-  machineColour = "magenta";
+  custom.machineColour = "magenta";
 
   boot.loader.grub = {
     enable = true;
