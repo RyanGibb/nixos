@@ -33,7 +33,7 @@
             let
               # use 443 instead of the default 8448 port to unite
               # the client-server and server-server port for simplicity
-              server = { "m.server" = "${config.networking.fqdn}:443"; };
+              server = { "m.server" = "matrix.${config.networking.domain}:443"; };
             in ''
               add_header Content-Type application/json;
               return 200 '${builtins.toJSON server}';
@@ -41,7 +41,7 @@
           locations."= /.well-known/matrix/client".extraConfig =
             let
               client = {
-                "m.homeserver" =  { "base_url" = "https://${config.networking.fqdn}"; };
+                "m.homeserver" =  { "base_url" = "https://matrix.${config.networking.domain}"; };
                 "m.identity_server" =  { "base_url" = "https://vector.im"; };
               };
             # ACAO required to allow element-web on any URL to request this json file
@@ -53,7 +53,7 @@
         };
 
         # Reverse proxy for Matrix client-server and server-server communication
-        ${config.networking.fqdn} = {
+        "matrix.${config.networking.domain}" = {
           enableACME = true;
           forceSSL = true;
 
@@ -65,7 +65,8 @@
 
           # forward all Matrix API calls to the synapse Matrix homeserver
           locations."/_matrix" = {
-            proxyPass = "http://[::1]:8008"; # without a trailing /
+            proxyPass = "http://127.0.0.1:8008"; # without a trailing /
+            #proxyPassReverse = "http://127.0.0.1:8008"; # without a trailing /
           };
         };
       };
@@ -73,13 +74,13 @@
 
     services.matrix-synapse = {
       enable = true;
-      extraConfigFiles = [ "${config.secretsDir}/matrix-shared-secret" ];
       settings = {
         server_name = config.networking.domain;
+        registration_shared_secret_path = "${config.secretsDir}/matrix-shared-secret";
         listeners = [
           {
             port = 8008;
-            bind_addresses = [ "::1" ];
+            bind_addresses = [ "::1" "127.0.0.1" ];
             type = "http";
             tls = false;
             x_forwarded = true;

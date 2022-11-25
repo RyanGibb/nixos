@@ -69,6 +69,11 @@
       type = "CNAME";
       data = "vps";
     }
+    {
+      name = "matrix";
+      type = "CNAME";
+      data = "vps";
+    }
 
     {
       name = "mail";
