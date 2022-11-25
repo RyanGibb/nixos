@@ -76,6 +76,9 @@
       enable = true;
       settings = {
         server_name = config.networking.domain;
+        enable_registration = true;
+        registration_requires_token = true;
+        auto_join_rooms = [ "#freumh:freumh.org" ];
         registration_shared_secret_path = "${config.secretsDir}/matrix-shared-secret";
         listeners = [
           {
