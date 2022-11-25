@@ -4,7 +4,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/release-22.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    ryan-website.url = "git+ssh://git@git.gibbr.org/ryan/website.git";
+    ryan-website.url = "git+ssh://git@git.freumh.org/ryan/website.git";
     ryan-website.inputs.nixpkgs.follows = "nixpkgs";
     patchelf-raphi.url = "git+https://git.sr.ht/~raphi/patchelf";
     patchelf-raphi.inputs.nixpkgs.follows = "nixpkgs";

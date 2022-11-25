@@ -18,12 +18,12 @@
         "rev": "7f0547b7b7f16c6e14760a72f23e62f9a41de00c",
         "revCount": 27,
         "type": "git",
-        "url": "ssh://git@git.gibbr.org/ryan/cv.git"
+        "url": "ssh://git@git.freumh.org/ryan/cv.git"
       },
       "original": {
         "ref": "main",
         "type": "git",
-        "url": "ssh://git@git.gibbr.org/ryan/cv.git"
+        "url": "ssh://git@git.freumh.org/ryan/cv.git"
       }
     },
     "flake-compat": {
@@ -148,17 +148,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1669311815,
-        "narHash": "sha256-+oXqNB1yciaathr7+rRXdPso8aW+G1Qcs3SZ9nPdd9Q=",
+        "lastModified": 1669380429,
+        "narHash": "sha256-sQPNoC2vBiH6hwsAInY7uKHdPx7949F0Kl3hogRUJ0A=",
         "ref": "refs/heads/master",
-        "rev": "73ce50a91262c481ba795012d0abeb3b122f1d41",
-        "revCount": 368,
+        "rev": "3788c636ad694ab6b81a695b88fa7eb7d55b8e65",
+        "revCount": 369,
         "type": "git",
-        "url": "ssh://git@git.gibbr.org/ryan/website.git"
+        "url": "ssh://git@git.freumh.org/ryan/website.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@git.gibbr.org/ryan/website.git"
+        "url": "ssh://git@git.freumh.org/ryan/website.git"
       }
     }
   },
