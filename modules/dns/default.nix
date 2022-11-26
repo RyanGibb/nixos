@@ -6,14 +6,17 @@ with lib;
   imports = [ ./bind.nix ];
 
   options.dns = {
-    zonefile = import ./zonefile.nix { inherit pkgs config lib; };
+    zonefile = {
+      type = types.path;
+      default = import ./zonefile.nix { inherit pkgs config lib; };
+    };
     enable = mkEnableOption "DNS server";
     server = mkOption {
-      type = types.oneOf [ "bind" ];
+      type = types.enum [ "bind" ];
       default = "bind";
     };
     domain = mkOption {
-        type = types.str;
+      type = types.str;
       default = config.networking.domain;
     };
     ttl = mkOption {
