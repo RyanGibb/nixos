@@ -5,11 +5,12 @@
     ./shell.nix
     ./ssh.nix
     ./nix-index.nix
+    ./wireguard-hosts.nix
     ./secrets.nix
   ];
 
-  custom = {
-    username = "ryan";
+  custom.username = "ryan";
+  hosting = {
     serverIpv4 = "135.181.100.27";
     serverIpv6 = "2a01:4f9:c011:87ad:0:0:0:0";
   };
@@ -74,7 +75,7 @@
   };
   
   networking = rec {
-    # nameservers = [ ${config.custom.serverIpv4} ];
+    # nameservers = [ ${config.hosting.serverIpv4} ];
     nameservers = [ "1.1.1.1" ];
     networkmanager.dns = "none";
   };

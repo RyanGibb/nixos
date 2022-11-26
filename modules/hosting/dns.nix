@@ -2,9 +2,10 @@
 
 {
   imports = [
-    ../dns/bind.nix
+    ../dns/default.nix
   ];
 
+  dns.soa.serial = 2018011623;
   dns.records = builtins.concatMap (ns: [
     {
       name = "@";
@@ -14,35 +15,35 @@
     {
       name = ns;
       type = "A";
-      data = config.custom.serverIpv4;
+      data = config.hosting.serverIpv4;
     }
   ]) [ "ns1" "ns2" ] ++
   [
     {
       name = "www";
       type = "A";
-      data = config.custom.serverIpv4;
+      data = config.hosting.serverIpv4;
     }
 
     {
       name = "@";
       type = "A";
-      data = config.custom.serverIpv4;
+      data = config.hosting.serverIpv4;
     }
     {
       name = "@";
       type = "AAAA";
-      data = config.custom.serverIpv6;
+      data = config.hosting.serverIpv6;
     }
     {
       name = "vps";
       type = "A";
-      data = config.custom.serverIpv4;
+      data = config.hosting.serverIpv4;
     }
     {
       name = "vps";
       type = "AAAA";
-      data = config.custom.serverIpv6;
+      data = config.hosting.serverIpv6;
     }
     {
       name = "ryan";
@@ -78,12 +79,12 @@
     {
       name = "mail";
       type = "A";
-      data = config.custom.serverIpv4;
+      data = config.hosting.serverIpv4;
     }
     {
       name = "mail";
       type = "AAAA";
-      data = config.custom.serverIpv6;
+      data = config.hosting.serverIpv6;
     }
     {
       name = "@";
@@ -110,7 +111,7 @@
     }
 
     {
-      name = "pixel-4a.vpn";
+      name = "pbindixel-4a.vpn";
       type = "A";
       data = "100.122.46.94";
     }

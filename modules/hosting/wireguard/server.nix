@@ -1,9 +1,8 @@
 { pkgs, lib, config, ... }:
 
 let cfg = config.services.wireguard; in
-let hosts = import ./hosts.nix; in
 {
-  networking = lib.mkIf cfg.server {
+  networking = lib.mkIf (cfg.enable && cfg.server) {
     nat = {
       enable = true;
       externalInterface = "enp1s0";
@@ -34,7 +33,7 @@ let hosts = import ./hosts.nix; in
             publicKey = values.publicKey;
             persistentKeepalive = lib.mkIf (hostName == "rasp-pi") 25;
           }
-        ) hosts;
+        ) cfg.hosts;
     };
   };
 }

@@ -6,12 +6,13 @@ let giteaSshPort = 3001; in
     ./hardware-configuration.nix
     ../../modules/default.nix
     ../../modules/personal/default.nix
-    ../../modules/services/dns.nix
-    ../../modules/services/matrix.nix
-    ../../modules/services/mailserver.nix
-    ../../modules/services/wireguard/default.nix
-    ../../modules/services/gitea.nix
-    ../../modules/services/mastodon.nix
+    ../../modules/hosting/default.nix
+    ../../modules/hosting/dns.nix
+    ../../modules/hosting/matrix.nix
+    ../../modules/hosting/mailserver.nix
+    ../../modules/hosting/wireguard/default.nix
+    ../../modules/hosting/gitea.nix
+    ../../modules/hosting/mastodon.nix
   ];
 
   networking.hostName = "vps";
@@ -75,7 +76,7 @@ let giteaSshPort = 3001; in
     ip6tables -A PREROUTING -t nat -i enp1s0 -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
 
     # proxy locally originating outgoing packets
-    iptables -A OUTPUT -d ${config.custom.serverIpv4} -t nat -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
-    ip6tables -A OUTPUT -d ${config.custom.serverIpv6} -t nat -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
+    iptables -A OUTPUT -d ${config.hosting.serverIpv4} -t nat -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
+    ip6tables -A OUTPUT -d ${config.hosting.serverIpv6} -t nat -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
   '';
 }

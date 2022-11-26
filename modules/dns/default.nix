@@ -1,29 +1,19 @@
-{ config, lib, ... }:
+{ pkgs, config, lib, ... }:
 
 with lib;
 
-let
-  recordOpts = {
-    options = {
-      name = mkOption {
-        type = types.str;
-      };
-      ttl = mkOption {
-        type = with types; nullOr int;
-        default = null;
-      };
-      type = mkOption {
-        type = types.str;
-      };
-      data = mkOption {
-        type = types.str;
-      };
-    };
-  };
-in
 {
+  imports = [ ./bind.nix ];
+
   options.dns = {
+    zonefile = import ./zonefile.nix { inherit pkgs config lib; };
+    enable = mkEnableOption "DNS server";
+    server = mkOption {
+      type = types.oneOf [ "bind" ];
+      default = "bind";
+    };
     domain = mkOption {
+        type = types.str;
       default = config.networking.domain;
     };
     ttl = mkOption {
@@ -39,9 +29,9 @@ in
         type = types.str;
         default = "dns";
       };
+      # TODO auto increment
       serial = mkOption {
         type = types.int;
-        default = 2018011623;
       };
       refresh = mkOption {
         type = types.int;
@@ -60,9 +50,27 @@ in
         default = 3600; # 1hr
       };
     };
-    records = mkOption {
-      type = with types; listOf (submodule recordOpts);
-      default = [ ];
-    };
+    records =
+      let recordOpts = {
+        options = {
+          name = mkOption {
+            type = types.str;
+          };
+          ttl = mkOption {
+            type = with types; nullOr int;
+            default = null;
+          };
+          type = mkOption {
+            type = types.str;
+          };
+          data = mkOption {
+            type = types.str;
+          };
+        };
+      };
+      in mkOption {
+        type = with types; listOf (submodule recordOpts);
+        default = [ ];
+      };
   };
 }

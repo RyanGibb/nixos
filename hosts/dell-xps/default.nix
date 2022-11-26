@@ -11,7 +11,7 @@
     ../../modules/personal/gui/extra.nix
     ../../modules/ocaml.nix
     ../../modules/personal/printing.nix
-    ../../modules/services/wireguard/default.nix
+    ../../modules/hosting/wireguard/default.nix
   ];
 
   services.tailscale.enable = true;

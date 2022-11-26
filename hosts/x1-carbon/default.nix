@@ -10,7 +10,7 @@
     ../../modules/personal/gui/i3.nix
     ../../modules/personal/gui/extra.nix
     ../../modules/ocaml.nix
-    ../../modules/services/wireguard/default.nix
+    ../../modules/hosting/wireguard/default.nix
   ];
 
   custom.machineColour = "green";

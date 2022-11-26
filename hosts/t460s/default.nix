@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
     ../../modules/default.nix
     ../../modules/personal/default.nix
-    ../../modules/services/wireguard/default.nix
+    ../../modules/hosting/wireguard/default.nix
   ];
 
   custom.machineColour = "white";

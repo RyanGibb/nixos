@@ -8,7 +8,7 @@
     ../../modules/personal/gui/sway.nix
     ../../modules/personal/gui/i3.nix
     ../../modules/personal/gui/extra.nix
-    ../../modules/services/wireguard/default.nix
+    ../../modules/hosting/wireguard/default.nix
   ];
 
   services.tailscale.enable = true;
