@@ -98,4 +98,12 @@
       };
     };
   };
+
+  dns.records = lib.mkIf (dns ? config) [
+    {
+      name = "matrix";
+      type = "CNAME";
+      data = "vps";
+    }
+  ];
 }

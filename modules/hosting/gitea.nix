@@ -68,4 +68,12 @@ let domain = config.networking.domain; in
     SystemCallArchitectures = lib.mkForce "";
     SystemCallFilter = lib.mkForce [];
   };
+
+  dns.records = lib.mkIf (dns ? config) [
+    {
+      name = "git";
+      type = "CNAME";
+      data = "vps";
+    }
+  ];
 }

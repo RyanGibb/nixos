@@ -8,9 +8,10 @@ let giteaSshPort = 3001; in
     ../../modules/personal/default.nix
     ../../modules/hosting/default.nix
     ../../modules/hosting/dns.nix
-    ../../modules/hosting/matrix.nix
-    ../../modules/hosting/mailserver.nix
     ../../modules/hosting/wireguard/default.nix
+    ../../modules/hosting/tailscale.nix
+    ../../modules/hosting/mailserver.nix
+    ../../modules/hosting/matrix.nix
     ../../modules/hosting/gitea.nix
     ../../modules/hosting/mastodon.nix
   ];

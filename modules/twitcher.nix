@@ -26,4 +26,12 @@
   };
 
   environment.systemPackages = with pkgs; [ nodejs ];
+
+  dns.records = lib.mkIf (dns ? config) [
+    {
+      name = "twitcher";
+      type = "CNAME";
+      data = "vps";
+    }
+  ];
 }
