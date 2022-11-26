@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 let domain = config.networking.domain; in
 {
@@ -63,7 +63,7 @@ let domain = config.networking.domain; in
     };
   };
 
-  dns.records = lib.mkIf (dns ? config) [
+  dns.records = lib.mkIf (config ? dns) [
     {
       name = "mastodon";
       type = "CNAME";

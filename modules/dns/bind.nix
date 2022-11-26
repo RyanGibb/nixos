@@ -7,7 +7,7 @@ let cfg = config.dns; in {
     # cacheNetworks = [ "0.0.0.0/0" ];
     zones."${config.networking.domain}" = {
       master = true;
-      file = "${cfg.zonefile}";
+      file = import ./zonefile.nix { inherit pkgs config lib; };
       # axfr zone transfer
       slaves = [
         "127.0.0.1"

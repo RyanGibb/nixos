@@ -24,6 +24,8 @@ let giteaSshPort = 3001; in
     acceptTerms = true;
   };
 
+  dns.enable = true;
+
   services.ryan-website.enable = true;
   services.ryan-website.domain = "${config.custom.username}.${config.networking.domain}";
 

@@ -69,7 +69,7 @@ let domain = config.networking.domain; in
     SystemCallFilter = lib.mkForce [];
   };
 
-  dns.records = lib.mkIf (dns ? config) [
+  dns.records = lib.mkIf (config ? dns) [
     {
       name = "git";
       type = "CNAME";

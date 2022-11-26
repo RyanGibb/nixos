@@ -6,10 +6,6 @@ with lib;
   imports = [ ./bind.nix ];
 
   options.dns = {
-    zonefile = {
-      type = types.path;
-      default = import ./zonefile.nix { inherit pkgs config lib; };
-    };
     enable = mkEnableOption "DNS server";
     server = mkOption {
       type = types.enum [ "bind" ];
