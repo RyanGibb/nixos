@@ -9,7 +9,7 @@ let giteaSshPort = 3001; in
     ../../modules/hosting/default.nix
     ../../modules/hosting/dns.nix
     ../../modules/hosting/wireguard/default.nix
-    ../../modules/hosting/tailscale.nix
+    ../../modules/personal/tailscale.nix
     ../../modules/hosting/mailserver.nix
     ../../modules/hosting/matrix.nix
     ../../modules/hosting/gitea.nix
