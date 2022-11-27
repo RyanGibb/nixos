@@ -13,6 +13,7 @@
     ../../modules/hosting/matrix.nix
     ../../modules/hosting/gitea.nix
     ../../modules/hosting/mastodon.nix
+    ../../modules/hosting/nix-cache.nix
     ../../modules/hosting/freumh.nix
   ];
 
