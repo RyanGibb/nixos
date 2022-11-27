@@ -1,6 +1,8 @@
 { lib, ... }:
 
 {
+  imports = [./hosting/default.nix ];
+
   options = {
     custom.username = lib.mkOption {
       type = lib.types.str;
