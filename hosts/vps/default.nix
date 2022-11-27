@@ -32,7 +32,7 @@ let giteaSshPort = 3001; in
   services.nginx.virtualHosts."${config.networking.domain}" = {
     enableACME = true;
     forceSSL = true;
-    locations."/".root = pkgs.writeTextFile {
+    locations."/index.html".root = pkgs.writeTextFile {
       name = "freumh";
       text = ''
 <html>
@@ -55,9 +55,6 @@ _      ||    __
       '';
       destination = "/index.html";
     };
-    #locations."/index.html".extraConfig = ''
-    #  return 301 $scheme://${config.custom.username}.${config.networking.domain}$request_uri;
-    #'';
   };
 
   boot.cleanTmpDir = true;
