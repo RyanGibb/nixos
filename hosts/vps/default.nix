@@ -55,6 +55,12 @@ _      ||    __
       '';
       destination = "/index.html";
     };
+    locations."/404.html".extraConfig = ''
+      return 200 "";
+    '';
+    extraConfig = ''
+      error_page 404 /404.html;
+    '';
   };
 
   boot.cleanTmpDir = true;
