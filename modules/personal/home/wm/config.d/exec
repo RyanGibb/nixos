@@ -6,7 +6,7 @@ exec @redshift@
 exec kdeconnect-indicator
 
 exec @notification_deamon@
-exec "fusuma &> ~/.fusuma_log"
+exec pgrep fusuma || fusuma
 
 exec $SCRIPT_DIR/bat_monitor.sh
 exec $SCRIPT_DIR/notification_log.sh $HOME/.notification_log
