@@ -1,7 +1,7 @@
 { lib, ... }:
 
 {
-  dns.records = lib.mkIf ("dns" ? config) [
+  dns.records = lib.mkIf (config ? dns) [
     {
       name = "pixel-4a.vpn";
       type = "A";
