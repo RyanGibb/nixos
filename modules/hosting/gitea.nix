@@ -2,11 +2,14 @@
 
 let domain = config.networking.domain; in
 {
-  services.nginx.virtualHosts."git.${domain}" = {
-    enableACME = true;
-    forceSSL = true;
-    locations."/" = {
-      proxyPass = "http://localhost:${builtins.toString config.services.gitea.httpPort}/";
+  services.nginx = {
+    recommendedProxySettings = true;
+    virtualHosts."git.${domain}" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/" = {
+        proxyPass = "http://localhost:${builtins.toString config.services.gitea.httpPort}/";
+      };
     };
   };
 
