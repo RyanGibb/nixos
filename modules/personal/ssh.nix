@@ -13,12 +13,13 @@
   };
 
   programs.ssh.extraConfig = ''
-    Host termux-pixel-4a
+    Host pixel-4a*
       HostName pixel-4a
       User u0_a342
       Port 8022
 
-    Host pixel-4a*
+    Host nix-pixel-4a
+      HostName pixel-4a
       User nix-on-droid
       Port 8022
     
