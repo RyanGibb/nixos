@@ -67,6 +67,7 @@
       nix-shell = "nix-shell --command zsh";
       inhibit-lid = "systemd-inhibit --what=handle-lid-switch sleep 1d";
       tmux = "tmux -2";
+      feh = "feh --scale-down --auto-zoom";
     };
     sessionVariables = {
       NIX_AUTO_RUN = "y";
