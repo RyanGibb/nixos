@@ -19,7 +19,18 @@
         (final: prev: {
           unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
           # `ryan-website.nixosModules.default` uses `pkgs.ryan-website`
-          "ryan-website" = ryan-website.packages.${system}.with-cv;
+          "ryan-website" =
+            let
+              keys = prev.stdenv.mkDerivation {
+                name = "ryan-keys";
+                src = ./modules/personal/authorized_keys;
+                phases = [ "buildPhase" ];
+                buildPhase = ''
+                  touch $out
+                  cat $src | cut -d' ' -f-2 > $out
+                '';
+              };
+            in ryan-website.paramaterizedPackages.${system}.with-cv keys;
           # `twitcher.nixosModules.default` uses `pkgs.ryan-website`
           "twitcher" = twitcher.packages.${system}.default;
           # can uncomment if want to use patchelf-rafi elsewhere
