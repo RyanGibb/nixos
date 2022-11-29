@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, ... }:
 
 {
   dns.records = lib.mkIf (config ? dns) [
@@ -13,7 +13,7 @@
       data = "100.92.111.117";
     }
     {
-      name = "hp-pavilion.";
+      name = "hp-pavilion";
       type = "A";
       data = "100.91.12.120";
     }
