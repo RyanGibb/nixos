@@ -12,6 +12,13 @@ let giteaSshPort = 3001; in
   services.ryan-website.enable = true;
   services.ryan-website.cname = "vps";
 
+  services.twitcher.enable = true;
+  services.twitcher.cname = "vps";
+  services.twitcher.dotenvFile = "${config.secretsDir}/twitcher.env";
+  systemd.services.twitcher = {
+    preStart = lib.mkForce "";
+  };
+
   services.nginx.virtualHosts."${config.networking.domain}" = {
     enableACME = true;
     forceSSL = true;

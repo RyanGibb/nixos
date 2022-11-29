@@ -6,11 +6,13 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     ryan-website.url = "git+ssh://git@git.freumh.org/ryan/website.git";
     ryan-website.inputs.nixpkgs.follows = "nixpkgs";
+    twitcher.url = "git+ssh://git@git.freumh.org/ryan/twitcher.git";
+    twitcher.inputs.nixpkgs.follows = "nixpkgs";
     patchelf-raphi.url = "git+https://git.sr.ht/~raphi/patchelf";
     patchelf-raphi.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ryan-website, patchelf-raphi, ... }@inputs: rec {
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ryan-website, patchelf-raphi, twitcher, ... }@inputs: rec {
 
     getPkgs = system:
       let overlays = [
@@ -18,6 +20,8 @@
           unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
           # `ryan-website.nixosModules.default` uses `pkgs.ryan-website`
           "ryan-website" = ryan-website.packages.${system}.with-cv;
+          # `twitcher.nixosModules.default` uses `pkgs.ryan-website`
+          "twitcher" = twitcher.packages.${system}.default;
           # can uncomment if want to use patchelf-rafi elsewhere
           #"patchelf-raphi" = patchelf-raphi.packages.${system}.patchelf;
           # "cctk" = final.callPackage ./pkgs/cctk/default.nix { };
@@ -48,6 +52,7 @@
                   system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
                 }
                 ryan-website.nixosModules.default
+                twitcher.nixosModules.default
               ];
             };
       in nixpkgs.lib.genAttrs hosts mkHost;

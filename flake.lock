@@ -56,6 +56,20 @@
         "type": "indirect"
       }
     },
+    "flake-utils_2": {
+      "locked": {
+        "lastModified": 1667395993,
+        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
+        "type": "github"
+      },
+      "original": {
+        "id": "flake-utils",
+        "type": "indirect"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -135,7 +149,8 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "patchelf-raphi": "patchelf-raphi",
-        "ryan-website": "ryan-website"
+        "ryan-website": "ryan-website",
+        "twitcher": "twitcher"
       }
     },
     "ryan-website": {
@@ -159,6 +174,27 @@
       "original": {
         "type": "git",
         "url": "ssh://git@git.freumh.org/ryan/website.git"
+      }
+    },
+    "twitcher": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1669741454,
+        "narHash": "sha256-0zIHWARv9YAjpH6CQ2QqJIVwyesL19uCw21Wt8+6xgw=",
+        "ref": "refs/heads/master",
+        "rev": "56163c9e508d2f798b7677778fa0dc11f721c04b",
+        "revCount": 198,
+        "type": "git",
+        "url": "ssh://git@git.freumh.org/ryan/twitcher.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@git.freumh.org/ryan/twitcher.git"
       }
     }
   },
