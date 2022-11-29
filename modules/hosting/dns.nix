@@ -46,17 +46,6 @@
       type = "AAAA";
       data = config.hosting.serverIpv6;
     }
-
-    {
-      name = "ryan";
-      type = "CNAME";
-      data = "vps";
-    }
-    {
-      name = "www.ryan";
-      type = "CNAME";
-      data = "ryan";
-    }
     
     {
       name = "@";

@@ -10,7 +10,7 @@ let giteaSshPort = 3001; in
   dns.enable = true;
 
   services.ryan-website.enable = true;
-  services.ryan-website.domain = "${config.custom.username}.${config.networking.domain}";
+  services.ryan-website.cname = "vps";
 
   services.nginx.virtualHosts."${config.networking.domain}" = {
     enableACME = true;
