@@ -42,7 +42,7 @@ let domain = config.networking.domain; in
     return 301 $scheme://${domain}$request_uri;
   '';
 
-  dns.records = lib.mkIf (config ? dns) [
+  dns.records = [
     {
       name = "mail";
       type = "A";

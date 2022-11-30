@@ -27,7 +27,7 @@
 
   environment.systemPackages = with pkgs; [ nodejs ];
 
-  dns.records = lib.mkIf (config ? dns) [
+  dns.records = [
     {
       name = "twitcher";
       type = "CNAME";

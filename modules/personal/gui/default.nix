@@ -57,7 +57,17 @@
     useGlobalPkgs = true;
   };
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs;
+    let
+    desktopEntries = [
+      (pkgs.makeDesktopItem {
+        name = "feh.desktop";
+        desktopName = "feh";
+        exec = "feh --scale-down --auto-zoom";
+        icon = "feh";
+      })
+    ];
+  in [
     jq
     playerctl
     brightnessctl
@@ -89,7 +99,7 @@
     gparted
     vlc
     vscodium
-  ];
+  ] ++ desktopEntries;
 
   fonts.fonts = with pkgs; [
     noto-fonts

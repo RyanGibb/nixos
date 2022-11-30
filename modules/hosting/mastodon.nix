@@ -63,7 +63,7 @@ let domain = config.networking.domain; in
     };
   };
 
-  dns.records = lib.mkIf (config ? dns) [
+  dns.records = [
     {
       name = "mastodon";
       type = "CNAME";

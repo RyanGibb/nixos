@@ -98,7 +98,7 @@
       };
     };
 
-    dns.records = lib.mkIf (config ? dns) [
+    dns.records = [
       {
         name = "matrix";
         type = "CNAME";

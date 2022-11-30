@@ -163,11 +163,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1669744057,
-        "narHash": "sha256-kLib91HSZzixqkkXJeDgKdPILAd+MKYBO1js1v3NxpU=",
+        "lastModified": 1669771719,
+        "narHash": "sha256-WIqPZYRo4LA+8I8n1WownbJtOCLIQWbN421CeXOJkLQ=",
         "ref": "refs/heads/master",
-        "rev": "031d2355397defb56c38e3d88646dd984e887dc8",
-        "revCount": 378,
+        "rev": "f7c515163bc9df94129eb35f7c588e83e456a41d",
+        "revCount": 379,
         "type": "git",
         "url": "ssh://git@git.freumh.org/ryan/website.git"
       },
@@ -184,11 +184,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1669741454,
-        "narHash": "sha256-0zIHWARv9YAjpH6CQ2QqJIVwyesL19uCw21Wt8+6xgw=",
+        "lastModified": 1669771597,
+        "narHash": "sha256-RxE3iTId81Vwvk16wIEZyiTy4lq9NLOn0IP/esgceWM=",
         "ref": "refs/heads/master",
-        "rev": "56163c9e508d2f798b7677778fa0dc11f721c04b",
-        "revCount": 198,
+        "rev": "70660b39c34000e60daa5a22dfdf5426b94d3c02",
+        "revCount": 199,
         "type": "git",
         "url": "ssh://git@git.freumh.org/ryan/twitcher.git"
       },
