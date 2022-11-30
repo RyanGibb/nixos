@@ -24,7 +24,7 @@ let giteaSshPort = 3001; in
     mastodon = true;
     gitea = true;
     nix-cache = true;
-    wireguard = true;
+    dns = true;
   };
 
   services.tailscale.enable = true;
