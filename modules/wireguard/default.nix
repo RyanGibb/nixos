@@ -1,21 +1,17 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, config, lib, ... }:
 
 with lib;
 
-let cfg = config.services.wireguard; in
+let cfg = config.wireguard; in
 {
-  imports = [
-    ./server.nix
-  ];
-
-  options.services.wireguard = {
+  options.wireguard = {
     enable = mkOption {
       type = with types; bool;
       default = true;
     };
     server = mkOption {
       type = with types; bool;
-      default = config.services.wireguard.hosts.${config.networking.hostName}.server;
+      default = cfg.hosts.${config.networking.hostName}.server;
     };
     hosts =
       let hostOps = { ... }: {
@@ -57,7 +53,7 @@ let cfg = config.services.wireguard; in
         interfaces.wg0 = {
           ips = [ "${cfg.hosts.${config.networking.hostName}.ip}/24" ];
           listenPort = 51820;
-          privateKeyFile = "${config.secretsDir}/wireguard-key-${config.networking.hostName}";
+          privateKeyFile = "${config.custom.secretsDir}/wireguard-key-${config.networking.hostName}";
           peers = mkIf (!cfg.server) [
             {
               allowedIPs = [ "10.0.0.0/24" ];

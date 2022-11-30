@@ -1,6 +1,6 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, config, lib, ... }:
 
-let cfg = config.services.wireguard; in
+let cfg = config.wireguard; in
 {
   networking = lib.mkIf (cfg.enable && cfg.server) {
     nat = {

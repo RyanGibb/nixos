@@ -3,17 +3,16 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/default.nix
-    ../../modules/personal/default.nix
-    ../../modules/personal/laptop.nix
-    ../../modules/personal/gui/sway.nix
-    ../../modules/personal/gui/i3.nix
-    ../../modules/personal/gui/extra.nix
-    ../../modules/ocaml.nix
-    ../../modules/hosting/wireguard/default.nix
   ];
 
-  custom.machineColour = "green";
+  personal = {
+    enable = true;
+    machineColour = "green";
+    laptop = true;
+    gui.i3 = true;
+    gui.sway = true;
+    gui.extra = true;
+  };
 
   services.tailscale.enable = true;
 

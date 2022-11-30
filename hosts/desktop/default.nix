@@ -13,7 +13,15 @@
 
   services.tailscale.enable = true;
 
-  custom.machineColour = "magenta";
+  networking.hostName = "desktop";
+  personal = {
+    enable = true;
+    machineColour = "magenta";
+    laptop = true;
+    gui.i3 = true;
+    gui.sway = true;
+    gui.extra = true;
+  };
 
   boot.loader.grub = {
     enable = true;

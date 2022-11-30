@@ -30,7 +30,7 @@ let replacements = {
 let util = import ./util.nix { inherit pkgs lib; }; in
 {
   imports = [
-    ./home.nix
+    ./default.nix
   ];
 
   home.sessionVariables = {

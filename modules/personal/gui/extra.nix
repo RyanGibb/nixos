@@ -1,7 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, config, lib, ... }:
 
+let cfg = config.personal.gui; in
 {
-  environment.systemPackages = with pkgs; [
+  options.personal.gui.extra = lib.mkEnableOption "extra";
+
+  config.environment.systemPackages = with pkgs; lib.mkIf cfg.extra [
     thunderbird
     element-desktop
     signal-desktop

@@ -3,13 +3,13 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/default.nix
-    ../../modules/personal/default.nix
-    ../../modules/hosting/wireguard/default.nix
-    #../../modules/dns/bind.nix
   ];
 
-  custom.machineColour = "red";
+  networking.hostName = "rasp-pi";
+  personal = {
+    enable = true;
+    machineColour = "red";
+  };
 
   services.tailscale.enable = true;
   networking.networkmanager.enable = true;

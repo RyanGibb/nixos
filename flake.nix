@@ -53,6 +53,7 @@
             modules =
               [
                 ./hosts/${hostname}/default.nix
+                ./modules/default.nix
                 home-manager.nixosModule
                 {
                   networking.hostName = "${hostname}";

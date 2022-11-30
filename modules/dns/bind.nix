@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, config, lib, ... }:
 
 let cfg = config.dns; in {
   services.bind = lib.mkIf (cfg.enable && cfg.server == "bind") {

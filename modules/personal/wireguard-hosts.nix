@@ -1,5 +1,5 @@
 {
-  config.services.wireguard.hosts = {
+  config.wireguard.hosts = {
     "vps" = {
       ip = "10.0.0.1";
       publicKey = "2nS3QA2XVG4IgRmtTsOQbpjbqKgRhoZ4gL8PeQhJLGE=";

@@ -23,7 +23,7 @@ let
 in
 {
   options.mailserver = {
-    enable = mkEnableOption "nixos-mailserver";
+    enable = lib.mkEnableOption "nixos-mailserver";
 
     openFirewall = mkOption {
       type = types.bool;
@@ -216,7 +216,7 @@ in
     };
 
     fullTextSearch = {
-      enable = mkEnableOption "Full text search indexing with xapian. This has significant performance and disk space cost.";
+      enable = lib.mkEnableOption "Full text search indexing with xapian. This has significant performance and disk space cost.";
       autoIndex = mkOption {
         type = types.bool;
         default = true;
@@ -752,7 +752,7 @@ in
     };
 
     monitoring = {
-      enable = mkEnableOption "monitoring via monit";
+      enable = lib.mkEnableOption "monitoring via monit";
 
       alertAddress = mkOption {
         type = types.str;
@@ -812,7 +812,7 @@ in
     };
 
     borgbackup = {
-      enable = mkEnableOption "backup via borgbackup";
+      enable = lib.mkEnableOption "backup via borgbackup";
 
       repoLocation = mkOption {
         type = types.str;
@@ -963,7 +963,7 @@ in
     };
 
     backup = {
-      enable = mkEnableOption "backup via rsnapshot";
+      enable = lib.mkEnableOption "backup via rsnapshot";
 
       snapshotRoot = mkOption {
         type = types.path;

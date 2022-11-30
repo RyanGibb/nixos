@@ -6,7 +6,7 @@ with lib;
   imports = [ ./bind.nix ];
 
   options.dns = {
-    enable = mkEnableOption "DNS server";
+    enable = lib.mkEnableOption "DNS server";
     server = mkOption {
       type = types.enum [ "bind" ];
       default = "bind";

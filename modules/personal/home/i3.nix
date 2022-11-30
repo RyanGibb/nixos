@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, config, lib, ... }:
 
 let replacements = {
   wm = "i3";
@@ -30,7 +30,7 @@ let replacements = {
 let util = import ./util.nix { inherit pkgs lib; }; in
 {
   imports = [
-    ./home.nix
+    ./default.nix
   ];
 
   # TODO

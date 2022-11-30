@@ -1,7 +1,10 @@
 { config, pkgs, lib, ... }:
 
+let cfg = config.hosting; in
 {
-  config = {
+  options.hosting.matrix = lib.mkEnableOption "matrix";
+
+  config = lib.mkIf cfg.matrix {
     services.postgresql.enable = true;
     services.postgresql.package = pkgs.postgresql_13;
     services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
@@ -79,7 +82,7 @@
         enable_registration = true;
         registration_requires_token = true;
         auto_join_rooms = [ "#freumh:freumh.org" ];
-        registration_shared_secret_path = "${config.secretsDir}/matrix-shared-secret";
+        registration_shared_secret_path = "${config.custom.secretsDir}/matrix-shared-secret";
         listeners = [
           {
             port = 8008;
