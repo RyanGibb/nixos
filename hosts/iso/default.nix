@@ -8,7 +8,6 @@
     ../../modules/personal/default.nix
     ../../modules/personal/gui/sway.nix
     ../../modules/personal/gui/i3.nix
-    ../../modules/wifi.nix
   ];
 
   services.openssh.permitRootLogin = lib.mkForce "no";
@@ -21,4 +20,13 @@
 
   services.getty.autologinUser = lib.mkForce "${config.custom.username}";
   services.getty.helpLine = lib.mkForce "";
+
+  networking.wireless = {
+    enable = true;
+    networks = {
+      "SSID" = {
+        psk = "password";
+      };
+    };
+  };
 }
