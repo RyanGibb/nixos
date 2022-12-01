@@ -2,8 +2,6 @@
 
 {
   imports = [
-    ./dns/default.nix
-    ./mailserver/default.nix
     ./personal/default.nix
     ./personal/wireguard-hosts.nix
     ./personal/printing.nix
@@ -19,16 +17,8 @@
     ./personal/gui/sway.nix
     ./personal/tailscale.nix
     ./personal/shell.nix
-    ./hosting/default.nix
-    ./hosting/mastodon.nix
-    ./hosting/mailserver.nix
     ./hosting/freumh.nix
-    ./hosting/gitea.nix
     ./hosting/nix-cache.nix
-    ./hosting/dns.nix
-    ./hosting/matrix.nix
-    ./wireguard/server.nix
-    ./wireguard/default.nix
   ];
 
   options.custom = {

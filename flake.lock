@@ -26,6 +26,25 @@
         "url": "ssh://git@git.freumh.org/ryan/cv.git"
       }
     },
+    "eilean": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1669899745,
+        "narHash": "sha256-Q2FT4CPR5XTF0S0w6n5omCyOeIFFJUPfGpVuwsYCfIk=",
+        "ref": "main",
+        "rev": "41b2b90ec99bb88a0cee8e12b28d47a7194bb065",
+        "revCount": 1,
+        "type": "git",
+        "url": "ssh://git@git.freumh.org/ryan/eilean-nix.git"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@git.freumh.org/ryan/eilean-nix.git"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -123,6 +142,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1667231093,
+        "narHash": "sha256-RERXruzBEBuf0c7OfZeX1hxEKB+PTCUNxWeB6C1jd8Y=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "d40fea9aeb8840fea0d377baa4b38e39b9582458",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "patchelf-raphi": {
       "inputs": {
         "nixpkgs": [
@@ -145,8 +180,9 @@
     },
     "root": {
       "inputs": {
+        "eilean": "eilean",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "patchelf-raphi": "patchelf-raphi",
         "ryan-website": "ryan-website",

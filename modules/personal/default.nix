@@ -17,6 +17,8 @@ let cfg = config.personal; in
   };
 
   config = lib.mkIf cfg.enable {
+    wireguard.enable = true;
+
     console = {
       font = "Lat2-Terminus16";
       keyMap = "uk";
