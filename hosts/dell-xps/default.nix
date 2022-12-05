@@ -42,5 +42,9 @@
     teams
   ];
 
+  systemd.extraConfig = ''
+    DefaultTimeoutStopSec=30s
+  '';
+
   programs.steam.enable = true;
 }
