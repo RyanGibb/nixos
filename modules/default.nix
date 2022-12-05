@@ -12,7 +12,6 @@
     ./personal/gui/extra.nix
     ./personal/gui/kde.nix
     ./personal/gui/i3.nix
-    ./personal/gui/time.nix
     ./personal/gui/default.nix
     ./personal/gui/sway.nix
     ./personal/tailscale.nix

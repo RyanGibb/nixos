@@ -2,10 +2,6 @@
 
 let cfg = config.personal.gui; in
 {
-  imports = [
-    ./time.nix
-  ];
-
   options.personal.gui.enable = lib.mkOption {
     type = lib.types.bool;
     default = cfg.i3 || cfg.sway || cfg.kde;
