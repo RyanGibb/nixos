@@ -30,6 +30,7 @@ let cfg = config.personal.gui; in
       haskellPackages.greenclip
       xdotool
       xclip
+      xf86_input_wacom
     ];
 
     xdg.portal = {

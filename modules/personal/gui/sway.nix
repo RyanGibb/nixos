@@ -80,6 +80,7 @@ let cfg = config.personal.gui; in
         swappy
         mako
         kanshi
+        input-remapper
       ] ++ desktopEntries;
     };
 
