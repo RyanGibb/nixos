@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    eilean.url ="git+ssh://git@git.freumh.org/ryan/eilean-nix.git?ref=main";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     ryan-website.url = "git+ssh://git@git.freumh.org/ryan/website.git";
@@ -12,7 +13,7 @@
     patchelf-raphi.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ryan-website, patchelf-raphi, twitcher, ... }@inputs: rec {
+  outputs = { self, nixpkgs, nixpkgs-unstable, eilean, home-manager, ryan-website, patchelf-raphi, twitcher, ... }@inputs: rec {
 
     getPkgs = system:
       let overlays = [
@@ -54,6 +55,7 @@
               [
                 ./hosts/${hostname}/default.nix
                 ./modules/default.nix
+                eilean.nixosModules.default
                 home-manager.nixosModule
                 {
                   networking.hostName = "${hostname}";
