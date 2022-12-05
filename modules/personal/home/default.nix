@@ -148,4 +148,7 @@
   };
 
   programs.go.goPath = "~/.go";
+
+  home.stateVersion = "22.05";
 }
+
