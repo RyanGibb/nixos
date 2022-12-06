@@ -1,12 +1,13 @@
 { config, lib, ... }:
 
+let cfg = config.personal; in
 {
   options.personal.machineColour = lib.mkOption {
     type = lib.types.str;
     default = "cyan";
   };
   
-  config.programs.zsh = {
+  config.programs.zsh = lib.mkIf cfg.enable {
     enable = true;
     histSize = 100000;
     autosuggestions = {

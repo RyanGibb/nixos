@@ -1,5 +1,8 @@
+{ config, lib, ... }:
+
+let cfg = config.personal; in
 {
-  config.wireguard.hosts = {
+  config.wireguard.hosts = lib.mkIf cfg.enable {
     "vps" = {
       ip = "10.0.0.1";
       publicKey = "2nS3QA2XVG4IgRmtTsOQbpjbqKgRhoZ4gL8PeQhJLGE=";

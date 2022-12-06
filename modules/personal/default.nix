@@ -2,15 +2,6 @@
 
 let cfg = config.personal; in
 {
-  imports = [
-    ./shell.nix
-    ./ssh.nix
-    ./nix-index.nix
-    ./wireguard-hosts.nix
-    ./laptop.nix
-    ./ocaml.nix
-  ];
-
   options.personal = {
     enable = lib.mkEnableOption "personal";
   };
