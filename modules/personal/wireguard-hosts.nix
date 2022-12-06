@@ -23,6 +23,7 @@ let cfg = config.personal; in
     "rasp-pi" = {
       ip = "10.0.0.5";
       publicKey = "xG1dOV/C/rvPUbAMp6F+cEAC3t1DxNFJLPF457RTmQ4=";
+      persistentKeepalive = 25;
     };
   };
 }
