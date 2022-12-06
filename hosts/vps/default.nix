@@ -27,14 +27,18 @@ let giteaSshPort = 3001; in
     dns = true;
   };
 
-  services.tailscale.enable = true;
-
-  services.ryan-website.enable = true;
-  services.ryan-website.cname = "vps";
-
-  services.twitcher.enable = true;
-  services.twitcher.cname = "vps";
-  services.twitcher.dotenvFile = "${config.custom.secretsDir}/twitcher.env";
+  services = {
+    tailscale.enable = true;
+    ryan-website = {
+      enable = true;
+      cname = "vps";
+    };
+    twitcher = {
+      enable = true;
+      cname = "vps";
+      dotenvFile = "${config.custom.secretsDir}/twitcher.env";
+    };
+  };
 
   networking.firewall = {
     # keep tight control over open ports
