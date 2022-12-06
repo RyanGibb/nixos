@@ -7,6 +7,7 @@ let cfg = config.personal; in
       ip = "10.0.0.1";
       publicKey = "2nS3QA2XVG4IgRmtTsOQbpjbqKgRhoZ4gL8PeQhJLGE=";
       server = true;
+      endpoint = config.hosting.serverIpv4;
     };
     "dell-xps" = {
       ip = "10.0.0.2";
