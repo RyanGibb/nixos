@@ -56,7 +56,7 @@ let cfg = config.personal; in
         tcpdump
         sshfs
         nix-tree
-        atuin
+        #atuin
         git-crypt
       ];
       variables.EDITOR = "nvim";
