@@ -7,14 +7,13 @@
 
   personal = {
     enable = true;
+    tailscale = true;
     machineColour = "green";
     laptop = true;
     gui.i3 = true;
     gui.sway = true;
     gui.extra = true;
   };
-
-  services.tailscale.enable = true;
 
   boot.loader.grub = {
     enable = true;

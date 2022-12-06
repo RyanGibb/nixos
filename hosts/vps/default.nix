@@ -9,6 +9,7 @@ let giteaSshPort = 3001; in
   networking.hostName = "vps";
   personal = {
     enable = true;
+    tailscale = true;
     machineColour = "yellow";
   };
 
@@ -28,7 +29,6 @@ let giteaSshPort = 3001; in
   };
 
   services = {
-    tailscale.enable = true;
     ryan-website = {
       enable = true;
       cname = "vps";

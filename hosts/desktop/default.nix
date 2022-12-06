@@ -11,11 +11,10 @@
     ../../modules/hosting/wireguard/default.nix
   ];
 
-  services.tailscale.enable = true;
-
   networking.hostName = "desktop";
   personal = {
     enable = true;
+    tailscale = true;
     machineColour = "magenta";
     laptop = true;
     gui.i3 = true;

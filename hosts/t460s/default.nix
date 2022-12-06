@@ -7,10 +7,9 @@
 
   personal = {
     enable = true;
+    tailscale = true;
     machineColour = "white";
   };
-
-  services.tailscale.enable = true;
 
   services.logind.lidSwitch = "ignore";
 

@@ -9,7 +9,6 @@ let cfg = config.personal; in
     ./wireguard-hosts.nix
     ./laptop.nix
     ./ocaml.nix
-    ./tailscale.nix
   ];
 
   options.personal = {

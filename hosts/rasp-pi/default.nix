@@ -8,10 +8,10 @@
   networking.hostName = "rasp-pi";
   personal = {
     enable = true;
+    tailscale = true;
     machineColour = "red";
   };
 
-  services.tailscale.enable = true;
   networking.networkmanager.enable = true;
 
   services.journald.extraConfig = ''
