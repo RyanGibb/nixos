@@ -8,8 +8,8 @@ exec kdeconnect-indicator
 exec @notification_deamon@
 exec pgrep fusuma || fusuma
 
-exec $SCRIPT_DIR/bat_monitor.sh
-exec $SCRIPT_DIR/notification_log.sh $HOME/.notification_log
+exec pgrep -f bat_monitor || $SCRIPT_DIR/bat_monitor.sh
+exec pgrep -f notification_log || $SCRIPT_DIR/notification_log.sh $HOME/.notification_log
 
 exec @polkit_gnome@/libexec/polkit-gnome-authentication-agent-1
 
