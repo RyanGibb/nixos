@@ -11,9 +11,10 @@
     twitcher.inputs.nixpkgs.follows = "nixpkgs";
     patchelf-raphi.url = "git+https://git.sr.ht/~raphi/patchelf";
     patchelf-raphi.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, eilean, home-manager, ryan-website, patchelf-raphi, twitcher, ... }@inputs: rec {
+  outputs = { self, nixpkgs, nixpkgs-unstable, eilean, home-manager, ryan-website, patchelf-raphi, twitcher, nixos-hardware, ... }@inputs: rec {
 
     getPkgs = system:
       let overlays = [
@@ -67,6 +68,7 @@
                 }
                 ryan-website.nixosModules.default
                 twitcher.nixosModules.default
+                nixos-hardware.nixosModules.raspberry-pi-4
               ];
             };
       in nixpkgs.lib.genAttrs hosts mkHost;

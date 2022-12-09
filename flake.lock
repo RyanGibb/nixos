@@ -110,6 +110,21 @@
         "type": "github"
       }
     },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1670174919,
+        "narHash": "sha256-XdQr3BUnrvVLRFunLWrZORhwYHDG0+9jUUe0Jv1pths=",
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "rev": "9d87bc030a0bf3f00e953dbf095a7d8e852dab6b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1667231093,
@@ -182,6 +197,7 @@
       "inputs": {
         "eilean": "eilean",
         "home-manager": "home-manager",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "patchelf-raphi": "patchelf-raphi",
