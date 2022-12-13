@@ -1,8 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, nixos-hardware, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
+    "${nixos-hardware}/raspberry-pi/4"
   ];
 
   networking.hostName = "rasp-pi";

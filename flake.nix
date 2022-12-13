@@ -74,8 +74,7 @@
                   system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
                 }
                 ryan-website.nixosModules.default
-                twitcher.nixosModules.default
-                nixos-hardware.nixosModules.raspberry-pi-4
+                twitcher.nixosModules.default 
               ];
             };
       in nixpkgs.lib.genAttrs hosts mkHost;
