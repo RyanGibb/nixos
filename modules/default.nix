@@ -18,6 +18,7 @@
     ./personal/shell.nix
     ./hosting/freumh.nix
     ./hosting/nix-cache.nix
+    ./hosting/eeww.nix
   ];
 
   options.custom = {

@@ -26,6 +26,30 @@
         "url": "ssh://git@git.freumh.org/ryan/cv.git"
       }
     },
+    "eeww": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1670945505,
+        "narHash": "sha256-gN6ATdvUuNDBKYTQeax5oNtUeQIiCGQyYgfueLsC8Es=",
+        "owner": "RyanGibb",
+        "repo": "eeww",
+        "rev": "12f3908ffa24fcbdf8df6e422d27022965b8058c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "RyanGibb",
+        "ref": "nixos",
+        "repo": "eeww",
+        "type": "github"
+      }
+    },
     "eilean": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -63,20 +87,6 @@
     },
     "flake-utils": {
       "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
-        "type": "github"
-      },
-      "original": {
-        "id": "flake-utils",
-        "type": "indirect"
-      }
-    },
-    "flake-utils_2": {
-      "locked": {
         "lastModified": 1667395993,
         "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
         "owner": "numtide",
@@ -85,8 +95,9 @@
         "type": "github"
       },
       "original": {
-        "id": "flake-utils",
-        "type": "indirect"
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
       }
     },
     "home-manager": {
@@ -195,7 +206,9 @@
     },
     "root": {
       "inputs": {
+        "eeww": "eeww",
         "eilean": "eilean",
+        "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
@@ -209,17 +222,19 @@
       "inputs": {
         "cv": "cv",
         "flake-compat": "flake-compat",
-        "flake-utils": "flake-utils",
+        "flake-utils": [
+          "flake-utils"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1669849071,
-        "narHash": "sha256-8hhfZyCuV432nzbtoy9ooE5X6sYmHtQgxBX5xcEa/gs=",
+        "lastModified": 1670620435,
+        "narHash": "sha256-SUq9ZRSGXNoK47QlyI4vjVWqqKJPsNtsGYjf+b1VcBQ=",
         "ref": "refs/heads/master",
-        "rev": "152928be6a12be0af5c451442225ca84330a9dfe",
-        "revCount": 382,
+        "rev": "94367ec2ca9d45a74572aa6a7073679fba7d3a42",
+        "revCount": 384,
         "type": "git",
         "url": "ssh://git@git.freumh.org/ryan/website.git"
       },
@@ -230,7 +245,9 @@
     },
     "twitcher": {
       "inputs": {
-        "flake-utils": "flake-utils_2",
+        "flake-utils": [
+          "flake-utils"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]

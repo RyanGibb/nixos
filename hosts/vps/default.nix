@@ -38,6 +38,10 @@ let giteaSshPort = 3001; in
       cname = "vps";
       dotenvFile = "${config.custom.secretsDir}/twitcher.env";
     };
+    eeww = {
+      enable = true;
+      domain = config.services.ryan-website.domain;
+    };
   };
 
   networking.firewall = {

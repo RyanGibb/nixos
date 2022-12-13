@@ -2,19 +2,25 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
     eilean.url ="git+ssh://git@git.freumh.org/ryan/eilean-nix.git?ref=main";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     ryan-website.url = "git+ssh://git@git.freumh.org/ryan/website.git";
     ryan-website.inputs.nixpkgs.follows = "nixpkgs";
+    ryan-website.inputs.flake-utils.follows = "flake-utils";
     twitcher.url = "git+ssh://git@git.freumh.org/ryan/twitcher.git";
     twitcher.inputs.nixpkgs.follows = "nixpkgs";
+    twitcher.inputs.flake-utils.follows = "flake-utils";
     patchelf-raphi.url = "git+https://git.sr.ht/~raphi/patchelf";
     patchelf-raphi.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:nixos/nixos-hardware";
+    eeww.url = "github:RyanGibb/eeww/nixos";
+    eeww.inputs.nixpkgs.follows = "nixpkgs";
+    eeww.inputs.flake-utils.follows = "flake-utils";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, eilean, home-manager, ryan-website, patchelf-raphi, twitcher, nixos-hardware, ... }@inputs: rec {
+  outputs = { self, nixpkgs, nixpkgs-unstable, eilean, home-manager, ryan-website, patchelf-raphi, twitcher, nixos-hardware, eeww, ... }@inputs: rec {
 
     getPkgs = system:
       let overlays = [
@@ -39,6 +45,7 @@
           #"patchelf-raphi" = patchelf-raphi.packages.${system}.patchelf;
           # "cctk" = final.callPackage ./pkgs/cctk/default.nix { };
           "cctk" = prev.callPackage ./pkgs/cctk/default.nix { patchelf-raphi = patchelf-raphi.packages.${system}.patchelf; };
+          "eeww" = eeww.defaultPackage.${system};
         })
       ]; in
       import nixpkgs { inherit overlays system; config.allowUnfree = true; };
