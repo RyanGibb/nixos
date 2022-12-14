@@ -25,7 +25,7 @@ let cfg = config.services.eeww; in
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     # TODO use unix socket?
     services.nginx.virtualHosts."${cfg.domain}".locations."/".proxyPass = "http://localhost:${builtins.toString cfg.port}";
 
