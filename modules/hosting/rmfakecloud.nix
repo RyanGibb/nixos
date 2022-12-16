@@ -2,7 +2,10 @@
 
 with lib;
 
-let cfg = config.hosting.rmfakecloud; in
+let
+  cfg = config.hosting.rmfakecloud;
+  domain = config.networking.domain;
+in
 {
   options.hosting.rmfakecloud = {
     enable = mkEnableOption "rmfakecloud";
@@ -12,7 +15,7 @@ let cfg = config.hosting.rmfakecloud; in
     };
     domain = mkOption {
       type = types.str;
-      default = "rmfakecloud.${config.networking.domain}";
+      default = "rmfakecloud.${domain}";
     };
   };
 
@@ -24,16 +27,19 @@ let cfg = config.hosting.rmfakecloud; in
       environmentFile = "${config.custom.secretsDir}/rmfakecloud.env";
       extraSettings = {
         RM_SMTP_SERVER = "mail.freumh.org:465";
-        RM_SMTP_USERNAME = "remarkable";
+        RM_SMTP_USERNAME = "remarkable@${domain}";
       };
     };
 
-    mailserver.loginAccounts."misc@${config.networking.domain}".aliases = [ "remarkable" ];
+    mailserver.loginAccounts."misc@${domain}".aliases = [ "remarkable@${domain}" ];
 
     # nginx handles letsencrypt
     services.nginx = {
       enable = true;
       recommendedProxySettings = true;
+      # to allow syncing
+      # another option would just be opening a seperater port for this
+      clientMaxBodySize = "100M";
       virtualHosts."${cfg.domain}" = {
         forceSSL = true;
         enableACME = true;
