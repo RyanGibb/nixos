@@ -26,6 +26,7 @@ let giteaSshPort = 3001; in
     gitea = true;
     nix-cache = true;
     dns = true;
+    rmfakecloud.enable = true;
   };
 
   services = {

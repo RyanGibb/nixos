@@ -20,6 +20,7 @@
     ./hosting/freumh.nix
     ./hosting/nix-cache.nix
     ./hosting/eeww.nix
+    ./hosting/rmfakecloud.nix
   ];
 
   options.custom = {
