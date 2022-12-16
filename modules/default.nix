@@ -9,6 +9,7 @@
     ./personal/nix-index.nix
     ./personal/ssh.nix
     ./personal/ocaml.nix
+    ./personal/scripts.nix
     ./personal/gui/extra.nix
     ./personal/gui/kde.nix
     ./personal/gui/i3.nix
