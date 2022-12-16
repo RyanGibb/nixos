@@ -46,4 +46,6 @@
   '';
 
   programs.steam.enable = true;
+
+  networking.extraHosts = "10.11.99.1 remarkable2";
 }
