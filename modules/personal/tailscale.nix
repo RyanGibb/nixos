@@ -23,6 +23,9 @@ let cfg = config.personal; in
       "rasp-pi" = {
         ip = "100.92.63.87";
       };
+      "remarkable2" = {
+        ip = "100.125.211.7";
+      };
     }; in
   mkIf cfg.tailscale {
     services.tailscale.enable = true;

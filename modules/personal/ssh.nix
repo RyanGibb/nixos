@@ -35,6 +35,13 @@ let cfg = config.personal; in
         IdentityFile ~/.ssh/id_rsa_rpi4-013.advopsys.cl.cam.ac.uk
         ProxyJump rtg24@slogin-serv.cl.cam.ac.uk
         ForwardAgent yes
+
+      Host remarkable2*
+        PubkeyAcceptedKeyTypes +ssh-rsa
+        HostKeyAlgorithms +ssh-rsa
+        User root
+        ForwardX11 no
+        ForwardAgent no
     '';
   };
 }
