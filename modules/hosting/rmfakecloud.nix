@@ -27,7 +27,8 @@ in
       environmentFile = "${config.custom.secretsDir}/rmfakecloud.env";
       extraSettings = {
         RM_SMTP_SERVER = "mail.freumh.org:465";
-        RM_SMTP_USERNAME = "remarkable@${domain}";
+        RM_SMTP_USERNAME = "misc@${domain}";
+        RM_SMTP_FROM="remarkable@${domain}";
       };
     };
 
