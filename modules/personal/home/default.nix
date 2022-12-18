@@ -115,7 +115,7 @@
         bind <C-`> buffer #
         bind e hint -JFc * e => {tri.excmds.tabopen("-b",e.href); e.remove()}`
         bind I hint -JFc [id] e => { tri.excmds.yank(e.id) }
-        bind i hint -JFc [id] e => { tri.excmds.yank(document.URL + "#" + e.id) }
+        bind i hint -JFc [id] e => { tri.excmds.yank(document.URL.replace(/#.*$/, "") + "#" + e.id) }
         # ;y
       '';
     };
