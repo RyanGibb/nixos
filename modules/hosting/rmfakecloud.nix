@@ -39,7 +39,7 @@ in
       enable = true;
       recommendedProxySettings = true;
       # to allow syncing
-      # another option would just be opening a seperater port for this
+      # another option would just be opening a separate port for this
       clientMaxBodySize = "100M";
       virtualHosts."${cfg.domain}" = {
         forceSSL = true;
