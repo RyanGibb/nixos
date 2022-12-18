@@ -16,7 +16,6 @@ let cfg = config.personal; in
 
     programs.ssh.extraConfig = ''
       Host pixel-4a*
-        HostName pixel-4a
         User u0_a342
         Port 8022
 
