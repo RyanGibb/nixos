@@ -2,3 +2,5 @@
 # flat accleration profile
 exec xinput set-prop 'Logitech Gaming Mouse G502' 'libinput Accel Profile Enabled' 0, 1
 
+xinput set-prop 'DLL0945:00 06CB:CDE6 Touchpad' 'libinput Natural Scrolling Enabled' 1
+
