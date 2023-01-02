@@ -11,16 +11,6 @@ let cfg = config.personal.gui; in
     let
       desktopEntries = [
         (pkgs.makeDesktopItem {
-          name = "nvim";
-          desktopName = "Neovim";
-          genericName = "Text Editor";
-          exec = "alacritty -e nvim %F";
-          terminal = false;
-          categories = [ "Application" "Utility" "TextEditor" ];
-          icon = "nvim";
-          mimeTypes = [ "text/english" "text/plain" ];
-        })
-        (pkgs.makeDesktopItem {
           name = "obsidian-wayland";
           desktopName = "Obsidian (wayland)";
           exec = "obsidian --ozone-platform=wayland";
