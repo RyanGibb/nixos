@@ -20,32 +20,6 @@ let cfg = config.personal.gui; in
           icon = "obsidian";
           type = "Application";
         })
-        (pkgs.makeDesktopItem {
-          name = "codium-wayland";
-          desktopName = "VSCodium (wayland)";
-          genericName = "Text Editor";
-          exec = "codium --ozone-platform=wayland %F";
-          icon = "code";
-          mimeTypes = [ "text/plain" "inode/directory" ];
-          terminal = false;
-        })
-        (pkgs.makeDesktopItem {
-          name = "chromium-wayland";
-          desktopName = "Chromium (wayland)";
-          exec = "chromium --ozone-platform-hint=auto";
-          icon = "chromium";
-        })
-        (pkgs.makeDesktopItem {
-          name = "signal-desktop-wayland";
-          desktopName = "Signal (wayland)";
-          exec = "signal-desktop --ozone-platform=wayland";
-          terminal = false;
-          type = "Application";
-          icon = "signal-desktop";
-          comment = "Private messaging from your desktop";
-          mimeTypes = [ "x-scheme-handler/sgnl" "x-scheme-handler/signalcaptcha" ];
-          categories = [ "Network" "InstantMessaging" "Chat" ];
-        })
       ];
     in
     {
