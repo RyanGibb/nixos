@@ -2,9 +2,9 @@
 
 let cfg = config.hosting; in
 {
-  options.hosting.nix-cache = lib.mkEnableOption "nix-cache";
+  options.hosting.nix-cache.enable = lib.mkEnableOption "nix-cache";
 
-  config = lib.mkIf cfg.nix-cache {
+  config = lib.mkIf cfg.nix-cache.enable {
     services.nix-serve = {
       enable = true;
       secretKeyFile = "${config.custom.secretsDir}/cache-priv-key.pem";

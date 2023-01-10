@@ -2,9 +2,9 @@
 
 let cfg = config.hosting; in
 {
-  options.hosting.freumh = lib.mkEnableOption "freumh";
+  options.hosting.freumh.enable = lib.mkEnableOption "freumh";
   
-  config = lib.mkIf cfg.freumh {
+  config = lib.mkIf cfg.freumh.enable {
     security.acme = {
       defaults.email = "${config.hosting.username}@${config.networking.domain}";
       acceptTerms = true;

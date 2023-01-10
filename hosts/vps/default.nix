@@ -19,13 +19,13 @@ let giteaSshPort = 3001; in
   swapDevices = [ { device = "/var/swap"; size = 2048; } ];
 
   hosting = {
-    mailserver = true;
-    matrix = true;
-    freumh = true;
-    mastodon = true;
-    gitea = true;
-    nix-cache = true;
-    dns = true;
+    mailserver.enable = true;
+    matrix.enable = true;
+    freumh.enable = true;
+    mastodon.enable = true;
+    gitea.enable = true;
+    nix-cache.enable = true;
+    dns.enable = true;
     rmfakecloud.enable = true;
   };
 
