@@ -21,6 +21,7 @@ let giteaSshPort = 3001; in
   hosting = {
     mailserver.enable = true;
     matrix.enable = true;
+    turn.enable = true;
     freumh.enable = true;
     mastodon.enable = true;
     gitea.enable = true;
@@ -29,13 +30,16 @@ let giteaSshPort = 3001; in
     rmfakecloud.enable = true;
   };
 
-  dns.records = [
-    {
-      name = "@";
-      type = "TXT";
-      data = "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc";
-    }
-  ];
+  dns = {
+    soa.serial = lib.mkForce 2018011624;
+    records = [
+      {
+        name = "@";
+        type = "TXT";
+        data = "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc";
+      }
+    ];
+  };
 
   services = {
     ryan-website = {
@@ -47,29 +51,47 @@ let giteaSshPort = 3001; in
       cname = "vps";
       dotenvFile = "${config.custom.secretsDir}/twitcher.env";
     };
-    eeww = {
-      enable = true;
-      domain = config.services.ryan-website.domain;
-    };
+    #eeww = {
+    #  enable = true;
+    #  domain = config.services.ryan-website.domain;
+    #};
   };
 
-  networking.firewall = {
-    # keep tight control over open ports
-    allowedTCPPorts = lib.mkForce [
-      22  # SSH
-      giteaSshPort
-      25  # SMTP
-      465 # SMTP TLS
-      53  # DNS (over TCP)
-      80  # HTTP
-      443 # HTTPS
-      993 # IMAP
-    ];
-    allowedUDPPorts = lib.mkForce [
-      53    # DNS
-      51820 # wireguard
-    ];
-    trustedInterfaces = [ "tailscale0" ];
+  networking.firewall =
+    let
+      turn-range = with config.services.coturn; {
+        from = min-port;
+        to = max-port;
+      };
+    in {
+      # keep tight control over open ports
+      allowedTCPPorts = lib.mkForce [
+        22   # SSH
+        giteaSshPort
+        25   # SMTP
+        465  # SMTP TLS
+        53   # DNS (over TCP)
+        80   # HTTP
+        443  # HTTPS
+        993  # IMAP
+        3478 # STUN
+      ];
+      allowedTCPPortRanges = [ turn-range ];
+      allowedUDPPorts = lib.mkForce [
+        53    # DNS
+        51820 # wireguard
+        3478  # STUN
+      ];
+      allowedUDPPortRanges = [ turn-range ];
+      trustedInterfaces = [ "tailscale0" ];
+      extraCommands = ''
+        iptables -A PREROUTING -t nat -i enp1s0 -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
+        ip6tables -A PREROUTING -t nat -i enp1s0 -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
+
+        # proxy locally originating outgoing packets
+        iptables -A OUTPUT -d ${config.hosting.serverIpv4} -t nat -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
+        ip6tables -A OUTPUT -d ${config.hosting.serverIpv6} -t nat -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
+      '';
   };
 
   boot.kernel.sysctl = {
@@ -83,12 +105,4 @@ let giteaSshPort = 3001; in
     START_SSH_SERVER = true;
     SSH_LISTEN_PORT = giteaSshPort;
   };
-  networking.firewall.extraCommands = ''
-    iptables -A PREROUTING -t nat -i enp1s0 -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
-    ip6tables -A PREROUTING -t nat -i enp1s0 -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
-
-    # proxy locally originating outgoing packets
-    iptables -A OUTPUT -d ${config.hosting.serverIpv4} -t nat -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
-    ip6tables -A OUTPUT -d ${config.hosting.serverIpv6} -t nat -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
-  '';
 }
