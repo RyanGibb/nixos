@@ -230,11 +230,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1671193637,
-        "narHash": "sha256-KP/XNz1QWmH7UPWpMH+J9A3gyR+PXWYtE9kaFQQrO3o=",
+        "lastModified": 1671540114,
+        "narHash": "sha256-giDjGx1gSBvtWO929ljXjbkRodHwlAmGzjU9noFVEkw=",
         "ref": "refs/heads/master",
-        "rev": "32602793c3ecaeccb7883e2e095b67a790eadfd7",
-        "revCount": 390,
+        "rev": "4d592925403ed57cc6da81d361dc069b90bae2f9",
+        "revCount": 396,
         "type": "git",
         "url": "ssh://git@git.freumh.org/ryan/website.git"
       },
