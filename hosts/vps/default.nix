@@ -29,6 +29,14 @@ let giteaSshPort = 3001; in
     rmfakecloud.enable = true;
   };
 
+  dns.records = [
+    {
+      name = "@";
+      type = "TXT";
+      data = "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc";
+    }
+  ];
+
   services = {
     ryan-website = {
       enable = true;
