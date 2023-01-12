@@ -5,9 +5,18 @@ width=500
 height=1000
 default-timeout=10000
 
-background-color=#2e3440e0
+background-color=#434c5ee0
+border-color=#434c5ee0
 text-color=#eceff4
-border-color=#4c566a
 progress-color=source #d08770
 
 border-radius=10
+
+[urgency=low]
+background-color=#2e3440e0
+border-color=#2e3440e0
+
+[urgency=critical]
+background-color=#bf616ae0
+border-color=#bf616ae0
+

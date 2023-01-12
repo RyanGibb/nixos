@@ -6,11 +6,20 @@ origin=top-right
 width=500
 height=1000
 
-background="#2e3440e0"
+background="#434c5ee0"
+frame_color="#434c5ee0"
 foreground="#eceff4"
-frame_color="#4c566a"
 
 timeout=10000ms
 
 separator_height=2
 frame_width=2
+
+[urgency_low]
+background="#2e3440e0"
+frame_color="#2e3440e0"
+
+[urgency_critical]
+background="#bf616ae0"
+frame_color="#bf616ae0"
+
