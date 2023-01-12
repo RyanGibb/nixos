@@ -48,6 +48,7 @@ let cfg = config.personal; in
         nix-tree
         #atuin
         git-crypt
+        jq
       ];
       variables.EDITOR = "nvim";
       shellAliases = {

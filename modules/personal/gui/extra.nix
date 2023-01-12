@@ -37,6 +37,7 @@ let cfg = config.personal.gui; in
       bitwarden
 
       neomutt
+      liferea
     ];
     shellAliases = {
       mutt = "neomutt";

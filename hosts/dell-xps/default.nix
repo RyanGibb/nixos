@@ -39,6 +39,7 @@
     vagrant
     discord
     teams
+    wine64
   ];
 
   systemd.extraConfig = ''
