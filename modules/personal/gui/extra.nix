@@ -9,8 +9,8 @@ let cfg = config.personal.gui; in
       thunderbird
       element-desktop
       signal-desktop
-      unstable.zotero
-      unstable.obsidian
+      zotero
+      obsidian
       spotify
       gimp
       texlive.combined.scheme-full
