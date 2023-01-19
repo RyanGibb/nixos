@@ -51,8 +51,8 @@
         experimental-features = [ "nix-command" "flakes" ];
         auto-optimise-store = true;
         substituters = [
-          "https://binarycache.freumh.org"
           "https://cache.nixos.org/"
+          "https://binarycache.freumh.org"
         ];
         trusted-public-keys = [
           "binarycache.freumh.org:Go6ACovVBhR4P6Ug3DsE0p0DIRQtkIBHui1DGM7qK5c="
