@@ -10,7 +10,7 @@ let cfg = config.personal.gui; in
       element-desktop
       signal-desktop
       zotero
-      obsidian
+      unstable.obsidian
       spotify
       gimp
       texlive.combined.scheme-full
