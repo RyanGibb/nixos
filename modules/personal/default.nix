@@ -82,7 +82,7 @@ let cfg = config.personal; in
           defaultBranch = "main";
         };
         user = {
-          email = "${config.custom.username}@${config.networking.domain}}";
+          email = "${config.custom.username}@${config.networking.domain}";
           name = "Ryan Gibb";
         };
         alias = {
