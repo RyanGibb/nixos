@@ -67,7 +67,7 @@
                 home-manager.nixosModule
                 {
                   networking.hostName = "${hostname}";
-                  # https://www.tweag.io/blog/2020-07-31-nixos-flakes#pinning-nixpkgs
+                  # pin nix command's nixpkgs flake to the system flake to avoid unnecessary downloads
                   nix.registry.nixpkgs.flake = nixpkgs;
                   system.stateVersion = "22.05";
                   # record git revision (can be queried with `nixos-version --json)
