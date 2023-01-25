@@ -1,6 +1,5 @@
 { pkgs, config, lib, ... }:
 
-let giteaSshPort = 3001; in
 {
   imports = [
     ./hardware-configuration.nix
@@ -18,15 +17,20 @@ let giteaSshPort = 3001; in
 
   swapDevices = [ { device = "/var/swap"; size = 2048; } ];
 
-  hosting = {
+  eilean = {
+    publicInterface = "enp1s0";
+
     mailserver.enable = true;
     matrix.enable = true;
     turn.enable = true;
-    freumh.enable = true;
     mastodon.enable = true;
     gitea.enable = true;
-    nix-cache.enable = true;
     dns.enable = true;
+  };
+
+  hosting = {
+    freumh.enable = true;
+    nix-cache.enable = true;
     rmfakecloud.enable = true;
   };
 
@@ -52,7 +56,7 @@ let giteaSshPort = 3001; in
       dotenvFile = "${config.custom.secretsDir}/twitcher.env";
     };
     eeww = {
-      enable = true;
+      #enable = true;
       domain = config.services.ryan-website.domain;
     };
   };
@@ -67,7 +71,7 @@ let giteaSshPort = 3001; in
       # keep tight control over open ports
       allowedTCPPorts = lib.mkForce [
         22   # SSH
-        giteaSshPort
+        config.eilean.gitea.sshPort
         25   # SMTP
         465  # SMTP TLS
         53   # DNS (over TCP)
@@ -84,25 +88,10 @@ let giteaSshPort = 3001; in
       ];
       allowedUDPPortRanges = [ turn-range ];
       trustedInterfaces = [ "tailscale0" ];
-      extraCommands = ''
-        iptables -A PREROUTING -t nat -i enp1s0 -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
-        ip6tables -A PREROUTING -t nat -i enp1s0 -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
-
-        # proxy locally originating outgoing packets
-        iptables -A OUTPUT -d ${config.hosting.serverIpv4} -t nat -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
-        ip6tables -A OUTPUT -d ${config.hosting.serverIpv6} -t nat -p tcp --dport 22 -j REDIRECT --to-port ${builtins.toString giteaSshPort}
-      '';
   };
 
-  boot.kernel.sysctl = {
-    "net.ipv4.ip_forward" = 1;
-    "net.ipv6.conf.all.forwarding" = 1;
-  };
-
-  # proxy port 22 on ethernet interface to internal gitea ssh server
-  # openssh server remains accessible on port 22 via vpn(s)
-  services.gitea.settings.server = {
-    START_SSH_SERVER = true;
-    SSH_LISTEN_PORT = giteaSshPort;
-  };
+  # boot.kernel.sysctl = {
+  #   "net.ipv4.ip_forward" = 1;
+  #   "net.ipv6.conf.all.forwarding" = 1;
+  # };
 }

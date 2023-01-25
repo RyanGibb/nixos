@@ -6,7 +6,7 @@ let cfg = config.hosting; in
   
   config = lib.mkIf cfg.freumh.enable {
     security.acme = {
-      defaults.email = "${config.hosting.username}@${config.networking.domain}";
+      defaults.email = "${config.eilean.username}@${config.networking.domain}";
       acceptTerms = true;
     };
 

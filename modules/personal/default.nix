@@ -70,7 +70,7 @@ let cfg = config.personal; in
     };
     
     networking = rec {
-      # nameservers = [ ${config.hosting.serverIpv4} ];
+      # nameservers = [ ${config.eilean.serverIpv4} ];
       nameservers = [ "1.1.1.1" ];
       networkmanager.dns = "none";
     };
