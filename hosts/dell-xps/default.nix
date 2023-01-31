@@ -11,7 +11,6 @@
     machineColour = "blue";
     laptop = true;
     printing = true;
-    ocaml = true;
     gui.i3 = true;
     gui.sway = true;
     gui.extra = true;
