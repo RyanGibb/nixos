@@ -41,7 +41,6 @@ let cfg = config.personal; in
         killall
         nmap
         gcc
-        direnv
         fzf
         tcpdump
         sshfs

@@ -37,7 +37,6 @@
     killall
     nmap
     gcc
-    direnv
     fzf
   ];
 
