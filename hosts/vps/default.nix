@@ -42,7 +42,18 @@
         type = "TXT";
         data = "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc";
       }
+      {
+        name = "teapot";
+        type = "CNAME";
+        data = "vps";
+      }
     ];
+  };
+
+  services.nginx.virtualHosts."teapot.${config.networking.domain}" = {
+    extraConfig = ''
+      return 418;
+    '';
   };
 
   services = {
