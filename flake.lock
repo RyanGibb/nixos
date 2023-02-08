@@ -241,11 +241,11 @@
         "opam-nix": "opam-nix"
       },
       "locked": {
-        "lastModified": 1675886738,
-        "narHash": "sha256-dPJ7HkH9GtUfpyr+fH5E5p8tVQVACu1Ui9e+ZZBOHsE=",
+        "lastModified": 1675887365,
+        "narHash": "sha256-83OWGe57vD9kAlpoej3wMH4eSOVjEGspuBa2cQ1EDO0=",
         "owner": "RyanGibb",
         "repo": "ocaml-dns-eio",
-        "rev": "5d45aedc530e66617b254b73a537eda253ffa827",
+        "rev": "bbdd9e5b5702bd652cc106420059e6ccd17c6a1b",
         "type": "github"
       },
       "original": {
