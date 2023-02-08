@@ -4,6 +4,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     eilean.url ="git+ssh://git@git.freumh.org/ryan/eilean-nix.git?ref=main";
+    eilean.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     ryan-website.url = "git+ssh://git@git.freumh.org/ryan/website.git";
@@ -18,9 +19,11 @@
     eeww.url = "github:RyanGibb/eeww/nixos";
     eeww.inputs.nixpkgs.follows = "nixpkgs";
     eeww.inputs.flake-utils.follows = "flake-utils";
+    ocaml-dns-eio.url = "github:RyanGibb/ocaml-dns-eio";
+    ocaml-dns-eio.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, eilean, home-manager, ryan-website, patchelf-raphi, twitcher, nixos-hardware, eeww, ... }@inputs: rec {
+  outputs = { self, nixpkgs, nixpkgs-unstable, eilean, home-manager, ryan-website, patchelf-raphi, twitcher, nixos-hardware, eeww, ocaml-dns-eio, ... }@inputs: rec {
 
     getPkgs = system:
       let overlays = [
@@ -46,6 +49,7 @@
           # "cctk" = final.callPackage ./pkgs/cctk/default.nix { };
           "cctk" = prev.callPackage ./pkgs/cctk/default.nix { patchelf-raphi = patchelf-raphi.packages.${system}.patchelf; };
           "eeww" = eeww.defaultPackage.${system};
+          "ocaml-dns-eio" = ocaml-dns-eio.defaultPackage.${system};
         })
       ]; in
       import nixpkgs { inherit overlays system; config.allowUnfree = true; };
@@ -74,7 +78,8 @@
                   system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
                 }
                 ryan-website.nixosModules.default
-                twitcher.nixosModules.default 
+                twitcher.nixosModules.default
+                ocaml-dns-eio.nixosModules.default
               ];
             };
       in nixpkgs.lib.genAttrs hosts mkHost;
