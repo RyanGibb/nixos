@@ -35,7 +35,7 @@
   };
 
   dns = {
-    soa.serial = lib.mkForce 2018011624;
+    soa.serial = lib.mkForce 2018011625;
     records = [
       { name = "@"; type = "TXT"; data = "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc"; }
       { name = "teapot"; type = "CNAME"; data = "vps"; }
