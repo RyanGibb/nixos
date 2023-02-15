@@ -42,13 +42,16 @@
 
       { name = "@";   type = "NS"; data = "ns1"; }
       { name = "@";   type = "NS"; data = "ns2"; }
-      { name = "ns1"; type = "A";  data = config.eilean.serverIpv4; }
-      { name = "ns2"; type = "A";  data = config.eilean.serverIpv4; }
+
+      { name = "ns1"; type = "A";    data = config.eilean.serverIpv4; }
+      { name = "ns1"; type = "AAAA"; data = config.eilean.serverIpv6; }
+      { name = "ns2"; type = "A";    data = config.eilean.serverIpv4; }
+      { name = "ns2"; type = "AAAA"; data = config.eilean.serverIpv6; }
 
       { name = "www"; type = "CNAME"; data = "@"; }
 
-      { name = "@"; type = "A";      data = config.eilean.serverIpv4; }
-      { name = "@"; type = "AAAA";   data = config.eilean.serverIpv6; }
+      { name = "@";   type = "A";    data = config.eilean.serverIpv4; }
+      { name = "@";   type = "AAAA"; data = config.eilean.serverIpv6; }
       { name = "vps"; type = "A";    data = config.eilean.serverIpv4; }
       { name = "vps"; type = "AAAA"; data = config.eilean.serverIpv6; }
 
