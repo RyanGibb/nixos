@@ -48,17 +48,21 @@
     i18n.defaultLocale = "en_GB.UTF-8";
 
     nix = {
-      settings = {
-        experimental-features = [ "nix-command" "flakes" ];
-        auto-optimise-store = true;
-        substituters = [
-          "https://cache.nixos.org/"
-          "https://binarycache.freumh.org"
-        ];
-        trusted-public-keys = [
-          "binarycache.freumh.org:Go6ACovVBhR4P6Ug3DsE0p0DIRQtkIBHui1DGM7qK5c="
-        ];
-      };
+      settings = lib.mkMerge [
+        {
+          experimental-features = [ "nix-command" "flakes" ];
+          auto-optimise-store = true;
+        }
+        (lib.mkIf (config.networking.hostName != "vps") {
+          substituters = [
+            "https://cache.nixos.org/"
+            "https://binarycache.freumh.org"
+          ];
+          trusted-public-keys = [
+            "binarycache.freumh.org:Go6ACovVBhR4P6Ug3DsE0p0DIRQtkIBHui1DGM7qK5c="
+          ];
+        })
+      ];
       gc = {
         automatic = true;
         dates = "weekly";
