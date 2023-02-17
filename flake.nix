@@ -3,38 +3,60 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    flake-compat.url = "github:edolstra/flake-compat";
-    flake-compat.flake = false;
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
     eilean.url ="git+ssh://git@git.freumh.org/ryan/eilean-nix.git?ref=main";
-    eilean.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
     ryan-website.url = "git+ssh://git@git.freumh.org/ryan/website.git";
-    ryan-website.inputs.nixpkgs.follows = "nixpkgs";
-    ryan-website.inputs.flake-utils.follows = "flake-utils";
-    ryan-website.inputs.flake-compat.follows = "flake-compat";
     twitcher.url = "git+ssh://git@git.freumh.org/ryan/twitcher.git";
-    twitcher.inputs.nixpkgs.follows = "nixpkgs";
-    twitcher.inputs.flake-utils.follows = "flake-utils";
     patchelf-raphi.url = "git+https://git.sr.ht/~raphi/patchelf";
-    patchelf-raphi.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     eeww.url = "github:RyanGibb/eeww/nixos";
-    eeww.inputs.nixpkgs.follows = "nixpkgs";
-    eeww.inputs.flake-utils.follows = "flake-utils";
     ocaml-dns-eio.url = "github:RyanGibb/ocaml-dns-eio";
-    ocaml-dns-eio.inputs.ipaddr.follows = "ipaddr";
-    ocaml-dns-eio.inputs.nixpkgs.follows = "nixpkgs";
-    ocaml-dns-eio.inputs.flake-utils.follows = "flake-utils";
-    ocaml-dns-eio.inputs.opam-nix.follows = "opam-nix";
+
+    # deduplicate flake inputs
+    eilean.inputs = {
+      nixpkgs.follows = "nixpkgs";
+    };
+    home-manager.inputs = {
+      nixpkgs.follows = "nixpkgs";
+    };
+    ryan-website.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      flake-utils.follows = "flake-utils";
+      flake-compat.follows = "flake-compat";
+    };
+    twitcher.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      flake-utils.follows = "flake-utils";
+    };
+    patchelf-raphi.inputs = {
+      nixpkgs.follows = "nixpkgs";
+    };
+    eeww.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      flake-utils.follows = "flake-utils";
+    };
+    ocaml-dns-eio.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      ipaddr.follows = "ipaddr";
+      flake-utils.follows = "flake-utils";
+      opam-nix.follows = "opam-nix";
+    };
     opam-nix.url = "github:RyanGibb/opam-nix";
-    opam-nix.inputs.nixpkgs.follows = "nixpkgs";
-    opam-nix.inputs.flake-utils.follows = "flake-utils";
-    opam-nix.inputs.flake-compat.follows = "flake-compat";
+    opam-nix.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      flake-utils.follows = "flake-utils";
+      flake-compat.follows = "flake-compat";
+    };
     ipaddr.url = "github:RyanGibb/ocaml-ipaddr";
-    ipaddr.inputs.nixpkgs.follows = "nixpkgs";
-    ipaddr.inputs.opam-nix.follows = "opam-nix";
-    ipaddr.inputs.flake-utils.follows = "flake-utils";
+    ipaddr.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      opam-nix.follows = "opam-nix";
+      flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, eilean, home-manager, ryan-website, patchelf-raphi, twitcher, nixos-hardware, eeww, ocaml-dns-eio, ... }@inputs: rec {
@@ -104,4 +126,4 @@
       with import nixpkgs { system = "x86_64-linux"; };
       (pkgs.callPackage ./pkgs/cctk/default.nix { patchelf-raphi = patchelf-raphi.packages.${system}.patchelf; });
     };
-  }
+}
