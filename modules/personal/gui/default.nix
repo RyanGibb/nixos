@@ -101,7 +101,21 @@ let cfg = config.personal.gui; in
       chromium
       gparted
       vlc
-      vscodium
+      (vscode-with-extensions.override {
+        vscode = vscodium;
+        vscodeExtensions = with vscode-extensions; [
+          bbenoist.nix
+          #asvetliakov.vscode-neovim
+          #eamodio.gitlens
+          james-yu.latex-workshop
+          ocamllabs.ocaml-platform
+          streetsidesoftware.code-spell-checker
+          #vscodevim.vim
+          # anwar.papyrus-pdf
+          # ctf0.macros
+          # znck.grammarly
+        ];
+      })
     ] ++ desktopEntries;
 
     fonts.fonts = with pkgs; [
