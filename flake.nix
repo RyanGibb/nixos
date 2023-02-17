@@ -1,26 +1,26 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-root.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     eilean.url ="git+ssh://git@git.freumh.org/ryan/eilean-nix.git?ref=main";
     home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs-root";
     ryan-website.url = "git+ssh://git@git.freumh.org/ryan/website.git";
-    ryan-website.inputs.nixpkgs.follows = "nixpkgs";
+    ryan-website.inputs.nixpkgs.follows = "nixpkgs-root";
     ryan-website.inputs.flake-utils.follows = "flake-utils";
     twitcher.url = "git+ssh://git@git.freumh.org/ryan/twitcher.git";
-    twitcher.inputs.nixpkgs.follows = "nixpkgs";
+    twitcher.inputs.nixpkgs.follows = "nixpkgs-root";
     twitcher.inputs.flake-utils.follows = "flake-utils";
     patchelf-raphi.url = "git+https://git.sr.ht/~raphi/patchelf";
-    patchelf-raphi.inputs.nixpkgs.follows = "nixpkgs";
+    patchelf-raphi.inputs.nixpkgs.follows = "nixpkgs-root";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     eeww.url = "github:RyanGibb/eeww/nixos";
-    eeww.inputs.nixpkgs.follows = "nixpkgs";
+    eeww.inputs.nixpkgs.follows = "nixpkgs-root";
     eeww.inputs.flake-utils.follows = "flake-utils";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, eilean, home-manager, ryan-website, patchelf-raphi, twitcher, nixos-hardware, eeww, ... }@inputs: rec {
+  outputs = { self, nixpkgs-root, nixpkgs-unstable, eilean, home-manager, ryan-website, patchelf-raphi, twitcher, nixos-hardware, eeww, ... }@inputs: rec {
 
     getPkgs = system:
       let overlays = [
@@ -48,14 +48,14 @@
           "eeww" = eeww.defaultPackage.${system};
         })
       ]; in
-      import nixpkgs { inherit overlays system; config.allowUnfree = true; };
+      import nixpkgs-root { inherit overlays system; config.allowUnfree = true; };
 
     nixosConfigurations =
       let
         hosts = builtins.attrNames (builtins.readDir ./hosts);
         mkHost = hostname:
           let system = builtins.readFile ./hosts/${hostname}/system; in
-          nixpkgs.lib.nixosSystem {
+          nixpkgs-root.lib.nixosSystem {
             inherit system;
             specialArgs = inputs;
             pkgs = getPkgs system;
@@ -68,21 +68,21 @@
                 {
                   networking.hostName = "${hostname}";
                   # pin nix command's nixpkgs flake to the system flake to avoid unnecessary downloads
-                  nix.registry.nixpkgs.flake = nixpkgs;
+                  nix.registry.nixpkgs.flake = nixpkgs-root;
                   system.stateVersion = "22.05";
                   # record git revision (can be queried with `nixos-version --json)
-                  system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
+                  system.configurationRevision = nixpkgs-root.lib.mkIf (self ? rev) self.rev;
                 }
                 ryan-website.nixosModules.default
                 twitcher.nixosModules.default 
               ];
             };
-      in nixpkgs.lib.genAttrs hosts mkHost;
+      in nixpkgs-root.lib.genAttrs hosts mkHost;
 
     packages.x86_64-linux.cctk =
       # TODO can use bellow to avoid explicitally having to import patchelf-new
       #with getPkgs "x86_64-linux";
-      with import nixpkgs { system = "x86_64-linux"; };
+      with import nixpkgs-root { system = "x86_64-linux"; };
       (pkgs.callPackage ./pkgs/cctk/default.nix { patchelf-raphi = patchelf-raphi.packages.${system}.patchelf; });
     };
   }
