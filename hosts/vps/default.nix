@@ -72,6 +72,7 @@
       enable = true;
       # todo make this zonefile derivation a config parameter `services.dns.zonefile`
       zoneFile = import "${eilean}/modules/dns/zonefile.nix" { inherit pkgs config lib; };
+      logLevel = 2;
     };
   };
 

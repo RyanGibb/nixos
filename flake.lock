@@ -228,11 +228,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1676905264,
-        "narHash": "sha256-azbyEqL5iv7m7MzgzlbCaSp2Wfn2xJMwUTNi/920omM=",
+        "lastModified": 1676928470,
+        "narHash": "sha256-CGuXLhCXiEEC724ZSBWhgXkhGFHeKVekyE6GmDuG1A0=",
         "owner": "RyanGibb",
         "repo": "ocaml-dns-eio",
-        "rev": "96e831e0deac4d6ad32e313fdf10dc3be53d9f20",
+        "rev": "a4d5f0b29b90195397f1881138ea9d9f2c569154",
         "type": "github"
       },
       "original": {
