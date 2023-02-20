@@ -93,7 +93,7 @@
     nixosConfigurations =
       let
         hosts = builtins.attrNames (builtins.readDir ./hosts);
-        mkHost = hostname:
+        mkHost = config: hostname:
           let system = builtins.readFile ./hosts/${hostname}/system; in
           nixpkgs.lib.nixosSystem {
             inherit system;
@@ -101,7 +101,7 @@
             pkgs = getPkgs system;
             modules =
               [
-                ./hosts/${hostname}/default.nix
+                ./hosts/${hostname}/${config}.nix
                 ./modules/default.nix
                 eilean.nixosModules.default
                 home-manager.nixosModule
@@ -118,7 +118,10 @@
                 ocaml-dns-eio.nixosModules.default
               ];
             };
-      in nixpkgs.lib.genAttrs hosts mkHost;
+        mkHosts = hosts: nixpkgs.lib.genAttrs hosts (mkHost "default");
+        mkConfigHosts = hosts: config:
+          (builtins.listToAttrs (builtins.map (host: { name = "${host}-${config}"; value = mkHost config host; } ) hosts));
+      in mkHosts hosts // mkConfigHosts hosts "minimal";
 
     packages.x86_64-linux.cctk =
       # TODO can use bellow to avoid explicitally having to import patchelf-new
