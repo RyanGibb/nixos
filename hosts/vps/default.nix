@@ -3,19 +3,8 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./minimal.nix
   ];
-
-  networking.hostName = "vps";
-  personal = {
-    enable = true;
-    tailscale = true;
-    machineColour = "yellow";
-  };
-
-  boot.cleanTmpDir = true;
-  zramSwap.enable = true;
-
-  swapDevices = [ { device = "/var/swap"; size = 2048; } ];
 
   eilean = {
     publicInterface = "enp1s0";
