@@ -7,14 +7,18 @@
       url = "github:edolstra/flake-compat";
       flake = false;
     };
-    eilean.url ="git+ssh://git@git.freumh.org/ryan/eilean-nix.git?ref=main";
-    home-manager.url = "github:nix-community/home-manager";
-    ryan-website.url = "git+ssh://git@git.freumh.org/ryan/website.git";
-    twitcher.url = "git+ssh://git@git.freumh.org/ryan/twitcher.git";
-    patchelf-raphi.url = "git+https://git.sr.ht/~raphi/patchelf";
     nixos-hardware.url = "github:nixos/nixos-hardware";
+    home-manager.url = "github:nix-community/home-manager";
+    patchelf-raphi.url = "git+https://git.sr.ht/~raphi/patchelf";
     eeww.url = "github:RyanGibb/eeww/nixos";
     ocaml-dns-eio.url = "github:RyanGibb/ocaml-dns-eio";
+
+    eilean.url ="git+ssh://git@git.freumh.org/ryan/eilean-nix.git?ref=main";
+    # eilean.url ="github:RyanGibb/eilean-nix/main";
+    ryan-website.url = "git+ssh://git@git.freumh.org/ryan/website.git";
+    # ryan-website.url = "github:RyanGibb/website";
+    twitcher.url = "git+ssh://git@git.freumh.org/ryan/twitcher.git";
+    # twitcher.url = "github:RyanGibb/twitcher";
 
     # deduplicate flake inputs
     eilean.inputs = {
