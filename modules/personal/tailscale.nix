@@ -31,7 +31,7 @@ let cfg = config.personal; in
     services.tailscale.enable = true;
     networking.firewall.checkReversePath = mkDefault "loose";
 
-    dns.records = attrsets.mapAttrsToList (hostName: values: {
+    dns.zones.${config.networking.domain}.records = attrsets.mapAttrsToList (hostName: values: {
       name = "${hostName}.vpn";
       type = "A";
       data = values.ip;

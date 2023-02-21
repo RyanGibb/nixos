@@ -24,28 +24,30 @@
   };
 
   dns = {
-    soa.serial = lib.mkForce 2018011625;
-    records = [
-      { name = "@"; type = "TXT"; data = "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc"; }
-      { name = "teapot"; type = "CNAME"; data = "vps"; }
+    zones.${config.networking.domain} = {
+      soa.serial = lib.mkDefault 0;
+      records = [
+        { name = "@"; type = "TXT"; data = "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc"; }
+        { name = "teapot"; type = "CNAME"; data = "vps"; }
 
-      { name = "@";   type = "NS"; data = "ns1"; }
-      { name = "@";   type = "NS"; data = "ns2"; }
+        { name = "@";   type = "NS"; data = "ns1"; }
+        { name = "@";   type = "NS"; data = "ns2"; }
 
-      { name = "ns1"; type = "A";    data = config.eilean.serverIpv4; }
-      { name = "ns1"; type = "AAAA"; data = config.eilean.serverIpv6; }
-      { name = "ns2"; type = "A";    data = config.eilean.serverIpv4; }
-      { name = "ns2"; type = "AAAA"; data = config.eilean.serverIpv6; }
+        { name = "ns1"; type = "A";    data = config.eilean.serverIpv4; }
+        { name = "ns1"; type = "AAAA"; data = config.eilean.serverIpv6; }
+        { name = "ns2"; type = "A";    data = config.eilean.serverIpv4; }
+        { name = "ns2"; type = "AAAA"; data = config.eilean.serverIpv6; }
 
-      { name = "www"; type = "CNAME"; data = "@"; }
+        { name = "www"; type = "CNAME"; data = "@"; }
 
-      { name = "@";   type = "A";    data = config.eilean.serverIpv4; }
-      { name = "@";   type = "AAAA"; data = config.eilean.serverIpv6; }
-      { name = "vps"; type = "A";    data = config.eilean.serverIpv4; }
-      { name = "vps"; type = "AAAA"; data = config.eilean.serverIpv6; }
+        { name = "@";   type = "A";    data = config.eilean.serverIpv4; }
+        { name = "@";   type = "AAAA"; data = config.eilean.serverIpv6; }
+        { name = "vps"; type = "A";    data = config.eilean.serverIpv4; }
+        { name = "vps"; type = "AAAA"; data = config.eilean.serverIpv6; }
 
-      { name = "@"; type = "LOC"; data = "52 12 40.4 N 0 5 31.9 E 22m 10m 10m 10m"; }
-    ];
+        { name = "@"; type = "LOC"; data = "52 12 40.4 N 0 5 31.9 E 22m 10m 10m 10m"; }
+      ];
+    };
   };
 
   services.nginx.virtualHosts."teapot.${config.networking.domain}" = {
@@ -70,8 +72,9 @@
     };
     ocaml-dns-eio = {
       enable = true;
-      # todo make this zonefile derivation a config parameter `services.dns.zonefile`
-      zoneFile = import "${eilean}/modules/dns/zonefile.nix" { inherit pkgs config lib; };
+      # TODO make this zonefile derivation a config parameter `services.dns.zonefile`
+      # TODO add module in eilean for ocaml-dns-eio
+      zoneFile = "${import "${eilean}/modules/dns/zonefile.nix" { inherit pkgs config lib; zonename = config.networking.domain; zone = config.dns.zones.${config.networking.domain}; }}/${config.networking.domain}";
       logLevel = 2;
     };
   };

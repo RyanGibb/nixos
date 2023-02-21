@@ -28,7 +28,7 @@ let cfg = config.hosting; in
       };
     };
 
-    dns.records = [
+    dns.zones.${config.networking.domain}.records = [
       {
         name = "binarycache";
         type = "CNAME";
