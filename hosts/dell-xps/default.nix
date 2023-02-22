@@ -35,9 +35,9 @@
     ]))
     python39Packages.pip
     jupyter
-    vagrant
+    #vagrant
     discord
-    teams
+    #teams
     wine64
   ];
 
