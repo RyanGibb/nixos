@@ -16,6 +16,8 @@
     eilean.url ="git+ssh://git@git.freumh.org/ryan/eilean-nix.git?ref=main";
     # eilean.url ="github:RyanGibb/eilean-nix/main";
     ryan-website.url = "git+ssh://git@git.freumh.org/ryan/website.git";
+    ryan-cv.url = "git+ssh://git@git.freumh.org/ryan/cv.git";
+    ryan-website.inputs.cv.follows = "ryan-cv";
     # ryan-website.url = "github:RyanGibb/website";
     twitcher.url = "git+ssh://git@git.freumh.org/ryan/twitcher.git";
     # twitcher.url = "github:RyanGibb/twitcher";
@@ -31,6 +33,10 @@
       nixpkgs.follows = "nixpkgs";
       flake-utils.follows = "flake-utils";
       flake-compat.follows = "flake-compat";
+    };
+    ryan-cv.inputs = {
+      nixpkgs.follows = "nixpkgs";
+      flake-utils.follows = "flake-utils";
     };
     twitcher.inputs = {
       nixpkgs.follows = "nixpkgs";

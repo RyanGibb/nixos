@@ -1,31 +1,5 @@
 {
   "nodes": {
-    "cv": {
-      "inputs": {
-        "flake-utils": [
-          "ryan-website",
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "ryan-website",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1669477867,
-        "narHash": "sha256-zZRUP3zqSvlqrZUPVFMsCxuvVToBDoWH8duC8hwpZ6E=",
-        "ref": "main",
-        "rev": "4d6772ec2d5a18e9b091cc21e386b86b70d946ea",
-        "revCount": 30,
-        "type": "git",
-        "url": "ssh://git@git.freumh.org/ryan/cv.git"
-      },
-      "original": {
-        "ref": "main",
-        "type": "git",
-        "url": "ssh://git@git.freumh.org/ryan/cv.git"
-      }
-    },
     "eeww": {
       "inputs": {
         "flake-utils": [
@@ -358,13 +332,39 @@
         "ocaml-dns-eio": "ocaml-dns-eio",
         "opam-nix": "opam-nix",
         "patchelf-raphi": "patchelf-raphi",
+        "ryan-cv": "ryan-cv",
         "ryan-website": "ryan-website",
         "twitcher": "twitcher"
       }
     },
+    "ryan-cv": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1677531792,
+        "narHash": "sha256-Rn1kCbFiK2M3V+wimpCb9yMFbFXZuPzHUQNrTdfBZgE=",
+        "ref": "refs/heads/main",
+        "rev": "a92f95d99f8499cfc1190e31140b92857ec4295b",
+        "revCount": 35,
+        "type": "git",
+        "url": "ssh://git@git.freumh.org/ryan/cv.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@git.freumh.org/ryan/cv.git"
+      }
+    },
     "ryan-website": {
       "inputs": {
-        "cv": "cv",
+        "cv": [
+          "ryan-cv"
+        ],
         "flake-compat": [
           "flake-compat"
         ],
