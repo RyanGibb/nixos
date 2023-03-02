@@ -5,6 +5,8 @@
     ./hardware-configuration.nix
   ];
 
+  nixpkgs.hostPlatform.system = "x86_64-linux";
+
   networking.hostName = "desktop";
   personal = {
     enable = true;

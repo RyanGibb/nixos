@@ -71,71 +71,75 @@
 
   outputs = { self, nixpkgs, nixpkgs-unstable, eilean, home-manager, ryan-website, patchelf-raphi, twitcher, nixos-hardware, eeww, ocaml-dns-eio, ... }@inputs: rec {
 
-    getPkgs = system:
-      let overlays = [
-        (final: prev: {
-          unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
-          # `ryan-website.nixosModules.default` uses `pkgs.ryan-website`
-          "ryan-website" =
-            let
-              keys = prev.stdenv.mkDerivation {
-                name = "ryan-keys";
-                src = ./modules/personal/authorized_keys;
-                phases = [ "buildPhase" ];
-                buildPhase = ''
-                  touch $out
-                  cat $src | cut -d' ' -f-2 > $out
-                '';
-              };
-            in ryan-website.paramaterizedPackages.${system}.with-cv keys;
-          # `twitcher.nixosModules.default` uses `pkgs.ryan-website`
-          "twitcher" = twitcher.packages.${system}.default;
-          # can uncomment if want to use patchelf-rafi elsewhere
-          #"patchelf-raphi" = patchelf-raphi.packages.${system}.patchelf;
-          # "cctk" = final.callPackage ./pkgs/cctk/default.nix { };
-          "cctk" = prev.callPackage ./pkgs/cctk/default.nix { patchelf-raphi = patchelf-raphi.packages.${system}.patchelf; };
-          "eeww" = eeww.defaultPackage.${system};
-          "ocaml-dns-eio" = ocaml-dns-eio.defaultPackage.${system};
-        })
-      ]; in
-      import nixpkgs { inherit overlays system; config.allowUnfree = true; };
-
     nixosConfigurations =
       let
         hosts = builtins.attrNames (builtins.readDir ./hosts);
-        mkHost = config: hostname:
-          let system = builtins.readFile ./hosts/${hostname}/system; in
+        getSystemOverlays = system: nixpkgsConfig:
+          [
+            (final: prev: {
+              unstable = import nixpkgs-unstable {
+                inherit system;
+                # follow stable nixpkgs config
+                config = nixpkgsConfig;
+              };
+              # `ryan-website.nixosModules.default` uses `pkgs.ryan-website`
+              "ryan-website" =
+                let
+                  keys = prev.stdenv.mkDerivation {
+                    name = "ryan-keys";
+                    src = ./modules/personal/authorized_keys;
+                    phases = [ "buildPhase" ];
+                    buildPhase = ''
+                      touch $out
+                      cat $src | cut -d' ' -f-2 > $out
+                    '';
+                  };
+                in ryan-website.paramaterizedPackages.${system}.with-cv keys;
+              # `twitcher.nixosModules.default` uses `pkgs.ryan-website`
+              "twitcher" = twitcher.packages.${system}.default;
+              # can uncomment if want to use patchelf-rafi elsewhere
+              #"patchelf-raphi" = patchelf-raphi.packages.${system}.patchelf;
+              # "cctk" = final.callPackage ./pkgs/cctk/default.nix { };
+              "cctk" = prev.callPackage ./pkgs/cctk/default.nix { patchelf-raphi = patchelf-raphi.packages.${system}.patchelf; };
+              "eeww" = eeww.defaultPackage.${system};
+              "ocaml-dns-eio" = ocaml-dns-eio.defaultPackage.${system};
+            })
+          ];
+
+        mkHost = mode: hostname:
           nixpkgs.lib.nixosSystem {
-            inherit system;
+            # use system from config.localSystem
+            # see https://github.com/NixOS/nixpkgs/blob/5297d584bcc5f95c8e87c631813b4e2ab7f19ecc/nixos/lib/eval-config.nix#L55
+            system = null;
+            pkgs = null;
             specialArgs = inputs;
-            pkgs = getPkgs system;
             modules =
               [
-                ./hosts/${hostname}/${config}.nix
+                ./hosts/${hostname}/${mode}.nix
                 ./modules/default.nix
                 eilean.nixosModules.default
                 home-manager.nixosModule
-                {
+                ({ config, ... }: {
                   networking.hostName = "${hostname}";
                   # pin nix command's nixpkgs flake to the system flake to avoid unnecessary downloads
                   nix.registry.nixpkgs.flake = nixpkgs;
                   system.stateVersion = "22.05";
                   # record git revision (can be queried with `nixos-version --json)
                   system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
-                }
+                  nixpkgs.config.allowUnfree = true;
+                  nixpkgs.overlays = getSystemOverlays config.nixpkgs.hostPlatform.system config.nixpkgs.config;
+                })
                 ryan-website.nixosModules.default
                 twitcher.nixosModules.default
                 ocaml-dns-eio.nixosModules.default
               ];
             };
         mkHosts = hosts: nixpkgs.lib.genAttrs hosts (mkHost "default");
-        mkConfigHosts = hosts: config:
-          (builtins.listToAttrs (builtins.map (host: { name = "${host}-${config}"; value = mkHost config host; } ) hosts));
-      in mkHosts hosts // mkConfigHosts hosts "minimal";
+        mkModeHosts = mode: hosts:
+          (builtins.listToAttrs (builtins.map (host: { name = "${host}-${mode}"; value = mkHost mode host; } ) hosts));
+      in mkHosts hosts // mkModeHosts "minimal" hosts;
 
     packages.x86_64-linux.cctk =
-      # TODO can use bellow to avoid explicitally having to import patchelf-new
-      #with getPkgs "x86_64-linux";
       with import nixpkgs { system = "x86_64-linux"; };
       (pkgs.callPackage ./pkgs/cctk/default.nix { patchelf-raphi = patchelf-raphi.packages.${system}.patchelf; });
     };

@@ -6,6 +6,8 @@
     "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
   ];
 
+  nixpkgs.hostPlatform.system = "x86_64-linux";
+
   personal = {
     enable = true;
     laptop = true;

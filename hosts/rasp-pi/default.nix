@@ -6,6 +6,8 @@
     "${nixos-hardware}/raspberry-pi/4"
   ];
 
+  nixpkgs.hostPlatform.system = "aarch64-linux";
+
   networking.hostName = "rasp-pi";
   personal = {
     enable = true;
