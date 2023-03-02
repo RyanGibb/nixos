@@ -127,6 +127,8 @@
                   nixpkgs = {
                     config.allowUnfree = true;
                     overlays = getSystemOverlays config.nixpkgs.hostPlatform.system config.nixpkgs.config;
+                    # uncomment for cross compilation (https://github.com/NixOS/nix/issues/3843)
+                    #buildPlatform.system = "cpu-os";
                   };
                 })
                 home-manager.nixosModule
