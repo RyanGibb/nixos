@@ -31,11 +31,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1676990576,
-        "narHash": "sha256-oljhdlGy7v5bMI7gy0lfmUFl0wIMFczvlamWgH/6TFE=",
+        "lastModified": 1677678055,
+        "narHash": "sha256-Sf+Hn8tMPudNu+MEWcPaGBs5mqg+b72nB520RTZlLmE=",
         "ref": "main",
-        "rev": "9d7027b80ab57fece64090d7da9214e1d2b763df",
-        "revCount": 13,
+        "rev": "0b0a552480c78be16466c7b4b0e7d90de1862fd9",
+        "revCount": 15,
         "type": "git",
         "url": "ssh://git@git.freumh.org/ryan/eilean-nix.git"
       },
