@@ -61,6 +61,7 @@ let cfg = config.personal; in
         inhibit-lid = "systemd-inhibit --what=handle-lid-switch sleep 1d";
         tmux = "tmux -2";
         feh = "feh --scale-down --auto-zoom";
+        nix-stray-roots = "nix-store --gc --print-roots | egrep -v '^(/nix/var|/run|/proc|{censored})'";
       };
       sessionVariables = {
         NIX_AUTO_RUN = "y";
