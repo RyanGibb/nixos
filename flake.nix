@@ -117,8 +117,6 @@
               [
                 ./hosts/${hostname}/${mode}.nix
                 ./modules/default.nix
-                eilean.nixosModules.default
-                home-manager.nixosModule
                 ({ config, ... }: {
                   networking.hostName = "${hostname}";
                   # pin nix command's nixpkgs flake to the system flake to avoid unnecessary downloads
@@ -126,9 +124,13 @@
                   system.stateVersion = "22.05";
                   # record git revision (can be queried with `nixos-version --json)
                   system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
-                  nixpkgs.config.allowUnfree = true;
-                  nixpkgs.overlays = getSystemOverlays config.nixpkgs.hostPlatform.system config.nixpkgs.config;
+                  nixpkgs = {
+                    config.allowUnfree = true;
+                    overlays = getSystemOverlays config.nixpkgs.hostPlatform.system config.nixpkgs.config;
+                  };
                 })
+                home-manager.nixosModule
+                eilean.nixosModules.default
                 ryan-website.nixosModules.default
                 twitcher.nixosModules.default
                 ocaml-dns-eio.nixosModules.default
