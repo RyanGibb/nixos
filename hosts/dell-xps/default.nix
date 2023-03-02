@@ -5,6 +5,8 @@
     ./hardware-configuration.nix
   ];
 
+  nixpkgs.hostPlatform.system = "x86_64-linux";
+
   personal = {
     enable = true;
     tailscale = true;
@@ -39,6 +41,7 @@
     discord
     #teams
     wine64
+    anki
   ];
 
   systemd.extraConfig = ''
