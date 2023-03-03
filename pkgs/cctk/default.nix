@@ -4,7 +4,7 @@
   fetchurl,
   dpkg,
   autoPatchelfHook,
-  patchelf-raphi,
+  patchelf,
   openssl_1_1,
 }:
 
@@ -91,9 +91,11 @@ in stdenv.mkDerivation rec {
   '';
 
   postFixup = ''
-    ${patchelf-raphi}/bin/patchelf \
-      --replace-symbol fopen fopen_wrapper \
-      --replace-symbol access access_wrapper \
+    echo fopen fopen_wrapper > fopen_name_map
+    echo access access_wrapper > access_name_map
+    ${patchelf}/bin/patchelf \
+      --rename-dynamic-symbols fopen_name_map \
+      --rename-dynamic-symbols access_name_map \
       --add-needed ${wrapperLibName} \
       --set-rpath ${lib.makeLibraryPath [ wrapperLib ]} \
       $out/lib/*

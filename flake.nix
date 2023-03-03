@@ -9,7 +9,7 @@
     };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager";
-    patchelf-raphi.url = "git+https://git.sr.ht/~raphi/patchelf";
+    patchelf.url = "github:nixos/patchelf/da035d6ace";
     eeww.url = "github:RyanGibb/eeww/nixos";
     aeon.url = "github:RyanGibb/aeon";
 
@@ -42,7 +42,7 @@
       nixpkgs.follows = "nixpkgs";
       flake-utils.follows = "flake-utils";
     };
-    patchelf-raphi.inputs = {
+    patchelf.inputs = {
       nixpkgs.follows = "nixpkgs";
     };
     eeww.inputs = {
@@ -69,7 +69,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, eilean, home-manager, ryan-website, patchelf-raphi, twitcher, nixos-hardware, eeww, aeon, ... }@inputs: rec {
+  outputs = { self, nixpkgs, nixpkgs-unstable, eilean, home-manager, ryan-website, patchelf, twitcher, nixos-hardware, eeww, aeon, ... }@inputs: rec {
 
     nixosConfigurations =
       let
@@ -98,9 +98,9 @@
               # `twitcher.nixosModules.default` uses `pkgs.ryan-website`
               "twitcher" = twitcher.packages.${system}.default;
               # can uncomment if want to use patchelf-rafi elsewhere
-              #"patchelf-raphi" = patchelf-raphi.packages.${system}.patchelf;
+              #"patchelf" = patchelf.packages.${system}.patchelf;
               # "cctk" = final.callPackage ./pkgs/cctk/default.nix { };
-              "cctk" = prev.callPackage ./pkgs/cctk/default.nix { patchelf-raphi = patchelf-raphi.packages.${system}.patchelf; };
+              "cctk" = prev.callPackage ./pkgs/cctk/default.nix { patchelf = patchelf.packages.${system}.patchelf; };
               "eeww" = eeww.defaultPackage.${system};
               "aeon" = aeon.defaultPackage.${system};
             })
@@ -145,6 +145,6 @@
 
     packages.x86_64-linux.cctk =
       with import nixpkgs { system = "x86_64-linux"; };
-      (pkgs.callPackage ./pkgs/cctk/default.nix { patchelf-raphi = patchelf-raphi.packages.${system}.patchelf; });
+      (pkgs.callPackage ./pkgs/cctk/default.nix { patchelf = patchelf.packages.${system}.patchelf; });
     };
 }
