@@ -298,24 +298,25 @@
         "type": "github"
       }
     },
-    "patchelf-raphi": {
+    "patchelf": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1661880995,
-        "narHash": "sha256-fJXkByP2QXo/3tpP1mPCYKmGolwlWLxubGV6xdytmCg=",
-        "ref": "refs/heads/replace-symbol",
-        "rev": "9079354d2b94050f38594b5fab5f764f73e4b7e0",
-        "revCount": 676,
-        "type": "git",
-        "url": "https://git.sr.ht/~raphi/patchelf"
+        "lastModified": 1677182397,
+        "narHash": "sha256-vY7ak1viVNb7bGGIrEUblo8ngq8GA5UMo1E7NE6AfUE=",
+        "owner": "nixos",
+        "repo": "patchelf",
+        "rev": "da035d6acee1e5a608aafe5f6572a67609b0198a",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "https://git.sr.ht/~raphi/patchelf"
+        "owner": "nixos",
+        "ref": "da035d6ace",
+        "repo": "patchelf",
+        "type": "github"
       }
     },
     "root": {
@@ -331,7 +332,7 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "ocaml-dns-eio": "ocaml-dns-eio",
         "opam-nix": "opam-nix",
-        "patchelf-raphi": "patchelf-raphi",
+        "patchelf": "patchelf",
         "ryan-cv": "ryan-cv",
         "ryan-website": "ryan-website",
         "twitcher": "twitcher"
