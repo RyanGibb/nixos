@@ -305,16 +305,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1677182397,
-        "narHash": "sha256-vY7ak1viVNb7bGGIrEUblo8ngq8GA5UMo1E7NE6AfUE=",
+        "lastModified": 1677946216,
+        "narHash": "sha256-weYMaOibbOiObcQDw9twhQ1OQQmjBy6hnDJCKjIe+vk=",
         "owner": "nixos",
         "repo": "patchelf",
-        "rev": "da035d6acee1e5a608aafe5f6572a67609b0198a",
+        "rev": "ca23391ed32fde7143ad4a029bce129575446310",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "da035d6ace",
+        "ref": "ca23391",
         "repo": "patchelf",
         "type": "github"
       }
