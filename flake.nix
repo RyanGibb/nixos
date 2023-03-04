@@ -9,7 +9,7 @@
     };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager";
-    patchelf.url = "github:nixos/patchelf/da035d6ace";
+    patchelf.url = "github:nixos/patchelf/ca23391ed3";
     eeww.url = "github:RyanGibb/eeww/nixos";
     aeon.url = "github:RyanGibb/aeon";
 
