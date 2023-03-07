@@ -50,8 +50,6 @@
 
   programs.steam.enable = true;
 
-  networking.extraHosts = "10.11.99.1 remarkable2";
-
   # sometimes I want to keep the cache for operating without internet
   nix.gc.automatic = lib.mkForce false;
 }
