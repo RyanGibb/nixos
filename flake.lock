@@ -400,11 +400,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1676988665,
-        "narHash": "sha256-2yEamAhBR6Y3/SqxvFYAArz6+5fl+o7PT1xBERCfZ80=",
+        "lastModified": 1677950928,
+        "narHash": "sha256-YlzFqR6NAOqYgG+ur2TVOlAnEUw34JVYN6xTv7/BocM=",
         "ref": "refs/heads/master",
-        "rev": "3139087fe212e33e77e6cd67f9fa9764a6a64145",
-        "revCount": 211,
+        "rev": "8ae64d43f1d90c8bfce037ef6bef8a1b92e64d6e",
+        "revCount": 214,
         "type": "git",
         "url": "ssh://git@git.freumh.org/ryan/twitcher.git"
       },
