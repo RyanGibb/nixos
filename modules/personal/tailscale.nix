@@ -6,41 +6,13 @@ let cfg = config.personal; in
 {
   options.personal.tailscale = mkEnableOption "tailscale";
 
-  config =
-    let hosts = {
-      "vps" = {
-        ip = "100.88.115.118";
-      };
-      "dell-xps" = {
-        ip = "100.92.111.117";
-      };
-      "pixel-4a" = {
-        ip = "100.122.46.94";
-      };
-      "desktop" = {
-        ip = "100.93.8.35";
-      };
-      "rasp-pi" = {
-        ip = "100.92.63.87";
-      };
-      "remarkable2" = {
-        ip = "100.125.211.7";
-      };
-    }; in
-  mkIf cfg.tailscale {
+  config = lib.mkIf cfg.tailscale {
+    # set up with `tailscale up --login-server https://headscale.freumh.org --hostname`
     services.tailscale.enable = true;
-    networking.firewall.checkReversePath = mkDefault "loose";
-
-    dns.zones.${config.networking.domain}.records = attrsets.mapAttrsToList (hostName: values: {
-      name = "${hostName}.vpn";
-      type = "A";
-      data = values.ip;
-    }) hosts;
-
-    networking.extraHosts = builtins.concatStringsSep "\n" (
-      attrsets.mapAttrsToList (
-        hostName: values: "${values.ip} ${hostName}.vpn"
-      ) hosts
-    );
+    networking.firewall = {
+      checkReversePath = "loose";
+      trustedInterfaces = [ "tailscale0" ];
+      allowedUDPPorts = [ config.services.tailscale.port ];
+    };
   };
 }

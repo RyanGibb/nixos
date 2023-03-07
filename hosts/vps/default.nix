@@ -16,6 +16,7 @@
     turn.enable = true;
     mastodon.enable = true;
     gitea.enable = true;
+    headscale.enable = true;
     # dns.enable = true;
   };
 
@@ -27,7 +28,7 @@
 
   dns = {
     zones.${config.networking.domain} = {
-      soa.serial = lib.mkDefault 0;
+      soa.serial = lib.mkDefault 2018011626;
       records = [
         { name = "@"; type = "TXT"; data = "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc"; }
         { name = "teapot"; type = "CNAME"; data = "vps"; }
