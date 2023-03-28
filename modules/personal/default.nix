@@ -18,7 +18,7 @@ let cfg = config.personal; in
       mutableUsers = false;
       users.${config.custom.username} = {
         isNormalUser = true;
-        extraGroups = [ "wheel" ]; # enable sudo
+        extraGroups = [ "wheel" "networkmanager" ]; # enable sudo
         shell = pkgs.zsh;
         hashedPassword = hashedPassword;
       };
