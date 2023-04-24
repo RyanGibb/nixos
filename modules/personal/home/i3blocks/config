@@ -32,7 +32,7 @@ interval=60
 interval=10
 label= 
 
-[wifi]
+[network]
 interval=10
 
 [brightness]
