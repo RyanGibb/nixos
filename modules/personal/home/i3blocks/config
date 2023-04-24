@@ -35,7 +35,7 @@ label=
 [network]
 interval=10
 
-[brightness]
+[backlight]
 interval=persist
 label=☾ 
 
