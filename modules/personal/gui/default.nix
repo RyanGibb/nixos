@@ -122,8 +122,6 @@ let cfg = config.personal.gui; in
       noto-fonts
       noto-fonts-emoji
       (nerdfonts.override { fonts = [ "DroidSansMono" ]; })
-      # for projects/cv latex package fontawesome
-      font-awesome
       source-code-pro
       aileron
       vistafonts
