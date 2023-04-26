@@ -14,12 +14,12 @@
   boot.blacklistedKernelModules = [ "bcma" "b43" ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/bcdaa4ef-d5c4-4427-9000-aa3ba8614129";
+    { device = "/dev/disk/by-uuid/d2afdf21-7a3a-47f0-83e1-31e9cccdad84";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/1A24-F5E7";
+    { device = "/dev/disk/by-uuid/43FD-8669";
       fsType = "vfat";
     };
 
