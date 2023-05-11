@@ -2,11 +2,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager";
     patchelf.url = "github:nixos/patchelf/ea2fca765c";
@@ -23,50 +18,14 @@
     # twitcher.url = "github:RyanGibb/twitcher";
 
     # deduplicate flake inputs
-    eilean.inputs = {
-      nixpkgs.follows = "nixpkgs";
-    };
-    home-manager.inputs = {
-      nixpkgs.follows = "nixpkgs";
-    };
-    ryan-website.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      flake-utils.follows = "flake-utils";
-      flake-compat.follows = "flake-compat";
-    };
-    ryan-cv.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      flake-utils.follows = "flake-utils";
-    };
-    twitcher.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      flake-utils.follows = "flake-utils";
-    };
-    patchelf.inputs = {
-      nixpkgs.follows = "nixpkgs";
-    };
-    eeww.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      flake-utils.follows = "flake-utils";
-    };
-    aeon.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      ipaddr.follows = "ipaddr";
-      flake-utils.follows = "flake-utils";
-      opam-nix.follows = "opam-nix";
-    };
-    opam-nix.url = "github:RyanGibb/opam-nix";
-    opam-nix.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      flake-utils.follows = "flake-utils";
-      flake-compat.follows = "flake-compat";
-    };
-    ipaddr.url = "github:RyanGibb/ocaml-ipaddr";
-    ipaddr.inputs = {
-      nixpkgs.follows = "nixpkgs";
-      opam-nix.follows = "opam-nix";
-      flake-utils.follows = "flake-utils";
-    };
+    eilean.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    ryan-website.inputs.nixpkgs.follows = "nixpkgs";
+    ryan-cv.inputs.nixpkgs.follows = "nixpkgs";
+    twitcher.inputs.nixpkgs.follows = "nixpkgs";
+    patchelf.inputs.nixpkgs.follows = "nixpkgs";
+    eeww.inputs.nixpkgs.follows = "nixpkgs";
+    aeon.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, eilean, home-manager, ryan-website, patchelf, twitcher, nixos-hardware, eeww, aeon, ... }@inputs: rec {
