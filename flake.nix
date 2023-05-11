@@ -20,8 +20,8 @@
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    ryan-website.inputs.nixpkgs.follows = "nixpkgs";
     ryan-cv.inputs.nixpkgs.follows = "nixpkgs";
+    ryan-website.inputs.nixpkgs.follows = "nixpkgs";
     twitcher.inputs.nixpkgs.follows = "nixpkgs";
     patchelf.inputs.nixpkgs.follows = "nixpkgs";
     eeww.inputs.nixpkgs.follows = "nixpkgs";
