@@ -16,6 +16,4 @@
   zramSwap.enable = true;
 
   swapDevices = [ { device = "/var/swap"; size = 2048; } ];
-
-  networking.firewall.allowedTCPPorts = lib.mkForce [ 22 ];
 }
