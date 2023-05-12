@@ -8,13 +8,13 @@
     eeww.url = "github:RyanGibb/eeww/nixos";
     aeon.url = "github:RyanGibb/aeon";
 
-    eilean.url ="git+ssh://git@git.freumh.org/ryan/eilean-nix.git?ref=main";
+    eilean.url ="git+https://git@git.freumh.org/ryan/eilean-nix.git?ref=main";
     # eilean.url ="github:RyanGibb/eilean-nix/main";
-    ryan-website.url = "git+ssh://git@git.freumh.org/ryan/website.git";
+    ryan-website.url = "git+https://git@git.freumh.org/ryan/website.git";
     ryan-cv.url = "git+ssh://git@git.freumh.org/ryan/cv.git";
     ryan-website.inputs.cv.follows = "ryan-cv";
     # ryan-website.url = "github:RyanGibb/website";
-    twitcher.url = "git+ssh://git@git.freumh.org/ryan/twitcher.git";
+    twitcher.url = "git+https://git@git.freumh.org/ryan/twitcher.git";
     # twitcher.url = "github:RyanGibb/twitcher";
 
     # deduplicate flake inputs
