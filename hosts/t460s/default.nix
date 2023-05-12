@@ -5,8 +5,6 @@
     ./hardware-configuration.nix
   ];
 
-  nixpkgs.hostPlatform.system = "x86_64-linux";
-
   personal = {
     enable = true;
     tailscale = true;

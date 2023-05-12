@@ -18,4 +18,5 @@
       interface = "enp1s0";
     };
   };
+  nixpkgs.hostPlatform = "x86_64-linux";
 }

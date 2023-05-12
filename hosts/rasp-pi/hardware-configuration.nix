@@ -39,4 +39,6 @@
 
   hardware.raspberry-pi."4".fkms-3d.enable = true;
   boot.loader.raspberryPi.firmwareConfig = "config_hdmi_boost=5";
+
+  nixpkgs.hostPlatform = "aarch64-linux";
 }

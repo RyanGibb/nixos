@@ -6,8 +6,6 @@
     ./minimal.nix
   ];
 
-  nixpkgs.hostPlatform.system = "x86_64-linux";
-
   eilean = {
     publicInterface = "enp1s0";
 
