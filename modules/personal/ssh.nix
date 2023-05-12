@@ -12,6 +12,7 @@ let cfg = config.personal; in
       enable = true;
       permitRootLogin = "yes";
       passwordAuthentication = false;
+      openFirewall = false;
     };
 
     programs.ssh.extraConfig = ''
