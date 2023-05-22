@@ -49,6 +49,10 @@
 
   programs.steam.enable = true;
 
+  security.sudo.extraConfig = ''
+    Defaults !tty_tickets
+  '';
+
   # sometimes I want to keep the cache for operating without internet
   nix.gc.automatic = lib.mkForce false;
 }
