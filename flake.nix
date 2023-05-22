@@ -102,6 +102,14 @@
           (builtins.listToAttrs (builtins.map (host: { name = "${host}-${mode}"; value = mkHost mode host; } ) hosts));
       in mkHosts hosts // mkModeHosts "minimal" hosts;
 
+    legacyPackages =
+      nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: {
+        stable = nixpkgs.legacyPackages.${system};
+      }) //
+      nixpkgs-unstable.lib.genAttrs nixpkgs-unstable.lib.systems.flakeExposed (system: {
+        unstable = nixpkgs-unstable.legacyPackages.${system};
+      });
+
     packages.x86_64-linux.cctk =
       with import nixpkgs { system = "x86_64-linux"; };
       (pkgs.callPackage ./pkgs/cctk/default.nix { patchelf = patchelf.packages.${system}.patchelf; });
