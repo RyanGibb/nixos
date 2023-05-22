@@ -40,6 +40,7 @@
     #teams
     wine64
     anki
+    lsof
   ];
 
   systemd.extraConfig = ''
