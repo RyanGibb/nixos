@@ -66,6 +66,11 @@
       settings = settings;
       userChrome = userChrome;
     };
+    package = (pkgs.firefox.override {
+      cfg = {
+        enableTridactylNative = true;
+      };
+    });
   };
 
   home.file = {
