@@ -466,6 +466,7 @@ bindsym $mod+$alt+Control+Print exec grim -g "$($SCRIPT_DIR/slurp_windows.sh)"\
 	$HOME/pictures/capture/"$(date '+%Y-%m-%d %H.%M.%S')".png
 
 bindsym $alt+Shift+Print exec wf-recorder\
+	-a="$(pactl info | sed -En 's/Default Sink: (.*)/\1/p').monitor"\
 	-o $(@wmmsg@ -t get_outputs | jq -r '.[] | select(.type=="output" and .focused).name')\
 	-f $HOME/videos/"$(date '+%Y-%m-%d %H.%M')".mp4
 
