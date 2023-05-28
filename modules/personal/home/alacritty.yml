@@ -1,6 +1,6 @@
 dynamic_title: true
 window:
-  opacity: 1
+  opacity: 0.95
 # Colors (Nord)
 colors:
   # Default colors

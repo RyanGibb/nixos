@@ -44,7 +44,7 @@ bindsym @locked@ Control+XF86MonBrightnessDown $backlight_dec_5
 floating_modifier $mod
 
 bindsym $mod+Return exec $term
-bindsym $mod+Shift+Return exec $term -o window.opacity=0.9
+bindsym $mod+Shift+Return exec $term -o window.opacity=1
 bindsym $mod+Control+Return       exec $term -e zsh -c $SCRIPT_DIR/vault_file.sh
 bindsym $mod+Control+Shift+Return exec $term -e zsh -c $SCRIPT_DIR/vault_file_titled.sh
 
