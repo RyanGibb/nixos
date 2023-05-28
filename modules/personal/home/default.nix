@@ -42,6 +42,8 @@
 
       # sync toolbar
       "services.sync.prefs.sync.browser.uiCustomization.state" = true;
+
+      "extensions.pocket.enabled" = false;
     };
     userChrome = ''
       #webrtcIndicator {
