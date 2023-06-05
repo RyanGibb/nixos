@@ -106,7 +106,6 @@
         3478  # STUN
       ];
       allowedUDPPortRanges = [ turn-range ];
-      trustedInterfaces = [ "tailscale0" ];
   };
 
   # boot.kernel.sysctl = {
