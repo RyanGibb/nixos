@@ -15,12 +15,66 @@
   swapDevices = [ { device = "/var/swap"; size = 2048; } ];
 
   dns = {
-    zones."example.com" = {
-      soa.serial = lib.mkDefault 2018011626;
-      records = [
-        { name = "@"; type = "A"; data = "127.0.0.1"; }
+    zones."cl.freumh.org" = {
+      soa.serial = lib.mkDefault 1;
+      records =
+        let
+          ipv4 = "128.232.113.136";
+          ipv6 = "2a05:b400:110:1101:d051:f2ff:fe13:3781";
+        in [
+          { name = "@";   type = "NS"; data = "ns"; }
+
+          { name = "ns"; type = "A";    data = ipv4; }
+          { name = "ns"; type = "AAAA"; data = ipv6; }
+
+          { name = "www"; type = "CNAME"; data = "@"; }
+
+          { name = "@";   type = "A";    data = ipv4; }
+          { name = "@";   type = "AAAA"; data = ipv6; }
+          { name = "vps"; type = "A";    data = ipv4; }
+          { name = "vps"; type = "AAAA"; data = ipv6; }
       ];
     };
+  };
+
+  security.acme = {
+    defaults.email = "${config.eilean.username}@${config.networking.domain}";
+    acceptTerms = true;
+  };
+
+  systemd.services.eeww = {
+    enable = true;
+    description = "eeww";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.eeww}/main.exe -p 80";
+      WorkingDirectory = "${pkgs.ryan-website}";
+      Restart = "always";
+      RestartSec = "10s";
+      AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+      User = "eeww";
+      Group = "eeww";
+    };
+  };
+
+  users.users."eeww" = {
+    description = "eeww";
+    useDefaultShell = true;
+    group = "eeww";
+    isSystemUser = true;
+  };
+
+  users.groups."eeww" = {};
+
+  networking.firewall = {
+    allowedTCPPorts = [
+      80   # HTTP
+      443  # HTTPS
+    ];
+    allowedUDPPorts = [
+      80   # HTTP
+    ];
   };
 
   services = {
@@ -28,7 +82,7 @@
       enable = true;
       # TODO make this zonefile derivation a config parameter `services.dns.zonefile`
       # TODO add module in eilean for aeon
-      zoneFile = "${import "${eilean}/modules/dns/zonefile.nix" { inherit pkgs config lib; zonename = "example.com"; zone = config.dns.zones."example.com"; }}/example.com";
+      zoneFile = "${import "${eilean}/modules/dns/zonefile.nix" { inherit pkgs config lib; zonename = "cl.freumh.org"; zone = config.dns.zones."cl.freumh.org"; }}/cl.freumh.org";
       logLevel = 1;
       application = "tund";
     };

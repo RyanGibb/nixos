@@ -41,7 +41,7 @@
       serverIpv4 = "135.181.100.27";
       serverIpv6 = "2a01:4f9:c011:87ad:0:0:0:0";
     };
-    networking.domain = "freumh.org";
+    networking.domain = lib.mkDefault "freumh.org";
 
     time.timeZone = "Europe/London";
 
