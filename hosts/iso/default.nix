@@ -1,4 +1,4 @@
-{ config, lib, nixpkgs, ... }:
+{ config, lib, pkgs, nixpkgs, ... }:
 
 {
   imports = [
@@ -16,7 +16,6 @@
   };
 
   services.openssh.permitRootLogin = lib.mkForce "no";
-  networking.wireless.enable = lib.mkForce false;
 
   users.users.${config.custom.username} = {
     extraGroups = [ "wheel" "networkmanager" "video" ];
@@ -27,7 +26,8 @@
   services.getty.helpLine = lib.mkForce "";
 
   networking.wireless = {
-    enable = true;
+    # so we can use NetworkManager
+    enable = lib.mkForce false;
     networks = {
       "SSID" = {
         psk = "password";
