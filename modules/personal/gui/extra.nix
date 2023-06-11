@@ -43,5 +43,8 @@ let cfg = config.personal.gui; in
       mutt = "neomutt";
     };
     programs.kdeconnect.enable = true;
+
+    services.gnome.gnome-keyring.enable = true;
+    programs.seahorse.enable = true;
   };
 }
