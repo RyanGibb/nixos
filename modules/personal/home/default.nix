@@ -114,7 +114,7 @@
         save_dir=~/pictures/capture/
         save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
       '';
-      "tridactyl/tridactyl".text = ''
+      "tridactyl/tridactylrc".text = ''
         unbind <F1>
         unbind <C-f>
         set modeindicator false
