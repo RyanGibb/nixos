@@ -81,7 +81,6 @@
       force = true;
       text = ''
         file:///${config.home.homeDirectory}/archive
-        file:///${config.home.homeDirectory}/documents
         file:///${config.home.homeDirectory}/downloads
         file:///${config.home.homeDirectory}/pictures
         file:///${config.home.homeDirectory}/projects
@@ -131,11 +130,11 @@
       enable = true;
       createDirectories = true;
       download    = "$HOME/downloads";
-      documents   = "$HOME/documents";
       pictures    = "$HOME/pictures";
       videos      = "$HOME/videos";
       music       = "$HOME/";
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1082717
+      documents   = "$HOME/";
       desktop     = "$HOME/";
       templates   = "$HOME/";
       publicShare = "$HOME/";
