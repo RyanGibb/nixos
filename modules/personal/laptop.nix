@@ -11,7 +11,6 @@ let cfg = config.personal; in
 
     services.tlp.enable = true;
     powerManagement.enable = true;
-    virtualisation.libvirtd.enable = true;
 
     systemd.sleep.extraConfig = ''
       HibernateDelaySec=1h
