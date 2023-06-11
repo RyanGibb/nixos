@@ -16,12 +16,6 @@
   };
 
   services.openssh.permitRootLogin = lib.mkForce "no";
-
-  users.users.${config.custom.username} = {
-    extraGroups = [ "wheel" "networkmanager" "video" ];
-    initialHashedPassword = lib.mkForce "";
-  };
-
   services.getty.autologinUser = lib.mkForce "${config.custom.username}";
   services.getty.helpLine = lib.mkForce "";
 
