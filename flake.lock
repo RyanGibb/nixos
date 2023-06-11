@@ -370,7 +370,8 @@
         "patchelf": "patchelf",
         "ryan-cv": "ryan-cv",
         "ryan-website": "ryan-website",
-        "twitcher": "twitcher"
+        "twitcher": "twitcher",
+        "wallpapers": "wallpapers"
       }
     },
     "ryan-cv": {
@@ -530,6 +531,23 @@
         "owner": "numtide",
         "repo": "flake-utils",
         "type": "github"
+      }
+    },
+    "wallpapers": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1686522804,
+        "narHash": "sha256-EoBk7YX/nqus5eal7K4DVUkQI+n5Em4ApP2CX1uzf/c=",
+        "ref": "main",
+        "rev": "82796072518780cac51b3b06341ada3a2b45a060",
+        "revCount": 1,
+        "type": "git",
+        "url": "ssh://git@git.freumh.org/ryan/wallpapers.git"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@git.freumh.org/ryan/wallpapers.git"
       }
     }
   },

@@ -1,11 +1,11 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, wallpapers, ... }:
 
 let cfg = config.personal.gui; in
 {
   options.personal.gui.i3 = lib.mkEnableOption "i3";
 
   config = lib.mkIf cfg.i3 {
-    home-manager.users.${config.custom.username} = import ../home/i3.nix;
+    home-manager.users.${config.custom.username} = import ../home/i3.nix { inherit pkgs lib wallpapers; };
 
     services.xserver = {
       enable = true;

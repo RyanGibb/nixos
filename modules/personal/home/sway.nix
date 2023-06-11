@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, wallpapers, ... }:
 
 let replacements = {
   wm = "sway";
@@ -11,7 +11,7 @@ let replacements = {
   locked = "--locked";
   polkit_gnome = "${pkgs.polkit_gnome}";
   set_wallpaper = ''
-    swaymsg "output * bg $WALLPAPER_DIR/default fill #2e3440"
+    swaymsg "output * bg $HOME/.cache/wallpaper fill #2e3440"
   '';
   locker = "swaylock -f -i ~/pictures/wallpapers/default";
   enable_output  = "swaymsg output $laptop_output enable";
@@ -49,6 +49,8 @@ let util = import ./util.nix { inherit pkgs lib; }; in
     # for screensharing
     XDG_SESSION_TYPE = "wayland";
     XDG_CURRENT_DESKTOP = "sway";
+
+    WALLPAPER_DIR = wallpapers;
   };
 
   home.file = {

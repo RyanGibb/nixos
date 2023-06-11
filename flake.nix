@@ -7,7 +7,10 @@
     patchelf.url = "github:nixos/patchelf/ea2fca765c";
     eeww.url = "github:RyanGibb/eeww/nixos";
     aeon.url = "github:RyanGibb/aeon";
-
+    wallpapers = {
+      url ="git+ssh://git@git.freumh.org/ryan/wallpapers.git?ref=main";
+      flake = false;
+    };
     eilean.url ="git+https://git@git.freumh.org/ryan/eilean-nix.git?ref=main";
     # eilean.url ="github:RyanGibb/eilean-nix/main";
     ryan-website.url = "git+https://git@git.freumh.org/ryan/website.git";
@@ -28,8 +31,21 @@
     aeon.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, eilean, home-manager, ryan-website, patchelf, twitcher, nixos-hardware, eeww, aeon, ... }@inputs: rec {
-
+  outputs = {
+    self,
+    nixpkgs,
+    nixpkgs-unstable,
+    nixos-hardware,
+    home-manager,
+    patchelf,
+    eeww,
+    aeon,
+    wallpapers,
+    eilean,
+    ryan-website,
+    twitcher,
+    ...
+  }@inputs: rec {
     nixosConfigurations =
       let
         hosts = builtins.attrNames (builtins.readDir ./hosts);

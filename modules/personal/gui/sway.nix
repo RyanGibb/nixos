@@ -1,11 +1,11 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, wallpapers, ... }:
 
 let cfg = config.personal.gui; in
 {
   options.personal.gui.sway = lib.mkEnableOption "sway";
 
   config = lib.mkIf cfg.sway {
-    home-manager.users.${config.custom.username} = import ../home/sway.nix;
+    home-manager.users.${config.custom.username} = import ../home/sway.nix { inherit pkgs lib wallpapers; };
 
     programs.sway =
     let

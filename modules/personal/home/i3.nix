@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, lib, wallpapers, ... }:
 
 let replacements = {
   wm = "i3";
@@ -11,7 +11,7 @@ let replacements = {
   wallpaper = ''
   '';
   set_wallpaper = ''
-    feh --bg-fill $WALLPAPER_DIR/default
+    feh --bg-fill $HOME/.cache/wallpaper
   '';
   locker = "xsecurelock";
   enable_output  = "xrandr --output $laptop_output --auto";
@@ -37,6 +37,10 @@ let util = import ./util.nix { inherit pkgs lib; }; in
   # idling
 
   home.pointerCursor.x11.enable = true;
+
+  home.sessionVariables = {
+    WALLPAPER_DIR = wallpapers;
+  };
 
   home.file = {
     ".xinitrc".text = ''
