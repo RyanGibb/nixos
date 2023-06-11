@@ -3,6 +3,7 @@
 {
   imports = [
     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
+    # installs nixpkgs channel for installation
     "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
   ];
 
