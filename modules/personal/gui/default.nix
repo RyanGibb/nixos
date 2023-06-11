@@ -135,7 +135,5 @@ let cfg = config.personal.gui; in
     };
     # thunar thumbnail support for images
     services.tumbler.enable = true;
-
-    programs.kdeconnect.enable = true;
   };
 }

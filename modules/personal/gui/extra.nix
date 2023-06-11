@@ -4,8 +4,8 @@ let cfg = config.personal.gui; in
 {
   options.personal.gui.extra = lib.mkEnableOption "extra";
 
-  config.environment = lib.mkIf cfg.extra {
-    systemPackages = with pkgs; [
+  config = lib.mkIf cfg.extra {
+    environment.systemPackages = with pkgs; [
       thunderbird
       element-desktop
       signal-desktop
@@ -39,8 +39,9 @@ let cfg = config.personal.gui; in
       neomutt
       liferea
     ];
-    shellAliases = {
+    environment.shellAliases = {
       mutt = "neomutt";
     };
+    programs.kdeconnect.enable = true;
   };
 }
