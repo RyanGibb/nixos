@@ -29,6 +29,7 @@ let cfg = config.personal.gui; in
         jq
         swaylock
         swayidle
+        i3blocks
         wl-clipboard
         clipman
         wtype
