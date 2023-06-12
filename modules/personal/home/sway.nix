@@ -13,7 +13,7 @@ let replacements = {
   set_wallpaper = ''
     swaymsg "output * bg $HOME/.cache/wallpaper fill #2e3440"
   '';
-  locker = "swaylock -f -i ~/pictures/wallpapers/default";
+  locker = "swaylock -f -i $HOME/.cache/wallpaper";
   enable_output  = "swaymsg output $laptop_output enable";
   disable_output = "swaymsg output $laptop_output disable";
   drun = "wofi -i --show drun --allow-images -a";
