@@ -21,6 +21,9 @@
     };
 
   swapDevices = [ { device = "/var/swap"; size = 16384; } ];
+  boot.resumeDevice = "/dev/disk/by-label/nixos";
+  # https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate#Hibernation_into_swap_file
+  boot.kernelParams = [ "mem_sleep_default=deep" "resume_offset=142587904" ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
