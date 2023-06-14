@@ -1,3 +1,5 @@
+#!/usr/bin/env sh
+
 cd /storage/emulated/0/Documents/vault
 git pull &&
 git add . &&

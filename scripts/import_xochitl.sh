@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # adapted from https://github.com/adaerr/reMarkableScripts/blob/master/pdf2remarkable.sh
 
 XOCHITL_DIR=${XOCHITL_DIR:-.local/share/remarkable/xochitl/}

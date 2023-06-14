@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/env sh
+
 # Transfer PDF and EPUB file(s) to a reMarkable
 # Adrian Daerr and contributors, 2017 -- 2022 - public domain
 # https://github.com/adaerr/reMarkableScripts
