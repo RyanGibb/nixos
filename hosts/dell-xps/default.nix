@@ -75,20 +75,22 @@
         exit 0
       fi
 
-      ${pkgs.util-linux}/bin/mount /dev/disk/by-label/external-hdd /media/external-hdd/ || exit 1
+      ${pkgs.libnotify}/bin/notify-send "starting backup"
       ${pkgs.rsync}/bin/rsync -va --exclude={".cache",".local/share/Steam/"} /home/${config.custom.username}/ /media/external-hdd/home/
       status=$?
       if [ $status -eq 0 ]; then
         touch "$LAST_RUN_FILE"
       fi
-      ${pkgs.util-linux}/bin/umount /media/external-hdd/
+      ${pkgs.libnotify}/bin/notify-send "finished backup"
       exit $status
     ''; in "${backup}";
     serviceConfig = {
       Type = "oneshot";
+      User = "ryan";
     };
     # trigger on wake
     wantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" "suspend-then-hibernate.target" ];
+    environment.DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/1000/bus";
   };
   # trigger backup on hard drive connection
   services.udev.extraRules =
