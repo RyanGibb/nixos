@@ -492,3 +492,19 @@ bindsym $mod+Shift+c exec echo -n "$(zenity --calendar --text "")" | wl-copy
 bindsym Control+q nop
 
 bindsym $mod+slash exec $term -e zsh -c $SCRIPT_DIR/open_file.sh
+
+set $mode_i3blocks Control w/d/m/t/l/c/n/b
+mode "$mode_i3blocks" {
+	bindsym w exec pkill -RTMIN+12 i3blocks
+	bindsym d exec pkill -RTMIN+10 i3blocks
+	bindsym m exec pkill -RTMIN+9  i3blocks
+	bindsym t exec pkill -RTMIN+8  i3blocks
+	bindsym l exec pkill -RTMIN+7  i3blocks
+	bindsym c exec pkill -RTMIN+6  i3blocks
+	bindsym n exec pkill -RTMIN+5  i3blocks
+	bindsym b exec pkill -RTMIN+2  i3blocks
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+bindsym $mod+$alt+r mode "$mode_i3blocks"
