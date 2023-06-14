@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, self, ... }:
 
 let cfg = config.personal; in
 {
@@ -23,5 +23,15 @@ let cfg = config.personal; in
       kanshi
       acpi
     ];
+
+    services.udev.extraRules =
+      let bat-monitor = pkgs.writeTextFile {
+        name = "bat_monitor";
+        text = builtins.readFile ./home/wm/scripts/bat_monitor.sh;
+        executable = true;
+        destination = "/bat_monitor.sh";
+      }; in ''
+      ACTION=="change", SUBSYSTEM=="power_supply", RUN+="${pkgs.bash}/bin/bash ${bat-monitor}/bat_monitor.sh '%s{capacity}' '%s{status}'"
+    '';
   };
 }
