@@ -76,15 +76,13 @@
       fi
 
       ${pkgs.util-linux}/bin/mount /dev/disk/by-label/external-hdd /media/external-hdd/ || exit 1
-      if
-        ${pkgs.rsync}/bin/rsync -va --exclude={".cache",".local/share/Steam/"} /home/${config.custom.username}/ /media/external-hdd/home/
-      then
+      ${pkgs.rsync}/bin/rsync -va --exclude={".cache",".local/share/Steam/"} /home/${config.custom.username}/ /media/external-hdd/home/
+      status=$?
+      if [ $status -eq 0 ]; then
         touch "$LAST_RUN_FILE"
-        ${pkgs.util-linux}/bin/umount /media/external-hdd/
-      else
-        ${pkgs.util-linux}/bin/umount /media/external-hdd/
-        exit 1
       fi
+      ${pkgs.util-linux}/bin/umount /media/external-hdd/
+      exit $status
     ''; in "${backup}";
     serviceConfig = {
       Type = "oneshot";
