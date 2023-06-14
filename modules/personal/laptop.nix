@@ -25,13 +25,20 @@ let cfg = config.personal; in
     ];
 
     services.udev.extraRules =
-      let bat-monitor = pkgs.writeTextFile {
-        name = "bat_monitor";
-        text = builtins.readFile ./home/wm/scripts/bat_monitor.sh;
-        executable = true;
-        destination = "/bat_monitor.sh";
-      }; in ''
-      ACTION=="change", SUBSYSTEM=="power_supply", RUN+="${pkgs.bash}/bin/bash ${bat-monitor}/bat_monitor.sh '%s{capacity}' '%s{status}'"
+      let bat-monitor = pkgs.writeShellScript "bat_monitor.sh" ''
+        capacity=$1
+        status=$2
+
+        if [ "$status" = Discharging -a "$capacity" -lt 5 ]; then
+          logger "Critical battery threshold"
+          systemctl hibernate
+        elif [ "$status" = Discharging -a "$capacity" -lt 10 ]; then
+          notify-send "warning: battery at $capacity%"
+        fi
+
+        ${pkgs.procps}/bin/pkill -RTMIN+2 i3blocks
+      ''; in ''
+      ACTION=="change", SUBSYSTEM=="power_supply", RUN+="${pkgs.bash}/bin/bash ${bat-monitor} '%s{capacity}' '%s{status}'"
     '';
   };
 }
