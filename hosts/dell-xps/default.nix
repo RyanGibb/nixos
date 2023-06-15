@@ -56,12 +56,10 @@
   # sometimes I want to keep the cache for operating without internet
   nix.gc.automatic = lib.mkForce false;
 
-  
-
   systemd.services.backup = {
     description = "Backup service";
     script = let backup = pkgs.writeShellScript "backup.sh" ''
-      LAST_RUN_FILE="/var/run/last_backup"
+      LAST_RUN_FILE="$HOME/.cache/last_backup"
       DISK="/dev/disk/by-label/external-hdd"
 
       if [ -f "$LAST_RUN_FILE" ] && [ "$(( $(date +%s) - $(date +%s -r "$LAST_RUN_FILE") ))" -lt 86400 ]; then
@@ -71,22 +69,42 @@
 
       # if no external-hdd
       if [ ! -e $DISK ]; then
-        echo "No $DISK"
+        echo "no $DISK"
         exit 0
       fi
 
+      export DISPLAY=:0
+      ${pkgs.xorg.xhost}/bin/xhost +local:${config.custom.username}
+      export GTK_R2_FILES=$HOME/.gtkrc-2.0
+      timeout 60 ${pkgs.gnome.zenity}/bin/zenity --question --title "backup" --text "Backup now? Will autostart in 60s."
+      prompt_status=$?
+      ${pkgs.xorg.xhost}/bin/xhost -local:${config.custom.username}
+      # if not success or timeout
+      if [ ! $prompt_status -eq 0 -a ! $prompt_status -eq 124 ]; then
+        echo "cancelled"
+        exit 0
+      fi
+
+      cleanup() {
+        ${pkgs.udisks}/bin/udisksctl unmount -b /dev/disk/by-label/external-hdd --no-user-interaction
+      }
+      trap cleanup EXIT
+
       ${pkgs.libnotify}/bin/notify-send "starting backup"
-      ${pkgs.rsync}/bin/rsync -va --exclude={".cache",".local/share/Steam/"} /home/${config.custom.username}/ /media/external-hdd/home/
+      ${pkgs.udisks}/bin/udisksctl mount -b /dev/disk/by-label/external-hdd --no-user-interaction
+      ${pkgs.rsync}/bin/rsync -va --exclude={".cache",".local/share/Steam/"} ~/ /run/media/ryan/external-hdd/home/
       status=$?
       if [ $status -eq 0 ]; then
         touch "$LAST_RUN_FILE"
+        ${pkgs.libnotify}/bin/notify-send "finished backup"
+      else
+        ${pkgs.libnotify}/bin/notify-send "backup failed"
       fi
-      ${pkgs.libnotify}/bin/notify-send "finished backup"
       exit $status
     ''; in "${backup}";
     serviceConfig = {
       Type = "oneshot";
-      User = "ryan";
+      User = config.custom.username;
     };
     # trigger on wake
     wantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" "suspend-then-hibernate.target" ];
