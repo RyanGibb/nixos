@@ -19,6 +19,7 @@
     # ryan-website.url = "github:RyanGibb/website";
     twitcher.url = "git+https://git@git.freumh.org/ryan/twitcher.git";
     # twitcher.url = "github:RyanGibb/twitcher";
+    colour-guesser.url = "git+ssh://git@github.com/ryangibb/colour-guesser.git?ref=static-deployment";
 
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
@@ -44,6 +45,7 @@
     eilean,
     ryan-website,
     twitcher,
+    colour-guesser,
     ...
   }@inputs: rec {
     nixosConfigurations =
@@ -72,6 +74,7 @@
                 in ryan-website.paramaterizedPackages.${system}.with-cv keys;
               # `twitcher.nixosModules.default` uses `pkgs.ryan-website`
               "twitcher" = twitcher.packages.${system}.default;
+              "colour-guesser" = colour-guesser.packages.${system}.default;
               # can uncomment if want to use patchelf-rafi elsewhere
               #"patchelf" = patchelf.packages.${system}.patchelf;
               # "cctk" = final.callPackage ./pkgs/cctk/default.nix { };
@@ -110,6 +113,7 @@
                 eilean.nixosModules.default
                 ryan-website.nixosModules.default
                 twitcher.nixosModules.default
+                colour-guesser.nixosModules.default
                 aeon.nixosModules.default
               ];
             };

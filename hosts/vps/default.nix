@@ -67,6 +67,10 @@
       cname = "vps";
       dotenvFile = "${config.custom.secretsDir}/twitcher.env";
     };
+    colour-guesser = {
+      enable = true;
+      cname = "vps";
+    };
     eeww = {
       #enable = true;
       domain = config.services.ryan-website.domain;
