@@ -26,7 +26,7 @@
 
   dns = {
     zones.${config.networking.domain} = {
-      soa.serial = lib.mkDefault 2018011626;
+      soa.serial = lib.mkDefault 2018011627;
       records = [
         { name = "@"; type = "TXT"; data = "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc"; }
         { name = "teapot"; type = "CNAME"; data = "vps"; }
@@ -47,6 +47,9 @@
         { name = "vps"; type = "AAAA"; data = config.eilean.serverIpv6; }
 
         { name = "@"; type = "LOC"; data = "52 12 40.4 N 0 5 31.9 E 22m 10m 10m 10m"; }
+
+        { name = "ns.cl"; type = "A"; data = "128.232.113.136"; }
+        { name = "cl"; type = "NS"; data = "ns.cl"; }
       ];
     };
   };
