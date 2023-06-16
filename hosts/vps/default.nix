@@ -115,6 +115,19 @@
       allowedUDPPortRanges = [ turn-range ];
   };
 
+  services.matrix-appservices = {
+    addRegistrationFiles = true;
+    homeserverURL = "https://matrix.${config.networking.domain}";
+    services = {
+      whatsapp = {
+        port = 29183;
+        format = "mautrix-go";
+        package = pkgs.mautrix-whatsapp;
+        settings.bridge.personal_filtering_spaces = true;
+      };
+    };
+  };
+
   # boot.kernel.sysctl = {
   #   "net.ipv4.ip_forward" = 1;
   #   "net.ipv6.conf.all.forwarding" = 1;

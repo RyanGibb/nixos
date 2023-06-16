@@ -21,6 +21,8 @@
     # twitcher.url = "github:RyanGibb/twitcher";
     colour-guesser.url = "git+ssh://git@github.com/ryangibb/colour-guesser.git?ref=static-deployment";
 
+    matrix-appservices.url = "gitlab:coffeetables/nix-matrix-appservices";
+
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -46,6 +48,7 @@
     ryan-website,
     twitcher,
     colour-guesser,
+    matrix-appservices,
     ...
   }@inputs: rec {
     nixosConfigurations =
@@ -81,6 +84,7 @@
               "cctk" = prev.callPackage ./pkgs/cctk/default.nix { patchelf = patchelf.packages.${system}.patchelf; };
               "eeww" = eeww.defaultPackage.${system};
               "aeon" = aeon.defaultPackage.${system};
+              "mautrix-whatsapp" = prev.callPackage ./pkgs/mautrix-whatsapp.nix { };
             })
           ];
 
@@ -115,6 +119,7 @@
                 twitcher.nixosModules.default
                 colour-guesser.nixosModules.default
                 aeon.nixosModules.default
+                matrix-appservices.nixosModule
               ];
             };
         mkHosts = hosts: nixpkgs.lib.genAttrs hosts (mkHost "default");
