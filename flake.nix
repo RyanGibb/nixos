@@ -20,7 +20,6 @@
     twitcher.url = "git+https://git@git.freumh.org/ryan/twitcher.git";
     # twitcher.url = "github:RyanGibb/twitcher";
     colour-guesser.url = "git+ssh://git@github.com/ryangibb/colour-guesser.git?ref=static-deployment";
-
     matrix-appservices.url = "gitlab:coffeetables/nix-matrix-appservices";
 
     # deduplicate flake inputs
@@ -32,6 +31,8 @@
     patchelf.inputs.nixpkgs.follows = "nixpkgs";
     eeww.inputs.nixpkgs.follows = "nixpkgs";
     aeon.inputs.nixpkgs.follows = "nixpkgs";
+    colour-guesser.inputs.nixpkgs.follows = "nixpkgs";
+    matrix-appservices.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
