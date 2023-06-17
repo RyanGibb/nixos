@@ -5,7 +5,7 @@
   dpkg,
   autoPatchelfHook,
   patchelf,
-  openssl_1_1,
+  openssl,
 }:
 
 # Use techniques described in https://web.archive.org/web/20220904051329/https://tapesoftware.net/replace-symbol/
@@ -18,7 +18,7 @@
 # the dependencies from other pkgs.
 
 let
-  version = "4.6.0-277";
+  version = "4.8.0-494";
 
   unpacked = stdenv.mkDerivation rec {
     inherit version;
@@ -26,10 +26,10 @@ let
   
     src = fetchurl {
       url =
-        "https://dl.dell.com/FOLDER07737981M/1/command-configure_${version}.ubuntu20_amd64.tar.gz";
+        "https://dl.dell.com/FOLDER08911312M/1/command-configure_${version}.ubuntu20_amd64.tar.gz";
       # The CDN blocks the Curl user-agent, so set to blank instead.
       curlOpts = ''-A=""'';
-      sha256 = "d4e6e6cdfb34dac699e7521d4149e34647a9bc56d93eecf7ba3dffef4665c457";
+      sha256 = "sha256-l5oHgDkFBF6llNsHufTmuDzjkhGmXHYXlOJ4hvZfRoE=";
     };
 
     dontBuild = true;
@@ -73,7 +73,7 @@ in stdenv.mkDerivation rec {
   inherit version;
   pname = "dell-command-configure";
 
-  buildInputs = [ openssl_1_1 stdenv.cc.cc.lib ];
+  buildInputs = [ openssl stdenv.cc.cc.lib ];
   nativeBuildInputs = [ autoPatchelfHook ];
   dontConfigure = true;
 
