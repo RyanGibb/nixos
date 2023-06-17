@@ -32,16 +32,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1684075948,
-        "narHash": "sha256-L3hVXn/sVs445OE+JGIYu9os2CUUqA0kppbr9H9Apq4=",
-        "ref": "static-deployment",
-        "rev": "bbbb5dafea9a4c7990e7ad4de7ac4c3cb573344a",
-        "revCount": 7,
+        "lastModified": 1687024501,
+        "narHash": "sha256-jlKlbaWDQ6fNaXSOoqHto7bs+OxAyFbSXKutIJBGzok=",
+        "ref": "develop",
+        "rev": "9287f9f33b4ada988e2ec8960afd444f5a9159a7",
+        "revCount": 8,
         "type": "git",
         "url": "ssh://git@github.com/ryangibb/colour-guesser.git"
       },
       "original": {
-        "ref": "static-deployment",
+        "ref": "develop",
         "type": "git",
         "url": "ssh://git@github.com/ryangibb/colour-guesser.git"
       }

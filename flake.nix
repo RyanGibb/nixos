@@ -19,7 +19,7 @@
     # ryan-website.url = "github:RyanGibb/website";
     twitcher.url = "git+https://git@git.freumh.org/ryan/twitcher.git";
     # twitcher.url = "github:RyanGibb/twitcher";
-    colour-guesser.url = "git+ssh://git@github.com/ryangibb/colour-guesser.git?ref=static-deployment";
+    colour-guesser.url = "git+ssh://git@github.com/ryangibb/colour-guesser.git?ref=develop";
     matrix-appservices.url = "gitlab:coffeetables/nix-matrix-appservices";
 
     # deduplicate flake inputs
