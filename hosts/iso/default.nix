@@ -16,7 +16,7 @@
     gui.sway = true;
   };
 
-  services.openssh.permitRootLogin = lib.mkForce "no";
+  services.openssh.settings.PermitRootLogin = lib.mkForce "no";
   services.getty.autologinUser = lib.mkForce "${config.custom.username}";
   services.getty.helpLine = lib.mkForce "";
 

@@ -10,9 +10,11 @@ let cfg = config.personal; in
     programs.mosh.enable = true;
     services.openssh = {
       enable = true;
-      permitRootLogin = "yes";
-      passwordAuthentication = false;
       openFirewall = false;
+      settings = {
+        PermitRootLogin = "yes";
+        PasswordAuthentication = false;
+      };
     };
 
     programs.ssh.extraConfig = ''

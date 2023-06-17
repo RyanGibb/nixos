@@ -12,7 +12,7 @@
     machineColour = "yellow";
   };
 
-  boot.cleanTmpDir = true;
+  boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
 
   swapDevices = [ { device = "/var/swap"; size = 2048; } ];
