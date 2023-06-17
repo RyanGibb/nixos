@@ -3,6 +3,6 @@ for_window [class="Zotero"] move window to workspace 7📜
 for_window [class="obsidian"] move window to workspace 8🪨
 for_window [title="Obsidian v1"] move window to workspace 8🪨
 for_window [class="Spotify"] move window to workspace 9
-for_window [class="Thunderbird"] move window to workspace 10
+for_window [class="Thunderbird"] move window to workspace 10
 
 workspace "1" output DP-1
