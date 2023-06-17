@@ -55,8 +55,8 @@
         }
         (lib.mkIf (config.networking.hostName != "vps") {
           substituters = [
-            "https://cache.nixos.org/"
-            "https://binarycache.${config.networking.domain}"
+            "https://cache.nixos.org?priority=100"
+            "https://binarycache.${config.networking.domain}?priority=10"
           ];
           trusted-public-keys = [
             "binarycache.${config.networking.domain}:Go6ACovVBhR4P6Ug3DsE0p0DIRQtkIBHui1DGM7qK5c="
