@@ -20,6 +20,11 @@
       fsType = "vfat";
     };
 
+  fileSystems."/media/external-hdd" =
+    { device = "/dev/disk/by-label/external-hdd";
+      options = [ "nofail" "x-systemd.device-timeout=10s" "x-systemd.automount" "x-systemd.idle-timeout=10min" ];
+    };
+
   swapDevices = [ { device = "/var/swap"; size = 16384; } ];
   boot.resumeDevice = "/dev/disk/by-label/nixos";
   # https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate#Hibernation_into_swap_file
