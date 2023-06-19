@@ -1,23 +1,23 @@
 
 profile {
-	output "Sharp Corporation 0x14F9 0x00000000" mode 1920x1200 position 0,0 transform normal
+	output "Sharp Corporation 0x14F9 Unknown" mode 1920x1200 position 0,0 transform normal
 	exec ~/.config/sway/scripts/swayidle_suspend.sh
 }
 
 profile 1 {
-	output "Sharp Corporation 0x14F9 0x00000000" mode 1920x1200 position 0,0 transform normal
+	output "Sharp Corporation 0x14F9 Unknown" mode 1920x1200 position 0,0 transform normal
 	output "Acer Technologies VG270U TEHEE004852A" mode 2560x1440@60Hz position 1920,0 transform normal
 	exec ~/.config/sway/scripts/swayidle_dpms.sh
 }
 
 profile {
-	output "Sharp Corporation 0x14F9 0x00000000" mode 1920x1200 position 0,0
+	output "Sharp Corporation 0x14F9 Unknown" mode 1920x1200 position 0,0
 	output "Ancor Communications Inc VG248 FALMQS093846" mode 1920x1080@60Hz position 1920,0 transform 270
 	exec ~/.config/sway/scripts/swayidle_dpms.sh
 }
 
 profile {
-	output "Sharp Corporation 0x14F9 0x00000000" mode 1920x1200 position 0,0 transform normal
+	output "Sharp Corporation 0x14F9 Unknown" mode 1920x1200 position 0,0 transform normal
 	output "Acer Technologies VG270U TEHEE004852A" mode 2560x1440@60Hz position 1920,0 transform normal
 	output "Ancor Communications Inc VG248 FALMQS093846" mode 1920x1080@60Hz position 4480,0 transform 90
 	exec ~/.config/sway/scripts/swayidle_dpms.sh
@@ -69,7 +69,7 @@ profile {
 }
 
 profile {
-	output 'Sharp Corporation 0x14F9 0x00000000' mode 1920x1200 scale 1 position 0,0 transform normal
+	output 'Sharp Corporation 0x14F9 Unknown' mode 1920x1200 scale 1 position 0,0 transform normal
 	output 'Dell Inc. DELL P3223QE 3RWDWN3' mode 3840x2160@60Hz scale 1.5 position 1920,0 transform normal
 }
 
