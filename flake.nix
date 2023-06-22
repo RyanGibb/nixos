@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs-compat.url = "github:nixos/nixpkgs/39ddb6d";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     patchelf.url = "github:nixos/patchelf/ea2fca765c";
@@ -39,6 +40,7 @@
     self,
     nixpkgs,
     nixpkgs-unstable,
+    nixpkgs-compat,
     nixos-hardware,
     home-manager,
     patchelf,
@@ -58,7 +60,12 @@
         getSystemOverlays = system: nixpkgsConfig:
           [
             (final: prev: {
-              unstable = import nixpkgs-unstable {
+              overlay-unstable = import nixpkgs-unstable {
+                inherit system;
+                # follow stable nixpkgs config
+                config = nixpkgsConfig;
+              };
+              overlay-compat = import nixpkgs-compat {
                 inherit system;
                 # follow stable nixpkgs config
                 config = nixpkgsConfig;
@@ -86,6 +93,7 @@
               "eeww" = eeww.defaultPackage.${system};
               "aeon" = aeon.defaultPackage.${system};
               "mautrix-whatsapp" = prev.callPackage ./pkgs/mautrix-whatsapp.nix { };
+              "element-desktop" = final.overlay-compat.element-desktop;
             })
           ];
 
