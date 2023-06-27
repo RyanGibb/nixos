@@ -128,11 +128,6 @@ let cfg = config.personal.gui; in
       wqy_zenhei
     ];
 
-    # thunar
-    services.gvfs = {
-      enable = true;
-      package = pkgs.gvfs;
-    };
     # thunar thumbnail support for images
     services.tumbler.enable = true;
   };
