@@ -86,7 +86,7 @@
         exit 0
       fi
 
-      DIR=`${pkgs.util-linux}/bin/findmnt -nr -o target -S $DISK`
+      DIR=`${pkgs.util-linux}/bin/findmnt -nr -o target -S $DISK` || exit 1
       ${pkgs.libnotify}/bin/notify-send "starting backup"
       ${pkgs.rsync}/bin/rsync -va --exclude={".cache",".local/share/Steam/"} ~/ $DIR/home/
       status=$?
