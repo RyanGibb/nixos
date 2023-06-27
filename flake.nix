@@ -3,6 +3,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-23.05";
     nixpkgs-compat.url = "github:nixos/nixpkgs/39ddb6d";
+    nixpkgs-logseq.url = "github:nixos/nixpkgs/998ca7e";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     patchelf.url = "github:nixos/patchelf/ea2fca765c";
@@ -41,6 +42,7 @@
     nixpkgs,
     nixpkgs-unstable,
     nixpkgs-compat,
+    nixpkgs-logseq,
     nixos-hardware,
     home-manager,
     patchelf,
@@ -94,6 +96,19 @@
               "aeon" = aeon.defaultPackage.${system};
               "mautrix-whatsapp" = prev.callPackage ./pkgs/mautrix-whatsapp.nix { };
               "element-desktop" = final.overlay-compat.element-desktop;
+              "logseq" =
+                let pkgs = import nixpkgs-logseq {
+                  inherit system;
+                  config = nixpkgsConfig;
+                }; in pkgs.logseq.overrideAttrs (oldAttrs: {
+                  postFixup = ''
+                    makeWrapper ${pkgs.electron_20}/bin/electron $out/bin/${oldAttrs.pname} \
+                      --set "LOCAL_GIT_DIRECTORY" ${pkgs.git} \
+                      --add-flags $out/share/${oldAttrs.pname}/resources/app \
+                      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
+                      --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [ prev.stdenv.cc.cc.lib ]}"
+                  '';
+              });
             })
           ];
 
@@ -117,6 +132,9 @@
                   system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
                   nixpkgs = {
                     config.allowUnfree = true;
+                    config.permittedInsecurePackages = [
+                      "electron-20.3.11"
+                    ];
                     overlays = getSystemOverlays config.nixpkgs.hostPlatform.system config.nixpkgs.config;
                     # uncomment for cross compilation (https://github.com/NixOS/nix/issues/3843)
                     #buildPlatform.system = "cpu-os";

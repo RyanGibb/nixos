@@ -41,6 +41,7 @@
     wine64
     anki
     lsof
+    logseq
   ];
 
   systemd.extraConfig = ''
