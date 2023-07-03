@@ -115,6 +115,15 @@
       allowedUDPPortRanges = [ turn-range ];
   };
 
+  services.signald.enable = true;
+  systemd.services.matrix-as-signal = {
+    requires = [ "signald.service" ];
+    after = [ "signald.service" ];
+    path = [
+      pkgs.ffmpeg # voice messages need `ffmpeg`
+    ];
+  };
+
   services.matrix-appservices = {
     addRegistrationFiles = true;
     homeserverURL = "https://matrix.${config.networking.domain}";
@@ -123,6 +132,21 @@
         port = 29183;
         format = "mautrix-go";
         package = pkgs.mautrix-whatsapp;
+        settings.bridge.personal_filtering_spaces = true;
+        settings.bridge.displayname_template = "{{or .BusinessName .PushName .FullName .JID}} (WA)";
+      };
+      signal = {
+        port = 29184;
+        format = "mautrix-python";
+        package = pkgs.mautrix-signal;
+        serviceConfig = {
+          StateDirectory = [ "matrix-as-signal" "signald" ];
+          SupplementaryGroups = [ "signald" ];
+        };
+        settings.signal = {
+          socket_path = config.services.signald.socketPath;
+          outgoing_attachment_dir = "/var/lib/signald/tmp";
+        };
         settings.bridge.personal_filtering_spaces = true;
       };
     };

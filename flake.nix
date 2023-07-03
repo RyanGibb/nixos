@@ -21,6 +21,10 @@
     # twitcher.url = "github:RyanGibb/twitcher";
     colour-guesser.url = "git+ssh://git@github.com/ryangibb/colour-guesser.git?ref=develop";
     matrix-appservices.url = "gitlab:coffeetables/nix-matrix-appservices";
+    mautrix-signal = {
+      url = "github:Jaffex/signal/6b4b07";
+      flake = false;
+    };
 
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
@@ -50,6 +54,7 @@
     twitcher,
     colour-guesser,
     matrix-appservices,
+    mautrix-signal,
     ...
   }@inputs: rec {
     nixosConfigurations =
@@ -86,6 +91,10 @@
               "eeww" = eeww.defaultPackage.${system};
               "aeon" = aeon.defaultPackage.${system};
               "mautrix-whatsapp" = prev.callPackage ./pkgs/mautrix-whatsapp.nix { };
+              "mautrix-signal" = prev."mautrix-signal".overrideAttrs (_: {
+                src = mautrix-signal;
+                buildInputs = [ prev.python3.pkgs.aiosqlite ];
+              });
             })
           ];
 

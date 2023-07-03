@@ -90,10 +90,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1687025422,
-        "narHash": "sha256-+hrDePrNdV5soh5lsg/1t0LVNxnGS4/Wbkd/JqNSgwU=",
+        "lastModified": 1687196507,
+        "narHash": "sha256-W9n7DV+hyZl2KXMiNWVELdhsvbXO1hnEnVvz3b7rxCA=",
         "ref": "main",
-        "rev": "e1cc68932601650290e52f87600dc0fb85d055d5",
+        "rev": "cc7eec5f54ff05de72f4183ba3ae28074f69ae4f",
         "revCount": 18,
         "type": "git",
         "url": "https://git@git.freumh.org/ryan/eilean-nix.git"
@@ -269,6 +269,23 @@
         "owner": "coffeetables",
         "repo": "nix-matrix-appservices",
         "type": "gitlab"
+      }
+    },
+    "mautrix-signal": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673613420,
+        "narHash": "sha256-ugrz81iOqFzFbf1/u08DtNufl644tE3HqRycm9e+oaI=",
+        "owner": "Jaffex",
+        "repo": "signal",
+        "rev": "6b4b0736119545eb12d226747dc186028bae5024",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Jaffex",
+        "ref": "6b4b07",
+        "repo": "signal",
+        "type": "github"
       }
     },
     "mirage-opam-overlays": {
@@ -480,6 +497,7 @@
         "eilean": "eilean",
         "home-manager": "home-manager",
         "matrix-appservices": "matrix-appservices",
+        "mautrix-signal": "mautrix-signal",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
@@ -522,11 +540,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1686932188,
-        "narHash": "sha256-mrVtcokJzzJPGXn1P9QEcVnBVc3CbXtrmAg2/Kis9ts=",
+        "lastModified": 1688135714,
+        "narHash": "sha256-mztYsCL6poPSNtJ2V5GKtZNnYFs6Tl5geUjj37f+3KI=",
         "ref": "refs/heads/master",
-        "rev": "913e26a00ecb9827087db4c63fa370164827391c",
-        "revCount": 449,
+        "rev": "34bce86a5081857f88aa998e4780d182ac3b485a",
+        "revCount": 450,
         "type": "git",
         "url": "https://git@git.freumh.org/ryan/website.git"
       },
