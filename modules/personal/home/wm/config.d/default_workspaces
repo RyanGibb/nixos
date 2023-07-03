@@ -1,8 +1,8 @@
 #assign [app_id="firefox"] 1
 for_window [class="Zotero"] move window to workspace 7📜
 for_window [app_id="Logseq"] move window to workspace 8📚
-for_window [class="obsidian"] move window to workspace 8🪨
-for_window [title="Obsidian v1"] move window to workspace 8🪨
+for_window [class="obsidian"] move window to workspace 8📚
+for_window [title="Obsidian v1"] move window to workspace 8📚
 for_window [title="Spotify"] move window to workspace 9
 for_window [class="Thunderbird"] move window to workspace 10
 
