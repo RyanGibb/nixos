@@ -5,7 +5,6 @@
     ./hardware-configuration.nix
   ];
 
-  networking.hostName = "vps";
   personal = {
     enable = true;
     tailscale = true;
