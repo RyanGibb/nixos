@@ -1,14 +1,45 @@
 
+set $white #edbbb2
+set $bg #282828
+set $red #cc241d
+set $green #98971a
+set $yellow #d79921
+set $blue #458588
+set $purple #b16286
+set $aqua #689d68
+set $gray #a89984
+set $darkgray #1d2021
+set $lightgray #bdae93
+
+# class                 border|backgr|text|indicator|child_border
+client.focused          $lightgray $lightgray $bg $purple $darkgray
+client.focused_inactive $darkgray $darkgray $lightgray $purple $darkgray
+client.unfocused        $darkgray $darkgray $lightgray $purple $darkgray
+client.urgent           $red $red $white $red $red
+
+bar {
+	position bottom
+	status_command i3blocks
+	colors {
+		# bar background color
+		background $bg
+		# text color used for blocks that do not have a color specified.
+		statusline $lightgray
+		# workspaces section            
+		#                    border  backgr. text
+		focused_workspace    $lightgray $lightgray $bg
+		inactive_workspace   $darkgray $darkgray $lightgray
+		active_workspace     $darkgray $darkgray $lightgray
+		urgent_workspace     $red $red $bg
+	}
+	workspace_min_width 30px
+	tray_output none
+	@bar_extra@
+}
+
 hide_edge_borders smart
 smart_borders on
 smart_gaps on
-
-# class                 border  backgr. text    indicator child_border
-client.focused          #5e81ac #5e81ac #eceff4 #85b6f2   #5e81ac
-client.focused_inactive #434c5e #434c5e #eceff4 #72819e   #434c5e
-client.unfocused        #434c5e #272930 #eceff4 #535d73   #434c5e
-client.urgent           #bf616a #bf616a #eceff4 #ffdc96   #bf616a
-client.placeholder      #000000 #0c0c0c #eceff4 #000000   #0c0c0c
 
 client.background #ffffff
 
@@ -29,19 +60,3 @@ for_window [@app_id@="copyq"] floating enable, sticky enable, resize set height 
 # requires glib
 exec_always gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
 
-bar {
-	position bottom
-	status_command i3blocks
-	colors {
-		statusline #eceff4
-		background #272930
-		separator  #434c5e 
-		focused_workspace  #88c0d0 #88c0d0 #272930
-		active_workspace   #81a1c1 #81a1c1 #272930
-		inactive_workspace #5e81ac #5e81ac #272930
-		urgent_workspace   #bf616a #bf616a #272930
-	}
-	workspace_min_width 30px
-	tray_output none
-	@bar_extra@
-}

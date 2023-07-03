@@ -4,44 +4,44 @@
 }
 
 window {
-	background-color: #2e3440;
+	background-color: #282828;
 }
 
 #input {
 	margin: 5px;
 	border-radius: 0px;
 	border: none;
-	background-color: #2e3440;
-	color: #eceff4;
+	color: #ebdbb2;
+	background-color: #1d2021;
 }
 
 #inner-box {
-	background-color: #2e3440;
+	background-color: #282828;
 }
 
 #outer-box {
 	margin: 5px;
-	padding: 5px;
-	background-color: #2e3440;
+	border: none;
+	background-color: #282828;
 }
 
 #text {
 	padding: 5px;
-	color: #eceff4;
+	color: #ebdbb2;
 }
 
 #entry:nth-child(odd){
-	background-color: #3b4252;
+	background-color: #32302f;
 }
 
 #entry:selected {
-	background-color: #5e81ac;
+	background-color: #1d2021;
 }
 
 #text:selected {
-	background-color: #5e81ac;
+	background-color: #1d2021;
 }
 
 #img:selected {
-	background-color: #5e81ac;
+	background-color: #1d2021;
 }
