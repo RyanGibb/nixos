@@ -8,12 +8,12 @@
       package = pkgs.noto-fonts;
     };
     iconTheme = {
-      package = pkgs.papirus-icon-theme;
-      name = "Papirus";
+      package = pkgs.gruvbox-dark-icons-gtk;
+      name = "gruvbox-dark";
     };
     theme = {
-      package = pkgs.arc-theme;
-      name = "Arc-Dark";
+      package = pkgs.gruvbox-dark-gtk;
+      name = "gruvbox-dark";
     };
   };
 

@@ -3,16 +3,17 @@ call plug#begin('~/.vim/plugged')
 	Plug '907th/vim-auto-save'
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
-	Plug 'drewtempelmeyer/palenight.vim'
+	Plug 'ellisonleao/gruvbox.nvim'
 	Plug 'preservim/nerdtree'
 call plug#end()
 
-colorscheme palenight
+set background=dark
+colorscheme gruvbox
 
 hi Normal ctermbg=NONE
 
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='bubblegum'
+let g:airline_theme='gruvbox'
 
 set number
 set relativenumber

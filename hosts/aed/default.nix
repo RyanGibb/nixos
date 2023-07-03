@@ -41,6 +41,7 @@
     wine64
     anki
     lsof
+    logseq
   ];
 
   systemd.extraConfig = ''
@@ -85,14 +86,9 @@
         exit 0
       fi
 
-      cleanup() {
-        ${pkgs.udisks}/bin/udisksctl unmount -b /dev/disk/by-label/external-hdd --no-user-interaction
-      }
-      trap cleanup EXIT
-
+      DIR=`${pkgs.util-linux}/bin/findmnt -nr -o target -S $DISK` || exit 1
       ${pkgs.libnotify}/bin/notify-send "starting backup"
-      ${pkgs.udisks}/bin/udisksctl mount -b /dev/disk/by-label/external-hdd --no-user-interaction
-      ${pkgs.rsync}/bin/rsync -va --exclude={".cache",".local/share/Steam/"} ~/ /run/media/ryan/external-hdd/home/
+      ${pkgs.rsync}/bin/rsync -va --exclude={".cache",".local/share/Steam/"} ~/ $DIR/home/
       status=$?
       if [ $status -eq 0 ]; then
         touch "$LAST_RUN_FILE"
