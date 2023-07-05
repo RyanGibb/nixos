@@ -11,7 +11,7 @@ let replacements = {
   locked = "--locked";
   polkit_gnome = "${pkgs.polkit_gnome}";
   set_wallpaper = ''
-    swaymsg "output * bg $HOME/.cache/wallpaper fill #2e3440"
+    swaymsg "output * bg $HOME/.cache/wallpaper fill #282828"
   '';
   locker = "swaylock -f -i $HOME/.cache/wallpaper";
   enable_output  = "swaymsg output $laptop_output enable";
