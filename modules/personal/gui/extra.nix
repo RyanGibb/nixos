@@ -8,7 +8,7 @@ let cfg = config.personal.gui; in
     environment.systemPackages = with pkgs; [
       thunderbird
       element-desktop
-      signal-desktop
+      gomuks
       zotero
       obsidian
       spotify
