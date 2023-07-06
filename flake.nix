@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-compat.url = "github:nixos/nixpkgs/39ddb6d";
     nixpkgs-logseq.url = "github:nixos/nixpkgs/998ca7e";
     nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -25,6 +25,10 @@
     matrix-appservices.url = "gitlab:coffeetables/nix-matrix-appservices";
     mautrix-signal = {
       url = "github:Jaffex/signal/6b4b07";
+      flake = false;
+    };
+    mautrix-facebook = {
+      url = "github:eyJhb/mautrix-facebook/spaces-support";
       flake = false;
     };
 
@@ -59,6 +63,7 @@
     colour-guesser,
     matrix-appservices,
     mautrix-signal,
+    mautrix-facebook,
     ...
   }@inputs: rec {
     nixosConfigurations =
@@ -104,6 +109,11 @@
                 src = mautrix-signal;
                 buildInputs = [ prev.python3.pkgs.aiosqlite ];
               });
+              "mautrix-facebook" = prev."mautrix-facebook".overrideAttrs (_: {
+                src = mautrix-facebook;
+                buildInputs = [ prev.python3.pkgs.aiosqlite ];
+              });
+              "mautrix-instagram" = final.overlay-unstable.callPackage ./pkgs/mautrix-instagram.nix { };
               "element-desktop" = final.overlay-compat.element-desktop;
               "logseq" =
                 let pkgs = import nixpkgs-logseq {

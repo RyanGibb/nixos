@@ -149,6 +149,18 @@
         };
         settings.bridge.personal_filtering_spaces = true;
       };
+      facebook = {
+        port = 29185;
+        format = "mautrix-python";
+        package = pkgs.mautrix-facebook;
+        settings.bridge.space_support.enable = true;
+        settings.bridge.backfill.enable = false;
+      };
+      instagram = {
+        port = 29187;
+        format = "mautrix-python";
+        package = pkgs.mautrix-instagram;
+      };
     };
   };
 

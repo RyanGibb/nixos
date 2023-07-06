@@ -271,6 +271,23 @@
         "type": "gitlab"
       }
     },
+    "mautrix-facebook": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1680455007,
+        "narHash": "sha256-Jh17ghV3f8sAWhtwxWeE4iSUfxGPdP3Ob4I3frQzrg4=",
+        "owner": "eyJhb",
+        "repo": "mautrix-facebook",
+        "rev": "bf9ce75ed8aa829e6e802d5ca4a9b760478bec43",
+        "type": "github"
+      },
+      "original": {
+        "owner": "eyJhb",
+        "ref": "spaces-support",
+        "repo": "mautrix-facebook",
+        "type": "github"
+      }
+    },
     "mautrix-signal": {
       "flake": false,
       "locked": {
@@ -399,16 +416,16 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1687288566,
-        "narHash": "sha256-VckkiJ88Gzdc2cstm0z5eFcrHbvkm4VjxavHBGssvZI=",
+        "lastModified": 1688590700,
+        "narHash": "sha256-ZF055rIUP89cVwiLpG5xkJzx00gEuuGFF60Bs/LM3wc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "b6c73c5fe53bb3afbf65e870541e0645e9145171",
+        "rev": "f292b4964cb71f9dfbbd30dc9f511d6165cd109b",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-23.05",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -529,6 +546,7 @@
         "eilean": "eilean",
         "home-manager": "home-manager",
         "matrix-appservices": "matrix-appservices",
+        "mautrix-facebook": "mautrix-facebook",
         "mautrix-signal": "mautrix-signal",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
