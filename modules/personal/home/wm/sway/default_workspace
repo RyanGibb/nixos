@@ -1,4 +1,0 @@
-
-for_window [app_id="obsidian"] move window to workspace 8📚
-assign [@app_id@="thunderbird"] 10
-

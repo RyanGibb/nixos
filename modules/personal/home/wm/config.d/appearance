@@ -1,21 +1,23 @@
 
-set $white #edbbb2
-set $bg #282828
-set $red #cc241d
-set $green #98971a
-set $yellow #d79921
-set $blue #458588
-set $purple #b16286
-set $aqua #689d68
-set $gray #a89984
-set $darkgray #1d2021
+set $white     #edbbb2
+set $bg        #282828
+set $red       #cc241d
+set $green     #98971a
+set $yellow    #d79921
+set $blue      #458588
+set $purple    #b16286
+set $aqua      #689d68
+set $gray      #a89984
+set $darkgray  #1d2021
+set $softgray  #32302f
 set $lightgray #bdae93
 
-# class                 border|backgr|text|indicator|child_border
-client.focused          $lightgray $lightgray $bg $purple $darkgray
-client.focused_inactive $darkgray $darkgray $lightgray $purple $darkgray
-client.unfocused        $darkgray $darkgray $lightgray $purple $darkgray
-client.urgent           $red $red $white $red $red
+# class                 border     backgr.    text       indicator child_border
+client.focused          $lightgray $lightgray $darkgray  $purple   $lightgray
+client.focused_inactive $softgray  $softgray  $lightgray $purple   $softgray
+client.unfocused        $darkgray  $darkgray  $lightgray $purple   $darkgray
+client.urgent           $red       $red       $white     $purple   $red
+client.placeholder      #000000    #lightgray $bg        #000000   $lightgray
 
 bar {
 	position bottom
@@ -28,8 +30,8 @@ bar {
 		# workspaces section            
 		#                    border  backgr. text
 		focused_workspace    $lightgray $lightgray $bg
-		inactive_workspace   $darkgray $darkgray $lightgray
-		active_workspace     $darkgray $darkgray $lightgray
+		inactive_workspace   $bg       $bg       $lightgray
+		active_workspace     $bg       $bg       $lightgray
 		urgent_workspace     $red $red $bg
 	}
 	workspace_min_width 30px

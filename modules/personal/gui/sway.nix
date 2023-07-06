@@ -7,22 +7,7 @@ let cfg = config.personal.gui; in
   config = lib.mkIf cfg.sway {
     home-manager.users.${config.custom.username} = import ../home/sway.nix { inherit pkgs lib wallpapers; };
 
-    programs.sway =
-    let
-      desktopEntries = [
-        (pkgs.makeDesktopItem {
-          name = "obsidian-wayland";
-          desktopName = "Obsidian (wayland)";
-          exec = "obsidian --ozone-platform=wayland";
-          terminal = false;
-          categories = [ "Office" ];
-          comment = "Knowledge base";
-          icon = "obsidian";
-          type = "Application";
-        })
-      ];
-    in
-    {
+    programs.sway = {
       enable = true;
       wrapperFeatures.gtk = true; # so that gtk works properly
       extraPackages = with pkgs; [
@@ -45,7 +30,7 @@ let cfg = config.personal.gui; in
         swappy
         mako
         kanshi
-      ] ++ desktopEntries;
+      ];
     };
 
     xdg.portal = {

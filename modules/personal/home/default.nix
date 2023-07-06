@@ -17,6 +17,9 @@
     };
   };
 
+  # evince workaround
+  home.sessionVariables.GTK_THEME = "gruvbox-dark";
+
   home.pointerCursor = {
       name = "Adwaita";
       package = pkgs.gnome.adwaita-icon-theme;
@@ -108,6 +111,7 @@
       "Thunar/uca.xml".source = ./thunar.xml;
       "fontconfig/fonts.conf".source = ./fonts.conf;
       "alacritty.yml".source = ./alacritty.yml;
+      "Element/config.json".source = ./element.json;
       "swappy/config".text = ''
         [Default]
         save_dir=~/pictures/capture/
