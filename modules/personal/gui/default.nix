@@ -75,7 +75,7 @@ let cfg = config.personal.gui; in
       playerctl
       brightnessctl
       xdg-utils
-      gnome.zenity
+      yad
       networkmanagerapplet
       pavucontrol
       (xfce.thunar.override { thunarPlugins = with xfce; [

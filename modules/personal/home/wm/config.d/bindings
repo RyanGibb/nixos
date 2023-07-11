@@ -52,7 +52,7 @@ bindsym $mod+Shift+q kill
 
 bindsym $mod+d         exec @drun@
 bindsym $mod+Shift+d   exec @run@
-bindsym $mod+Control+d exec "$(zenity --entry --text run)"
+bindsym $mod+Control+d exec "$(yad --entry --text run)"
 
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -486,7 +486,7 @@ bindsym $mod+Shift+p         exec @wmmsg@ output "$($SCRIPT_DIR/get_focused_outp
 bindsym $mod+Shift+w   exec $SCRIPT_DIR/set_random_wallpaper.sh
 bindsym $mod+Control+w exec $SCRIPT_DIR/set_selected_wallpaper.sh
 
-bindsym $mod+Shift+c exec echo -n "$(zenity --calendar --text "")" | wl-copy
+bindsym $mod+Shift+c exec echo -n "$(yad --calendar --text "")" | wl-copy
 
 # disable firefox quit shortcut
 bindsym Control+q nop

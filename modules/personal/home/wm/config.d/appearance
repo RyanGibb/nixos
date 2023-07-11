@@ -49,7 +49,7 @@ focus_follows_mouse no
 
 default_border pixel 4
 
-for_window [@app_id@="zenity"] floating enable
+for_window [@app_id@="yad"] floating enable
 for_window [@app_id@="zoom"] floating enable
 for_window [@app_id@="zoom" title="Choose ONE of the audio conference options"] floating enable
 for_window [@app_id@="zoom" title="zoom"] floating enable

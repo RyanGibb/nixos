@@ -77,7 +77,7 @@
       export DISPLAY=:0
       ${pkgs.xorg.xhost}/bin/xhost +local:${config.custom.username}
       export GTK_R2_FILES=$HOME/.gtkrc-2.0
-      timeout 60 ${pkgs.gnome.zenity}/bin/zenity --question --title "backup" --text "Backup now? Will autostart in 60s."
+      timeout 60 ${pkgs.yad}/bin/yad --question --title "backup" --text "Backup now? Will autostart in 60s."
       prompt_status=$?
       ${pkgs.xorg.xhost}/bin/xhost -local:${config.custom.username}
       # if not success or timeout
