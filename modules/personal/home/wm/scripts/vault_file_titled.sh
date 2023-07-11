@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 title="$(zenity --entry --text=Title:)" || exit
-file="$title.md"
+file="$(date '+%Y-%m-%d') $title.md"
 cd ~/projects/vault || exit
-$EDITOR "$file"
+vim "$file"
