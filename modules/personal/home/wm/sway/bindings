@@ -7,7 +7,7 @@ bindsym $mod+Shift+BackSpace exec makoctl dismiss
 
 bindsym $mod+$alt nop
 
-bindsym $mod+Shift+v         exec clipman pick -t wofi
+bindsym $mod+Shift+v         exec clipman pick -t wofi -T-i
 bindsym $mod+Control+v       exec wl-copy "$(clipman pick -t STDOUT | head -n 1)"
 bindsym $mod+Shift+Control+v exec wtype "$(clipman pick -t STDOUT | head -n 1)"
 

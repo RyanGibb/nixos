@@ -6,7 +6,7 @@ configuration {
 
 window {
 	padding: 5px;
-	background-color: #2e3440;
+	background-color: #282828;
 }
 
 inputbar {
@@ -19,12 +19,12 @@ listview {
 
 entry {
 	padding: 5px;
-	text-color: #eceff4;
+	text-color: #ebdbb2;
 	placeholder: "";
 }
 
 textbox {
-	text-color: #eceff4;
+	text-color: #ebdbb2;
 	background-color: argb:00000000;
 }
 
@@ -33,20 +33,20 @@ element {
 }
 
 element.normal.normal {
-	text-color: #eceff4;
-	background-color: #3b4252;
+	text-color: #ebdbb2;
+	background-color: #32302f;
 }
 
 element.alternate.normal {
-	text-color: #eceff4;
+	text-color: #ebdbb2;
 	background-color: argb:00000000;
 }
 
 element.selected.normal {
-	text-color: #eceff4;
-	background-color: #5e81ac;
+	text-color: #ebdbb2;
+	background-color: #1d2021;
 }
 
 scrollbar {
-	handle-color: #3b4252;
+	handle-color: #32302f;
 }

@@ -443,7 +443,7 @@ bindsym $mod+Control+b exec $browser -private-window
 
 bindsym $mod+backslash exec xdg-open ~
 
-bindsym $mod+apostrophe exec @rofimoji@
+bindsym $mod+apostrophe exec rofimoji --selector @rofi@ --selector-args=-i --skin-tone neutral --prompt "" -a copy
 
 bindsym $mod+semicolon         exec $SCRIPT_DIR/bluetooth_device.sh
 bindsym $mod+Shift+semicolon   exec $SCRIPT_DIR/bluetooth_device.sh disconnect

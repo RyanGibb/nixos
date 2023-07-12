@@ -16,12 +16,9 @@ let replacements = {
   locker = "xsecurelock";
   enable_output  = "xrandr --output $laptop_output --auto";
   disable_output = "xrandr --output $laptop_output --off";
-  drun = "rofi -modi drun -show drun";
-  run = "rofi -modi run -show run";
-  dmenu = "rofi -dmenu -i -p";
-  rofimoji = ''
-    rofimoji --selector rofi --skin-tone neutral --prompt "" -a copy
-  '';
+  drun = "rofi -i -modi drun -show drun";
+  run = "rofi -i -modi run -show run";
+  dmenu = "rofi -i -dmenu -p";
   displays = "arandr";
   bar = "i3bar";
   notification_deamon = "dunst";

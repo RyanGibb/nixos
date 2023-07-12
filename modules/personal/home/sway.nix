@@ -19,9 +19,6 @@ let replacements = {
   drun = "wofi -i --show drun --allow-images -a";
   run = "wofi -i --show run";
   dmenu = "wofi -d -i -p";
-  rofimoji = ''
-    rofimoji --selector wofi --skin-tone neutral --prompt "" -a copy
-  '';
   displays = "wdisplays";
   bar = "swaybar";
   notification_deamon = "mako";
