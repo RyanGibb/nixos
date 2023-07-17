@@ -130,10 +130,8 @@ let cfg = config.personal.gui; in
     ];
 
     # thunar
-    services.gvfs = {
-      enable = true;
-      package = pkgs.gvfs;
-    };
+    # services.gvfs.enable = true;
+    services.udisks2.enable = true;
     # thunar thumbnail support for images
     services.tumbler.enable = true;
   };
