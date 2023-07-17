@@ -119,9 +119,12 @@
   systemd.services.matrix-as-signal = {
     requires = [ "signald.service" ];
     after = [ "signald.service" ];
-    path = [
-      pkgs.ffmpeg # voice messages need `ffmpeg`
-    ];
+    # voice messages need `ffmpeg`
+    path = [ pkgs.ffmpeg ];
+  };
+  systemd.services.matrix-as-facebook = {
+    # voice messages need `ffmpeg`
+    path = [ pkgs.ffmpeg ];
   };
 
   services.matrix-appservices = {
@@ -140,7 +143,7 @@
         format = "mautrix-python";
         package = pkgs.mautrix-signal;
         serviceConfig = {
-          StateDirectory = [ "matrix-as-signal" "signald" ];
+          StateDirectory = [ "matrix-as-signal" ];
           SupplementaryGroups = [ "signald" ];
         };
         settings.signal = {
