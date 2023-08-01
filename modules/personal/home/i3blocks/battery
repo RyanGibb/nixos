@@ -10,3 +10,5 @@ else
 fi
 
 echo "$label $capacity%"
+
+# udevadm monitor -s=power_supply
