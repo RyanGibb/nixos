@@ -48,7 +48,7 @@ bindsym $mod+Shift+Return exec $term -o window.opacity=1
 bindsym $mod+Control+Return       exec $term -e zsh -c $SCRIPT_DIR/vault_file.sh
 bindsym $mod+Control+Shift+Return exec $term -e zsh -c $SCRIPT_DIR/vault_file_titled.sh
 
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 bindsym $mod+d         exec @drun@
 bindsym $mod+Shift+d   exec @run@
@@ -59,20 +59,10 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-bindsym $mod+Left  focus left
-bindsym $mod+Down  focus down
-bindsym $mod+Up    focus up
-bindsym $mod+Right focus right
-
 bindsym $mod+Shift+h move left  25px
 bindsym $mod+Shift+j move down  25px
 bindsym $mod+Shift+k move up    25px
 bindsym $mod+Shift+l move right 25px
-
-bindsym $mod+Shift+Left  move left  25px
-bindsym $mod+Shift+Down  move down  25px
-bindsym $mod+Shift+Up    move up    25px
-bindsym $mod+Shift+Right move right 25px
 
 bindsym $mod+g split h
 bindsym $mod+v split v
@@ -101,7 +91,7 @@ bindsym $mod+z focus child
 bindsym $mod+Shift+a exec $SCRIPT_DIR/focus_root.sh
 bindsym $mod+Shift+z exec $SCRIPT_DIR/focus_leaf.sh
 
-set $ws1  "1"
+set $ws1  "1"
 set $ws2  "2"
 set $ws3  "3"
 set $ws4  "4"
@@ -136,47 +126,20 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-# move focused container to workspace and switch to workspace
-# (maintaing focus)
-bindsym $mod+Control+1 exec $SCRIPT_DIR/preserve_focus.sh \
-	'@wmmsg@ move container to workspace number $ws1'
-bindsym $mod+Control+2 exec $SCRIPT_DIR/preserve_focus.sh \
-	'@wmmsg@ move container to workspace number $ws2'
-bindsym $mod+Control+3 exec $SCRIPT_DIR/preserve_focus.sh \
-	'@wmmsg@ move container to workspace number $ws3'
-bindsym $mod+Control+4 exec $SCRIPT_DIR/preserve_focus.sh \
-	'@wmmsg@ move container to workspace number $ws4'
-bindsym $mod+Control+5 exec $SCRIPT_DIR/preserve_focus.sh \
-	'@wmmsg@ move container to workspace number $ws5'
-bindsym $mod+Control+6 exec $SCRIPT_DIR/preserve_focus.sh \
-	'@wmmsg@ move container to workspace number $ws6'
-bindsym $mod+Control+7 exec $SCRIPT_DIR/preserve_focus.sh \
-	'@wmmsg@ move container to workspace number $ws7'
-bindsym $mod+Control+8 exec $SCRIPT_DIR/preserve_focus.sh \
-	'@wmmsg@ move container to workspace number $ws8'
-bindsym $mod+Control+9 exec $SCRIPT_DIR/preserve_focus.sh \
-	'@wmmsg@ move container to workspace number $ws9'
-bindsym $mod+Control+0 exec $SCRIPT_DIR/preserve_focus.sh \
-	'@wmmsg@ move container to workspace number $ws10'
-
 bindsym $mod+Shift+numbersign move scratchpad
 bindsym $mod+numbersign scratchpad show
 
+bindsym $mod+Escape workspace back_and_forth
+bindsym $mod+Shift+Escape move container to workspace back_and_forth
 # grave=`
 bindsym $mod+grave workspace back_and_forth
 bindsym $mod+Shift+grave move container to workspace back_and_forth
-bindsym $mod+Control+grave exec $SCRIPT_DIR/preserve_focus.sh \
-	'@wmmsg@ move container to workspace back_and_forth'
 
 bindsym $mod+period workspace next_on_output
 bindsym $mod+comma workspace prev_on_output
 
 bindsym $mod+Shift+period move container to workspace next_on_output
 bindsym $mod+Shift+comma move container to workspace prev_on_output
-bindsym $mod+Control+period exec $SCRIPT_DIR/preserve_focus.sh \
-	'@wmmsg@ move container to workspace next_on_output'
-bindsym $mod+Control+comma exec $SCRIPT_DIR/preserve_focus.sh \
-	'@wmmsg@ move container to workspace prev_on_output'
 
 # monitors and workspaces
 bindsym $mod+$alt+h focus output left
@@ -189,24 +152,10 @@ bindsym $mod+$alt+Shift+j move container to output down
 bindsym $mod+$alt+Shift+k move container to output up
 bindsym $mod+$alt+Shift+l move container to output right
 
-bindsym $mod+$alt+Control+h exec $SCRIPT_DIR/preserve_focus.sh '@wmmsg@ move container to output left'
-bindsym $mod+$alt+Control+j exec $SCRIPT_DIR/preserve_focus.sh '@wmmsg@ move container to output down'
-bindsym $mod+$alt+Control+k exec $SCRIPT_DIR/preserve_focus.sh '@wmmsg@ move container to output up'
-bindsym $mod+$alt+Control+l exec $SCRIPT_DIR/preserve_focus.sh '@wmmsg@ move container to output right'
-
-bindsym $mod+$alt+Shift+Control+h move workspace to output left
-bindsym $mod+$alt+Shift+Control+j move workspace to output down
-bindsym $mod+$alt+Shift+Control+k move workspace to output up
-bindsym $mod+$alt+Shift+Control+l move workspace to output right
-
-bindsym $mod+bracketleft  focus output left
-bindsym $mod+bracketright focus output right
-bindsym $mod+Shift+bracketleft  move container to output left
-bindsym $mod+Shift+bracketright move container to output right
-bindsym $mod+$alt+Control+bracketleft  exec $SCRIPT_DIR/preserve_focus.sh '@wmmsg@ move container to output left'
-bindsym $mod+$alt+Control+bracketright exec $SCRIPT_DIR/preserve_focus.sh '@wmmsg@ move container to output right'
-bindsym $mod+$alt+bracketleft  move workspace to output left
-bindsym $mod+$alt+bracketright move workspace to output right
+bindsym $mod+$alt+Control+h move workspace to output left
+bindsym $mod+$alt+Control+j move workspace to output down
+bindsym $mod+$alt+Control+k move workspace to output up
+bindsym $mod+$alt+Control+l move workspace to output right
 
 # n = new
 bindsym $mod+n exec $SCRIPT_DIR/ws_switch.sh            "$SCRIPT_DIR/get_free_ws_num.sh"
@@ -225,55 +174,15 @@ bindsym $mod+Shift+Tab exec $SCRIPT_DIR/window_switcher_scratch.sh
 
 bindsym button2 kill
 
-
-
-mode "Resize" {
-	bindsym h resize shrink width  25px or 5ppt
-	bindsym j resize grow   height 25px or 5ppt
-	bindsym k resize shrink height 25px or 5ppt
-	bindsym l resize grow   width  25px or 5ppt
-
-	bindsym Left  resize shrink width  25px or 5ppt
-	bindsym Down  resize grow   height 25px or 5ppt
-	bindsym Up    resize shrink height 25px or 5ppt
-	bindsym Right resize grow   width  25px or 5ppt
-
-	bindsym Shift+h resize shrink width  1px
-	bindsym Shift+j resize grow   height 1px
-	bindsym Shift+k resize shrink height 1px
-	bindsym Shift+l resize grow   width  1px
-
-	bindsym Shift+Left  resize shrink width  1px
-	bindsym Shift+Down  resize grow   height 1px
-	bindsym Shift+Up    resize shrink height 1px
-	bindsym Shift+Right resize grow   width  1px
-
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-	bindsym $mod+r mode "default"
-}
-bindsym $mod+r mode "Resize"
-
 bindsym $mod+Control+h resize shrink width  25px or 5ppt
 bindsym $mod+Control+j resize grow   height 25px or 5ppt
 bindsym $mod+Control+k resize shrink height 25px or 5ppt
 bindsym $mod+Control+l resize grow   width  25px or 5ppt
 
-bindsym $mod+Control+Left  resize shrink width  25px or 5ppt
-bindsym $mod+Control+Down  resize grow   height 25px or 5ppt
-bindsym $mod+Control+Up    resize shrink height 25px or 5ppt
-bindsym $mod+Control+Right resize grow   width  25px or 5ppt
-
 bindsym $mod+Control+Shift+h resize shrink width  1px
 bindsym $mod+Control+Shift+j resize grow   height 1px
 bindsym $mod+Control+Shift+k resize shrink height 1px
 bindsym $mod+Control+Shift+l resize grow   width  1px
-
-bindsym $mod+Control+Shift+Left  resize shrink width  1px
-bindsym $mod+Control+Shift+Down  resize grow   height 1px
-bindsym $mod+Control+Shift+Up    resize shrink height 1px
-bindsym $mod+Control+Shift+Right resize grow   width  1px
-
 
 
 set $mode_gaps Gaps | h/j/k/l/-/+/0 | 1 2 3 4 5
@@ -309,7 +218,7 @@ mode "$mode_gaps" {
 	bindsym h gaps horizontal current minus $gaps_inc
 	bindsym j gaps vertical   current plus  $gaps_inc
 	bindsym k gaps vertical   current minus $gaps_inc
-	bindsym l gaps horizontal current plus  $gaps_inc
+	bindsym l gaps horizontal current plus  $gaps_inc2
 
 	bindsym Left  gaps horizontal current minus $gaps_inc
 	bindsym Down  gaps vertical   current plus  $gaps_inc
@@ -352,12 +261,6 @@ mode "$mode_system" {
 }
 bindsym $mod+x mode "$mode_system"
 
-bindsym @locked@ $mod+equal         $volume_inc
-bindsym @locked@ $mod+minus         $volume_dec
-bindsym @locked@ $mod+Shift+equal   $volume_inc_1
-bindsym @locked@ $mod+Shift+minus   $volume_dec_1
-bindsym @locked@ $mod+Control+equal $volume_inc_5
-bindsym @locked@ $mod+Control+minus $volume_dec_5
 set $mode_control_volume Control volume | -/+ | (m) mute | Shift+(m)ic mute
 mode "$mode_control_volume" {
 	bindsym minus         $volume_dec
@@ -411,7 +314,6 @@ mode "$mode_control_backlight" {
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
-bindsym $mod+u mode "$mode_control_backlight"
 
 set $mode_control_dwt Control DWT | (e)nabled (d)isabled
 mode "$mode_control_dwt" {
@@ -441,7 +343,8 @@ bindsym $mod+b         exec $browser
 bindsym $mod+Shift+b   exec $browser -P secondary
 bindsym $mod+Control+b exec $browser -private-window
 
-bindsym $mod+backslash exec xdg-open ~
+bindsym $mod+Shift+slash exec xdg-open ~
+bindsym $mod+slash       exec $term -e zsh -c $SCRIPT_DIR/open_file.sh
 
 bindsym $mod+apostrophe exec rofimoji --selector @rofi@ --selector-args=-i --skin-tone neutral --prompt "" -a copy
 
@@ -449,8 +352,15 @@ bindsym $mod+semicolon         exec $SCRIPT_DIR/bluetooth_device.sh
 bindsym $mod+Shift+semicolon   exec $SCRIPT_DIR/bluetooth_device.sh disconnect
 bindsym $mod+Control+semicolon exec $SCRIPT_DIR/wifi.sh
 
-bindsym $mod+Shift+i   exec $SCRIPT_DIR/dpms_off.sh
-bindsym $mod+Control+i exec $SCRIPT_DIR/dpms_toggle.sh
+set $dpms_mode DPMS mode (t)oggle/(o)ff
+mode "$dpms_mode" {
+	bindsym t exec $SCRIPT_DIR/dpms_toggle.sh; mode "default"
+	bindsym o exec $SCRIPT_DIR/dpms_off.sh;    mode "default"
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+bindsym $mod+u mode "$dpms_mode"
 
 bindsym Print              exec grim - | wl-copy
 bindsym Shift+Print        exec grim - | swappy -f -
@@ -474,14 +384,12 @@ bindsym $alt+Print exec pkill -SIGINT wf-recorder
 
 bindsym $mod+y       exec $SCRIPT_DIR/cycle_sink.sh
 bindsym $mod+Shift+y exec $SCRIPT_DIR/cycle_sink.sh back
-bindsym $mod+m       $volume_mute
-bindsym $mod+Shift+m $volume_mic_mute
 
 bindsym $mod+p exec @displays@
 
 # for when latop output is disabled on resume
-bindsym $mod+Control+p       output * enable; output * dpms on
-bindsym $mod+Shift+p         exec @wmmsg@ output "$($SCRIPT_DIR/get_focused_output.sh)" disable
+bindsym $mod+Control+p output * enable; output * dpms on
+bindsym $mod+Shift+p   exec @wmmsg@ output "$($SCRIPT_DIR/get_focused_output.sh)" disable
 
 bindsym $mod+Shift+w   exec $SCRIPT_DIR/set_random_wallpaper.sh
 bindsym $mod+Control+w exec $SCRIPT_DIR/set_selected_wallpaper.sh
@@ -490,8 +398,6 @@ bindsym $mod+Shift+c exec echo -n "$(yad --calendar --text "")" | wl-copy
 
 # disable firefox quit shortcut
 bindsym Control+q nop
-
-bindsym $mod+slash exec $term -e zsh -c $SCRIPT_DIR/open_file.sh
 
 set $mode_i3blocks Control w/d/m/t/l/c/n/b
 mode "$mode_i3blocks" {
