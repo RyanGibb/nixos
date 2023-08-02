@@ -157,6 +157,13 @@ bindsym $mod+$alt+Control+j move workspace to output down
 bindsym $mod+$alt+Control+k move workspace to output up
 bindsym $mod+$alt+Control+l move workspace to output right
 
+bindsym $mod+bracketleft  focus output left
+bindsym $mod+bracketright focus output right
+bindsym $mod+Shift+bracketleft  move container to output left
+bindsym $mod+Shift+bracketright move container to output right
+bindsym $mod+Control+bracketleft  move workspace to output left
+bindsym $mod+Control+bracketright move workspace to output right
+
 # n = new
 bindsym $mod+n exec $SCRIPT_DIR/ws_switch.sh            "$SCRIPT_DIR/get_free_ws_num.sh"
 bindsym $mod+Shift+n exec $SCRIPT_DIR/ws_mv.sh          "$SCRIPT_DIR/get_free_ws_num.sh"
