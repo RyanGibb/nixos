@@ -261,6 +261,18 @@ mode "$mode_system" {
 }
 bindsym $mod+x mode "$mode_system"
 
+bindsym @locked@ $mod+equal         $volume_inc
+bindsym @locked@ $mod+minus         $volume_dec
+bindsym @locked@ $mod+Shift+equal   $volume_inc_1
+bindsym @locked@ $mod+Shift+minus   $volume_dec_1
+bindsym @locked@ $mod+Control+equal $volume_inc_5
+bindsym @locked@ $mod+Control+minus $volume_dec_5
+
+bindsym $mod+y       exec $SCRIPT_DIR/cycle_sink.sh
+bindsym $mod+Shift+y exec $SCRIPT_DIR/cycle_sink.sh back
+bindsym $mod+m       $volume_mute
+bindsym $mod+Shift+m $volume_mic_mute
+
 set $mode_control_volume Control volume | -/+ | (m) mute | Shift+(m)ic mute
 mode "$mode_control_volume" {
 	bindsym minus         $volume_dec
@@ -381,9 +393,6 @@ bindsym $alt+Shift+Print exec wf-recorder\
 	-f $HOME/videos/"$(date '+%Y-%m-%d %H.%M')".mp4
 
 bindsym $alt+Print exec pkill -SIGINT wf-recorder
-
-bindsym $mod+y       exec $SCRIPT_DIR/cycle_sink.sh
-bindsym $mod+Shift+y exec $SCRIPT_DIR/cycle_sink.sh back
 
 bindsym $mod+p exec @displays@
 
