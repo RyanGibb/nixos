@@ -128,6 +128,7 @@
         bind i hint -JFc [id] e => { tri.excmds.yank(document.URL.replace(/#.*$/, "") + "#" + e.id) }
         bind V hint -W exclaim_quiet vlc
         # ;y
+        set editorcmd $TERMINAL -e $EDITOR
       '';
     };
     userDirs = {
