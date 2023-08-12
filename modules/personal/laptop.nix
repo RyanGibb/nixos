@@ -22,6 +22,7 @@ let cfg = config.personal; in
       fusuma
       kanshi
       acpi
+      v4l-utils # for qv4l2
     ];
   };
 }
