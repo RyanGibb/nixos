@@ -22,6 +22,7 @@ let cfg = config.personal; in
           "wheel" # enable sudo
           "networkmanager"
           "video"
+          "plugdev"
         ];
         shell = pkgs.zsh;
         hashedPassword = hashedPassword;

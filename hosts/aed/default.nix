@@ -115,8 +115,4 @@
     ''
     ACTION=="add", SUBSYSTEM=="block", KERNEL=="sd[a-z]*[0-9]*", ATTRS{model}=="Expansion Desk  ", ATTRS{vendor}=="Seagate ", TAG+="systemd", ENV{SYSTEMD_WANTS}+="backup"
   '';
-
-
-  hardware.keyboard.zsa.enable = true;
-
 }
