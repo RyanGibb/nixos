@@ -166,4 +166,7 @@ let cfg = config.personal.gui; in
     '';
     destination = "/lib/udev/rules.d/50-zsa.rules";
   }) ];
+
+  # sets $WORLDLIST
+  environment.wordlist.enable = true;
 }
