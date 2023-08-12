@@ -57,6 +57,11 @@
       .browserContainer > findbar {
         -moz-box-ordinal-group: 0;
       }
+
+      #TabsToolbar
+      {
+          visibility: collapse;
+      }
     '';
   in
   {
