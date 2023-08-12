@@ -114,7 +114,7 @@ let cfg = config.personal.gui; in
           # anwar.papyrus-pdf
           # ctf0.macros
           # znck.grammarly
-          vscode-extensions.jdinhlife.gruvbox
+          jdinhlife.gruvbox
         ];
       })
     ] ++ desktopEntries;
