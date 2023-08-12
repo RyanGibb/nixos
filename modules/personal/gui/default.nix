@@ -117,6 +117,7 @@ let cfg = config.personal.gui; in
           jdinhlife.gruvbox
         ];
       })
+      vscode
     ] ++ desktopEntries;
 
     fonts.fonts = with pkgs; [
