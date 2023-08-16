@@ -87,34 +87,6 @@
     };
   };
 
-  networking.firewall =
-    let
-      turn-range = with config.services.coturn; {
-        from = min-port;
-        to = max-port;
-      };
-    in {
-      # keep tight control over open ports
-      allowedTCPPorts = lib.mkForce [
-        22   # SSH
-        config.eilean.gitea.sshPort
-        25   # SMTP
-        465  # SMTP TLS
-        53   # DNS (over TCP)
-        80   # HTTP
-        443  # HTTPS
-        993  # IMAP
-        3478 # STUN
-      ];
-      allowedTCPPortRanges = [ turn-range ];
-      allowedUDPPorts = lib.mkForce [
-        53    # DNS
-        51820 # wireguard
-        3478  # STUN
-      ];
-      allowedUDPPortRanges = [ turn-range ];
-  };
-
   services.signald.enable = true;
   systemd.services.matrix-as-signal = {
     requires = [ "signald.service" ];
