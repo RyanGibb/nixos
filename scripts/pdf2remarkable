@@ -67,7 +67,7 @@
 #   - uuidgen
 
 # This is where ssh will try to copy the files associated with the document
-REMARKABLE_HOST=${REMARKABLE_HOST:-remarkable2.vpn}
+REMARKABLE_HOST=${REMARKABLE_HOST:-remarkable2}
 REMARKABLE_XOCHITL_DIR=${REMARKABLE_XOCHITL_DIR:-.local/share/remarkable/xochitl/}
 TARGET_DIR="${REMARKABLE_HOST}:${REMARKABLE_XOCHITL_DIR}"
 
