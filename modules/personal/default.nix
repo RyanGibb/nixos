@@ -16,6 +16,7 @@ let cfg = config.personal; in
       hashedPassword = "$6$IPvnJnu6/fp1Jxfy$U6EnzYDOC2NqE4iqRrkJJbSTHHNWk0KwK1xyk9jEvlu584UWQLyzDVF5I1Sh47wQhSVrvUI4mrqw6XTTjfPj6.";
     in {
       mutableUsers = false;
+      groups.plugdev = { };
       users.${config.custom.username} = {
         isNormalUser = true;
         extraGroups = [
