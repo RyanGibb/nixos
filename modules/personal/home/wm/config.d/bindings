@@ -48,7 +48,7 @@ bindsym $mod+Shift+Return exec $term -o window.opacity=1
 bindsym $mod+Control+Return       exec $term -e zsh -c $SCRIPT_DIR/vault_file.sh
 bindsym $mod+Control+Shift+Return exec $term -e zsh -c $SCRIPT_DIR/vault_file_titled.sh
 
-bindsym $mod+q kill
+bindsym $mod+BackSpace kill
 
 bindsym $mod+d         exec @drun@
 bindsym $mod+Shift+d   exec @run@
@@ -81,10 +81,10 @@ bindsym $mod+$alt+g split h; layout tabbed;
 bindsym $mod+$alt+v split v; layout stacking;
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+Escape floating toggle
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
-bindsym $mod+Control+space sticky toggle
+bindsym $mod+Escape focus mode_toggle
+bindsym $mod+Control+Escape sticky toggle
 
 bindsym $mod+a focus parent
 bindsym $mod+z focus child
@@ -101,6 +101,16 @@ set $ws7  "7"
 set $ws8  "8"
 set $ws9  "9"
 set $ws10 "10"
+set $ws11 "11"
+set $ws12 "12"
+set $ws13 "13"
+set $ws14 "14"
+set $ws15 "15"
+set $ws16 "16"
+set $ws17 "17"
+set $ws18 "18"
+set $ws19 "19"
+set $ws20 "20"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -113,6 +123,16 @@ bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
+bindsym $mod+Control+1 workspace number $ws11
+bindsym $mod+Control+2 workspace number $ws12
+bindsym $mod+Control+3 workspace number $ws13
+bindsym $mod+Control+4 workspace number $ws14
+bindsym $mod+Control+5 workspace number $ws15
+bindsym $mod+Control+6 workspace number $ws16
+bindsym $mod+Control+7 workspace number $ws17
+bindsym $mod+Control+8 workspace number $ws18
+bindsym $mod+Control+9 workspace number $ws19
+bindsym $mod+Control+0 workspace number $ws20
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -125,12 +145,22 @@ bindsym $mod+Shift+7 move container to workspace number $ws7
 bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+Control+1 move container to workspace number $ws11
+bindsym $mod+Shift+Control+2 move container to workspace number $ws12
+bindsym $mod+Shift+Control+3 move container to workspace number $ws13
+bindsym $mod+Shift+Control+4 move container to workspace number $ws14
+bindsym $mod+Shift+Control+5 move container to workspace number $ws15
+bindsym $mod+Shift+Control+6 move container to workspace number $ws16
+bindsym $mod+Shift+Control+7 move container to workspace number $ws17
+bindsym $mod+Shift+Control+8 move container to workspace number $ws18
+bindsym $mod+Shift+Control+9 move container to workspace number $ws19
+bindsym $mod+Shift+Control+0 move container to workspace number $ws20
 
-bindsym $mod+Shift+numbersign move scratchpad
-bindsym $mod+numbersign scratchpad show
+bindsym $mod+Shift+Delete move scratchpad
+bindsym $mod+Delete scratchpad show
 
-bindsym $mod+Escape workspace back_and_forth
-bindsym $mod+Shift+Escape move container to workspace back_and_forth
+bindsym $mod+space workspace back_and_forth
+bindsym $mod+Shift+space move container to workspace back_and_forth
 # grave=`
 bindsym $mod+grave workspace back_and_forth
 bindsym $mod+Shift+grave move container to workspace back_and_forth
@@ -157,21 +187,21 @@ bindsym $mod+$alt+Control+j move workspace to output down
 bindsym $mod+$alt+Control+k move workspace to output up
 bindsym $mod+$alt+Control+l move workspace to output right
 
-bindsym $mod+bracketleft  focus output left
-bindsym $mod+bracketright focus output right
-bindsym $mod+Shift+bracketleft  move container to output left
-bindsym $mod+Shift+bracketright move container to output right
-bindsym $mod+Control+bracketleft  move workspace to output left
-bindsym $mod+Control+bracketright move workspace to output right
+bindsym $mod+i focus output left
+bindsym $mod+o focus output right
+bindsym $mod+Shift+i move container to output left
+bindsym $mod+Shift+o move container to output right
+bindsym $mod+Control+i move workspace to output left
+bindsym $mod+Control+o move workspace to output right
 
 # n = new
-bindsym $mod+n exec $SCRIPT_DIR/ws_switch.sh            "$SCRIPT_DIR/get_free_ws_num.sh"
-bindsym $mod+Shift+n exec $SCRIPT_DIR/ws_mv.sh          "$SCRIPT_DIR/get_free_ws_num.sh"
-bindsym $mod+Control+n exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/get_free_ws_num.sh"
+bindsym $mod+m exec $SCRIPT_DIR/ws_switch.sh            "$SCRIPT_DIR/get_free_ws_num.sh"
+bindsym $mod+Shift+m exec $SCRIPT_DIR/ws_mv.sh          "$SCRIPT_DIR/get_free_ws_num.sh"
+bindsym $mod+Control+m exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/get_free_ws_num.sh"
 
-bindsym $mod+$alt+n exec $SCRIPT_DIR/ws_switch.sh            "$SCRIPT_DIR/select_ws.sh"
-bindsym $mod+$alt+Shift+n exec $SCRIPT_DIR/ws_mv.sh          "$SCRIPT_DIR/select_ws.sh"
-bindsym $mod+$alt+Control+n exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/select_ws.sh"
+bindsym $mod+$alt+m exec $SCRIPT_DIR/ws_switch.sh            "$SCRIPT_DIR/select_ws.sh"
+bindsym $mod+$alt+Shift+m exec $SCRIPT_DIR/ws_mv.sh          "$SCRIPT_DIR/select_ws.sh"
+bindsym $mod+$alt+Control+m exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/select_ws.sh"
 
 # t = title
 bindsym $mod+t exec $SCRIPT_DIR/title_ws.sh "$SCRIPT_DIR/get_ws_title.sh $SCRIPT_DIR/get_cur_ws_name.sh"
@@ -192,60 +222,40 @@ bindsym $mod+Control+Shift+k resize shrink height 1px
 bindsym $mod+Control+Shift+l resize grow   width  1px
 
 
-set $mode_gaps Gaps | h/j/k/l/-/+/0 | 1 2 3 4 5
+set $mode_gaps Gaps | h/j/k/l/-/+ | 0 1 2 3 4
 mode "$mode_gaps" {
+	bindsym 0 gaps inner current set 0;\
+	          gaps outer current set 0;\
+	          gaps top current set 0;\
+	          gaps bottom current set 0;
 	bindsym 1 gaps inner current set $inner_gap;\
 	          gaps outer current set $outer_gap;\
 	          gaps top current set $top_gap;\
-	          gaps bottom current set $bottom_gap;\
-	          mode "default"
+	          gaps bottom current set $bottom_gap;
 	bindsym 2 gaps inner current set 0;\
- 	          gaps outer current set 0;\
- 	          mode "default
+ 	          gaps outer current set 0;
 	bindsym 3 gaps inner current set $inner_gap;\
- 	          gaps outer current set -$inner_gap;\
- 	          mode "default"
+ 	          gaps outer current set -$inner_gap;
 	bindsym 4 gaps inner current set 0;\
  	          gaps outer current set $inner_gap;\
  	          gaps outer current plus $outer_gap;\
  	          gaps top current set $top_gap;\
-	          gaps bottom current set $bottom_gap;\
- 	          mode "default"
-	bindsym 5 gaps inner current set $inner_gap;\
-	          gaps top current set $top_gap;\
-	          gaps bottom current set $bottom_gap;\
-	          exec "\
-			    ws_width=$(@wmmsg@ -t get_workspaces | jq '.[] | select(.focused==true).rect.width');\
-	            horz_gaps=$((($ws_width / $gutter_ratio)));\
-	            @wmmsg@ gaps horizontal current set $horz_gaps;\
-	          ";\
-	          gaps vertical current set -$inner_gap;\
-	          mode "default"
+	          gaps bottom current set $bottom_gap;
 	
 	bindsym h gaps horizontal current minus $gaps_inc
 	bindsym j gaps vertical   current plus  $gaps_inc
 	bindsym k gaps vertical   current minus $gaps_inc
-	bindsym l gaps horizontal current plus  $gaps_inc2
+	bindsym l gaps horizontal current plus  $gaps_inc
 
-	bindsym Left  gaps horizontal current minus $gaps_inc
-	bindsym Down  gaps vertical   current plus  $gaps_inc
-	bindsym Up    gaps vertical   current minus $gaps_inc
-	bindsym Right gaps horizontal current plus  $gaps_inc
 	bindsym Shift+h gaps horizontal current minus 1
 	bindsym Shift+j gaps vertical   current plus  1
 	bindsym Shift+k gaps vertical   current minus 1
 	bindsym Shift+l gaps horizontal current plus  1
 
-	bindsym Shift+Left  gaps horizontal current minus 1
-	bindsym Shift+Down  gaps vertical   current plus  1
-	bindsym Shift+Up    gaps vertical   current minus 1
-	bindsym Shift+Right gaps horizontal current plus  1
-
 	bindsym equal        gaps inner current plus  $gaps_inc
 	bindsym minus        gaps inner current minus $gaps_inc
 	bindsym Shift+equal  gaps inner current plus  1
 	bindsym Shift+minus  gaps inner current minus 1
-	bindsym 0            gaps inner current set	  0
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
@@ -277,8 +287,8 @@ bindsym @locked@ $mod+Control+minus $volume_dec_5
 
 bindsym $mod+y       exec $SCRIPT_DIR/cycle_sink.sh
 bindsym $mod+Shift+y exec $SCRIPT_DIR/cycle_sink.sh back
-bindsym $mod+m       $volume_mute
-bindsym $mod+Shift+m $volume_mic_mute
+bindsym $mod+n       $volume_mute
+bindsym $mod+Shift+n $volume_mic_mute
 
 set $mode_control_volume Control volume | -/+ | (m) mute | Shift+(m)ic mute
 mode "$mode_control_volume" {
@@ -289,7 +299,7 @@ mode "$mode_control_volume" {
 	bindsym Control+equal $volume_inc_5
 	bindsym Control+minus $volume_dec_5
 	bindsym m             $volume_mute
-	bindsym Shift+m       $volume_mic_mute
+	bindsym Shift+n       $volume_mic_mute
 	
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
@@ -317,9 +327,6 @@ mode "$mode_control_player" {
 
 	bindsym $mod+p $play_pause; mode "default"
 }
-bindsym $mod+o      mode "$mode_control_player"
-bindsym $mod+$alt+period  $play_next
-bindsym $mod+$alt+comma   $play_prev
 
 set $mode_control_backlight Control backlight | -/+
 mode "$mode_control_backlight" {
@@ -343,12 +350,23 @@ mode "$mode_control_dwt" {
 	bindsym Escape mode "default"
 }
 
-set $mode_control Control v(V)/p/b/B/d/n
+set $mode_dpms DPMS (t)oggle
+#/(o)ff
+mode "$mode_dpms" {
+	bindsym t exec $SCRIPT_DIR/dpms_toggle.sh; mode "default"
+	# bindsym o exec $SCRIPT_DIR/dpms_off.sh;    mode "default"
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+set $mode_control Control v(V)/p/b/B/t/d/n
 mode "$mode_control" {
 	bindsym v mode "$mode_control_volume"
 	bindsym p mode "$mode_control_player"
 	bindsym b mode "$mode_control_backlight"
-	bindsym d mode "$mode_control_dwt"
+	bindsym t mode "$mode_control_dwt"
+	bindsym d mode "$mode_dpms"
 	bindsym Shift+v exec pavucontrol
 	bindsym Shift+b exec blueman-manager
 	bindsym n exec $term -e zsh -c nmtui
@@ -372,35 +390,30 @@ bindsym $mod+semicolon         exec $SCRIPT_DIR/bluetooth_device.sh
 bindsym $mod+Shift+semicolon   exec $SCRIPT_DIR/bluetooth_device.sh disconnect
 bindsym $mod+Control+semicolon exec $SCRIPT_DIR/wifi.sh
 
-set $dpms_mode DPMS mode (t)oggle/(o)ff
-mode "$dpms_mode" {
-	bindsym t exec $SCRIPT_DIR/dpms_toggle.sh; mode "default"
-	bindsym o exec $SCRIPT_DIR/dpms_off.sh;    mode "default"
+bindsym Print exec grim - | wl-copy
+set $capture Capture c(C)/e(E)/f(F) | v/V
+mode "$capture" {
+	bindsym c exec grim - | wl-copy
+	bindsym e exec grim - | swappy -f -
+	bindsym f exec grim $HOME/pictures/capture/screenshot"_$(date '+%Y-%m-%d %H.%M.%S')".png
+
+	bindsym Shift+c exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | wl-copy
+	bindsym Shift+e exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | swappy -f -
+	bindsym Shift+f exec grim -g "$($SCRIPT_DIR/slurp_point.sh)"\
+		$HOME/pictures/capture/"$(date '+%Y-%m-%d %H.%M.%S')".png
+
+	bindsym v exec wf-recorder\
+		-a="$(pactl info | sed -En 's/Default Sink: (.*)/\1/p').monitor"\
+		-o $(@wmmsg@ -t get_outputs | jq -r '.[] | select(.type=="output" and .focused).name')\
+		-f $HOME/videos/"$(date '+%Y-%m-%d %H.%M')".mp4
+
+	bindsym Shift+v exec pkill -SIGINT wf-recorder
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
-bindsym $mod+u mode "$dpms_mode"
+bindsym $mod+Print mode "$capture"
 
-bindsym Print              exec grim - | wl-copy
-bindsym Shift+Print        exec grim - | swappy -f -
-bindsym Control+Print      exec grim $HOME/pictures/capture/screenshot"_$(date '+%Y-%m-%d %H.%M.%S')".png
-bindsym $mod+Print         exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | wl-copy
-bindsym $mod+Shift+Print   exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | swappy -f -
-bindsym $mod+Control+Print exec grim -g "$($SCRIPT_DIR/slurp_point.sh)"\
-	$HOME/pictures/capture/"$(date '+%Y-%m-%d %H.%M.%S')".png
-
-bindsym $mod+$alt+Print         exec grim -g "$($SCRIPT_DIR/slurp_windows.sh)" - | wl-copy
-bindsym $mod+$alt+Shift+Print   exec grim -g "$($SCRIPT_DIR/slurp_windows.sh)" - | swappy -f -
-bindsym $mod+$alt+Control+Print exec grim -g "$($SCRIPT_DIR/slurp_windows.sh)"\
-	$HOME/pictures/capture/"$(date '+%Y-%m-%d %H.%M.%S')".png
-
-bindsym $alt+Shift+Print exec wf-recorder\
-	-a="$(pactl info | sed -En 's/Default Sink: (.*)/\1/p').monitor"\
-	-o $(@wmmsg@ -t get_outputs | jq -r '.[] | select(.type=="output" and .focused).name')\
-	-f $HOME/videos/"$(date '+%Y-%m-%d %H.%M')".mp4
-
-bindsym $alt+Print exec pkill -SIGINT wf-recorder
 
 bindsym $mod+p exec @displays@
 

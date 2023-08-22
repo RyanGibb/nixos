@@ -2,8 +2,8 @@
 bindsym $mod+r exec  "pkill swaybar; swaybar --bar_id bar-0"
 bindsym $mod+Shift+r exec "pkill swaybar; swaymsg reload"
 
-bindsym $mod+BackSpace exec makoctl dismiss --all
-bindsym $mod+Shift+BackSpace exec makoctl dismiss
+bindsym $mod+q exec makoctl dismiss --all
+bindsym $mod+Shift+q exec makoctl dismiss
 
 bindsym $mod+Shift+v         exec clipman pick -t wofi -T-i
 bindsym $mod+Control+v       exec wl-copy "$(clipman pick -t STDOUT | head -n 1)"
@@ -20,7 +20,7 @@ mode "$idle_mode" {
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
-bindsym $mod+i mode "$idle_mode"
+bindsym $mod+u mode "$idle_mode"
 
 # workaround for https://github.com/alacritty/alacritty/issues/2734
 bindsym $mod+$alt+Return exec WAYLAND_DISPLAY= $term
