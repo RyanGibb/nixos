@@ -46,6 +46,11 @@ interval=persist
 label=☾ 
 signal=4
 
+[record]
+# the exec doesn't seem to trigger this for some reason
+interval=10
+signal=13
+
 [pulse]
 interval=persist
 signal=3

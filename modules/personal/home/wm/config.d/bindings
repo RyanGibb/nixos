@@ -390,31 +390,6 @@ bindsym $mod+semicolon         exec $SCRIPT_DIR/bluetooth_device.sh
 bindsym $mod+Shift+semicolon   exec $SCRIPT_DIR/bluetooth_device.sh disconnect
 bindsym $mod+Control+semicolon exec $SCRIPT_DIR/wifi.sh
 
-bindsym Print exec grim - | wl-copy
-set $capture Capture c(C)/e(E)/f(F) | v/V
-mode "$capture" {
-	bindsym c exec grim - | wl-copy
-	bindsym e exec grim - | swappy -f -
-	bindsym f exec grim $HOME/pictures/capture/screenshot"_$(date '+%Y-%m-%d %H.%M.%S')".png
-
-	bindsym Shift+c exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | wl-copy
-	bindsym Shift+e exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | swappy -f -
-	bindsym Shift+f exec grim -g "$($SCRIPT_DIR/slurp_point.sh)"\
-		$HOME/pictures/capture/"$(date '+%Y-%m-%d %H.%M.%S')".png
-
-	bindsym v exec wf-recorder\
-		-a="$(pactl info | sed -En 's/Default Sink: (.*)/\1/p').monitor"\
-		-o $(@wmmsg@ -t get_outputs | jq -r '.[] | select(.type=="output" and .focused).name')\
-		-f $HOME/videos/"$(date '+%Y-%m-%d %H.%M')".mp4
-
-	bindsym Shift+v exec pkill -SIGINT wf-recorder
-
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-}
-bindsym $mod+Print mode "$capture"
-
-
 bindsym $mod+p exec @displays@
 
 # for when latop output is disabled on resume
