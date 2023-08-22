@@ -26,6 +26,8 @@
 
   boot.supportedFilesystems = [ "ntfs" ];
 
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_4;
+
   environment.systemPackages = with pkgs; [
     cctk
     (python3.withPackages (p: with p; [
