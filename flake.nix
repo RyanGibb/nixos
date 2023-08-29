@@ -31,6 +31,7 @@
       url = "github:eyJhb/mautrix-facebook/spaces-support";
       flake = false;
     };
+    kmonad.url = "github:kmonad/kmonad/?dir=nix";
 
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
@@ -43,6 +44,7 @@
     aeon.inputs.nixpkgs.follows = "nixpkgs";
     colour-guesser.inputs.nixpkgs.follows = "nixpkgs";
     matrix-appservices.inputs.nixpkgs.follows = "nixpkgs";
+    kmonad.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -64,6 +66,7 @@
     matrix-appservices,
     mautrix-signal,
     mautrix-facebook,
+    kmonad,
     ...
   }@inputs: rec {
     nixosConfigurations =
@@ -166,6 +169,7 @@
                 colour-guesser.nixosModules.default
                 aeon.nixosModules.default
                 matrix-appservices.nixosModule
+                kmonad.nixosModules.default
               ];
             };
         mkHosts = hosts: nixpkgs.lib.genAttrs hosts (mkHost "default");
