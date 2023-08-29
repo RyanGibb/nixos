@@ -350,11 +350,11 @@ mode "$mode_control_dwt" {
 	bindsym Escape mode "default"
 }
 
-set $mode_dpms DPMS (t)oggle
-#/(o)ff
+set $mode_dpms DPMS (o)ff
+#/(t)oggle
 mode "$mode_dpms" {
-	bindsym t exec $SCRIPT_DIR/dpms_toggle.sh; mode "default"
-	# bindsym o exec $SCRIPT_DIR/dpms_off.sh;    mode "default"
+	bindsym o exec $SCRIPT_DIR/dpms_off.sh;    mode "default"
+	# bindsym t exec $SCRIPT_DIR/dpms_toggle.sh; mode "default"
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
