@@ -2,8 +2,8 @@
 bindsym $mod+r exec  "pkill swaybar; swaybar --bar_id bar-0"
 bindsym $mod+Shift+r exec "pkill swaybar; swaymsg reload"
 
-bindsym $mod+q exec makoctl dismiss --all
-bindsym $mod+Shift+q exec makoctl dismiss
+bindsym $mod+q       exec makoctl dismiss
+bindsym $mod+Shift+q exec makoctl invoke
 
 bindsym $mod+Shift+v         exec clipman pick -t wofi -T-i
 bindsym $mod+Control+v       exec wl-copy "$(clipman pick -t STDOUT | head -n 1)"
