@@ -23,6 +23,8 @@ let replacements = {
   bar = "i3bar";
   notification_deamon = "dunst";
   redshift = "redshift-gtk";
+  i3-workspace-history = "${pkgs.i3-workspace-history}";
+  i3-workspace-history-args = "";
 }; in
 let util = import ./util.nix { inherit pkgs lib; }; in
 {

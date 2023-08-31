@@ -23,6 +23,8 @@ let replacements = {
   bar = "swaybar";
   notification_deamon = "mako";
   redshift = "gammastep-indicator -r";
+  i3-workspace-history = "${pkgs.i3-workspace-history}";
+  i3-workspace-history-args = "-sway";
 }; in
 let util = import ./util.nix { inherit pkgs lib; }; in
 {

@@ -32,6 +32,7 @@
       flake = false;
     };
     kmonad.url = "github:kmonad/kmonad/?dir=nix";
+    i3-workspace-history.url = "github:RyanGibb/i3-workspace-history";
 
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
@@ -45,6 +46,7 @@
     colour-guesser.inputs.nixpkgs.follows = "nixpkgs";
     matrix-appservices.inputs.nixpkgs.follows = "nixpkgs";
     kmonad.inputs.nixpkgs.follows = "nixpkgs";
+    i3-workspace-history.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -67,6 +69,7 @@
     mautrix-signal,
     mautrix-facebook,
     kmonad,
+    i3-workspace-history,
     ...
   }@inputs: rec {
     nixosConfigurations =
@@ -131,6 +134,7 @@
                       --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [ prev.stdenv.cc.cc.lib ]}"
                   '';
               });
+              "i3-workspace-history" = i3-workspace-history.packages.${system}.default;
             })
           ];
 

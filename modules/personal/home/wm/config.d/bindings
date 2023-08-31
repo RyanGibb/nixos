@@ -187,12 +187,12 @@ bindsym $mod+$alt+Control+j move workspace to output down
 bindsym $mod+$alt+Control+k move workspace to output up
 bindsym $mod+$alt+Control+l move workspace to output right
 
-bindsym $mod+i focus output left
-bindsym $mod+o focus output right
-bindsym $mod+Shift+i move container to output left
-bindsym $mod+Shift+o move container to output right
-bindsym $mod+Control+i move workspace to output left
-bindsym $mod+Control+o move workspace to output right
+bindsym $mod+bracketleft  focus output left
+bindsym $mod+bracketright focus output right
+bindsym $mod+Shift+bracketleft  move container to output left
+bindsym $mod+Shift+bracketright move container to output right
+bindsym $mod+Control+bracketleft  move workspace to output left
+bindsym $mod+Control+bracketright move workspace to output right
 
 # n = new
 bindsym $mod+m exec $SCRIPT_DIR/ws_switch.sh            "$SCRIPT_DIR/get_free_ws_num.sh"
@@ -221,6 +221,8 @@ bindsym $mod+Control+Shift+j resize grow   height 1px
 bindsym $mod+Control+Shift+k resize shrink height 1px
 bindsym $mod+Control+Shift+l resize grow   width  1px
 
+bindsym $mod+i exec @i3-workspace-history@/bin/forward @i3-workspace-history-args@
+bindsym $mod+o exec @i3-workspace-history@/bin/back    @i3-workspace-history-args@
 
 set $mode_gaps Gaps | h/j/k/l/-/+ | 0 1 2 3 4
 mode "$mode_gaps" {

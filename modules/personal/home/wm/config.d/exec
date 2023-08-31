@@ -14,3 +14,5 @@ exec pgrep -f notification_log || $SCRIPT_DIR/notification_log.sh $HOME/.notific
 exec @polkit_gnome@/libexec/polkit-gnome-authentication-agent-1
 
 exec --no-startup-id fcitx5 -d
+
+exec @i3-workspace-history@/bin/server @i3-workspace-history-args@
