@@ -107,6 +107,7 @@ let cfg = config.personal; in
           aa = "add --all";
           au = "add -u";
           ap = "add --patch";
+          ai = "add -i";
           ps = "push";
           pf = "push --force";
           pu = "push --set-upstream";
