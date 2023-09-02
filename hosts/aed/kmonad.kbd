@@ -39,8 +39,8 @@
                    @mesc @mspc @mtab @nav @ment  @mbsc  @mdel)
 
 (deflayer U_NUM
-    XX   XX   XX   XX   XX   XX        *    7    8    9    0    XX
-    XX   met  alt  ctl  sft  ralt      -    4    5    6    =    +
+    XX   XX   XX   XX   XX   XX        *    7    8    9    =    XX
+    XX   met  alt  ctl  sft  ralt      -    4    5    6    0    +
     XX   XX   XX   XX   XX   XX        .    1    2    3    /    XX
                    XX   XX   XX   XX   XX   XX   XX
 )

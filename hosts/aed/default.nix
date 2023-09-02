@@ -123,7 +123,7 @@
   networking.networkmanager.enableStrongSwan = true;
 
   services.kmonad = {
-    enable = true;
+    # enable = true;
     keyboards.internal = {
       # todo find by-id
       device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
