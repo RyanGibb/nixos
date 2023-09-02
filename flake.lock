@@ -294,11 +294,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1693511522,
-        "narHash": "sha256-iNnqkBBTlituP00lC58lfCZ5XRyIgIL/h7jdQYbP/ng=",
+        "lastModified": 1693669012,
+        "narHash": "sha256-jWBLKsDjLnZZxzy+0mdNB7ogvRwDvXu8k7DIHX4eyNo=",
         "owner": "RyanGibb",
         "repo": "i3-workspace-history",
-        "rev": "cbdb6f5a0103da1ffc91c4c3c60c0c77340cd9a5",
+        "rev": "ddd0e7ec1e0e46fc85f5ce47e7153eec8e71521f",
         "type": "github"
       },
       "original": {

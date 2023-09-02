@@ -221,8 +221,8 @@ bindsym $mod+Control+Shift+j resize grow   height 1px
 bindsym $mod+Control+Shift+k resize shrink height 1px
 bindsym $mod+Control+Shift+l resize grow   width  1px
 
-bindsym $mod+i exec @i3-workspace-history@/bin/forward @i3-workspace-history-args@
-bindsym $mod+o exec @i3-workspace-history@/bin/back    @i3-workspace-history-args@
+bindsym $mod+i exec i3-workspace-history -mode=forward @i3-workspace-history-args@
+bindsym $mod+o exec i3-workspace-history -mode=back    @i3-workspace-history-args@
 
 set $mode_gaps Gaps | h/j/k/l/-/+ | 0 1 2 3 4
 mode "$mode_gaps" {

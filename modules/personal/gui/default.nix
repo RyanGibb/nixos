@@ -113,6 +113,8 @@ let cfg = config.personal.gui; in
         ];
       })
       vscode
+
+      i3-workspace-history
     ] ++ desktopEntries;
 
     fonts.fonts = with pkgs; [
