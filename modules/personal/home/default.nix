@@ -122,19 +122,7 @@
         save_dir=~/pictures/capture/
         save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
       '';
-      "tridactyl/tridactylrc".text = ''
-        unbind <F1>
-        unbind <C-f>
-        set modeindicator false
-        bind yd tabduplicate
-        bind <C-`> buffer #
-        bind e hint -JFc * e => {tri.excmds.tabopen("-b",e.href); e.remove()}`
-        bind I hint -JFc [id] e => { tri.excmds.yank(e.id) }
-        bind i hint -JFc [id] e => { tri.excmds.yank(document.URL.replace(/#.*$/, "") + "#" + e.id) }
-        bind V hint -W exclaim_quiet vlc
-        # ;y
-        set editorcmd $TERMINAL -e $EDITOR
-      '';
+      "tridactyl/tridactylrc".source = ./tridactylrc;
     };
     userDirs = {
       enable = true;
