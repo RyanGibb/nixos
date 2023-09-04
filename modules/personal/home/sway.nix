@@ -79,7 +79,7 @@ let util = import ./util.nix { inherit pkgs lib; }; in
       "wofi/style.css".source = ./wofi.css;
       "swappy/config".text = ''
         [Default]
-        save_dir=$HOME/pictures/capture/
+        save_dir=$HOME/capture/capture/
         save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
       '';
       "sway/config".text =

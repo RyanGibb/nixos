@@ -90,7 +90,7 @@
       text = ''
         file:///${config.home.homeDirectory}/archive
         file:///${config.home.homeDirectory}/downloads
-        file:///${config.home.homeDirectory}/pictures
+        file:///${config.home.homeDirectory}/capture
         file:///${config.home.homeDirectory}/projects
       '';
     };
@@ -119,7 +119,7 @@
       "Element/config.json".source = ./element.json;
       "swappy/config".text = ''
         [Default]
-        save_dir=~/pictures/capture/
+        save_dir=~/capture/capture/
         save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
       '';
       "tridactyl/tridactylrc".source = ./tridactylrc;
@@ -128,7 +128,7 @@
       enable = true;
       createDirectories = true;
       download    = "$HOME/downloads";
-      pictures    = "$HOME/pictures";
+      pictures    = "$HOME/capture";
       videos      = "$HOME/videos";
       music       = "$HOME/";
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1082717
