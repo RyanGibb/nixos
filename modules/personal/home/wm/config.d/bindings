@@ -48,7 +48,7 @@ bindsym $mod+Shift+Return exec $term -o window.opacity=1
 bindsym $mod+Control+Return       exec $term -e zsh -c $SCRIPT_DIR/vault_file.sh
 bindsym $mod+Control+Shift+Return exec $term -e zsh -c $SCRIPT_DIR/vault_file_titled.sh
 
-bindsym $mod+BackSpace kill
+bindsym $mod+Shift+BackSpace kill
 
 bindsym $mod+d         exec @drun@
 bindsym $mod+Shift+d   exec @run@
