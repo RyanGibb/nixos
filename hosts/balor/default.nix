@@ -5,7 +5,6 @@
     ./hardware-configuration.nix
   ];
 
-  networking.hostName = "desktop";
   personal = {
     enable = true;
     tailscale = true;
