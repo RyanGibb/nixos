@@ -134,6 +134,7 @@
                       --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [ prev.stdenv.cc.cc.lib ]}"
                   '';
               });
+              "vscodium" = final.overlay-unstable.vscodium;
               "i3-workspace-history" = i3-workspace-history.packages.${system}.default;
             })
           ];
