@@ -137,3 +137,6 @@ window:
   opacity: 0.95
 env:
   WINIT_X11_SCALE_FACTOR: "1"
+# https://github.com/alacritty/alacritty/issues/6029
+key_bindings:
+- { key: 5, mods: Shift, mode: Vi, action: Last }
