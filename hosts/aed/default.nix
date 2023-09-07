@@ -1,5 +1,10 @@
 { pkgs, lib, config, ... }:
 
+let
+  disk = "/dev/disk/by-label/external-hdd";
+  mountdir = "/media";
+  mountname = "external-hdd";
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -14,6 +19,7 @@
     gui.i3 = true;
     gui.sway = true;
     gui.extra = true;
+    ocaml = true;
   };
 
   boot.loader.grub = {
@@ -62,9 +68,15 @@
 
   systemd.services.backup = {
     description = "Backup service";
+    # NB udisks isn't viable as non-root due to:
+    #   Error creating textual authentication agent: Error opening current controlling terminal for the process (`/dev/tty'): No such device or address (polkit-error-quark, 0)
+    #   Error mounting /dev/sda1: GDBus.Error:org.freedesktop.UDisks2.Error.NotAuthorizedCanObtain: Not authorized to perform operation
+    # And in order to communicate with GUI prompts, e.g. yad, we need to run as user
+    # udisks is still use for on-demand mountin, but we'll use the autofs for mounting the backup disk
     script = let backup = pkgs.writeShellScript "backup.sh" ''
+      # TODO make nixos module with options
+      DISK="${disk}"
       LAST_RUN_FILE="$HOME/.cache/last_backup"
-      DISK="/dev/disk/by-label/external-hdd"
 
       if [ -f "$LAST_RUN_FILE" ] && [ "$(( $(date +%s) - $(date +%s -r "$LAST_RUN_FILE") ))" -lt 86400 ]; then
           echo "<24hrs"
@@ -85,18 +97,34 @@
       ${pkgs.xorg.xhost}/bin/xhost -local:${config.custom.username}
       # if not success or timeout
       if [ ! $prompt_status -eq 0 -a ! $prompt_status -eq 124 ]; then
-        echo "cancelled"
+        echo "backup cancelled"
+        ${pkgs.libnotify}/bin/notify-send "backup cancelled"
         exit 0
       fi
 
-      DIR=`${pkgs.util-linux}/bin/findmnt -nr -o target -S $DISK` || exit 1
-      ${pkgs.libnotify}/bin/notify-send "starting backup"
+      DIR="${mountdir}/${mountname}"
+      cd "$DIR"
+      TEST_DIR=`${pkgs.util-linux}/bin/findmnt -nr -o target -S $DISK`
+      status=$?
+      if [ ! $status -eq 0 ]; then
+        echo "backup failed to find mount"
+        ${pkgs.libnotify}/bin/notify-send "backup failed to find mount"
+        exit $status
+      fi 
+      if [ "$DIR" != "$TEST_DIR" ]; then
+        echo "backup disk mounted at unexpected path: $TEST_DIR"
+        ${pkgs.libnotify}/bin/notify-send "backup disk mounted at unexpected path: $TEST_DIR"
+        exit 1
+      fi 
+      ${pkgs.libnotify}/bin/notify-send "backup starting"
       ${pkgs.rsync}/bin/rsync -va --exclude={".cache",".local/share/Steam/"} ~/ $DIR/home/
       status=$?
       if [ $status -eq 0 ]; then
         touch "$LAST_RUN_FILE"
-        ${pkgs.libnotify}/bin/notify-send "finished backup"
+        echo "backup finished"
+        ${pkgs.libnotify}/bin/notify-send "backup finished"
       else
+        echo "backup failed"
         ${pkgs.libnotify}/bin/notify-send "backup failed"
       fi
       sudo ${pkgs.hd-idle} -t $DISK
@@ -118,6 +146,16 @@
     ''
     ACTION=="add", SUBSYSTEM=="block", KERNEL=="sd[a-z]*[0-9]*", ATTRS{model}=="Expansion Desk  ", ATTRS{vendor}=="Seagate ", TAG+="systemd", ENV{SYSTEMD_WANTS}+="backup"
   '';
+  services.autofs = {
+    enable = true;
+    autoMaster = let
+      map = pkgs.writeText "auto.media" ''
+        ${mountname} -fstype=auto :${disk}
+      '';
+    in ''
+      ${mountdir} file,sun:${map} -t 60
+    '';
+  };
 
   # for CL VPN
   networking.networkmanager.enableStrongSwan = true;
