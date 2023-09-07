@@ -3,7 +3,7 @@ max-visible=-1
 
 width=500
 height=1000
-default-timeout=100000
+default-timeout=5000
 ignore-timeout=1
 
 background-color=#434c5ee0
