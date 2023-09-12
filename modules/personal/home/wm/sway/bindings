@@ -23,17 +23,17 @@ mode "$idle_mode" {
 }
 bindsym $mod+u mode "$idle_mode"
 
-bindsym Print exec grim - | wl-copy
+bindsym Print exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | wl-copy
 set $capture Capture c(C)/e(E)/f(F) | v/V
 mode "$capture" {
-	bindsym c exec grim - | wl-copy
-	bindsym e exec grim - | swappy -f -
-	bindsym f exec grim $HOME/capture/capture/screenshot"_$(date '+%Y-%m-%d %H.%M.%S')".png
-
-	bindsym Shift+c exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | wl-copy
-	bindsym Shift+e exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | swappy -f -
-	bindsym Shift+f exec grim -g "$($SCRIPT_DIR/slurp_point.sh)"\
+	bindsym c exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | wl-copy
+	bindsym e exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | swappy -f -
+	bindsym f exec grim -g "$($SCRIPT_DIR/slurp_point.sh)"\
 		$HOME/capture/capture/"$(date '+%Y-%m-%d %H.%M.%S')".png
+
+	bindsym Shift+c exec grim - | wl-copy
+	bindsym Shift+e exec grim - | swappy -f -
+	bindsym Shift+f exec grim $HOME/capture/capture/screenshot"_$(date '+%Y-%m-%d %H.%M.%S')".png
 
 	bindsym v exec wf-recorder\
 		-a="$(pactl info | sed -En 's/Default Sink: (.*)/\1/p').monitor"\
