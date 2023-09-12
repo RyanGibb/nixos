@@ -479,22 +479,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-logseq": {
-      "locked": {
-        "lastModified": 1682457808,
-        "narHash": "sha256-jZAy8hBG7aocrUa8fkqHFyDtlLqtciHFvYIcooqXbHk=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "998ca7e00125e3a6a11fbc913c46691b63c4dbfe",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "998ca7e",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1694183432,
@@ -650,7 +634,6 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-compat": "nixpkgs-compat",
-        "nixpkgs-logseq": "nixpkgs-logseq",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "patchelf": "patchelf",
         "ryan-cv": "ryan-cv",

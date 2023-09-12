@@ -45,7 +45,6 @@
     wine64
     anki
     lsof
-    logseq
     wally-cli
   ];
 
