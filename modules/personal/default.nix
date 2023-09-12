@@ -115,6 +115,8 @@ let cfg = config.personal; in
           pl = "pull";
           pr = "pull --rebase";
           acp = "!git add --all && git commit --message update && git push";
+          d = "diff";
+          dc = "diff --cached";
         };
       };
     };
