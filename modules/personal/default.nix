@@ -52,6 +52,7 @@ let cfg = config.personal; in
         #atuin
         git-crypt
         jq
+        bc
       ];
       variables.EDITOR = "nvim";
       shellAliases = {
