@@ -81,7 +81,6 @@ let cfg = config.personal; in
           echo "backup failed"
           ${pkgs.libnotify}/bin/notify-send "backup failed"
         fi
-        sudo ${pkgs.hd-idle} -t $DISK
         exit $status
       ''; in "${backup}";
       serviceConfig = {
