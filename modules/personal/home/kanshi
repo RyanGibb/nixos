@@ -1,6 +1,6 @@
 
 profile {
-	output "Sharp Corporation 0x14F9 Unknown" disable
+	output "Sharp Corporation 0x14F9 Unknown"
 	exec ~/.config/sway/scripts/swayidle_suspend.sh
 }
 
@@ -12,7 +12,7 @@ profile 1 {
 
 profile {
 	output "Sharp Corporation 0x14F9 Unknown" mode 1920x1200 position 0,0
-	output "Ancor Communications Inc VG248 FALMQS093846" mode 1920x1080@60Hz position 1920,0 transform 270
+	output "Ancor Communications Inc VG248 FALMQS093846" mode 1920x1080@60Hz position 1920,0 transform 90
 	exec ~/.config/sway/scripts/swayidle_dpms.sh
 }
 
