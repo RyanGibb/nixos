@@ -10,8 +10,8 @@ bindsym $mod+Shift+v         exec clipman pick -t wofi -T-i
 bindsym $mod+Control+v       exec wl-copy "$(clipman pick -t STDOUT | head -n 1)"
 bindsym $mod+Shift+Control+v exec wtype "$(clipman pick -t STDOUT | head -n 1)"
 
-set $idle_mode Idle mode i/d/l/s/L
-mode "$idle_mode" {
+set $mode_idle Idle mode i/d/l/s/L
+mode "$mode_idle" {
 	bindsym i exec $SCRIPT_DIR/swayidle_inhibit.sh;         mode "default"
 	bindsym d exec $SCRIPT_DIR/swayidle_dpms.sh;            mode "default"
 	bindsym l exec $SCRIPT_DIR/swayidle_lock.sh;            mode "default"
@@ -21,11 +21,11 @@ mode "$idle_mode" {
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
-bindsym $mod+u mode "$idle_mode"
+bindsym $mod+u mode "$mode_idle"
 
 bindsym Print exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | wl-copy
-set $capture Capture c(C)/e(E)/f(F) | v/V
-mode "$capture" {
+set $mode_capture Capture c(C)/e(E)/f(F) | v/V
+mode "$mode_capture" {
 	bindsym c exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | wl-copy
 	bindsym e exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | swappy -f -
 	bindsym f exec grim -g "$($SCRIPT_DIR/slurp_point.sh)"\
@@ -46,7 +46,7 @@ mode "$capture" {
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
-bindsym $mod+Print mode "$capture"
+bindsym $mod+Print mode "$mode_capture"
 
 # workaround for https://github.com/alacritty/alacritty/issues/2734
 bindsym $mod+$alt+Return exec WAYLAND_DISPLAY= $term
@@ -55,3 +55,9 @@ bindsym $mod+$alt+Return exec WAYLAND_DISPLAY= $term
 # TODO get better bindings
 bindsym $mod+$alt+space       exec yad --entry --text input | wl-copy
 bindsym $mod+$alt+Shift+space exec yad --entry --text input | xargs wtype
+
+set $mode_passthrough Pass through
+mode $mode_passthrough {
+    bindsym $mod+Delete mode "default"
+}
+bindsym $mod+Delete mode "$mode_passthrough"
