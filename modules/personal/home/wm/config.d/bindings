@@ -352,10 +352,10 @@ mode "$mode_control_dwt" {
 	bindsym Escape mode "default"
 }
 
-set $mode_dpms Airplane mode (e)nable/(d)isable
-mode "$mode_dpms" {
-	bindsym e exec nmcli r wifi on;  mode "default"
-	bindsym d exec nmcli r wifi off; mode "default"
+set $mode_airplane Airplane mode (e)nable/(d)isable
+mode "$mode_airplane" {
+	bindsym e exec nmcli r wifi off;  mode "default"
+	bindsym d exec nmcli r wifi on; mode "default"
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
