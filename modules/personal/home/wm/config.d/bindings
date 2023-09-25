@@ -362,13 +362,23 @@ mode "$mode_dpms" {
 	bindsym Escape mode "default"
 }
 
-set $mode_control Control v(V)/p/b/B/t/d/n
+set $mode_dpms Airplane mode (e)nable/(d)isable
+mode "$mode_dpms" {
+	bindsym e exec nmcli r wifi on;  mode "default"
+	bindsym d exec nmcli r wifi off; mode "default"
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+set $mode_control Control v(V)/p/b/B/t/d/n/a
 mode "$mode_control" {
 	bindsym v mode "$mode_control_volume"
 	bindsym p mode "$mode_control_player"
 	bindsym b mode "$mode_control_backlight"
 	bindsym t mode "$mode_control_dwt"
 	bindsym d mode "$mode_dpms"
+	bindsym a mode "$mode_airplane"
 	bindsym Shift+v exec pavucontrol
 	bindsym Shift+b exec blueman-manager
 	bindsym n exec $term -e zsh -c nmtui
