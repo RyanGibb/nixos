@@ -300,7 +300,7 @@ mode "$mode_control_volume" {
 	bindsym Shift+minus   $volume_dec_1
 	bindsym Control+equal $volume_inc_5
 	bindsym Control+minus $volume_dec_5
-	bindsym m             $volume_mute
+	bindsym n             $volume_mute
 	bindsym Shift+n       $volume_mic_mute
 	
 	bindsym Return mode "default"
