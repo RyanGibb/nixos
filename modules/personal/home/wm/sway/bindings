@@ -57,7 +57,7 @@ bindsym $mod+$alt+space       exec yad --entry --text input | wl-copy
 bindsym $mod+$alt+Shift+space exec yad --entry --text input | xargs wtype
 
 set $mode_passthrough Pass through
-mode $mode_passthrough {
+mode "$mode_passthrough" {
     bindsym $mod+Delete mode "default"
 }
 bindsym $mod+Delete mode "$mode_passthrough"
