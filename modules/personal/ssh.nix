@@ -18,8 +18,8 @@ let cfg = config.personal; in
     };
 
     programs.ssh.extraConfig = ''
-      Host pixel-4a*
-        User u0_a342
+      Host pixel-7a*
+        User u0_a299
         Port 8022
 
       Host nix-pixel-4a
