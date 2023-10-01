@@ -1,2 +1,2 @@
 
-exec $SCRIPT_DIR/set_random_wallpaper.sh
+output * bg $WALLPAPER fill #282828

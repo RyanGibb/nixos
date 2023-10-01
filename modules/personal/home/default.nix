@@ -20,6 +20,8 @@
   # evince workaround
   home.sessionVariables.GTK_THEME = "gruvbox-dark";
 
+  home.sessionVariables.WALLPAPER = ./wallpaper.jpg;
+
   home.pointerCursor = {
       name = "Adwaita";
       package = pkgs.gnome.adwaita-icon-theme;

@@ -1,6 +1,6 @@
 
 bindsym $mod+r       exec "pkill i3bar; i3bar --bar_id bar-0"
-bindsym $mod+Shift+r exec "i3-msg reload; feh --bg-fill ~/capture/wallpapers/default"
+bindsym $mod+Shift+r exec "i3-msg reload"
 
 bindsym $mod+q exec dunstctl close-all
 

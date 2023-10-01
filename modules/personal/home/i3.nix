@@ -1,4 +1,4 @@
-{ pkgs, lib, wallpapers, ... }:
+{ pkgs, lib, ... }:
 
 let replacements = {
   wm = "i3";
@@ -8,11 +8,6 @@ let replacements = {
   bar_extra = "";
   locked = "";
   polkit_gnome = "${pkgs.polkit_gnome}";
-  wallpaper = ''
-  '';
-  set_wallpaper = ''
-    feh --bg-fill $HOME/.cache/wallpaper
-  '';
   locker = "xsecurelock";
   enable_output  = "xrandr --output $laptop_output --auto";
   disable_output = "xrandr --output $laptop_output --off";
@@ -36,10 +31,6 @@ let util = import ./util.nix { inherit pkgs lib; }; in
   # idling
 
   home.pointerCursor.x11.enable = true;
-
-  home.sessionVariables = {
-    WALLPAPER_DIR = wallpapers;
-  };
 
   home.file = {
     ".xinitrc".text = ''

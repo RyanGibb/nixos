@@ -8,10 +8,6 @@
     patchelf.url = "github:nixos/patchelf/ea2fca765c";
     eeww.url = "github:RyanGibb/eeww/nixos";
     aeon.url = "github:RyanGibb/aeon";
-    wallpapers = {
-      url ="git+ssh://git@git.freumh.org/ryan/wallpapers.git?ref=main";
-      flake = false;
-    };
     eilean.url ="git+https://git@git.freumh.org/ryan/eilean-nix.git?ref=main";
     # eilean.url ="github:RyanGibb/eilean-nix/main";
     ryan-website.url = "git+https://git@git.freumh.org/ryan/website.git";
@@ -58,7 +54,6 @@
     patchelf,
     eeww,
     aeon,
-    wallpapers,
     eilean,
     ryan-website,
     twitcher,
