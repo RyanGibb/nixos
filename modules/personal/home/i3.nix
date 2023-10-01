@@ -42,6 +42,7 @@ let util = import ./util.nix { inherit pkgs lib; }; in
     ".zprofile".text = ''
       # Autostart at login on TTY 2
       if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 2 ]; then
+        source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
       	exec startx
       fi
     '';

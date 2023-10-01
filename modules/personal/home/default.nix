@@ -28,6 +28,10 @@
       size = 32;
   };
 
+  home.file.".profile".text = ''
+    source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+  '';
+
   programs.firefox =
   let
     settings = {

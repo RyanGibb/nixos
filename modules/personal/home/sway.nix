@@ -47,18 +47,13 @@ let util = import ./util.nix { inherit pkgs lib; }; in
     XDG_CURRENT_DESKTOP = "sway";
   };
 
-  home.file = {
-    ".zprofile".text = ''
-      # Autostart sway at login on TTY 1
-      if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
-        source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
-      	exec sway -d 2> $HOME/.sway_log
-      fi
-    '';
-    ".profile".text = ''
-      source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-    '';
-  };
+  home.file.".zprofile".text = ''
+    # Autostart sway at login on TTY 1
+    if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
+      source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+    	exec sway -d 2> $HOME/.sway_log
+    fi
+  '';
 
   xdg.configFile  =
     let entries = {
