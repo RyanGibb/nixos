@@ -161,5 +161,7 @@
   programs.go.goPath = "~/.go";
 
   home.stateVersion = "22.05";
+
+  services.kdeconnect.enable = true;
 }
 
