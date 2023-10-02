@@ -31,7 +31,7 @@ alias su='su -p'
 alias ssh='TERM=xterm ssh'
 alias vim="nvim"
 
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
 
 autoload zmv
@@ -90,8 +90,8 @@ zle -N down-line-or-beginning-search
 
 typeset -g -A key
 
-bindkey "${key[Up]}"                up-line-or-beginning-search
-bindkey "${key[Down]}"              down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
 
 key[Shift-Tab]="${terminfo[kcbt]}"
 key[Control-Left]="^[[1;5D"
