@@ -72,4 +72,13 @@
       config = builtins.readFile ./kmonad.kbd;
     };
   };
+
+  services = {
+    syncthing = {
+      enable = true;
+      user = config.custom.username;
+      dataDir = "/home/ryan/syncthing";
+      configDir = "/home/ryan/.config/syncthing";
+    };
+  };
 }
