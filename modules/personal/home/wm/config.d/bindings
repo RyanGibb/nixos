@@ -54,16 +54,6 @@ bindsym $mod+d         exec @drun@
 bindsym $mod+Shift+d   exec @run@
 bindsym $mod+Control+d exec "$(yad --entry --text run)"
 
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-
-bindsym $mod+Shift+h move left  25px
-bindsym $mod+Shift+j move down  25px
-bindsym $mod+Shift+k move up    25px
-bindsym $mod+Shift+l move right 25px
-
 bindsym $mod+g split h
 bindsym $mod+v split v
 
@@ -193,7 +183,27 @@ bindsym $mod+comma workspace prev_on_output
 bindsym $mod+Shift+period move container to workspace next_on_output
 bindsym $mod+Shift+comma move container to workspace prev_on_output
 
-# monitors and workspaces
+# movement
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Shift+h move left  25px
+bindsym $mod+Shift+j move down  25px
+bindsym $mod+Shift+k move up    25px
+bindsym $mod+Shift+l move right 25px
+
+bindsym $mod+Control+h resize shrink width  25px or 5ppt
+bindsym $mod+Control+j resize grow   height 25px or 5ppt
+bindsym $mod+Control+k resize shrink height 25px or 5ppt
+bindsym $mod+Control+l resize grow   width  25px or 5ppt
+
+bindsym $mod+Control+Shift+h resize shrink width  1px
+bindsym $mod+Control+Shift+j resize grow   height 1px
+bindsym $mod+Control+Shift+k resize shrink height 1px
+bindsym $mod+Control+Shift+l resize grow   width  1px
+
 bindsym $mod+$alt+h focus output left
 bindsym $mod+$alt+j focus output down
 bindsym $mod+$alt+k focus output up
@@ -208,6 +218,43 @@ bindsym $mod+$alt+Control+h move workspace to output left
 bindsym $mod+$alt+Control+j move workspace to output down
 bindsym $mod+$alt+Control+k move workspace to output up
 bindsym $mod+$alt+Control+l move workspace to output right
+
+
+bindsym $mod+left  focus left
+bindsym $mod+down  focus down
+bindsym $mod+up    focus up
+bindsym $mod+right focus right
+
+bindsym $mod+Shift+left  move left  25px
+bindsym $mod+Shift+down  move down  25px
+bindsym $mod+Shift+up    move up    25px
+bindsym $mod+Shift+right move right 25px
+
+bindsym $mod+Control+left  resize shrink width  25px or 5ppt
+bindsym $mod+Control+down  resize grow   height 25px or 5ppt
+bindsym $mod+Control+up    resize shrink height 25px or 5ppt
+bindsym $mod+Control+right resize grow   width  25px or 5ppt
+
+bindsym $mod+Control+Shift+left  resize shrink width  1px
+bindsym $mod+Control+Shift+down  resize grow   height 1px
+bindsym $mod+Control+Shift+up    resize shrink height 1px
+bindsym $mod+Control+Shift+right resize grow   width  1px
+
+bindsym $mod+$alt+left  focus output left
+bindsym $mod+$alt+down  focus output down
+bindsym $mod+$alt+up    focus output up
+bindsym $mod+$alt+right focus output right
+
+bindsym $mod+$alt+Shift+left  move container to output left
+bindsym $mod+$alt+Shift+down  move container to output down
+bindsym $mod+$alt+Shift+up    move container to output up
+bindsym $mod+$alt+Shift+right move container to output right
+
+bindsym $mod+$alt+Control+left  move workspace to output left
+bindsym $mod+$alt+Control+down  move workspace to output down
+bindsym $mod+$alt+Control+up    move workspace to output up
+bindsym $mod+$alt+Control+right move workspace to output right
+
 
 bindsym $mod+bracketleft  focus output left
 bindsym $mod+bracketright focus output right
@@ -232,16 +279,6 @@ bindsym $mod+Tab       exec $SCRIPT_DIR/window_switcher.sh
 bindsym $mod+Shift+Tab exec $SCRIPT_DIR/window_switcher_scratch.sh
 
 bindsym button2 kill
-
-bindsym $mod+Control+h resize shrink width  25px or 5ppt
-bindsym $mod+Control+j resize grow   height 25px or 5ppt
-bindsym $mod+Control+k resize shrink height 25px or 5ppt
-bindsym $mod+Control+l resize grow   width  25px or 5ppt
-
-bindsym $mod+Control+Shift+h resize shrink width  1px
-bindsym $mod+Control+Shift+j resize grow   height 1px
-bindsym $mod+Control+Shift+k resize shrink height 1px
-bindsym $mod+Control+Shift+l resize grow   width  1px
 
 bindsym $mod+i exec i3-workspace-history -mode=forward @i3-workspace-history-args@
 bindsym $mod+o exec i3-workspace-history -mode=back    @i3-workspace-history-args@
