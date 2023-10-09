@@ -26,9 +26,9 @@
   services = {
     aeon = {
       enable = true;
-      # TODO make this zonefile derivation a config parameter `services.dns.zonefile`
+      # TODO make this zonefile derivation a config parameter `services.eilean.services.dns.zonefile`
       # TODO add module in eilean for aeon
-      zoneFile = "${import "${eilean}/modules/dns/zonefile.nix" { inherit pkgs config lib; zonename = config.networking.domain; zone = config.dns.zones.${config.networking.domain}; }}/${config.networking.domain}";
+      zoneFile = "${import "${eilean}/modules/services/dns/zonefile.nix" { inherit pkgs config lib; zonename = config.networking.domain; zone = config.eilean.services.dns.zones.${config.networking.domain}; }}/${config.networking.domain}";
       logLevel = 2;
       application = "tund";
     };

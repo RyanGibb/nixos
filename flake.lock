@@ -10,11 +10,11 @@
         "opam-repository": "opam-repository"
       },
       "locked": {
-        "lastModified": 1684149590,
-        "narHash": "sha256-up5ugUEHQPB2GxzyKdFB8PU5tYCMuHAf/L01u+foxt4=",
+        "lastModified": 1696596644,
+        "narHash": "sha256-VL8aG4gt4txmgvLe5KPW9yz/zCQLlODEsGVhYYxIQWE=",
         "owner": "RyanGibb",
         "repo": "aeon",
-        "rev": "7c590f3a982dd5dbb8e9d703083ab3f9862c4ce7",
+        "rev": "39055a3c399c256e07686eb3964a480d49b32ae4",
         "type": "github"
       },
       "original": {
@@ -31,11 +31,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1696528692,
-        "narHash": "sha256-yL/didawdEVxwezaejswnv6P/nGCP1IcmfZweN5YASE=",
+        "lastModified": 1696880817,
+        "narHash": "sha256-T9t4yiT/45oDLf0s5lCHoZmLhS3M3IVxe68QPHVB0Mg=",
         "owner": "alexanderhthompson",
         "repo": "website",
-        "rev": "aeaa72b7426a8c9e34c21893ea93149c4eab3eda",
+        "rev": "399c078c58ed750b106e5d98b36d6b041b0d6975",
         "type": "github"
       },
       "original": {
@@ -53,11 +53,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1687024501,
-        "narHash": "sha256-jlKlbaWDQ6fNaXSOoqHto7bs+OxAyFbSXKutIJBGzok=",
+        "lastModified": 1696880690,
+        "narHash": "sha256-HPmFdolumDLQOJSOlzvS8LYbs9EnGmNLqHLk7ORRel4=",
         "ref": "develop",
-        "rev": "9287f9f33b4ada988e2ec8960afd444f5a9159a7",
-        "revCount": 8,
+        "rev": "9fe74ec70e4a9c8cdd80cc11f9c2e286c6a95ff5",
+        "revCount": 9,
         "type": "git",
         "url": "ssh://git@github.com/ryangibb/colour-guesser.git"
       },
@@ -111,11 +111,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1692377736,
-        "narHash": "sha256-1fVSVWYsOBjclLVXVootHD2FTfAwS2snIa43CJaST5k=",
+        "lastModified": 1696880274,
+        "narHash": "sha256-0jBLucEPdOxybY0Cyk59voVX+6VdgWn2LC7Jon0xadI=",
         "ref": "main",
-        "rev": "654778ce0324f3189516cfa238285745a0553215",
-        "revCount": 20,
+        "rev": "c0fab5f0e73e8b8131680343aedd2b2883d72e0e",
+        "revCount": 35,
         "type": "git",
         "url": "https://git@git.freumh.org/ryan/eilean-nix.git"
       },
@@ -306,11 +306,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1687163790,
-        "narHash": "sha256-CmG/ZdswJrWM0CMgJiVyWfO6LqaI4SKEAx9IrnYDrpI=",
+        "lastModified": 1695108154,
+        "narHash": "sha256-gSg7UTVtls2yO9lKtP0yb66XBHT1Fx5qZSZbGMpSn2c=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "ac53777f52929bc82efcd2830bfc5aa60bcb4337",
+        "rev": "07682fff75d41f18327a871088d20af2710d4744",
         "type": "github"
       },
       "original": {
@@ -350,11 +350,11 @@
       },
       "locked": {
         "dir": "nix",
-        "lastModified": 1691843304,
-        "narHash": "sha256-aLAMpvbQPLkpjJDUWYTYRmEclAQTo+IVzqPQYOfmxfw=",
+        "lastModified": 1696666273,
+        "narHash": "sha256-hpqcq42oFtQvDst5Rup9U/ejZgTnAJum0+nSgsBQ8Gs=",
         "owner": "kmonad",
         "repo": "kmonad",
-        "rev": "a05e93c62ca2c25cc81d76d9cf36880fe0bf183a",
+        "rev": "8440eafdb516a379b4350f3c29a0e919f88cee24",
         "type": "github"
       },
       "original": {
@@ -469,11 +469,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1686838567,
-        "narHash": "sha256-aqKCUD126dRlVSKV6vWuDCitfjFrZlkwNuvj5LtjRRU=",
+        "lastModified": 1696614066,
+        "narHash": "sha256-nAyYhO7TCr1tikacP37O9FnGr2USOsVBD3IgvndUYjM=",
         "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "429f232fe1dc398c5afea19a51aad6931ee0fb89",
+        "rev": "bb2db418b616fea536b1be7f6ee72fb45c11afe0",
         "type": "github"
       },
       "original": {
@@ -516,11 +516,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1694183432,
-        "narHash": "sha256-YyPGNapgZNNj51ylQMw9lAgvxtM2ai1HZVUu3GS8Fng=",
+        "lastModified": 1696604326,
+        "narHash": "sha256-YXUNI0kLEcI5g8lqGMb0nh67fY9f2YoJsILafh6zlMo=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "db9208ab987cdeeedf78ad9b4cf3c55f5ebd269b",
+        "rev": "87828a0e03d1418e848d3dd3f3014a632e4a4f64",
         "type": "github"
       },
       "original": {
@@ -532,11 +532,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1694304580,
-        "narHash": "sha256-5tIpNodDpEKT8mM/F5zCzWEAnidOg8eb1/x3SRaaBLs=",
+        "lastModified": 1696697597,
+        "narHash": "sha256-q26Qv4DQ+h6IeozF2o1secyQG0jt2VUT3V0K58jr3pg=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "4c8cf44c5b9481a4f093f1df3b8b7ba997a7c760",
+        "rev": "5a237aecb57296f67276ac9ab296a41c23981f56",
         "type": "github"
       },
       "original": {
@@ -709,11 +709,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1691777018,
-        "narHash": "sha256-T/fxgqP9LzzGzI/+DY9FFS/9H9KIau800GQbAuP31aY=",
+        "lastModified": 1696880867,
+        "narHash": "sha256-4QiFldQ7EdKaCnNYccDXaKJxjoi0gtkaEEPQsTqUAh8=",
         "ref": "refs/heads/master",
-        "rev": "d7d835ed08c52fba8513656faf313cbcf87c1372",
-        "revCount": 456,
+        "rev": "0a24065c02a3990f0513bf20521b307c57d10c40",
+        "revCount": 457,
         "type": "git",
         "url": "https://git@git.freumh.org/ryan/website.git"
       },
@@ -775,11 +775,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1687006386,
-        "narHash": "sha256-zDowntgV02e28x+HsD412NSD5HxTrrLlZal8Sa4A9LA=",
+        "lastModified": 1696880759,
+        "narHash": "sha256-teDDrad6KveLCdpZuhktAcbVK5o+a36fjXiDMK4MzF8=",
         "ref": "refs/heads/master",
-        "rev": "395ebe066b409ec81593a6cf312271ce5d8411d3",
-        "revCount": 217,
+        "rev": "c4faf2898a6b82682063ee3ca0913fb03453cfd2",
+        "revCount": 218,
         "type": "git",
         "url": "https://git@git.freumh.org/ryan/twitcher.git"
       },

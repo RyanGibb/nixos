@@ -79,9 +79,9 @@
   services = {
     aeon = {
       enable = true;
-      # TODO make this zonefile derivation a config parameter `services.dns.zonefile`
+      # TODO make this zonefile derivation a config parameter `services.eilean.services.dns.zonefile`
       # TODO add module in eilean for aeon
-      zoneFile = "${import "${eilean}/modules/dns/zonefile.nix" { inherit pkgs config lib; zonename = "cl.freumh.org"; zone = config.dns.zones."cl.freumh.org"; }}/cl.freumh.org";
+      zoneFile = "${import "${eilean}/modules/services/dns/zonefile.nix" { inherit pkgs config lib; zonename = "cl.freumh.org"; zone = config.eilean.services.dns.zones."cl.freumh.org"; }}/cl.freumh.org";
       logLevel = 1;
       application = "tund";
     };
