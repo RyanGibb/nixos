@@ -54,6 +54,9 @@
     wally-cli
   ];
 
+  virtualisation.docker.enable = true;
+  users.users.ryan.extraGroups = [ "docker" ];
+
   systemd.extraConfig = ''
     DefaultTimeoutStopSec=30s
   '';
