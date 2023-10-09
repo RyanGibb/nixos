@@ -65,6 +65,10 @@
       enable = true;
       cname = "vps";
     };
+    alec-website = {
+      enable = true;
+      cname = "vps";
+    };
     twitcher = {
       enable = true;
       cname = "vps";
