@@ -52,6 +52,7 @@
     anki
     lsof
     wally-cli
+    gthumb
   ];
 
   virtualisation.docker.enable = true;
