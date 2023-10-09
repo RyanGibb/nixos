@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -35,7 +35,7 @@
     };
   };
 
-  config = {
+  config = let nixPath = "/etc/nix-path"; in {
     eilean = {
       username = config.custom.username;
       secretsDir = config.custom.secretsDir;
@@ -69,6 +69,11 @@
         dates = "weekly";
         options = "--delete-older-than 90d";
       };
+      # https://discourse.nixos.org/t/do-flakes-also-set-the-system-channel/19798/16
+      nixPath = [ "nixpkgs=${nixPath}" ];
     };
+    systemd.tmpfiles.rules = [
+      "L+ ${nixPath} - - - - ${pkgs.path}"
+    ];
   };
 }
