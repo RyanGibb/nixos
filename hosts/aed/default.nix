@@ -26,9 +26,9 @@
     useOSProber = true;
   };
 
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.supportedFilesystems = [ "ntfs" "zfs" ];
 
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_4;
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
   environment.systemPackages = with pkgs; [
     cctk
@@ -81,4 +81,6 @@
       configDir = "/home/ryan/.config/syncthing";
     };
   };
+
+  networking.hostId = "e768032f";
 }
