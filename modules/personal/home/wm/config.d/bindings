@@ -267,9 +267,9 @@ bindsym $mod+m exec         $SCRIPT_DIR/ws_switch.sh    "$SCRIPT_DIR/get_free_ws
 bindsym $mod+Shift+m exec   $SCRIPT_DIR/ws_mv.sh        "$SCRIPT_DIR/get_free_ws_num.sh"
 bindsym $mod+Control+m exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/get_free_ws_num.sh"
 
-bindsym $mod+slash         exec $SCRIPT_DIR/ws_switch.sh    "$SCRIPT_DIR/select_ws.sh"
-bindsym $mod+Shift+slash   exec $SCRIPT_DIR/ws_mv.sh         "$SCRIPT_DIR/select_ws.sh"
-bindsym $mod+Control+slash exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/select_ws.sh"
+bindsym $mod+backslash         exec $SCRIPT_DIR/ws_switch.sh    "$SCRIPT_DIR/select_ws.sh"
+bindsym $mod+Shift+backslash   exec $SCRIPT_DIR/ws_mv.sh         "$SCRIPT_DIR/select_ws.sh"
+bindsym $mod+Control+backslash exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/select_ws.sh"
 
 # t = title
 bindsym $mod+t exec $SCRIPT_DIR/title_ws.sh "$SCRIPT_DIR/get_ws_title.sh $SCRIPT_DIR/get_cur_ws_name.sh"
@@ -440,7 +440,7 @@ bindsym $mod+b         exec $browser
 bindsym $mod+Shift+b   exec $browser -P secondary
 bindsym $mod+Control+b exec $browser -private-window
 
-bindsym $mod+backslash   exec xdg-open ~
+bindsym $mod+slash   exec xdg-open ~
 bindsym $mod+Shift+slash exec $term -e zsh -c $SCRIPT_DIR/open_file.sh
 
 bindsym $mod+apostrophe exec rofimoji --selector @rofi@ --selector-args=-i --skin-tone neutral --prompt "" -a copy
