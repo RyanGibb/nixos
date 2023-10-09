@@ -50,6 +50,9 @@
 
         { name = "ns.cl"; type = "A"; data = "128.232.113.136"; }
         { name = "cl"; type = "NS"; data = "ns.cl"; }
+
+        { name = "ns1.eilean"; type = "A"; data = "65.109.10.223"; }
+        { name = "eilean"; type = "NS"; data = "ns1.eilean"; }
       ];
     };
   };
