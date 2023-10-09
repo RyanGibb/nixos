@@ -15,6 +15,10 @@ let cfg = config.personal; in
       gmp
       bintools-unwrapped
       libseccomp
+      opam
+      capnproto
+      gmp
+      sqlite
     ];
 
     programs.zsh.interactiveShellInit = "eval $(opam env)";
