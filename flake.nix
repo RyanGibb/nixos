@@ -29,6 +29,7 @@
     };
     kmonad.url = "github:kmonad/kmonad/?dir=nix";
     i3-workspace-history.url = "github:RyanGibb/i3-workspace-history";
+    hyperbib-eeg.url = "github:RyanGibb/hyperbib?ref=nixify";
 
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
@@ -44,6 +45,7 @@
     matrix-appservices.inputs.nixpkgs.follows = "nixpkgs";
     kmonad.inputs.nixpkgs.follows = "nixpkgs";
     i3-workspace-history.inputs.nixpkgs.follows = "nixpkgs";
+    hyperbib-eeg.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -66,6 +68,7 @@
     mautrix-facebook,
     kmonad,
     i3-workspace-history,
+    hyperbib-eeg,
     ...
   }@inputs: rec {
     nixosConfigurations =
@@ -160,6 +163,7 @@
                 aeon.nixosModules.default
                 matrix-appservices.nixosModule
                 kmonad.nixosModules.default
+                hyperbib-eeg.nixosModules.default
               ];
             };
         mkHosts = hosts: nixpkgs.lib.genAttrs hosts (mkHost "default");
