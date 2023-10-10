@@ -13,7 +13,7 @@
 
   swapDevices = [ { device = "/var/swap"; size = 2048; } ];
 
-  dns = {
+  eilean.services.dns = {
     zones."cl.freumh.org" = {
       soa.serial = lib.mkDefault 1;
       records =
