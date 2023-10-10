@@ -111,11 +111,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1696880274,
-        "narHash": "sha256-0jBLucEPdOxybY0Cyk59voVX+6VdgWn2LC7Jon0xadI=",
+        "lastModified": 1696967962,
+        "narHash": "sha256-y/QKN1a5jSKWJ882NyHUgkDZHVgcxpvR4qaWE0RAIYY=",
         "ref": "main",
-        "rev": "c0fab5f0e73e8b8131680343aedd2b2883d72e0e",
-        "revCount": 35,
+        "rev": "9d031e25a62c900861090e9cea9e79af8c6c95a6",
+        "revCount": 39,
         "type": "git",
         "url": "https://git@git.freumh.org/ryan/eilean-nix.git"
       },
@@ -709,11 +709,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1696880867,
-        "narHash": "sha256-4QiFldQ7EdKaCnNYccDXaKJxjoi0gtkaEEPQsTqUAh8=",
+        "lastModified": 1696935479,
+        "narHash": "sha256-B1aK7h6HVQEklcTZv1Xf08VytORz/VDGCTOPlxmzmq8=",
         "ref": "refs/heads/master",
-        "rev": "0a24065c02a3990f0513bf20521b307c57d10c40",
-        "revCount": 457,
+        "rev": "d1305bfacc597fed195939bac904767578a9a655",
+        "revCount": 458,
         "type": "git",
         "url": "https://git@git.freumh.org/ryan/website.git"
       },
