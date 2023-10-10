@@ -13,6 +13,10 @@
 
   swapDevices = [ { device = "/var/swap"; size = 2048; } ];
 
+  environment.systemPackages = with pkgs; [
+    xe-guest-utilities
+  ];
+
   eilean.services.dns = {
     zones."cl.freumh.org" = {
       soa.serial = lib.mkDefault 1;
