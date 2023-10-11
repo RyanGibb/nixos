@@ -26,7 +26,8 @@
   services.hyperbib = {
     enable = true;
     domain = "eeg.cl.cam.ac.uk";
-    servicePath = "/";
+    # servicePath = "/bib/";
+    # proxyPath = "/";
   };
 
   nix.settings.require-sigs = false;
