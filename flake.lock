@@ -331,7 +331,7 @@
     },
     "gomod2nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "utils": "utils"
       },
       "locked": {
@@ -379,11 +379,11 @@
         "opam-repository": "opam-repository_2"
       },
       "locked": {
-        "lastModified": 1696972707,
-        "narHash": "sha256-Z6Btw3tHEikM/2wPSzxrYVrJZA8EK3OFUVa07FMGa9E=",
+        "lastModified": 1697035023,
+        "narHash": "sha256-9Q/FVdwh28wrK8gRQ51POwg2lgPbg9yBgYBOnHdgcA0=",
         "owner": "RyanGibb",
         "repo": "hyperbib",
-        "rev": "e99e5ce40b8cdb52a1e4305a2c8210a44a40f705",
+        "rev": "206e18a82730d2f637f0e8dbd9c9a6d8d74d700e",
         "type": "github"
       },
       "original": {
@@ -573,16 +573,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1682362401,
-        "narHash": "sha256-/UMUHtF2CyYNl4b60Z2y4wwTTdIWGKhj9H301EDcT9M=",
-        "owner": "nixos",
+        "lastModified": 1658285632,
+        "narHash": "sha256-zRS5S/hoeDGUbO+L95wXG9vJNwsSYcl93XiD0HQBXLk=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "884ac294018409e0d1adc0cae185439a44bd6b0b",
+        "rev": "5342fc6fb59d0595d26883c3cadff16ce58e44f3",
         "type": "github"
       },
       "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
+        "owner": "NixOS",
+        "ref": "master",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -620,22 +620,6 @@
       }
     },
     "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1658285632,
-        "narHash": "sha256-zRS5S/hoeDGUbO+L95wXG9vJNwsSYcl93XiD0HQBXLk=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "5342fc6fb59d0595d26883c3cadff16ce58e44f3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "master",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
       "locked": {
         "lastModified": 1696697597,
         "narHash": "sha256-q26Qv4DQ+h6IeozF2o1secyQG0jt2VUT3V0K58jr3pg=",
@@ -689,7 +673,10 @@
         "flake-compat": "flake-compat_2",
         "flake-utils": "flake-utils_6",
         "mirage-opam-overlays": "mirage-opam-overlays_2",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": [
+          "hyperbib-eeg",
+          "nixpkgs"
+        ],
         "opam-overlays": "opam-overlays_2",
         "opam-repository": [
           "hyperbib-eeg",
@@ -855,7 +842,7 @@
         "mautrix-facebook": "mautrix-facebook",
         "mautrix-signal": "mautrix-signal",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_2",
         "nixpkgs-compat": "nixpkgs-compat",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "patchelf": "patchelf",
