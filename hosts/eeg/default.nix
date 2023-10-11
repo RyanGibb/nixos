@@ -12,7 +12,7 @@
 
   services.openssh.openFirewall = true;
 
-  swapDevices = [ { device = "/var/swap"; size = 2048; } ];
+  swapDevices = [ { device = "/var/swap"; size = 1024; } ];
 
   security.acme = {
     defaults.email = "${config.eilean.username}@${config.networking.domain}";
