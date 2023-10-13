@@ -44,8 +44,9 @@ let domain = "eeg.cl.cam.ac.uk"; in
     virtualHosts."${domain}" = {
       forceSSL = true;
       enableACME = true;
-      locations."${config.services.hyperbib.proxyPath}" = {
-        proxyPass = "http://127.0.0.1:${builtins.toString config.services.hyperbib.port}/";
+      documentRoot = "/var/www/eeg/";
+      locations."/bib/" = {
+        proxyPass = "http://127.0.0.1:${builtins.toString config.services.hyperbib.port}/bib/";
       };
       extraConfig = let
         keyfile = pkgs.writeTextFile {

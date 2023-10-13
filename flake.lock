@@ -379,11 +379,11 @@
         "opam-repository": "opam-repository_2"
       },
       "locked": {
-        "lastModified": 1697038845,
-        "narHash": "sha256-T2tFWxy8/x4eqYg2uJYe0J5ZIM5a95W2qX4aZwu/0ho=",
+        "lastModified": 1697198028,
+        "narHash": "sha256-bMvYXrTj6knkqVCLomZExL865rUnzVimLJeBmlGvo9o=",
         "owner": "RyanGibb",
         "repo": "hyperbib",
-        "rev": "224eff7af9b7ab9e5e3457babb9f092638fd99b1",
+        "rev": "d9c76a7e321d9e9155b31f895b58ffc54b53cd4f",
         "type": "github"
       },
       "original": {
