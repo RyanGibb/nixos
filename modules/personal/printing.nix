@@ -13,6 +13,9 @@ let cfg = config.personal; in
       enable = true;
       browsing = true;
       defaultShared = true;
+      clientConf = ''
+        ServerName cups-serv.cl.cam.ac.uk 
+      '';
     };
     services.avahi = {
       enable = true;
