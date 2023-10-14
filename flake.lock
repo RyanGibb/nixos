@@ -621,16 +621,16 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1696697597,
-        "narHash": "sha256-q26Qv4DQ+h6IeozF2o1secyQG0jt2VUT3V0K58jr3pg=",
-        "owner": "nixos",
+        "lastModified": 1697125505,
+        "narHash": "sha256-GaWFFhYlh0xDwKivg68SVKePX9CZ2WqdAjBqNdy9bgE=",
+        "owner": "RyanGibb",
         "repo": "nixpkgs",
-        "rev": "5a237aecb57296f67276ac9ab296a41c23981f56",
+        "rev": "974322cf31b85090a7f7dbc976b7908d5264ac70",
         "type": "github"
       },
       "original": {
-        "owner": "nixos",
-        "ref": "nixos-23.05",
+        "owner": "RyanGibb",
+        "ref": "dell-command-configure-tmp",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -806,27 +806,6 @@
         "type": "github"
       }
     },
-    "patchelf": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1678188176,
-        "narHash": "sha256-IH80NcLhwjGpIXEjHuV+NgaSC+Y/PXquxZ/C8Bl+CLk=",
-        "owner": "nixos",
-        "repo": "patchelf",
-        "rev": "ea2fca765c440fff1ff74e1463444dea7b819db2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "ea2fca765c",
-        "repo": "patchelf",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "aeon": "aeon",
@@ -845,7 +824,6 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-compat": "nixpkgs-compat",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "patchelf": "patchelf",
         "ryan-cv": "ryan-cv",
         "ryan-website": "ryan-website",
         "twitcher": "twitcher"

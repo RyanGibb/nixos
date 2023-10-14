@@ -1,11 +1,10 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:RyanGibb/nixpkgs/dell-command-configure-tmp";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-compat.url = "github:nixos/nixpkgs/39ddb6d";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager/release-23.05";
-    patchelf.url = "github:nixos/patchelf/ea2fca765c";
     eeww.url = "github:RyanGibb/eeww/nixos";
     aeon.url = "github:RyanGibb/aeon";
     eilean.url ="git+https://git@git.freumh.org/ryan/eilean-nix.git?ref=main";
@@ -38,7 +37,6 @@
     ryan-website.inputs.nixpkgs.follows = "nixpkgs";
     alec-website.inputs.nixpkgs.follows = "nixpkgs";
     twitcher.inputs.nixpkgs.follows = "nixpkgs";
-    patchelf.inputs.nixpkgs.follows = "nixpkgs";
     eeww.inputs.nixpkgs.follows = "nixpkgs";
     aeon.inputs.nixpkgs.follows = "nixpkgs";
     colour-guesser.inputs.nixpkgs.follows = "nixpkgs";
@@ -55,7 +53,6 @@
     nixpkgs-compat,
     nixos-hardware,
     home-manager,
-    patchelf,
     eeww,
     aeon,
     eilean,
@@ -104,10 +101,6 @@
               # `twitcher.nixosModules.default` uses `pkgs.ryan-website`
               "twitcher" = twitcher.packages.${system}.default;
               "colour-guesser" = colour-guesser.packages.${system}.default;
-              # can uncomment if want to use patchelf-rafi elsewhere
-              #"patchelf" = patchelf.packages.${system}.patchelf;
-              # "cctk" = final.callPackage ./pkgs/cctk/default.nix { };
-              "cctk" = prev.callPackage ./pkgs/cctk/default.nix { patchelf = patchelf.packages.${system}.patchelf; };
               "eeww" = eeww.defaultPackage.${system};
               "aeon" = aeon.defaultPackage.${system};
               "mautrix-whatsapp" = prev.callPackage ./pkgs/mautrix-whatsapp.nix { };
@@ -175,9 +168,5 @@
       nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system:
         nixpkgs.legacyPackages.${system}
       );
-
-    packages.x86_64-linux.cctk =
-      with import nixpkgs { system = "x86_64-linux"; };
-      (pkgs.callPackage ./pkgs/cctk/default.nix { patchelf = patchelf.packages.${system}.patchelf; });
     };
 }

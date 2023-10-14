@@ -37,7 +37,7 @@
   } ];
 
   environment.systemPackages = with pkgs; [
-    cctk
+    dell-command-configure
     (python3.withPackages (p: with p; [
       numpy
       matplotlib
