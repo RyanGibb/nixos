@@ -5,6 +5,7 @@
     nixpkgs-compat.url = "github:nixos/nixpkgs/39ddb6d";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager/release-23.05";
+    nix-on-droid.url = "github:nix-community/nix-on-droid/release-23.05";
     eeww.url = "github:RyanGibb/eeww/nixos";
     aeon.url = "github:RyanGibb/aeon";
     eilean.url ="git+https://git@git.freumh.org/ryan/eilean-nix.git?ref=main";
@@ -33,6 +34,7 @@
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
     ryan-cv.inputs.nixpkgs.follows = "nixpkgs";
     ryan-website.inputs.nixpkgs.follows = "nixpkgs";
     alec-website.inputs.nixpkgs.follows = "nixpkgs";
@@ -53,6 +55,7 @@
     nixpkgs-compat,
     nixos-hardware,
     home-manager,
+    nix-on-droid,
     eeww,
     aeon,
     eilean,
@@ -163,6 +166,10 @@
         mkModeHosts = mode: hosts:
           (builtins.listToAttrs (builtins.map (host: { name = "${host}-${mode}"; value = mkHost mode host; } ) hosts));
       in mkHosts hosts // mkModeHosts "minimal" hosts;
+
+    nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
+      modules = [ ./nix-on-droid/default.nix ];
+    };
 
     legacyPackages =
       nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system:
