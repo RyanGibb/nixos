@@ -35,6 +35,7 @@
     eilean.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
+    nix-on-droid.inputs.home-manager.follows = "home-manager";
     ryan-cv.inputs.nixpkgs.follows = "nixpkgs";
     ryan-website.inputs.nixpkgs.follows = "nixpkgs";
     alec-website.inputs.nixpkgs.follows = "nixpkgs";
