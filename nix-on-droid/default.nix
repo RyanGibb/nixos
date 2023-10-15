@@ -80,6 +80,7 @@
             br = "branch";
             co = "checkout";
             df = "diff";
+            l = "log";
             lg = "log -p";
             lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
             lola = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
