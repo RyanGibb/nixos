@@ -68,7 +68,7 @@
 
         programs.git = {
           enable = true;
-          userEmail = "${config.custom.username}@${config.networking.domain}";
+          userEmail = "ryan@$freumh.org";
           userName = "Ryan Gibb";
           aliases = {
             s = "status";
