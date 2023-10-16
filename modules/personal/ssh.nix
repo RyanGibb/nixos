@@ -44,6 +44,13 @@ let cfg = config.personal; in
         User root
         ForwardX11 no
         ForwardAgent no
+
+      Host nf-test???
+        User root
+        Hostname %h.nf.cl.cam.ac.uk
+        IdentityFile ~/.ssh/id_ed25519_L50
+        ProxyJump rtg24@slogin-serv.cl.cam.ac.uk
+        ForwardAgent yes
     '';
   };
 }
