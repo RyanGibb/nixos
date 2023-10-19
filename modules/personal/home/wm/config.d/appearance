@@ -15,7 +15,7 @@ set $lightgray #bdae93
 # class                 border     backgr.    text       indicator child_border
 client.focused          $lightgray $lightgray $darkgray  $purple   $lightgray
 client.focused_inactive $softgray  $softgray  $lightgray $purple   $softgray
-client.unfocused        $darkgray  $darkgray  $lightgray $purple   $darkgray
+client.unfocused        $softgray  $darkgray  $lightgray $purple   $softgray
 client.urgent           $red       $red       $white     $purple   $red
 client.placeholder      #000000    #lightgray $bg        #000000   $lightgray
 
