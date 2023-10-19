@@ -1,6 +1,6 @@
 
 profile {
-	output "Sharp Corporation 0x14F9 Unknown"
+	output "Sharp Corporation 0x14F9 Unknown" enable
 	exec ~/.config/sway/scripts/swayidle_suspend.sh
 }
 
