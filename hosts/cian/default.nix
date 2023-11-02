@@ -57,10 +57,17 @@
     };
   };
 
-  services.nginx.virtualHosts."teapot.${config.networking.domain}" = {
-    extraConfig = ''
-      return 418;
-    '';
+  services.nginx.virtualHosts = {
+    "teapot.${config.networking.domain}" = {
+      extraConfig = ''
+        return 418;
+      '';
+    };
+    "${config.services.ryan-website.domain}" = {
+      locations."/phd/" = {
+        basicAuthFile= "${config.custom.secretsDir}/website-phd";
+      };
+    };
   };
 
   services = {
