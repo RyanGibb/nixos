@@ -109,9 +109,7 @@ let domain = "eeg.cl.cam.ac.uk"; in
     settings = lib.mkMerge [
       {
         server_name = domain;
-        enable_registration = true;
-        registration_requires_token = true;
-        registration_shared_secret_path = "/secrets/matrix-shared-secret";
+        enable_registration = false;
         listeners = [
           {
             port = 8008;
