@@ -110,6 +110,7 @@ let domain = "eeg.cl.cam.ac.uk"; in
       {
         server_name = domain;
         enable_registration = false;
+        password_config.enabled = false;
         listeners = [
           {
             port = 8008;
@@ -126,26 +127,21 @@ let domain = "eeg.cl.cam.ac.uk"; in
           }
         ];
         max_upload_size = "100M";
-      }
-    ];
-    extraConfigFiles = [
-      # generate keys with
-      #   sudo nix shell nixpkgs#openssl nixpkgs#shibboleth-sp -c sh -c '`nix eval --raw nixpkgs#shibboleth-sp`/etc/shibboleth/keygen.sh -h matrix.eeg.cl.cam.ac.uk -o /secrets/matrix-shibboleth/'
-      #   chown -R matrix-synapse /secrets/matrix-shibboleth/
-      (pkgs.writeText "shibboleth.yml" ''
-        saml2_config:
-          sp_config:
-            metadata:
-              remote:
-                - url: https://shib.raven.cam.ac.uk/shibboleth
-            description: ["Energy and Environment Group Computer Lab Matrix Server", "en"]
-            name: ["EEG CL Matrix Server", "en"]
-            key_file: /secrets/matrix-shibboleth/sp-key.pem
-            cert_file: /secrets/matrix-shibboleth/sp-cert.pem
-            encryption_keypairs:
-              - key_file: /secrets/matrix-shibboleth/sp-key.pem
-                cert_file: /secrets/matrix-shibboleth/sp-cert.pem
-            attribute_map_dir: ${pkgs.writeTextDir "map.py" ''
+        saml2_config = {
+          sp_config = {
+            metadata.remote = [ { url = "https://shib.raven.cam.ac.uk/shibboleth"; } ];
+            description = [ "Energy and Environment Group Computer Lab Matrix Server" "en" ];
+            name = [ "EEG CL Matrix Server" "en" ];
+           # generate keys with
+           #   sudo nix shell nixpkgs#openssl nixpkgs#shibboleth-sp -c sh -c '`nix eval --raw nixpkgs#shibboleth-sp`/etc/shibboleth/keygen.sh -h matrix.eeg.cl.cam.ac.uk -o /secrets/matrix-shibboleth/'
+           #   chown -R matrix-synapse /secrets/matrix-shibboleth/
+            key_file = "/secrets/matrix-shibboleth/sp-key.pem";
+            cert_file = "/secrets/matrix-shibboleth/sp-cert.pem";
+            encryption_keypairs = [
+              { key_file = "/secrets/matrix-shibboleth/sp-key.pem"; }
+              { cert_file = "/secrets/matrix-shibboleth/sp-cert.pem"; }
+            ];
+            attribute_map_dir = pkgs.writeTextDir "map.py" ''
               MAP = {
                   "identifier": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
                   "fro": {
@@ -159,10 +155,10 @@ let domain = "eeg.cl.cam.ac.uk"; in
                       'displayName': 'urn:oid:2.16.840.1.113730.3.1.241',
                   },
               }
-            ''}
-        password_config:
-          enabled: false
-      '')
+            '';
+          };
+        };
+      }
     ];
   };
 
