@@ -111,6 +111,7 @@ let domain = "eeg.cl.cam.ac.uk"; in
       {
         server_name = domain;
         enable_registration = false;
+        auto_join_rooms = [ "#EEG:eeg.cl.cam.ac.uk" ];
         password_config.enabled = false;
         listeners = [
           {
