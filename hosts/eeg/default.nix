@@ -106,7 +106,6 @@ let domain = "eeg.cl.cam.ac.uk"; in
 
   services.matrix-synapse = {
     enable = true;
-    auto_join_rooms = [ "!mcYUondPnQOREinHpU:recoil.org" ];
     settings = lib.mkMerge [
       {
         server_name = domain;
