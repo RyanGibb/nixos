@@ -79,6 +79,11 @@
       enable = true;
       cname = "vps";
     };
+    fn06-website = {
+      enable = true;
+      cname = "vps";
+      domain = "fn06.org";
+    };
     twitcher = {
       enable = true;
       cname = "vps";
