@@ -71,7 +71,7 @@ let cfg = config.personal; in
           exit 1
         fi 
         ${pkgs.libnotify}/bin/notify-send "backup starting"
-        ${pkgs.rsync}/bin/rsync -va --exclude={".cache",".local/share/Steam/"} ~/ $DIR/home/
+        ${pkgs.rsync}/bin/rsync -va --exclude={".cache",".local/share/Steam/"} ~/ $DIR/home/ −−delete−after
         status=$?
         if [ $status -eq 0 ]; then
           touch "$LAST_RUN_FILE"
