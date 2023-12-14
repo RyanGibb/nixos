@@ -141,7 +141,6 @@
           socket_path = config.services.signald.socketPath;
           outgoing_attachment_dir = "/var/lib/signald/tmp";
         };
-        settings.bridge.personal_filtering_spaces = true;
       };
       facebook = {
         port = 29185;

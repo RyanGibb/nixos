@@ -515,16 +515,15 @@
     "mautrix-signal": {
       "flake": false,
       "locked": {
-        "lastModified": 1673613420,
-        "narHash": "sha256-ugrz81iOqFzFbf1/u08DtNufl644tE3HqRycm9e+oaI=",
-        "owner": "Jaffex",
+        "lastModified": 1684331537,
+        "narHash": "sha256-QShyuwHiWRcP1hGkvCQfixvoUQ/FXr2DYC5VrcMKX48=",
+        "owner": "mautrix",
         "repo": "signal",
-        "rev": "6b4b0736119545eb12d226747dc186028bae5024",
+        "rev": "64bfed8f05e1e30edd719f2f9a33098ee89229d8",
         "type": "github"
       },
       "original": {
-        "owner": "Jaffex",
-        "ref": "6b4b07",
+        "owner": "mautrix",
         "repo": "signal",
         "type": "github"
       }

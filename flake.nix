@@ -21,7 +21,7 @@
     colour-guesser.url = "git+ssh://git@github.com/ryangibb/colour-guesser.git?ref=develop";
     matrix-appservices.url = "gitlab:coffeetables/nix-matrix-appservices";
     mautrix-signal = {
-      url = "github:Jaffex/signal/6b4b07";
+      url = "github:mautrix/signal";
       flake = false;
     };
     mautrix-facebook = {
