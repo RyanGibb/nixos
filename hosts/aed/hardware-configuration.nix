@@ -25,6 +25,11 @@
   # https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate#Hibernation_into_swap_file
   boot.kernelParams = [ "mem_sleep_default=deep" "resume_offset=142587904" ];
 
+  # fix hibernation under ZFS
+  # https://discourse.nixos.org/t/hibernate-doesnt-work-anymore/24673/12
+  boot.zfs.forceImportRoot = false;
+  boot.zfs.allowHibernation = true;
+
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
