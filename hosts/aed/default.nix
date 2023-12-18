@@ -93,4 +93,6 @@
   };
 
   networking.hostId = "e768032f";
+
+  #system.includeBuildDependencies = true;
 }
