@@ -17,7 +17,6 @@ let replacements = {
   displays = "arandr";
   bar = "i3bar";
   notification_deamon = "dunst";
-  redshift = "redshift-gtk";
   i3-workspace-history = "${pkgs.i3-workspace-history}";
   i3-workspace-history-args = "";
 }; in
@@ -50,11 +49,6 @@ let util = import ./util.nix { inherit pkgs lib; }; in
 
   xdg.configFile  =
     let entries = {
-      "redshift/redshift.conf".text = ''
-        [redshift]
-        dawn-time=06:00-07:00
-        dusk-time=18:00-19:00
-      '';
       "dunst/dunstrc".source = ./dunst;
       "i3/config".text =
         let wmFilenames = util.listFilesInDir ./wm/config.d; in
@@ -64,4 +58,9 @@ let util = import ./util.nix { inherit pkgs lib; }; in
       "rofi/config.rasi".source = ./rofi.rasi;
     }; in
     (util.inDirReplace ./wm/scripts "i3/scripts" replacements) // entries;
+
+    services.redshift = {
+      enable = true;
+      provider = "geoclue2";
+    };
 }

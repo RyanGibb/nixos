@@ -1,2 +1,3 @@
 
 exec greenclip daemon
+exec systemctl --user start redshift

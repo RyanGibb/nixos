@@ -2,7 +2,6 @@
 exec playerctld daemon
 exec thunar --daemon
 
-exec @redshift@
 exec kdeconnect-indicator
 
 exec @notification_deamon@

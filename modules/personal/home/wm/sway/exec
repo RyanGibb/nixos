@@ -10,3 +10,4 @@ exec dbus-update-activation-environment WAYLAND_DISPLAY
 # https://github.com/yory8/clipman/issues/59
 exec wl-paste -t text --watch clipman store -P --max-items=100
 
+exec systemctl --user start gammastep

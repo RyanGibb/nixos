@@ -38,5 +38,10 @@ let cfg = config.personal.gui; in
       wlr.enable = true;
       gtkUsePortal = false;
     };
+
+    services.geoclue2.appConfig.redshift = {
+      isAllowed = true;
+      isSystem = false;
+    };
   };
 }

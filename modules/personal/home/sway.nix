@@ -19,7 +19,6 @@ let replacements = {
   displays = "wdisplays";
   bar = "swaybar";
   notification_deamon = "mako";
-  redshift = "gammastep-indicator -r";
   i3-workspace-history = "${pkgs.i3-workspace-history}";
   i3-workspace-history-args = "-sway";
 }; in
@@ -57,11 +56,6 @@ let util = import ./util.nix { inherit pkgs lib; }; in
 
   xdg.configFile  =
     let entries = {
-      "gammastep/config.ini".text = ''
-        [general]
-        dawn-time=06:00-07:00
-        dusk-time=18:00-19:00
-      '';
       "fusuma/config.yml".source = ./fusuma.yml;
       "kanshi/config".source = ./kanshi;
       "mako/config".source = ./mako;
@@ -79,4 +73,9 @@ let util = import ./util.nix { inherit pkgs lib; }; in
       "i3blocks".source = ./i3blocks;
     }; in
     (util.inDirReplace ./wm/scripts "sway/scripts" replacements) // entries;
+
+    services.gammastep = {
+      enable = true;
+      provider = "geoclue2";
+    };
 }
