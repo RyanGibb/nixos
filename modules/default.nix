@@ -44,7 +44,8 @@
     };
     networking.domain = lib.mkDefault "freumh.org";
 
-    time.timeZone = "Europe/London";
+    services.localtimed.enable = true;
+    services.geoclue2.enable = true;
 
     i18n.defaultLocale = "en_GB.UTF-8";
 
