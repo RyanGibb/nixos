@@ -88,11 +88,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1702895145,
-        "narHash": "sha256-fr0yXkfLXbs6W3CSAYXzu+d0KZ76lJORZSdXuu9IVWA=",
+        "lastModified": 1703623064,
+        "narHash": "sha256-cVctg40YjW+BRJkNnG1r8wzhzfnqVKigDS/IzBxJ7Z8=",
         "ref": "main",
-        "rev": "8cb0bc49c1d252a78512f4d85a914061c22c8684",
-        "revCount": 47,
+        "rev": "c65f03b4ac1fe87e8ba43df1ea68c6fa691e4d62",
+        "revCount": 51,
         "type": "git",
         "url": "https://git@git.freumh.org/ryan/eilean-nix.git"
       },
@@ -112,11 +112,11 @@
         "opam-repository": "opam-repository"
       },
       "locked": {
-        "lastModified": 1703594314,
-        "narHash": "sha256-EvdNmMtk+OpLGaqovobGRNvieBo+dVOTyYRtEFl7nqY=",
+        "lastModified": 1703629301,
+        "narHash": "sha256-FnXsfEZuuDeEfYZcKg39SPtgEVh+By/w1YnN1QfsiDE=",
         "owner": "RyanGibb",
         "repo": "eon",
-        "rev": "aaaa872daa91e5fd4c02e00a0fa19a4617281820",
+        "rev": "4b69c4c7eadbb6687f2e5f9cf7b01e947c3b99e4",
         "type": "github"
       },
       "original": {
@@ -512,22 +512,6 @@
         "owner": "eyJhb",
         "ref": "spaces-support",
         "repo": "mautrix-facebook",
-        "type": "github"
-      }
-    },
-    "mautrix-signal": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1702858908,
-        "narHash": "sha256-DiJLaImveBHQQvYFmMDatO2gcSROyV33hjcd4FwVKsc=",
-        "owner": "mautrix",
-        "repo": "signal",
-        "rev": "947575a5b094a9d7999d978e1803b5ec2628890d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mautrix",
-        "repo": "signal",
         "type": "github"
       }
     },
@@ -972,7 +956,6 @@
         "kmonad": "kmonad",
         "matrix-appservices": "matrix-appservices",
         "mautrix-facebook": "mautrix-facebook",
-        "mautrix-signal": "mautrix-signal",
         "nix-on-droid": "nix-on-droid",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",

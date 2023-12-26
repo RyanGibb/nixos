@@ -20,10 +20,6 @@
     # twitcher.url = "github:RyanGibb/twitcher";
     colour-guesser.url = "git+ssh://git@github.com/ryangibb/colour-guesser.git?ref=develop";
     matrix-appservices.url = "gitlab:coffeetables/nix-matrix-appservices";
-    mautrix-signal = {
-      url = "github:mautrix/signal";
-      flake = false;
-    };
     mautrix-facebook = {
       url = "github:eyJhb/mautrix-facebook/spaces-support";
       flake = false;
@@ -68,7 +64,6 @@
     twitcher,
     colour-guesser,
     matrix-appservices,
-    mautrix-signal,
     mautrix-facebook,
     kmonad,
     i3-workspace-history,
@@ -112,10 +107,6 @@
               "eeww" = eeww.defaultPackage.${system};
               "eon" = eon.defaultPackage.${system};
               "mautrix-whatsapp" = prev.callPackage ./pkgs/mautrix-whatsapp.nix { };
-              "mautrix-signal" = prev."mautrix-signal".overrideAttrs (_: {
-                src = mautrix-signal;
-                buildInputs = [ prev.python3.pkgs.aiosqlite ];
-              });
               "mautrix-facebook" = prev."mautrix-facebook".overrideAttrs (_: {
                 src = mautrix-facebook;
                 buildInputs = [ prev.python3.pkgs.aiosqlite ];
