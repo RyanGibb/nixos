@@ -97,10 +97,10 @@
       #enable = true;
       domain = config.services.ryan-website.domain;
     };
-    aeon = {
+    eon = {
       enable = true;
       # TODO make this zonefile derivation a config parameter `services.eilean.services.dns.zonefile`
-      # TODO add module in eilean for aeon
+      # TODO add module in eilean for eon
       zoneFile = "${import "${eilean}/modules/services/dns/zonefile.nix" { inherit pkgs config lib; zonename = config.networking.domain; zone = config.eilean.services.dns.zones.${config.networking.domain}; }}/${config.networking.domain}";
       logLevel = 2;
     };

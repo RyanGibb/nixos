@@ -7,7 +7,7 @@
     home-manager.url = "github:nix-community/home-manager/release-23.11";
     nix-on-droid.url = "github:nix-community/nix-on-droid/release-23.05";
     eeww.url = "github:RyanGibb/eeww/nixos";
-    aeon.url = "github:RyanGibb/aeon";
+    eon.url = "github:RyanGibb/eon";
     eilean.url ="git+https://git@git.freumh.org/ryan/eilean-nix.git?ref=main";
     # eilean.url ="github:RyanGibb/eilean-nix/main";
     ryan-website.url = "git+https://git@git.freumh.org/ryan/website.git";
@@ -43,7 +43,7 @@
     fn06-website.inputs.nixpkgs.follows = "nixpkgs";
     twitcher.inputs.nixpkgs.follows = "nixpkgs";
     eeww.inputs.nixpkgs.follows = "nixpkgs";
-    aeon.inputs.nixpkgs.follows = "nixpkgs";
+    eon.inputs.nixpkgs.follows = "nixpkgs";
     colour-guesser.inputs.nixpkgs.follows = "nixpkgs";
     matrix-appservices.inputs.nixpkgs.follows = "nixpkgs";
     kmonad.inputs.nixpkgs.follows = "nixpkgs";
@@ -60,7 +60,7 @@
     home-manager,
     nix-on-droid,
     eeww,
-    aeon,
+    eon,
     eilean,
     ryan-website,
     alec-website,
@@ -110,7 +110,7 @@
               "twitcher" = twitcher.packages.${system}.default;
               "colour-guesser" = colour-guesser.packages.${system}.default;
               "eeww" = eeww.defaultPackage.${system};
-              "aeon" = aeon.defaultPackage.${system};
+              "eon" = eon.defaultPackage.${system};
               "mautrix-whatsapp" = prev.callPackage ./pkgs/mautrix-whatsapp.nix { };
               "mautrix-signal" = prev."mautrix-signal".overrideAttrs (_: {
                 src = mautrix-signal;
@@ -160,7 +160,7 @@
                 fn06-website.nixosModules.default
                 twitcher.nixosModules.default
                 colour-guesser.nixosModules.default
-                aeon.nixosModules.default
+                eon.nixosModules.default
                 matrix-appservices.nixosModule
                 kmonad.nixosModules.default
                 hyperbib-eeg.nixosModules.default
