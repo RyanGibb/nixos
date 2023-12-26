@@ -1,10 +1,10 @@
 {
   inputs = {
-    nixpkgs.url = "github:RyanGibb/nixpkgs/dell-command-configure-tmp";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-compat.url = "github:nixos/nixpkgs/39ddb6d";
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    home-manager.url = "github:nix-community/home-manager/release-23.05";
+    home-manager.url = "github:nix-community/home-manager/release-23.11";
     nix-on-droid.url = "github:nix-community/nix-on-droid/release-23.05";
     eeww.url = "github:RyanGibb/eeww/nixos";
     aeon.url = "github:RyanGibb/aeon";
@@ -120,9 +120,7 @@
                 src = mautrix-facebook;
                 buildInputs = [ prev.python3.pkgs.aiosqlite ];
               });
-              "mautrix-instagram" = final.overlay-unstable.callPackage ./pkgs/mautrix-instagram.nix { };
-              "element-desktop" = final.overlay-compat.element-desktop;
-              "vscodium" = final.overlay-unstable.vscodium;
+              "mautrix-instagram" = final.callPackage ./pkgs/mautrix-instagram.nix { };
               "i3-workspace-history" = i3-workspace-history.packages.${system}.default;
             })
           ];
@@ -148,7 +146,7 @@
                   nixpkgs = {
                     config.allowUnfree = true;
                     config.permittedInsecurePackages = [
-                      "electron-20.3.11"
+                      "electron-25.9.0"
                     ];
                     overlays = getSystemOverlays config.nixpkgs.hostPlatform.system config.nixpkgs.config;
                     # uncomment for cross compilation (https://github.com/NixOS/nix/issues/3843)

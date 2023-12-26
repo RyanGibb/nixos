@@ -10,11 +10,11 @@
         "opam-repository": "opam-repository"
       },
       "locked": {
-        "lastModified": 1696596644,
-        "narHash": "sha256-VL8aG4gt4txmgvLe5KPW9yz/zCQLlODEsGVhYYxIQWE=",
+        "lastModified": 1702770736,
+        "narHash": "sha256-+N53kTEcG7XrYWI5n2rE5uXpAfpVl0ukW2iHDfZUQ9A=",
         "owner": "RyanGibb",
         "repo": "aeon",
-        "rev": "39055a3c399c256e07686eb3964a480d49b32ae4",
+        "rev": "e9513cbc6d4d1353b8830d01298a850827e825d3",
         "type": "github"
       },
       "original": {
@@ -111,11 +111,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1696967962,
-        "narHash": "sha256-y/QKN1a5jSKWJ882NyHUgkDZHVgcxpvR4qaWE0RAIYY=",
+        "lastModified": 1697205120,
+        "narHash": "sha256-FPziaw5nI8/98WI0gzS35jFfBMf7XLFNWdrTxHkoEOE=",
         "ref": "main",
-        "rev": "9d031e25a62c900861090e9cea9e79af8c6c95a6",
-        "revCount": 39,
+        "rev": "fcb9cc00d85265218fd67c41c09daafcb3268014",
+        "revCount": 44,
         "type": "git",
         "url": "https://git@git.freumh.org/ryan/eilean-nix.git"
       },
@@ -390,16 +390,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1695108154,
-        "narHash": "sha256-gSg7UTVtls2yO9lKtP0yb66XBHT1Fx5qZSZbGMpSn2c=",
+        "lastModified": 1703113038,
+        "narHash": "sha256-oxkyzjpD+mNT7arzU/zHrkNHLuY9tKwmnD2MNaZiSDw=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "07682fff75d41f18327a871088d20af2710d4744",
+        "rev": "0c2353d5d930c3d93724df6858aef064a31b3c00",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "release-23.05",
+        "ref": "release-23.11",
         "repo": "home-manager",
         "type": "github"
       }
@@ -458,11 +458,11 @@
       },
       "locked": {
         "dir": "nix",
-        "lastModified": 1696666273,
-        "narHash": "sha256-hpqcq42oFtQvDst5Rup9U/ejZgTnAJum0+nSgsBQ8Gs=",
+        "lastModified": 1702277910,
+        "narHash": "sha256-YC10XZm8Ny8AGJ2oiY3eIxfc9dNdLWhOcs4WD6Jzr08=",
         "owner": "kmonad",
         "repo": "kmonad",
-        "rev": "8440eafdb516a379b4350f3c29a0e919f88cee24",
+        "rev": "575b7e048a356b35076581fd8cebc00db6858c8d",
         "type": "github"
       },
       "original": {
@@ -498,11 +498,11 @@
     "mautrix-facebook": {
       "flake": false,
       "locked": {
-        "lastModified": 1680455007,
-        "narHash": "sha256-Jh17ghV3f8sAWhtwxWeE4iSUfxGPdP3Ob4I3frQzrg4=",
+        "lastModified": 1700988568,
+        "narHash": "sha256-CYKhH3zCchcwJPvrmGLeFtUUA+QmADN9vZFwmkRwAjY=",
         "owner": "eyJhb",
         "repo": "mautrix-facebook",
-        "rev": "bf9ce75ed8aa829e6e802d5ca4a9b760478bec43",
+        "rev": "e5e5d27235a602a4172ab79bb6f64110b4ab4900",
         "type": "github"
       },
       "original": {
@@ -515,11 +515,11 @@
     "mautrix-signal": {
       "flake": false,
       "locked": {
-        "lastModified": 1684331537,
-        "narHash": "sha256-QShyuwHiWRcP1hGkvCQfixvoUQ/FXr2DYC5VrcMKX48=",
+        "lastModified": 1702858908,
+        "narHash": "sha256-DiJLaImveBHQQvYFmMDatO2gcSROyV33hjcd4FwVKsc=",
         "owner": "mautrix",
         "repo": "signal",
-        "rev": "64bfed8f05e1e30edd719f2f9a33098ee89229d8",
+        "rev": "947575a5b094a9d7999d978e1803b5ec2628890d",
         "type": "github"
       },
       "original": {
@@ -642,11 +642,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1696614066,
-        "narHash": "sha256-nAyYhO7TCr1tikacP37O9FnGr2USOsVBD3IgvndUYjM=",
+        "lastModified": 1702453208,
+        "narHash": "sha256-0wRi9SposfE2wHqjuKt8WO2izKB/ASDOV91URunIqgo=",
         "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "bb2db418b616fea536b1be7f6ee72fb45c11afe0",
+        "rev": "7763c6fd1f299cb9361ff2abf755ed9619ef01d6",
         "type": "github"
       },
       "original": {
@@ -705,11 +705,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1696604326,
-        "narHash": "sha256-YXUNI0kLEcI5g8lqGMb0nh67fY9f2YoJsILafh6zlMo=",
+        "lastModified": 1702312524,
+        "narHash": "sha256-gkZJRDBUCpTPBvQk25G0B7vfbpEYM5s5OZqghkjZsnE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "87828a0e03d1418e848d3dd3f3014a632e4a4f64",
+        "rev": "a9bf124c46ef298113270b1f84a164865987a91c",
         "type": "github"
       },
       "original": {
@@ -721,16 +721,16 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1697125505,
-        "narHash": "sha256-GaWFFhYlh0xDwKivg68SVKePX9CZ2WqdAjBqNdy9bgE=",
-        "owner": "RyanGibb",
+        "lastModified": 1703068421,
+        "narHash": "sha256-WSw5Faqlw75McIflnl5v7qVD/B3S2sLh+968bpOGrWA=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "974322cf31b85090a7f7dbc976b7908d5264ac70",
+        "rev": "d65bceaee0fb1e64363f7871bc43dc1c6ecad99f",
         "type": "github"
       },
       "original": {
-        "owner": "RyanGibb",
-        "ref": "dell-command-configure-tmp",
+        "owner": "nixos",
+        "ref": "nixos-23.11",
         "repo": "nixpkgs",
         "type": "github"
       }

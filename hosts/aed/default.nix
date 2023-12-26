@@ -30,12 +30,6 @@
 
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
-  # https://gitlab.freedesktop.org/wlroots/wlroots/-/issues/3706#note_2043550
-  boot.kernelPatches = [ {
-    name = "sway-hotplug";
-    patch = ./sway-hotplug-kernel.patch;
-  } ];
-
   environment.systemPackages = with pkgs; [
     dell-command-configure
     (python3.withPackages (p: with p; [
