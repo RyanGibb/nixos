@@ -498,23 +498,6 @@
         "type": "gitlab"
       }
     },
-    "mautrix-facebook": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1700988568,
-        "narHash": "sha256-CYKhH3zCchcwJPvrmGLeFtUUA+QmADN9vZFwmkRwAjY=",
-        "owner": "eyJhb",
-        "repo": "mautrix-facebook",
-        "rev": "e5e5d27235a602a4172ab79bb6f64110b4ab4900",
-        "type": "github"
-      },
-      "original": {
-        "owner": "eyJhb",
-        "ref": "spaces-support",
-        "repo": "mautrix-facebook",
-        "type": "github"
-      }
-    },
     "mirage-opam-overlays": {
       "flake": false,
       "locked": {
@@ -955,7 +938,6 @@
         "i3-workspace-history": "i3-workspace-history",
         "kmonad": "kmonad",
         "matrix-appservices": "matrix-appservices",
-        "mautrix-facebook": "mautrix-facebook",
         "nix-on-droid": "nix-on-droid",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
