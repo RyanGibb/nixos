@@ -22,10 +22,6 @@ let replacements = {
 }; in
 let util = import ./util.nix { inherit pkgs lib; }; in
 {
-  imports = [
-    ./default.nix
-  ];
-
   # TODO
   # idling
 

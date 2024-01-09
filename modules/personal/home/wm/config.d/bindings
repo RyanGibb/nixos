@@ -476,4 +476,4 @@ mode "$mode_i3blocks" {
 }
 bindsym $mod+$alt+r mode "$mode_i3blocks"
 
-focus_on_window_activation focus
+focus_on_window_activation smart

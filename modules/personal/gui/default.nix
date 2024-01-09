@@ -8,6 +8,8 @@ let cfg = config.personal.gui; in
   };
 
   config = lib.mkIf cfg.enable {
+    home-manager.users.${config.custom.username} = import ../home/default.nix { pkgs-config = config; };
+
     networking.networkmanager.enable = true;
     programs.nm-applet = {
       enable = true;

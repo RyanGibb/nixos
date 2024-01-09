@@ -36,12 +36,8 @@ let cfg = config.personal.gui; in
 
       bitwarden
 
-      neomutt
       liferea
     ];
-    environment.shellAliases = {
-      mutt = "neomutt";
-    };
 
     services.gnome.gnome-keyring.enable = true;
     programs.seahorse.enable = true;

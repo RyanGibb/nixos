@@ -1,6 +1,10 @@
-{ pkgs, config, ... }:
+{ pkgs-config }: { pkgs, config, ... }:
 
 {
+  imports = [
+     (import ./mail/default.nix { inherit pkgs-config; })
+  ];
+
   gtk = {
     enable = true;
     font = {
