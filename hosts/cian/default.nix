@@ -159,6 +159,7 @@
 
   services.mastodon = {
     webProcesses = lib.mkForce 1;
+    webThreads = lib.mkForce 1;
     sidekiqThreads = lib.mkForce 1;
     streamingProcesses = lib.mkForce 1;
   };
