@@ -1,8 +1,8 @@
-{ pkgs-config }: { pkgs, config, ... }:
+{ pkgs, config, ... }:
 
 {
   imports = [
-     (import ./mail/default.nix { inherit pkgs-config; })
+    ./mail/default.nix
   ];
 
   gtk = {

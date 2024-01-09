@@ -8,7 +8,7 @@ let cfg = config.personal.gui; in
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${config.custom.username} = import ../home/default.nix { pkgs-config = config; };
+    home-manager.users.${config.custom.username} = import ../home/default.nix;
 
     networking.networkmanager.enable = true;
     programs.nm-applet = {
@@ -130,7 +130,7 @@ let cfg = config.personal.gui; in
     ];
 
     # thunar
-    # services.gvfs.enable = true;
+    services.gvfs.enable = true;
     services.udisks2.enable = true;
     # thunar thumbnail support for images
     services.tumbler.enable = true;

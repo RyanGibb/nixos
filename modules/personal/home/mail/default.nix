@@ -1,6 +1,10 @@
-{ pkgs-config }: { pkgs, config, ... }:
+{ pkgs, config, ... }:
 
 {
+  programs.password-store.enable = true;
+  programs.gpg.enable = true;
+  services.gpg-agent.enable = true;
+
   xdg.configFile = {
     "aerc/binds.conf".source = ./aerc-binds.conf;
   };
@@ -13,7 +17,7 @@
         realName = "Ryan Gibb";
         userName = "ryan@freumh.org";
         address = "ryan@freumh.org";
-        passwordCommand = "${pkgs.coreutils}/bin/cat ${pkgs-config.custom.secretsDir}/email-pswd-unhashed";
+        passwordCommand = "${pkgs.pass}/bin/pass show email/ryan@freumh.org";
         imap.host = "mail.freumh.org";
         smtp.host = "mail.freumh.org";
         imapnotify = {
@@ -37,11 +41,66 @@
           };
         };
       };
+      "misc@freumh.org" = {
+        userName = "misc@freumh.org";
+        address = "misc@freumh.org";
+        realName = "Misc";
+        passwordCommand = "${pkgs.pass}/bin/pass show email/misc@freumh.org";
+        imap.host = "mail.freumh.org";
+        smtp.host = "mail.freumh.org";
+        imapnotify = {
+          enable = true;
+          boxes = [ "Inbox" ];
+          onNotify = "${pkgs.isync}/bin/mbsync misc@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
+        };
+        mbsync = {
+          enable = true;
+          create = "both";
+          expunge = "both";
+          remove = "both";
+        };
+        notmuch.enable = true;
+        aerc = {
+          enable = true;
+          extraAccounts = {
+            folders-sort = [ "Inbox" "Archive" "Drafts" "Sent" "Junk" "Trash" ];
+            check-mail-cmd = "${pkgs.isync}/bin/mbsync misc@freumh.org";
+            check-mail = "10m";
+          };
+        };
+      };
+      "ryan.gibb@cl.cam.ac.uk" = {
+        userName = "rtg24@fm.cl.cam.ac.uk";
+        address = "ryan.gibb@cl.cam.ac.uk";
+        realName = "Ryan Gibb";
+        passwordCommand = "${pkgs.pass}/bin/pass show email/ryan.gibb@cl.cam.ac.uk";
+        flavor = "fastmail.com";
+        imapnotify = {
+          enable = true;
+          boxes = [ "Inbox" ];
+          onNotify = "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && ${pkgs.notmuch}/bin/notmuch new";
+        };
+        mbsync = {
+          enable = true;
+          create = "both";
+          expunge = "both";
+          remove = "both";
+        };
+        notmuch.enable = true;
+        aerc = {
+          enable = true;
+          extraAccounts = {
+            folders-sort = [ "Inbox" "Sidebox" "Archive" "Drafts" "Sent" "Spam" "Trash" ];
+            check-mail-cmd = "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk";
+            check-mail = "10m";
+          };
+        };
+      };
       "ryangibb321@gmail.com" = {
         userName = "ryangibb321@gmail.com";
         address = "ryangibb321@gmail.com";
         realName = "Ryan Gibb";
-        passwordCommand = "${pkgs.coreutils}/bin/cat ${pkgs-config.custom.secretsDir}/ryangibb321@gmail.com";
+        passwordCommand = "${pkgs.pass}/bin/pass show email/ryangibb321@gmail.com";
         flavor = "gmail.com";
         folders = {
           sent = "Sent Mail";
@@ -68,61 +127,6 @@
             folder-map = "${pkgs.writeText "folder-map" ''
               * = [Gmail]/*
             ''}";
-          };
-        };
-      };
-      "ryan.gibb@cl.cam.ac.uk" = {
-        userName = "rtg24@fm.cl.cam.ac.uk";
-        address = "ryan.gibb@cl.cam.ac.uk";
-        realName = "Ryan Gibb";
-        passwordCommand = "${pkgs.coreutils}/bin/cat ${pkgs-config.custom.secretsDir}/ryan.gibb@cl.cam.ac.uk";
-        flavor = "fastmail.com";
-        imapnotify = {
-          enable = true;
-          boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && ${pkgs.notmuch}/bin/notmuch new";
-        };
-        mbsync = {
-          enable = true;
-          create = "both";
-          expunge = "both";
-          remove = "both";
-        };
-        notmuch.enable = true;
-        aerc = {
-          enable = true;
-          extraAccounts = {
-            folders-sort = [ "Inbox" "Sidebox" "Archive" "Drafts" "Sent" "Spam" "Trash" ];
-            check-mail-cmd = "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk";
-            check-mail = "10m";
-          };
-        };
-      };
-      "misc@freumh.org" = {
-        userName = "misc@freumh.org";
-        address = "misc@freumh.org";
-        realName = "Misc";
-        passwordCommand = "${pkgs.coreutils}/bin/cat ${pkgs-config.custom.secretsDir}/email-pswd-unhashed";
-        imap.host = "mail.freumh.org";
-        smtp.host = "mail.freumh.org";
-        imapnotify = {
-          enable = true;
-          boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync misc@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
-        };
-        mbsync = {
-          enable = true;
-          create = "both";
-          expunge = "both";
-          remove = "both";
-        };
-        notmuch.enable = true;
-        aerc = {
-          enable = true;
-          extraAccounts = {
-            folders-sort = [ "Inbox" "Archive" "Drafts" "Sent" "Junk" "Trash" ];
-            check-mail-cmd = "${pkgs.isync}/bin/mbsync misc@freumh.org";
-            check-mail = "10m";
           };
         };
       };
