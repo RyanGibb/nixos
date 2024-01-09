@@ -1,6 +1,7 @@
 [Default Applications]
 inode/directory=thunar.desktop;code-oss.desktop;
-image=feh.desktop;gimp.desktop;
+image/jpeg=feh.desktop;gimp.desktop;
+image/png=feh.desktop;
 image/svg+xml=nvim.desktop;
 video=vlc.desktop;
 text/html=firefox.desktop;codium.desktop;nvim.desktop;
@@ -11,4 +12,5 @@ application/pdf=org.gnome.Evince.desktop;krop.desktop;
 application/postscript=org.gnome.Evince.desktop;
 application/xbittorrent=transmission.desktop;
 x-scheme-handler/magnet=transmission-gtk.desktop;
-x-scheme-handler/mailto=thunderbird.desktop;
+x-scheme-handler/mailto=aerc.desktop;
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=writer.desktop;
