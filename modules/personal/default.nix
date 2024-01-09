@@ -122,10 +122,6 @@ let cfg = config.personal; in
         };
       };
     };
-    
-    programs.bash.promptInit = ''
-      PS1='\[\e[36m\]\u@\h:\W\[\e[0m\] $ '
-    '';
 
     programs.neovim = {
       enable = true;
