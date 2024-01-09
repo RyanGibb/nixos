@@ -67,6 +67,7 @@ let cfg = config.personal; in
         tmux = "tmux -2";
         feh = "feh --scale-down --auto-zoom";
         nix-stray-roots = "nix-store --gc --print-roots | egrep -v '^(/nix/var|/run|/proc|{censored})'";
+        t = "tmux capture-pane -p | vim -c $";
       };
       sessionVariables = {
         NIX_AUTO_RUN = "y";
@@ -148,14 +149,22 @@ let cfg = config.personal; in
 
     programs.tmux = {
       enable = true;
-      extraConfig = ''
-        set-option -g prefix `
-        bind ` send-prefix
-        set -g mouse on
+      extraConfig = let
+        toggle-status-bar = pkgs.writeScript "toggle-status-bar.sh" ''
+          #!/usr/bin/env bash
+          window_count=$(tmux list-windows | wc -l)
+          if [ "$window_count" -ge "2" ]; then
+              tmux set-option status on
+          else
+              tmux set-option status off
+          fi
+      ''; in ''
         set-window-option -g mode-keys vi
-        set -g lock-command vlock
-        set -g lock-after-time 0 # Seconds; 0 = never
-        bind L lock-session
+        set-option -g mouse on
+        set-option -g set-titles on
+        set-option -g set-titles-string "#S:#I:#T"
+        set-hook -g session-window-changed 'run-shell ${toggle-status-bar}'
+        set-hook -g session-created 'run-shell ${toggle-status-bar}'
       '';
     };
   };
