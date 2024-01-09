@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1696880817,
-        "narHash": "sha256-T9t4yiT/45oDLf0s5lCHoZmLhS3M3IVxe68QPHVB0Mg=",
+        "lastModified": 1704560882,
+        "narHash": "sha256-tdO180k8fUuVP1rf3R+5cbYOpjBM/mj8F5LbDkLSJ+4=",
         "owner": "alexanderhthompson",
         "repo": "website",
-        "rev": "399c078c58ed750b106e5d98b36d6b041b0d6975",
+        "rev": "6ef319faef8dd899b2f3377bafb749a7e0cb3d3c",
         "type": "github"
       },
       "original": {
