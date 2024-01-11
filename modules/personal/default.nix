@@ -168,5 +168,13 @@ let cfg = config.personal; in
         set-hook -g session-created 'run-shell ${toggle-status-bar}'
       '';
     };
+
+    programs.less = {
+      enable = true;
+      lineEditingKeys = {
+        "\e[1;5D" = "word-left";
+        "\e[1;5C" = "word-right";
+      };
+    };
   };
 }
