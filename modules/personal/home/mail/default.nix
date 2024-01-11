@@ -74,7 +74,7 @@
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync ryan@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
+          onNotify = "${pkgs.isync}/bin/mbsync ryan@freumh.org";
         };
         mbsync = {
           enable = true;
@@ -82,7 +82,6 @@
           expunge = "both";
           remove = "both";
         };
-        notmuch.enable = true;
         aerc = {
           enable = true;
           extraAccounts = {
@@ -102,7 +101,7 @@
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync misc@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
+          onNotify = "${pkgs.isync}/bin/mbsync misc@freumh.org";
         };
         mbsync = {
           enable = true;
@@ -110,7 +109,6 @@
           expunge = "both";
           remove = "both";
         };
-        notmuch.enable = true;
         aerc = {
           enable = true;
           extraAccounts = {
@@ -129,7 +127,7 @@
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && ${pkgs.notmuch}/bin/notmuch new";
+          onNotify = "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk";
         };
         mbsync = {
           enable = true;
@@ -137,7 +135,6 @@
           expunge = "both";
           remove = "both";
         };
-        notmuch.enable = true;
         aerc = {
           enable = true;
           extraAccounts = {
@@ -160,7 +157,7 @@
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com && ${pkgs.notmuch}/bin/notmuch new";
+          onNotify = "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com";
         };
         mbsync = {
           enable = true;
@@ -168,7 +165,6 @@
           expunge = "both";
           remove = "both";
         };
-        notmuch.enable = true;
         aerc = {
           enable = true;
           extraAccounts = {
