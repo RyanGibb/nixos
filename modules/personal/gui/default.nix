@@ -96,7 +96,9 @@ let cfg = config.personal.gui; in
 
       (firefox.override {
         cfg = {
-          enableTridactylNative = true;
+          nativeMessagingHosts.packages = with pkgs; [
+            tridactyl-native
+          ];
         };
       })
       tridactyl-native
@@ -119,7 +121,7 @@ let cfg = config.personal.gui; in
       i3-workspace-history
     ] ++ desktopEntries;
 
-    fonts.fonts = with pkgs; [
+    fonts.packages = with pkgs; [
       noto-fonts
       noto-fonts-emoji
       (nerdfonts.override { fonts = [ "DroidSansMono" ]; })
