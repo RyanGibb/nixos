@@ -67,11 +67,11 @@ let cfg = config.personal; in
         tmux = "tmux -2";
         feh = "feh --scale-down --auto-zoom";
         nix-stray-roots = "nix-store --gc --print-roots | egrep -v '^(/nix/var|/run|/proc|{censored})'";
-        t = "tmux capture-pane -p | vim -c $";
       };
       sessionVariables = {
         NIX_AUTO_RUN = "y";
         NIX_AUTO_RUN_INTERACTIVE = "y";
+        BROWSER="firefox"; # urlview
       };
     };
     
@@ -159,6 +159,8 @@ let cfg = config.personal; in
         set-option -g mouse on
         set-option -g set-titles on
         set-option -g set-titles-string "#S:#I:#T"
+        bind-key t capture-pane -S -\; new-window '(tmux show-buffer; tmux delete-buffer) | nvim -c $'
+        bind-key u capture-pane\; new-window '(tmux show-buffer; tmux delete-buffer) | ${pkgs.urlview}/bin/urlview'
         set-hook -g session-window-changed 'run-shell ${toggle-status-bar}'
         set-hook -g session-created 'run-shell ${toggle-status-bar}'
       '';
