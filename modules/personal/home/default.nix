@@ -167,5 +167,17 @@
   home.stateVersion = "22.05";
 
   services.kdeconnect.enable = true;
+
+  home.packages = with pkgs; [
+    spotify-tui
+  ];
+
+  services.spotifyd = {
+    enable = true;
+    settings.global = {
+      username = "ryangibb321@gmail.com";
+      password_cmd = "pass show spotify/ryangibb321@gmail.com";
+    };
+  };
 }
 
