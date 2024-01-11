@@ -166,6 +166,8 @@ let cfg = config.personal; in
         bind-key u capture-pane\; new-window '(tmux show-buffer; tmux delete-buffer) | ${pkgs.urlview}/bin/urlview'
         set-hook -g session-window-changed 'run-shell ${toggle-status-bar}'
         set-hook -g session-created 'run-shell ${toggle-status-bar}'
+        # Fixes C-Up/Down in TUIs
+        set-option default-terminal tmux
       '';
     };
 
