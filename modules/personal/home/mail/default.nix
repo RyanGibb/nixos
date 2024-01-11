@@ -177,6 +177,7 @@
             check-mail = "10m";
             folder-map = "${pkgs.writeText "folder-map" ''
               * = [Gmail]/*
+              Trash = Bin
             ''}";
           };
         };
