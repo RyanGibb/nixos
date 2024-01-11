@@ -1,16 +1,67 @@
 { pkgs, config, ... }:
 
 {
-  programs.password-store.enable = true;
-  programs.gpg.enable = true;
-  services.gpg-agent.enable = true;
+  home.packages = with pkgs; [
+    maildir-rank-addr
+    (pkgs.writeScriptBin "cam-ldap-addr" ''
+      ${pkgs.openldap}/bin/ldapsearch -xZ -H ldaps://ldap.lookup.cam.ac.uk -b "ou=people,o=University of Cambridge,dc=cam,dc=ac,dc=uk" displayName mail\
+      | ${pkgs.gawk}/bin/awk '/^dn:/{displayName=""; mail=""; next} /^displayName:/{displayName=$2; for(i=3;i<=NF;i++) displayName=displayName " " $i; next} /^mail:/{mail=$2; next} /^$/{if(displayName!="" && mail!="") print mail "\t" displayName}'\
+      > ${config.accounts.email.maildirBasePath}/addressbook/cam-ldap
+    '')
+  ];
 
   xdg.configFile = {
     "aerc/binds.conf".source = ./aerc-binds.conf;
+    "maildir-rank-addr/config".text = with config.accounts.email; ''
+      maildir = "${config.accounts.email.maildirBasePath}"
+      outputpath = "${config.accounts.email.maildirBasePath}/addressbook/maildir"
+      addresses = [
+          "ryan@freumh.org",
+          "misc@freumh.org",
+          "ryan@gibbr.org",
+          "misc@gibbr.org",
+          "ryan.gibb@cl.cam.ac.uk",
+          "rtg24@cam.ac.uk",
+          "rtg2@st-andrews.ac.uk",
+          "ryangibb321@gmail.com",
+          "ryangibb@btconnect.com",
+      ]
+    '';
+  };
+
+  programs = {
+    password-store.enable = true;
+    gpg.enable = true;
+    mbsync.enable = true;
+    aerc = {
+      enable = true;
+      extraConfig = {
+        general.unsafe-accounts-conf = true;
+        general.default-save-path = "~/downloads";
+        ui.mouse-enabled = true;
+        compose.address-book-cmd = "${pkgs.ugrep}/bin/ugrep -jPh -m 100 --color=never %s " +
+          "${config.accounts.email.maildirBasePath}/addressbook/maildir " +
+          "${config.accounts.email.maildirBasePath}/addressbook/cam-ldap";
+        compose.file-picker-cmd = "${pkgs.ranger}/bin/ranger --choosefiles=%f";
+        filters = {
+          "text/plain" = "wrap -w 100 | colorize";
+          "text/calendar" = "calendar";
+          "message/delivery-status" = "colorize";
+          "message/rfc822" = "colorize";
+          "text/html" = "html | colorize";
+        };
+      };
+    };
+  };
+
+  services = {
+    imapnotify.enable = true;
+    gpg-agent.enable = true;
   };
 
   accounts.email = {
     maildirBasePath = "mail";
+    order = [ "ryangibb321@gmail.com" "ryan.gibb@cl.cam.ac.uk" "misc@freumh.org" ];
     accounts = {
       "ryan@freumh.org" = {
         primary = true;
@@ -131,21 +182,5 @@
         };
       };
     };
-    order = [ "ryangibb321@gmail.com" "ryan.gibb@cl.cam.ac.uk" "misc@freumh.org" ];
   };
-  programs.mbsync.enable = true;
-  services.imapnotify.enable = true;
-  programs.aerc.enable = true;
-  programs.aerc.extraConfig = {
-    general.unsafe-accounts-conf = true;
-    general.default-save-path = "~/downloads";
-    filters = {
-      "text/plain" = "colorize";
-      "text/calendar" = "calendar";
-      "message/delivery-status" = "colorize";
-      "message/rfc822" = "colorize";
-      "text/html" = "html | colorize";
-    };
-  };
-  programs.notmuch.enable = true;
 }
