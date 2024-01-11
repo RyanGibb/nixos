@@ -87,6 +87,7 @@
           extraAccounts = {
             folders-sort = [ "Inbox" "Archive" "Drafts" "Sent" "Junk" "Trash" ];
             check-mail-cmd = "${pkgs.isync}/bin/mbsync ryan@freumh.org";
+            check-mail-timeout = "1m";
             check-mail = "10m";
           };
         };
@@ -114,6 +115,7 @@
           extraAccounts = {
             folders-sort = [ "Inbox" "Archive" "Drafts" "Sent" "Junk" "Trash" ];
             check-mail-cmd = "${pkgs.isync}/bin/mbsync misc@freumh.org";
+            check-mail-timeout = "1m";
             check-mail = "10m";
           };
         };
@@ -140,6 +142,7 @@
           extraAccounts = {
             folders-sort = [ "Inbox" "Sidebox" "Archive" "Drafts" "Sent" "Spam" "Trash" ];
             check-mail-cmd = "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk";
+            check-mail-timeout = "1m";
             check-mail = "10m";
           };
         };
@@ -170,6 +173,7 @@
           extraAccounts = {
             folders-sort = [ "Inbox" "All Mail" "Sent Mail" "Drafts" "Bin" ];
             check-mail-cmd = "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com";
+            check-mail-timeout = "1m";
             check-mail = "10m";
             folder-map = "${pkgs.writeText "folder-map" ''
               * = [Gmail]/*
