@@ -158,7 +158,7 @@ let cfg = config.personal; in
         set-window-option -g mode-keys vi
         set-option -g mouse on
         set-option -g set-titles on
-        set-option -g set-titles-string "#S:#I:#T"
+        set-option -g set-titles-string "#T"
         bind-key t capture-pane -S -\; new-window '(tmux show-buffer; tmux delete-buffer) | nvim -c $'
         bind-key u capture-pane\; new-window '(tmux show-buffer; tmux delete-buffer) | ${pkgs.urlview}/bin/urlview'
         set-hook -g session-window-changed 'run-shell ${toggle-status-bar}'

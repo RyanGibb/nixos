@@ -5,7 +5,7 @@ windows=$(\
 	jq -r '
 		recurse(.nodes[], .floating_nodes[];.nodes!=null)
 		| select((.type=="con" or .type=="floating_con") and .name!=null)
-		| "\(.id? | tostring | (" " * (3 - length)) + .) \(.app_id? // .window_properties.class?) - \(.name?)"
+		| "\(.id? | tostring | (" " * (3 - length)) + .) \(.name?)"
 	'
 )
 
