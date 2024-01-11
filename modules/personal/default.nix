@@ -53,6 +53,9 @@ let cfg = config.personal; in
         git-crypt
         jq
         bc
+        pandoc
+        w3m
+        ranger
       ];
       variables.EDITOR = "nvim";
       shellAliases = {

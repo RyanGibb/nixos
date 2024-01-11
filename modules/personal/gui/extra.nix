@@ -36,7 +36,7 @@ let cfg = config.personal.gui; in
 
       bitwarden
 
-      liferea
+      newsboat
     ];
 
     services.gnome.gnome-keyring.enable = true;
