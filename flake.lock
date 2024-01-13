@@ -393,11 +393,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1704808806,
-        "narHash": "sha256-5On2U2xiYQzH2KpTXU2IDYGYli6MaYnd30CtcmPcRXo=",
+        "lastModified": 1705154127,
+        "narHash": "sha256-I089xmix/0GP+W0ClAY6bBA/ampHi+YEVbZRGpduq+I=",
         "owner": "RyanGibb",
         "repo": "home-manager",
-        "rev": "1c0f18438402cc9e214101351d648a1a4784c6b4",
+        "rev": "eda1810349392db1bc493b693da673bb89119abe",
         "type": "github"
       },
       "original": {

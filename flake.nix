@@ -5,6 +5,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-compat.url = "github:nixos/nixpkgs/39ddb6d";
     nixos-hardware.url = "github:nixos/nixos-hardware";
+    #home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.url = "github:RyanGibb/home-manager/fork";
     nix-on-droid.url = "github:nix-community/nix-on-droid/release-23.05";
     eeww.url = "github:RyanGibb/eeww/nixos";
