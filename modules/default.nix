@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }@inputs:
 
 {
   imports = [
@@ -76,5 +76,18 @@
     systemd.tmpfiles.rules = [
       "L+ ${nixPath} - - - - ${pkgs.path}"
     ];
+
+    system.autoUpgrade = {
+      enable = true;
+      flake = inputs.self.outPath;
+      flags = [
+        "--update-input"
+        "nixpkgs"
+        "-L"
+      ];
+      dates = "03:00";
+      randomizedDelaySec = "1hr";
+      rebootWindow = { lower = "03:00"; upper = "05:00"; };
+    };
   };
 }
