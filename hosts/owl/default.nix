@@ -1,9 +1,10 @@
-{ pkgs, config, lib, eilean, ... }:
+{ pkgs, config, lib, eilean, ... }@inputs:
 
 {
   imports = [
     ./hardware-configuration.nix
     ./minimal.nix
+    inputs.colour-guesser.nixosModules.default
   ];
 
   eilean = {

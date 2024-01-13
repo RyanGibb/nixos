@@ -145,7 +145,6 @@
                 alec-website.nixosModules.default
                 fn06-website.nixosModules.default
                 twitcher.nixosModules.default
-                colour-guesser.nixosModules.default
                 eon.nixosModules.default
                 matrix-appservices.nixosModule
                 kmonad.nixosModules.default
