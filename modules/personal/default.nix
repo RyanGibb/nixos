@@ -56,6 +56,7 @@ let cfg = config.personal; in
         pandoc
         w3m
         ranger
+        powertop
       ];
       variables.EDITOR = "nvim";
       shellAliases = {
