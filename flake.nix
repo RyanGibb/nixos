@@ -12,7 +12,6 @@
     eilean.url ="github:RyanGibb/eilean-nix/main";
     ryan-website.url = "git+ssh://git@github.com/RyanGibb/website.git";
     ryan-cv.url = "git+ssh://git@github.com/RyanGibb/cv.git";
-    ryan-website.inputs.cv.follows = "ryan-cv";
     alec-website.url = "github:alexanderhthompson/website";
     fn06-website.url = "github:RyanGibb/fn06";
     colour-guesser.url = "git+ssh://git@github.com/ryangibb/colour-guesser.git?ref=develop";
@@ -76,19 +75,6 @@
                 # follow stable nixpkgs config
                 config = nixpkgsConfig;
               };
-              # `ryan-website.nixosModules.default` uses `pkgs.ryan-website`
-              "ryan-website" =
-                let
-                  keys = prev.stdenv.mkDerivation {
-                    name = "ryan-keys";
-                    src = ./modules/personal/authorized_keys;
-                    phases = [ "buildPhase" ];
-                    buildPhase = ''
-                      touch $out
-                      cat $src | cut -d' ' -f-2 > $out
-                    '';
-                  };
-                in ryan-website.paramaterizedPackages.${system}.with-cv keys;
               "alec-website" = alec-website.packages.${system}.default;
               "fn06-website" = fn06-website.packages.${system}.default;
               "colour-guesser" = colour-guesser.packages.${system}.default;
@@ -134,7 +120,6 @@
                 })
                 home-manager.nixosModule
                 eilean.nixosModules.default
-                ryan-website.nixosModules.default
                 alec-website.nixosModules.default
                 fn06-website.nixosModules.default
                 eon.nixosModules.default

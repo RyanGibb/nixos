@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     ./minimal.nix
     inputs.colour-guesser.nixosModules.default
+    inputs.ryan-website.nixosModules.default
   ];
 
   eilean = {
@@ -74,6 +75,16 @@
     ryan-website = {
       enable = true;
       cname = "vps";
+      cv = inputs.ryan-cv.defaultPackage.${pkgs.stdenv.hostPlatform.system};
+      keys = pkgs.stdenv.mkDerivation {
+        name = "ryan-keys";
+        src = ../../modules/personal/authorized_keys;
+        phases = [ "buildPhase" ];
+        buildPhase = ''
+          touch $out
+          cat $src | cut -d' ' -f-2 > $out
+        '';
+      };
     };
     alec-website = {
       enable = true;

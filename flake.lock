@@ -956,20 +956,17 @@
     },
     "ryan-website": {
       "inputs": {
-        "cv": [
-          "ryan-cv"
-        ],
         "flake-utils": "flake-utils_10",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1702294077,
-        "narHash": "sha256-SCnN5uD3ru7j30c6Lhm4kGPKiQE3kZhe8ZAWl0+nOog=",
+        "lastModified": 1705310982,
+        "narHash": "sha256-NEpgl9Qyi7CR0Ie3WAXy3TG5ZD6/HPvLoeIVVaZqRNo=",
         "ref": "refs/heads/master",
-        "rev": "00284e827ec8786ea7c3f49363c7be57db222683",
-        "revCount": 487,
+        "rev": "06b276d72917023f28d93cf0c9d497ab32642171",
+        "revCount": 488,
         "type": "git",
         "url": "ssh://git@github.com/RyanGibb/website.git"
       },
