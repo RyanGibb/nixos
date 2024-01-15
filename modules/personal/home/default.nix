@@ -98,7 +98,6 @@
   };
 
   home.file = {
-    ".xkb/symbols/gb_alt_gr_remapped_to_super".source = ./gb_alt_gr_remapped_to_super.xkb;
     ".config/gtk-3.0/bookmarks" = {
       force = true;
       text = ''
