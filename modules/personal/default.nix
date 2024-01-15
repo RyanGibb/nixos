@@ -131,7 +131,7 @@ let cfg = config.personal; in
       viAlias = true;
       vimAlias = true;
       configure = {
-        customRC = builtins.readFile ./nvim.cfg;
+        customRC = import ./nvim.vim;
         packages.myVimPackage = with pkgs.vimPlugins; {
           start = [
             vimtex
@@ -140,6 +140,17 @@ let cfg = config.personal; in
             vim-airline-themes
             palenight-vim
             vim-nix
+            (pkgs.vimUtils.buildVimPlugin {
+              pname = "obsidian.nvim";
+              version = "2.6.0";
+              src = pkgs.fetchFromGitHub {
+                owner = "epwalsh";
+                repo = "obsidian.nvim";
+                rev = "v2.6.0";
+                sha256 = "sha256-+w3XYoobuH17oinPfQxhrizbmQB5IbbulUK69674/Wg=";
+              };
+            })
+            plenary-nvim
           ];
           opt = [ ];
         };

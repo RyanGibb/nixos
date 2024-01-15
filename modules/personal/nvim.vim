@@ -1,4 +1,4 @@
-
+''
 colorscheme palenight
 
 hi Normal ctermbg=NONE
@@ -20,6 +20,8 @@ set softtabstop=4
 set spelllang=en
 set spellfile=$HOME/.config/vim/spell.en.utf-8.add
 
+set conceallevel=1
+
 let g:auto_save_events = ["InsertLeave", "TextChanged"]
 let g:auto_save_silent = 0
 
@@ -32,3 +34,9 @@ let g:auto_save_silent = 0
 :  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
 :augroup END
 
+autocmd TermOpen * startinsert
+
+luafile ${./nvim.lua}
+
+nmap ZA :cquit<Enter>
+''
