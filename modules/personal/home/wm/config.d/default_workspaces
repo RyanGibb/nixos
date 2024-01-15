@@ -1,9 +1,7 @@
 for_window [class="Zotero"] move window to workspace 6󱅗
-for_window [@app_id@="Logseq"] move window to workspace 7
 for_window [@app_id@="obsidian"] move window to workspace 7
 for_window [title="Spotify"] move window to workspace 8
 assign [@app_id@="Element"] 9󰭹
-for_window [title="gomuks"] move window to workspace 9󰭹
 assign [@app_id@="thunderbird"] 10
 for_window [@app_id@="calibre-gui"] move window to workspace 11󱉟
 
