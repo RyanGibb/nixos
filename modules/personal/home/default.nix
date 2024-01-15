@@ -24,7 +24,9 @@
   # evince workaround
   home.sessionVariables.GTK_THEME = "gruvbox-dark";
 
-  home.sessionVariables.WALLPAPER = ./wallpaper.jpg;
+  home.sessionVariables.WALLPAPER =
+    let wallpaper = ./wallpaper.jpg; in
+    pkgs.runCommand (builtins.baseNameOf wallpaper) {} "cp ${wallpaper} $out";
 
   home.pointerCursor = {
       name = "Adwaita";
