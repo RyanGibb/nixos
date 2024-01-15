@@ -49,10 +49,7 @@
     eeww,
     eon,
     eilean,
-    ryan-website,
-    alec-website,
     fn06-website,
-    colour-guesser,
     matrix-appservices,
     kmonad,
     i3-workspace-history,
@@ -75,9 +72,6 @@
                 # follow stable nixpkgs config
                 config = nixpkgsConfig;
               };
-              "alec-website" = alec-website.packages.${system}.default;
-              "fn06-website" = fn06-website.packages.${system}.default;
-              "colour-guesser" = colour-guesser.packages.${system}.default;
               "eeww" = eeww.defaultPackage.${system};
               "eon" = eon.defaultPackage.${system};
               "mautrix-whatsapp" = prev.callPackage ./pkgs/mautrix-whatsapp.nix { };
@@ -120,8 +114,6 @@
                 })
                 home-manager.nixosModule
                 eilean.nixosModules.default
-                alec-website.nixosModules.default
-                fn06-website.nixosModules.default
                 eon.nixosModules.default
                 matrix-appservices.nixosModule
                 kmonad.nixosModules.default

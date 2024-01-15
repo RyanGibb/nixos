@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1704560882,
-        "narHash": "sha256-tdO180k8fUuVP1rf3R+5cbYOpjBM/mj8F5LbDkLSJ+4=",
+        "lastModified": 1705311746,
+        "narHash": "sha256-JTn5ozvFyPi0TBYDQwaK9lm2emtm5dF2X1sXT7gbSDA=",
         "owner": "alexanderhthompson",
         "repo": "website",
-        "rev": "6ef319faef8dd899b2f3377bafb749a7e0cb3d3c",
+        "rev": "9d114cef581eefd5a41b23c9d3f6ada07772b273",
         "type": "github"
       },
       "original": {
@@ -30,11 +30,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1696880690,
-        "narHash": "sha256-HPmFdolumDLQOJSOlzvS8LYbs9EnGmNLqHLk7ORRel4=",
+        "lastModified": 1705312196,
+        "narHash": "sha256-NqdhzXpp/FnIjRjCclHD9aKvKAxNBhaKiETdQded7/0=",
         "ref": "develop",
-        "rev": "9fe74ec70e4a9c8cdd80cc11f9c2e286c6a95ff5",
-        "revCount": 9,
+        "rev": "923686aec3055d02019621fd14aa0ce864a8fa2d",
+        "revCount": 10,
         "type": "git",
         "url": "ssh://git@github.com/ryangibb/colour-guesser.git"
       },
@@ -340,11 +340,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1700582850,
-        "narHash": "sha256-3ouTp6Gqevr/no2Cwnim8mr7yMBlKkRWwiFZN4qqAOA=",
+        "lastModified": 1705311900,
+        "narHash": "sha256-xLMnBDAUBLEO9ASzwlenjvOcMXemmMJjMbjBOFdawAU=",
         "owner": "RyanGibb",
         "repo": "fn06",
-        "rev": "fa66b98b9191fea42db72054a4b44afee27f6053",
+        "rev": "2ff09f15bb489ed5ad41b7865fffaf3688b30264",
         "type": "github"
       },
       "original": {

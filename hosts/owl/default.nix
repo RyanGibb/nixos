@@ -6,6 +6,8 @@
     ./minimal.nix
     inputs.colour-guesser.nixosModules.default
     inputs.ryan-website.nixosModules.default
+    inputs.alec-website.nixosModules.default
+    inputs.fn06-website.nixosModules.default
   ];
 
   eilean = {
