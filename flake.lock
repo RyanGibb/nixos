@@ -439,28 +439,6 @@
         "type": "github"
       }
     },
-    "kmonad": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "dir": "nix",
-        "lastModified": 1702277910,
-        "narHash": "sha256-YC10XZm8Ny8AGJ2oiY3eIxfc9dNdLWhOcs4WD6Jzr08=",
-        "owner": "kmonad",
-        "repo": "kmonad",
-        "rev": "575b7e048a356b35076581fd8cebc00db6858c8d",
-        "type": "github"
-      },
-      "original": {
-        "dir": "nix",
-        "owner": "kmonad",
-        "repo": "kmonad",
-        "type": "github"
-      }
-    },
     "matrix-appservices": {
       "inputs": {
         "devshell": "devshell",
@@ -922,7 +900,6 @@
         "home-manager": "home-manager",
         "hyperbib-eeg": "hyperbib-eeg",
         "i3-workspace-history": "i3-workspace-history",
-        "kmonad": "kmonad",
         "matrix-appservices": "matrix-appservices",
         "nix-on-droid": "nix-on-droid",
         "nixos-hardware": "nixos-hardware",
