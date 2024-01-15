@@ -69,7 +69,6 @@
               };
               overlay-compat = import nixpkgs-compat {
                 inherit system;
-                # follow stable nixpkgs config
                 config = nixpkgsConfig;
               };
               "eeww" = eeww.defaultPackage.${system};
@@ -104,6 +103,7 @@
                   system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
                   nixpkgs = {
                     config.allowUnfree = true;
+                    # obsidian
                     config.permittedInsecurePackages = [
                       "electron-25.9.0"
                     ];
