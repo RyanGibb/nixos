@@ -14,7 +14,6 @@
     matrix.enable = true;
     turn.enable = true;
     mastodon.enable = true;
-    gitea.enable = true;
     headscale.enable = true;
     dns.enable = lib.mkForce false;
   };

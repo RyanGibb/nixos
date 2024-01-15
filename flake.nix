@@ -9,10 +9,9 @@
     nix-on-droid.url = "github:nix-community/nix-on-droid/release-23.05";
     eeww.url = "github:RyanGibb/eeww/nixos";
     eon.url = "github:RyanGibb/eon";
-    eilean.url ="git+https://git@git.freumh.org/ryan/eilean-nix.git?ref=main";
-    # eilean.url ="github:RyanGibb/eilean-nix/main";
-    ryan-website.url = "git+https://git@git.freumh.org/ryan/website.git";
-    ryan-cv.url = "git+ssh://git@git.freumh.org/ryan/cv.git";
+    eilean.url ="github:RyanGibb/eilean-nix/main";
+    ryan-website.url = "git+ssh://git@github.com/RyanGibb/website.git";
+    ryan-cv.url = "git+ssh://git@github.com/RyanGibb/cv.git";
     ryan-website.inputs.cv.follows = "ryan-cv";
     alec-website.url = "github:alexanderhthompson/website";
     fn06-website.url = "github:RyanGibb/fn06";

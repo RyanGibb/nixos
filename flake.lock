@@ -90,16 +90,16 @@
       "locked": {
         "lastModified": 1703623064,
         "narHash": "sha256-cVctg40YjW+BRJkNnG1r8wzhzfnqVKigDS/IzBxJ7Z8=",
-        "ref": "main",
+        "owner": "RyanGibb",
+        "repo": "eilean-nix",
         "rev": "c65f03b4ac1fe87e8ba43df1ea68c6fa691e4d62",
-        "revCount": 51,
-        "type": "git",
-        "url": "https://git@git.freumh.org/ryan/eilean-nix.git"
+        "type": "github"
       },
       "original": {
+        "owner": "RyanGibb",
         "ref": "main",
-        "type": "git",
-        "url": "https://git@git.freumh.org/ryan/eilean-nix.git"
+        "repo": "eilean-nix",
+        "type": "github"
       }
     },
     "eon": {
@@ -194,20 +194,6 @@
         "owner": "numtide",
         "repo": "flake-utils",
         "rev": "3db36a8b464d0c4532ba1c7dda728f4576d6d073",
-        "type": "github"
-      },
-      "original": {
-        "id": "flake-utils",
-        "type": "indirect"
-      }
-    },
-    "flake-utils_11": {
-      "locked": {
-        "lastModified": 1667395993,
-        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
         "type": "github"
       },
       "original": {
@@ -691,11 +677,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1704874635,
-        "narHash": "sha256-YWuCrtsty5vVZvu+7BchAxmcYzTMfolSPP5io8+WYCg=",
+        "lastModified": 1705183652,
+        "narHash": "sha256-rnfkyUH0x72oHfiSDhuCHDHg3gFgF+lF8zkkg5Zihsw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "3dc440faeee9e889fe2d1b4d25ad0f430d449356",
+        "rev": "428544ae95eec077c7f823b422afae5f174dee4b",
         "type": "github"
       },
       "original": {
@@ -944,8 +930,7 @@
         "nixpkgs-compat": "nixpkgs-compat",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "ryan-cv": "ryan-cv",
-        "ryan-website": "ryan-website",
-        "twitcher": "twitcher"
+        "ryan-website": "ryan-website"
       }
     },
     "ryan-cv": {
@@ -962,11 +947,11 @@
         "rev": "4333b459f07f4e1d0c9866988815b5a071db2809",
         "revCount": 37,
         "type": "git",
-        "url": "ssh://git@git.freumh.org/ryan/cv.git"
+        "url": "ssh://git@github.com/RyanGibb/cv.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@git.freumh.org/ryan/cv.git"
+        "url": "ssh://git@github.com/RyanGibb/cv.git"
       }
     },
     "ryan-website": {
@@ -986,11 +971,11 @@
         "rev": "00284e827ec8786ea7c3f49363c7be57db222683",
         "revCount": 487,
         "type": "git",
-        "url": "https://git@git.freumh.org/ryan/website.git"
+        "url": "ssh://git@github.com/RyanGibb/website.git"
       },
       "original": {
         "type": "git",
-        "url": "https://git@git.freumh.org/ryan/website.git"
+        "url": "ssh://git@github.com/RyanGibb/website.git"
       }
     },
     "systems": {
@@ -1066,27 +1051,6 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
-      }
-    },
-    "twitcher": {
-      "inputs": {
-        "flake-utils": "flake-utils_11",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1696880759,
-        "narHash": "sha256-teDDrad6KveLCdpZuhktAcbVK5o+a36fjXiDMK4MzF8=",
-        "ref": "refs/heads/master",
-        "rev": "c4faf2898a6b82682063ee3ca0913fb03453cfd2",
-        "revCount": 218,
-        "type": "git",
-        "url": "https://git@git.freumh.org/ryan/twitcher.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://git@git.freumh.org/ryan/twitcher.git"
       }
     },
     "utils": {
