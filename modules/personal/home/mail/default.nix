@@ -1,6 +1,12 @@
 { pkgs, config, ... }:
 
-{
+let address-book = pkgs.writeScriptBin "address-book" ''
+  #!/usr/bin/env bash
+  ${pkgs.ugrep}/bin/ugrep -jPh -m 100 --color=never "$1"\
+    ${config.accounts.email.maildirBasePath}/addressbook/maildir\
+    ${config.accounts.email.maildirBasePath}/addressbook/cam-ldap
+  '';
+in {
   home.packages = with pkgs; [
     maildir-rank-addr
     (pkgs.writeScriptBin "cam-ldap-addr" ''
@@ -8,6 +14,7 @@
       | ${pkgs.gawk}/bin/awk '/^dn:/{displayName=""; mail=""; next} /^displayName:/{displayName=$2; for(i=3;i<=NF;i++) displayName=displayName " " $i; next} /^mail:/{mail=$2; next} /^$/{if(displayName!="" && mail!="") print mail "\t" displayName}'\
       > ${config.accounts.email.maildirBasePath}/addressbook/cam-ldap
     '')
+    address-book
   ];
 
   xdg.configFile = {
@@ -39,9 +46,7 @@
         general.unsafe-accounts-conf = true;
         general.default-save-path = "~/downloads";
         ui.mouse-enabled = true;
-        compose.address-book-cmd = "${pkgs.ugrep}/bin/ugrep -jPh -m 100 --color=never %s " +
-          "${config.accounts.email.maildirBasePath}/addressbook/maildir " +
-          "${config.accounts.email.maildirBasePath}/addressbook/cam-ldap";
+        compose.address-book-cmd = "${address-book}/bin/address-book '%s'";
         compose.file-picker-cmd = "${pkgs.ranger}/bin/ranger --choosefiles=%f";
         filters = {
           "text/plain" = "wrap -w 100 | colorize";
