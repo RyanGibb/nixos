@@ -85,11 +85,6 @@
       cname = "vps";
       domain = "fn06.org";
     };
-    twitcher = {
-      enable = true;
-      cname = "vps";
-      dotenvFile = "${config.custom.secretsDir}/twitcher.env";
-    };
     colour-guesser = {
       enable = true;
       cname = "vps";

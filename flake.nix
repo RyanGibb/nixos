@@ -16,9 +16,6 @@
     ryan-website.inputs.cv.follows = "ryan-cv";
     alec-website.url = "github:alexanderhthompson/website";
     fn06-website.url = "github:RyanGibb/fn06";
-    # ryan-website.url = "github:RyanGibb/website";
-    twitcher.url = "git+https://git@git.freumh.org/ryan/twitcher.git";
-    # twitcher.url = "github:RyanGibb/twitcher";
     colour-guesser.url = "git+ssh://git@github.com/ryangibb/colour-guesser.git?ref=develop";
     matrix-appservices.url = "gitlab:coffeetables/nix-matrix-appservices";
     kmonad.url = "github:kmonad/kmonad/?dir=nix";
@@ -34,7 +31,6 @@
     ryan-website.inputs.nixpkgs.follows = "nixpkgs";
     alec-website.inputs.nixpkgs.follows = "nixpkgs";
     fn06-website.inputs.nixpkgs.follows = "nixpkgs";
-    twitcher.inputs.nixpkgs.follows = "nixpkgs";
     eeww.inputs.nixpkgs.follows = "nixpkgs";
     eon.inputs.nixpkgs.follows = "nixpkgs";
     colour-guesser.inputs.nixpkgs.follows = "nixpkgs";
@@ -58,7 +54,6 @@
     ryan-website,
     alec-website,
     fn06-website,
-    twitcher,
     colour-guesser,
     matrix-appservices,
     kmonad,
@@ -97,8 +92,6 @@
                 in ryan-website.paramaterizedPackages.${system}.with-cv keys;
               "alec-website" = alec-website.packages.${system}.default;
               "fn06-website" = fn06-website.packages.${system}.default;
-              # `twitcher.nixosModules.default` uses `pkgs.ryan-website`
-              "twitcher" = twitcher.packages.${system}.default;
               "colour-guesser" = colour-guesser.packages.${system}.default;
               "eeww" = eeww.defaultPackage.${system};
               "eon" = eon.defaultPackage.${system};
@@ -145,7 +138,6 @@
                 ryan-website.nixosModules.default
                 alec-website.nixosModules.default
                 fn06-website.nixosModules.default
-                twitcher.nixosModules.default
                 eon.nixosModules.default
                 matrix-appservices.nixosModule
                 kmonad.nixosModules.default
