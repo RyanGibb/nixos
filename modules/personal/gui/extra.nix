@@ -34,7 +34,7 @@ let cfg = config.personal.gui; in
       speechd
       krop
 
-      bitwarden
+      bitwarden-cli
 
       newsboat
     ];
