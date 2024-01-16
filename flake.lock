@@ -380,10 +380,10 @@
       },
       "locked": {
         "lastModified": 1705154127,
-        "narHash": "sha256-I089xmix/0GP+W0ClAY6bBA/ampHi+YEVbZRGpduq+I=",
+        "narHash": "sha256-eR5CErAlsLJDA2tquoWbRvVYLlLHP21U42ggTxgckqc=",
         "owner": "RyanGibb",
         "repo": "home-manager",
-        "rev": "eda1810349392db1bc493b693da673bb89119abe",
+        "rev": "786ee540ad5efcac3d142d10f00f1ee778c2b4c3",
         "type": "github"
       },
       "original": {
@@ -655,11 +655,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1705183652,
-        "narHash": "sha256-rnfkyUH0x72oHfiSDhuCHDHg3gFgF+lF8zkkg5Zihsw=",
+        "lastModified": 1705331948,
+        "narHash": "sha256-qjQXfvrAT1/RKDFAMdl8Hw3m4tLVvMCc8fMqzJv0pP4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "428544ae95eec077c7f823b422afae5f174dee4b",
+        "rev": "b8dd8be3c790215716e7c12b247f45ca525867e2",
         "type": "github"
       },
       "original": {
