@@ -62,7 +62,7 @@ in {
           from = "Ryan Gibb <ryan@freumh.org>";
           check-mail-cmd = "${pkgs.isync}/bin/mbsync --all && ${pkgs.notmuch}/bin/notmuch new";
           check-mail-timeout = "5m";
-          check-mail = "10m";
+          check-mail = "1h";
           source = "notmuch://${config.accounts.email.maildirBasePath}";
           folders-sort = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
           query-map = "${pkgs.writeText "query-map" ''
@@ -114,7 +114,7 @@ in {
             folders-sort = [ "Inbox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
             check-mail-cmd = "${pkgs.isync}/bin/mbsync ryan@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
             check-mail-timeout = "1m";
-            check-mail = "10m";
+            check-mail = "1h";
             folder-map = "${pkgs.writeText "folder-map" ''
               Spam = Junk
             ''}";
@@ -146,7 +146,7 @@ in {
             folders-sort = [ "Inbox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
             check-mail-cmd = "${pkgs.isync}/bin/mbsync misc@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
             check-mail-timeout = "1m";
-            check-mail = "10m";
+            check-mail = "1h";
             folder-map = "${pkgs.writeText "folder-map" ''
               Spam = Junk
             ''}";
@@ -177,7 +177,7 @@ in {
             folders-sort = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
             check-mail-cmd = "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && ${pkgs.notmuch}/bin/notmuch new";
             check-mail-timeout = "1m";
-            check-mail = "10m";
+            check-mail = "1h";
           };
         };
         notmuch.enable = true;
@@ -209,7 +209,7 @@ in {
             folders-sort = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
             check-mail-cmd = "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com && ${pkgs.notmuch}/bin/notmuch new";
             check-mail-timeout = "1m";
-            check-mail = "10m";
+            check-mail = "1h";
             folder-map = "${pkgs.writeText "folder-map" ''
               * = [Gmail]/*
               Trash = Bin
