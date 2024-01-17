@@ -51,7 +51,7 @@
 
     nix = {
       buildMachines = [ {
-        hostName = "ssh-ng://rtg24@daintree.cl.cam.ac.uk";
+        hostName = "rtg24@daintree.cl.cam.ac.uk";
         system = "x86_64-linux";
         protocol = "ssh-ng";
         maxJobs = 1;
