@@ -55,7 +55,6 @@
   }@inputs: rec {
     nixosConfigurations =
       let
-        hosts = builtins.attrNames (builtins.readDir ./hosts);
         getSystemOverlays = system: nixpkgsConfig:
           [
             (final: prev: {
@@ -80,7 +79,7 @@
             })
           ];
 
-        mkHost = mode: hostname:
+        mkMode = mode: host:
           nixpkgs.lib.nixosSystem {
             # use system from config.localSystem
             # see https://github.com/NixOS/nixpkgs/blob/5297d584bcc5f95c8e87c631813b4e2ab7f19ecc/nixos/lib/eval-config.nix#L55
@@ -89,10 +88,10 @@
             specialArgs = inputs;
             modules =
               [
-                ./hosts/${hostname}/${mode}.nix
+                ./hosts/${host}/${mode}.nix
                 ./modules/default.nix
                 ({ config, ... }: {
-                  networking.hostName = "${hostname}";
+                  networking.hostName = "${host}";
                   # pin nix command's nixpkgs flake to the system flake to avoid unnecessary downloads
                   nix.registry.nixpkgs.flake = nixpkgs;
                   system.stateVersion = "22.05";
@@ -116,10 +115,30 @@
                 hyperbib-eeg.nixosModules.default
               ];
             };
-        mkHosts = hosts: nixpkgs.lib.genAttrs hosts (mkHost "default");
-        mkModeHosts = mode: hosts:
-          (builtins.listToAttrs (builtins.map (host: { name = "${host}-${mode}"; value = mkHost mode host; } ) hosts));
-      in mkHosts hosts // mkModeHosts "minimal" hosts;
+        readModes = dir:
+          let files = builtins.readDir dir; in
+          let filtered = nixpkgs.lib.attrsets.filterAttrs (n: v:
+            v == "regular" && (
+              n == "default.nix" ||
+              n == "minimal.nix" ||
+              n == "installer.nix"
+            )
+          ) files; in
+          let names = nixpkgs.lib.attrNames filtered; in
+          builtins.map (f: nixpkgs.lib.strings.removeSuffix ".nix" f) names;
+        mkModes = host: modes:
+          builtins.map (mode:
+            {
+              name = "${host}${if mode == "default" then "" else "-${mode}"}";
+              value = mkMode mode host;
+            }
+          ) modes;
+        mkHosts = hosts:
+        let nestedList = builtins.map (host: mkModes host (readModes ./hosts/${host})) hosts; in
+          let list = nixpkgs.lib.lists.flatten nestedList; in
+          builtins.listToAttrs list;
+        hosts = builtins.attrNames (builtins.readDir ./hosts);
+      in mkHosts hosts;
 
     nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
       modules = [ ./nix-on-droid/default.nix ];
