@@ -1,11 +1,12 @@
 { pkgs, config, ... }:
 
-let address-book = pkgs.writeScriptBin "address-book" ''
-  #!/usr/bin/env bash
-  ${pkgs.ugrep}/bin/ugrep -jPh -m 100 --color=never "$1"\
-    ${config.accounts.email.maildirBasePath}/addressbook/maildir\
-    ${config.accounts.email.maildirBasePath}/addressbook/cam-ldap
-  '';
+let
+  address-book = pkgs.writeScriptBin "address-book" ''
+    #!/usr/bin/env bash
+    ${pkgs.ugrep}/bin/ugrep -jPh -m 100 --color=never "$1"\
+      ${config.accounts.email.maildirBasePath}/addressbook/maildir\
+      ${config.accounts.email.maildirBasePath}/addressbook/cam-ldap
+    '';
 in {
   home.packages = with pkgs; [
     maildir-rank-addr
@@ -18,7 +19,6 @@ in {
   ];
 
   xdg.configFile = {
-    "aerc/binds.conf".source = ./aerc-binds.conf;
     "maildir-rank-addr/config".text = with config.accounts.email; ''
       maildir = "${config.accounts.email.maildirBasePath}"
       outputpath = "${config.accounts.email.maildirBasePath}/addressbook/maildir"
@@ -49,6 +49,8 @@ in {
         ui.mouse-enabled = true;
         compose.address-book-cmd = "${address-book}/bin/address-book '%s'";
         compose.file-picker-cmd = "${pkgs.ranger}/bin/ranger --choosefiles=%f";
+        ui.index-columns = "date<20,name<=,flags>4,subject<*";
+        ui.column-name = "{{index (.From | persons) 0}}";
         filters = {
           "text/plain" = "colorize";
           "text/calendar" = "calendar";
@@ -66,17 +68,18 @@ in {
           source = "notmuch://${config.accounts.email.maildirBasePath}";
           folders-sort = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
           query-map = "${pkgs.writeText "query-map" ''
-            Inbox=folder:ryan@freumh.org/Inbox folder:ryangibb321@gmail.com/Inbox folder:ryan.gibb@cl.cam.ac.uk/Inbox/
-            Sidebox=folder:ryan@freumh.org/Sidebox folder:ryangibb321@gmail.com/Sidebox folder:ryan.gibb@cl.cam.ac.uk/Sidebox/
-            Sent=folder:ryan@freumh.org/Sent folder:ryangibb321@gmail.com/Sent folder:ryan.gibb@cl.cam.ac.uk/Sent/
-            Drafts=folder:ryan@freumh.org/Drafts folder:ryangibb321@gmail.com/Drafts folder:ryan.gibb@cl.cam.ac.uk/Drafts/
-            Archive=folder:ryan@freumh.org/Archive folder:ryangibb321@gmail.com/Archive folder:ryan.gibb@cl.cam.ac.uk/Archive/
-            Spam=folder:ryan@freumh.org/Spam folder:ryangibb321@gmail.com/Spam folder:ryan.gibb@cl.cam.ac.uk/Spam/
-            Trash=folder:ryan@freumh.org/Trash folder:ryangibb321@gmail.com/Trash folder:ryan.gibb@cl.cam.ac.uk/Trash/
+            Inbox=not tag:aerc and (path:ryan@freumh.org/Inbox** or path:ryangibb321@gmail.com/Inbox** or path:ryan.gibb@cl.cam.ac.uk/Inbox/**)
+            Sidebox=not tag:aerc and (path:ryan@freumh.org/Sidebox** or path:ryangibb321@gmail.com/Sidebox** or path:ryan.gibb@cl.cam.ac.uk/Sidebox/**)
+            Sent=not tag:aerc and (path:ryan@freumh.org/Sent** or path:ryangibb321@gmail.com/Sent** or path:ryan.gibb@cl.cam.ac.uk/Sent/**)
+            Drafts=not tag:aerc and (path:ryan@freumh.org/Drafts** or path:ryangibb321@gmail.com/Drafts** or path:ryan.gibb@cl.cam.ac.uk/Drafts/**)
+            Archive=not tag:aerc and (path:ryan@freumh.org/Archive** or path:ryangibb321@gmail.com/Archive** or path:ryan.gibb@cl.cam.ac.uk/Archive/**)
+            Spam=not tag:aerc and (path:ryan@freumh.org/Spam** or path:ryangibb321@gmail.com/Spam** or path:ryan.gibb@cl.cam.ac.uk/Spam/**)
+            Trash=not tag:aerc and (path:ryan@freumh.org/Trash** or path:ryangibb321@gmail.com/Trash** or path:ryan.gibb@cl.cam.ac.uk/Trash/**)
           ''}";
           auto-switch-account = true;
         };
       };
+      extraBinds = import ./aerc-binds.nix;
     };
   };
 
@@ -94,13 +97,13 @@ in {
         realName = "Ryan Gibb";
         userName = "ryan@freumh.org";
         address = "ryan@freumh.org";
-        passwordCommand = "${pkgs.pass}/bin/pass show email/ryan@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
+        passwordCommand = "${pkgs.pass}/bin/pass show email/ryan@freumh.org";
         imap.host = "mail.freumh.org";
         smtp.host = "mail.freumh.org";
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync ryan@freumh.org";
+          onNotify = "${pkgs.isync}/bin/mbsync ryan@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
         };
         mbsync = {
           enable = true;
@@ -126,13 +129,13 @@ in {
         userName = "misc@freumh.org";
         address = "misc@freumh.org";
         realName = "Misc";
-        passwordCommand = "${pkgs.pass}/bin/pass show email/misc@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
+        passwordCommand = "${pkgs.pass}/bin/pass show email/misc@freumh.org";
         imap.host = "mail.freumh.org";
         smtp.host = "mail.freumh.org";
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync misc@freumh.org";
+          onNotify = "${pkgs.isync}/bin/mbsync misc@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
         };
         mbsync = {
           enable = true;
@@ -178,6 +181,7 @@ in {
             check-mail-cmd = "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && ${pkgs.notmuch}/bin/notmuch new";
             check-mail-timeout = "1m";
             check-mail = "1h";
+            aliases = "rtg24@cam.ac.uk";
           };
         };
         notmuch.enable = true;
