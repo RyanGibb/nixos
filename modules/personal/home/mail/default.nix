@@ -192,10 +192,6 @@ in {
         realName = "Ryan Gibb";
         passwordCommand = "${pkgs.pass}/bin/pass show email/ryangibb321@gmail.com";
         flavor = "gmail.com";
-        folders = {
-          sent = "Sent Mail";
-          trash = "Trash";
-        };
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
