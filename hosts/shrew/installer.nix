@@ -7,7 +7,6 @@
 
   nixpkgs.hostPlatform = "aarch64-linux";
 
-  networking.hostName = "sd-image";
   personal = {
     enable = true;
     machineColour = "red";
