@@ -68,13 +68,13 @@ in {
           source = "notmuch://${config.accounts.email.maildirBasePath}";
           folders-sort = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
           query-map = "${pkgs.writeText "query-map" ''
-            Inbox=not tag:aerc and (path:ryan@freumh.org/Inbox** or path:ryangibb321@gmail.com/Inbox** or path:ryan.gibb@cl.cam.ac.uk/Inbox/**)
-            Sidebox=not tag:aerc and (path:ryan@freumh.org/Sidebox** or path:ryangibb321@gmail.com/Sidebox** or path:ryan.gibb@cl.cam.ac.uk/Sidebox/**)
-            Sent=not tag:aerc and (path:ryan@freumh.org/Sent** or path:ryangibb321@gmail.com/Sent** or path:ryan.gibb@cl.cam.ac.uk/Sent/**)
-            Drafts=not tag:aerc and (path:ryan@freumh.org/Drafts** or path:ryangibb321@gmail.com/Drafts** or path:ryan.gibb@cl.cam.ac.uk/Drafts/**)
-            Archive=not tag:aerc and (path:ryan@freumh.org/Archive** or path:ryangibb321@gmail.com/Archive** or path:ryan.gibb@cl.cam.ac.uk/Archive/**)
-            Spam=not tag:aerc and (path:ryan@freumh.org/Spam** or path:ryangibb321@gmail.com/Spam** or path:ryan.gibb@cl.cam.ac.uk/Spam/**)
-            Trash=not tag:aerc and (path:ryan@freumh.org/Trash** or path:ryangibb321@gmail.com/Trash** or path:ryan.gibb@cl.cam.ac.uk/Trash/**)
+            Inbox=folder:ryan@freumh.org/Inbox folder:ryangibb321@gmail.com/Inbox folder:ryan.gibb@cl.cam.ac.uk/Inbox/
+            Sidebox=folder:ryan@freumh.org/Sidebox folder:ryangibb321@gmail.com/Sidebox folder:ryan.gibb@cl.cam.ac.uk/Sidebox/
+            Sent=folder:ryan@freumh.org/Sent folder:ryangibb321@gmail.com/Sent folder:ryan.gibb@cl.cam.ac.uk/Sent/
+            Drafts=folder:ryan@freumh.org/Drafts folder:ryangibb321@gmail.com/Drafts folder:ryan.gibb@cl.cam.ac.uk/Drafts/
+            Archive=folder:ryan@freumh.org/Archive folder:ryangibb321@gmail.com/Archive folder:ryan.gibb@cl.cam.ac.uk/Archive/
+            Spam=folder:ryan@freumh.org/Spam folder:ryangibb321@gmail.com/Spam folder:ryan.gibb@cl.cam.ac.uk/Spam/
+            Trash=folder:ryan@freumh.org/Trash folder:ryangibb321@gmail.com/Trash folder:ryan.gibb@cl.cam.ac.uk/Trash/
           ''}";
           auto-switch-account = true;
         };
