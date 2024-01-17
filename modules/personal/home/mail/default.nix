@@ -49,7 +49,7 @@ in {
         ui.mouse-enabled = true;
         compose.address-book-cmd = "${address-book}/bin/address-book '%s'";
         compose.file-picker-cmd = "${pkgs.ranger}/bin/ranger --choosefiles=%f";
-        ui.index-columns = "date<20,name<=,flags>4,subject<*";
+        ui.index-columns = "date<=,name<=,flags>=,subject<*";
         ui.column-name = "{{index (.From | persons) 0}}";
         filters = {
           "text/plain" = "colorize";
