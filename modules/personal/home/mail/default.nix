@@ -62,7 +62,7 @@ in {
       extraAccounts = {
         all = {
           from = "Ryan Gibb <ryan@freumh.org>";
-          check-mail-cmd = "${pkgs.isync}/bin/mbsync --all && ${pkgs.notmuch}/bin/notmuch new";
+          check-mail-cmd = "${pkgs.notmuch}/bin/notmuch new";
           check-mail-timeout = "5m";
           check-mail = "1h";
           source = "notmuch://${config.accounts.email.maildirBasePath}";
