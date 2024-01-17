@@ -56,6 +56,7 @@ let cfg = config.personal; in
         pandoc
         w3m
         ranger
+        bluetuith
         powertop
       ];
       variables.EDITOR = "nvim";
