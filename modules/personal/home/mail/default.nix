@@ -90,7 +90,7 @@ in {
 
   accounts.email = {
     maildirBasePath = "mail";
-    order = [ "ryangibb321@gmail.com" "ryan.gibb@cl.cam.ac.uk" "misc@freumh.org" ];
+    order = [ "ryangibb321@gmail.com" "ryan.gibb@cl.cam.ac.uk" ];
     accounts = {
       "ryan@freumh.org" = {
         primary = true;
@@ -144,7 +144,7 @@ in {
           remove = "both";
         };
         aerc = {
-          enable = true;
+          #enable = true;
           extraAccounts = {
             folders-sort = [ "Inbox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
             check-mail-cmd = "${pkgs.isync}/bin/mbsync misc@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
