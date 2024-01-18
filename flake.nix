@@ -121,7 +121,7 @@
             v == "regular" && (
               n == "default.nix" ||
               n == "minimal.nix" ||
-              n == "installer.nix"
+              n == "sd-image.nix"
             )
           ) files; in
           let names = nixpkgs.lib.attrNames filtered; in
