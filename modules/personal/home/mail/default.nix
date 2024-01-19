@@ -40,7 +40,7 @@ in {
     password-store.enable = true;
     gpg.enable = true;
     mbsync.enable = true;
-    notmuch.enable = true;
+    mu.enable = true;
     aerc = {
       enable = true;
       extraConfig = {
@@ -106,7 +106,6 @@ in {
             ''}";
           };
         };
-        notmuch.enable = true;
       };
       "misc@freumh.org" = {
         userName = "misc@freumh.org";
@@ -126,7 +125,6 @@ in {
           expunge = "both";
           remove = "both";
         };
-        notmuch.enable = true;
       };
       "ryan.gibb@cl.cam.ac.uk" = {
         userName = "rtg24@fm.cl.cam.ac.uk";
@@ -154,9 +152,7 @@ in {
             aliases = "rtg24@cam.ac.uk";
             folders-sort = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
           };
-          notmuch.enable = true;
         };
-        notmuch.enable = true;
       };
       "ryangibb321@gmail.com" = {
         userName = "ryangibb321@gmail.com";
@@ -192,7 +188,6 @@ in {
             copy-to = "[Gmail]/Sent Mail";
           };
         };
-        notmuch.enable = true;
       };
     };
   };
