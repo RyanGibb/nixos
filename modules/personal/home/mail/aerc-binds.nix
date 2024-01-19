@@ -40,16 +40,16 @@
     "zc" = ":fold<Enter>";
     "zo" = ":unfold<Enter>";
     "<Enter>" = ":view<Enter>";
-    "d" = ":move Trash<Enter>";
+    "d" = ":modify-labels trash<Enter>";
     "D" = ":prompt 'Really delete this message?' 'delete-message'<Enter>";
-    "<C-s>" = ":move Spam<Enter>";
-    "a" = ":read<Enter>:archive flat<Enter>";
-    "A" = ":unmark -a<Enter>:mark -T<Enter>:archive flat<Enter>";
+    "<C-s>" = ":modify-labels Spam<Enter>";
+    "a" = ":read<Enter>:modify-labels -inbox +archive<Enter>";
+    "A" = ":unmark -a<Enter>:mark -T<Enter>:read<Enter>:modify-labels -inbox +archive <Enter>";
     "C" = ":compose<Enter>";
-    "rr" = ":reply -a<Enter>";
-    "rq" = ":reply -aq<Enter>";
-    "Rr" = ":reply<Enter>";
-    "Rq" = ":reply -q<Enter>";
+    "rr" = '':reply -aA {{index (.Filename | split ("/")) 4}}<Enter>'';
+    "rq" = '':reply -aqA {{index (.Filename | split ("/")) 4}}<Enter>'';
+    "Rr" = '':replyA {{index (.Filename | split ("/")) 4}}<Enter>'';
+    "Rq" = '':reply -qA {{index (.Filename | split ("/")) 4}}<Enter>'';
     "c" = ":cf<space>";
     "$" = ":term<space>";
     "!" = ":term<space>";
@@ -79,8 +79,9 @@
     "|" = ":pipe<space>";
     "d" = ":move Trash<Enter>";
     "D" = ":prompt 'Really delete this message?' 'delete-message'<Enter>";
-    "<C-s>" = ":move Spam<Enter>";
-    "a" = ":archive flat<Enter>";
+    "<C-s>" = ":modify-labels Spam<Enter>";
+    "a" = ":read<Enter>:modify-labels -inbox +archive<Enter>";
+    "A" = ":unmark -a<Enter>:mark -T<Enter>:read<Enter>:modify-labels -inbox +archive <Enter>";
     "<C-l>" = ":open-link <space>";
     "f" = ":forward<Enter>";
     "rr" = ":reply -a<Enter>";
@@ -102,26 +103,6 @@
     "$noinherit" = "true";
     "$ex" = "<C-x>";
     "<Esc>" = ":toggle-key-passthrough<Enter>";
-  };
-
-  "messages:account=all" = {
-    "a" = ":read<Enter>:modify-labels -inbox +archive<Enter>";
-    "A" = ":unmark -a<Enter>:mark -T<Enter>:read<Enter>:modify-labels -inbox +archive <Enter>";
-    "rr" = '':reply -aA {{index (.Filename | split ("/")) 4}}<Enter>'';
-    "rq" = '':reply -aqA {{index (.Filename | split ("/")) 4}}<Enter>'';
-    "Rr" = '':replyA {{index (.Filename | split ("/")) 4}}<Enter>'';
-    "Rq" = '':reply -qA {{index (.Filename | split ("/")) 4}}<Enter>'';
-    "d" = ":modify-labels trash<Enter>";
-    "<C-s>" = ":modify-labels Spam<Enter>";
-  };
-
-  "view:account=all" = {
-    "a" = ":read<Enter>:modify-labels -inbox +archive<Enter>";
-    "A" = ":unmark -a<Enter>:mark -T<Enter>:read<Enter>:modify-labels -inbox +archive <Enter>";
-    "rr" = '':reply -aA {{index (.Filename | split ("/")) 4}}<Enter>'';
-    "rq" = '':reply -aqA {{index (.Filename | split ("/")) 4}}<Enter>'';
-    "Rr" = '':replyA {{index (.Filename | split ("/")) 4}}<Enter>'';
-    "Rq" = '':reply -qA {{index (.Filename | split ("/")) 4}}<Enter>'';
   };
 
   compose = {

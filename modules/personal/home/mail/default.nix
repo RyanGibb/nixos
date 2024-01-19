@@ -72,7 +72,7 @@ in {
           from = "Ryan Gibb <ryan@freumh.org>";
           outgoing = "smtps+plain://ryan@freumh.org@mail.freumh.org:465";
           outgoing-cred-cmd = "${pkgs.pass}/bin/pass show email/ryan@freumh.org";
-          check-mail-cmd = "${pkgs.notmuch}/bin/notmuch new";
+          check-mail-cmd = "${sync-mail}/bin/sync-mail && ${pkgs.notmuch}/bin/notmuch new";
           check-mail-timeout = "5m";
           check-mail = "1h";
           source = "notmuch://${config.accounts.email.maildirBasePath}";
@@ -80,9 +80,7 @@ in {
           query-map = "${pkgs.writeText "query-map" ''
             inbox   = tag:inbox
             sidebox = tag:sidebox
-            sent    = tag:sent
-            draft   = tag:sent
-            archive = tag:archive
+            archive = not tag:inbox and not tag:sidebox and not tag:spam and not tag:trash
             spam    = tag:spam
             trash   = tag:trash
           ''}";
@@ -116,7 +114,7 @@ in {
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync ryan@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
+          onNotify = " ${sync-mail}/bin/sync-mail && ${pkgs.notmuch}/bin/notmuch new";
         };
         mbsync = {
           enable = true;
@@ -127,25 +125,26 @@ in {
         aerc = {
           enable = true;
           extraAccounts = {
-            check-mail-cmd = "${pkgs.isync}/bin/mbsync ryan@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
+            check-mail-cmd = "${sync-mail}/bin/sync-mail ryan@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
             check-mail-timeout = "1m";
             check-mail = "1h";
-            folders-sort = [ "Inbox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
+            #folders-sort = [ "Inbox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
             folder-map = "${pkgs.writeText "folder-map" ''
               Spam = Junk
             ''}";
-            #folders-sort = [ "inbox" "sidebox" "sent" "archive" "spam" "trash" ];
+            folders-sort = [ "inbox" "sidebox" "sent" "drafts" "archive" "spam" "trash" ];
+            folders-exclude = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
             query-map = "${pkgs.writeText "query-map" ''
               inbox   = folder:/ryan@freumh.org/ and tag:inbox
               sidebox = folder:/ryan@freumh.org/ and tag:sidebox
-              sent    = folder:/ryan@freumh.org/ and tag:sent
-              draft   = folder:/ryan@freumh.org/ and tag:sent
-              archive = folder:/ryan@freumh.org/ and tag:archive
+              sent    = folder:ryan@freumh.org/Sent
+              drafts  = folder:ryan@freumh.org/Drafts
+              archive = folder:/ryan@freumh.org/ and not tag:inbox and not tag:sidebox and not tag:spam and not tag:trash
               spam    = folder:/ryan@freumh.org/ and tag:spam
               trash   = folder:/ryan@freumh.org/ and tag:trash
             ''}";
           };
-          #notmuch.enable = true;
+          notmuch.enable = true;
         };
         notmuch.enable = true;
       };
@@ -159,7 +158,7 @@ in {
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync misc@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
+          onNotify = "${sync-mail}/bin/sync-mail misc@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
         };
         mbsync = {
           enable = true;
@@ -178,7 +177,7 @@ in {
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && ${pkgs.notmuch}/bin/notmuch new";
+          onNotify = "${sync-mail}/bin/sync-mail ryan.gibb@cl.cam.ac.uk && ${pkgs.notmuch}/bin/notmuch new";
         };
         mbsync = {
           enable = true;
@@ -189,23 +188,24 @@ in {
         aerc = {
           enable = true;
           extraAccounts = {
-            check-mail-cmd = "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && ${pkgs.notmuch}/bin/notmuch new";
+            check-mail-cmd = "${sync-mail}/bin/sync-mail ryan.gibb@cl.cam.ac.uk && ${pkgs.notmuch}/bin/notmuch new";
             check-mail-timeout = "1m";
             check-mail = "1h";
             aliases = "rtg24@cam.ac.uk";
-            folders-sort = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
-            #folders-sort = [ "inbox" "sidebox" "sent" "archive" "spam" "trash" ];
+            #folders-sort = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
+            folders-sort = [ "inbox" "sidebox" "sent" "drafts" "archive" "spam" "trash" ];
+            folders-exclude = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
             query-map = "${pkgs.writeText "query-map" ''
               inbox   = folder:/ryan.gibb@cl.cam.ac.uk/ and tag:inbox
               sidebox = folder:/ryan.gibb@cl.cam.ac.uk/ and tag:sidebox
-              sent    = folder:/ryan.gibb@cl.cam.ac.uk/ and tag:sent
-              draft   = folder:/ryan.gibb@cl.cam.ac.uk/ and tag:sent
-              archive = folder:/ryan.gibb@cl.cam.ac.uk/ and tag:archive
+              sent    = folder:ryan.gibb@cl.cam.ac.uk/Sent
+              drafts  = folder:ryan.gibb@cl.cam.ac.uk/Drafts
+              archive = folder:/ryan.gibb@cl.cam.ac.uk/ and not tag:inbox and not tag:sidebox and not tag:spam and not tag:trash
               spam    = folder:/ryan.gibb@cl.cam.ac.uk/ and tag:spam
               trash   = folder:/ryan.gibb@cl.cam.ac.uk/ and tag:trash
             ''}";
           };
-          #notmuch.enable = true;
+          notmuch.enable = true;
         };
         notmuch.enable = true;
       };
@@ -218,7 +218,7 @@ in {
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com && ${pkgs.notmuch}/bin/notmuch new";
+          onNotify = "${sync-mail}/bin/sync-mail ryangibb321@gmail.com && ${pkgs.notmuch}/bin/notmuch new";
         };
         mbsync = {
           enable = true;
@@ -229,28 +229,31 @@ in {
         aerc = {
           enable = true;
           extraAccounts = {
-            check-mail-cmd = "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com && ${pkgs.notmuch}/bin/notmuch new";
+            check-mail-cmd = "${sync-mail}/bin/sync-mail ryangibb321@gmail.com && ${pkgs.notmuch}/bin/notmuch new";
             check-mail-timeout = "1m";
             check-mail = "1h";
-            folders-sort = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
+            #folders-sort = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
             folder-map = "${pkgs.writeText "folder-map" ''
               * = [Gmail]/*
-              Trash = Bin
-              Archive = All Mail
               Sent = Sent Mail
+              Archive = All Mail
+              Trash = Bin
             ''}";
-            #folders-sort = [ "inbox" "sidebox" "sent" "archive" "spam" "trash" ];
+            folders-sort = [ "inbox" "sidebox" "sent" "drafts" "archive" "spam" "trash" ];
+            folders-exclude = [ "Inbox" "Sidebox" "~Gmail" ];
+            postpone = "[Gmail]/Drafts";
+            copy-to = "[Gmail]/Sent Mail";
             query-map = "${pkgs.writeText "query-map" ''
               inbox   = folder:/ryangibb321@gmail.com/ and tag:inbox
               sidebox = folder:/ryangibb321@gmail.com/ and tag:sidebox
-              sent    = folder:/ryangibb321@gmail.com/ and tag:sent
-              draft   = folder:/ryangibb321@gmail.com/ and tag:sent
-              archive = folder:/ryangibb321@gmail.com/ and tag:archive
+              sent    = folder:/ryangibb321@gmail.com.*Sent.*/
+              drafts  = folder:/ryangibb321@gmail.com.*Drafts/
+              archive = folder:/ryangibb321@gmail.com/ and not tag:inbox and not tag:sidebox and not tag:spam and not tag:trash
               spam    = folder:/ryangibb321@gmail.com/ and tag:spam
               trash   = folder:/ryangibb321@gmail.com/ and tag:trash
             ''}";
           };
-          #notmuch.enable = true;
+          notmuch.enable = true;
         };
         notmuch.enable = true;
       };
