@@ -7,7 +7,9 @@ let
       ${config.accounts.email.maildirBasePath}/addressbook/maildir\
       ${config.accounts.email.maildirBasePath}/addressbook/cam-ldap
     '';
-  sync-mail = pkgs.writeScriptBin "sync-mail" (import ./sync-mail.nix config.accounts.email.maildirBasePath pkgs.isync);
+  sync-mail = pkgs.writeScriptBin "sync-mail" (
+    import ./sync-mail.nix config.accounts.email.maildirBasePath pkgs.isync pkgs.notmuch
+  );
 in {
   home.packages = with pkgs; [
     maildir-rank-addr
@@ -42,7 +44,12 @@ in {
     password-store.enable = true;
     gpg.enable = true;
     mbsync.enable = true;
-    notmuch.enable = true;
+    notmuch = {
+      enable = true;
+      # sending mail to self doesn't count as new to notmuch's index so we handle this manually in sync-mail
+      new.tags = [ ];
+      search.excludeTags = [ "trash" "spam" ];
+    };
     aerc = {
       enable = true;
       extraConfig = {
@@ -72,14 +79,16 @@ in {
           from = "Ryan Gibb <ryan@freumh.org>";
           outgoing = "smtps+plain://ryan@freumh.org@mail.freumh.org:465";
           outgoing-cred-cmd = "${pkgs.pass}/bin/pass show email/ryan@freumh.org";
-          check-mail-cmd = "${sync-mail}/bin/sync-mail && ${pkgs.notmuch}/bin/notmuch new";
+          check-mail-cmd = "${sync-mail}/bin/sync-mail >> ~/.sync-mail.log";
           check-mail-timeout = "5m";
           check-mail = "1h";
           source = "notmuch://${config.accounts.email.maildirBasePath}";
-          folders-sort = [ "inbox" "sidebox" "sent" "archive" "spam" "trash" ];
+          folders-sort = [ "inbox" "sidebox" "sent" "drafts" "archive" "spam" "trash" ];
           query-map = "${pkgs.writeText "query-map" ''
             inbox   = tag:inbox
             sidebox = tag:sidebox
+            sent    = folder:/Sent/ or folder:/ryangibb321@gmail.com.*Sent.*/
+            drafts  = folder:/Drafts/
             archive = not tag:inbox and not tag:sidebox and not tag:spam and not tag:trash
             spam    = tag:spam
             trash   = tag:trash
@@ -114,7 +123,7 @@ in {
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = " ${sync-mail}/bin/sync-mail && ${pkgs.notmuch}/bin/notmuch new";
+          onNotify = "${sync-mail}/bin/sync-mail ryan@freumh.org";
         };
         mbsync = {
           enable = true;
@@ -125,7 +134,7 @@ in {
         aerc = {
           enable = true;
           extraAccounts = {
-            check-mail-cmd = "${sync-mail}/bin/sync-mail ryan@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
+            check-mail-cmd = "${sync-mail}/bin/sync-mail ryan@freumh.org >> ~/.sync-mail.log";
             check-mail-timeout = "1m";
             check-mail = "1h";
             #folders-sort = [ "Inbox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
@@ -158,7 +167,7 @@ in {
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${sync-mail}/bin/sync-mail misc@freumh.org && ${pkgs.notmuch}/bin/notmuch new";
+          onNotify = "${sync-mail}/bin/sync-mail misc@freumh.org";
         };
         mbsync = {
           enable = true;
@@ -177,7 +186,7 @@ in {
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${sync-mail}/bin/sync-mail ryan.gibb@cl.cam.ac.uk && ${pkgs.notmuch}/bin/notmuch new";
+          onNotify = "${sync-mail}/bin/sync-mail ryan.gibb@cl.cam.ac.uk";
         };
         mbsync = {
           enable = true;
@@ -188,7 +197,7 @@ in {
         aerc = {
           enable = true;
           extraAccounts = {
-            check-mail-cmd = "${sync-mail}/bin/sync-mail ryan.gibb@cl.cam.ac.uk && ${pkgs.notmuch}/bin/notmuch new";
+            check-mail-cmd = "${sync-mail}/bin/sync-mail ryan.gibb@cl.cam.ac.uk >> ~/.sync-mail.log";
             check-mail-timeout = "1m";
             check-mail = "1h";
             aliases = "rtg24@cam.ac.uk";
@@ -218,7 +227,7 @@ in {
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${sync-mail}/bin/sync-mail ryangibb321@gmail.com && ${pkgs.notmuch}/bin/notmuch new";
+          onNotify = "${sync-mail}/bin/sync-mail ryangibb321@gmail.com";
         };
         mbsync = {
           enable = true;
@@ -229,7 +238,7 @@ in {
         aerc = {
           enable = true;
           extraAccounts = {
-            check-mail-cmd = "${sync-mail}/bin/sync-mail ryangibb321@gmail.com && ${pkgs.notmuch}/bin/notmuch new";
+            check-mail-cmd = "${sync-mail}/bin/sync-mail ryangibb321@gmail.com >> ~/.sync-mail.log";
             check-mail-timeout = "1m";
             check-mail = "1h";
             #folders-sort = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];

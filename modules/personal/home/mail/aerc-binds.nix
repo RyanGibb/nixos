@@ -40,9 +40,9 @@
     "zc" = ":fold<Enter>";
     "zo" = ":unfold<Enter>";
     "<Enter>" = ":view<Enter>";
-    "d" = ":modify-labels trash<Enter>";
+    "d" = ":modify-labels -inbox -unread +trash<Enter>";
     "D" = ":prompt 'Really delete this message?' 'delete-message'<Enter>";
-    "<C-s>" = ":modify-labels Spam<Enter>";
+    "<C-s>" = ":modify-labels -inbox spam<Enter>";
     "a" = ":read<Enter>:modify-labels -inbox +archive<Enter>";
     "A" = ":unmark -a<Enter>:mark -T<Enter>:read<Enter>:modify-labels -inbox +archive <Enter>";
     "C" = ":compose<Enter>";
@@ -77,7 +77,7 @@
     "o" = ":open<Enter>";
     "S" = ":save<space>";
     "|" = ":pipe<space>";
-    "d" = ":move Trash<Enter>";
+    "d" = ":modify-labels -inbox -unread +trash<Enter>";
     "D" = ":prompt 'Really delete this message?' 'delete-message'<Enter>";
     "<C-s>" = ":modify-labels Spam<Enter>";
     "a" = ":read<Enter>:modify-labels -inbox +archive<Enter>";
@@ -137,18 +137,13 @@
   };
 
   "compose::review" = {
-    "y" = ":send -a flat<Enter>";
-    "Y" = ":send<Enter>";
+    "y" = ":send<Enter>";
     "q" = ":abort<Enter>";
     "v" = ":preview<Enter>";
     "p" = ":postpone<Enter>";
     "e" = ":edit<Enter>";
     "a" = ":attach -m<space>";
     "d" = ":detach<space>";
-  };
-
-  "compose::review:account=all" = {
-    "y" = ":send<Enter>:read<Enter>:modify-labels -inbox +archive<Enter>";
   };
 
   terminal = {
