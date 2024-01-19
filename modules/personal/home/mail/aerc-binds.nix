@@ -35,7 +35,8 @@
     "<Space>" = ":mark -t<Enter>:next<Enter>";
     "V" = ":mark -v<Enter>";
     "m" = ":read -t<Enter>";
-    "T" = ":toggle-threads<Enter>";
+    "t" = ":toggle-threads<Enter>";
+    "T" = ":toggle-thread-context<Enter>";
     "zc" = ":fold<Enter>";
     "zo" = ":unfold<Enter>";
     "<Enter>" = ":view<Enter>";
@@ -61,6 +62,7 @@
     "<Esc>" = ":clear<Enter>";
     "s" = ":split<Enter>";
     "S" = ":vsplit<Enter>";
+    "<C-r>" = ":check-mail<Enter>";
   };
 
   "messages:folder=Drafts" = {
@@ -102,6 +104,26 @@
     "<Esc>" = ":toggle-key-passthrough<Enter>";
   };
 
+  "messages:account=all" = {
+    "a" = ":read<Enter>:modify-labels -inbox +archive<Enter>";
+    "A" = ":unmark -a<Enter>:mark -T<Enter>:read<Enter>:modify-labels -inbox +archive <Enter>";
+    "rr" = '':reply -aA {{index (.Filename | split ("/")) 4}}<Enter>'';
+    "rq" = '':reply -aqA {{index (.Filename | split ("/")) 4}}<Enter>'';
+    "Rr" = '':replyA {{index (.Filename | split ("/")) 4}}<Enter>'';
+    "Rq" = '':reply -qA {{index (.Filename | split ("/")) 4}}<Enter>'';
+    "d" = ":modify-labels trash<Enter>";
+    "<C-s>" = ":modify-labels Spam<Enter>";
+  };
+
+  "view:account=all" = {
+    "a" = ":read<Enter>:modify-labels -inbox +archive<Enter>";
+    "A" = ":unmark -a<Enter>:mark -T<Enter>:read<Enter>:modify-labels -inbox +archive <Enter>";
+    "rr" = '':reply -aA {{index (.Filename | split ("/")) 4}}<Enter>'';
+    "rq" = '':reply -aqA {{index (.Filename | split ("/")) 4}}<Enter>'';
+    "Rr" = '':replyA {{index (.Filename | split ("/")) 4}}<Enter>'';
+    "Rq" = '':reply -qA {{index (.Filename | split ("/")) 4}}<Enter>'';
+  };
+
   compose = {
     "$noinherit" = "true";
     "$ex" = "<C-x>";
@@ -115,6 +137,8 @@
     "<C-PgUp>" = ":prev-tab<Enter>";
     "<C-n>" = ":next-tab<Enter>";
     "<C-PgDn>" = ":next-tab<Enter>";
+    "<tab>" = ":next-field<Enter>";
+    "<backtab>" = ":prev-field<Enter>";
   };
 
   "compose::editor" = {
@@ -140,6 +164,10 @@
     "e" = ":edit<Enter>";
     "a" = ":attach -m<space>";
     "d" = ":detach<space>";
+  };
+
+  "compose::review:account=all" = {
+    "y" = ":send<Enter>:read<Enter>:modify-labels -inbox +archive<Enter>";
   };
 
   terminal = {
