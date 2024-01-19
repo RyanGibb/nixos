@@ -1,5 +1,6 @@
 maildir:
 isync:
+notmuch:
 
 ''
 #!/usr/bin/env bash
@@ -67,35 +68,36 @@ set_vars() {
 # Searches are carefully constructed to ensure that each email is moved at most
 # one time.
 for account in $accts; do
-	echo "$account"
     set_vars "$account"
 
-	echo "inbox"
+	echo "pre-sync $account/inbox"
     # if tagged inbox, spam, or trash but not in corresponding folder, move it
-    notmuch search --output=files folder:/$account/ and not tag:new \
+    ${notmuch}/bin/notmuch search --output=files folder:/$account/ and not tag:new \
         and tag:inbox and not folder:$account/Inbox \
 		| grep $account \
         | maildir_mvs "$account/Inbox"
-	echo "trash"
-    notmuch search --output=files folder:/$account/ and not tag:new \
+	echo "pre-sync $account/trash"
+    ${notmuch}/bin/notmuch search --output=files folder:/$account/ and not tag:new \
         and tag:trash and not tag:inbox and not folder:"\"$account/$trash_dir\"" \
 		| grep $account \
         | maildir_mvs "$account/$trash_dir"
-	echo "spam"
-    notmuch search --output=files folder:/$account/ and not tag:new \
+	echo "pre-sync $account/spam"
+    ${notmuch}/bin/notmuch search --output=files folder:/$account/ and not tag:new \
         and tag:spam and not tag:inbox and not tag:trash and not folder:"\"$account/$spam_dir\"" \
 		| grep $account \
         | maildir_mvs "$account/$spam_dir"
 
-	echo "archive"
+	echo "pre-sync $account/archive"
     # if in inbox, spam, or trash but missing corresponding tag, move to archive
-    notmuch search --output=files folder:/$account/ and not tag:new and \
+    ${notmuch}/bin/notmuch search --output=files folder:/$account/ and not tag:new and \
         "(folder:$account/Inbox and not tag:inbox)" \
         or "(folder:\"$account/$spam_dir\" and not tag:spam)" \
         or "(folder:\"$account/$trash_dir\" and not tag:qrash)" \
 		| grep $account \
         | maildir_mvs "$account/$archive_dir"
 done
+
+echo "syncing..."
 
 # SYNC
 set +e
@@ -106,16 +108,18 @@ ${"${isync}/bin/mbsync"} "''${acct:--a}''${folder:+:$folder}" || status=$?
 # Update notmuch, tagging new emails based on folders. Once initial tags are
 # applied, the new tag must be removed so that the above pre-sync logic to move
 # emails to the correct folders based on tags will work on the next run.
-for account in $accounts; do
+${notmuch}/bin/notmuch new
+for account in $accts; do
     set_vars "$account"
-    notmuch new && notmuch tag --batch <<EOF
+    echo "postsync $account"
+    ${notmuch}/bin/notmuch tag --batch <<EOF
 # tag based on folder (inbox, drafts, spam, trash)
-+inbox -- tag:new and folder:Inbox
-+spam -- tag:new and folder:"$spam_dir"
-+trash -- tag:new and folder:"$trash_dir"
++inbox +unread -- not tag:inbox and folder:$account/Inbox
++spam +unread -- not tag:spam and folder:"$account/$spam_dir"
++trash -- not tag:trash and folder:"$account/$trash_dir"
 
 # remove unread tag if in sent or drafts
--unread -- tag:new and (folder:"$sent_dir" or folder:"$drafts_dir")
+-unread -- tag:new and (folder:"$account/$sent_dir" or folder:"$account/$drafts_dir")
 
 # remove new tag
 -new -- tag:new
