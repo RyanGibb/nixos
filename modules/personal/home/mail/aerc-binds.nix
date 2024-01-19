@@ -40,16 +40,16 @@
     "zc" = ":fold<Enter>";
     "zo" = ":unfold<Enter>";
     "<Enter>" = ":view<Enter>";
-    "d" = ":modify-labels -inbox -unread +trash<Enter>";
+    "d" = ":move Trash<Enter>";
     "D" = ":prompt 'Really delete this message?' 'delete-message'<Enter>";
-    "<C-s>" = ":modify-labels -inbox spam<Enter>";
-    "a" = ":read<Enter>:modify-labels -inbox +archive<Enter>";
-    "A" = ":unmark -a<Enter>:mark -T<Enter>:read<Enter>:modify-labels -inbox +archive <Enter>";
+    "<C-s>" = ":move Spam<Enter>";
+    "a" = ":read<Enter>:archive flat<Enter>";
+    "A" = ":unmark -a<Enter>:mark -T<Enter>:read<Enter>:archive flat<Enter>";
     "C" = ":compose<Enter>";
-    "rr" = '':reply -aA {{index (.Filename | split ("/")) 4}}<Enter>'';
-    "rq" = '':reply -aqA {{index (.Filename | split ("/")) 4}}<Enter>'';
-    "Rr" = '':replyA {{index (.Filename | split ("/")) 4}}<Enter>'';
-    "Rq" = '':reply -qA {{index (.Filename | split ("/")) 4}}<Enter>'';
+    "rr" = '':reply -a<Enter>'';
+    "rq" = '':reply -aq<Enter>'';
+    "Rr" = '':reply<Enter>'';
+    "Rq" = '':reply -q<Enter>'';
     "c" = ":cf<space>";
     "$" = ":term<space>";
     "!" = ":term<space>";
@@ -77,11 +77,11 @@
     "o" = ":open<Enter>";
     "S" = ":save<space>";
     "|" = ":pipe<space>";
-    "d" = ":modify-labels -inbox -unread +trash<Enter>";
+    "d" = ":move Trash<Enter>";
     "D" = ":prompt 'Really delete this message?' 'delete-message'<Enter>";
-    "<C-s>" = ":modify-labels Spam<Enter>";
-    "a" = ":read<Enter>:modify-labels -inbox +archive<Enter>";
-    "A" = ":unmark -a<Enter>:mark -T<Enter>:read<Enter>:modify-labels -inbox +archive <Enter>";
+    "<C-s>" = ":move Spam<Enter>";
+    "a" = ":read<Enter>:archive flat<Enter>";
+    "A" = ":unmark -a<Enter>:mark -T<Enter>:read<Enter>:archive flat<Enter>";
     "<C-l>" = ":open-link <space>";
     "f" = ":forward<Enter>";
     "rr" = ":reply -a<Enter>";
@@ -137,7 +137,8 @@
   };
 
   "compose::review" = {
-    "y" = ":send<Enter>";
+    "y" = ":send -a flat<Enter>";
+    "Y" = ":send<Enter>";
     "q" = ":abort<Enter>";
     "v" = ":preview<Enter>";
     "p" = ":postpone<Enter>";
