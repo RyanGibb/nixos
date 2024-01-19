@@ -26,10 +26,6 @@
     useOSProber = true;
   };
 
-  boot.supportedFilesystems = [ "ntfs" "zfs" ];
-
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-
   environment.systemPackages = with pkgs; [
     dell-command-configure
     (python3.withPackages (p: with p; [
