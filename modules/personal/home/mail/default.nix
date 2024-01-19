@@ -51,6 +51,9 @@ in {
         compose.file-picker-cmd = "${pkgs.ranger}/bin/ranger --choosefiles=%f";
         ui.index-columns = "date<=,name<50,flags>=,subject<*";
         ui.column-name = "{{index (.From | persons) 0}}";
+        "ui:folder=Sent".index-columns = "date<=,to<50,flags>=,subject<*";
+        "ui:folder=Sent".column-to = "{{index (.To | persons) 0}}";
+        openers."text/html" = "firefox --new-window";
         filters = {
           "text/plain" = "colorize";
           "text/calendar" = "calendar";
