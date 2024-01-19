@@ -76,6 +76,18 @@
               "mautrix-instagram" = final.callPackage ./pkgs/mautrix-instagram.nix { };
               "i3-workspace-history" = i3-workspace-history.packages.${system}.default;
               "maildir-rank-addr" = final.callPackage ./pkgs/maildir-rank-addr.nix { };
+              # https://github.com/NixOS/nixpkgs/issues/86349#issuecomment-624489806
+              "aerc" = (prev.callPackage "${prev.path}/pkgs/applications/networking/mailreaders/aerc/default.nix" {
+                buildGoModule = args: prev.buildGoModule (args // {
+                   src = prev.fetchFromSourcehut {
+                    owner = "~rjarry";
+                    repo = "aerc";
+                    rev = "930e50328c3a57faeec7fd23881e044257eda157";
+                    hash = "sha256-V1cjjJBAGqfBZIizAweMUYl7X3QorgLh/8J4HulmKAE=";
+                  };
+                  vendorHash = "sha256-IzQKgNilBq53w41gNLXCd1BgYXW/aUuQQtFeKEI/dKw=";
+                });
+              });
             })
           ];
 
