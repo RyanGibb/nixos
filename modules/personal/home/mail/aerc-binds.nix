@@ -35,6 +35,7 @@
     "<Space>" = ":mark -t<Enter>:next<Enter>";
     "V" = ":mark -v<Enter>";
     "m" = ":read -t<Enter>";
+    "M" = ":read<Enter>";
     "t" = ":toggle-threads<Enter>";
     "T" = ":toggle-thread-context<Enter>";
     "zc" = ":fold<Enter>";
@@ -63,6 +64,7 @@
     "s" = ":split<Enter>";
     "S" = ":vsplit<Enter>";
     "<C-r>" = ":check-mail<Enter>";
+    "<C-a>" = ":mark -a<Enter>";
   };
 
   "messages:folder=Drafts" = {
