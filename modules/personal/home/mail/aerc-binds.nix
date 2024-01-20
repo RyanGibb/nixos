@@ -46,18 +46,17 @@
     "<C-s>" = ":move Spam<Enter>";
     "a" = ":read<Enter>:archive flat<Enter>";
     "A" = ":unmark -a<Enter>:mark -T<Enter>:read<Enter>:archive flat<Enter>";
-    "C" = ":compose<Enter>";
+    "c" = ":compose<Enter>";
     "rr" = '':reply -a<Enter>'';
     "rq" = '':reply -aq<Enter>'';
     "Rr" = '':reply<Enter>'';
     "Rq" = '':reply -q<Enter>'';
-    "c" = ":cf<space>";
+    "f" = ":cf";
     "$" = ":term<space>";
     "!" = ":term<space>";
     "|" = ":pipe<space>";
     "/" = ":search<space>";
     "\\" = ":filter<space>";
-    "," = "\":change-tab notmuch<Enter>:cf \"";
     "n" = ":next-result<Enter>";
     "N" = ":prev-result<Enter>";
     "<Esc>" = ":clear<Enter>";
@@ -73,7 +72,6 @@
 
   view = {
     "/" = ":toggle-key-passthrough<Enter>/";
-    "," = "\":change-tab notmuch<Enter>:cf \"";
     "q" = ":close<Enter>";
     "O" = ":open<Enter>";
     "o" = ":open<Enter>";

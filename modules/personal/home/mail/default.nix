@@ -7,6 +7,12 @@ let
       ${config.accounts.email.maildirBasePath}/addressbook/maildir\
       ${config.accounts.email.maildirBasePath}/addressbook/cam-ldap
     '';
+  sync-mail = pkgs.writeScriptBin "sync-mail" ''
+    #!/usr/bin/env bash
+    ${pkgs.isync}/bin/mbsync "$1"
+    ${pkgs.mu}/bin/mu index
+    ${pkgs.procps}/bin/pkill -RTMIN+13 i3block
+  '';
 in {
   home.packages = with pkgs; [
     maildir-rank-addr
@@ -89,7 +95,7 @@ in {
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync ryan@freumh.org";
+          onNotify = "${pkgs.isync}/bin/mbsync ryan@freumh.org && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
         };
         mbsync = {
           enable = true;
@@ -100,7 +106,7 @@ in {
         aerc = {
           enable = true;
           extraAccounts = {
-            check-mail-cmd = "${pkgs.isync}/bin/mbsync ryan@freumh.org";
+            check-mail-cmd = "${pkgs.isync}/bin/mbsync ryan@freumh.org && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
             check-mail-timeout = "1m";
             check-mail = "1h";
             folders-sort = [ "Inbox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
@@ -120,7 +126,7 @@ in {
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync misc@freumh.org";
+          onNotify = "${pkgs.isync}/bin/mbsync misc@freumh.org && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
         };
         mbsync = {
           enable = true;
@@ -138,7 +144,7 @@ in {
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk";
+          onNotify = "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
         };
         mbsync = {
           enable = true;
@@ -149,7 +155,7 @@ in {
         aerc = {
           enable = true;
           extraAccounts = {
-            check-mail-cmd = "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk";
+            check-mail-cmd = "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
             check-mail-timeout = "1m";
             check-mail = "1h";
             aliases = "rtg24@cam.ac.uk";
@@ -166,7 +172,7 @@ in {
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com";
+          onNotify = "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
         };
         mbsync = {
           enable = true;
@@ -177,7 +183,7 @@ in {
         aerc = {
           enable = true;
           extraAccounts = {
-            check-mail-cmd = "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com";
+            check-mail-cmd = "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
             check-mail-timeout = "1m";
             check-mail = "1h";
             folders-sort = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
