@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+mu index > /dev/null || exit 0
+
+INBOX=`mu find maildir:/ryan@freumh.org/Inbox or maildir:/ryangibb321@gmail.com/Inbox or maildir:/ryan.gibb@cl.cam.ac.uk/Inbox 2>/dev/null | wc -l`
+
+echo ${INBOX} 

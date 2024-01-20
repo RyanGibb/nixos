@@ -3,9 +3,13 @@ command=./$BLOCK_NAME
 separator_block_width=15
 markup=none
 
+[mail]
+interval=3600
+signal=13
+
 [weather]
 command=echo "$(curl "https://wttr.in/?format=%S-%s+%c%p+%P+%w+%uuv+%t+%m" 2> /dev/null)"
-signal=36
+signal=12
 interval=3600
 signal=12
 
