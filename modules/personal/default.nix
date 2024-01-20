@@ -153,6 +153,7 @@ let cfg = config.personal; in
               };
             })
             plenary-nvim
+            pkgs.ripgrep
           ];
           opt = [ ];
         };
