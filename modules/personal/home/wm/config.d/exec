@@ -2,8 +2,6 @@
 exec playerctld daemon
 exec thunar --daemon
 
-exec kdeconnect-indicator
-
 exec @notification_deamon@
 exec pgrep fusuma || fusuma
 
