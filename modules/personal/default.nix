@@ -188,8 +188,8 @@ let cfg = config.personal; in
     programs.less = {
       enable = true;
       lineEditingKeys = {
-        "\e[1;5D" = "word-left";
-        "\e[1;5C" = "word-right";
+        "\\e[1;5D" = "word-left";
+        "\\e[1;5C" = "word-right";
       };
     };
   };
