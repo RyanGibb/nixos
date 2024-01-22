@@ -21,15 +21,25 @@
     "<C-u>" = ":prev 50%<Enter>";
     "<C-b>" = ":prev 100%<Enter>";
     "<PgUp>" = ":prev 100%<Enter>";
-    "g" = ":select 0<Enter>";
+    "gg" = ":select 0<Enter>";
     "G" = ":select -1<Enter>";
+    "gi" = ":cf Inbox";
+    "gs" = ":cf Sent";
+    "gd" = ":cf Drafts";
+    "ga" = ":cf Archive";
+    "gS" = ":cf Spam";
+    "gb" = ":cf Bin";
     "J" = ":next-folder<Enter>";
+    "<C-j>" = ":next-folder<Enter>";
     "<C-Down>" = ":next-folder<Enter>";
     "K" = ":prev-folder<Enter>";
+    "<C-k>" = ":prev-folder<Enter>";
     "<C-Up>" = ":prev-folder<Enter>";
     "H" = ":collapse-folder<Enter>";
+    "<C-h>" = ":collapse-folder<Enter>";
     "<C-Left>" = ":collapse-folder<Enter>";
     "L" = ":expand-folder<Enter>";
+    "<C-l>" = ":expand-folder<Enter>";
     "<C-Right>" = ":expand-folder<Enter>";
     "v" = ":mark -t<Enter>";
     "<Space>" = ":mark -t<Enter>:next<Enter>";
@@ -40,17 +50,20 @@
     "T" = ":toggle-thread-context<Enter>";
     "zc" = ":fold<Enter>";
     "zo" = ":unfold<Enter>";
+    "za" = ":fold -t<Enter>";
+    "zM" = ":fold -a<Enter>";
+    "zR" = ":unfold -a<Enter>";
     "<Enter>" = ":view<Enter>";
-    "d" = ":move Trash<Enter>";
+    "d" = ":read<Enter>:move Bin<Enter>";
     "D" = ":prompt 'Really delete this message?' 'delete-message'<Enter>";
-    "<C-s>" = ":move Spam<Enter>";
+    "<C-s>" = ":read<Enter>:move Spam<Enter>";
     "a" = ":read<Enter>:archive flat<Enter>";
     "A" = ":unmark -a<Enter>:mark -T<Enter>:read<Enter>:archive flat<Enter>";
     "c" = ":compose<Enter>";
-    "rr" = '':reply -a<Enter>'';
-    "rq" = '':reply -aq<Enter>'';
-    "Rr" = '':reply<Enter>'';
-    "Rq" = '':reply -q<Enter>'';
+    "rr" = ":reply -a<Enter>";
+    "rq" = ":reply -aq<Enter>";
+    "Rr" = ":reply<Enter>";
+    "Rq" = ":reply -q<Enter>";
     "f" = ":cf";
     "$" = ":term<space>";
     "!" = ":term<space>";
@@ -77,9 +90,9 @@
     "o" = ":open<Enter>";
     "S" = ":save<space>";
     "|" = ":pipe<space>";
-    "d" = ":move Trash<Enter>";
+    "d" = ":read<Enter>:move Bin<Enter>";
     "D" = ":prompt 'Really delete this message?' 'delete-message'<Enter>";
-    "<C-s>" = ":move Spam<Enter>";
+    "<C-s>" = ":read<Enter>:move Spam<Enter>";
     "a" = ":read<Enter>:archive flat<Enter>";
     "A" = ":unmark -a<Enter>:mark -T<Enter>:read<Enter>:archive flat<Enter>";
     "<C-l>" = ":open-link <space>";
@@ -112,7 +125,9 @@
     "<C-Up>" = ":prev-field<Enter>";
     "<C-j>" = ":next-field<Enter>";
     "<C-Down>" = ":next-field<Enter>";
+    "<C-h>" = ":switch-account -p<Enter>";
     "<C-Left>" = ":switch-account -p<Enter>";
+    "<C-l>" = ":switch-account -n<Enter>";
     "<C-Right>" = ":switch-account -n<Enter>";
     "<C-p>" = ":prev-tab<Enter>";
     "<C-PgUp>" = ":prev-tab<Enter>";
@@ -120,6 +135,8 @@
     "<C-PgDn>" = ":next-tab<Enter>";
     "<tab>" = ":next-field<Enter>";
     "<backtab>" = ":prev-field<Enter>";
+    "<C-a>" = ":attach -m<Enter>";
+    "<C-q>" = ":abort<Enter>";
   };
 
   "compose::editor" = {
@@ -129,11 +146,16 @@
     "<C-Up>" = ":prev-field<Enter>";
     "<C-j>" = ":next-field<Enter>";
     "<C-Down>" = ":next-field<Enter>";
+    "<C-h>" = ":switch-account -p<Enter>";
+    "<C-Left>" = ":switch-account -p<Enter>";
+    "<C-l>" = ":switch-account -n<Enter>";
+    "<C-Right>" = ":switch-account -n<Enter>";
     "<C-p>" = ":prev-tab<Enter>";
     "<C-PgUp>" = ":prev-tab<Enter>";
     "<C-n>" = ":next-tab<Enter>";
     "<C-PgDn>" = ":next-tab<Enter>";
-    "<C-a>" = ":attach -m<space>";
+    "<C-a>" = ":attach -m<Enter>";
+    "<C-q>" = ":abort<Enter>";
   };
 
   "compose::review" = {
