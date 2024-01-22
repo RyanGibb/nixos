@@ -1,7 +1,11 @@
 require('obsidian').setup({
     dir = "~/vault",
 	note_id_func = function(title)
-		return tostring(os.date("%Y-%m-%d")) .. " " .. title
+		local suffix = ""
+		if title ~= nil then
+			suffix = " " .. title
+		end
+		return tostring(os.date("%Y-%m-%d")) .. suffix
 	end,
 	disable_frontmatter = true,
 	attachments = {
