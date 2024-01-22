@@ -112,6 +112,7 @@ in {
             folders-sort = [ "Inbox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
             folder-map = "${pkgs.writeText "folder-map" ''
               Spam = Junk
+              Bin = Trash
             ''}";
           };
         };
@@ -160,6 +161,9 @@ in {
             check-mail = "1h";
             aliases = "rtg24@cam.ac.uk";
             folders-sort = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
+            folder-map = "${pkgs.writeText "folder-map" ''
+              Bin = Trash
+            ''}";
           };
         };
       };
@@ -191,7 +195,6 @@ in {
               * = [Gmail]/*
               Sent = Sent Mail
               Archive = All Mail
-              Trash = Bin
             ''}";
             postpone = "[Gmail]/Drafts";
             copy-to = "[Gmail]/Sent Mail";
