@@ -193,8 +193,8 @@ in {
             folders-sort = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
             folder-map = "${pkgs.writeText "folder-map" ''
               * = [Gmail]/*
-              Sent = Sent Mail
-              Archive = All Mail
+              Sent = 'Sent Mail'
+              Archive = 'All Mail'
             ''}";
             postpone = "[Gmail]/Drafts";
             copy-to = "[Gmail]/Sent Mail";

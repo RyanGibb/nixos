@@ -29,6 +29,12 @@
     "ga" = ":cf Archive<Enter>";
     "gS" = ":cf Spam<Enter>";
     "gb" = ":cf Bin<Enter>";
+    "Mi" = ":move Inbox<Enter>";
+    "Ms" = ":move Sent<Enter>";
+    "Md" = ":move Drafts<Enter>";
+    "Ma" = ":move Archive<Enter>";
+    "MS" = ":move Spam<Enter>";
+    "Mb" = ":move Bin<Enter>";
     "J" = ":next-folder<Enter>";
     "<C-j>" = ":next-folder<Enter>";
     "<C-Down>" = ":next-folder<Enter>";
@@ -45,7 +51,8 @@
     "<Space>" = ":mark -t<Enter>:next<Enter>";
     "V" = ":mark -v<Enter>";
     "m" = ":read -t<Enter>";
-    "M" = ":read<Enter>";
+    "," = ":read<Enter>";
+    "." = ":unread<Enter>";
     "t" = ":toggle-threads<Enter>";
     "T" = ":toggle-thread-context<Enter>";
     "zc" = ":fold<Enter>";
