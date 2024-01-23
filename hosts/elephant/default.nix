@@ -1,9 +1,10 @@
-{ pkgs, config, lib, eilean, ... }:
+{ pkgs, config, lib, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
     ./zfs.nix
+    ./services.nix
   ];
 
   personal = {
@@ -18,41 +19,16 @@
     hdparm
   ];
 
-  boot.loader.grub = {
-    enable = true;
-    default = "saved";
-    device = "nodev";
-    efiSupport = true;
-  };
-
-  boot.tmp.cleanOnBoot = true;
-  zramSwap.enable = true;
-
-  swapDevices = [ { device = "/var/swap"; size = 16384; } ];
-
   eilean = {
     publicInterface = "enp1s0";
   };
 
-  services.avahi = {
-    enable = true;
-    nssmdns = true;
-    publish = {
-      enable = true;
-      addresses = true;
-      workstation = true;
-    };
+  powerManagement = {
+    powertop.enable = true;
+    # spins down drives after 1hr
+    powerUpCommands = ''
+      sudo ${pkgs.hdparm}/sbin/hdparm -S 242 /dev/disk/by-id/ata-ST16000NM001G-2KK103_ZL28CDKQ
+      sudo ${pkgs.hdparm}/sbin/hdparm -S 242 /dev/disk/by-id/ata-TOSHIBA_MG08ACA16TE_83E0A00UFVGG
+    '';
   };
-
-  services.minidlna = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      media_dir = [ "/mnt/hdd" ];
-      notify_interval = 60;
-      inofity = true;
-    };
-  };
-
-  powerManagement.powertop.enable = true;
 }
