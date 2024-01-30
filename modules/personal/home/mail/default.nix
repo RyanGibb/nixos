@@ -196,8 +196,8 @@ in {
               Sent = 'Sent Mail'
               Archive = 'All Mail'
             ''}";
-            postpone = "[Gmail]/Drafts";
-            copy-to = "[Gmail]/Sent Mail";
+            postpone = "Drafts";
+            copy-to = "Sent";
           };
         };
       };
