@@ -58,6 +58,7 @@ let cfg = config.personal; in
         ranger
         bluetuith
         powertop
+        ripgrep
       ];
       variables.EDITOR = "nvim";
       shellAliases = {
