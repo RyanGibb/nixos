@@ -88,11 +88,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1703623064,
-        "narHash": "sha256-cVctg40YjW+BRJkNnG1r8wzhzfnqVKigDS/IzBxJ7Z8=",
+        "lastModified": 1707052011,
+        "narHash": "sha256-iYgUvlSDodt8dOUv9aJTpgGM4pa5emycRysiDJGu8Mk=",
         "owner": "RyanGibb",
         "repo": "eilean-nix",
-        "rev": "c65f03b4ac1fe87e8ba43df1ea68c6fa691e4d62",
+        "rev": "d9358364442a4532ef4865ebef45ce6448906a6b",
         "type": "github"
       },
       "original": {
@@ -340,11 +340,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1705311900,
-        "narHash": "sha256-xLMnBDAUBLEO9ASzwlenjvOcMXemmMJjMbjBOFdawAU=",
+        "lastModified": 1705584540,
+        "narHash": "sha256-VifLcnb2jtKZd3hCBe1OpwE/wHrXJ7vSiTozx/P3gGU=",
         "owner": "RyanGibb",
         "repo": "fn06",
-        "rev": "2ff09f15bb489ed5ad41b7865fffaf3688b30264",
+        "rev": "6e725540c82726043ab1980d0ccdb7538061a770",
         "type": "github"
       },
       "original": {
@@ -655,11 +655,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1705331948,
-        "narHash": "sha256-qjQXfvrAT1/RKDFAMdl8Hw3m4tLVvMCc8fMqzJv0pP4=",
+        "lastModified": 1706098335,
+        "narHash": "sha256-r3dWjT8P9/Ah5m5ul4WqIWD8muj5F+/gbCdjiNVBKmU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "b8dd8be3c790215716e7c12b247f45ca525867e2",
+        "rev": "a77ab169a83a4175169d78684ddd2e54486ac651",
         "type": "github"
       },
       "original": {
@@ -939,11 +939,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1705310982,
-        "narHash": "sha256-NEpgl9Qyi7CR0Ie3WAXy3TG5ZD6/HPvLoeIVVaZqRNo=",
+        "lastModified": 1706546332,
+        "narHash": "sha256-zD4qx2AqSJiV28wI4kqrEOCvQ8cAm1jHQY+lRKio1ss=",
         "ref": "refs/heads/master",
-        "rev": "06b276d72917023f28d93cf0c9d497ab32642171",
-        "revCount": 488,
+        "rev": "036064ed0a3d582487a073a189fcc887c42efd07",
+        "revCount": 492,
         "type": "git",
         "url": "ssh://git@github.com/RyanGibb/website.git"
       },

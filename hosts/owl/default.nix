@@ -56,19 +56,57 @@
 
         { name = "ns1.eilean"; type = "A"; data = "65.109.10.223"; }
         { name = "eilean"; type = "NS"; data = "ns1.eilean"; }
+
+        { name = "shrew"; type = "CNAME"; data = "vps"; }
+      ];
+    };
+    zones."fn06.org" = {
+      soa.serial = 1706745601;
+      records = [
+        {
+          name = "capybara.fn06.org";
+          type = "CNAME";
+          data = "fn06.org";
+        }
       ];
     };
   };
 
-  services.nginx.virtualHosts = {
-    "teapot.${config.networking.domain}" = {
-      extraConfig = ''
-        return 418;
-      '';
-    };
-    "${config.services.ryan-website.domain}" = {
-      locations."/phd/" = {
-        basicAuthFile= "${config.custom.secretsDir}/website-phd";
+  services.nginx = {
+    commonHttpConfig = ''
+      add_header Strict-Transport-Security max-age=31536000 always;
+    '';
+    virtualHosts = {
+      "teapot.${config.networking.domain}" = {
+        extraConfig = ''
+          return 418;
+        '';
+      };
+      "${config.services.ryan-website.domain}" = {
+        locations."/phd/" = {
+          basicAuthFile= "${config.custom.secretsDir}/website-phd";
+        };
+      };
+      "capybara.fn06.org" = {
+        forceSSL = true;
+        enableACME = true;
+        locations."/" = {
+          proxyPass = ''
+            http://100.64.0.10:8123
+          '';
+          proxyWebsockets = true;
+        };
+      };
+      "shrew.freumh.org" = {
+        forceSSL = true;
+        enableACME = true;
+        locations."/" = {
+          # need to specify ip or there's a bootstrap problem with headscale
+          proxyPass = ''
+            http://100.64.0.6:8123
+          '';
+          proxyWebsockets = true;
+        };
       };
     };
   };
@@ -172,8 +210,8 @@
     streamingProcesses = lib.mkForce 1;
   };
 
-  # boot.kernel.sysctl = {
-  #   "net.ipv4.ip_forward" = 1;
-  #   "net.ipv6.conf.all.forwarding" = 1;
-  # };
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+    "net.ipv6.conf.all.forwarding" = 1;
+  };
 }
