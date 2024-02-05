@@ -172,9 +172,15 @@
       modules = [ ./nix-on-droid/default.nix ];
     };
 
-    legacyPackages =
-      nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system:
-        nixpkgs.legacyPackages.${system}
-      );
+    legacyPackages = {
+      nixpkgs =
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system:
+          nixpkgs.legacyPackages.${system}
+        );
+      nixpkgs-unstable =
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system:
+          nixpkgs-unstable.legacyPackages.${system}
+        );
+      };
     };
 }
