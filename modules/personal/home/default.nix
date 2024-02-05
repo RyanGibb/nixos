@@ -115,6 +115,8 @@
 
   xdg = {
     desktopEntries = {
+      # https://gitlab.freedesktop.org/xdg/xdg-utils/-/issues/84
+      # `echo $XDG_DATA_DIRS`
       nvim = {
         name = "Neovim";
         genericName = "Text Editor";
@@ -123,6 +125,15 @@
         categories = [ "Application" "Utility" "TextEditor" ];
         icon = "nvim";
         mimeType = [ "text/english" "text/plain" ];
+      };
+      aerc = {
+        name = "aerc";
+        genericName = "Mail Client";
+        exec = "alacritty -e aerc";
+        terminal = false;
+        categories = [ "Office" "Network" "Email" "ConsoleOnly" ];
+        icon = "utilities-terminal";
+        mimeType = [ "x-scheme-handler/mailto" ];
       };
     };
     configFile = {
