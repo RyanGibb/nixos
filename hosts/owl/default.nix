@@ -58,6 +58,8 @@
         { name = "eilean"; type = "NS"; data = "ns1.eilean"; }
 
         { name = "shrew"; type = "CNAME"; data = "vps"; }
+
+        { name = "_25._tcp.mail"; type = "TLSA"; data = "3 1 1 75db0cb2b465b417f0316b28f633e34858984dd0e88e79408fce7be1f7574047"; }
       ];
     };
     "fn06.org" = {
