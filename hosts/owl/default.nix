@@ -18,7 +18,7 @@
     turn.enable = true;
     mastodon.enable = true;
     headscale.enable = true;
-    dns.enable = lib.mkForce false;
+    #dns.enable = lib.mkForce false;
   };
 
   hosting = {
@@ -27,9 +27,9 @@
     rmfakecloud.enable = true;
   };
 
-  eilean.services.dns = {
-    zones.${config.networking.domain} = {
-      soa.serial = lib.mkDefault 2018011628;
+  eilean.services.dns.zones = {
+    ${config.networking.domain} = {
+      soa.serial = 2018011628;
       records = [
         { name = "@"; type = "TXT"; data = "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc"; }
         { name = "teapot"; type = "CNAME"; data = "vps"; }
@@ -60,7 +60,7 @@
         { name = "shrew"; type = "CNAME"; data = "vps"; }
       ];
     };
-    zones."fn06.org" = {
+    "fn06.org" = {
       soa.serial = 1706745601;
       records = [
         {
@@ -71,6 +71,11 @@
       ];
     };
   };
+  services.bind.zones.${config.networking.domain}.extraConfig = ''
+    dnssec-policy default;
+    inline-signing yes;
+    journal "${config.services.bind.directory}/${config.networking.domain}.signed.jnl";
+  '';
 
   services.nginx = {
     commonHttpConfig = ''
@@ -143,13 +148,13 @@
       #enable = true;
       domain = config.services.ryan-website.domain;
     };
-    eon = {
-      enable = true;
-      # TODO make this zonefile derivation a config parameter `services.eilean.services.dns.zonefile`
-      # TODO add module in eilean for eon
-      zoneFile = "${import "${eilean}/modules/services/dns/zonefile.nix" { inherit pkgs config lib; zonename = config.networking.domain; zone = config.eilean.services.dns.zones.${config.networking.domain}; }}/${config.networking.domain}";
-      logLevel = 2;
-    };
+    #eon = {
+    #  enable = true;
+    #  # TODO make this zonefile derivation a config parameter `services.eilean.services.dns.zonefile`
+    #  # TODO add module in eilean for eon
+    #  zoneFile = "${import "${eilean}/modules/services/dns/zonefile.nix" { inherit pkgs config lib; zonename = config.networking.domain; zone = config.eilean.services.dns.zones.${config.networking.domain}; }}/${config.networking.domain}";
+    #  logLevel = 2;
+    #};
   };
 
   services.signald.enable = true;
