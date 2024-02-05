@@ -134,7 +134,7 @@ let cfg = config.personal; in
       viAlias = true;
       vimAlias = true;
       configure = {
-        customRC = import ./nvim.vim;
+        customRC = "luafile ${./nvim.lua}";
         packages.myVimPackage = with pkgs.vimPlugins; {
           start = [
             vimtex
