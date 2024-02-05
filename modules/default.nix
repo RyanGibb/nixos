@@ -82,7 +82,7 @@
       gc = {
         automatic = true;
         dates = "weekly";
-        options = "--delete-older-than 90d";
+        options = "--delete-older-than 30d";
       };
       # https://discourse.nixos.org/t/do-flakes-also-set-the-system-channel/19798/16
       nixPath = [ "nixpkgs=${nixPath}" ];
