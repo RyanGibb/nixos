@@ -39,4 +39,6 @@ autocmd TermOpen * startinsert
 luafile ${./nvim.lua}
 
 nmap ZA :cquit<Enter>
+
+:setlocal spell spelllang=en_gb
 ''
