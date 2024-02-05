@@ -84,6 +84,8 @@
     "S" = ":vsplit<Enter>";
     "<C-r>" = ":check-mail<Enter>";
     "<C-a>" = ":mark -a<Enter>";
+    "e" = ":envelope<Enter>";
+    "E" = ":envelope -h<Enter>";
   };
 
   "messages:folder=Drafts" = {
@@ -117,6 +119,8 @@
     "<C-Right>" = ":next<Enter>";
     "K" = ":prev<Enter>";
     "<C-Left>" = ":prev<Enter>";
+    "e" = ":envelope<Enter>";
+    "E" = ":envelope -h<Enter>";
   };
 
   "view::passthrough" = {
