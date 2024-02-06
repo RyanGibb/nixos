@@ -231,4 +231,13 @@
     "net.ipv4.ip_forward" = 1;
     "net.ipv6.conf.all.forwarding" = 1;
   };
+
+  mailserver.loginAccounts."${config.custom.username}@${config.networking.domain}".sieveScript = ''
+    require ["fileinto", "mailbox"];
+
+    if header :contains ["to", "cc"] ["~rjarry/aerc-discuss@lists.sr.ht"] {
+      fileinto :create "lists.aerc";
+      stop;
+    }
+  '';
 }
