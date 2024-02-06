@@ -158,9 +158,7 @@
     "<C-j>" = ":next-field<Enter>";
     "<C-Down>" = ":next-field<Enter>";
     "<C-h>" = ":switch-account -p<Enter>";
-    "<C-Left>" = ":switch-account -p<Enter>";
     "<C-l>" = ":switch-account -n<Enter>";
-    "<C-Right>" = ":switch-account -n<Enter>";
     "<C-p>" = ":prev-tab<Enter>";
     "<C-PgUp>" = ":prev-tab<Enter>";
     "<C-n>" = ":next-tab<Enter>";
