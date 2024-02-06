@@ -30,8 +30,6 @@
           { name = "ns"; type = "A";    data = ipv4; }
           { name = "ns"; type = "AAAA"; data = ipv6; }
 
-          { name = "www"; type = "CNAME"; data = "@"; }
-
           { name = "@";   type = "A";    data = ipv4; }
           { name = "@";   type = "AAAA"; data = ipv6; }
           { name = "vps"; type = "A";    data = ipv4; }

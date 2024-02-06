@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1705311746,
-        "narHash": "sha256-JTn5ozvFyPi0TBYDQwaK9lm2emtm5dF2X1sXT7gbSDA=",
+        "lastModified": 1707233569,
+        "narHash": "sha256-Hk8ircVMMXd+fePOX8rXOJwfOs85fBp4gfyo/szlXl4=",
         "owner": "alexanderhthompson",
         "repo": "website",
-        "rev": "9d114cef581eefd5a41b23c9d3f6ada07772b273",
+        "rev": "b02c0c7e8376f262269dcd8efbe65326eb97c1ee",
         "type": "github"
       },
       "original": {
@@ -88,11 +88,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1707129976,
-        "narHash": "sha256-xMF0MEPt4lDA893D0YC9H891HjnXP5fbWk8s+6tn+GY=",
+        "lastModified": 1707234875,
+        "narHash": "sha256-HJsTA9LePBFicZq23gFKAkSiQ5bSGW7loQYy1HWRjeU=",
         "owner": "RyanGibb",
         "repo": "eilean-nix",
-        "rev": "ae558fdc86d5585bb3bd0e7d37dca6a521391271",
+        "rev": "6663440bfbf749054b5eff36d7af3b6a455fc768",
         "type": "github"
       },
       "original": {
@@ -939,11 +939,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1706546332,
-        "narHash": "sha256-zD4qx2AqSJiV28wI4kqrEOCvQ8cAm1jHQY+lRKio1ss=",
+        "lastModified": 1707232900,
+        "narHash": "sha256-M28qL3P6lNEC07LqTDPIeQgQ/LvMo+EdbvPngnAiJZU=",
         "ref": "refs/heads/master",
-        "rev": "036064ed0a3d582487a073a189fcc887c42efd07",
-        "revCount": 492,
+        "rev": "d159677834eb0efdcf784c3fe14902daa76945b9",
+        "revCount": 493,
         "type": "git",
         "url": "ssh://git@github.com/RyanGibb/website.git"
       },

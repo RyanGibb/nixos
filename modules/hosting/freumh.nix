@@ -39,6 +39,13 @@ let cfg = config.hosting; in
       locations."/404.html".extraConfig = ''
         return 200 "";
       '';
+      locations."/.well-known/security.txt".root = pkgs.writeTextFile {
+        name = "freumh-security.txt";
+        text = ''
+Contact: mailto:security@freumh.org
+        '';
+        destination = "/.well-known/security.txt";
+      };
       extraConfig = ''
         error_page 404 /404.html;
       '';

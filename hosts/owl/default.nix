@@ -29,7 +29,7 @@
 
   eilean.services.dns.zones = {
     ${config.networking.domain} = {
-      soa.serial = 2018011628;
+      soa.serial = 2018011656;
       records = [
         { name = "@"; type = "TXT"; data = "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc"; }
         { name = "teapot"; type = "CNAME"; data = "vps"; }
@@ -41,8 +41,6 @@
         { name = "ns1"; type = "AAAA"; data = config.eilean.serverIpv6; }
         { name = "ns2"; type = "A";    data = config.eilean.serverIpv4; }
         { name = "ns2"; type = "AAAA"; data = config.eilean.serverIpv6; }
-
-        { name = "www"; type = "CNAME"; data = "@"; }
 
         { name = "@";   type = "A";    data = config.eilean.serverIpv4; }
         { name = "@";   type = "AAAA"; data = config.eilean.serverIpv6; }
@@ -60,6 +58,14 @@
         { name = "shrew"; type = "CNAME"; data = "vps"; }
 
         { name = "_25._tcp.mail"; type = "TLSA"; data = "3 1 1 75db0cb2b465b417f0316b28f633e34858984dd0e88e79408fce7be1f7574047"; }
+        # LE R3
+        { name = "_25._tcp.mail"; type = "TLSA"; data = "2 1 1 67add1166b020ae61b8f5fc96813c04c2aa589960796865572a3c7e737613dfd"; }
+        # LE E1
+        { name = "_25._tcp.mail"; type = "TLSA"; data = "2 1 1 46494e30379059df18be52124305e606fc59070e5b21076ce113954b60517cda"; }
+        # LE R4
+        { name = "_25._tcp.mail"; type = "TLSA"; data = "2 1 1 5a8f16fda448d783481cca57a2428d174dad8c60943ceb28f661ae31fd39a5fa"; }
+        # LE E2
+        { name = "_25._tcp.mail"; type = "TLSA"; data = "2 1 1 bacde0463053ce1d62f8be74370bbae79d4fcaf19fc07643aef195e6a59bd578"; }
       ];
     };
     "fn06.org" = {
@@ -82,6 +88,10 @@
   services.nginx = {
     commonHttpConfig = ''
       add_header Strict-Transport-Security max-age=31536000 always;
+      add_header X-Frame-Options SAMEORIGIN always;
+      add_header X-Content-Type-Options nosniff always;
+      add_header Content-Security-Policy "default-src 'self'; base-uri 'self'; frame-src 'self'; frame-ancestors 'self'; form-action 'self';" always;
+      add_header Referrer-Policy 'same-origin';
     '';
     virtualHosts = {
       "teapot.${config.networking.domain}" = {
