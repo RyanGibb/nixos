@@ -14,6 +14,8 @@ vim.o.softtabstop = 4
 vim.o.spelllang = 'en'
 vim.o.spellfile = os.getenv('HOME')..'/.config/vim/spell.en.utf-8.add'
 vim.o.conceallevel = 1
+-- https://github.com/neovim/neovim/issues/14626
+vim.opt.colorcolumn = '80,120'
 
 vim.g.auto_save_events = {"InsertLeave", "TextChanged"}
 vim.g.auto_save_silent = 0

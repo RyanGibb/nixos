@@ -133,6 +133,7 @@ let cfg = config.personal; in
       enable = true;
       viAlias = true;
       vimAlias = true;
+      runtime = { "ftplugin/mail.vim".text = "let b:did_ftplugin = 1"; };
       configure = {
         customRC = "luafile ${./nvim.lua}";
         packages.myVimPackage = with pkgs.vimPlugins; {
