@@ -92,17 +92,38 @@ let domain = "eeg.cl.cam.ac.uk"; in
         Alias /.well-known/matrix/client "${matrixClientConfig}"
       '';
     };
+    virtualHosts."watch.${domain}" = {
+      forceSSL = true;
+      enableACME = true;
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:${builtins.toString config.services.peertube.listenHttp}/";
+      };
+    };
   };
 
-  services.postgresql.enable = true;
-  services.postgresql.package = pkgs.postgresql_13;
-  services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
-    CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
-    CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
-      TEMPLATE template0
-      LC_COLLATE = "C"
-      LC_CTYPE = "C";
-  '';
+  services.postgresql = {
+    enable = true;
+    enableTCPIP = true;
+    authentication = ''
+      hostnossl peertube_local peertube_test 127.0.0.1/32 md5
+    '';
+    package = pkgs.postgresql_13;
+    initialScript = pkgs.writeText "postgresql_init.sql" ''
+      CREATE ROLE peertube_test LOGIN PASSWORD 'test123';
+      CREATE DATABASE peertube_local TEMPLATE template0 ENCODING UTF8;
+      GRANT ALL PRIVILEGES ON DATABASE peertube_local TO peertube_test;
+      \connect peertube_local
+      CREATE EXTENSION IF NOT EXISTS pg_trgm;
+      CREATE EXTENSION IF NOT EXISTS unaccent;
+    '';
+    #initialScript = pkgs.writeText "synapse-init.sql" ''
+    #  CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
+    #  CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
+    #    TEMPLATE template0
+    #    LC_COLLATE = "C"
+    #    LC_CTYPE = "C";
+    #'';
+  };
 
   services.matrix-synapse = {
     enable = true;
@@ -169,4 +190,39 @@ let domain = "eeg.cl.cam.ac.uk"; in
   ];
 
   nix.settings.require-sigs = false;
+
+  environment.etc = {
+    "peertube/password-posgressql-db".text = "test123";
+    "peertube/password-redis-db".text = "test123";
+  };
+
+  services = {
+    peertube = {
+      enable = true;
+      localDomain = "127.0.0.1";
+      database = {
+        host = "127.0.0.1";
+        name = "peertube_local";
+        user = "peertube_test";
+        passwordFile = "/etc/peertube/password-posgressql-db";
+      };
+      redis = {
+        host = "127.0.0.1";
+        port = 31638;
+        passwordFile = "/etc/peertube/password-redis-db";
+      };
+      settings = {
+        listen.hostname = "0.0.0.0";
+        instance.name = "PeerTube Test Server";
+      };
+      secrets.secretsFile = "/secrets/peertube";
+    };
+
+    redis.servers.peertube = {
+      enable = true;
+      bind = "0.0.0.0";
+      requirePass = "test123";
+      port = 31638;
+    };
+  };
 }
