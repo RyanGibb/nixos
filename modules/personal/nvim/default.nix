@@ -26,6 +26,7 @@ in
       lua-language-server
       pyright
       black
+      texlab
     ];
     programs.neovim = {
       enable = true;
@@ -39,9 +40,16 @@ in
           setlocal softtabstop=2
         '';
       in {
-        "ftplugin/mail.vim".text = "let b:did_ftplugin = 1";
+        "ftplugin/mail.vim".text = ''
+          let b:did_ftplugin = 1
+        '';
         "ftplugin/nix.vim".text = ml-style;
         "ftplugin/ocaml.vim".text = ml-style;
+        "after/ftplugin/markdown.vim".text = ''
+          set com-=fb:-
+          set com+=b:-
+          set formatoptions+=ro
+        '';
       };
       configure = {
         customRC = "luafile ${./nvim.lua}";

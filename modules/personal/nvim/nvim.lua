@@ -87,12 +87,18 @@ require('obsidian').setup({
 	attachments = {
 		img_folder = "",
 	},
+	ui = {
+		enable = false,
+	},
 })
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>fc', builtin.command_history, {})
+vim.keymap.set('n', '<leader>fs', builtin.search_history, {})
+vim.keymap.set('n', '<leader>fj', builtin.jumplist, {})
 
 -- lspconfig
 
@@ -115,14 +121,14 @@ local on_attach = function(client, bufnr)
 	local bufopts = function(desc)
 		return { noremap = true, silent = true, buffer = bufnr, desc = desc }
 	end
-	vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts("Hover"))
-	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts("Goto declaration"))
-	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts("Goto definition"))
-	vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts("Goto implementation"))
-	vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts("Goto type definition"))
-	vim.keymap.set('n', 'gn', vim.diagnostic.goto_next, bufopts("Goto next issue"))
-	vim.keymap.set('n', 'gN', vim.diagnostic.goto_prev, bufopts("Goto prev issue"))
-	vim.keymap.set('n', 'gf', vim.lsp.buf.references, bufopts("Show references"))
+	vim.keymap.set('n', '<leader>K', vim.lsp.buf.hover, bufopts("Hover"))
+	vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration, bufopts("Goto declaration"))
+	vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, bufopts("Goto definition"))
+	vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, bufopts("Goto implementation"))
+	vim.keymap.set('n', '<leader>gt', vim.lsp.buf.type_definition, bufopts("Goto type definition"))
+	vim.keymap.set('n', '<leader>gn', vim.diagnostic.goto_next, bufopts("Goto next issue"))
+	vim.keymap.set('n', '<leader>gN', vim.diagnostic.goto_prev, bufopts("Goto prev issue"))
+	vim.keymap.set('n', '<leader>gf', vim.lsp.buf.references, bufopts("Show references"))
 	vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts("Code action"))
 	vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, bufopts("Rename"))
 	vim.keymap.set('n', '<leader>cf', function() vim.lsp.buf.format { async = true } end, bufopts("Format"))
