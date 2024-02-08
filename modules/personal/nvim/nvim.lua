@@ -4,6 +4,8 @@ vim.api.nvim_command('hi Normal guibg=NONE ctermbg=NONE')
 
 vim.g.airline_theme = 'bubblegum'
 
+require("ibl").setup()
+
 vim.o.mouse = 'a'
 vim.o.clipboard = 'unnamedplus'
 
@@ -145,7 +147,7 @@ capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'nixd', 'texlab', 'ocamllsp', 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'gopls', 'marksman' }
+local servers = { 'nixd', 'ocamllsp', 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'gopls', 'marksman' }
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup {
 		on_attach = on_attach,

@@ -26,7 +26,6 @@ in
       lua-language-server
       pyright
       black
-      texlab
     ];
     programs.neovim = {
       enable = true;
@@ -73,9 +72,10 @@ in
             cmp-buffer
             cmp-spell
             nvim-cmp
-            nvim-treesitter
 
             indent-blankline-nvim
+
+            vimtex
           ];
           opt = [ ];
         };
