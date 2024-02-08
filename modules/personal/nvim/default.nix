@@ -73,8 +73,6 @@ in
             cmp-spell
             nvim-cmp
 
-            indent-blankline-nvim
-
             vimtex
           ];
           opt = [ ];

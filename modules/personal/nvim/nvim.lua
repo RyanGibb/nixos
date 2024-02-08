@@ -4,8 +4,6 @@ vim.api.nvim_command('hi Normal guibg=NONE ctermbg=NONE')
 
 vim.g.airline_theme = 'bubblegum'
 
-require("ibl").setup()
-
 vim.o.mouse = 'a'
 vim.o.clipboard = 'unnamedplus'
 
