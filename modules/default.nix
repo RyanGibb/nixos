@@ -3,6 +3,7 @@
 {
   imports = [
     ./personal/default.nix
+    ./personal/nvim/default.nix
     ./personal/wireguard-hosts.nix
     ./personal/printing.nix
     ./personal/laptop.nix

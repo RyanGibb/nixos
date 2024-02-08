@@ -129,40 +129,6 @@ let cfg = config.personal; in
       };
     };
 
-    programs.neovim = {
-      enable = true;
-      viAlias = true;
-      vimAlias = true;
-      runtime = { "ftplugin/mail.vim".text = "let b:did_ftplugin = 1"; };
-      configure = {
-        customRC = "luafile ${./nvim.lua}";
-        packages.myVimPackage = with pkgs.vimPlugins; {
-          start = [
-            vimtex
-            vim-auto-save
-            vim-airline
-            vim-airline-themes
-            palenight-vim
-            vim-nix
-            (pkgs.vimUtils.buildVimPlugin {
-              pname = "obsidian.nvim";
-              version = "2.6.0";
-              src = pkgs.fetchFromGitHub {
-                owner = "epwalsh";
-                repo = "obsidian.nvim";
-                rev = "v2.6.0";
-                sha256 = "sha256-+w3XYoobuH17oinPfQxhrizbmQB5IbbulUK69674/Wg=";
-              };
-            })
-            plenary-nvim
-            pkgs.ripgrep
-            telescope-nvim
-          ];
-          opt = [ ];
-        };
-      };
-    };
-
     programs.tmux = {
       enable = true;
       extraConfig = let
@@ -185,6 +151,8 @@ let cfg = config.personal; in
         set-hook -g session-created 'run-shell ${toggle-status-bar}'
         # Fixes C-Up/Down in TUIs
         set-option default-terminal tmux
+        # https://stackoverflow.com/questions/62182401/neovim-screen-lagging-when-switching-mode-from-insert-to-normal
+        set -s escape-time 0
       '';
     };
 
