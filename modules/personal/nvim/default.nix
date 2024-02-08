@@ -2,7 +2,7 @@
 
 let cfg = config.personal; in
 let obsidian-nvim =
-    (pkgs.vimUtils.buildVimPlugin {
+  (pkgs.vimUtils.buildVimPlugin {
     pname = "obsidian.nvim";
     version = "2.6.0";
     src = pkgs.fetchFromGitHub {
