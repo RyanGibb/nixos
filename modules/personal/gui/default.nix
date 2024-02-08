@@ -95,11 +95,9 @@ let cfg = config.personal.gui; in
       pulseaudio
 
       (firefox.override {
-        cfg = {
-          nativeMessagingHosts.packages = with pkgs; [
-            tridactyl-native
-          ];
-        };
+        nativeMessagingHosts = with pkgs; [
+          tridactyl-native
+        ];
       })
       tridactyl-native
       chromium

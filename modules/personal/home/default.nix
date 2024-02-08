@@ -89,11 +89,9 @@
       userChrome = userChrome;
     };
     package = (pkgs.firefox.override {
-      cfg = {
-        nativeMessagingHosts.packages = with pkgs; [
-          tridactyl-native
-        ];
-      };
+      nativeMessagingHosts = with pkgs; [
+        tridactyl-native
+      ];
     });
   };
 
