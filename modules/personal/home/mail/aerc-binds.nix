@@ -132,6 +132,8 @@
   compose = {
     "$noinherit" = "true";
     "$ex" = "<C-x>";
+    "<C-c>" = ":cc";
+    "<C-b>" = ":bcc";
     "<C-k>" = ":prev-field<Enter>";
     "<C-Up>" = ":prev-field<Enter>";
     "<C-j>" = ":next-field<Enter>";
@@ -152,7 +154,6 @@
 
   "compose::editor" = {
     "$noinherit" = "true";
-    "$ex" = "<C-x>";
     "<C-k>" = ":prev-field<Enter>";
     "<C-Up>" = ":prev-field<Enter>";
     "<C-j>" = ":next-field<Enter>";
