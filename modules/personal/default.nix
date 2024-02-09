@@ -59,6 +59,8 @@ let cfg = config.personal; in
         bluetuith
         powertop
         ripgrep
+        toot
+        iamb
       ];
       variables.EDITOR = "nvim";
       shellAliases = {
