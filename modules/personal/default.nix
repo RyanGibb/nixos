@@ -153,6 +153,9 @@ let cfg = config.personal; in
         set-option default-terminal tmux
         # https://stackoverflow.com/questions/62182401/neovim-screen-lagging-when-switching-mode-from-insert-to-normal
         set -s escape-time 0
+        set -g lock-command vlock
+        set -g lock-after-time 0 # Seconds; 0 = never
+        bind L lock-session
       '';
     };
 

@@ -38,6 +38,8 @@
     nmap
     gcc
     fzf
+    netcat
+    gawk
   ];
 
   environment.etcBackupExtension = ".bak";
@@ -54,11 +56,11 @@
           enable = true;
           history.size = 100000;
           enableAutosuggestions = true;
-          enableSyntaxHighlighting = true;
+          syntaxHighlighting.enable = true;
           initExtraFirst = ''
             export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
             export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=5"
-            PROMPT='%(?..%F{red}%3?%f )%D{%I:%M:%S%p} %F{cyan}%n@%m%f:%F{cyan}%~%f%<<''${vcs_info_msg_0_}'" %#"$'\n'
+            PROMPT='%(?..%F{red}%3?%f )%F{blue}%n@%m%f:%~ %#'$'\n'
           '';
           initExtra = builtins.readFile ../modules/personal/zsh.cfg + ''
             bindkey "^[[A" up-line-or-beginning-search
@@ -107,12 +109,12 @@
             nixd
             alejandra
             # stop complaining when launching but a devshell is better
-            ocamlPackages.ocaml-lsp
-            ocamlPackages.ocamlformat
+            #ocamlPackages.ocaml-lsp
+            #ocamlPackages.ocamlformat
             marksman
             lua-language-server
-            pyright
-            black
+            #pyright
+            #black
           ];
           extraLuaConfig = builtins.readFile ../modules/personal/nvim/nvim.lua;
           plugins = 
@@ -175,10 +177,16 @@
         programs.tmux = {
           enable = true;
           extraConfig = ''
-            set-option -g prefix `
-            bind ` send-prefix
-            set -g mouse on
             set-window-option -g mode-keys vi
+            set-option -g mouse on
+            set-option -g set-titles on
+            set-option -g set-titles-string "#T"
+            bind-key t capture-pane -S -\; new-window '(tmux show-buffer; tmux delete-buffer) | nvim -c $'
+            bind-key u capture-pane\; new-window '(tmux show-buffer; tmux delete-buffer) | ${pkgs.urlview}/bin/urlview'
+            # Fixes C-Up/Down in TUIs
+            set-option default-terminal tmux
+            # https://stackoverflow.com/questions/62182401/neovim-screen-lagging-when-switching-mode-from-insert-to-normal
+            set -s escape-time 0
             set -g lock-command vlock
             set -g lock-after-time 0 # Seconds; 0 = never
             bind L lock-session
