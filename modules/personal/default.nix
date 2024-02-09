@@ -41,6 +41,7 @@ let cfg = config.personal; in
         ncdu
         nix-prefetch-git
         gnumake
+        vlock
         bat
         killall
         nmap
@@ -154,10 +155,13 @@ let cfg = config.personal; in
         # Fixes C-Up/Down in TUIs
         set-option default-terminal tmux
         # https://stackoverflow.com/questions/62182401/neovim-screen-lagging-when-switching-mode-from-insert-to-normal
+        # locking
         set -s escape-time 0
         set -g lock-command vlock
         set -g lock-after-time 0 # Seconds; 0 = never
         bind L lock-session
+        # for .zprofile display environment starting https://github.com/tmux/tmux/issues/3483
+        set-option -g update-environment XDG_VTNR
       '';
     };
 
