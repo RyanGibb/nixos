@@ -154,6 +154,7 @@
 
   "compose::editor" = {
     "$noinherit" = "true";
+    "$ex" = "<exit>";
     "<C-k>" = ":prev-field<Enter>";
     "<C-Up>" = ":prev-field<Enter>";
     "<C-j>" = ":next-field<Enter>";
