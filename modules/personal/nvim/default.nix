@@ -41,22 +41,7 @@ in
         '';
       in {
         "ftplugin/mail.vim".text = ''
-          let b:did_ftplugin = 1
-          setlocal nomodeline
-          setlocal fo+=tcql
-          setlocal comments+=n:>
-          if expand('%:e') ==? 'eml'
-            let b:undo_ftplugin ..= " fileformat=" .. &fileformat
-            setlocal fileformat=dos
-          endif
-          if !exists("no_plugin_maps") && !exists("no_mail_maps")
-            if !hasmapto('<Plug>MailQuote')
-              vmap <buffer> <LocalLeader>q <Plug>MailQuote
-              nmap <buffer> <LocalLeader>q <Plug>MailQuote
-            endif
-            vnoremap <buffer> <Plug>MailQuote :s/^/> /<CR>:noh<CR>``
-            nnoremap <buffer> <Plug>MailQuote :.,$s/^/> /<CR>:noh<CR>``
-          endif
+          setlocal tw=999
         '';
         "ftplugin/nix.vim".text = ml-style;
         "ftplugin/ocaml.vim".text = ml-style;
