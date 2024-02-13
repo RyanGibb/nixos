@@ -26,6 +26,7 @@ in
       lua-language-server
       pyright
       black
+      ltex-ls
     ];
     programs.neovim = {
       enable = true;

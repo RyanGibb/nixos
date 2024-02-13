@@ -146,7 +146,7 @@ capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'nixd', 'ocamllsp', 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'gopls', 'marksman' }
+local servers = { 'nixd', 'ocamllsp', 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'gopls', }
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup {
 		on_attach = on_attach,
@@ -175,6 +175,31 @@ lspconfig['lua_ls'].setup {
 			-- Do not send telemetry data containing a randomized but unique identifier
 			telemetry = {
 				enable = false,
+			},
+		},
+	},
+}
+
+
+lspconfig['ltex'].setup {
+	on_attach = on_attach,
+	capabilities = capabilities,
+	cmd = { "ltex-ls" },
+	filetypes = { "markdown", "tex", "text", "plaintext" },
+	flags = { debounce_text_changes = 300 },
+	settings = {
+		ltex = {
+			language = "en-GB",
+			dictionary = {
+				["en-GB"] = {
+					"OCaml",
+				},
+			},
+			disabledRules = {
+				["en-GB"] = {
+					"MORFOLOGIK_RULE_EN_GB",
+					"OXFORD_SPELLING_Z_NOT_S",
+				},
 			},
 		},
 	},
