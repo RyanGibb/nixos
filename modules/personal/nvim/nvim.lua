@@ -1,4 +1,6 @@
-require("gruvbox").setup{}
+require("gruvbox").setup{
+	terminal_colors = false;
+}
 vim.cmd [[colorscheme gruvbox]]
 vim.api.nvim_command('hi Normal guibg=NONE ctermbg=NONE')
 
