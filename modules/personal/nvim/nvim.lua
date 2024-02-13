@@ -185,16 +185,11 @@ lspconfig['ltex'].setup {
 	on_attach = on_attach,
 	capabilities = capabilities,
 	cmd = { "ltex-ls" },
-	filetypes = { "markdown", "tex", "text", "plaintext" },
+	filetypes = { "markdown", "tex", "plaintext", "mail" },
 	flags = { debounce_text_changes = 300 },
 	settings = {
 		ltex = {
 			language = "en-GB",
-			dictionary = {
-				["en-GB"] = {
-					"OCaml",
-				},
-			},
 			disabledRules = {
 				["en-GB"] = {
 					"MORFOLOGIK_RULE_EN_GB",
