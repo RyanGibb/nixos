@@ -60,6 +60,7 @@ in
             gruvbox-nvim
 
             telescope-nvim
+            trouble-nvim
 
             obsidian-nvim
             plenary-nvim
