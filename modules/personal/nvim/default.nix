@@ -1,17 +1,29 @@
 { pkgs, config, lib, ... }:
 
 let cfg = config.personal; in
-let obsidian-nvim =
-  (pkgs.vimUtils.buildVimPlugin {
-    pname = "obsidian.nvim";
-    version = "2.6.0";
-    src = pkgs.fetchFromGitHub {
-      owner = "epwalsh";
-      repo = "obsidian.nvim";
-      rev = "v2.6.0";
-      sha256 = "sha256-+w3XYoobuH17oinPfQxhrizbmQB5IbbulUK69674/Wg=";
-    };
-  });
+let
+  obsidian-nvim =
+    (pkgs.vimUtils.buildVimPlugin {
+      pname = "obsidian.nvim";
+      version = "2.6.0";
+      src = pkgs.fetchFromGitHub {
+        owner = "epwalsh";
+        repo = "obsidian.nvim";
+        rev = "v2.6.0";
+        sha256 = "sha256-+w3XYoobuH17oinPfQxhrizbmQB5IbbulUK69674/Wg=";
+      };
+    });
+  ltex-ls-nvim =
+    (pkgs.vimUtils.buildVimPlugin {
+      pname = "ltex-ls.nvim";
+      version = "2.6.0";
+      src = pkgs.fetchFromGitHub {
+        owner = "vigoux";
+        repo = "ltex-ls.nvim";
+        rev = "c8139ea6b7f3d71adcff121e16ee8726037ffebd";
+        sha256 = "sha256-jY3ALr6h88xnWN2QdKe3R0vvRcSNhFWDW56b2NvnTCs=";
+      };
+    });
 in
 {
   config = lib.mkIf cfg.enable {
@@ -27,6 +39,7 @@ in
       pyright
       black
       ltex-ls
+      jdt-language-server
     ];
     programs.neovim = {
       enable = true;
@@ -50,6 +63,16 @@ in
           set com+=b:-
           set formatoptions+=ro
         '';
+        "ftplugin/java.lua".text = ''
+          local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+          local workspace_dir = '~/.cache/jdt/' .. project_name
+          require('jdtls').start_or_attach {
+          	on_attach = On_attach,
+          	capabilities = Capabilities,
+            cmd = { 'jdt-language-server', '-data', workspace_dir, },
+            root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+          }
+        '';
       };
       configure = {
         customRC = "luafile ${./nvim.lua}";
@@ -60,6 +83,7 @@ in
             gruvbox-nvim
 
             telescope-nvim
+            telescope-fzf-native-nvim
             trouble-nvim
 
             obsidian-nvim
@@ -76,6 +100,11 @@ in
             nvim-cmp
 
             vimtex
+            nvim-surround
+
+            ltex-ls-nvim
+            nvim-jdtls
+            # TODO nvim-dap
           ];
           opt = [ ];
         };

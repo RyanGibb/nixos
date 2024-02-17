@@ -1,4 +1,4 @@
-require("gruvbox").setup{
+require('gruvbox').setup{
 	terminal_colors = false;
 }
 vim.cmd [[colorscheme gruvbox]]
@@ -17,7 +17,7 @@ vim.bo.smartindent = true
 vim.o.fixendofline = false
 
 vim.o.conceallevel = 0
-vim.wo.signcolumn = "yes"
+vim.wo.signcolumn = 'yes'
 vim.opt.colorcolumn = '80,120'
 
 vim.o.smartcase = true
@@ -50,6 +50,8 @@ vim.api.nvim_create_autocmd({'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave'}
 
 vim.g.mapleader = ' '
 
+vim.opt.timeout = false
+
 local key_mapper = function(mode, key, result)
 	vim.api.nvim_set_keymap(
 		mode,
@@ -68,25 +70,32 @@ key_mapper('n', 'ZA', ':cquit<Enter>')
 
 key_mapper('t', '<Esc>', '<C-\\><C-n>')
 
+-- go though spelling mistakes
+key_mapper('n', '<C-s>', ']s1z=')
+
+key_mapper('n', '<leader>l', '<C-w>l')
+
 vim.api.nvim_create_autocmd('TermOpen', {
 	pattern = '*',
 	command = 'startinsert',
 })
 
+require("nvim-surround").setup({})
+
 --- obsidian
 
 require('obsidian').setup({
-	dir = "~/vault",
+	dir = '~/vault',
 	note_id_func = function(title)
-	local suffix = ""
+	local suffix = ''
 		if title ~= nil then
-			suffix = " " .. title
+			suffix = ' ' .. title
 		end
-		return tostring(os.date("%Y-%m-%d")) .. suffix
+		return tostring(os.date('%Y-%m-%d')) .. suffix
 	end,
 	disable_frontmatter = true,
 	attachments = {
-		img_folder = "",
+		img_folder = '',
 	},
 	ui = {
 		enable = false,
@@ -95,22 +104,35 @@ require('obsidian').setup({
 
 -- telescope
 
-vim.keymap.set('n', '<leader>ff',  require('telescope.builtin').find_files, {})
-vim.keymap.set('n', '<leader>fg',  require('telescope.builtin').live_grep, {})
-vim.keymap.set('n', '<leader>fb',  require('telescope.builtin').buffers, {})
-vim.keymap.set('n', '<leader>fh',  require('telescope.builtin').help_tags, {})
-vim.keymap.set('n', '<leader>fc',  require('telescope.builtin').command_history, {})
-vim.keymap.set('n', '<leader>fs',  require('telescope.builtin').search_history, {})
-vim.keymap.set('n', '<leader>fj',  require('telescope.builtin').jumplist, {})
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {})
+vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, {})
+vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers, {})
+vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, {})
+vim.keymap.set('n', '<leader>fc', require('telescope.builtin').command_history, {})
+vim.keymap.set('n', '<leader>fs', require('telescope.builtin').search_history, {})
+vim.keymap.set('n', '<leader>fj', require('telescope.builtin').jumplist, {})
+vim.keymap.set('n', '<leader>fm', require('telescope.builtin').marks, {})
+vim.keymap.set('n', '<leader>fr', require('telescope.builtin').lsp_references, {})
+vim.keymap.set('n', '<leader>fS', require('telescope.builtin').lsp_document_symbols, {})
+vim.keymap.set('n', '<leader>fc', require('telescope.builtin').lsp_incoming_calls, {})
+vim.keymap.set('n', '<leader>fo', require('telescope.builtin').lsp_outgoing_calls, {})
+vim.keymap.set('n', '<leader>fi', require('telescope.builtin').lsp_implementations, {})
+vim.keymap.set('n', '<leader>fx', require('telescope.builtin').diagnostics, {})
+
+require('telescope').load_extension('fzf')
 
 -- trouble
 
-vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
-vim.keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
-vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
-vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
-vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
-vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
+require('trouble').setup{
+	icons = false;
+}
+
+vim.keymap.set('n', '<leader>xx', function() require('trouble').toggle() end)
+vim.keymap.set('n', '<leader>xw', function() require('trouble').toggle('workspace_diagnostics') end)
+vim.keymap.set('n', '<leader>xd', function() require('trouble').toggle('document_diagnostics') end)
+vim.keymap.set('n', '<leader>xq', function() require('trouble').toggle('quickfix') end)
+vim.keymap.set('n', '<leader>xl', function() require('trouble').toggle('loclist') end)
+vim.keymap.set('n', 'gR', function() require('trouble').toggle('lsp_references') end)
 
 -- lspconfig
 
@@ -127,7 +149,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+On_attach = function(client, bufnr)
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	local bufopts = function(desc)
@@ -148,26 +170,26 @@ local on_attach = function(client, bufnr)
 end
 
 -- Add additional capabilities supported by nvim-cmp
-local capabilities = vim.tbl_deep_extend("force",
+Capabilities = vim.tbl_deep_extend('force',
 	vim.lsp.protocol.make_client_capabilities(),
 	require('cmp_nvim_lsp').default_capabilities()
 )
-capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+Capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'nixd', 'ocamllsp', 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'gopls', }
+local servers = { 'nixd', 'ocamllsp', 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'gopls', 'marksman', }
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup {
-		on_attach = on_attach,
-		capabilities = capabilities,
+		on_attach = On_attach,
+		capabilities = Capabilities,
 	}
 end
 
 lspconfig['lua_ls'].setup {
-	on_attach = on_attach,
-	capabilities = capabilities,
+	on_attach = On_attach,
+	capabilities = Capabilities,
 	settings = {
 		Lua = {
 			runtime = {
@@ -180,7 +202,7 @@ lspconfig['lua_ls'].setup {
 			},
 			workspace = {
 				-- Make the server aware of Neovim runtime files
-				library = vim.api.nvim_get_runtime_file("", true),
+				library = vim.api.nvim_get_runtime_file('', true),
 				checkThirdParty = false,
 			},
 			-- Do not send telemetry data containing a randomized but unique identifier
@@ -193,18 +215,23 @@ lspconfig['lua_ls'].setup {
 
 
 lspconfig['ltex'].setup {
-	on_attach = on_attach,
-	capabilities = capabilities,
-	cmd = { "ltex-ls" },
-	filetypes = { "markdown", "tex", "plaintext", "mail" },
 	flags = { debounce_text_changes = 300 },
+}
+
+-- wrapper around lspconfig['ltex-ls'] with support for hide false positive
+require('ltex-ls').setup {
+	on_attach = On_attach,
+	capabilities = Capabilities,
+	use_spellfile = false,
+	filetypes = { 'markdown', 'latex', 'tex', 'bib', 'plaintext', 'mail', 'gitcommit' },
 	settings = {
 		ltex = {
-			language = "en-GB",
+			language = 'en-GB',
+			sentenceCacheSize = 2000,
 			disabledRules = {
-				["en-GB"] = {
-					"MORFOLOGIK_RULE_EN_GB",
-					"OXFORD_SPELLING_Z_NOT_S",
+				['en-GB'] = {
+					'MORFOLOGIK_RULE_EN_GB',
+					'OXFORD_SPELLING_Z_NOT_S',
 				},
 			},
 		},
@@ -284,9 +311,9 @@ local function session_completion(arg_lead, cmd_line, cursor_pos)
 	return sessions
 end
 
-vim.api.nvim_create_autocmd("VimLeave", {
+vim.api.nvim_create_autocmd('VimLeave', {
 	pattern = '*',
-	callback = function() save_session({args = ""}) end,
+	callback = function() save_session({args = ''}) end,
 })
 
 vim.api.nvim_create_user_command('SaveSession', save_session, { nargs = '?', complete = session_completion })
