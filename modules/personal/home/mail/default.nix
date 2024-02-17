@@ -60,6 +60,7 @@ in {
         "ui:folder=Sent".index-columns = "date<=,to<50,flags>=,subject<*";
         "ui:folder=Sent".column-to = "{{index (.To | persons) 0}}";
         openers."text/html" = "firefox --new-window";
+        hooks.mail-recieved = ''notify-send "[$AERC_ACCOUNT/$AERC_FOLDER] mail from $AERC_FROM_NAME" "$AERC_SUBJECT"'';
         filters = {
           "text/plain" = "colorize";
           "text/calendar" = "calendar";
