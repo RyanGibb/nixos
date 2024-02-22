@@ -244,18 +244,18 @@
   services.headscale.settings.dns_config.extra_records = [
     {
       name = "jellyfin.vpn.${config.networking.domain}";
-      type = "CNAME";
-      value = "elephant.vpn.${config.networking.domain}";
+      type = "A";
+      value = "100.64.0.9";
     }
     {
       name = "nextcloud.vpn.${config.networking.domain}";
-      type = "CNAME";
-      value = "elephant.vpn.${config.networking.domain}";
+      type = "A";
+      value = "100.64.0.9";
     }
     {
       name = "transmission.vpn.${config.networking.domain}";
-      type = "CNAME";
-      value = "elephant.vpn.${config.networking.domain}";
+      type = "A";
+      value = "100.64.0.9";
     }
   ];
 }
