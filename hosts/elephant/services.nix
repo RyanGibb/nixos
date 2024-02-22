@@ -42,7 +42,7 @@
     enable = true;
     openFirewall = true;
     settings = {
-      media_dir = [ "/tank/media/" ];
+      media_dir = [ "/tank/" ];
       notify_interval = 60;
       inofity = true;
     };
