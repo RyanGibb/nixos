@@ -90,7 +90,7 @@
       add_header Strict-Transport-Security max-age=31536000 always;
       add_header X-Frame-Options SAMEORIGIN always;
       add_header X-Content-Type-Options nosniff always;
-      add_header Content-Security-Policy "default-src 'self'; base-uri 'self'; frame-src 'self'; frame-ancestors 'self'; form-action 'self';" always;
+      add_header Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval'; base-uri 'self'; frame-src 'self'; frame-ancestors 'self'; form-action 'self';" always;
       add_header Referrer-Policy 'same-origin';
     '';
     virtualHosts = {
