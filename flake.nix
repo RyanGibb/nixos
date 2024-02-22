@@ -18,6 +18,7 @@
     matrix-appservices.url = "gitlab:coffeetables/nix-matrix-appservices";
     i3-workspace-history.url = "github:RyanGibb/i3-workspace-history";
     hyperbib-eeg.url = "github:RyanGibb/hyperbib?ref=nixify";
+    neovim.url = "github:neovim/neovim/f40df63bdca33d343cada6ceaafbc8b765ed7cc6?dir=contrib";
 
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
@@ -51,6 +52,7 @@
     matrix-appservices,
     i3-workspace-history,
     hyperbib-eeg,
+    neovim,
     ...
   }@inputs: rec {
     nixosConfigurations =
@@ -104,6 +106,7 @@
                   });
                 };
               };
+              neovim-unwrapped = neovim.packages.${system}.default;
             })
           ];
 

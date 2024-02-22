@@ -162,6 +162,8 @@ let cfg = config.personal; in
         bind L lock-session
         # for .zprofile display environment starting https://github.com/tmux/tmux/issues/3483
         set-option -g update-environment XDG_VTNR
+        # Allow clipboard with OSC-52 work
+        set -s set-clipboard on
       '';
     };
 
