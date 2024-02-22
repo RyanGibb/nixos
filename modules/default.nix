@@ -18,7 +18,7 @@
     ./personal/gui/sway.nix
     ./personal/tailscale.nix
     ./personal/shell.nix
-    ./personal/backup.nix
+    ./personal/external-hdd-backup.nix
     ./hosting/freumh.nix
     ./hosting/nix-cache.nix
     ./hosting/eeww.nix

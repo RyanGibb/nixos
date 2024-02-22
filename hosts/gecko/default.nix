@@ -15,7 +15,6 @@
     gui.sway = true;
     gui.extra = true;
     ocaml = true;
-    backup.enable = true;
   };
 
   boot.loader.grub = {
@@ -90,5 +89,61 @@
     extraOptions = ''
       builders-use-substitutes = true
       '';
+  };
+
+  services.restic.backups.sync = {
+    repository = "sftp:elephant:/tank/backups/gecko";
+    passwordFile = "${config.custom.secretsDir}/restic-password-gecko";
+    initialize = true;
+    paths = [
+      "/home/${config.custom.username}"
+      "/etc/NetworkManager/system-connections"
+    ];
+    exclude = [
+      "/home/${config.custom.username}/.thunderbird"
+      "/home/${config.custom.username}/.cache"
+      "/home/${config.custom.username}/.local/share/Steam"
+    ];
+    timerConfig = {
+      OnUnitActiveSec = "1d";
+    };
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 5"
+      "--keep-monthly 12"
+      "--keep-yearly 75"
+    ];
+  };
+
+  systemd.services.restic-backups-sync = {
+    # fail to start on metered connection
+    preStart = ''
+      DEVICE=$(${pkgs.iproute2}/bin/ip route list 0/0 | sed -r 's/.*dev (\S*).*/\1/g')
+      METERED=$(${pkgs.networkmanager}/bin/nmcli -f GENERAL.METERED dev show "$DEVICE" | ${pkgs.gawk}/bin/awk '/GENERAL.METERED/ {print $2}')
+      if [ "$METERED_STATUS" = "yes" ]; then
+        echo "Connection is metered. Aborting start."
+        exit 1
+      fi
+    '';
+    unitConfig.OnFailure = "notify-backup-failed.service";
+  };
+
+  systemd.services."notify-backup-failed" = {
+    enable = true;
+    description = "Notify on failed backup";
+    serviceConfig = {
+      Type = "oneshot";
+      User = config.users.users.${config.custom.username}.name;
+    };
+
+    environment.DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/${
+      toString config.users.users.${config.custom.username}.uid
+    }/bus";
+
+    script = ''
+      ${pkgs.libnotify}/bin/notify-send --urgency=critical \
+        "Backup failed" \
+        "$(journalctl -u restic-backups-daily -n 5 -o cat)"
+    '';
   };
 }
