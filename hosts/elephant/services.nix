@@ -1,11 +1,15 @@
 { config, pkgs, ... }:
 
 {
+  security.acme = {
+    defaults.email = "${config.eilean.username}@${config.networking.domain}";
+    acceptTerms = true;
+  };
+
   services.nginx = {
     virtualHosts = {
-      "jellyfin.vpn.freumh.org" = {
-        forceSSL = true;
-        enableACME = true;
+      "jellyfin" = {
+        listenAddresses = [ "100.64.0.9" ];
         locations."/" = {
           proxyPass = ''
             http://localhost:8096
@@ -13,12 +17,11 @@
           proxyWebsockets = true;
         };
       };
-      "transmission.vpn.freumh.org" = {
-        forceSSL = true;
-        enableACME = true;
+      "transmission" = {
+        listenAddresses = [ "100.64.0.9" ];
         locations."/" = {
           proxyPass = ''
-            http://localhost:${config.services.transmission.settings.rpc-port}
+            http://localhost:9091
           '';
         };
       };
@@ -90,7 +93,6 @@
     settings = {
       download-dir = "/tank/media";
       incomplete-dir-enabled = false;
-      rpc-bind-address = "100.64.0.9";
       rpc-whitelist = "127.0.0.1,100.64.*.*";
       rpc-host-whitelist-enabled = false;
       #bind-address-ipv4 = "100.64.0.9";
