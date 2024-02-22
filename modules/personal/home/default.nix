@@ -28,6 +28,8 @@
     let wallpaper = ./wallpaper.jpg; in
     pkgs.runCommand (builtins.baseNameOf wallpaper) {} "cp ${wallpaper} $out";
 
+  home.sessionVariables.GOPATH = "$HOME/.go";
+
   home.pointerCursor = {
       name = "Adwaita";
       package = pkgs.gnome.adwaita-icon-theme;
@@ -150,11 +152,11 @@
       enable = true;
       createDirectories = true;
       download    = "$HOME/downloads";
-      pictures    = "$HOME/capture";
+      pictures    = "$HOME/pictures";
       videos      = "$HOME/videos";
+      documents   = "$HOME/documents/";
       music       = "$HOME/";
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1082717
-      documents   = "$HOME/";
       desktop     = "$HOME/";
       templates   = "$HOME/";
       publicShare = "$HOME/";
