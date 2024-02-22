@@ -33,7 +33,7 @@
     '';
   };
 
-  services.restic.backups.daily = {
+  services.restic.backups.sync = {
     environmentFile = "${config.custom.secretsDir}/restic.env";
     repositoryFile = "${config.custom.secretsDir}/restic-repo";
     passwordFile = "${config.custom.secretsDir}/restic-password";
