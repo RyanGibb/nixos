@@ -240,4 +240,22 @@
       stop;
     }
   '';
+
+  services.headscale.settings.dns_config.extra_records = [
+    {
+      name = "jellyfin.vpn.${config.networking.domain}";
+      type = "CNAME";
+      value = "elephant.vpn.${config.networking.domain}";
+    }
+    {
+      name = "nextcloud.vpn.${config.networking.domain}";
+      type = "CNAME";
+      value = "elephant.vpn.${config.networking.domain}";
+    }
+    {
+      name = "transmission.vpn.${config.networking.domain}";
+      type = "CNAME";
+      value = "elephant.vpn.${config.networking.domain}";
+    }
+  ];
 }
