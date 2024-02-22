@@ -70,6 +70,23 @@ key_mapper('n', 'ZA', ':cquit<Enter>')
 
 key_mapper('t', '<Esc>', '<C-\\><C-n>')
 
+-- if in an SSH session enable OSC 52 system clipboard
+-- required as neovim can't detect alacritty capabilities as it doesn't support XTGETTCAP
+if os.getenv('SSH_TTY') then
+	vim.g.clipboard = {
+		name = 'OSC 52',
+		copy = {
+			['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+			['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+		},
+		paste = {
+			['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+			['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+		},
+	}
+end
+
+
 -- go though spelling mistakes
 key_mapper('n', '<C-s>', ']s1z=')
 
