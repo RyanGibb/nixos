@@ -95,8 +95,6 @@
       incomplete-dir-enabled = false;
       rpc-whitelist = "127.0.0.1,100.64.*.*";
       rpc-host-whitelist-enabled = false;
-      #bind-address-ipv4 = "100.64.0.9";
-      #bind-address-ipv6 = "fe80::e66a:5de:9e2:611c";
     };
   };
 }
