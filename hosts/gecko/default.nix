@@ -92,8 +92,8 @@
       '';
   };
 
-  services.restic.backups.sync = {
-    repository = "sftp:root@elephant:/tank/backups/gecko";
+  services.restic.backups.${config.networking.hostName} = {
+    repository = "rest:http://100.64.0.9:8000/${config.networking.hostName}/";
     passwordFile = "${config.custom.secretsDir}/restic-password-gecko";
     initialize = true;
     paths = [
@@ -109,15 +109,9 @@
     timerConfig = {
       OnUnitActiveSec = "1d";
     };
-    pruneOpts = [
-      "--keep-daily 7"
-      "--keep-weekly 5"
-      "--keep-monthly 12"
-      "--keep-yearly 75"
-    ];
   };
 
-  systemd.services.restic-backups-sync = {
+  systemd.services."restic-backups-${config.networking.hostName}" = {
     # fail to start on metered connection
     preStart = ''
       DEVICE=$(${pkgs.iproute2}/bin/ip route list 0/0 | sed -r 's/.*dev (\S*).*/\1/g')

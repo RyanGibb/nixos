@@ -60,7 +60,7 @@ in
         "ftplugin/ocaml.vim".text = ml-style;
         "after/ftplugin/markdown.vim".text = ''
           set com-=fb:-
-          set com+=b:-
+          set com+=b:-\ [\ ],b:-\ [x],b:-
           set formatoptions+=ro
         '';
         "ftplugin/java.lua".text = ''
