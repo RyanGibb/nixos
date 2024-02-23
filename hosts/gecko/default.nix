@@ -42,6 +42,7 @@
     lsof
     wally-cli
     gthumb
+    restic
   ];
 
   virtualisation.docker.enable = true;
@@ -92,7 +93,7 @@
   };
 
   services.restic.backups.sync = {
-    repository = "sftp:elephant:/tank/backups/gecko";
+    repository = "sftp:root@elephant:/tank/backups/gecko";
     passwordFile = "${config.custom.secretsDir}/restic-password-gecko";
     initialize = true;
     paths = [
@@ -100,6 +101,7 @@
       "/etc/NetworkManager/system-connections"
     ];
     exclude = [
+      "/home/${config.custom.username}/videos"
       "/home/${config.custom.username}/.thunderbird"
       "/home/${config.custom.username}/.cache"
       "/home/${config.custom.username}/.local/share/Steam"
