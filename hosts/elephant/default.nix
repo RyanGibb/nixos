@@ -36,7 +36,7 @@
   services.restic.backups.sync = {
     environmentFile = "${config.custom.secretsDir}/restic.env";
     repositoryFile = "${config.custom.secretsDir}/restic-repo";
-    passwordFile = "${config.custom.secretsDir}/restic-password";
+    passwordFile = "${config.custom.secretsDir}/restic-password-elephant";
     initialize = true;
     paths = [
       "/tank/family/mp4/"
