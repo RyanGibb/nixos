@@ -258,4 +258,17 @@
       value = "100.64.0.9";
     }
   ];
+
+  services.restic.backups.${config.networking.hostName} = {
+    repository = "rest:http://100.64.0.9:8000/${config.networking.hostName}/";
+    passwordFile = "${config.custom.secretsDir}/restic-password-owl";
+    initialize = true;
+    paths = [
+      "/var/"
+    ];
+    timerConfig = {
+      OnCalendar = "03:00";
+      randomizedDelaySec = "1hr";
+    };
+  };
 }
