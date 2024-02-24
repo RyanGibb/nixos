@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   security.acme = {
@@ -49,6 +49,11 @@
   };
 
   services.jellyfin.enable = true;
+  systemd.services.jellyfin.environment = {
+    INTEL_MEDIA_RUNTIME= "ONEVPL";
+    LIBVA_DRIVER_NAME = "iHD";
+    ONEVPL_SEARCH_PATH = lib.strings.makeLibraryPath (with pkgs; [oneVPL-intel-gpu]);
+  };
 
   services.samba = {
     enable = true;

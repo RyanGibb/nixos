@@ -10,6 +10,8 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/d1b7f032-9c43-4a57-b531-4b1d6f88c999";
       fsType = "ext4";
@@ -31,5 +33,25 @@
     enable = true;
     device = "nodev";
     efiSupport = true;
+  };
+
+  # hardware transcoding
+  nixpkgs.config.packageOverrides = pkgs: {
+    intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
+  };
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      vaapi-intel-hybrid
+      intel-media-sdk
+      oneVPL-intel-gpu
+      intel-compute-runtime
+    ];
+  };
+  environment.sessionVariables = {
+    INTEL_MEDIA_RUNTIME= "ONEVPL";
+    LIBVA_DRIVER_NAME = "iHD";
+    ONEVPL_SEARCH_PATH = lib.strings.makeLibraryPath (with pkgs; [oneVPL-intel-gpu]);
   };
 }
