@@ -34,7 +34,6 @@ in
       # stop complaining when launching but a devshell is better
       ocamlPackages.ocaml-lsp
       ocamlPackages.ocamlformat
-      marksman
       lua-language-server
       pyright
       black
