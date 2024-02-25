@@ -109,6 +109,7 @@
     timerConfig = {
       OnUnitActiveSec = "1d";
     };
+    extraBackupArgs = [ "-vv" ];
   };
 
   systemd.services."restic-backups-${config.networking.hostName}" = {
