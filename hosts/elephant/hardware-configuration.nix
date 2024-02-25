@@ -34,24 +34,4 @@
     device = "nodev";
     efiSupport = true;
   };
-
-  # hardware transcoding
-  nixpkgs.config.packageOverrides = pkgs: {
-    intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
-  };
-  hardware.opengl = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-      vaapi-intel-hybrid
-      intel-media-sdk
-      oneVPL-intel-gpu
-      intel-compute-runtime
-    ];
-  };
-  environment.sessionVariables = {
-    INTEL_MEDIA_RUNTIME= "ONEVPL";
-    LIBVA_DRIVER_NAME = "iHD";
-    ONEVPL_SEARCH_PATH = lib.strings.makeLibraryPath (with pkgs; [oneVPL-intel-gpu]);
-  };
 }

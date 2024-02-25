@@ -49,11 +49,10 @@
   };
 
   services.jellyfin.enable = true;
-  systemd.services.jellyfin.environment = {
-    INTEL_MEDIA_RUNTIME= "ONEVPL";
-    LIBVA_DRIVER_NAME = "iHD";
-    ONEVPL_SEARCH_PATH = lib.strings.makeLibraryPath (with pkgs; [oneVPL-intel-gpu]);
-  };
+  systemd.services.jellyfin.environment.LD_LIBRARY_PATH =
+    lib.strings.makeLibraryPath (with pkgs; [
+        (pkgs.callPackage ../../pkgs/onevpl-intel-gpu.nix { })
+    ]);
 
   services.samba = {
     enable = true;

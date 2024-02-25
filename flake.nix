@@ -107,12 +107,6 @@
                 };
               };
               neovim-unwrapped = neovim.packages.${system}.default;
-              oneVPL-intel-gpu = final.callPackage ./pkgs/onevpl-intel-gpu.nix { };
-              jellyfin-ffmpeg = prev.jellyfin-ffmpeg.overrideAttrs (old: rec {
-                configureFlags = (builtins.filter (e: e != "--enable-libmfx") old.configureFlags)
-                  ++ [ "--enable-libvpl" ];
-                buildInputs = old.buildInputs ++ [ final.overlay-unstable.libvpl ];
-              });
             })
           ];
 
