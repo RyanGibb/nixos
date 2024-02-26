@@ -55,24 +55,28 @@
 
   # Add hardware transcoding support to `ffmpeg_6` and derived packages (like jellyfin-ffmpeg)
   # for Intel Alder Lake N100's Quick Sync Video (QSV) using Intel OneVPL.
-  # Remove once https://github.com/NixOS/nixpkgs/pull/264621 is merged.
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      # Video Acceleration API (VA-API) user mode driver
+      intel-media-driver
+      # Intel Video Processing Library (VPL) API runtime implementation
+      # replace with`onevpl-intel-gpu` after https://github.com/NixOS/nixpkgs/pull/264621
+      (pkgs.callPackage ../../pkgs/onevpl-intel-gpu.nix { })
+    ];
+  };
+  # remove after https://github.com/NixOS/nixpkgs/pull/264621
   nixpkgs.config.packageOverrides = prev: {
-    jellyfin-ffmpeg = prev.jellyfin-ffmpeg.overrideAttrs (old: rec {
+    ffmpeg_6 = prev.ffmpeg_6.overrideAttrs (old: rec {
       configureFlags =
         # Remove deprecated Intel Media SDK support
         (builtins.filter (e: e != "--enable-libmfx") old.configureFlags)
-        # Add Intel Video Processing Library (VPL) support
+        # Add Intel VPL support
         ++ [ "--enable-libvpl" ];
       buildInputs = old.buildInputs ++ [
         # VPL dispatcher
-        pkgs.overlay-unstable.libvpl
+        pkgs.libvpl
       ];
     });
   };
-  # The VPL dispatcher searches LD_LIBRARY_PATH for runtime implemenations
-  environment.sessionVariables.LD_LIBRARY_PATH =
-    lib.strings.makeLibraryPath (with pkgs; [
-        # Intel oneVPL API runtime implementation for Intel Gen GPUs
-        (pkgs.callPackage ../../pkgs/onevpl-intel-gpu.nix { })
-    ]);
 }

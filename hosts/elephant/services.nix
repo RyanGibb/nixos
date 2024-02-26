@@ -49,10 +49,6 @@
   };
 
   services.jellyfin.enable = true;
-  systemd.services.jellyfin.environment.LD_LIBRARY_PATH =
-    lib.strings.makeLibraryPath (with pkgs; [
-        (pkgs.callPackage ../../pkgs/onevpl-intel-gpu.nix { })
-    ]);
 
   services.samba = {
     enable = true;

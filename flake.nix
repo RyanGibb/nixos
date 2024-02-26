@@ -107,6 +107,10 @@
                 };
               };
               neovim-unwrapped = neovim.packages.${system}.default;
+              # https://github.com/NixOS/nixpkgs/pull/291559
+              libvpl = final.overlay-unstable.libvpl.overrideAttrs (_: {
+                patches = [ ./pkgs/opengl-driver-lib.patch ];
+              });
             })
           ];
 
