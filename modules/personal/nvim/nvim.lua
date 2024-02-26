@@ -230,11 +230,6 @@ lspconfig['lua_ls'].setup {
 	},
 }
 
-
-lspconfig['ltex'].setup {
-	flags = { debounce_text_changes = 300 },
-}
-
 -- wrapper around lspconfig['ltex-ls'] with support for hide false positive
 require('ltex-ls').setup {
 	on_attach = On_attach,
@@ -243,6 +238,7 @@ require('ltex-ls').setup {
 	filetypes = { 'markdown', 'latex', 'tex', 'bib', 'plaintext', 'mail', 'gitcommit' },
 	settings = {
 		ltex = {
+			flags = { debounce_text_changes = 300 },
 			language = 'en-GB',
 			sentenceCacheSize = 2000,
 			disabledRules = {

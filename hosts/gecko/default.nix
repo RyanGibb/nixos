@@ -143,4 +143,6 @@
         "$(journalctl -u restic-backups-daily -n 5 -o cat)"
     '';
   };
+
+  systemd.services.NetworkManager-wait-online.enable = false;
 }
