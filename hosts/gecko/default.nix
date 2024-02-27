@@ -43,6 +43,7 @@
     wally-cli
     gthumb
     restic
+    jellyfin-media-player
   ];
 
   virtualisation.docker.enable = true;

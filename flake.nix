@@ -111,6 +111,25 @@
               libvpl = final.overlay-unstable.libvpl.overrideAttrs (_: {
                 patches = [ ./pkgs/opengl-driver-lib.patch ];
               });
+              # https://github.com/jellyfin/jellyfin-media-player/issues/165#issuecomment-1966131861
+              jellyfin-media-player = prev.jellyfin-media-player.overrideAttrs (old: {
+                buildInputs =
+                  (prev.lib.filter (input: input != prev.mpv) old.buildInputs) ++ [
+                  (prev.mpv-unwrapped.overrideAttrs (old: {
+                    buildInputs =
+                      (prev.lib.filter (input: input != prev.libva) old.buildInputs) ++ [
+                      (prev.libva.overrideAttrs (_: {
+                        src = prev.fetchFromGitHub {
+                          owner = "emersion";
+                          repo = "libva";
+                          rev = "linux-dmabuf";
+                          hash = "sha256-d1cT6zOZHnrBBWjxOtSMAijPr4Tab+0GetZ6aqzhvrQ=";
+                        };
+                      }))
+                    ];
+                  }))
+                ];
+              });
             })
           ];
 
