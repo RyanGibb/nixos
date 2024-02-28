@@ -98,6 +98,9 @@ let domain = "eeg.cl.cam.ac.uk"; in
       locations."/" = {
         proxyPass = "http://127.0.0.1:${builtins.toString config.services.peertube.listenHttp}/";
       };
+      extraConfig = ''
+        ProxyPreserveHost On
+      '';
     };
   };
 
@@ -180,6 +183,7 @@ let domain = "eeg.cl.cam.ac.uk"; in
             '';
           };
         };
+        app_service_config_files = [ "/var/lib/heisenbridge/registration.yml" ];
       }
     ];
   };
@@ -187,6 +191,7 @@ let domain = "eeg.cl.cam.ac.uk"; in
   networking.firewall.allowedTCPPorts = [
     80   # HTTP
     443  # HTTPS
+    6667
   ];
 
   nix.settings.require-sigs = false;
@@ -199,7 +204,9 @@ let domain = "eeg.cl.cam.ac.uk"; in
   services = {
     peertube = {
       enable = true;
-      localDomain = "127.0.0.1";
+      localDomain = "watch.eeg.cl.cam.ac.uk";
+      listenWeb = 443;
+      enableWebHttps = true;
       database = {
         host = "127.0.0.1";
         name = "peertube_local";
@@ -216,6 +223,7 @@ let domain = "eeg.cl.cam.ac.uk"; in
         instance.name = "PeerTube Test Server";
       };
       secrets.secretsFile = "/secrets/peertube";
+      serviceEnvironmentFile  = "/secrets/peertube.env";
     };
 
     redis.servers.peertube = {
@@ -224,5 +232,74 @@ let domain = "eeg.cl.cam.ac.uk"; in
       requirePass = "test123";
       port = 31638;
     };
+  };
+
+  services.heisenbridge = {
+    enable = true;
+    address = "0.0.0.0";
+    homeserver = "https://${domain}";
+  };
+  systemd.services.inspircd.serviceConfig.Group = "wwwrun";
+  services.inspircd = {
+    enable = true;
+    config = ''
+<module name="ssl_gnutls">
+
+<server
+    name="eeg.cl.cam.ac.uk"
+    description="EEG Lab IRC Server at Cambridge"
+    network="EEGLabNetwork"
+>
+
+<admin
+    name="Ryan Gibb"
+    nick="rtg24"
+    email="rtg24@eeg.cl.cam.ac.uk"
+>
+
+<bind
+    address="128.232.98.96"
+    port="6667"
+    type="clients"
+>
+
+<oper
+    name="RyanGibb"
+    password="securepassword"
+    host="*@*"
+    type="NetAdmin"
+>
+
+<type
+    name="NetAdmin"
+    classes="ServerLink ClientLink"
+>
+
+<class
+    name="ServerLink"
+    commands="300"
+    usermodes="300"
+    maxtime="0"
+>
+
+<class
+    name="ClientLink"
+    commands="20"
+    usermodes="20"
+    maxtime="90"
+>
+
+<channels
+    users="20"
+    op="@"
+    halfop="%"
+    voice="+"
+>
+
+<log method="stdout"
+   type="*"
+   level="default"
+   flush="1">
+'';
   };
 }
