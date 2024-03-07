@@ -83,6 +83,18 @@
     dnssec-policy default;
     inline-signing yes;
     journal "${config.services.bind.directory}/${config.networking.domain}.signed.jnl";
+  '' +
+  # dig ns org +short | xargs dig +short
+  # replace with `checkds true;` in bind 9.20
+  ''
+    parental-agents {
+      199.19.56.1;
+      199.249.112.1;
+      199.19.54.1;
+      199.249.120.1;
+      199.19.53.1;
+      199.19.57.1;
+    };
   '';
 
   services.nginx = {
