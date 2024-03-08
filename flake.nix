@@ -69,17 +69,17 @@
                 inherit system;
                 config = nixpkgsConfig;
               };
-              "eeww" = eeww.defaultPackage.${system};
-              "eon" = eon.defaultPackage.${system};
-              "mautrix-whatsapp" = prev.callPackage ./pkgs/mautrix-whatsapp.nix { };
-              "mautrix-facebook" = prev."mautrix-facebook".overrideAttrs (_: {
+              eeww = eeww.defaultPackage.${system};
+              eon = eon.defaultPackage.${system};
+              mautrix-whatsapp = prev.callPackage ./pkgs/mautrix-whatsapp.nix { };
+              mautrix-facebook = prev.mautrix-facebook.overrideAttrs (_: {
                 buildInputs = [ prev.python3.pkgs.aiosqlite ];
               });
-              "mautrix-instagram" = final.callPackage ./pkgs/mautrix-instagram.nix { };
-              "i3-workspace-history" = i3-workspace-history.packages.${system}.default;
-              "maildir-rank-addr" = final.callPackage ./pkgs/maildir-rank-addr.nix { };
+              mautrix-instagram = final.callPackage ./pkgs/mautrix-instagram.nix { };
+              i3-workspace-history = i3-workspace-history.packages.${system}.default;
+              maildir-rank-addr = final.callPackage ./pkgs/maildir-rank-addr.nix { };
               # https://github.com/NixOS/nixpkgs/issues/86349#issuecomment-624489806
-              "aerc" = (prev.callPackage "${prev.path}/pkgs/applications/networking/mailreaders/aerc/default.nix" {
+              aerc = (prev.callPackage "${prev.path}/pkgs/applications/networking/mailreaders/aerc/default.nix" {
                 buildGoModule = args: prev.buildGoModule (args // {
                    src = prev.fetchFromSourcehut {
                     owner = "~rjarry";
