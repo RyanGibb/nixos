@@ -39,6 +39,8 @@ in
       black
       ltex-ls
       jdt-language-server
+      nodejs_18
+      clang-tools
     ];
     programs.neovim = {
       enable = true;
@@ -95,15 +97,20 @@ in
             cmp-nvim-lsp-signature-help
             cmp-path
             cmp-buffer
+            cmp-cmdline
             cmp-spell
+            luasnip
             nvim-cmp
 
             vimtex
             nvim-surround
+            comment-nvim
 
             ltex-ls-nvim
             nvim-jdtls
             # TODO nvim-dap
+
+            copilot-vim
           ];
           opt = [ ];
         };

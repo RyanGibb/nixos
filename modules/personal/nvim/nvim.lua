@@ -98,6 +98,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
 })
 
 require("nvim-surround").setup({})
+require("Comment").setup()
 
 --- obsidian
 
@@ -255,14 +256,16 @@ require('ltex-ls').setup {
 
 local cmp = require 'cmp'
 cmp.setup {
+	snippet = {
+		expand = function(args)
+			require('luasnip').lsp_expand(args.body)
+		end,
+	},
 	mapping = cmp.mapping.preset.insert({
-		['<C-u>'] = cmp.mapping.scroll_docs( -4),
-		['<C-d>'] = cmp.mapping.scroll_docs(4),
-		['<C-Space>'] = cmp.mapping.complete(),
-		['<Tab>'] = cmp.mapping.confirm {
-			behavior = cmp.ConfirmBehavior.Replace,
-			select = true,
-		},
+		['<C-b>'] = cmp.mapping.scroll_docs(-4),
+		['<C-f>'] = cmp.mapping.scroll_docs(4),
+		['<C-e>'] = cmp.mapping.abort(),
+		['<Tab>'] = cmp.mapping.confirm({ select = true }),
 	}),
 	sources = {
 		{ name = 'nvim_lsp' },
@@ -272,6 +275,22 @@ cmp.setup {
 		{ name = 'buffer' },
 	},
 }
+-- `/` cmdline setup.
+cmp.setup.cmdline('/', {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = {
+		{ name = 'buffer' }
+	}
+})
+-- `:` cmdline setup.
+cmp.setup.cmdline(':', {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = 'path' }
+	}, {
+		{ name = 'cmdline' }
+	})
+})
 
 --- session management
 
@@ -331,3 +350,4 @@ vim.api.nvim_create_autocmd('VimLeave', {
 
 vim.api.nvim_create_user_command('SaveSession', save_session, { nargs = '?', complete = session_completion })
 vim.api.nvim_create_user_command('LoadSession', load_session, { nargs = '?', complete = session_completion })
+
