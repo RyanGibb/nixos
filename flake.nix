@@ -72,10 +72,7 @@
               eeww = eeww.defaultPackage.${system};
               eon = eon.defaultPackage.${system};
               mautrix-whatsapp = prev.callPackage ./pkgs/mautrix-whatsapp.nix { };
-              mautrix-facebook = prev.mautrix-facebook.overrideAttrs (_: {
-                buildInputs = [ prev.python3.pkgs.aiosqlite ];
-              });
-              mautrix-instagram = final.callPackage ./pkgs/mautrix-instagram.nix { };
+              mautrix-meta = prev.callPackage ./pkgs/mautrix-meta.nix { };
               i3-workspace-history = i3-workspace-history.packages.${system}.default;
               maildir-rank-addr = final.callPackage ./pkgs/maildir-rank-addr.nix { };
               # https://github.com/NixOS/nixpkgs/issues/86349#issuecomment-624489806

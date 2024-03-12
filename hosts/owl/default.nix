@@ -188,7 +188,7 @@
     # voice messages need `ffmpeg`
     path = [ pkgs.ffmpeg ];
   };
-  systemd.services.matrix-as-facebook = {
+  systemd.services.matrix-as-meta = {
     # voice messages need `ffmpeg`
     path = [ pkgs.ffmpeg ];
   };
@@ -203,6 +203,8 @@
         package = pkgs.mautrix-whatsapp;
         settings.bridge.personal_filtering_spaces = true;
         settings.bridge.displayname_template = "{{or .BusinessName .PushName .FullName .JID}} (WA)";
+        settings.bridge.permissions."@ryan:freumh.org" = "admin";
+        settings.bridge.history_sync.backfill.enable = false;
       };
       signal = {
         port = 29184;
@@ -216,18 +218,35 @@
           socket_path = config.services.signald.socketPath;
           outgoing_attachment_dir = "/var/lib/signald/tmp";
         };
-      };
-      facebook = {
-        port = 29185;
-        format = "mautrix-python";
-        package = pkgs.mautrix-facebook;
-        settings.bridge.space_support.enable = true;
-        settings.bridge.backfill.enable = false;
+        settings.bridge.permissions."@ryan:freumh.org" = "admin";
       };
       instagram = {
-        port = 29187;
-        format = "mautrix-python";
-        package = pkgs.mautrix-instagram;
+        port = 29185;
+        format = "mautrix-go";
+        package = pkgs.mautrix-meta;
+        settings.meta.mode = "instagram";
+        settings.appservice.bot.username = "instagrambot";
+        settings.appservice.bot.displayname = "Instagram bridge bot";
+        settings.appservice.id = "instagram";
+        settings.appservice.avatar = "mxc://maunium.net/JxjlbZUlCPULEeHZSwleUXQv";
+        settings.bridge.username_template = "instagram_{{.}}";
+        settings.bridge.personal_filtering_spaces = true;
+        settings.bridge.backfill.enabled = false;
+        settings.bridge.permissions."@ryan:freumh.org" = "admin";
+      };
+      messenger = {
+        port = 29186;
+        format = "mautrix-go";
+        package = pkgs.mautrix-meta;
+        settings.meta.mode = "messenger";
+        settings.appservice.bot.username = "messengerbot";
+        settings.appservice.bot.displayname = "Messenger bridge bot";
+        settings.appservice.id = "messenger";
+        settings.appservice.avatar = "mxc://maunium.net/ygtkteZsXnGJLJHRchUwYWak";
+        settings.bridge.username_template = "messenger_{{.}}";
+        settings.bridge.personal_filtering_spaces = true;
+        settings.bridge.backfill.enabled = false;
+        settings.bridge.permissions."@ryan:freumh.org" = "admin";
       };
     };
   };
