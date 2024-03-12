@@ -150,9 +150,11 @@
                   system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
                   nixpkgs = {
                     config.allowUnfree = true;
-                    # obsidian
                     config.permittedInsecurePackages = [
+                      # obsidian
                       "electron-25.9.0"
+                      # https://github.com/nix-community/nixd/issues/357
+                      "nix-2.16.2"
                     ];
                     overlays = getSystemOverlays config.nixpkgs.hostPlatform.system config.nixpkgs.config;
                     # uncomment for cross compilation (https://github.com/NixOS/nix/issues/3843)

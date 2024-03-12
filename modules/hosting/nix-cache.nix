@@ -7,10 +7,6 @@ let cfg = config.hosting; in
   config = lib.mkIf cfg.nix-cache.enable {
     services.nix-serve = {
       enable = true;
-      # https://github.com/NixOS/nix/issues/7704
-      package = pkgs.nix-serve.override {
-        nix = pkgs.nixVersions.nix_2_12;
-      };
       secretKeyFile = "${config.custom.secretsDir}/cache-priv-key.pem";
     };
 
