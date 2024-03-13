@@ -77,6 +77,7 @@
               eon = eon.defaultPackage.${system};
               mautrix-whatsapp = prev.callPackage ./pkgs/mautrix-whatsapp.nix { };
               mautrix-meta = prev.callPackage ./pkgs/mautrix-meta.nix { };
+              mautrix-signal = final.overlay-unstable.mautrix-signal;
               i3-workspace-history = i3-workspace-history.packages.${system}.default;
               maildir-rank-addr = final.callPackage ./pkgs/maildir-rank-addr.nix { };
               # https://github.com/NixOS/nixpkgs/issues/86349#issuecomment-624489806
