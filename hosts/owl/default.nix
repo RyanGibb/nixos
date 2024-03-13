@@ -10,16 +10,31 @@
     inputs.fn06-website.nixosModules.default
   ];
 
-  eilean = {
-    publicInterface = "enp1s0";
+  eilean.publicInterface = "enp1s0";
 
-    mailserver.enable = true;
-    matrix.enable = true;
-    turn.enable = true;
-    mastodon.enable = true;
-    headscale.enable = true;
-    #dns.enable = lib.mkForce false;
+  eilean.mailserver.enable = true;
+
+  eilean.matrix.enable = true;
+  age.secrets.matrix-shared-secret = {
+    file = ../../secrets/matrix-shared-secret.age;
+    mode = "770";
+    owner = "${config.systemd.services.matrix-synapse.serviceConfig.User}";
+    group = "${config.systemd.services.matrix-synapse.serviceConfig.Group}";
   };
+  eilean.matrix.registrationSecretFile = config.age.secrets.matrix-shared-secret.path;
+
+  eilean.turn.enable = true;
+  age.secrets.coturn = {
+    file = ../../secrets/coturn.age;
+    mode = "770";
+    owner = "${config.systemd.services.coturn.serviceConfig.User}";
+    group = "${config.systemd.services.coturn.serviceConfig.Group}";
+  };
+  eilean.turn.secretFile = config.age.secrets.coturn.path;
+
+  eilean.mastodon.enable = true;
+  eilean.headscale.enable = true;
+  #eilean.dns.enable = lib.mkForce false;
 
   hosting = {
     freumh.enable = true;
@@ -97,46 +112,49 @@
     };
   '';
 
-  services.nginx = {
-    commonHttpConfig = ''
-      add_header Strict-Transport-Security max-age=31536000 always;
-      add_header X-Frame-Options SAMEORIGIN always;
-      add_header X-Content-Type-Options nosniff always;
-      add_header Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval'; base-uri 'self'; frame-src 'self'; frame-ancestors 'self'; form-action 'self';" always;
-      add_header Referrer-Policy 'same-origin';
+  
+  services.nginx.commonHttpConfig = ''
+    add_header Strict-Transport-Security max-age=31536000 always;
+    add_header X-Frame-Options SAMEORIGIN always;
+    add_header X-Content-Type-Options nosniff always;
+    add_header Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval'; base-uri 'self'; frame-src 'self'; frame-ancestors 'self'; form-action 'self';" always;
+    add_header Referrer-Policy 'same-origin';
+  '';
+  services.nginx.virtualHosts."teapot.${config.networking.domain}" = {
+    extraConfig = ''
+      return 418;
     '';
-    virtualHosts = {
-      "teapot.${config.networking.domain}" = {
-        extraConfig = ''
-          return 418;
-        '';
-      };
-      "${config.services.ryan-website.domain}" = {
-        locations."/phd/" = {
-          basicAuthFile= "${config.custom.secretsDir}/website-phd";
-        };
-      };
-      "capybara.fn06.org" = {
-        forceSSL = true;
-        enableACME = true;
-        locations."/" = {
-          proxyPass = ''
-            http://100.64.0.10:8123
-          '';
-          proxyWebsockets = true;
-        };
-      };
-      "shrew.freumh.org" = {
-        forceSSL = true;
-        enableACME = true;
-        locations."/" = {
-          # need to specify ip or there's a bootstrap problem with headscale
-          proxyPass = ''
-            http://100.64.0.6:8123
-          '';
-          proxyWebsockets = true;
-        };
-      };
+  };
+  age.secrets.website-phd = {
+    file = ../../secrets/website-phd.age;
+    mode = "770";
+    owner = "${config.systemd.services.nginx.serviceConfig.User}";
+    group = "${config.systemd.services.nginx.serviceConfig.Group}";
+  };
+  services.nginx.virtualHosts."${config.services.ryan-website.domain}" = {
+    locations."/phd/" = {
+      basicAuthFile = config.age.secrets.website-phd.path;
+    };
+  };
+  services.nginx.virtualHosts."capybara.fn06.org" = {
+    forceSSL = true;
+    enableACME = true;
+    locations."/" = {
+      proxyPass = ''
+        http://100.64.0.10:8123
+      '';
+      proxyWebsockets = true;
+    };
+  };
+  services.nginx.virtualHosts."shrew.freumh.org" = {
+    forceSSL = true;
+    enableACME = true;
+    locations."/" = {
+      # need to specify ip or there's a bootstrap problem with headscale
+      proxyPass = ''
+        http://100.64.0.6:8123
+      '';
+      proxyWebsockets = true;
     };
   };
 
@@ -263,15 +281,6 @@
     "net.ipv6.conf.all.forwarding" = 1;
   };
 
-  mailserver.loginAccounts."${config.custom.username}@${config.networking.domain}".sieveScript = ''
-    require ["fileinto", "mailbox"];
-
-    if header :contains ["to", "cc"] ["~rjarry/aerc-discuss@lists.sr.ht"] {
-      fileinto :create "lists.aerc";
-      stop;
-    }
-  '';
-
   services.headscale.settings.dns_config.extra_records = [
     {
       name = "jellyfin.vpn.${config.networking.domain}";
@@ -290,9 +299,10 @@
     }
   ];
 
+  age.secrets.restic-owl.file = ../../secrets/restic-owl.age;
   services.restic.backups.${config.networking.hostName} = {
     repository = "rest:http://100.64.0.9:8000/${config.networking.hostName}/";
-    passwordFile = "${config.custom.secretsDir}/restic-password-owl";
+    passwordFile = config.age.secrets.restic-owl.path;
     initialize = true;
     paths = [
       "/var/"
@@ -311,6 +321,36 @@
       dates = lib.mkForce "03:00";
       randomizedDelaySec = "1hr";
       options = lib.mkForce "--delete-older-than 3d";
+    };
+  };
+
+  age.secrets.email-ryan.file = ../../secrets/email-ryan.age;
+  age.secrets.email-system.file = ../../secrets/email-system.age;
+  eilean.mailserver.systemAccountPasswordFile = config.age.secrets.email-system.path;
+  mailserver.loginAccounts = {
+    "${config.eilean.username}@${config.networking.domain}" = {
+      passwordFile = config.age.secrets.email-ryan.path;
+      aliases = [
+        "dns@${config.networking.domain}"
+        "postmaster@${config.networking.domain}"
+      ];
+      sieveScript = ''
+        require ["fileinto", "mailbox"];
+    
+        if header :contains ["to", "cc"] ["~rjarry/aerc-discuss@lists.sr.ht"] {
+          fileinto :create "lists.aerc";
+          stop;
+        }
+      '';
+    };
+    "misc@${config.networking.domain}" = {
+      passwordFile = config.age.secrets.email-ryan.path;
+      catchAll = [ "${config.networking.domain}" ];
+    };
+    "system@${config.networking.domain}" = {
+      aliases = [
+        "nas@${config.networking.domain}"
+      ];
     };
   };
 }

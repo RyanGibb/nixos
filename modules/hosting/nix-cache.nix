@@ -5,9 +5,15 @@ let cfg = config.hosting; in
   options.hosting.nix-cache.enable = lib.mkEnableOption "nix-cache";
 
   config = lib.mkIf cfg.nix-cache.enable {
+    age.secrets."cache-priv-key.pem" = {
+      file = ../../secrets/cache-priv-key.pem.age;
+      mode = "770";
+      owner = "${config.systemd.services.nix-serve.serviceConfig.User}";
+      group = "${config.systemd.services.nix-serve.serviceConfig.Group}";
+    };
     services.nix-serve = {
       enable = true;
-      secretKeyFile = "${config.custom.secretsDir}/cache-priv-key.pem";
+      secretKeyFile = config.age.secrets."cache-priv-key.pem".path;
     };
 
     services.nginx = {

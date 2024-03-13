@@ -20,6 +20,7 @@
     interval = "Tue, 02:00";
   };
 
+  age.secrets.email-elephant.file = ../../secrets/email-system.age;
   programs.msmtp = {
     enable = true;
     setSendmail = true;
@@ -34,8 +35,8 @@
     accounts = {
       default = {
         host = "mail.${config.networking.domain}";
-        passwordeval = "cat ${config.custom.secretsDir}/email-pswd-unhashed";
-        user = "misc@${config.networking.domain}";
+        passwordeval = "cat ${config.age.secrets.email-elephant.path}";
+        user = "system@${config.networking.domain}";
         from = "nas@${config.networking.domain}";
       };
     };
