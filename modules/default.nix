@@ -25,21 +25,14 @@
     ./hosting/rmfakecloud.nix
   ];
 
-  options.custom = {
-    username = lib.mkOption {
-      type = lib.types.str;
-      default = "ryan";
-    };
-    secretsDir = lib.mkOption {
-      type = lib.types.path;
-      default = "/etc/nixos/secrets";
-    };
+  options.custom.username = lib.mkOption {
+    type = lib.types.str;
+    default = "ryan";
   };
 
   config = let nixPath = "/etc/nix-path"; in {
     eilean = {
       username = config.custom.username;
-      secretsDir = config.custom.secretsDir;
       serverIpv4 = "135.181.100.27";
       serverIpv6 = "2a01:4f9:c011:87ad:0:0:0:0";
     };

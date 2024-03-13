@@ -1,3 +1,0 @@
-[submodule "secrets"]
-	path = secrets
-	url = git@git.freumh.org:ryan/nixos-secrets.git

@@ -33,10 +33,13 @@
     '';
   };
 
+  age.secrets."restic.env".file = ../../secrets/restic.env.age;
+  age.secrets.restic-repo.file = ../../secrets/restic-repo.age;
+  age.secrets.restic-elephant.file = ../../secrets/restic-elephant.age;
   services.restic.backups.sync = {
-    environmentFile = "${config.custom.secretsDir}/restic.env";
-    repositoryFile = "${config.custom.secretsDir}/restic-repo";
-    passwordFile = "${config.custom.secretsDir}/restic-password-elephant";
+    environmentFile = config.age.secrets."restic.env".path;
+    repositoryFile = config.age.secrets.restic-repo.path;
+    passwordFile = config.age.secrets.restic-elephant.path;
     initialize = true;
     paths = [
       "/tank/family/mp4/"

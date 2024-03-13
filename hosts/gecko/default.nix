@@ -93,9 +93,10 @@
       '';
   };
 
+  age.secrets.restic-gecko.file = ../../secrets/restic-gecko.age;
   services.restic.backups.${config.networking.hostName} = {
     repository = "rest:http://100.64.0.9:8000/${config.networking.hostName}/";
-    passwordFile = "${config.custom.secretsDir}/restic-password-gecko";
+    passwordFile = config.age.secrets.restic-gecko.path;
     initialize = true;
     paths = [
       "/home/${config.custom.username}"

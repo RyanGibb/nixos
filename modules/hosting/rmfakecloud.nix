@@ -20,11 +20,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    age.secrets.rmfakecloud.file = ../../secrets/rmfakecloud.age;
     services.rmfakecloud = {
       enable = true;
       storageUrl = "https://${cfg.domain}";
       port = cfg.port;
-      environmentFile = "${config.custom.secretsDir}/rmfakecloud.env";
+      environmentFile = config.age.secrets.rmfakecloud.path;
       extraSettings = {
         RM_SMTP_SERVER = "mail.freumh.org:465";
         RM_SMTP_USERNAME = "misc@${domain}";

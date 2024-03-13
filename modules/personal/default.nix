@@ -34,6 +34,7 @@ let cfg = config.personal; in
     environment = {
       systemPackages = with pkgs; [
         nix
+        agenix
         tree
         htop
         bind

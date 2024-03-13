@@ -81,11 +81,17 @@
     };
   };
 
+  age.secrets.nextcloud = {
+    file = ../../secrets/nextcloud.age;
+    mode = "770";
+    owner = "nextcloud";
+    group = "nextcloud";
+  };
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud28;
     hostName = "nextcloud";
-    config.adminpassFile = "${config.custom.secretsDir}/nextcloud";
+    config.adminpassFile = config.age.secrets.nextcloud.path;
   };
 
   services.transmission = {
@@ -99,10 +105,12 @@
     };
   };
 
+  age.secrets.restic-owl.file = ../../secrets/restic-owl.age;
+  age.secrets.restic-gecko.file = ../../secrets/restic-gecko.age;
   services.restic = {
     backups.owl = {
       repository = "${config.services.restic.server.dataDir}/owl";
-      passwordFile = "${config.custom.secretsDir}/restic-password-owl";
+      passwordFile = config.age.secrets.restic-owl.path;
 	    timerConfig = {
 	      OnCalendar = "02:00";
 	    };
@@ -115,7 +123,7 @@
     };
     backups.gecko = {
       repository = "${config.services.restic.server.dataDir}/gecko";
-      passwordFile = "${config.custom.secretsDir}/restic-password-gecko";
+      passwordFile = config.age.secrets.restic-gecko.path;
 	    timerConfig = {
 	      OnCalendar = "02:00";
 	    };

@@ -6,6 +6,7 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     #home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.url = "github:RyanGibb/home-manager/fork";
+    agenix.url = "github:ryantm/agenix";
     nix-on-droid.url = "github:nix-community/nix-on-droid/release-23.05";
     eeww.url = "github:RyanGibb/eeww/nixos";
     eon.url = "github:RyanGibb/eon";
@@ -45,6 +46,7 @@
     nixpkgs-compat,
     nixos-hardware,
     home-manager,
+    agenix,
     nix-on-droid,
     eeww,
     eon,
@@ -70,6 +72,7 @@
                 inherit system;
                 config = nixpkgsConfig;
               };
+              agenix = agenix.packages.${system}.default;
               eeww = eeww.defaultPackage.${system};
               eon = eon.defaultPackage.${system};
               mautrix-whatsapp = prev.callPackage ./pkgs/mautrix-whatsapp.nix { };
@@ -167,6 +170,7 @@
                 eon.nixosModules.default
                 matrix-appservices.nixosModule
                 hyperbib-eeg.nixosModules.default
+                agenix.nixosModules.default
               ];
             };
         readModes = dir:
