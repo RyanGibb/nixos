@@ -296,6 +296,8 @@
     initialize = true;
     paths = [
       "/var/"
+      "/run/"
+      "/etc/"
     ];
     timerConfig = {
       OnCalendar = "03:00";
