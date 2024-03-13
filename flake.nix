@@ -16,7 +16,6 @@
     alec-website.url = "github:alexanderhthompson/website";
     fn06-website.url = "github:RyanGibb/fn06";
     colour-guesser.url = "git+ssh://git@github.com/ryangibb/colour-guesser.git?ref=develop";
-    matrix-appservices.url = "gitlab:coffeetables/nix-matrix-appservices";
     i3-workspace-history.url = "github:RyanGibb/i3-workspace-history";
     hyperbib-eeg.url = "github:RyanGibb/hyperbib?ref=nixify";
     neovim.url = "github:neovim/neovim/f40df63bdca33d343cada6ceaafbc8b765ed7cc6?dir=contrib";
@@ -34,7 +33,6 @@
     eeww.inputs.nixpkgs.follows = "nixpkgs";
     eon.inputs.nixpkgs.follows = "nixpkgs";
     colour-guesser.inputs.nixpkgs.follows = "nixpkgs";
-    matrix-appservices.inputs.nixpkgs.follows = "nixpkgs";
     i3-workspace-history.inputs.nixpkgs.follows = "nixpkgs";
     hyperbib-eeg.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -52,7 +50,6 @@
     eon,
     eilean,
     fn06-website,
-    matrix-appservices,
     i3-workspace-history,
     hyperbib-eeg,
     neovim,
@@ -75,8 +72,6 @@
               agenix = agenix.packages.${system}.default;
               eeww = eeww.defaultPackage.${system};
               eon = eon.defaultPackage.${system};
-              mautrix-whatsapp = prev.callPackage ./pkgs/mautrix-whatsapp.nix { };
-              mautrix-meta = prev.callPackage ./pkgs/mautrix-meta.nix { };
               mautrix-signal = final.overlay-unstable.mautrix-signal;
               i3-workspace-history = i3-workspace-history.packages.${system}.default;
               maildir-rank-addr = final.callPackage ./pkgs/maildir-rank-addr.nix { };
@@ -169,7 +164,6 @@
                 home-manager.nixosModule
                 eilean.nixosModules.default
                 eon.nixosModules.default
-                matrix-appservices.nixosModule
                 hyperbib-eeg.nixosModules.default
                 agenix.nixosModules.default
               ];

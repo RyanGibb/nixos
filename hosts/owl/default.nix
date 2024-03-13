@@ -11,9 +11,7 @@
   ];
 
   eilean.publicInterface = "enp1s0";
-
   eilean.mailserver.enable = true;
-
   eilean.matrix.enable = true;
   age.secrets.matrix-shared-secret = {
     file = ../../secrets/matrix-shared-secret.age;
@@ -22,19 +20,19 @@
     group = "${config.systemd.services.matrix-synapse.serviceConfig.Group}";
   };
   eilean.matrix.registrationSecretFile = config.age.secrets.matrix-shared-secret.path;
-
   eilean.turn.enable = true;
-  age.secrets.coturn = {
-    file = ../../secrets/coturn.age;
-    mode = "770";
-    owner = "${config.systemd.services.coturn.serviceConfig.User}";
-    group = "${config.systemd.services.coturn.serviceConfig.Group}";
-  };
-  eilean.turn.secretFile = config.age.secrets.coturn.path;
-
   eilean.mastodon.enable = true;
   eilean.headscale.enable = true;
   #eilean.dns.enable = lib.mkForce false;
+
+  systemd.services.matrix-as-meta = {
+    # voice messages need `ffmpeg`
+    path = [ pkgs.ffmpeg ];
+  };
+  eilean.matrix.bridges.whatsapp = true;
+  eilean.matrix.bridges.signal = true;
+  eilean.matrix.bridges.instagram = true;
+  eilean.matrix.bridges.messenger = true;
 
   hosting = {
     freumh.enable = true;
@@ -186,7 +184,7 @@
       enable = true;
       cname = "vps";
     };
-    eeww = {
+    eeww= {
       #enable = true;
       domain = config.services.ryan-website.domain;
     };
@@ -197,76 +195,6 @@
     #  zoneFile = "${import "${eilean}/modules/services/dns/zonefile.nix" { inherit pkgs config lib; zonename = config.networking.domain; zone = config.eilean.services.dns.zones.${config.networking.domain}; }}/${config.networking.domain}";
     #  logLevel = 2;
     #};
-  };
-
-  services.signald.enable = true;
-  systemd.services.matrix-as-signal = {
-    requires = [ "signald.service" ];
-    after = [ "signald.service" ];
-    # voice messages need `ffmpeg`
-    path = [ pkgs.ffmpeg ];
-  };
-  systemd.services.matrix-as-meta = {
-    # voice messages need `ffmpeg`
-    path = [ pkgs.ffmpeg ];
-  };
-
-  services.matrix-appservices = {
-    addRegistrationFiles = true;
-    homeserverURL = "https://matrix.${config.networking.domain}";
-    services = {
-      whatsapp = {
-        port = 29183;
-        format = "mautrix-go";
-        package = pkgs.mautrix-whatsapp;
-        settings.bridge.personal_filtering_spaces = true;
-        settings.bridge.displayname_template = "{{or .BusinessName .PushName .FullName .JID}} (WA)";
-        settings.bridge.permissions."@ryan:freumh.org" = "admin";
-        settings.bridge.history_sync.backfill.enable = false;
-      };
-      signal = {
-        port = 29184;
-        format = "mautrix-python";
-        package = pkgs.mautrix-signal;
-        serviceConfig = {
-          StateDirectory = [ "matrix-as-signal" ];
-          SupplementaryGroups = [ "signald" ];
-        };
-        settings.signal = {
-          socket_path = config.services.signald.socketPath;
-          outgoing_attachment_dir = "/var/lib/signald/tmp";
-        };
-        settings.bridge.permissions."@ryan:freumh.org" = "admin";
-      };
-      instagram = {
-        port = 29185;
-        format = "mautrix-go";
-        package = pkgs.mautrix-meta;
-        settings.meta.mode = "instagram";
-        settings.appservice.bot.username = "instagrambot";
-        settings.appservice.bot.displayname = "Instagram bridge bot";
-        settings.appservice.id = "instagram";
-        settings.appservice.avatar = "mxc://maunium.net/JxjlbZUlCPULEeHZSwleUXQv";
-        settings.bridge.username_template = "instagram_{{.}}";
-        settings.bridge.personal_filtering_spaces = true;
-        settings.bridge.backfill.enabled = false;
-        settings.bridge.permissions."@ryan:freumh.org" = "admin";
-      };
-      messenger = {
-        port = 29186;
-        format = "mautrix-go";
-        package = pkgs.mautrix-meta;
-        settings.meta.mode = "messenger";
-        settings.appservice.bot.username = "messengerbot";
-        settings.appservice.bot.displayname = "Messenger bridge bot";
-        settings.appservice.id = "messenger";
-        settings.appservice.avatar = "mxc://maunium.net/ygtkteZsXnGJLJHRchUwYWak";
-        settings.bridge.username_template = "messenger_{{.}}";
-        settings.bridge.personal_filtering_spaces = true;
-        settings.bridge.backfill.enabled = false;
-        settings.bridge.permissions."@ryan:freumh.org" = "admin";
-      };
-    };
   };
 
   services.mastodon = {
