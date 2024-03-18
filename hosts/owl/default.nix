@@ -72,7 +72,7 @@
 
         { name = "shrew"; type = "CNAME"; data = "vps"; }
 
-        { name = "_25._tcp.mail"; type = "TLSA"; data = "3 1 1 75db0cb2b465b417f0316b28f633e34858984dd0e88e79408fce7be1f7574047"; }
+        { name = "_25._tcp.mail"; type = "TLSA"; data = "3 1 1 1b52dcbd6121d6e88406eca208ff476fc7b3da575ddfd65516e5c88db128ddb8"; }
         # LE R3
         { name = "_25._tcp.mail"; type = "TLSA"; data = "2 1 1 67add1166b020ae61b8f5fc96813c04c2aa589960796865572a3c7e737613dfd"; }
         # LE E1
