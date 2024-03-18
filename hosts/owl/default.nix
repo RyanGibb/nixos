@@ -160,7 +160,6 @@
     ryan-website = {
       enable = true;
       cname = "vps";
-      cv = inputs.ryan-cv.defaultPackage.${pkgs.stdenv.hostPlatform.system};
       keys = pkgs.stdenv.mkDerivation {
         name = "ryan-keys";
         src = ../../modules/personal/authorized_keys;

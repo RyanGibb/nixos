@@ -12,7 +12,6 @@
     eon.url = "github:RyanGibb/eon";
     eilean.url ="github:RyanGibb/eilean-nix/main";
     ryan-website.url = "git+ssh://git@github.com/RyanGibb/website.git";
-    ryan-cv.url = "git+ssh://git@github.com/RyanGibb/cv.git";
     alec-website.url = "github:alexanderhthompson/website";
     fn06-website.url = "github:RyanGibb/fn06";
     colour-guesser.url = "git+ssh://git@github.com/ryangibb/colour-guesser.git?ref=develop";
@@ -26,7 +25,6 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
     nix-on-droid.inputs.home-manager.follows = "home-manager";
-    ryan-cv.inputs.nixpkgs.follows = "nixpkgs";
     ryan-website.inputs.nixpkgs.follows = "nixpkgs";
     alec-website.inputs.nixpkgs.follows = "nixpkgs";
     fn06-website.inputs.nixpkgs.follows = "nixpkgs";
