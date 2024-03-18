@@ -12,14 +12,20 @@
 
   eilean.publicInterface = "enp1s0";
   eilean.mailserver.enable = true;
-  eilean.matrix.enable = true;
   age.secrets.matrix-shared-secret = {
     file = ../../secrets/matrix-shared-secret.age;
     mode = "770";
     owner = "${config.systemd.services.matrix-synapse.serviceConfig.User}";
     group = "${config.systemd.services.matrix-synapse.serviceConfig.Group}";
   };
-  eilean.matrix.registrationSecretFile = config.age.secrets.matrix-shared-secret.path;
+  eilean.matrix = {
+    enable = true;
+    registrationSecretFile = config.age.secrets.matrix-shared-secret.path;
+    bridges.whatsapp = true;
+    bridges.signal = true;
+    bridges.instagram = true;
+    bridges.messenger = true;
+  };
   eilean.turn.enable = true;
   eilean.mastodon.enable = true;
   eilean.headscale.enable = true;
@@ -29,10 +35,6 @@
     # voice messages need `ffmpeg`
     path = [ pkgs.ffmpeg ];
   };
-  eilean.matrix.bridges.whatsapp = true;
-  eilean.matrix.bridges.signal = true;
-  eilean.matrix.bridges.instagram = true;
-  eilean.matrix.bridges.messenger = true;
 
   hosting = {
     freumh.enable = true;
