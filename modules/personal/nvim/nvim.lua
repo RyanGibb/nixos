@@ -4,8 +4,6 @@ require('gruvbox').setup{
 vim.cmd [[colorscheme gruvbox]]
 vim.api.nvim_command('hi Normal guibg=NONE ctermbg=NONE')
 
-vim.g.airline_theme = 'bubblegum'
-
 vim.o.mouse = 'a'
 
 vim.o.shiftwidth = 4

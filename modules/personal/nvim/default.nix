@@ -79,8 +79,6 @@ in
         customRC = "luafile ${./nvim.lua}";
         packages.myVimPackage = with pkgs.vimPlugins; {
           start = [
-            vim-airline
-            vim-airline-themes
             gruvbox-nvim
 
             telescope-nvim
