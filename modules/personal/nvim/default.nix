@@ -41,6 +41,7 @@ in
       jdt-language-server
       nodejs_18
       clang-tools
+      typst-lsp
     ];
     programs.neovim = {
       enable = true;
