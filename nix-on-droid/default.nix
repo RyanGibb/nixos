@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 {
   user.shell = "${pkgs.zsh}/bin/zsh";
@@ -43,7 +43,14 @@
   ];
 
   environment.etcBackupExtension = ".bak";
-  
+
+  # Tailscale nameserver https://github.com/nix-community/nix-on-droid/issues/2
+  environment.etc."resolv.conf".text = lib.mkForce ''
+    nameserver 100.100.100.100
+    nameserver 1.1.1.1
+    nameserver 8.8.8.8
+  '';
+
   home-manager = {
     useGlobalPkgs = true;
     config =
@@ -51,6 +58,17 @@
       {
         # Use the same overlays as the system packages
         nixpkgs = { inherit (config.nixpkgs) overlays; };
+
+        nix = {
+          package = pkgs.nix;
+          settings.experimental-features = [ "nix-command" "flakes" ];
+        };
+
+        # https://github.com/nix-community/nix-on-droid/issues/185
+        home.shellAliases = {
+          sshd = "$(readlink $(whereis sshd)) -f $HOME/.ssh/sshd_config";
+          ping = "/android/system/bin/linker64 /android/system/bin/ping";
+        };
 
         programs.zsh = {
           enable = true;
@@ -115,10 +133,13 @@
             lua-language-server
             #pyright
             #black
+            ltex-ls
           ];
           extraLuaConfig = builtins.readFile ../modules/personal/nvim/nvim.lua;
-          plugins = 
-            let obsidian-nvim =
+            # undo transparent background
+            # + "colorscheme gruvbox";
+          plugins = let
+              obsidian-nvim =
               (pkgs.vimUtils.buildVimPlugin {
                 pname = "obsidian.nvim";
                 version = "2.6.0";
@@ -129,12 +150,23 @@
                   sha256 = "sha256-+w3XYoobuH17oinPfQxhrizbmQB5IbbulUK69674/Wg=";
                 };
               });
-            in with pkgs.vimPlugins; [
-            vim-airline
-            vim-airline-themes
+              ltex-ls-nvim =
+                (pkgs.vimUtils.buildVimPlugin {
+                  pname = "ltex-ls.nvim";
+                  version = "2.6.0";
+                  src = pkgs.fetchFromGitHub {
+                    owner = "vigoux";
+                    repo = "ltex-ls.nvim";
+                    rev = "c8139ea6b7f3d71adcff121e16ee8726037ffebd";
+                    sha256 = "sha256-jY3ALr6h88xnWN2QdKe3R0vvRcSNhFWDW56b2NvnTCs=";
+                  };
+                });
+          in with pkgs.vimPlugins; [
             gruvbox-nvim
 
             telescope-nvim
+            telescope-fzf-native-nvim
+            trouble-nvim
 
             obsidian-nvim
             plenary-nvim
@@ -167,10 +199,20 @@
             cmp-nvim-lsp-signature-help
             cmp-path
             cmp-buffer
+            cmp-cmdline
             cmp-spell
+            luasnip
             nvim-cmp
 
             vimtex
+            nvim-surround
+            comment-nvim
+
+            ltex-ls-nvim
+            nvim-jdtls
+            # TODO nvim-dap
+
+            copilot-vim
           ];
         };
 

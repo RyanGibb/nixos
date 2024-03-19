@@ -52,82 +52,83 @@
     hyperbib-eeg,
     neovim,
     ...
-  }@inputs: rec {
+  }@inputs:
+    let
+      getSystemOverlays = system: nixpkgsConfig:
+        [
+          (final: prev: {
+            overlay-unstable = import nixpkgs-unstable {
+              inherit system;
+              # follow stable nixpkgs config
+              config = nixpkgsConfig;
+            };
+            overlay-compat = import nixpkgs-compat {
+              inherit system;
+              config = nixpkgsConfig;
+            };
+            agenix = agenix.packages.${system}.default;
+            eeww = eeww.defaultPackage.${system};
+            eon = eon.defaultPackage.${system};
+            mautrix-signal = final.overlay-unstable.mautrix-signal;
+            i3-workspace-history = i3-workspace-history.packages.${system}.default;
+            maildir-rank-addr = final.callPackage ./pkgs/maildir-rank-addr.nix { };
+            # https://github.com/NixOS/nixpkgs/issues/86349#issuecomment-624489806
+            aerc = (prev.callPackage "${prev.path}/pkgs/applications/networking/mailreaders/aerc/default.nix" {
+              buildGoModule = args: prev.buildGoModule (args // {
+                 src = prev.fetchFromSourcehut {
+                  owner = "~rjarry";
+                  repo = "aerc";
+                  rev = "930e50328c3a57faeec7fd23881e044257eda157";
+                  hash = "sha256-V1cjjJBAGqfBZIizAweMUYl7X3QorgLh/8J4HulmKAE=";
+                };
+                vendorHash = "sha256-IzQKgNilBq53w41gNLXCd1BgYXW/aUuQQtFeKEI/dKw=";
+              });
+            });
+            # https://github.com/swaywm/sway/pull/7226
+            sway-unwrapped = prev.callPackage ./pkgs/sway-im/package.nix {
+              libdrm = final.overlay-unstable.libdrm;
+              wlroots = prev.callPackage ./pkgs/wlroots/default.nix {
+                # for libdrm >=2.4.120
+                mesa = final.overlay-unstable.mesa;
+                wayland-protocols = prev.wayland-protocols.overrideAttrs (old: rec {
+                  pname = "wayland-protocols";
+                  version = "1.33";
+                  src = prev.fetchurl {
+                    url = "https://gitlab.freedesktop.org/wayland/${pname}/-/releases/${version}/downloads/${pname}-${version}.tar.xz";
+                    hash = "sha256-lPDFCwkNbmGgP2IEhGexmrvoUb5OEa57NvZfi5jDljo=";
+                  };
+                });
+              };
+            };
+            neovim-unwrapped = neovim.packages.${system}.default;
+            # https://github.com/NixOS/nixpkgs/pull/291559
+            libvpl = final.overlay-unstable.libvpl.overrideAttrs (_: {
+              patches = [ ./pkgs/opengl-driver-lib.patch ];
+            });
+            # https://github.com/jellyfin/jellyfin-media-player/issues/165#issuecomment-1966131861
+            jellyfin-media-player = prev.jellyfin-media-player.overrideAttrs (old: {
+              buildInputs =
+                (prev.lib.filter (input: input != prev.mpv) old.buildInputs) ++ [
+                (prev.mpv-unwrapped.overrideAttrs (old: {
+                  buildInputs =
+                    (prev.lib.filter (input: input != prev.libva) old.buildInputs) ++ [
+                    (prev.libva.overrideAttrs (_: {
+                      src = prev.fetchFromGitHub {
+                        owner = "emersion";
+                        repo = "libva";
+                        rev = "linux-dmabuf";
+                        hash = "sha256-d1cT6zOZHnrBBWjxOtSMAijPr4Tab+0GetZ6aqzhvrQ=";
+                      };
+                    }))
+                  ];
+                }))
+              ];
+            });
+          })
+        ];
+  in rec {
     nixosConfigurations =
       let
-        getSystemOverlays = system: nixpkgsConfig:
-          [
-            (final: prev: {
-              overlay-unstable = import nixpkgs-unstable {
-                inherit system;
-                # follow stable nixpkgs config
-                config = nixpkgsConfig;
-              };
-              overlay-compat = import nixpkgs-compat {
-                inherit system;
-                config = nixpkgsConfig;
-              };
-              agenix = agenix.packages.${system}.default;
-              eeww = eeww.defaultPackage.${system};
-              eon = eon.defaultPackage.${system};
-              mautrix-signal = final.overlay-unstable.mautrix-signal;
-              i3-workspace-history = i3-workspace-history.packages.${system}.default;
-              maildir-rank-addr = final.callPackage ./pkgs/maildir-rank-addr.nix { };
-              # https://github.com/NixOS/nixpkgs/issues/86349#issuecomment-624489806
-              aerc = (prev.callPackage "${prev.path}/pkgs/applications/networking/mailreaders/aerc/default.nix" {
-                buildGoModule = args: prev.buildGoModule (args // {
-                   src = prev.fetchFromSourcehut {
-                    owner = "~rjarry";
-                    repo = "aerc";
-                    rev = "930e50328c3a57faeec7fd23881e044257eda157";
-                    hash = "sha256-V1cjjJBAGqfBZIizAweMUYl7X3QorgLh/8J4HulmKAE=";
-                  };
-                  vendorHash = "sha256-IzQKgNilBq53w41gNLXCd1BgYXW/aUuQQtFeKEI/dKw=";
-                });
-              });
-              # https://github.com/swaywm/sway/pull/7226
-              sway-unwrapped = prev.callPackage ./pkgs/sway-im/package.nix {
-                libdrm = final.overlay-unstable.libdrm;
-                wlroots = prev.callPackage ./pkgs/wlroots/default.nix {
-                  # for libdrm >=2.4.120
-                  mesa = final.overlay-unstable.mesa;
-                  wayland-protocols = prev.wayland-protocols.overrideAttrs (old: rec {
-                    pname = "wayland-protocols";
-                    version = "1.33";
-                    src = prev.fetchurl {
-                      url = "https://gitlab.freedesktop.org/wayland/${pname}/-/releases/${version}/downloads/${pname}-${version}.tar.xz";
-                      hash = "sha256-lPDFCwkNbmGgP2IEhGexmrvoUb5OEa57NvZfi5jDljo=";
-                    };
-                  });
-                };
-              };
-              neovim-unwrapped = neovim.packages.${system}.default;
-              # https://github.com/NixOS/nixpkgs/pull/291559
-              libvpl = final.overlay-unstable.libvpl.overrideAttrs (_: {
-                patches = [ ./pkgs/opengl-driver-lib.patch ];
-              });
-              # https://github.com/jellyfin/jellyfin-media-player/issues/165#issuecomment-1966131861
-              jellyfin-media-player = prev.jellyfin-media-player.overrideAttrs (old: {
-                buildInputs =
-                  (prev.lib.filter (input: input != prev.mpv) old.buildInputs) ++ [
-                  (prev.mpv-unwrapped.overrideAttrs (old: {
-                    buildInputs =
-                      (prev.lib.filter (input: input != prev.libva) old.buildInputs) ++ [
-                      (prev.libva.overrideAttrs (_: {
-                        src = prev.fetchFromGitHub {
-                          owner = "emersion";
-                          repo = "libva";
-                          rev = "linux-dmabuf";
-                          hash = "sha256-d1cT6zOZHnrBBWjxOtSMAijPr4Tab+0GetZ6aqzhvrQ=";
-                        };
-                      }))
-                    ];
-                  }))
-                ];
-              });
-            })
-          ];
-
         mkMode = mode: host:
           nixpkgs.lib.nixosSystem {
             # use system from config.localSystem
@@ -193,6 +194,13 @@
 
     nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
       modules = [ ./nix-on-droid/default.nix ];
+      pkgs = import nixpkgs {
+        overlays = getSystemOverlays "aarch64-linux" { };
+        config.permittedInsecurePackages = [
+          # https://github.com/nix-community/nixd/issues/357
+          "nix-2.16.2"
+        ];
+      };
     };
 
     legacyPackages = {
