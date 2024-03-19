@@ -66,7 +66,12 @@
 
         # https://github.com/nix-community/nix-on-droid/issues/185
         home.shellAliases = {
-          sshd = "$(readlink $(whereis sshd)) -f $HOME/.ssh/sshd_config";
+          sshd =
+            let config = pkgs.writeText "sshd_config" ''
+              HostKey /data/data/com.termux.nix/files/home/.ssh/id_ed25519
+              Port 9022
+            '';
+            in "$(readlink $(whereis sshd)) -f ${config}";
           ping = "/android/system/bin/linker64 /android/system/bin/ping";
         };
 
@@ -237,6 +242,13 @@
 
         home.file = {
           ".ssh/authorized_keys".source = ../modules/personal/authorized_keys;
+        };
+
+        programs.ssh = {
+          enable = true;
+          extraConfig = ''
+            User ryan
+          '';
         };
 
         home.stateVersion = "22.05";
