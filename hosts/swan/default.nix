@@ -224,9 +224,11 @@ let domain = "eeg.cl.cam.ac.uk"; in
       settings = {
         listen.hostname = "0.0.0.0";
         instance.name = "PeerTube Test Server";
+        storage.videos = "/tank/peertube/videos";
       };
       secrets.secretsFile = "/secrets/peertube";
       serviceEnvironmentFile  = "/secrets/peertube.env";
+      dataDirs = [ "/tank/peertube/videos" ];
     };
 
     redis.servers.peertube = {

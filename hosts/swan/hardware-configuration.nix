@@ -14,6 +14,11 @@
       fsType = "ext4";
     };
 
+  fileSystems."/tank" = {
+    device = "/dev/pool/tank";
+    fsType = "ext4";
+  };
+
   swapDevices = [ ];
 
   networking = {
