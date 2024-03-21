@@ -1019,11 +1019,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1710777252,
-        "narHash": "sha256-XxBbbWWA3yHRjqWsK5NEdcN3AwOCybEyqhjPtAuDusk=",
+        "lastModified": 1710953428,
+        "narHash": "sha256-ARN2eYdzLswDS+fEm/SFdREuKe90+v0mVIONFAR9Ns4=",
         "ref": "refs/heads/master",
-        "rev": "13c02fa3c23f60c8610dcb304c0bdd78937a3ad9",
-        "revCount": 506,
+        "rev": "9b0eb497cf0e36b8cb4c845bac82fc286d8f3e22",
+        "revCount": 509,
         "type": "git",
         "url": "ssh://git@github.com/RyanGibb/website.git"
       },
