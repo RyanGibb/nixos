@@ -184,9 +184,7 @@
 
   services.kdeconnect.enable = true;
 
-  home.packages = with pkgs; [
-    spotify-tui
-  ];
+  home.packages = with pkgs; [ ];
 
   services.spotifyd = {
     enable = true;

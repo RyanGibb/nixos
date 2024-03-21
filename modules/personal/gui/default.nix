@@ -42,7 +42,7 @@ let cfg = config.personal.gui; in
     services.xserver = {
       desktopManager.xterm.enable = false;
       displayManager.startx.enable = true;
-      layout = "gb";
+      xkb.layout = "gb";
     };
 
     security.rtkit.enable = true;
