@@ -1,4 +1,4 @@
-{ pkgs, config, lib, eilean, ... }:
+{ pkgs, config, lib, eilean, ryan-website, ... }:
 
 {
   imports = [
@@ -50,7 +50,7 @@
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       ExecStart = "${pkgs.eeww}/main.exe -p 80";
-      WorkingDirectory = "${pkgs.ryan-website}";
+      WorkingDirectory = "${ryan-website.packages.${config.nixpkgs.hostPlatform.system}.default}";
       Restart = "always";
       RestartSec = "10s";
       AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
