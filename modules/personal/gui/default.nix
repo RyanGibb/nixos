@@ -85,6 +85,7 @@ let cfg = config.personal.gui; in
         xfconf
       ]; })
       gnome.file-roller
+      gnome.cheese
       # https://discourse.nixos.org/t/sway-wm-configuration-polkit-login-manager/3857/6
       polkit_gnome
       glib
