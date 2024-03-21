@@ -44,7 +44,7 @@
 
   eilean.services.dns.zones = {
     ${config.networking.domain} = {
-      soa.serial = 2018011656;
+      soa.serial = 2018011658;
       records = [
         { name = "@"; type = "TXT"; data = "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc"; }
         { name = "teapot"; type = "CNAME"; data = "vps"; }
@@ -72,15 +72,20 @@
 
         { name = "shrew"; type = "CNAME"; data = "vps"; }
 
-        { name = "_25._tcp.mail"; type = "TLSA"; data = "3 1 1 1b52dcbd6121d6e88406eca208ff476fc7b3da575ddfd65516e5c88db128ddb8"; }
+        # generate with
+        #   sudo openssl x509 -in /var/lib/acme/mail.freumh.org/fullchain.pem -pubkey -noout | openssl pkey -pubin -outform der | sha256sum | awk '{print "3 1 1", $1}'
+        { name = "_25._tcp.mail"; type = "TLSA"; data = "3 1 1 2f0fd413f063c75141937dd196a9f4ab66139d599e0dcf2a7ce6d557647e26a6"; }
+        # generate with
+        #   for i in r3 e1 r4-cross-signed e2
+        #   openssl x509 -in ~/downloads/lets-encrypt-$i.pem -pubkey -noout | openssl pkey -pubin -outform der | sha256sum | awk '{print "2 1 1", $1}'
         # LE R3
-        { name = "_25._tcp.mail"; type = "TLSA"; data = "2 1 1 67add1166b020ae61b8f5fc96813c04c2aa589960796865572a3c7e737613dfd"; }
+        { name = "_25._tcp.mail"; type = "TLSA"; data = "2 1 1 8d02536c887482bc34ff54e41d2ba659bf85b341a0a20afadb5813dcfbcf286d"; }
         # LE E1
-        { name = "_25._tcp.mail"; type = "TLSA"; data = "2 1 1 46494e30379059df18be52124305e606fc59070e5b21076ce113954b60517cda"; }
+        { name = "_25._tcp.mail"; type = "TLSA"; data = "2 1 1 276fe8a8c4ec7611565bf9fce6dcace9be320c1b5bea27596b2204071ed04f10"; }
         # LE R4
-        { name = "_25._tcp.mail"; type = "TLSA"; data = "2 1 1 5a8f16fda448d783481cca57a2428d174dad8c60943ceb28f661ae31fd39a5fa"; }
+        { name = "_25._tcp.mail"; type = "TLSA"; data = "2 1 1 e5545e211347241891c554a03934cde9b749664a59d26d615fe58f77990f2d03"; }
         # LE E2
-        { name = "_25._tcp.mail"; type = "TLSA"; data = "2 1 1 bacde0463053ce1d62f8be74370bbae79d4fcaf19fc07643aef195e6a59bd578"; }
+        { name = "_25._tcp.mail"; type = "TLSA"; data = "2 1 1 bd936e72b212ef6f773102c6b77d38f94297322efc25396bc3279422e0c89270"; }
       ];
     };
     "fn06.org" = {
