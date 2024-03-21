@@ -4,16 +4,8 @@ let domain = "eeg.cl.cam.ac.uk"; in
 {
   imports = [
     ./hardware-configuration.nix
+    ./minimal.nix
   ];
-
-  personal = {
-    enable = true;
-    machineColour = "green";
-  };
-
-  services.openssh.openFirewall = true;
-
-  swapDevices = [ { device = "/var/swap"; size = 1024; } ];
 
   security.acme = {
     defaults.email = "${config.eilean.username}@${config.networking.domain}";
