@@ -190,10 +190,6 @@
       enable = true;
       cname = "vps";
     };
-    eeww= {
-      #enable = true;
-      domain = config.services.ryan-website.domain;
-    };
     #eon = {
     #  enable = true;
     #  # TODO make this zonefile derivation a config parameter `services.eilean.services.dns.zonefile`
