@@ -127,20 +127,20 @@
     };
   };
 
-  services.wyoming = {
-    faster-whisper.servers.en = {
-      enable = true;
-      language = "en";
-      uri = "tcp://0.0.0.0:10300";
-    };
-    piper.servers.en = {
-      enable = true;
-      voice = "en_GB-alba-medium";
-      uri = "tcp://0.0.0.0:10200";
-    };
-    openwakeword = {
-      enable = true;
-      uri = "tcp://0.0.0.0:10400";
-    };
-  };
+  #services.wyoming = {
+  #  faster-whisper.servers.en = {
+  #    enable = true;
+  #    language = "en";
+  #    uri = "tcp://0.0.0.0:10300";
+  #  };
+  #  piper.servers.en = {
+  #    enable = true;
+  #    voice = "en_GB-alba-medium";
+  #    uri = "tcp://0.0.0.0:10200";
+  #  };
+  #  openwakeword = {
+  #    enable = true;
+  #    uri = "tcp://0.0.0.0:10400";
+  #  };
+  #};
 }
