@@ -39,7 +39,8 @@ let cfg = config.personal; in
         htop
         bind
         inetutils
-        ncdu
+        dua
+        fd
         nix-prefetch-git
         gnumake
         vlock

@@ -31,7 +31,8 @@
     htop
     bind
     inetutils
-    ncdu
+    dua
+    fd
     gnumake
     bat
     killall
