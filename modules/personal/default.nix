@@ -81,6 +81,7 @@ let cfg = config.personal; in
       sessionVariables = {
         NIX_AUTO_RUN = "y";
         NIX_AUTO_RUN_INTERACTIVE = "y";
+        BROWSER="firefox"; # urlview
       };
     };
     
@@ -149,6 +150,7 @@ let cfg = config.personal; in
         set-option -g set-titles on
         set-option -g set-titles-string "#T"
         bind-key t capture-pane -S -\; new-window '(tmux show-buffer; tmux delete-buffer) | nvim -c $'
+        bind-key u capture-pane\; new-window '(tmux show-buffer; tmux delete-buffer) | ${pkgs.urlview}/bin/urlview'
         set-hook -g session-window-changed 'run-shell ${toggle-status-bar}'
         set-hook -g session-created 'run-shell ${toggle-status-bar}'
         # Fixes C-Up/Down in TUIs

@@ -18,7 +18,7 @@ let cfg = config.personal; in
       enable = true;
       publish.enable = true;
       publish.userServices = true;
-      nssmdns4 = true;
+      nssmdns = true;
     };
   };
 }

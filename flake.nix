@@ -1,11 +1,12 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    #home-manager.url = "github:nix-community/home-manager";
-    home-manager.url = "github:RyanGibb/home-manager/fork-unstable";
+    #home-manager.url = "github:nix-community/home-manager/release-23.11";
+    home-manager.url = "github:RyanGibb/home-manager/fork";
     agenix.url = "github:ryantm/agenix";
-    nix-on-droid.url = "github:nix-community/nix-on-droid";
+    nix-on-droid.url = "github:nix-community/nix-on-droid/release-23.05";
     eeww.url = "github:RyanGibb/eeww/nixos";
     eon.url = "github:RyanGibb/eon";
     eilean.url ="github:RyanGibb/eilean-nix/main";
@@ -36,6 +37,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     nixos-hardware,
     home-manager,
     agenix,
@@ -53,9 +55,15 @@
       getSystemOverlays = system: nixpkgsConfig:
         [
           (final: prev: {
+            overlay-unstable = import nixpkgs-unstable {
+              inherit system;
+              # follow stable nixpkgs config
+              config = nixpkgsConfig;
+            };
             agenix = agenix.packages.${system}.default;
             eeww = eeww.defaultPackage.${system};
             eon = eon.defaultPackage.${system};
+            mautrix-signal = final.overlay-unstable.mautrix-signal;
             i3-workspace-history = i3-workspace-history.packages.${system}.default;
             maildir-rank-addr = final.callPackage ./pkgs/maildir-rank-addr.nix { };
             # https://github.com/NixOS/nixpkgs/issues/86349#issuecomment-624489806
@@ -72,10 +80,10 @@
             });
             # https://github.com/swaywm/sway/pull/7226
             sway-unwrapped = prev.callPackage ./pkgs/sway-im/package.nix {
-              libdrm = prev.libdrm;
+              libdrm = final.overlay-unstable.libdrm;
               wlroots = prev.callPackage ./pkgs/wlroots/default.nix {
                 # for libdrm >=2.4.120
-                mesa = prev.mesa;
+                mesa = final.overlay-unstable.mesa;
                 wayland-protocols = prev.wayland-protocols.overrideAttrs (old: rec {
                   pname = "wayland-protocols";
                   version = "1.33";
@@ -88,7 +96,7 @@
             };
             neovim-unwrapped = neovim.packages.${system}.default;
             # https://github.com/NixOS/nixpkgs/pull/291559
-            libvpl = prev.libvpl.overrideAttrs (_: {
+            libvpl = final.overlay-unstable.libvpl.overrideAttrs (_: {
               patches = [ ./pkgs/opengl-driver-lib.patch ];
             });
             # https://github.com/jellyfin/jellyfin-media-player/issues/165#issuecomment-1966131861
@@ -103,25 +111,13 @@
                         owner = "emersion";
                         repo = "libva";
                         rev = "linux-dmabuf";
-                        hash = "sha256-Bufv8/8YAMvo6P/8HgPKaWXI7TCE/mf98MGeclT2XyA=";
+                        hash = "sha256-d1cT6zOZHnrBBWjxOtSMAijPr4Tab+0GetZ6aqzhvrQ=";
                       };
                     }))
                   ];
                 }))
               ];
             });
-            waybar = prev.waybar.override {
-              wireplumber = prev.wireplumber.overrideAttrs rec {
-                version = "0.4.17";
-                src = prev.fetchFromGitLab {
-                  domain = "gitlab.freedesktop.org";
-                  owner = "pipewire";
-                  repo = "wireplumber";
-                  rev = version;
-                  hash = "sha256-vhpQT67+849WV1SFthQdUeFnYe/okudTQJoL3y+wXwI=";
-                };
-              };
-            };
           })
         ];
   in rec {
@@ -201,9 +197,15 @@
       };
     };
 
-    legacyPackages =
-      nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system:
-        nixpkgs.legacyPackages.${system}
-      );
-  };
+    legacyPackages = {
+      nixpkgs =
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system:
+          nixpkgs.legacyPackages.${system}
+        );
+      nixpkgs-unstable =
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system:
+          nixpkgs-unstable.legacyPackages.${system}
+        );
+      };
+    };
 }
