@@ -26,10 +26,13 @@ let
     });
 in
 {
+  options.personal.nvim-lsps = lib.mkEnableOption "nvim-lsps";
+
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       ripgrep
       nixd
+    ] ++ lib.lists.optionals cfg.nvim-lsps [
       alejandra
       # stop complaining when launching but a devshell is better
       ocamlPackages.ocaml-lsp

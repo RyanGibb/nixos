@@ -15,6 +15,7 @@
     gui.sway = true;
     gui.extra = true;
     ocaml = true;
+    nvim-lsps = true;
   };
 
   boot.loader.grub = {
