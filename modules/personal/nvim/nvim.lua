@@ -63,6 +63,7 @@ key_mapper('n', '<leader>h', '<C-w>h')
 key_mapper('n', '<leader>j', '<C-w>j')
 key_mapper('n', '<leader>k', '<C-w>k')
 key_mapper('n', '<leader>l', '<C-w>l')
+key_mapper('n', '<leader>s', ':w<CR>')
 
 key_mapper('n', 'ZA', ':cquit<Enter>')
 
