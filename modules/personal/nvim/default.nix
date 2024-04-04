@@ -58,8 +58,10 @@ in
           setlocal softtabstop=2
         '';
       in {
+        # format-flowed
         "ftplugin/mail.vim".text = ''
-          setlocal tw=999
+          setlocal tw=80
+          set formatoptions+=w
         '';
         "ftplugin/nix.vim".text = ml-style;
         "ftplugin/ocaml.vim".text = ml-style;

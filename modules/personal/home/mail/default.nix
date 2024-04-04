@@ -56,6 +56,7 @@ in {
         ui.mouse-enabled = true;
         compose.address-book-cmd = "${address-book}/bin/address-book '%s'";
         compose.file-picker-cmd = "${pkgs.ranger}/bin/ranger --choosefiles=%f";
+        compose.format-flowed = true;
         ui.index-columns = "date<=,name<50,flags>=,subject<*";
         ui.column-name = "{{index (.From | persons) 0}}";
         "ui:folder=Sent".index-columns = "date<=,to<50,flags>=,subject<*";

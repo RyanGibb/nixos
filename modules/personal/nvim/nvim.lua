@@ -16,7 +16,6 @@ vim.o.fixendofline = false
 
 vim.o.conceallevel = 0
 vim.wo.signcolumn = 'yes'
-vim.opt.colorcolumn = '80,120'
 
 vim.o.smartcase = true
 
