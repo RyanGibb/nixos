@@ -64,7 +64,7 @@ in {
         openers."text/html" = "firefox --new-window";
         hooks.mail-recieved = ''notify-send "[$AERC_ACCOUNT/$AERC_FOLDER] mail from $AERC_FROM_NAME" "$AERC_SUBJECT"'';
         filters = {
-          "text/plain" = "colorize";
+          "text/plain" = "wrap -w 90 | colorize";
           "text/calendar" = "calendar";
           "message/delivery-status" = "colorize";
           "message/rfc822" = "colorize";
