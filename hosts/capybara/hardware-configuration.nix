@@ -28,5 +28,9 @@
 
   networking.useDHCP = lib.mkDefault true;
 
+  boot.kernelParams = [
+    "video=HDMI-A-1:1024x768M@60D"
+  ];
+
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }
