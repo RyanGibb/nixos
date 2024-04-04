@@ -47,6 +47,7 @@ in {
     gpg.enable = true;
     mbsync.enable = true;
     mu.enable = true;
+    msmtp.enable = true;
     aerc = {
       enable = true;
       extraConfig = {
@@ -71,6 +72,9 @@ in {
       };
       extraBinds = import ./aerc-binds.nix;
     };
+    neomutt = {
+      enable = true;
+    };
   };
 
   services = {
@@ -93,6 +97,12 @@ in {
           host = "mail.freumh.org";
           port = 465;
         };
+        folders = {
+          drafts = "Drafts";
+          inbox = "Inbox";
+          sent = "Sent";
+          trash = "Bin";
+        };
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
@@ -103,6 +113,9 @@ in {
           create = "both";
           expunge = "both";
           remove = "both";
+        };
+        msmtp = {
+          enable = true;
         };
         aerc = {
           enable = true;
@@ -117,6 +130,9 @@ in {
             ''}";
           };
         };
+        neomutt = {
+          enable = true;
+        };
       };
       "misc@freumh.org" = {
         userName = "misc@freumh.org";
@@ -124,7 +140,16 @@ in {
         realName = "Misc";
         passwordCommand = "${pkgs.pass}/bin/pass show email/misc@freumh.org";
         imap.host = "mail.freumh.org";
-        smtp.host = "mail.freumh.org";
+        smtp = {
+          host = "mail.freumh.org";
+          port = 465;
+        };
+        folders = {
+          drafts = "Drafts";
+          inbox = "Inbox";
+          sent = "Sent";
+          trash = "Bin";
+        };
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
@@ -136,6 +161,12 @@ in {
           expunge = "both";
           remove = "both";
         };
+        msmtp = {
+          enable = true;
+        };
+        neomutt = {
+          enable = true;
+        };
       };
       "ryan.gibb@cl.cam.ac.uk" = {
         userName = "rtg24@fm.cl.cam.ac.uk";
@@ -143,6 +174,12 @@ in {
         realName = "Ryan Gibb";
         passwordCommand = "${pkgs.pass}/bin/pass show email/ryan.gibb@cl.cam.ac.uk";
         flavor = "fastmail.com";
+        folders = {
+          drafts = "Drafts";
+          inbox = "Inbox";
+          sent = "Sent";
+          trash = "Trash";
+        };
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
@@ -153,6 +190,9 @@ in {
           create = "both";
           expunge = "both";
           remove = "both";
+        };
+        msmtp = {
+          enable = true;
         };
         aerc = {
           enable = true;
@@ -167,6 +207,9 @@ in {
             ''}";
           };
         };
+        neomutt = {
+          enable = true;
+        };
       };
       "ryangibb321@gmail.com" = {
         userName = "ryangibb321@gmail.com";
@@ -174,6 +217,12 @@ in {
         realName = "Ryan Gibb";
         passwordCommand = "${pkgs.pass}/bin/pass show email/ryangibb321@gmail.com";
         flavor = "gmail.com";
+        folders = {
+          drafts = "Drafts";
+          inbox = "Inbox";
+          sent = "Sent Mail";
+          trash = "Bin";
+        };
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
@@ -184,6 +233,9 @@ in {
           create = "both";
           expunge = "both";
           remove = "both";
+        };
+        msmtp = {
+          enable = true;
         };
         aerc = {
           enable = true;
@@ -197,9 +249,10 @@ in {
               Sent = 'Sent Mail'
               Archive = 'All Mail'
             ''}";
-            postpone = "Drafts";
-            copy-to = "Sent";
           };
+        };
+        neomutt = {
+          enable = true;
         };
       };
     };
