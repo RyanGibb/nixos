@@ -74,6 +74,18 @@ in {
     };
     neomutt = {
       enable = true;
+      extraConfig = ''
+        # Macro to switch accounts
+        macro index,pager <F1> '"<change-folder> ${config.accounts.email.maildirBasePath}/ryan@freumh.org/Inbox<enter>"'
+        macro index,pager <F2> '"<change-folder> ${config.accounts.email.maildirBasePath}/ryangibb321@gmail.com/Inbox<enter>"'
+        macro index,pager <F3> '"<change-folder> ${config.accounts.email.maildirBasePath}/ryan.gibb@cl.cam.ac.uk/Inbox<enter>"'
+
+        # mutt macros for mu
+        macro index <F8> "<shell-escape>mu find --clearlinks --format=links --linksdir=${config.accounts.email.maildirBasePath}/search " \
+                                 "mu find"
+        macro index <F9> "<change-folder-readonly>˜/Maildir/search" \
+                                       "mu find results"
+    '';
     };
   };
 
@@ -86,7 +98,7 @@ in {
     maildirBasePath = "mail";
     order = [ "ryangibb321@gmail.com" "ryan.gibb@cl.cam.ac.uk" ];
     accounts = {
-      "ryan@freumh.org" = {
+      "ryan@freumh.org" = rec {
         primary = true;
         realName = "Ryan Gibb";
         userName = "ryan@freumh.org";
@@ -101,7 +113,7 @@ in {
           drafts = "Drafts";
           inbox = "Inbox";
           sent = "Sent";
-          trash = "Bin";
+          trash = "Trash";
         };
         imapnotify = {
           enable = true;
@@ -132,9 +144,16 @@ in {
         };
         neomutt = {
           enable = true;
+          extraConfig = ''
+            bind index g noop
+            macro index gi "<change-folder>=${folders.inbox}<enter>"
+            macro index gs "<change-folder>=${folders.sent}<enter>"
+            macro index gd "<change-folder>=${folders.drafts}<enter>"
+            macro index gt "<change-folder>=${folders.trash}<enter>"
+          '';
         };
       };
-      "misc@freumh.org" = {
+      "misc@freumh.org" = rec {
         userName = "misc@freumh.org";
         address = "misc@freumh.org";
         realName = "Misc";
@@ -166,9 +185,16 @@ in {
         };
         neomutt = {
           enable = true;
+          extraConfig = ''
+            bind index g noop
+            macro index gi "<change-folder>=${folders.inbox}<enter>"
+            macro index gs "<change-folder>=${folders.sent}<enter>"
+            macro index gd "<change-folder>=${folders.drafts}<enter>"
+            macro index gt "<change-folder>=${folders.trash}<enter>"
+          '';
         };
       };
-      "ryan.gibb@cl.cam.ac.uk" = {
+      "ryan.gibb@cl.cam.ac.uk" = rec {
         userName = "rtg24@fm.cl.cam.ac.uk";
         address = "ryan.gibb@cl.cam.ac.uk";
         realName = "Ryan Gibb";
@@ -209,9 +235,16 @@ in {
         };
         neomutt = {
           enable = true;
+          extraConfig = ''
+            bind index g noop
+            macro index gi "<change-folder>=${folders.inbox}<enter>"
+            macro index gs "<change-folder>=${folders.sent}<enter>"
+            macro index gd "<change-folder>=${folders.drafts}<enter>"
+            macro index gt "<change-folder>=${folders.trash}<enter>"
+          '';
         };
       };
-      "ryangibb321@gmail.com" = {
+      "ryangibb321@gmail.com" = rec {
         userName = "ryangibb321@gmail.com";
         address = "ryangibb321@gmail.com";
         realName = "Ryan Gibb";
@@ -253,6 +286,13 @@ in {
         };
         neomutt = {
           enable = true;
+          extraConfig = ''
+            bind index g noop
+            macro index gi "<change-folder>=${folders.inbox}<enter>"
+            macro index gs "<change-folder>=${folders.sent}<enter>"
+            macro index gd "<change-folder>=${folders.drafts}<enter>"
+            macro index gt "<change-folder>=${folders.trash}<enter>"
+          '';
         };
       };
     };
