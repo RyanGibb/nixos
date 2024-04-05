@@ -1,29 +1,30 @@
 { pkgs, lib, ... }:
 
-let replacements = {
-  wm = "sway";
-  wmmsg = "swaymsg";
-  rofi = "wofi";
-  app_id = "app_id";
-  bar_extra = ''
-    icon_theme Papirus
-  '';
-  locked = "--locked";
-  polkit_gnome = "${pkgs.polkit_gnome}";
-  locker = "swaylock -f -i $WALLPAPER";
-  enable_output  = "swaymsg output $laptop_output enable";
-  disable_output = "swaymsg output $laptop_output disable";
-  drun = "wofi -i --show drun --allow-images -a";
-  run = "wofi -i --show run";
-  dmenu = "wofi -d -i -p";
-  displays = "wdisplays";
-  bar = "swaybar";
-  notification_deamon = "mako";
-  i3-workspace-history = "${pkgs.i3-workspace-history}";
-  i3-workspace-history-args = "-sway";
-}; in
-let util = import ./util.nix { inherit pkgs lib; }; in
-{
+let
+  replacements = {
+    wm = "sway";
+    wmmsg = "swaymsg";
+    rofi = "wofi";
+    app_id = "app_id";
+    bar_extra = ''
+      icon_theme Papirus
+    '';
+    locked = "--locked";
+    polkit_gnome = "${pkgs.polkit_gnome}";
+    locker = "swaylock -f -i $WALLPAPER";
+    enable_output = "swaymsg output $laptop_output enable";
+    disable_output = "swaymsg output $laptop_output disable";
+    drun = "wofi -i --show drun --allow-images -a";
+    run = "wofi -i --show run";
+    dmenu = "wofi -d -i -p";
+    displays = "wdisplays";
+    bar = "swaybar";
+    notification_deamon = "mako";
+    i3-workspace-history = "${pkgs.i3-workspace-history}";
+    i3-workspace-history-args = "-sway";
+  };
+in let util = import ./util.nix { inherit pkgs lib; };
+in {
   home.sessionVariables = {
     QT_QPA_PLATFORM = "wayland";
     SDL_VIDEODRIVER = "wayland";
@@ -50,8 +51,8 @@ let util = import ./util.nix { inherit pkgs lib; }; in
     fi
   '';
 
-  xdg.configFile  =
-    let entries = {
+  xdg.configFile = let
+    entries = {
       "fusuma/config.yml".source = ./fusuma.yml;
       "kanshi/config".source = ./kanshi;
       "mako/config".source = ./mako;
@@ -62,16 +63,16 @@ let util = import ./util.nix { inherit pkgs lib; }; in
         save_dir=$XDG_PICTURES_DIR/capture/
         save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
       '';
-      "sway/config".text =
-        let wmFilenames = util.listFilesInDir ./wm/config.d; in
-        let swayFilenames = util.listFilesInDir ./wm/sway; in
-        (util.concatFilesReplace ([ ./wm/config ] ++ wmFilenames ++ swayFilenames) replacements);
+      "sway/config".text = let wmFilenames = util.listFilesInDir ./wm/config.d;
+      in let swayFilenames = util.listFilesInDir ./wm/sway;
+      in (util.concatFilesReplace
+        ([ ./wm/config ] ++ wmFilenames ++ swayFilenames) replacements);
       "i3blocks".source = ./i3blocks;
-    }; in
-    (util.inDirReplace ./wm/scripts "sway/scripts" replacements) // entries;
-
-    services.gammastep = {
-      enable = true;
-      provider = "geoclue2";
     };
+  in (util.inDirReplace ./wm/scripts "sway/scripts" replacements) // entries;
+
+  services.gammastep = {
+    enable = true;
+    provider = "geoclue2";
+  };
 }

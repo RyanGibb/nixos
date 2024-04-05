@@ -1,9 +1,7 @@
 { pkgs, config, ... }:
 
 {
-  imports = [
-    ./mail/default.nix
-  ];
+  imports = [ ./mail/default.nix ];
 
   gtk = {
     enable = true;
@@ -24,24 +22,22 @@
   # evince workaround
   home.sessionVariables.GTK_THEME = "gruvbox-dark";
 
-  home.sessionVariables.WALLPAPER =
-    let wallpaper = ./wallpaper.jpg; in
-    pkgs.runCommand (builtins.baseNameOf wallpaper) {} "cp ${wallpaper} $out";
+  home.sessionVariables.WALLPAPER = let wallpaper = ./wallpaper.jpg;
+  in pkgs.runCommand (builtins.baseNameOf wallpaper) { } "cp ${wallpaper} $out";
 
   home.sessionVariables.GOPATH = "$HOME/.go";
 
   home.pointerCursor = {
-      name = "Adwaita";
-      package = pkgs.gnome.adwaita-icon-theme;
-      size = 32;
+    name = "Adwaita";
+    package = pkgs.gnome.adwaita-icon-theme;
+    size = 32;
   };
 
   home.file.".profile".text = ''
     source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
   '';
 
-  programs.firefox =
-  let
+  programs.firefox = let
     settings = {
       "browser.ctrlTab.recentlyUsedOrder" = false;
       "browser.tabs.warnOnClose" = false;
@@ -55,7 +51,7 @@
       # Use userChrome.css
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
-      "browser.shell.checkDefaultBrowser" = false; 
+      "browser.shell.checkDefaultBrowser" = false;
 
       # sync toolbar
       "services.sync.prefs.sync.browser.uiCustomization.state" = true;
@@ -77,8 +73,7 @@
           visibility: collapse;
       }
     '';
-  in
-  {
+  in {
     enable = true;
     profiles.default = {
       settings = settings;
@@ -91,9 +86,7 @@
       userChrome = userChrome;
     };
     package = (pkgs.firefox.override {
-      nativeMessagingHosts = with pkgs; [
-        tridactyl-native
-      ];
+      nativeMessagingHosts = with pkgs; [ tridactyl-native ];
     });
   };
 
@@ -153,18 +146,18 @@
     userDirs = {
       enable = true;
       createDirectories = true;
-      download    = "$HOME/downloads";
-      pictures    = "$HOME/pictures";
-      videos      = "$HOME/videos";
-      documents   = "$HOME/documents/";
-      music       = "$HOME/";
+      download = "$HOME/downloads";
+      pictures = "$HOME/pictures";
+      videos = "$HOME/videos";
+      documents = "$HOME/documents/";
+      music = "$HOME/";
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1082717
-      desktop     = "$HOME/";
-      templates   = "$HOME/";
+      desktop = "$HOME/";
+      templates = "$HOME/";
       publicShare = "$HOME/";
     };
   };
-  
+
   # https://github.com/nix-community/home-manager/issues/1439#issuecomment-1106208294
   home.activation = {
     linkDesktopApplications = {

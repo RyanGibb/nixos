@@ -1,9 +1,7 @@
 { pkgs, config, lib, eilean, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   personal = {
     enable = true;
@@ -14,5 +12,8 @@
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
 
-  swapDevices = [ { device = "/var/swap"; size = 2048; } ];
+  swapDevices = [{
+    device = "/var/swap";
+    size = 2048;
+  }];
 }

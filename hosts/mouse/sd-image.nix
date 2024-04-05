@@ -1,9 +1,8 @@
 { nixpkgs, lib, pkgs, config, ... }:
 
 {
-  imports = [
-    "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
-  ];
+  imports =
+    [ "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix" ];
 
   # from hardware-configuration.nix
   # https://github.com/NixOS/nixpkgs/issues/141470#issuecomment-996202318
@@ -14,12 +13,14 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  swapDevices = [ { device = "/var/swap"; size = 4096; } ];
+  swapDevices = [{
+    device = "/var/swap";
+    size = 4096;
+  }];
 
   networking.useDHCP = lib.mkDefault true;
 
   hardware.enableRedistributableFirmware = lib.mkDefault true;
-
 
   # https://discourse.nixos.org/t/building-libcamera-for-raspberry-pi/26133/7
   nixpkgs.hostPlatform = {
@@ -34,7 +35,8 @@
   networking.hostName = "mouse";
 
   users = let
-    hashedPassword = "$6$IPvnJnu6/fp1Jxfy$U6EnzYDOC2NqE4iqRrkJJbSTHHNWk0KwK1xyk9jEvlu584UWQLyzDVF5I1Sh47wQhSVrvUI4mrqw6XTTjfPj6.";
+    hashedPassword =
+      "$6$IPvnJnu6/fp1Jxfy$U6EnzYDOC2NqE4iqRrkJJbSTHHNWk0KwK1xyk9jEvlu584UWQLyzDVF5I1Sh47wQhSVrvUI4mrqw6XTTjfPj6.";
   in {
     mutableUsers = false;
     users.ryan = {
@@ -43,17 +45,17 @@
         "wheel" # enable sudo
       ];
       hashedPassword = hashedPassword;
-      openssh.authorizedKeys.keyFiles = [ ../../modules/personal/authorized_keys ];
+      openssh.authorizedKeys.keyFiles =
+        [ ../../modules/personal/authorized_keys ];
     };
     users.root = {
       hashedPassword = hashedPassword;
-      openssh.authorizedKeys.keyFiles = [ ../../modules/personal/authorized_keys ];
+      openssh.authorizedKeys.keyFiles =
+        [ ../../modules/personal/authorized_keys ];
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    vim
-  ];
+  environment.systemPackages = with pkgs; [ vim ];
 
   services.tailscale = {
     enable = true;
@@ -94,49 +96,37 @@
         user = "zigbee2mqtt";
         password = "test";
       };
-      serial = {
-        port = "/dev/ttyUSB0";
-      };
+      serial = { port = "/dev/ttyUSB0"; };
       frontend = {
         port = 15606;
         url = "http://mouse";
       };
       homeassistant = true;
-      advanced = {
-        channel = 15;
-      };
+      advanced = { channel = 15; };
     };
   };
 
   services.mosquitto = {
     enable = true;
-    listeners = [
-      {
-        users = {
-          zigbee2mqtt = {
-            acl = [ "readwrite #" ];
-            hashedPassword = "$6$nuDIW/ZPVsrDHyBe$JffJJvvMG+nH8GH9V5h4FqJkU0nfiFkDzAsdYNTHeJMgBXEX9epPkQTUdLG9L47K54vMxm/+toeMAiKD63Dfkw==";
-          };
-          homeassistant = {
-            acl = [ "readwrite #" ];
-            hashedPassword = "$7$101$wGQZPdVdeW7iQFmH$bK/VOR6LXCLJKbb6M4PNeVptocjBAWXCLMtEU5fQNBr0Y5UAWlhVg8UAu4IkIXgnViI51NnhXKykdlWF63VkVQ==";
-          };
+    listeners = [{
+      users = {
+        zigbee2mqtt = {
+          acl = [ "readwrite #" ];
+          hashedPassword =
+            "$6$nuDIW/ZPVsrDHyBe$JffJJvvMG+nH8GH9V5h4FqJkU0nfiFkDzAsdYNTHeJMgBXEX9epPkQTUdLG9L47K54vMxm/+toeMAiKD63Dfkw==";
         };
-      }
-    ];
+        homeassistant = {
+          acl = [ "readwrite #" ];
+          hashedPassword =
+            "$7$101$wGQZPdVdeW7iQFmH$bK/VOR6LXCLJKbb6M4PNeVptocjBAWXCLMtEU5fQNBr0Y5UAWlhVg8UAu4IkIXgnViI51NnhXKykdlWF63VkVQ==";
+        };
+      };
+    }];
   };
 
   services.home-assistant = {
     enable = true;
-    extraComponents = [
-      "esphome"
-      "met"
-      "radio_browser"
-      "mqtt"
-      "zha"
-    ];
-    config = {
-      default_config = {};
-    };
+    extraComponents = [ "esphome" "met" "radio_browser" "mqtt" "zha" ];
+    config = { default_config = { }; };
   };
 }

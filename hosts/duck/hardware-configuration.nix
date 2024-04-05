@@ -1,16 +1,17 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "sr_mod" "xen_blkfront" ];
+  boot.initrd.availableKernelModules =
+    [ "ata_piix" "uhci_hcd" "sr_mod" "xen_blkfront" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
   boot.loader.grub.device = "/dev/xvda"; # or "nodev" for efi only
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/426b9528-ccde-4438-8338-10d35cea9d16";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/426b9528-ccde-4438-8338-10d35cea9d16";
+    fsType = "ext4";
+  };
 
   networking.useDHCP = false;
 
@@ -28,5 +29,6 @@
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

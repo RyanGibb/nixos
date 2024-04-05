@@ -1,9 +1,7 @@
 { pkgs, lib, config, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   personal = {
     enable = true;
@@ -28,11 +26,7 @@
 
   environment.systemPackages = with pkgs; [
     dell-command-configure
-    (python3.withPackages (p: with p; [
-      numpy
-      matplotlib
-      pandas
-    ]))
+    (python3.withPackages (p: with p; [ numpy matplotlib pandas ]))
     python39Packages.pip
     jupyter
     #vagrant
@@ -79,7 +73,7 @@
 
   #system.includeBuildDependencies = true;
   nix = {
-    buildMachines = [ {
+    buildMachines = [{
       hostName = "rtg24@daintree.cl.cam.ac.uk";
       system = "x86_64-linux";
       protocol = "ssh-ng";
@@ -87,11 +81,11 @@
       speedFactor = 2;
       supportedFeatures = [ "benchmark" "big-parallel" "kvm" ];
       mandatoryFeatures = [ ];
-    }] ;
+    }];
     distributedBuilds = true;
     extraOptions = ''
       builders-use-substitutes = true
-      '';
+    '';
   };
 
   age.secrets.restic-gecko.file = ../../secrets/restic-gecko.age;
@@ -109,9 +103,7 @@
       "/home/${config.custom.username}/.cache"
       "/home/${config.custom.username}/.local/share/Steam"
     ];
-    timerConfig = {
-      OnUnitActiveSec = "1d";
-    };
+    timerConfig = { OnUnitActiveSec = "1d"; };
     extraBackupArgs = [ "-vv" ];
   };
 
@@ -137,8 +129,8 @@
     };
 
     environment.DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/${
-      toString config.users.users.${config.custom.username}.uid
-    }/bus";
+        toString config.users.users.${config.custom.username}.uid
+      }/bus";
 
     script = ''
       ${pkgs.libnotify}/bin/notify-send --urgency=critical \

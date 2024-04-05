@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "maildir-rank-addr";
@@ -17,7 +14,8 @@ buildGoModule rec {
   vendorHash = "sha256-Mqx938j8LwM+bDnrK3V46FFy86JbVoh9Zxr/CA/egk8=";
 
   meta = with lib; {
-    description = "Creates a ranked list of email addresses from maildir folders";
+    description =
+      "Creates a ranked list of email addresses from maildir folders";
     homepage = "https://github.com/ferdinandyb/maildir-rank-addr/";
     maintainers = with maintainers; [ ryangibb ];
     mainProgram = "maildir-rank-addr";

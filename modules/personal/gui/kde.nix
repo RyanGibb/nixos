@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
-let cfg = config.personal.gui; in
-{
+let cfg = config.personal.gui;
+in {
   options.personal.gui.kde = lib.mkEnableOption "kde";
 
   config = lib.mkIf cfg.kde {

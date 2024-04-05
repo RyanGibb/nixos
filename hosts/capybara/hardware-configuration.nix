@@ -1,9 +1,7 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot.loader.grub.device = "nodev";
   boot.loader.grub.efiSupport = true;
@@ -14,23 +12,21 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/4cef5b18-2c69-4f92-835d-52ac0b96256c";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/4cef5b18-2c69-4f92-835d-52ac0b96256c";
+    fsType = "ext4";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/63BC-60B5";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/63BC-60B5";
+    fsType = "vfat";
+  };
 
   swapDevices = [ ];
 
   networking.useDHCP = lib.mkDefault true;
 
-  boot.kernelParams = [
-    "video=HDMI-A-1:1024x768M@60D"
-  ];
+  boot.kernelParams = [ "video=HDMI-A-1:1024x768M@60D" ];
 
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }

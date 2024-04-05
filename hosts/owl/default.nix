@@ -46,57 +46,153 @@
     ${config.networking.domain} = {
       soa.serial = 2018011658;
       records = [
-        { name = "@"; type = "TXT"; data = "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc"; }
-        { name = "teapot"; type = "CNAME"; data = "vps"; }
+        {
+          name = "@";
+          type = "TXT";
+          data =
+            "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc";
+        }
+        {
+          name = "teapot";
+          type = "CNAME";
+          data = "vps";
+        }
 
-        { name = "@";   type = "NS"; data = "ns1"; }
-        { name = "@";   type = "NS"; data = "ns2"; }
+        {
+          name = "@";
+          type = "NS";
+          data = "ns1";
+        }
+        {
+          name = "@";
+          type = "NS";
+          data = "ns2";
+        }
 
-        { name = "ns1"; type = "A";    data = config.eilean.serverIpv4; }
-        { name = "ns1"; type = "AAAA"; data = config.eilean.serverIpv6; }
-        { name = "ns2"; type = "A";    data = config.eilean.serverIpv4; }
-        { name = "ns2"; type = "AAAA"; data = config.eilean.serverIpv6; }
+        {
+          name = "ns1";
+          type = "A";
+          data = config.eilean.serverIpv4;
+        }
+        {
+          name = "ns1";
+          type = "AAAA";
+          data = config.eilean.serverIpv6;
+        }
+        {
+          name = "ns2";
+          type = "A";
+          data = config.eilean.serverIpv4;
+        }
+        {
+          name = "ns2";
+          type = "AAAA";
+          data = config.eilean.serverIpv6;
+        }
 
-        { name = "@";   type = "A";    data = config.eilean.serverIpv4; }
-        { name = "@";   type = "AAAA"; data = config.eilean.serverIpv6; }
-        { name = "vps"; type = "A";    data = config.eilean.serverIpv4; }
-        { name = "vps"; type = "AAAA"; data = config.eilean.serverIpv6; }
+        {
+          name = "@";
+          type = "A";
+          data = config.eilean.serverIpv4;
+        }
+        {
+          name = "@";
+          type = "AAAA";
+          data = config.eilean.serverIpv6;
+        }
+        {
+          name = "vps";
+          type = "A";
+          data = config.eilean.serverIpv4;
+        }
+        {
+          name = "vps";
+          type = "AAAA";
+          data = config.eilean.serverIpv6;
+        }
 
-        { name = "@"; type = "LOC"; data = "52 12 40.4 N 0 5 31.9 E 22m 10m 10m 10m"; }
+        {
+          name = "@";
+          type = "LOC";
+          data = "52 12 40.4 N 0 5 31.9 E 22m 10m 10m 10m";
+        }
 
-        { name = "ns.cl"; type = "A"; data = "128.232.113.136"; }
-        { name = "cl"; type = "NS"; data = "ns.cl"; }
+        {
+          name = "ns.cl";
+          type = "A";
+          data = "128.232.113.136";
+        }
+        {
+          name = "cl";
+          type = "NS";
+          data = "ns.cl";
+        }
 
-        { name = "ns1.eilean"; type = "A"; data = "65.109.10.223"; }
-        { name = "eilean"; type = "NS"; data = "ns1.eilean"; }
+        {
+          name = "ns1.eilean";
+          type = "A";
+          data = "65.109.10.223";
+        }
+        {
+          name = "eilean";
+          type = "NS";
+          data = "ns1.eilean";
+        }
 
-        { name = "shrew"; type = "CNAME"; data = "vps"; }
+        {
+          name = "shrew";
+          type = "CNAME";
+          data = "vps";
+        }
 
         # generate with
         #   sudo openssl x509 -in /var/lib/acme/mail.freumh.org/fullchain.pem -pubkey -noout | openssl pkey -pubin -outform der | sha256sum | awk '{print "3 1 1", $1}'
-        { name = "_25._tcp.mail"; type = "TLSA"; data = "3 1 1 2f0fd413f063c75141937dd196a9f4ab66139d599e0dcf2a7ce6d557647e26a6"; }
+        {
+          name = "_25._tcp.mail";
+          type = "TLSA";
+          data =
+            "3 1 1 2f0fd413f063c75141937dd196a9f4ab66139d599e0dcf2a7ce6d557647e26a6";
+        }
         # generate with
         #   for i in r3 e1 r4-cross-signed e2
         #   openssl x509 -in ~/downloads/lets-encrypt-$i.pem -pubkey -noout | openssl pkey -pubin -outform der | sha256sum | awk '{print "2 1 1", $1}'
         # LE R3
-        { name = "_25._tcp.mail"; type = "TLSA"; data = "2 1 1 8d02536c887482bc34ff54e41d2ba659bf85b341a0a20afadb5813dcfbcf286d"; }
+        {
+          name = "_25._tcp.mail";
+          type = "TLSA";
+          data =
+            "2 1 1 8d02536c887482bc34ff54e41d2ba659bf85b341a0a20afadb5813dcfbcf286d";
+        }
         # LE E1
-        { name = "_25._tcp.mail"; type = "TLSA"; data = "2 1 1 276fe8a8c4ec7611565bf9fce6dcace9be320c1b5bea27596b2204071ed04f10"; }
+        {
+          name = "_25._tcp.mail";
+          type = "TLSA";
+          data =
+            "2 1 1 276fe8a8c4ec7611565bf9fce6dcace9be320c1b5bea27596b2204071ed04f10";
+        }
         # LE R4
-        { name = "_25._tcp.mail"; type = "TLSA"; data = "2 1 1 e5545e211347241891c554a03934cde9b749664a59d26d615fe58f77990f2d03"; }
+        {
+          name = "_25._tcp.mail";
+          type = "TLSA";
+          data =
+            "2 1 1 e5545e211347241891c554a03934cde9b749664a59d26d615fe58f77990f2d03";
+        }
         # LE E2
-        { name = "_25._tcp.mail"; type = "TLSA"; data = "2 1 1 bd936e72b212ef6f773102c6b77d38f94297322efc25396bc3279422e0c89270"; }
+        {
+          name = "_25._tcp.mail";
+          type = "TLSA";
+          data =
+            "2 1 1 bd936e72b212ef6f773102c6b77d38f94297322efc25396bc3279422e0c89270";
+        }
       ];
     };
     "fn06.org" = {
       soa.serial = 1706745601;
-      records = [
-        {
-          name = "capybara.fn06.org";
-          type = "CNAME";
-          data = "fn06.org";
-        }
-      ];
+      records = [{
+        name = "capybara.fn06.org";
+        type = "CNAME";
+        data = "fn06.org";
+      }];
     };
   };
   services.bind.zones.${config.networking.domain}.extraConfig = ''
@@ -104,20 +200,19 @@
     inline-signing yes;
     journal "${config.services.bind.directory}/${config.networking.domain}.signed.jnl";
   '' +
-  # dig ns org +short | xargs dig +short
-  # replace with `checkds true;` in bind 9.20
-  ''
-    parental-agents {
-      199.19.56.1;
-      199.249.112.1;
-      199.19.54.1;
-      199.249.120.1;
-      199.19.53.1;
-      199.19.57.1;
-    };
-  '';
+    # dig ns org +short | xargs dig +short
+    # replace with `checkds true;` in bind 9.20
+    ''
+      parental-agents {
+        199.19.56.1;
+        199.249.112.1;
+        199.19.54.1;
+        199.249.120.1;
+        199.19.53.1;
+        199.19.57.1;
+      };
+    '';
 
-  
   services.nginx.commonHttpConfig = ''
     add_header Strict-Transport-Security max-age=31536000 always;
     add_header X-Frame-Options SAMEORIGIN always;
@@ -234,11 +329,7 @@
     repository = "rest:http://100.64.0.9:8000/${config.networking.hostName}/";
     passwordFile = config.age.secrets.restic-owl.path;
     initialize = true;
-    paths = [
-      "/var/"
-      "/run/"
-      "/etc/"
-    ];
+    paths = [ "/var/" "/run/" "/etc/" ];
     timerConfig = {
       OnCalendar = "03:00";
       randomizedDelaySec = "1hr";
@@ -256,7 +347,8 @@
 
   age.secrets.email-ryan.file = ../../secrets/email-ryan.age;
   age.secrets.email-system.file = ../../secrets/email-system.age;
-  eilean.mailserver.systemAccountPasswordFile = config.age.secrets.email-system.path;
+  eilean.mailserver.systemAccountPasswordFile =
+    config.age.secrets.email-system.path;
   mailserver.loginAccounts = {
     "${config.eilean.username}@${config.networking.domain}" = {
       passwordFile = config.age.secrets.email-ryan.path;
@@ -266,7 +358,7 @@
       ];
       sieveScript = ''
         require ["fileinto", "mailbox"];
-    
+
         if header :contains ["to", "cc"] ["~rjarry/aerc-discuss@lists.sr.ht"] {
           fileinto :create "lists.aerc";
           stop;
@@ -278,9 +370,7 @@
       catchAll = [ "${config.networking.domain}" ];
     };
     "system@${config.networking.domain}" = {
-      aliases = [
-        "nas@${config.networking.domain}"
-      ];
+      aliases = [ "nas@${config.networking.domain}" ];
     };
   };
 }

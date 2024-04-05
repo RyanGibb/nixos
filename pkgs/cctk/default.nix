@@ -1,12 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  dpkg,
-  autoPatchelfHook,
-  patchelf,
-  openssl,
-}:
+{ stdenv, lib, fetchurl, dpkg, autoPatchelfHook, patchelf, openssl, }:
 
 # Use techniques described in https://web.archive.org/web/20220904051329/https://tapesoftware.net/replace-symbol/
 # Uses patchelf-raphi to do this
@@ -23,7 +15,7 @@ let
   unpacked = stdenv.mkDerivation rec {
     inherit version;
     pname = "dell-command-configure-unpacked";
-  
+
     src = fetchurl {
       url =
         "https://dl.dell.com/FOLDER08911312M/1/command-configure_${version}.ubuntu20_amd64.tar.gz";
@@ -33,9 +25,9 @@ let
     };
 
     dontBuild = true;
-  
+
     nativeBuildInputs = [ dpkg ];
-  
+
     unpackPhase = ''
       tar -xzf ${src}
       dpkg-deb -x command-configure_${version}.ubuntu20_amd64.deb command-configure
@@ -47,7 +39,6 @@ let
       cp -r . $out
     '';
   };
-
 
   # Contains a fopen() wrapper for finding the firmware package
   wrapperLibName = "wrapper-lib.so";

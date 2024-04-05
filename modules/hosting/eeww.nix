@@ -2,14 +2,12 @@
 
 with lib;
 
-let cfg = config.services.eeww; in
-{
+let cfg = config.services.eeww;
+in {
   options = {
     services.eeww = {
       enable = mkEnableOption "eeww";
-      domain = lib.mkOption {
-        type = lib.types.str;
-      };
+      domain = lib.mkOption { type = lib.types.str; };
       port = lib.mkOption {
         type = lib.types.port;
         default = 8081;
@@ -27,7 +25,8 @@ let cfg = config.services.eeww; in
 
   config = lib.mkIf cfg.enable {
     # TODO use unix socket?
-    services.nginx.virtualHosts."${cfg.domain}".locations."/".proxyPass = "http://localhost:${builtins.toString cfg.port}";
+    services.nginx.virtualHosts."${cfg.domain}".locations."/".proxyPass =
+      "http://localhost:${builtins.toString cfg.port}";
 
     systemd.services.eeww = {
       enable = true;
@@ -51,6 +50,6 @@ let cfg = config.services.eeww; in
       isSystemUser = true;
     };
 
-    users.groups."${cfg.group}" = {};
+    users.groups."${cfg.group}" = { };
   };
 }

@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 
-let cfg = config.personal; in
-{
+let cfg = config.personal;
+in {
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ pkgs.nix-index ];
     programs.command-not-found.enable = false;

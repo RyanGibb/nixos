@@ -114,9 +114,9 @@
     #backups.owl = {
     #  repository = "${config.services.restic.server.dataDir}/owl";
     #  passwordFile = "${config.custom.secretsDir}/restic-password-owl";
-	  #  timerConfig = {
-	  #    OnCalendar = "02:00";
-	  #  };
+    #  timerConfig = {
+    #    OnCalendar = "02:00";
+    #  };
     #  pruneOpts = [
     #    "--keep-daily 7"
     #    "--keep-weekly 5"
@@ -127,9 +127,9 @@
     #backups.gecko = {
     #  repository = "${config.services.restic.server.dataDir}/gecko";
     #  passwordFile = "${config.custom.secretsDir}/restic-password-gecko";
-	  #  timerConfig = {
-	  #    OnCalendar = "02:00";
-	  #  };
+    #  timerConfig = {
+    #    OnCalendar = "02:00";
+    #  };
     #  pruneOpts = [
     #    "--keep-daily 7"
     #    "--keep-weekly 5"

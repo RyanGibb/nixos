@@ -1,9 +1,7 @@
 { pkgs, config, lib, eilean, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   personal = {
     enable = true;
@@ -12,5 +10,8 @@
 
   services.openssh.openFirewall = true;
 
-  swapDevices = [ { device = "/var/swap"; size = 1024; } ];
+  swapDevices = [{
+    device = "/var/swap";
+    size = 1024;
+  }];
 }

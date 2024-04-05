@@ -2,8 +2,8 @@
 
 with lib;
 
-let cfg = config.personal; in
-{
+let cfg = config.personal;
+in {
   options.personal.tailscale = mkEnableOption "tailscale";
 
   config = lib.mkIf cfg.tailscale {

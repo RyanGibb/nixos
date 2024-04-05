@@ -1,10 +1,8 @@
 { pkgs, config, lib, ... }:
 
-let cfg = config.personal; in
-{
-  options.personal = {
-    enable = lib.mkEnableOption "personal";
-  };
+let cfg = config.personal;
+in {
+  options.personal = { enable = lib.mkEnableOption "personal"; };
 
   config = lib.mkIf cfg.enable {
     console = {
@@ -13,7 +11,8 @@ let cfg = config.personal; in
     };
 
     users = let
-      hashedPassword = "$6$IPvnJnu6/fp1Jxfy$U6EnzYDOC2NqE4iqRrkJJbSTHHNWk0KwK1xyk9jEvlu584UWQLyzDVF5I1Sh47wQhSVrvUI4mrqw6XTTjfPj6.";
+      hashedPassword =
+        "$6$IPvnJnu6/fp1Jxfy$U6EnzYDOC2NqE4iqRrkJJbSTHHNWk0KwK1xyk9jEvlu584UWQLyzDVF5I1Sh47wQhSVrvUI4mrqw6XTTjfPj6.";
     in {
       mutableUsers = false;
       groups.plugdev = { };
@@ -77,15 +76,16 @@ let cfg = config.personal; in
         inhibit-lid = "systemd-inhibit --what=handle-lid-switch sleep 1d";
         tmux = "tmux -2";
         feh = "feh --scale-down --auto-zoom";
-        nix-stray-roots = "nix-store --gc --print-roots | egrep -v '^(/nix/var|/run|/proc|{censored})'";
+        nix-stray-roots =
+          "nix-store --gc --print-roots | egrep -v '^(/nix/var|/run|/proc|{censored})'";
       };
       sessionVariables = {
         NIX_AUTO_RUN = "y";
         NIX_AUTO_RUN_INTERACTIVE = "y";
-        BROWSER="firefox"; # urlview
+        BROWSER = "firefox"; # urlview
       };
     };
-    
+
     networking = rec {
       # nameservers = [ ${config.eilean.serverIpv4} ];
       nameservers = [ "1.1.1.1" ];
@@ -95,9 +95,7 @@ let cfg = config.personal; in
     programs.git = {
       enable = true;
       config = {
-        init = {
-          defaultBranch = "main";
-        };
+        init = { defaultBranch = "main"; };
         user = {
           email = "${config.custom.username}@${config.networking.domain}";
           name = "Ryan Gibb";
@@ -115,7 +113,8 @@ let cfg = config.personal; in
           l = "log";
           lg = "log -p";
           lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
-          lola = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
+          lola =
+            "log --graph --decorate --pretty=oneline --abbrev-commit --all";
           ls = "ls-files";
           a = "add";
           aa = "add --all";
@@ -145,7 +144,8 @@ let cfg = config.personal; in
           else
               tmux set-option status off
           fi
-      ''; in ''
+        '';
+      in ''
         set-window-option -g mode-keys vi
         set-option -g mouse on
         set-option -g set-titles on

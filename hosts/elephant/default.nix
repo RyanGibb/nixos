@@ -1,11 +1,7 @@
 { pkgs, config, lib, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-    ./zfs.nix
-    ./services.nix
-  ];
+  imports = [ ./hardware-configuration.nix ./zfs.nix ./services.nix ];
 
   personal = {
     enable = true;
@@ -20,9 +16,7 @@
     restic
   ];
 
-  eilean = {
-    publicInterface = "enp1s0";
-  };
+  eilean = { publicInterface = "enp1s0"; };
 
   powerManagement = {
     powertop.enable = true;
@@ -41,19 +35,9 @@
     repositoryFile = config.age.secrets.restic-repo.path;
     passwordFile = config.age.secrets.restic-elephant.path;
     initialize = true;
-    paths = [
-      "/tank/family/mp4/"
-      "/tank/family/other/"
-      "/tank/photos/"
-    ];
-    timerConfig = {
-      OnCalendar = "03:00";
-    };
-    pruneOpts = [
-      "--keep-daily 7"
-      "--keep-weekly 4"
-      "--keep-yearly 10"
-    ];
+    paths = [ "/tank/family/mp4/" "/tank/family/other/" "/tank/photos/" ];
+    timerConfig = { OnCalendar = "03:00"; };
+    pruneOpts = [ "--keep-daily 7" "--keep-weekly 4" "--keep-yearly 10" ];
   };
 
   # Add hardware transcoding support to `ffmpeg_6` and derived packages (like jellyfin-ffmpeg)

@@ -1,9 +1,9 @@
 { pkgs, config, lib, ... }:
 
-let cfg = config.hosting; in
-{
+let cfg = config.hosting;
+in {
   options.hosting.freumh.enable = lib.mkEnableOption "freumh";
-  
+
   config = lib.mkIf cfg.freumh.enable {
     security.acme = {
       defaults.email = "${config.eilean.username}@${config.networking.domain}";
@@ -16,23 +16,23 @@ let cfg = config.hosting; in
       locations."/index.html".root = pkgs.writeTextFile {
         name = "freumh";
         text = ''
-  <html>
-  <body>
-  <pre>
-        ||
-        \\
-  _      ||    __
-  \    / \\  /  \
-    \__/   \\/
-            \\      __
-      _    / \\    /  \_/
-    _/ \  ||   \__/
-        \//     \
-        //       \
-        ||        \_
-  </html>
-  </body>
-  </pre>
+          <html>
+          <body>
+          <pre>
+                ||
+                \\
+          _      ||    __
+          \    / \\  /  \
+            \__/   \\/
+                    \\      __
+              _    / \\    /  \_/
+            _/ \  ||   \__/
+                \//     \
+                //       \
+                ||        \_
+          </html>
+          </body>
+          </pre>
         '';
         destination = "/index.html";
       };
@@ -42,7 +42,7 @@ let cfg = config.hosting; in
       locations."/.well-known/security.txt".root = pkgs.writeTextFile {
         name = "freumh-security.txt";
         text = ''
-Contact: mailto:security@freumh.org
+          Contact: mailto:security@freumh.org
         '';
         destination = "/.well-known/security.txt";
       };

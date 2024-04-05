@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 
-let cfg = config.personal; in
-{
+let cfg = config.personal;
+in {
   options.personal.dict = lib.mkOption {
     type = types.bool;
     default = true;
@@ -10,8 +10,6 @@ let cfg = config.personal; in
   config = lib.mkIf cfg.dict {
     services.dictd.enable = true;
 
-    environment.systemPackages = with pkgs; [
-      dict
-    ];
+    environment.systemPackages = with pkgs; [ dict ];
   };
 }

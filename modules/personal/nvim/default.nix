@@ -1,51 +1,46 @@
 { pkgs, config, lib, ... }:
 
-let cfg = config.personal; in
-let
-  obsidian-nvim =
-    (pkgs.vimUtils.buildVimPlugin {
-      pname = "obsidian.nvim";
-      version = "2.6.0";
-      src = pkgs.fetchFromGitHub {
-        owner = "epwalsh";
-        repo = "obsidian.nvim";
-        rev = "v2.6.0";
-        sha256 = "sha256-+w3XYoobuH17oinPfQxhrizbmQB5IbbulUK69674/Wg=";
-      };
-    });
-  ltex-ls-nvim =
-    (pkgs.vimUtils.buildVimPlugin {
-      pname = "ltex-ls.nvim";
-      version = "2.6.0";
-      src = pkgs.fetchFromGitHub {
-        owner = "vigoux";
-        repo = "ltex-ls.nvim";
-        rev = "c8139ea6b7f3d71adcff121e16ee8726037ffebd";
-        sha256 = "sha256-jY3ALr6h88xnWN2QdKe3R0vvRcSNhFWDW56b2NvnTCs=";
-      };
-    });
-in
-{
+let cfg = config.personal;
+in let
+  obsidian-nvim = (pkgs.vimUtils.buildVimPlugin {
+    pname = "obsidian.nvim";
+    version = "2.6.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "epwalsh";
+      repo = "obsidian.nvim";
+      rev = "v2.6.0";
+      sha256 = "sha256-+w3XYoobuH17oinPfQxhrizbmQB5IbbulUK69674/Wg=";
+    };
+  });
+  ltex-ls-nvim = (pkgs.vimUtils.buildVimPlugin {
+    pname = "ltex-ls.nvim";
+    version = "2.6.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "vigoux";
+      repo = "ltex-ls.nvim";
+      rev = "c8139ea6b7f3d71adcff121e16ee8726037ffebd";
+      sha256 = "sha256-jY3ALr6h88xnWN2QdKe3R0vvRcSNhFWDW56b2NvnTCs=";
+    };
+  });
+in {
   options.personal.nvim-lsps = lib.mkEnableOption "nvim-lsps";
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      ripgrep
-      nixd
-    ] ++ lib.lists.optionals cfg.nvim-lsps [
-      alejandra
-      # stop complaining when launching but a devshell is better
-      ocamlPackages.ocaml-lsp
-      ocamlPackages.ocamlformat
-      lua-language-server
-      pyright
-      black
-      ltex-ls
-      jdt-language-server
-      nodejs_18
-      clang-tools
-      typst-lsp
-    ];
+    environment.systemPackages = with pkgs;
+      [ ripgrep nixd ] ++ lib.lists.optionals cfg.nvim-lsps [
+        nixfmt
+        # stop complaining when launching but a devshell is better
+        ocamlPackages.ocaml-lsp
+        ocamlPackages.ocamlformat
+        lua-language-server
+        pyright
+        black
+        ltex-ls
+        jdt-language-server
+        nodejs_18
+        clang-tools
+        typst-lsp
+      ];
     programs.neovim = {
       enable = true;
       viAlias = true;

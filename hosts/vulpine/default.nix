@@ -1,9 +1,7 @@
 { pkgs, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   personal = {
     enable = true;
@@ -21,8 +19,11 @@
     device = "nodev";
     efiSupport = true;
   };
-  
-  swapDevices = [ { device = "/swapfile"; size = 8192; } ];
+
+  swapDevices = [{
+    device = "/swapfile";
+    size = 8192;
+  }];
 
   boot.supportedFilesystems = [ "ntfs" ];
 

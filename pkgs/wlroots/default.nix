@@ -1,34 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, fetchpatch
-, meson
-, ninja
-, pkg-config
-, wayland-scanner
-, libGL
-, wayland
-, wayland-protocols
-, libinput
-, libxkbcommon
-, pixman
-, libcap
-, mesa
-, xorg
-, libpng
-, ffmpeg_4
-, ffmpeg
-, hwdata
-, seatd
-, vulkan-loader
-, glslang
-, libliftoff
-, libdisplay-info
-, nixosTests
+{ lib, stdenv, fetchFromGitLab, fetchpatch, meson, ninja, pkg-config
+, wayland-scanner, libGL, wayland, wayland-protocols, libinput, libxkbcommon
+, pixman, libcap, mesa, xorg, libpng, ffmpeg_4, ffmpeg, hwdata, seatd
+, vulkan-loader, glslang, libliftoff, libdisplay-info, nixosTests
 
-, enableXWayland ? true
-, xwayland ? null
-}:
+, enableXWayland ? true, xwayland ? null }:
 
 stdenv.mkDerivation (finalAttrs: rec {
   pname = "wlroots";
@@ -73,12 +48,9 @@ stdenv.mkDerivation (finalAttrs: rec {
     hwdata
     libliftoff
     libdisplay-info
-  ]
-  ++ lib.optional finalAttrs.enableXWayland xwayland;
+  ] ++ lib.optional finalAttrs.enableXWayland xwayland;
 
-  mesonFlags =
-    lib.optional (!finalAttrs.enableXWayland) "-Dxwayland=disabled"
-  ;
+  mesonFlags = lib.optional (!finalAttrs.enableXWayland) "-Dxwayland=disabled";
 
   postFixup = ''
     # Install ALL example programs to $examples:
@@ -102,7 +74,8 @@ stdenv.mkDerivation (finalAttrs: rec {
       compositor; or about 50,000 lines of code you were going to write anyway.
     '';
     inherit (finalAttrs.src.meta) homepage;
-    changelog = "https://gitlab.freedesktop.org/wlroots/wlroots/-/tags/${version}";
+    changelog =
+      "https://gitlab.freedesktop.org/wlroots/wlroots/-/tags/${version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ primeos synthetica rewine ];

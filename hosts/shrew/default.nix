@@ -1,10 +1,7 @@
 { config, pkgs, lib, nixos-hardware, nixpkgs, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-    "${nixos-hardware}/raspberry-pi/4"
-  ];
+  imports = [ ./hardware-configuration.nix "${nixos-hardware}/raspberry-pi/4" ];
 
   personal = {
     enable = true;
@@ -36,36 +33,32 @@
         user = "zigbee2mqtt";
         password = "test";
       };
-      serial = {
-        port = "/dev/ttyUSB0";
-      };
+      serial = { port = "/dev/ttyUSB0"; };
       frontend = {
         port = 15606;
         url = "http://shrew";
       };
       homeassistant = true;
-      advanced = {
-        channel = 15;
-      };
+      advanced = { channel = 15; };
     };
   };
 
   services.mosquitto = {
     enable = true;
-    listeners = [
-      {
-        users = {
-          zigbee2mqtt = {
-            acl = [ "readwrite #" ];
-            hashedPassword = "$6$nuDIW/ZPVsrDHyBe$JffJJvvMG+nH8GH9V5h4FqJkU0nfiFkDzAsdYNTHeJMgBXEX9epPkQTUdLG9L47K54vMxm/+toeMAiKD63Dfkw==";
-          };
-          homeassistant = {
-            acl = [ "readwrite #" ];
-            hashedPassword = "$7$101$wGQZPdVdeW7iQFmH$bK/VOR6LXCLJKbb6M4PNeVptocjBAWXCLMtEU5fQNBr0Y5UAWlhVg8UAu4IkIXgnViI51NnhXKykdlWF63VkVQ==";
-          };
+    listeners = [{
+      users = {
+        zigbee2mqtt = {
+          acl = [ "readwrite #" ];
+          hashedPassword =
+            "$6$nuDIW/ZPVsrDHyBe$JffJJvvMG+nH8GH9V5h4FqJkU0nfiFkDzAsdYNTHeJMgBXEX9epPkQTUdLG9L47K54vMxm/+toeMAiKD63Dfkw==";
         };
-      }
-    ];
+        homeassistant = {
+          acl = [ "readwrite #" ];
+          hashedPassword =
+            "$7$101$wGQZPdVdeW7iQFmH$bK/VOR6LXCLJKbb6M4PNeVptocjBAWXCLMtEU5fQNBr0Y5UAWlhVg8UAu4IkIXgnViI51NnhXKykdlWF63VkVQ==";
+        };
+      };
+    }];
   };
 
   services.home-assistant = {
@@ -90,7 +83,7 @@
     config = {
       # Includes dependencies for a basic setup
       # https://www.home-assistant.io/integrations/default_config/
-      default_config = {};
+      default_config = { };
       automation = "!include automations.yaml";
       scene = "!include scenes.yaml";
       http = {

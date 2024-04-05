@@ -1,10 +1,5 @@
 # https://gitlab.com/coffeetables/nix-matrix-appservices/-/blob/main/pkgs/mautrix-instagram/default.nix
-{ stdenv
-, lib
-, python3
-, makeWrapper
-, fetchFromGitHub
-}:
+{ stdenv, lib, python3, makeWrapper, fetchFromGitHub }:
 
 with python3.pkgs;
 
@@ -15,9 +10,7 @@ let
     # sqlite driver is already shipped with python by default
   ];
 
-in
-
-buildPythonApplication rec {
+in buildPythonApplication rec {
   pname = "mautrix-instagram";
   version = "unstable-2021-11-15";
 
@@ -58,12 +51,7 @@ buildPythonApplication rec {
     setuptools
   ] ++ dbDrivers;
 
-  checkInputs = [
-    pytest
-    pytestrunner
-    pytest-mock
-    pytest-asyncio
-  ];
+  checkInputs = [ pytest pytestrunner pytest-mock pytest-asyncio ];
 
   doCheck = false;
 

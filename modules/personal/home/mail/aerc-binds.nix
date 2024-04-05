@@ -88,9 +88,7 @@
     "E" = ":envelope -h<Enter>";
   };
 
-  "messages:folder=Drafts" = {
-    "<Enter>" = ":recall<Enter>";
-  };
+  "messages:folder=Drafts" = { "<Enter>" = ":recall<Enter>"; };
 
   view = {
     "/" = ":toggle-key-passthrough<Enter>/";

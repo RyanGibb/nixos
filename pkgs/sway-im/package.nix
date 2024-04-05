@@ -1,15 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, substituteAll, swaybg
-, meson, ninja, pkg-config, wayland-scanner, scdoc
-, libGL, wayland, libxkbcommon, pcre2, json_c, libevdev
-, pango, cairo, libinput, gdk-pixbuf, librsvg
-, wlroots, wayland-protocols, libdrm
-, nixosTests
+{ lib, stdenv, fetchFromGitHub, fetchpatch, substituteAll, swaybg, meson, ninja
+, pkg-config, wayland-scanner, scdoc, libGL, wayland, libxkbcommon, pcre2
+, json_c, libevdev, pango, cairo, libinput, gdk-pixbuf, librsvg, wlroots
+, wayland-protocols, libdrm, nixosTests
 # Used by the NixOS module:
-, isNixOS ? false
-, enableXWayland ? true, xorg
+, isNixOS ? false, enableXWayland ? true, xorg
 , systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd
-, trayEnabled ? systemdSupport
-}:
+, trayEnabled ? systemdSupport }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sway-unwrapped";
@@ -41,22 +37,26 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   strictDeps = true;
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson ninja pkg-config wayland-scanner scdoc
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner scdoc ];
 
   buildInputs = [
-    libGL wayland libxkbcommon pcre2 json_c libevdev
-    pango cairo libinput gdk-pixbuf librsvg
-    wayland-protocols libdrm
+    libGL
+    wayland
+    libxkbcommon
+    pcre2
+    json_c
+    libevdev
+    pango
+    cairo
+    libinput
+    gdk-pixbuf
+    librsvg
+    wayland-protocols
+    libdrm
     (wlroots.override { inherit (finalAttrs) enableXWayland; })
-  ] ++ lib.optionals finalAttrs.enableXWayland [
-    xorg.xcbutilwm
-  ];
+  ] ++ lib.optionals finalAttrs.enableXWayland [ xorg.xcbutilwm ];
 
   mesonFlags = let
     # The "sd-bus-provider" meson option does not include a "none" option,
@@ -65,16 +65,13 @@ stdenv.mkDerivation (finalAttrs: {
     # changes: https://github.com/swaywm/sway/issues/6843#issuecomment-1047288761
     # assert trayEnabled -> systemdSupport && dbusSupport;
 
-    sd-bus-provider =  if systemdSupport then "libsystemd" else "basu";
-    in
-    [ "-Dsd-bus-provider=${sd-bus-provider}" ]
-    ++ [ "-Dwerror=false" ]
-    ++ lib.optional (!finalAttrs.enableXWayland) "-Dxwayland=disabled"
-    ++ lib.optional (!finalAttrs.trayEnabled)    "-Dtray=disabled"
-  ;
+    sd-bus-provider = if systemdSupport then "libsystemd" else "basu";
+  in [ "-Dsd-bus-provider=${sd-bus-provider}" ] ++ [ "-Dwerror=false" ]
+  ++ lib.optional (!finalAttrs.enableXWayland) "-Dxwayland=disabled"
+  ++ lib.optional (!finalAttrs.trayEnabled) "-Dtray=disabled";
 
   passthru.tests.basic = nixosTests.sway;
-  
+
   meta = with lib; {
     description = "An i3-compatible tiling Wayland compositor";
     longDescription = ''
@@ -86,10 +83,10 @@ stdenv.mkDerivation (finalAttrs: {
       maximizes the efficiency of your screen and can be quickly manipulated
       using only the keyboard.
     '';
-    homepage    = "https://swaywm.org";
-    changelog   = "https://github.com/swaywm/sway/releases/tag/${version}";
-    license     = licenses.mit;
-    platforms   = platforms.linux;
+    homepage = "https://swaywm.org";
+    changelog = "https://github.com/swaywm/sway/releases/tag/${version}";
+    license = licenses.mit;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ primeos synthetica ];
     mainProgram = "sway";
   };

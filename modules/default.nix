@@ -30,7 +30,8 @@
     default = "ryan";
   };
 
-  config = let nixPath = "/etc/nix-path"; in {
+  config = let nixPath = "/etc/nix-path";
+  in {
     eilean = {
       username = config.custom.username;
       serverIpv4 = "135.181.100.27";
@@ -68,22 +69,19 @@
       # https://discourse.nixos.org/t/do-flakes-also-set-the-system-channel/19798/16
       nixPath = [ "nixpkgs=${nixPath}" ];
     };
-    systemd.tmpfiles.rules = [
-      "L+ ${nixPath} - - - - ${pkgs.path}"
-    ];
+    systemd.tmpfiles.rules = [ "L+ ${nixPath} - - - - ${pkgs.path}" ];
 
     system.autoUpgrade = {
       enable = true;
       allowReboot = true;
       flake = inputs.self.outPath;
-      flags = [
-        "--update-input"
-        "nixpkgs"
-        "-L"
-      ];
+      flags = [ "--update-input" "nixpkgs" "-L" ];
       dates = "03:00";
       randomizedDelaySec = "1hr";
-      rebootWindow = { lower = "03:00"; upper = "05:00"; };
+      rebootWindow = {
+        lower = "03:00";
+        upper = "05:00";
+      };
     };
     systemd.services.nixos-upgrade.preStart = with pkgs; ''
       DIR=/etc/nixos

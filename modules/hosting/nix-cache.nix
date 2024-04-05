@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
-let cfg = config.hosting; in
-{
+let cfg = config.hosting;
+in {
   options.hosting.nix-cache.enable = lib.mkEnableOption "nix-cache";
 
   config = lib.mkIf cfg.nix-cache.enable {
@@ -22,7 +22,9 @@ let cfg = config.hosting; in
         enableACME = true;
         forceSSL = true;
         locations."/".extraConfig = ''
-          proxy_pass http://localhost:${toString config.services.nix-serve.port};
+          proxy_pass http://localhost:${
+            toString config.services.nix-serve.port
+          };
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -30,12 +32,10 @@ let cfg = config.hosting; in
       };
     };
 
-    eilean.services.dns.zones.${config.networking.domain}.records = [
-      {
-        name = "binarycache";
-        type = "CNAME";
-        data = "vps";
-      }
-    ];
+    eilean.services.dns.zones.${config.networking.domain}.records = [{
+      name = "binarycache";
+      type = "CNAME";
+      data = "vps";
+    }];
   };
 }

@@ -1,12 +1,12 @@
 { config, lib, ... }:
 
-let cfg = config.personal; in
-{
+let cfg = config.personal;
+in {
   options.personal.machineColour = lib.mkOption {
     type = lib.types.str;
     default = "cyan";
   };
-  
+
   config = lib.mkIf cfg.enable {
     programs.zsh = {
       enable = true;
@@ -15,9 +15,7 @@ let cfg = config.personal; in
         enable = true;
         highlightStyle = "fg=5";
       };
-      syntaxHighlighting = {
-        enable = true;
-      };
+      syntaxHighlighting = { enable = true; };
       autosuggestions.strategy = [ "match_prev_cmd" "completion" "history" ];
       promptInit = ''
         PROMPT='%(?..%F{red}%3?%f )%F{${config.personal.machineColour}}%n@%m%f:%~ %#'$'\n'

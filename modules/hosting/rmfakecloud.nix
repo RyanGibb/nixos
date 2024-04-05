@@ -5,8 +5,7 @@ with lib;
 let
   cfg = config.hosting.rmfakecloud;
   domain = config.networking.domain;
-in
-{
+in {
   options.hosting.rmfakecloud = {
     enable = mkEnableOption "rmfakecloud";
     port = mkOption {
@@ -29,11 +28,12 @@ in
       extraSettings = {
         RM_SMTP_SERVER = "mail.freumh.org:465";
         RM_SMTP_USERNAME = "misc@${domain}";
-        RM_SMTP_FROM="remarkable@${domain}";
+        RM_SMTP_FROM = "remarkable@${domain}";
       };
     };
 
-    mailserver.loginAccounts."misc@${domain}".aliases = [ "remarkable@${domain}" ];
+    mailserver.loginAccounts."misc@${domain}".aliases =
+      [ "remarkable@${domain}" ];
 
     # nginx handles letsencrypt
     services.nginx = {
@@ -51,12 +51,10 @@ in
       };
     };
 
-    eilean.services.dns.zones.${config.networking.domain}.records = [
-      {
-        name = "rmfakecloud";
-        type = "CNAME";
-        data = "vps";
-      }
-    ];
+    eilean.services.dns.zones.${config.networking.domain}.records = [{
+      name = "rmfakecloud";
+      type = "CNAME";
+      data = "vps";
+    }];
   };
 }

@@ -9,9 +9,8 @@
 # To automatically join a Tailscale network at freumh.org add the secret in a `headscale` file
 # in the project root.
 {
-  imports = [
-    "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
-  ];
+  imports =
+    [ "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix" ];
 
   # from hardware-configuration.nix
   # https://github.com/NixOS/nixpkgs/issues/141470#issuecomment-996202318
@@ -34,7 +33,8 @@
   '';
 
   users = let
-    hashedPassword = "$6$IPvnJnu6/fp1Jxfy$U6EnzYDOC2NqE4iqRrkJJbSTHHNWk0KwK1xyk9jEvlu584UWQLyzDVF5I1Sh47wQhSVrvUI4mrqw6XTTjfPj6.";
+    hashedPassword =
+      "$6$IPvnJnu6/fp1Jxfy$U6EnzYDOC2NqE4iqRrkJJbSTHHNWk0KwK1xyk9jEvlu584UWQLyzDVF5I1Sh47wQhSVrvUI4mrqw6XTTjfPj6.";
   in {
     mutableUsers = false;
     users.ryan = {
@@ -43,18 +43,17 @@
         "wheel" # enable sudo
       ];
       hashedPassword = hashedPassword;
-      openssh.authorizedKeys.keyFiles = [ ../../modules/personal/authorized_keys ];
+      openssh.authorizedKeys.keyFiles =
+        [ ../../modules/personal/authorized_keys ];
     };
     users.root = {
       hashedPassword = hashedPassword;
-      openssh.authorizedKeys.keyFiles = [ ../../modules/personal/authorized_keys ];
+      openssh.authorizedKeys.keyFiles =
+        [ ../../modules/personal/authorized_keys ];
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    vim
-    tmux
-  ];
+  environment.systemPackages = with pkgs; [ vim tmux ];
 
   services.tailscale = {
     enable = true;

@@ -1,9 +1,9 @@
 { config, lib, ... }:
 
-let cfg = config.personal; in
-{
+let cfg = config.personal;
+in {
   options.personal.printing = lib.mkEnableOption "printing";
-  
+
   config = lib.mkIf cfg.printing {
     networking.firewall = {
       allowedTCPPorts = [ 631 ];

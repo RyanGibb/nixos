@@ -1,12 +1,5 @@
 # https://github.com/NixOS/nixpkgs/pull/264621/
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, libdrm
-, libva
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libdrm, libva }:
 
 stdenv.mkDerivation rec {
   pname = "onevpl-intel-gpu";

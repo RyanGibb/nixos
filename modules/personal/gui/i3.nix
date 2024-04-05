@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 
-let cfg = config.personal.gui; in
-{
+let cfg = config.personal.gui;
+in {
   options.personal.gui.i3 = lib.mkEnableOption "i3";
 
   config = lib.mkIf cfg.i3 {

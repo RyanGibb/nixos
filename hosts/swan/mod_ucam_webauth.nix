@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-NbwHRy0SYXvpVBzJGhgI3IAAY+uVr9yRvFfMACKK4MU=";
   };
 
-  buildInputs = [  openssl.dev ];
+  buildInputs = [ openssl.dev ];
 
   buildPhase = ''
     make APXS=${apacheHttpd.dev}/bin/apxs

@@ -6,7 +6,7 @@ let
     ${pkgs.ugrep}/bin/ugrep -jPh -m 100 --color=never "$1"\
       ${config.accounts.email.maildirBasePath}/addressbook/maildir\
       ${config.accounts.email.maildirBasePath}/addressbook/cam-ldap
-    '';
+  '';
   sync-mail = pkgs.writeScriptBin "sync-mail" ''
     #!/usr/bin/env bash
     ${pkgs.isync}/bin/mbsync "$1"
@@ -62,7 +62,8 @@ in {
         "ui:folder=Sent".index-columns = "date<=,to<50,flags>=,subject<*";
         "ui:folder=Sent".column-to = "{{index (.To | persons) 0}}";
         openers."text/html" = "firefox --new-window";
-        hooks.mail-recieved = ''notify-send "[$AERC_ACCOUNT/$AERC_FOLDER] mail from $AERC_FROM_NAME" "$AERC_SUBJECT"'';
+        hooks.mail-recieved = ''
+          notify-send "[$AERC_ACCOUNT/$AERC_FOLDER] mail from $AERC_FROM_NAME" "$AERC_SUBJECT"'';
         filters = {
           "text/plain" = "wrap -w 90 | colorize";
           "text/calendar" = "calendar";
@@ -86,7 +87,7 @@ in {
                                  "mu find"
         macro index <F9> "<change-folder-readonly>˜/Maildir/search" \
                                        "mu find results"
-    '';
+      '';
     };
   };
 
@@ -119,7 +120,8 @@ in {
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync ryan@freumh.org && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
+          onNotify =
+            "${pkgs.isync}/bin/mbsync ryan@freumh.org && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
         };
         mbsync = {
           enable = true;
@@ -127,13 +129,12 @@ in {
           expunge = "both";
           remove = "both";
         };
-        msmtp = {
-          enable = true;
-        };
+        msmtp = { enable = true; };
         aerc = {
           enable = true;
           extraAccounts = {
-            check-mail-cmd = "${pkgs.isync}/bin/mbsync ryan@freumh.org && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
+            check-mail-cmd =
+              "${pkgs.isync}/bin/mbsync ryan@freumh.org && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
             check-mail-timeout = "1m";
             check-mail = "1h";
             folders-sort = [ "Inbox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
@@ -173,7 +174,8 @@ in {
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync misc@freumh.org && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
+          onNotify =
+            "${pkgs.isync}/bin/mbsync misc@freumh.org && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
         };
         mbsync = {
           enable = true;
@@ -181,9 +183,7 @@ in {
           expunge = "both";
           remove = "both";
         };
-        msmtp = {
-          enable = true;
-        };
+        msmtp = { enable = true; };
         neomutt = {
           enable = true;
           extraConfig = ''
@@ -199,7 +199,8 @@ in {
         userName = "rtg24@fm.cl.cam.ac.uk";
         address = "ryan.gibb@cl.cam.ac.uk";
         realName = "Ryan Gibb";
-        passwordCommand = "${pkgs.pass}/bin/pass show email/ryan.gibb@cl.cam.ac.uk";
+        passwordCommand =
+          "${pkgs.pass}/bin/pass show email/ryan.gibb@cl.cam.ac.uk";
         flavor = "fastmail.com";
         folders = {
           drafts = "Drafts";
@@ -210,7 +211,8 @@ in {
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
+          onNotify =
+            "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
         };
         mbsync = {
           enable = true;
@@ -218,17 +220,17 @@ in {
           expunge = "both";
           remove = "both";
         };
-        msmtp = {
-          enable = true;
-        };
+        msmtp = { enable = true; };
         aerc = {
           enable = true;
           extraAccounts = {
-            check-mail-cmd = "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
+            check-mail-cmd =
+              "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
             check-mail-timeout = "1m";
             check-mail = "1h";
             aliases = "rtg24@cam.ac.uk";
-            folders-sort = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
+            folders-sort =
+              [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
             folder-map = "${pkgs.writeText "folder-map" ''
               Bin = Trash
             ''}";
@@ -249,7 +251,8 @@ in {
         userName = "ryangibb321@gmail.com";
         address = "ryangibb321@gmail.com";
         realName = "Ryan Gibb";
-        passwordCommand = "${pkgs.pass}/bin/pass show email/ryangibb321@gmail.com";
+        passwordCommand =
+          "${pkgs.pass}/bin/pass show email/ryangibb321@gmail.com";
         flavor = "gmail.com";
         folders = {
           drafts = "Drafts";
@@ -260,7 +263,8 @@ in {
         imapnotify = {
           enable = true;
           boxes = [ "Inbox" ];
-          onNotify = "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
+          onNotify =
+            "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
         };
         mbsync = {
           enable = true;
@@ -268,16 +272,16 @@ in {
           expunge = "both";
           remove = "both";
         };
-        msmtp = {
-          enable = true;
-        };
+        msmtp = { enable = true; };
         aerc = {
           enable = true;
           extraAccounts = {
-            check-mail-cmd = "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
+            check-mail-cmd =
+              "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com && ${pkgs.mu}/bin/mu index && ${pkgs.procps}/bin/pkill -RTMIN+13 i3blocks";
             check-mail-timeout = "1m";
             check-mail = "1h";
-            folders-sort = [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
+            folders-sort =
+              [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
             folder-map = "${pkgs.writeText "folder-map" ''
               * = [Gmail]/*
               Sent = 'Sent Mail'

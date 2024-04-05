@@ -1,9 +1,9 @@
 { pkgs, config, lib, ... }:
 
-let cfg = config.personal; in
-{
+let cfg = config.personal;
+in {
   options.personal.ocaml = lib.mkEnableOption "ocaml";
-  
+
   config = lib.mkIf cfg.ocaml {
     environment.systemPackages = with pkgs; [
       ocaml

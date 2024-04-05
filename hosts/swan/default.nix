@@ -1,20 +1,15 @@
 { pkgs, config, lib, eilean, ... }:
 
-let domain = "eeg.cl.cam.ac.uk"; in
-{
-  imports = [
-    ./hardware-configuration.nix
-    ./minimal.nix
-  ];
+let domain = "eeg.cl.cam.ac.uk";
+in {
+  imports = [ ./hardware-configuration.nix ./minimal.nix ];
 
   security.acme = {
     defaults.email = "${config.eilean.username}@${config.networking.domain}";
     acceptTerms = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    xe-guest-utilities
-  ];
+  environment.systemPackages = with pkgs; [ xe-guest-utilities ];
 
   services.hyperbib = {
     enable = true;
@@ -26,19 +21,21 @@ let domain = "eeg.cl.cam.ac.uk"; in
   services.nginx.enable = lib.mkForce false;
   services.httpd = {
     enable = true;
-    extraModules = let
-      mod_ucam_webauth = pkgs.callPackage ./mod_ucam_webauth.nix { };
-    in [ {
-      name = "ucam_webauth";
-      path = "${mod_ucam_webauth}/modules/mod_ucam_webauth.so";
-    } ];
+    extraModules =
+      let mod_ucam_webauth = pkgs.callPackage ./mod_ucam_webauth.nix { };
+      in [{
+        name = "ucam_webauth";
+        path = "${mod_ucam_webauth}/modules/mod_ucam_webauth.so";
+      }];
 
     virtualHosts."${domain}" = {
       forceSSL = true;
       enableACME = true;
       documentRoot = "/var/www/eeg/";
       locations."/bib/" = {
-        proxyPass = "http://127.0.0.1:${builtins.toString config.services.hyperbib.port}/bib/";
+        proxyPass = "http://127.0.0.1:${
+            builtins.toString config.services.hyperbib.port
+          }/bib/";
       };
       extraConfig = let
         keyfile = pkgs.writeTextFile {
@@ -52,13 +49,13 @@ let domain = "eeg.cl.cam.ac.uk"; in
             -----END RSA PUBLIC KEY-----
           '';
         };
-        matrixServerConfig = pkgs.writeText "matrix-server-config.json" (builtins.toJSON {
-          "m.server" = "${domain}:443";
-        });
-        matrixClientConfig = pkgs.writeText "matrix-server-config.json" (builtins.toJSON {
-          "m.homeserver" =  { "base_url" = "https://${domain}"; };
-          "m.identity_server" =  { "base_url" = "https://vector.im"; };
-        });
+        matrixServerConfig = pkgs.writeText "matrix-server-config.json"
+          (builtins.toJSON { "m.server" = "${domain}:443"; });
+        matrixClientConfig = pkgs.writeText "matrix-server-config.json"
+          (builtins.toJSON {
+            "m.homeserver" = { "base_url" = "https://${domain}"; };
+            "m.identity_server" = { "base_url" = "https://vector.im"; };
+          });
       in ''
         AAKeyDir ${keyfile}
         AACookieKey file:/dev/urandom
@@ -89,8 +86,12 @@ let domain = "eeg.cl.cam.ac.uk"; in
       enableACME = true;
       locations."/" = {
         extraConfig = ''
-          ProxyPass http://127.0.0.1:${builtins.toString config.services.peertube.listenHttp}/ upgrade=websocket
-          ProxyPassReverse http://127.0.0.1:${builtins.toString config.services.peertube.listenHttp}/
+          ProxyPass http://127.0.0.1:${
+            builtins.toString config.services.peertube.listenHttp
+          }/ upgrade=websocket
+          ProxyPassReverse http://127.0.0.1:${
+            builtins.toString config.services.peertube.listenHttp
+          }/
         '';
       };
       extraConfig = ''
@@ -125,67 +126,63 @@ let domain = "eeg.cl.cam.ac.uk"; in
 
   services.matrix-synapse = {
     enable = true;
-    settings = lib.mkMerge [
-      {
-        server_name = domain;
-        enable_registration = false;
-        auto_join_rooms = [ "#EEG:eeg.cl.cam.ac.uk" ];
-        password_config.enabled = false;
-        listeners = [
-          {
-            port = 8008;
-            bind_addresses = [ "::1" "127.0.0.1" ];
-            type = "http";
-            tls = false;
-            x_forwarded = true;
-            resources = [
-              {
-                names = [ "client" "federation" ];
-                compress = false;
-              }
-            ];
-          }
-        ];
-        max_upload_size = "100M";
-        saml2_config = {
-          sp_config = {
-            metadata.remote = [ { url = "https://shib.raven.cam.ac.uk/shibboleth"; } ];
-            description = [ "Energy and Environment Group Computer Lab Matrix Server" "en" ];
-            name = [ "EEG CL Matrix Server" "en" ];
-           # generate keys with
-           #   sudo nix shell nixpkgs#openssl nixpkgs#shibboleth-sp -c sh -c '`nix eval --raw nixpkgs#shibboleth-sp`/etc/shibboleth/keygen.sh -h matrix.eeg.cl.cam.ac.uk -o /secrets/matrix-shibboleth/'
-           #   chown -R matrix-synapse /secrets/matrix-shibboleth/
-            key_file = "/secrets/matrix-shibboleth/sp-key.pem";
-            cert_file = "/secrets/matrix-shibboleth/sp-cert.pem";
-            encryption_keypairs = [
-              { key_file = "/secrets/matrix-shibboleth/sp-key.pem"; }
-              { cert_file = "/secrets/matrix-shibboleth/sp-cert.pem"; }
-            ];
-            attribute_map_dir = pkgs.writeTextDir "map.py" ''
-              MAP = {
-                  "identifier": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
-                  "fro": {
-                      'urn:oid:0.9.2342.19200300.100.1.1': 'uid',
-                      'urn:oid:0.9.2342.19200300.100.1.3': 'email',
-                      'urn:oid:2.16.840.1.113730.3.1.241': 'displayName',
-                  },
-                  "to": {
-                      'uid': 'urn:oid:0.9.2342.19200300.100.1.1',
-                      'email': 'urn:oid:0.9.2342.19200300.100.1.3',
-                      'displayName': 'urn:oid:2.16.840.1.113730.3.1.241',
-                  },
-              }
-            '';
-          };
+    settings = lib.mkMerge [{
+      server_name = domain;
+      enable_registration = false;
+      auto_join_rooms = [ "#EEG:eeg.cl.cam.ac.uk" ];
+      password_config.enabled = false;
+      listeners = [{
+        port = 8008;
+        bind_addresses = [ "::1" "127.0.0.1" ];
+        type = "http";
+        tls = false;
+        x_forwarded = true;
+        resources = [{
+          names = [ "client" "federation" ];
+          compress = false;
+        }];
+      }];
+      max_upload_size = "100M";
+      saml2_config = {
+        sp_config = {
+          metadata.remote =
+            [{ url = "https://shib.raven.cam.ac.uk/shibboleth"; }];
+          description =
+            [ "Energy and Environment Group Computer Lab Matrix Server" "en" ];
+          name = [ "EEG CL Matrix Server" "en" ];
+          # generate keys with
+          #   sudo nix shell nixpkgs#openssl nixpkgs#shibboleth-sp -c sh -c '`nix eval --raw nixpkgs#shibboleth-sp`/etc/shibboleth/keygen.sh -h matrix.eeg.cl.cam.ac.uk -o /secrets/matrix-shibboleth/'
+          #   chown -R matrix-synapse /secrets/matrix-shibboleth/
+          key_file = "/secrets/matrix-shibboleth/sp-key.pem";
+          cert_file = "/secrets/matrix-shibboleth/sp-cert.pem";
+          encryption_keypairs = [
+            { key_file = "/secrets/matrix-shibboleth/sp-key.pem"; }
+            { cert_file = "/secrets/matrix-shibboleth/sp-cert.pem"; }
+          ];
+          attribute_map_dir = pkgs.writeTextDir "map.py" ''
+            MAP = {
+                "identifier": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+                "fro": {
+                    'urn:oid:0.9.2342.19200300.100.1.1': 'uid',
+                    'urn:oid:0.9.2342.19200300.100.1.3': 'email',
+                    'urn:oid:2.16.840.1.113730.3.1.241': 'displayName',
+                },
+                "to": {
+                    'uid': 'urn:oid:0.9.2342.19200300.100.1.1',
+                    'email': 'urn:oid:0.9.2342.19200300.100.1.3',
+                    'displayName': 'urn:oid:2.16.840.1.113730.3.1.241',
+                },
+            }
+          '';
         };
-        app_service_config_files = [ "/var/lib/heisenbridge/registration.yml" ];
-      }
-    ];
+      };
+      app_service_config_files = [ "/var/lib/heisenbridge/registration.yml" ];
+    }];
   };
 
   networking.firewall.allowedTCPPorts = [
-    80   # HTTP
-    443  # HTTPS
+    80 # HTTP
+    443 # HTTPS
     6667
   ];
 
@@ -219,7 +216,7 @@ let domain = "eeg.cl.cam.ac.uk"; in
         storage.videos = "/tank/peertube/videos";
       };
       secrets.secretsFile = "/secrets/peertube";
-      serviceEnvironmentFile  = "/secrets/peertube.env";
+      serviceEnvironmentFile = "/secrets/peertube.env";
       dataDirs = [ "/tank/peertube/videos" ];
     };
 
@@ -240,63 +237,63 @@ let domain = "eeg.cl.cam.ac.uk"; in
   services.inspircd = {
     enable = true;
     config = ''
-<module name="ssl_gnutls">
+      <module name="ssl_gnutls">
 
-<server
-    name="eeg.cl.cam.ac.uk"
-    description="EEG Lab IRC Server at Cambridge"
-    network="EEGLabNetwork"
->
+      <server
+          name="eeg.cl.cam.ac.uk"
+          description="EEG Lab IRC Server at Cambridge"
+          network="EEGLabNetwork"
+      >
 
-<admin
-    name="Ryan Gibb"
-    nick="rtg24"
-    email="rtg24@eeg.cl.cam.ac.uk"
->
+      <admin
+          name="Ryan Gibb"
+          nick="rtg24"
+          email="rtg24@eeg.cl.cam.ac.uk"
+      >
 
-<bind
-    address="128.232.98.96"
-    port="6667"
-    type="clients"
->
+      <bind
+          address="128.232.98.96"
+          port="6667"
+          type="clients"
+      >
 
-<oper
-    name="RyanGibb"
-    password="securepassword"
-    host="*@*"
-    type="NetAdmin"
->
+      <oper
+          name="RyanGibb"
+          password="securepassword"
+          host="*@*"
+          type="NetAdmin"
+      >
 
-<type
-    name="NetAdmin"
-    classes="ServerLink ClientLink"
->
+      <type
+          name="NetAdmin"
+          classes="ServerLink ClientLink"
+      >
 
-<class
-    name="ServerLink"
-    commands="300"
-    usermodes="300"
-    maxtime="0"
->
+      <class
+          name="ServerLink"
+          commands="300"
+          usermodes="300"
+          maxtime="0"
+      >
 
-<class
-    name="ClientLink"
-    commands="20"
-    usermodes="20"
-    maxtime="90"
->
+      <class
+          name="ClientLink"
+          commands="20"
+          usermodes="20"
+          maxtime="90"
+      >
 
-<channels
-    users="20"
-    op="@"
-    halfop="%"
-    voice="+"
->
+      <channels
+          users="20"
+          op="@"
+          halfop="%"
+          voice="+"
+      >
 
-<log method="stdout"
-   type="*"
-   level="default"
-   flush="1">
-'';
+      <log method="stdout"
+         type="*"
+         level="default"
+         flush="1">
+    '';
   };
 }
