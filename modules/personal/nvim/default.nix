@@ -60,7 +60,7 @@ in
       in {
         # format-flowed
         "ftplugin/mail.vim".text = ''
-          setlocal tw=80
+          setlocal tw=72
           set formatoptions+=w
         '';
         "ftplugin/nix.vim".text = ml-style;
