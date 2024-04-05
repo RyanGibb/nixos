@@ -39,7 +39,6 @@
           type = "AAAA";
           data = ipv6;
         }
-
         {
           name = "@";
           type = "A";
@@ -59,6 +58,16 @@
           name = "vps";
           type = "AAAA";
           data = ipv6;
+        }
+        {
+          name = "@";
+          type = "SVCB";
+          data = ''
+            1 . (
+              alpn="http/1.1,http/2"
+              port="8000"
+            )
+          '';
         }
       ];
     };
@@ -118,7 +127,6 @@
           }
         }/cl.freumh.org";
       logLevel = 1;
-      application = "tund";
     };
   };
 }
