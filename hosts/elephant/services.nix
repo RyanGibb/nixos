@@ -78,11 +78,10 @@
         "guest ok" = "no";
         "create mask" = "0644";
         "directory mask" = "0755";
-        "force user" = "${config.custom.username}";
-        "force group" = "users";
       };
     };
   };
+  users.mutableUsers = lib.mkForce true;
 
   age.secrets.nextcloud = {
     file = ../../secrets/nextcloud.age;
