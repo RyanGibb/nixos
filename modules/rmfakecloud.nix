@@ -3,10 +3,10 @@
 with lib;
 
 let
-  cfg = config.hosting.rmfakecloud;
+  cfg = config.custom.rmfakecloud;
   domain = config.networking.domain;
 in {
-  options.hosting.rmfakecloud = {
+  options.custom.rmfakecloud = {
     enable = mkEnableOption "rmfakecloud";
     port = mkOption {
       type = types.port;
@@ -19,7 +19,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    age.secrets.rmfakecloud.file = ../../secrets/rmfakecloud.age;
+    age.secrets.rmfakecloud.file = ../secrets/rmfakecloud.age;
     services.rmfakecloud = {
       enable = true;
       storageUrl = "https://${cfg.domain}";

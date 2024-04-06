@@ -1,11 +1,11 @@
-{ pkgs, config, lib, eilean, ... }:
+{ pkgs, config, lib, ... }:
 
 let domain = "eeg.cl.cam.ac.uk";
 in {
   imports = [ ./hardware-configuration.nix ./minimal.nix ];
 
   security.acme = {
-    defaults.email = "${config.eilean.username}@${config.networking.domain}";
+    defaults.email = "${config.custom.username}@${config.networking.domain}";
     acceptTerms = true;
   };
 

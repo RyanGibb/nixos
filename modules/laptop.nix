@@ -1,8 +1,8 @@
 { pkgs, config, lib, ... }:
 
-let cfg = config.personal;
+let cfg = config.custom;
 in {
-  options.personal.laptop = lib.mkEnableOption "laptop";
+  options.custom.laptop = lib.mkEnableOption "laptop";
 
   config = lib.mkIf cfg.laptop {
     users.users.${config.custom.username}.extraGroups = [ "input" ];

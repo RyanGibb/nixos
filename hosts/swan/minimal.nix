@@ -3,10 +3,10 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  personal = {
-    enable = true;
-    machineColour = "green";
-  };
+  custom = { enable = true; };
+
+  home-manager.users.${config.custom.username}.config.custom.machineColour =
+    "green";
 
   services.openssh.openFirewall = true;
 

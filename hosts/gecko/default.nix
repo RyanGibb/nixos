@@ -3,16 +3,20 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  personal = {
+  custom = {
     enable = true;
     tailscale = true;
-    machineColour = "blue";
     laptop = true;
     printing = true;
     gui.i3 = true;
     gui.sway = true;
     gui.extra = true;
     ocaml = true;
+    workstation = true;
+  };
+
+  home-manager.users.${config.custom.username}.config.custom = {
+    machineColour = "blue";
     nvim-lsps = true;
   };
 
@@ -93,15 +97,12 @@
     repository = "rest:http://100.64.0.9:8000/${config.networking.hostName}/";
     passwordFile = config.age.secrets.restic-gecko.path;
     initialize = true;
-    paths = [
-      "/home/${config.custom.username}"
-      "/etc/NetworkManager/system-connections"
-    ];
+    paths = [ "/home/ryan}" "/etc/NetworkManager/system-connections" ];
     exclude = [
-      "/home/${config.custom.username}/videos"
-      "/home/${config.custom.username}/.thunderbird"
-      "/home/${config.custom.username}/.cache"
-      "/home/${config.custom.username}/.local/share/Steam"
+      "/home/ryan/videos"
+      "/home/ryan/.thunderbird"
+      "/home/ryan/.cache"
+      "/home/ryan/.local/share/Steam"
     ];
     timerConfig = { OnUnitActiveSec = "1d"; };
     extraBackupArgs = [ "-vv" ];

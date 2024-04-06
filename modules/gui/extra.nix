@@ -1,8 +1,8 @@
 { pkgs, config, lib, ... }:
 
-let cfg = config.personal.gui;
+let cfg = config.custom.gui;
 in {
-  options.personal.gui.extra = lib.mkEnableOption "extra";
+  options.custom.gui.extra = lib.mkEnableOption "extra";
 
   config = lib.mkIf cfg.extra {
     environment.systemPackages = with pkgs; [

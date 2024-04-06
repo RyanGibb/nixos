@@ -1,8 +1,8 @@
 { config, lib, ... }:
 
-let cfg = config.personal.gui;
+let cfg = config.custom.gui;
 in {
-  options.personal.gui.kde = lib.mkEnableOption "kde";
+  options.custom.gui.kde = lib.mkEnableOption "kde";
 
   config = lib.mkIf cfg.kde {
     services.xserver = {

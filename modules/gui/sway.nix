@@ -1,11 +1,13 @@
 { pkgs, config, lib, ... }:
 
-let cfg = config.personal.gui;
+let cfg = config.custom.gui;
 in {
-  options.personal.gui.sway = lib.mkEnableOption "sway";
+  options.custom.gui.sway = lib.mkEnableOption "sway";
 
   config = lib.mkIf cfg.sway {
-    home-manager.users.${config.custom.username} = import ../home/sway.nix;
+    home-manager.users.${config.custom.username} = { config, ... }: {
+      config.custom.gui.sway.enable = true;
+    };
 
     programs.sway = {
       enable = true;

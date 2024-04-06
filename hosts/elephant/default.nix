@@ -3,11 +3,13 @@
 {
   imports = [ ./hardware-configuration.nix ./zfs.nix ./services.nix ];
 
-  personal = {
+  custom = {
     enable = true;
     tailscale = true;
-    machineColour = "blue";
   };
+
+  home-manager.users.${config.custom.username}.config.custom.machineColour =
+    "blue";
 
   environment.systemPackages = with pkgs; [
     smartmontools

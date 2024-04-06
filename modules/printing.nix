@@ -1,8 +1,8 @@
 { config, lib, ... }:
 
-let cfg = config.personal;
+let cfg = config.custom;
 in {
-  options.personal.printing = lib.mkEnableOption "printing";
+  options.custom.printing = lib.mkEnableOption "printing";
 
   config = lib.mkIf cfg.printing {
     networking.firewall = {

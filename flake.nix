@@ -7,7 +7,6 @@
     home-manager.url = "github:RyanGibb/home-manager/fork";
     agenix.url = "github:ryantm/agenix";
     nix-on-droid.url = "github:nix-community/nix-on-droid/release-23.05";
-    eeww.url = "github:RyanGibb/eeww/nixos";
     eon.url = "github:RyanGibb/eon";
     eilean.url = "github:RyanGibb/eilean-nix/main";
     ryan-website.url = "git+ssh://git@github.com/RyanGibb/website.git";
@@ -29,7 +28,6 @@
     ryan-website.inputs.nixpkgs.follows = "nixpkgs";
     alec-website.inputs.nixpkgs.follows = "nixpkgs";
     fn06-website.inputs.nixpkgs.follows = "nixpkgs";
-    eeww.inputs.nixpkgs.follows = "nixpkgs";
     eon.inputs.nixpkgs.follows = "nixpkgs";
     colour-guesser.inputs.nixpkgs.follows = "nixpkgs";
     i3-workspace-history.inputs.nixpkgs.follows = "nixpkgs";
@@ -37,8 +35,8 @@
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager
-    , agenix, nix-on-droid, eeww, eon, eilean, fn06-website
-    , i3-workspace-history, hyperbib-eeg, neovim, ... }@inputs:
+    , agenix, nix-on-droid, eon, eilean, fn06-website, i3-workspace-history
+    , hyperbib-eeg, neovim, ... }@inputs:
     let
       getSystemOverlays = system: nixpkgsConfig:
         [
@@ -49,7 +47,6 @@
               config = nixpkgsConfig;
             };
             agenix = agenix.packages.${system}.default;
-            eeww = eeww.defaultPackage.${system};
             eon = eon.defaultPackage.${system};
             mautrix-signal = final.overlay-unstable.mautrix-signal;
             i3-workspace-history =
@@ -196,6 +193,14 @@
             ];
           };
         };
+
+      homeConfigurations.ryan = let
+        system = "x86_64-linux";
+        pkgs = nixpkgs.legacyPackages.${system};
+      in home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [ ./home/default.nix ];
+      };
 
       legacyPackages = {
         nixpkgs = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed

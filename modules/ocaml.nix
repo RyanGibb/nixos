@@ -1,8 +1,8 @@
 { pkgs, config, lib, ... }:
 
-let cfg = config.personal;
+let cfg = config.custom;
 in {
-  options.personal.ocaml = lib.mkEnableOption "ocaml";
+  options.custom.ocaml = lib.mkEnableOption "ocaml";
 
   config = lib.mkIf cfg.ocaml {
     environment.systemPackages = with pkgs; [

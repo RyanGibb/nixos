@@ -3,11 +3,13 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  personal = {
+  custom = {
     enable = true;
     tailscale = true;
-    machineColour = "red";
   };
+
+  home-manager.users.${config.custom.username}.config.custom.machineColour =
+    "red";
 
   networking.networkmanager.enable = true;
 

@@ -1,9 +1,9 @@
 { pkgs, config, lib, ... }:
 
-let cfg = config.personal;
+let cfg = config.custom;
 in {
-  options.personal.dict = lib.mkOption {
-    type = types.bool;
+  options.custom.dict = lib.mkOption {
+    type = lib.types.bool;
     default = true;
   };
 

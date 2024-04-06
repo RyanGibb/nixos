@@ -1,17 +1,20 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
 
-  personal = {
+  custom = {
     enable = true;
     tailscale = true;
-    machineColour = "magenta";
     laptop = true;
     gui.i3 = true;
     gui.sway = true;
     gui.extra = true;
+    workstation = true;
   };
+
+  home-manager.users.${config.custom.username}.config.custom.machineColour =
+    "magenta";
 
   boot.loader.grub = {
     enable = true;

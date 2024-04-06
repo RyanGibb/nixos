@@ -1,4 +1,4 @@
-{ lib, nixpkgs, ... }:
+{ config, lib, nixpkgs, ... }:
 
 {
   imports =
@@ -6,10 +6,10 @@
 
   nixpkgs.hostPlatform = "aarch64-linux";
 
-  personal = {
-    enable = true;
-    machineColour = "red";
-  };
+  custom = { enable = true; };
+
+  home-manager.users.${config.custom.username}.config.custom.machineColour =
+    "red";
 
   networking.wireless = {
     enable = true;

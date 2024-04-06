@@ -2,7 +2,7 @@
 
 {
   security.acme = {
-    defaults.email = "${config.eilean.username}@${config.networking.domain}";
+    defaults.email = "${config.custom.username}@${config.networking.domain}";
     acceptTerms = true;
   };
 

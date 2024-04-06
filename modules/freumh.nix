@@ -1,12 +1,12 @@
 { pkgs, config, lib, ... }:
 
-let cfg = config.hosting;
+let cfg = config.custom;
 in {
-  options.hosting.freumh.enable = lib.mkEnableOption "freumh";
+  options.custom.freumh.enable = lib.mkEnableOption "freumh";
 
   config = lib.mkIf cfg.freumh.enable {
     security.acme = {
-      defaults.email = "${config.eilean.username}@${config.networking.domain}";
+      defaults.email = "${config.custom.username}@${config.networking.domain}";
       acceptTerms = true;
     };
 

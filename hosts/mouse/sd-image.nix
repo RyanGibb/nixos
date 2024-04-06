@@ -45,13 +45,11 @@
         "wheel" # enable sudo
       ];
       hashedPassword = hashedPassword;
-      openssh.authorizedKeys.keyFiles =
-        [ ../../modules/personal/authorized_keys ];
+      openssh.authorizedKeys.keyFiles = [ ../../modules/authorized_keys ];
     };
     users.root = {
       hashedPassword = hashedPassword;
-      openssh.authorizedKeys.keyFiles =
-        [ ../../modules/personal/authorized_keys ];
+      openssh.authorizedKeys.keyFiles = [ ../../modules/authorized_keys ];
     };
   };
 

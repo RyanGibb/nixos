@@ -1,8 +1,8 @@
 { pkgs, config, lib, ... }:
 
-let cfg = config.personal;
+let cfg = config.custom;
 in {
-  options.personal.backup = {
+  options.custom.external-hdd-backup = {
     enable = lib.mkEnableOption "laptop";
     disk = lib.mkOption {
       type = lib.types.str;
@@ -18,7 +18,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.backup.enable {
+  config = lib.mkIf cfg.external-hdd-backup.enable {
     systemd.services.backup = {
       description = "Backup service";
       # NB udisks isn't viable as non-root due to:

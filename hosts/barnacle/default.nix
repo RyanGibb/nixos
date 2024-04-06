@@ -9,7 +9,7 @@
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
-  personal = {
+  custom = {
     enable = true;
     laptop = true;
     gui.i3 = true;

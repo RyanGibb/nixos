@@ -3,11 +3,13 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  personal = {
+  custom = {
     enable = true;
     tailscale = true;
-    machineColour = "yellow";
   };
+
+  home-manager.users.${config.custom.username}.config.custom.machineColour =
+    "yellow";
 
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;

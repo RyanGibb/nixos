@@ -1,14 +1,16 @@
 { pkgs, config, lib, ... }:
 
-let cfg = config.personal.gui;
+let cfg = config.custom.gui;
 in {
-  options.personal.gui.enable = lib.mkOption {
+  options.custom.gui.enable = lib.mkOption {
     type = lib.types.bool;
     default = cfg.i3 || cfg.sway || cfg.kde;
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${config.custom.username} = import ../home/default.nix;
+    home-manager.users.${config.custom.username} = { config, ... }: {
+      config.custom.gui.enable = true;
+    };
 
     networking.networkmanager.enable = true;
     programs.nm-applet = {

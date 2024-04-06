@@ -10,6 +10,12 @@
     inputs.fn06-website.nixosModules.default
   ];
 
+  eilean = {
+    username = config.custom.username;
+    serverIpv4 = "135.181.100.27";
+    serverIpv6 = "2a01:4f9:c011:87ad:0:0:0:0";
+  };
+  networking.domain = lib.mkDefault "freumh.org";
   eilean.publicInterface = "enp1s0";
   eilean.mailserver.enable = true;
   age.secrets.matrix-shared-secret = {
@@ -36,7 +42,7 @@
     path = [ pkgs.ffmpeg ];
   };
 
-  hosting = {
+  custom = {
     freumh.enable = true;
     nix-cache.enable = true;
     rmfakecloud.enable = true;
@@ -264,7 +270,7 @@
       cname = "vps";
       keys = pkgs.stdenv.mkDerivation {
         name = "ryan-keys";
-        src = ../../modules/personal/authorized_keys;
+        src = ../../modules/authorized_keys;
         phases = [ "buildPhase" ];
         buildPhase = ''
           touch $out

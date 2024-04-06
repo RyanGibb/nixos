@@ -1,103 +1,110 @@
 { pkgs, config, lib, ... }:
 
-let cfg = config.personal;
+let cfg = config.custom;
 in {
-  options.personal = { enable = lib.mkEnableOption "personal"; };
+  imports = [ ./mail.nix ./gui.nix ./i3.nix ./sway.nix ./nvim/default.nix ];
 
-  config = lib.mkIf cfg.enable {
-    console = {
-      font = "Lat2-Terminus16";
-      keyMap = "uk";
+  options.custom.machineColour = lib.mkOption {
+    type = lib.types.str;
+    default = "cyan";
+  };
+
+  config = {
+    home.sessionVariables = {
+      EDITOR = "nvim";
+      NIX_AUTO_RUN = "y";
+      NIX_AUTO_RUN_INTERACTIVE = "y";
+      BROWSER = "firefox"; # urlview
+      GOPATH = "$HOME/.go";
+    };
+    home.packages = with pkgs; [
+      tree
+      htop
+      bind
+      inetutils
+      dua
+      fd
+      nix-prefetch-git
+      gnumake
+      vlock
+      bat
+      killall
+      nmap
+      gcc
+      fzf
+      tcpdump
+      sshfs
+      nix-tree
+      #atuin
+      git-crypt
+      jq
+      bc
+      pandoc
+      w3m
+      ranger
+      bluetuith
+      powertop
+      ripgrep
+      toot
+      iamb
+    ];
+
+    home.shellAliases = {
+      ls = "ls -p --color=auto";
+      pls = "sudo $(fc -ln -1)";
+      o = "xdg-open";
+      se = "sudoedit";
+      su = "su -p";
+      ssh = "TERM=xterm ssh";
+      nix-shell = "nix-shell --command zsh";
+      inhibit-lid = "systemd-inhibit --what=handle-lid-switch sleep 1d";
+      tmux = "tmux -2";
+      feh = "feh --scale-down --auto-zoom";
+      nix-stray-roots =
+        "nix-store --gc --print-roots | egrep -v '^(/nix/var|/run|/proc|{censored})'";
     };
 
-    users = let
-      hashedPassword =
-        "$6$IPvnJnu6/fp1Jxfy$U6EnzYDOC2NqE4iqRrkJJbSTHHNWk0KwK1xyk9jEvlu584UWQLyzDVF5I1Sh47wQhSVrvUI4mrqw6XTTjfPj6.";
-    in {
-      mutableUsers = false;
-      groups.plugdev = { };
-      users.${config.custom.username} = {
-        isNormalUser = true;
-        extraGroups = [
-          "wheel" # enable sudo
-          "networkmanager"
-          "video"
-          "plugdev"
-        ];
-        shell = pkgs.zsh;
-        hashedPassword = hashedPassword;
-      };
-      users.root.hashedPassword = hashedPassword;
-    };
-
-    environment = {
-      systemPackages = with pkgs; [
-        nix
-        agenix
-        tree
-        htop
-        bind
-        inetutils
-        dua
-        fd
-        nix-prefetch-git
-        gnumake
-        vlock
-        bat
-        killall
-        nmap
-        gcc
-        fzf
-        tcpdump
-        sshfs
-        nix-tree
-        #atuin
-        git-crypt
-        jq
-        bc
-        pandoc
-        w3m
-        ranger
-        bluetuith
-        powertop
-        ripgrep
-        toot
-        iamb
-      ];
-      variables.EDITOR = "nvim";
-      shellAliases = {
-        ls = "ls -p --color=auto";
-        pls = "sudo $(fc -ln -1)";
-        o = "xdg-open";
-        se = "sudoedit";
-        su = "su -p";
-        ssh = "TERM=xterm ssh";
-        nix-shell = "nix-shell --command zsh";
-        inhibit-lid = "systemd-inhibit --what=handle-lid-switch sleep 1d";
-        tmux = "tmux -2";
-        feh = "feh --scale-down --auto-zoom";
-        nix-stray-roots =
-          "nix-store --gc --print-roots | egrep -v '^(/nix/var|/run|/proc|{censored})'";
-      };
-      sessionVariables = {
-        NIX_AUTO_RUN = "y";
-        NIX_AUTO_RUN_INTERACTIVE = "y";
-        BROWSER = "firefox"; # urlview
+    # https://github.com/nix-community/home-manager/issues/1439#issuecomment-1106208294
+    home.activation = {
+      linkDesktopApplications = {
+        after = [ "writeBoundary" "createXdgUserDirectories" ];
+        before = [ ];
+        data = ''
+          rm -rf ${config.xdg.dataHome}/"applications/home-manager"
+          mkdir -p ${config.xdg.dataHome}/"applications/home-manager"
+          cp -Lr ${config.home.homeDirectory}/.nix-profile/share/applications/* ${config.xdg.dataHome}/"applications/home-manager/"
+        '';
       };
     };
 
-    networking = rec {
-      # nameservers = [ ${config.eilean.serverIpv4} ];
-      nameservers = [ "1.1.1.1" ];
-      networkmanager.dns = "none";
+    programs.zsh = {
+      enable = true;
+      history = {
+        size = 1000000;
+        path = "$HOME/.histfile";
+        share = false;
+      };
+      enableAutosuggestions = true;
+      syntaxHighlighting.enable = true;
+      enableCompletion = true;
+      initExtraFirst = ''
+        export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
+        export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=5"
+        PROMPT='%(?..%F{red}%3?%f )%F{${config.custom.machineColour}}%n@%m%f:%~ %#'$'\n'
+      '';
+      initExtra = builtins.readFile ./zsh.cfg;
     };
+
+    programs.bash.initExtra = ''
+      PS1='\[\e[36m\]\u@\h:\W\[\e[0m\] $ '
+    '';
 
     programs.git = {
       enable = true;
-      config = {
+      extraConfig = {
         init = { defaultBranch = "main"; };
         user = {
-          email = "${config.custom.username}@${config.networking.domain}";
+          email = "ryan@freumh.org";
           name = "Ryan Gibb";
         };
         alias = {
@@ -171,10 +178,16 @@ in {
 
     programs.less = {
       enable = true;
-      lineEditingKeys = {
-        "\\e[1;5D" = "word-left";
-        "\\e[1;5C" = "word-right";
-      };
+      keys = ''
+        #line-edit
+        \e[1;5D  word-left
+        \e[1;5C  word-right
+      '';
     };
+
+    programs.go.goPath = "~/.go";
+
+    home.stateVersion = "22.05";
   };
 }
+

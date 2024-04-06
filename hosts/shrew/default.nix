@@ -3,12 +3,14 @@
 {
   imports = [ ./hardware-configuration.nix "${nixos-hardware}/raspberry-pi/4" ];
 
-  personal = {
+  custom = {
     enable = true;
     tailscale = true;
-    machineColour = "red";
     gui.sway = true;
   };
+
+  home-manager.users.${config.custom.username}.config.custom.machineColour =
+    "red";
 
   networking.networkmanager.enable = true;
 

@@ -1,12 +1,12 @@
 { config, pkgs, lib, ... }:
 
-let cfg = config.hosting;
+let cfg = config.custom;
 in {
-  options.hosting.nix-cache.enable = lib.mkEnableOption "nix-cache";
+  options.custom.nix-cache.enable = lib.mkEnableOption "nix-cache";
 
   config = lib.mkIf cfg.nix-cache.enable {
     age.secrets."cache-priv-key.pem" = {
-      file = ../../secrets/cache-priv-key.pem.age;
+      file = ../secrets/cache-priv-key.pem.age;
       mode = "770";
       owner = "${config.systemd.services.nix-serve.serviceConfig.User}";
       group = "${config.systemd.services.nix-serve.serviceConfig.Group}";

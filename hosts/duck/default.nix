@@ -3,11 +3,13 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  personal = {
+  custom = {
     enable = true;
     tailscale = true;
-    machineColour = "green";
   };
+
+  home-manager.users.${config.custom.username}.config.custom.machineColour =
+    "green";
 
   swapDevices = [{
     device = "/var/swap";
@@ -65,35 +67,9 @@
   };
 
   security.acme = {
-    defaults.email = "${config.eilean.username}@${config.networking.domain}";
+    defaults.email = "${config.custom.username}@${config.networking.domain}";
     acceptTerms = true;
   };
-
-  systemd.services.eeww = {
-    enable = true;
-    description = "eeww";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.eeww}/main.exe -p 80";
-      WorkingDirectory =
-        "${ryan-website.packages.${config.nixpkgs.hostPlatform.system}.default}";
-      Restart = "always";
-      RestartSec = "10s";
-      AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-      User = "eeww";
-      Group = "eeww";
-    };
-  };
-
-  users.users."eeww" = {
-    description = "eeww";
-    useDefaultShell = true;
-    group = "eeww";
-    isSystemUser = true;
-  };
-
-  users.groups."eeww" = { };
 
   networking.firewall = {
     allowedTCPPorts = [

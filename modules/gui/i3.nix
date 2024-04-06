@@ -1,11 +1,13 @@
 { pkgs, config, lib, ... }:
 
-let cfg = config.personal.gui;
+let cfg = config.custom.gui;
 in {
-  options.personal.gui.i3 = lib.mkEnableOption "i3";
+  options.custom.gui.i3 = lib.mkEnableOption "i3";
 
   config = lib.mkIf cfg.i3 {
-    home-manager.users.${config.custom.username} = import ../home/i3.nix;
+    home-manager.users.${config.custom.username} = { config, ... }: {
+      config.custom.gui.i3.enable = true;
+    };
 
     services.xserver = {
       enable = true;
