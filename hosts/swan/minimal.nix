@@ -3,8 +3,6 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  custom = { enable = true; };
-
   home-manager.users.${config.custom.username}.config.custom.machineColour =
     "green";
 
