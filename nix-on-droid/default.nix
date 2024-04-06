@@ -55,7 +55,7 @@
   home-manager = {
     useGlobalPkgs = true;
     config = { pkgs, lib, ... }: {
-      imports = [ ./home/default.nix ];
+      imports = [ ../home/default.nix ];
 
       # Use the same overlays as the system packages
       nixpkgs = { inherit (config.nixpkgs) overlays; };
@@ -74,13 +74,6 @@
           '';
         in "$(readlink $(whereis sshd)) -f ${config}";
         ping = "/android/system/bin/linker64 /android/system/bin/ping";
-      };
-
-      programs.zsh = {
-        initExtra = builtins.readFile ./zsh.cfg + ''
-          bindkey "^[[A" up-line-or-beginning-search
-          bindkey "^[[B" down-line-or-beginning-search
-        '';
       };
 
       home.file = {
