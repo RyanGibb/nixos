@@ -96,7 +96,7 @@ in {
       users.root.hashedPassword = hashedPassword;
     };
 
-    environment.systemPackages = with pkgs; [ nix agenix ];
+    environment.systemPackages = with pkgs; [ nix agenix git ];
 
     networking = rec {
       # nameservers = [ "freumh.org" ];
