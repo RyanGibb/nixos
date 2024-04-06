@@ -25,8 +25,6 @@ in {
     services.nginx = {
       enable = true;
       virtualHosts.${cfg.nix-cache.domain} = {
-        enableACME = true;
-        forceSSL = true;
         locations."/".extraConfig = ''
           proxy_pass http://localhost:${
             toString config.services.nix-serve.port
