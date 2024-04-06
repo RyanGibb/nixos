@@ -20,7 +20,7 @@
 
   eilean.services.dns = {
     zones."cl.freumh.org" = {
-      soa.serial = lib.mkDefault 1;
+      soa.serial = lib.mkDefault 3;
       records = let
         ipv4 = "128.232.113.136";
         ipv6 = "2a05:b400:110:1101:d051:f2ff:fe13:3781";
