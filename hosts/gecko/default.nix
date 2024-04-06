@@ -18,6 +18,7 @@
   home-manager.users.${config.custom.username}.config.custom = {
     machineColour = "blue";
     nvim-lsps = true;
+    mail.enable = true;
   };
 
   boot.loader.grub = {
