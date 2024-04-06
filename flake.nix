@@ -225,7 +225,6 @@
             "owl"
             "shrew"
             "swan"
-            "vulpine"
           ]);
       };
 
