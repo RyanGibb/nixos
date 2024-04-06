@@ -6,6 +6,8 @@
   custom = {
     enable = true;
     tailscale = true;
+    autoUpgrade.enable = true;
+    homeManager.enable = true;
   };
 
   home-manager.users.${config.custom.username}.config.custom.machineColour =

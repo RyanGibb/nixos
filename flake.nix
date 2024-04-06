@@ -198,7 +198,12 @@
               inherit system;
               overlays = [
                 deploy-rs.overlay
-                (self: super: { deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; })
+                (self: super: {
+                  deploy-rs = {
+                    inherit (pkgs) deploy-rs;
+                    lib = super.deploy-rs.lib;
+                  };
+                })
               ];
             };
           in {
@@ -214,19 +219,10 @@
                 machine.config.networking.hostName;
               profiles.system = {
                 user = "root";
-                path =
-                  deployPkgs.deploy-rs.lib.activate.nixos machine;
+                path = deployPkgs.deploy-rs.lib.activate.nixos machine;
               };
             };
-          }) [
-            "capybara"
-            "duck"
-            "elephant"
-            "gecko"
-            "owl"
-            "shrew"
-            "swan"
-          ]);
+          }) [ "capybara" "duck" "elephant" "gecko" "owl" "shrew" "swan" ]);
       };
 
       nixOnDroidConfigurations.default =

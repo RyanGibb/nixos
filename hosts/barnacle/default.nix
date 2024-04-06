@@ -14,6 +14,7 @@
     laptop = true;
     gui.i3 = true;
     gui.sway = true;
+    homeManager.enable = true;
   };
 
   services.openssh.settings.PermitRootLogin = lib.mkForce "no";

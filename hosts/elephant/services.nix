@@ -15,9 +15,7 @@
 
   services.nginx = {
     virtualHosts = {
-      "nix-cache" = {
-        listenAddresses = [ "100.64.0.9" ];
-      };
+      "nix-cache" = { listenAddresses = [ "100.64.0.9" ]; };
       "jellyfin" = {
         listenAddresses = [ "100.64.0.9" ];
         locations."/" = {

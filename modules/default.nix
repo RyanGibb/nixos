@@ -1,27 +1,29 @@
-{ pkgs, config, lib, ... }@inputs:
+{ pkgs, config, lib, ... }:
 
 let cfg = config.custom;
 in {
   imports = [
     ./auto-upgrade.nix
-    ./workstation.nix
-    ./printing.nix
-    ./freumh.nix
-    ./scripts.nix
-    ./ocaml.nix
-    ./nix-cache.nix
-    ./external-hdd-backup.nix
-    ./laptop.nix
-    ./nix-index.nix
-    ./ssh.nix
-    ./gui/extra.nix
-    ./gui/kde.nix
-    ./gui/i3.nix
-    ./gui/default.nix
-    ./gui/sway.nix
-    ./rmfakecloud.nix
-    ./tailscale.nix
     ./dict.nix
+    ./external-hdd-backup.nix
+    ./freumh.nix
+    ./gui/default.nix
+    ./gui/extra.nix
+    ./gui/i3.nix
+    ./gui/kde.nix
+    ./gui/sway.nix
+    ./home-manager.nix
+    ./laptop.nix
+    ./nix-cache.nix
+    ./nix-index.nix
+    ./ocaml.nix
+    ./printing.nix
+    ./rmfakecloud.nix
+    ./scripts.nix
+    ./ssh.nix
+    ./tailscale.nix
+    ./use-nix-cache.nix
+    ./workstation.nix
   ];
 
   options.custom = {
@@ -45,21 +47,11 @@ in {
     eilean.username = cfg.username;
 
     nix = {
-      settings = lib.mkMerge [
-        {
-          experimental-features = [ "nix-command" "flakes" ];
-          auto-optimise-store = true;
-          trusted-users = [ cfg.username ];
-        }
-        (lib.mkIf (config.networking.hostName != "owl") {
-          substituters = [
-            "https://cache.nixos.org?priority=100"
-            "http://nix-cache?priority=10"
-          ];
-          trusted-public-keys =
-            [ "nix-cache:Go6ACovVBhR4P6Ug3DsE0p0DIRQtkIBHui1DGM7qK5c=" ];
-        })
-      ];
+      settings = lib.mkMerge [{
+        experimental-features = [ "nix-command" "flakes" ];
+        auto-optimise-store = true;
+        trusted-users = [ cfg.username ];
+      }];
       gc = {
         automatic = true;
         dates = "weekly";
@@ -99,12 +91,5 @@ in {
       nameservers = [ "1.1.1.1" ];
       networkmanager.dns = "none";
     };
-
-    home-manager = {
-      useGlobalPkgs = true;
-      users.${config.custom.username} = import ../home/default.nix;
-    };
-    # zsh completion
-    environment.pathsToLink = [ "/share/zsh" ];
   };
 }
