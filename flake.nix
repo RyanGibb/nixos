@@ -189,7 +189,18 @@
       deploy = {
         user = "root";
         nodes = builtins.listToAttrs (builtins.map (name:
-          let machine = self.nixosConfigurations.${name};
+          let
+            machine = self.nixosConfigurations.${name};
+            system = machine.pkgs.system;
+            pkgs = import nixpkgs { inherit system; };
+            # nixpkgs with deploy-rs overlay but force the nixpkgs package
+            deployPkgs = import nixpkgs {
+              inherit system;
+              overlays = [
+                deploy-rs.overlay
+                (self: super: { deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; })
+              ];
+            };
           in {
             inherit name;
             value = {
@@ -203,7 +214,7 @@
               profiles.system = {
                 user = "root";
                 path =
-                  deploy-rs.lib.${machine.pkgs.system}.activate.nixos machine;
+                  deployPkgs.deploy-rs.lib.activate.nixos machine;
               };
             };
           }) [
