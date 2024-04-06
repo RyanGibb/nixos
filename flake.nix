@@ -193,6 +193,9 @@
           in {
             inherit name;
             value = {
+              # if we're on a different system build on the remote
+              #remoteBuild = machine.config.nixpkgs.hostPlatform.system == builtins.currentSystem;
+              remoteBuild = true;
               hostname = if name == "swan" then
                 "eeg.cl.cam.ac.uk"
               else
