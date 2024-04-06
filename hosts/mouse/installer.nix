@@ -55,7 +55,7 @@
 
   services.tailscale = {
     enable = true;
-    authKeyFile = ../../headscale;
+    #authKeyFile = ../../headscale;
     extraUpFlags = [ "--login-server https://headscale.freumh.org" ];
   };
   networking.firewall = {

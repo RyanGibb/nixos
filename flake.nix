@@ -6,6 +6,7 @@
     #home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.url = "github:RyanGibb/home-manager/fork";
     agenix.url = "github:ryantm/agenix";
+    deploy-rs.url = "github:serokell/deploy-rs";
     nix-on-droid.url = "github:nix-community/nix-on-droid/release-23.05";
     eon.url = "github:RyanGibb/eon";
     eilean.url = "github:RyanGibb/eilean-nix/main";
@@ -35,8 +36,8 @@
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager
-    , agenix, nix-on-droid, eon, eilean, fn06-website, i3-workspace-history
-    , hyperbib-eeg, neovim, ... }@inputs:
+    , agenix, deploy-rs, nix-on-droid, eon, eilean, fn06-website
+    , i3-workspace-history, hyperbib-eeg, neovim, ... }@inputs:
     let
       getSystemOverlays = system: nixpkgsConfig:
         [
@@ -88,7 +89,10 @@
                   });
               };
             };
-            neovim-unwrapped = neovim.packages.${system}.default;
+            neovim-unwrapped = if neovim.packages ? ${system} then
+              neovim.packages.${system}.default
+            else
+              prev.neovim-unwrapped;
             # https://github.com/NixOS/nixpkgs/pull/291559
             libvpl = final.overlay-unstable.libvpl.overrideAttrs
               (_: { patches = [ ./pkgs/opengl-driver-lib.patch ]; });
@@ -182,6 +186,35 @@
         hosts = builtins.attrNames (builtins.readDir ./hosts);
       in mkHosts hosts;
 
+      deploy = {
+        user = "root";
+        nodes = builtins.listToAttrs (builtins.map (name:
+          let machine = self.nixosConfigurations.${name};
+          in {
+            inherit name;
+            value = {
+              hostname = if name == "swan" then
+                "eeg.cl.cam.ac.uk"
+              else
+                machine.config.networking.hostName;
+              profiles.system = {
+                user = "root";
+                path =
+                  deploy-rs.lib.${machine.pkgs.system}.activate.nixos machine;
+              };
+            };
+          }) [
+            "capybara"
+            "duck"
+            "elephant"
+            "gecko"
+            "owl"
+            "shrew"
+            "swan"
+            "vulpine"
+          ]);
+      };
+
       nixOnDroidConfigurations.default =
         nix-on-droid.lib.nixOnDroidConfiguration {
           modules = [ ./nix-on-droid/default.nix ];
@@ -202,12 +235,11 @@
         modules = [ ./home/default.nix ];
       };
 
-      legacyPackages = {
-        nixpkgs = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed
-          (system: nixpkgs.legacyPackages.${system});
-        nixpkgs-unstable = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed
-          (system: nixpkgs-unstable.legacyPackages.${system});
-      };
+      legacyPackages = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed
+        (system: {
+          nixpkgs = nixpkgs.legacyPackages.${system};
+          nixpkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+        });
 
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
     };

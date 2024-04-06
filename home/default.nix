@@ -18,6 +18,7 @@ in {
       GOPATH = "$HOME/.go";
     };
     home.packages = with pkgs; [
+      deploy-rs
       tree
       htop
       bind
