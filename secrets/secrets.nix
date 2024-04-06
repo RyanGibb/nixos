@@ -12,7 +12,7 @@ let
   shrew =
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHLiZ0xdXSlF1eMibrs320lVQaushEpEDMrR6lp9uFkx root@shrew";
 in {
-  "cache-priv-key.pem.age".publicKeys = user ++ [ owl ];
+  "cache-priv-key.pem.age".publicKeys = user ++ [ elephant ];
   "email-ryan.age".publicKeys = user ++ [ gecko owl ];
   "email-system.age".publicKeys = user ++ [ gecko owl elephant ];
   "matrix-shared-secret.age".publicKeys = user ++ [ owl ];

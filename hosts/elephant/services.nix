@@ -6,8 +6,18 @@
     acceptTerms = true;
   };
 
+  custom = {
+    nix-cache = {
+      enable = true;
+      domain = "nix-cache";
+    };
+  };
+
   services.nginx = {
     virtualHosts = {
+      "nix-cache" = {
+        listenAddresses = [ "100.64.0.9" ];
+      };
       "jellyfin" = {
         listenAddresses = [ "100.64.0.9" ];
         locations."/" = {

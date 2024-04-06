@@ -2,7 +2,13 @@
 
 let cfg = config.custom;
 in {
-  options.custom.nix-cache.enable = lib.mkEnableOption "nix-cache";
+  options.custom.nix-cache = {
+    enable = lib.mkEnableOption "nix-cache";
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "nix-cache.${config.networking.domain}";
+    };
+  };
 
   config = lib.mkIf cfg.nix-cache.enable {
     age.secrets."cache-priv-key.pem" = {
@@ -18,7 +24,7 @@ in {
 
     services.nginx = {
       enable = true;
-      virtualHosts."binarycache.${config.networking.domain}" = {
+      virtualHosts.${cfg.nix-cache.domain} = {
         enableACME = true;
         forceSSL = true;
         locations."/".extraConfig = ''
@@ -31,11 +37,5 @@ in {
         '';
       };
     };
-
-    eilean.services.dns.zones.${config.networking.domain}.records = [{
-      name = "binarycache";
-      type = "CNAME";
-      data = "vps";
-    }];
   };
 }

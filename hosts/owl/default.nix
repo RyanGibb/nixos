@@ -44,7 +44,6 @@
 
   custom = {
     freumh.enable = true;
-    nix-cache.enable = true;
     rmfakecloud.enable = true;
   };
 
@@ -313,6 +312,11 @@
   };
 
   services.headscale.settings.dns_config.extra_records = [
+    {
+      name = "nix-cache.vpn.${config.networking.domain}";
+      type = "A";
+      value = "100.64.0.9";
+    }
     {
       name = "jellyfin.vpn.${config.networking.domain}";
       type = "A";
