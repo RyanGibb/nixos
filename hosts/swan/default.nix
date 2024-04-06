@@ -235,7 +235,7 @@ in {
   };
   systemd.services.inspircd.serviceConfig.Group = "wwwrun";
   services.inspircd = {
-    enable = true;
+    #enable = true;
     config = ''
       <module name="ssl_gnutls">
 
