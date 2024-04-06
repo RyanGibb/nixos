@@ -207,6 +207,7 @@
               # if we're on a different system build on the remote
               #remoteBuild = machine.config.nixpkgs.hostPlatform.system == builtins.currentSystem;
               remoteBuild = true;
+              sshUser = "root";
               hostname = if name == "swan" then
                 "eeg.cl.cam.ac.uk"
               else
