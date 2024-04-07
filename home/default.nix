@@ -107,7 +107,9 @@ in {
         user = {
           email = "ryan@freumh.org";
           name = "Ryan Gibb";
+          signingKey = "19F9DB637E4CAB74";
         };
+        commit.gpgSign = true;
         alias = {
           s = "status";
           c = "commit";
