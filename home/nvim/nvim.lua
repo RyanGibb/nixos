@@ -48,6 +48,8 @@ vim.api.nvim_create_autocmd({'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave'}
 vim.g.mapleader = ' '
 
 vim.opt.timeout = false
+-- remove warning delay
+vim.opt.readonly = false
 
 local key_mapper = function(mode, key, result)
 	vim.api.nvim_set_keymap(
