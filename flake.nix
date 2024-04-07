@@ -251,6 +251,7 @@
           nixpkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
         });
 
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
+      formatter = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed
+        (system: nixpkgs.legacyPackages.${system}.nixfmt);
     };
 }
