@@ -17,9 +17,13 @@ in {
         upper = "05:00";
       };
     };
-    systemd.services.nixos-upgrade.preStart = with pkgs; ''
-      DIR=/etc/nixos
-      ${sudo}/bin/sudo -u `stat -c "%U" $DIR` ${git}/bin/git -C $DIR pull || exit 0
-    '';
+    systemd.services.nixos-upgrade = with pkgs; {
+      path = [ gnupg ];
+      preStart = ''
+        DIR=/etc/nixos
+        ${sudo}/bin/sudo -u `stat -c "%U" $DIR` ${git}/bin/git -C $DIR pull || exit 0
+        ${sudo}/bin/sudo -u `stat -c "%U" $DIR` ${git}/bin/git -C $DIR verify-commit HEAD
+      '';
+    };
   };
 }

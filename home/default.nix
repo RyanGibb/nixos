@@ -100,6 +100,28 @@ in {
       PS1='\[\e[36m\]\u@\h:\W\[\e[0m\] $ '
     '';
 
+    programs.gpg = {
+      enable = true;
+      publicKeys = [{
+        text = ''
+          -----BEGIN PGP PUBLIC KEY BLOCK-----
+
+          mDMEZZ1zrBYJKwYBBAHaRw8BAQdA8Zeb1OFbzEWx3tM7ylO0ILCnDCG2JoA/iay6
+          iWXmB7G0G1J5YW4gR2liYiA8cnlhbkBmcmV1bWgub3JnPoiUBBMWCgA8FiEE67lV
+          Y2amyVrqUoWjGfnbY35Mq3QFAmWdc6wCGwMFCQPCZwAECwkIBwQVCgkIBRYCAwEA
+          Ah4FAheAAAoJEBn522N+TKt0mwcA/AvuKD4dTPj4hJ/cezEWDOFELMaVYZqDS3V1
+          LmRJrdIHAQDYgST8awabyd2Y3PRTFf9ZcWRRompeg0v7c2hCc9/3A7g4BGWdc6wS
+          CisGAQQBl1UBBQEBB0AdJP8T3mGR7SUp9DBlIaVU1ESRC7sLWbm4QFCR1JTfSgMB
+          CAeIfgQYFgoAJhYhBOu5VWNmpsla6lKFoxn522N+TKt0BQJlnXOsAhsMBQkDwmcA
+          AAoJEBn522N+TKt07KwA/10R+ejRZeW0cYScowHAsnDZ09A43bZvdp1X7KeQHMl+
+          AQD+TbceHh393VFc4tkl5pYHfrmkCXMdN0faVWolkc7GCA==
+          =EfP/
+          -----END PGP PUBLIC KEY BLOCK-----
+        '';
+        trust = "ultimate";
+      }];
+    };
+
     programs.git = {
       enable = true;
       extraConfig = {
