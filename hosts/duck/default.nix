@@ -88,15 +88,18 @@
       enable = true;
       # TODO make this zonefile derivation a config parameter `services.eilean.services.dns.zonefile`
       # TODO add module in eilean for eon
-      zoneFile = "${
+      zoneFiles = [
+        "${
           import "${eilean}/modules/services/dns/zonefile.nix" {
             inherit pkgs config lib;
             zonename = "cl.freumh.org";
             zone = config.eilean.services.dns.zones."cl.freumh.org";
           }
-        }/cl.freumh.org";
+        }/cl.freumh.org"
+      ];
       logLevel = 1;
-      application = "tund";
+      application = "cap";
+      capnpAddress = "cl.freumh.org";
     };
   };
 }
