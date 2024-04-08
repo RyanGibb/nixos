@@ -192,12 +192,63 @@
       ];
     };
     "fn06.org" = {
-      soa.serial = 1706745601;
-      records = [{
-        name = "capybara.fn06.org";
-        type = "CNAME";
-        data = "fn06.org";
-      }];
+      soa.serial = 1706745602;
+      records = [
+        {
+          name = "@";
+          type = "NS";
+          data = "ns1";
+        }
+        {
+          name = "@";
+          type = "NS";
+          data = "ns2";
+        }
+
+        {
+          name = "ns1";
+          type = "A";
+          data = config.eilean.serverIpv4;
+        }
+        {
+          name = "ns1";
+          type = "AAAA";
+          data = config.eilean.serverIpv6;
+        }
+        {
+          name = "ns2";
+          type = "A";
+          data = config.eilean.serverIpv4;
+        }
+        {
+          name = "ns2";
+          type = "AAAA";
+          data = config.eilean.serverIpv6;
+        }
+
+        {
+          name = "@";
+          type = "A";
+          data = config.eilean.serverIpv4;
+        }
+        {
+          name = "@";
+          type = "AAAA";
+          data = config.eilean.serverIpv6;
+        }
+
+        {
+          name = "@";
+          type = "LOC";
+          data = "52 12 40.4 N 0 5 31.9 E 22m 10m 10m 10m";
+        }
+
+        {
+          name = "capybara.fn06.org";
+          type = "CNAME";
+          data = "fn06.org";
+        }
+      ];
     };
   };
   services.bind.zones.${config.networking.domain}.extraConfig = ''
