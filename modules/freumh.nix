@@ -44,6 +44,7 @@ in {
             $files = glob($dir . '/*.*');
             $file = $files[array_rand($files)];
             header('Content-Type: ' . mime_content_type($file));
+            header('X-Id: ' . pathinfo($file, PATHINFO_FILENAME));
             readfile($file);
             ?>
           '';
@@ -59,8 +60,29 @@ in {
           text = ''
             <html>
               <body style="background-color:#ebebeb; text-align: center;">
-                <img src="root" style="width:100%; height:auto;">
-                <a href="https://images.wur.nl/digital/collection/coll13" style="color: #040404">https://images.wur.nl/digital/collection/coll13</a>
+                <script>
+                  function fetchImage() {
+                    fetch('root')
+                    .then(response => {
+                      const id = response.headers.get('X-Id');
+                      const link = document.getElementById('link');
+                      link.href = `https://images.wur.nl/digital/collection/coll13/id/''${id}/rec/1`;
+                      link.textContent = `images.wur.nl/digital/collection/coll13/id/''${id}/rec/1`;
+                      return response.blob();
+                    })
+                    .then(blob => {
+                      const url = URL.createObjectURL(blob);
+                      document.getElementById('img').src = url;
+                    })
+                    .catch(error => {
+                      console.error('Error fetching image:', error);
+                    });
+                  }
+                  window.onload = fetchImage;
+                </script>
+                <img id="img" style="max-width:100%; height:auto;">
+                <p><a href="https://images.wur.nl/digital/collection/coll13" style="color: #040404">images.wur.nl/digital/collection/coll13</a></p>
+                <p><a id="link" style="color: #040404"></a></p>
               </body>
             </pre>
           '';
