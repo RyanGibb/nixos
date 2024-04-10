@@ -59,7 +59,19 @@ in {
           name = "freumh";
           text = ''
             <html>
-              <body style="background-color:#ebebeb; text-align: center;">
+              <head>
+                <style>
+                  body, html {
+                    height: 100%;
+                    margin: 0;
+                  }
+                  .bg {
+                    height: 100%;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                  }
+                </style>
                 <script>
                   function fetchImage() {
                     fetch('root')
@@ -67,12 +79,11 @@ in {
                       const id = response.headers.get('X-Id');
                       const link = document.getElementById('link');
                       link.href = `https://images.wur.nl/digital/collection/coll13/id/''${id}/rec/1`;
-                      link.textContent = `images.wur.nl/digital/collection/coll13/id/''${id}/rec/1`;
                       return response.blob();
                     })
                     .then(blob => {
                       const url = URL.createObjectURL(blob);
-                      document.getElementById('img').src = url;
+                      document.getElementById('bg').style.backgroundImage = `url(''${url})`;
                     })
                     .catch(error => {
                       console.error('Error fetching image:', error);
@@ -80,9 +91,11 @@ in {
                   }
                   window.onload = fetchImage;
                 </script>
-                <img id="img" style="max-width:100%; height:auto;">
-                <p><a href="https://images.wur.nl/digital/collection/coll13" style="color: #040404">images.wur.nl/digital/collection/coll13</a></p>
-                <p><a id="link" style="color: #040404"></a></p>
+              </head>
+              <body style="background-color:#ebebeb; text-align: center;">
+                <a id="link" style="color: #040404">
+                  <div id="bg" class="bg"></div>
+                </a>
               </body>
             </pre>
           '';
