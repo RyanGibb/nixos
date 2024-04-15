@@ -259,6 +259,8 @@ require('ltex-ls').setup {
 	},
 }
 
+vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
+
 -- nvim-cmp
 
 local cmp = require 'cmp'
