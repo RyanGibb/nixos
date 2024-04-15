@@ -8,9 +8,6 @@
 
   custom = { enable = true; };
 
-  home-manager.users.${config.custom.username}.config.custom.machineColour =
-    "red";
-
   networking.wireless = {
     enable = true;
     networks = { "SSID" = { psk = "password"; }; };
