@@ -31,7 +31,7 @@ in {
       isSystemUser = true;
       group = "php";
     };
-    users.groups.php = {};
+    users.groups.php = { };
     services.nginx = {
       enable = true;
       virtualHosts."${config.networking.domain}" = {

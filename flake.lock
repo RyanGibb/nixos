@@ -125,17 +125,20 @@
     },
     "eilean": {
       "inputs": {
+        "eon": [
+          "eon"
+        ],
         "nixos-mailserver": "nixos-mailserver",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1712498227,
-        "narHash": "sha256-gEN9FwAj7vuBR1gjWOXHpZU55PZTeoC9Ic65VgqT9Lo=",
+        "lastModified": 1713188299,
+        "narHash": "sha256-VHzN1qexKSuxHlIY7uW1KkYLbIMTQcau7El+DZr5I54=",
         "owner": "RyanGibb",
         "repo": "eilean-nix",
-        "rev": "2dd5fdb4eca9674334fc3e758a44293f3e04ba19",
+        "rev": "821f614eefbfe079439b993f1b32c7e1f6912ea8",
         "type": "github"
       },
       "original": {
@@ -155,11 +158,11 @@
         "opam-repository": "opam-repository"
       },
       "locked": {
-        "lastModified": 1712677172,
-        "narHash": "sha256-dCc+xh6Zl/vv0g/tWWBk5+z3CYYyUPeptq5Amt+/O+U=",
+        "lastModified": 1713187303,
+        "narHash": "sha256-ZoHRvTtJNieF9wq7LtPI5HRts7AMiLlhbyPeMQliqTA=",
         "owner": "RyanGibb",
         "repo": "eon",
-        "rev": "d85d6ae0232dfe05a4b75c3b3434756872f1cb9c",
+        "rev": "70a5609fdcb8af12aaaf19e545cb6c2c87ba610d",
         "type": "github"
       },
       "original": {
@@ -282,11 +285,11 @@
         "systems": "systems_5"
       },
       "locked": {
-        "lastModified": 1701680307,
-        "narHash": "sha256-kAuep2h5ajznlPMD9rnQyffWG8EM/C73lejGofXvdM8=",
+        "lastModified": 1710146030,
+        "narHash": "sha256-SZ5L6eA7HJ/nmkzGG7/ISclqe6oZdOZTNoesiInkXPQ=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "4022d587cbbfd70fe950c1e2083a02621806a725",
+        "rev": "b1d9ab70662946ef0850d488da1c9019f3a9752a",
         "type": "github"
       },
       "original": {
@@ -1017,11 +1020,11 @@
     "opam-repository": {
       "flake": false,
       "locked": {
-        "lastModified": 1702911475,
-        "narHash": "sha256-GLBqL378rDtKCDW6r5et/jG+1XwaIjhOauFVWq+K6mQ=",
+        "lastModified": 1712915335,
+        "narHash": "sha256-CLxKnc9GgeNom5LzGhDyq4ZP8Mx8NtwYsg2YQfcSk3U=",
         "owner": "ocaml",
         "repo": "opam-repository",
-        "rev": "b56daa9b5d762d02f791fa7ec4dc770b16944ba4",
+        "rev": "03178cf5192dd1a55105844365e56a2294cd9225",
         "type": "github"
       },
       "original": {

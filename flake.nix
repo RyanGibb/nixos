@@ -23,6 +23,7 @@
 
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
+    eilean.inputs.eon.follows = "eon";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
     nix-on-droid.inputs.home-manager.follows = "home-manager";
@@ -158,7 +159,6 @@
               })
               home-manager.nixosModule
               eilean.nixosModules.default
-              eon.nixosModules.default
               hyperbib-eeg.nixosModules.default
               agenix.nixosModules.default
             ];

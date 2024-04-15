@@ -10,6 +10,11 @@
     inputs.fn06-website.nixosModules.default
   ];
 
+  security.acme = {
+    defaults.email = "${config.custom.username}@${config.networking.domain}";
+    acceptTerms = true;
+  };
+
   eilean = {
     username = config.custom.username;
     serverIpv4 = "135.181.100.27";

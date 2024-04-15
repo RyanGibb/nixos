@@ -42,7 +42,7 @@ in {
     };
     i18n.defaultLocale = "en_GB.UTF-8";
 
-    networking.domain = "freumh.org";
+    networking.domain = lib.mkDefault "freumh.org";
 
     eilean.username = cfg.username;
 
