@@ -4,10 +4,10 @@
   imports = [
     ./hardware-configuration.nix
     ./minimal.nix
-    inputs.colour-guesser.nixosModules.default
-    inputs.ryan-website.nixosModules.default
-    inputs.alec-website.nixosModules.default
-    inputs.fn06-website.nixosModules.default
+    ../../modules/colour-guesser.nix
+    ../../modules/ryan-website.nix
+    ../../modules/alec-website.nix
+    ../../modules/fn06-website.nix
   ];
 
   security.acme = {
@@ -50,6 +50,25 @@
   custom = {
     freumh.enable = true;
     rmfakecloud.enable = true;
+    website = {
+      ryan = {
+        enable = true;
+        cname = "vps";
+      };
+      alec = {
+        enable = true;
+        cname = "vps";
+      };
+      fn06 = {
+        enable = true;
+        cname = "vps";
+        domain = "fn06.org";
+      };
+      colour-guesser = {
+        enable = true;
+        cname = "vps";
+      };
+    };
   };
 
   eilean.services.dns.zones = {
@@ -292,7 +311,7 @@
     owner = "${config.systemd.services.nginx.serviceConfig.User}";
     group = "${config.systemd.services.nginx.serviceConfig.Group}";
   };
-  services.nginx.virtualHosts."${config.services.ryan-website.domain}" = {
+  services.nginx.virtualHosts."${config.custom.website.ryan.domain}" = {
     locations."/phd/" = {
       basicAuthFile = config.age.secrets.website-phd.path;
     };
@@ -317,42 +336,6 @@
       '';
       proxyWebsockets = true;
     };
-  };
-
-  services = {
-    ryan-website = {
-      enable = true;
-      cname = "vps";
-      keys = pkgs.stdenv.mkDerivation {
-        name = "ryan-keys";
-        src = ../../modules/authorized_keys;
-        phases = [ "buildPhase" ];
-        buildPhase = ''
-          touch $out
-          cat $src | cut -d' ' -f-2 > $out
-        '';
-      };
-    };
-    alec-website = {
-      enable = true;
-      cname = "vps";
-    };
-    fn06-website = {
-      enable = true;
-      cname = "vps";
-      domain = "fn06.org";
-    };
-    colour-guesser = {
-      enable = true;
-      cname = "vps";
-    };
-    #eon = {
-    #  enable = true;
-    #  # TODO make this zonefile derivation a config parameter `services.eilean.services.dns.zonefile`
-    #  # TODO add module in eilean for eon
-    #  zoneFile = "${import "${eilean}/modules/services/dns/zonefile.nix" { inherit pkgs config lib; zonename = config.networking.domain; zone = config.eilean.services.dns.zones.${config.networking.domain}; }}/${config.networking.domain}";
-    #  logLevel = 2;
-    #};
   };
 
   services.mastodon = {
