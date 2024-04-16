@@ -109,11 +109,12 @@
                           old.buildInputs) ++ [
                             (prev.libva.overrideAttrs (_: {
                               src = prev.fetchFromGitHub {
-                                owner = "emersion";
+                                owner = "intel";
                                 repo = "libva";
-                                rev = "linux-dmabuf";
+                                rev =
+                                  "1b7d71f68b6ebc7f7c3b80e3eb6b3d888b0463e1";
                                 hash =
-                                  "sha256-d1cT6zOZHnrBBWjxOtSMAijPr4Tab+0GetZ6aqzhvrQ=";
+                                  "sha256-Bufv8/8YAMvo6P/8HgPKaWXI7TCE/mf98MGeclT2XyA=";
                               };
                             }))
                           ];
