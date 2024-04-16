@@ -64,7 +64,7 @@ key_mapper('n', '<leader>h', '<C-w>h')
 key_mapper('n', '<leader>j', '<C-w>j')
 key_mapper('n', '<leader>k', '<C-w>k')
 key_mapper('n', '<leader>l', '<C-w>l')
-key_mapper('n', '<leader>s', ':w<CR>')
+key_mapper('n', '<leader>w', ':w<CR>')
 
 key_mapper('n', 'ZA', ':cquit<Enter>')
 
@@ -366,4 +366,7 @@ vim.api.nvim_create_autocmd('VimLeave', {
 
 vim.api.nvim_create_user_command('SaveSession', save_session, { nargs = '?', complete = session_completion })
 vim.api.nvim_create_user_command('LoadSession', load_session, { nargs = '?', complete = session_completion })
+
+key_mapper('n', '<leader>s', ':SaveSession<CR>')
+key_mapper('n', '<leader>l', ':LoadSession<CR>')
 
