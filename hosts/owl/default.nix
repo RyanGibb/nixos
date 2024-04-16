@@ -15,18 +15,6 @@
     acceptTerms = true;
   };
 
-  # as we don't have headscale's DNS
-  nix = {
-    settings = {
-      substituters = [
-        "https://cache.nixos.org?priority=100"
-        "http://100.64.0.9?priority=10"
-      ];
-      trusted-public-keys =
-        [ "100.64.0.9:Go6ACovVBhR4P6Ug3DsE0p0DIRQtkIBHui1DGM7qK5c=" ];
-    };
-  };
-
   eilean = {
     username = config.custom.username;
     serverIpv4 = "135.181.100.27";
@@ -62,6 +50,7 @@
   custom = {
     freumh.enable = true;
     rmfakecloud.enable = true;
+    useNixCache = true;
     website = {
       ryan = {
         enable = true;
