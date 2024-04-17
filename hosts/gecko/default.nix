@@ -108,7 +108,10 @@
       "/home/ryan/.cache"
       "/home/ryan/.local/share/Steam"
     ];
-    timerConfig = { OnUnitActiveSec = "1d"; };
+    timerConfig = {
+      OnCalendar = "03:00";
+      Persistent = true;
+    };
     extraBackupArgs = [ "-vv" ];
   };
 
