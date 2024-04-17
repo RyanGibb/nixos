@@ -21,12 +21,12 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    security.acme-eon.nginxCerts = [ cfg.domain ];
     services.nginx = {
       enable = true;
       recommendedProxySettings = true;
       virtualHosts."${cfg.domain}" = {
         forceSSL = true;
-        enableACME = true;
         root =
           "${colour-guesser.packages.${pkgs.stdenv.hostPlatform.system}.default}";
       };

@@ -1,11 +1,7 @@
 { pkgs, config, lib, eilean, eon, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-    eon.nixosModules.default
-    eon.nixosModules.acme
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   custom = {
     enable = true;
@@ -50,6 +46,7 @@
   security.acme-eon = {
     acceptTerms = true;
     defaults.email = "${config.custom.username}@${config.networking.domain}";
+    defaults.capFile = "/var/lib/eon/caps/cl.freumh.org";
     nginxCerts = [ config.networking.domain ];
   };
 

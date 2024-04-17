@@ -27,4 +27,7 @@ in {
   "restic-repo.age".publicKeys = user ++ [ elephant ];
   "nextcloud.age".publicKeys = user ++ [ elephant ];
   "headscale.age".publicKeys = user ++ [ owl ];
+  # TODO
+  #"eon-capnp.age".publicKeys = user ++ [ owl ];
+  #"eon-vpn.freumh.org.age".publicKeys = user ++ [ elephant ];
 }

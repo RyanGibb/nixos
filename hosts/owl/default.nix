@@ -10,9 +10,18 @@
     ../../modules/fn06-website.nix
   ];
 
-  security.acme = {
-    defaults.email = "${config.custom.username}@${config.networking.domain}";
+  #age.secrets.eon-capnp = {
+  #  file = ../../secrets/eon-capnp.age;
+  #  mode = "770";
+  #  owner = "eon";
+  #  group = "eon";
+  #};
+  #services.eon.capnpSecretKeyFile = config.age.secrets.eon-capnp.path;
+
+  security.acme-eon = {
     acceptTerms = true;
+    defaults.email = "${config.custom.username}@${config.networking.domain}";
+    defaults.capFile = "/var/lib/eon/caps/freumh.org.cap";
   };
 
   eilean = {
@@ -317,9 +326,10 @@
       basicAuthFile = config.age.secrets.website-phd.path;
     };
   };
+
+  security.acme-eon.nginxCerts = [ "capybara.fn06.org" "shrew.freumh.org" ];
   services.nginx.virtualHosts."capybara.fn06.org" = {
     forceSSL = true;
-    enableACME = true;
     locations."/" = {
       proxyPass = ''
         http://100.64.0.10:8123
@@ -329,7 +339,6 @@
   };
   services.nginx.virtualHosts."shrew.freumh.org" = {
     forceSSL = true;
-    enableACME = true;
     locations."/" = {
       # need to specify ip or there's a bootstrap problem with headscale
       proxyPass = ''
