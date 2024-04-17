@@ -157,6 +157,7 @@
                   # uncomment for cross compilation (https://github.com/NixOS/nix/issues/3843)
                   #buildPlatform.system = "cpu-os";
                 };
+                security.acme-eon.acceptTerms = true;
               })
               home-manager.nixosModule
               eilean.nixosModules.default

@@ -13,14 +13,14 @@
     };
   };
 
-  age.secrets.eon-vpn-freumh-org.cap = {
-    file = ../../secrets/eon-vpn-freumh-org.cap.age;
+  age.secrets."eon-vpn.freumh.org.cap" = {
+    file = ../../secrets/eon-vpn.freumh.org.cap.age;
     mode = "770";
     owner = "eon";
     group = "eon";
   };
   security.acme-eon = {
-    capFile = config.age.secrets.eon-vpn-freumh-org.path;
+    defaults.capFile = config.age.secrets."eon-vpn.freumh.org.cap".path;
     nginxCerts = [
       "nix-cache.vpn.freumh.org"
       "jellyfin.vpn.freumh.org"
