@@ -13,8 +13,8 @@
     };
   };
 
-  age.secrets.eon-vpn-freumh-org = {
-    file = ../../secrets/eon-capnp.age;
+  age.secrets.eon-vpn-freumh-org.cap = {
+    file = ../../secrets/eon-vpn-freumh-org.cap.age;
     mode = "770";
     owner = "eon";
     group = "eon";

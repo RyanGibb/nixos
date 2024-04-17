@@ -10,13 +10,13 @@
     ../../modules/fn06-website.nix
   ];
 
-  #age.secrets.eon-capnp = {
-  #  file = ../../secrets/eon-capnp.age;
-  #  mode = "770";
-  #  owner = "eon";
-  #  group = "eon";
-  #};
-  #services.eon.capnpSecretKeyFile = config.age.secrets.eon-capnp.path;
+  age.secrets.eon-capnp = {
+    file = ../../secrets/eon-capnp.age;
+    mode = "770";
+    owner = "eon";
+    group = "eon";
+  };
+  services.eon.capnpSecretKeyFile = config.age.secrets.eon-capnp.path;
   #services.eon.prod = false;
 
   security.acme-eon = {
