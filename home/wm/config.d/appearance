@@ -32,7 +32,7 @@ bar {
 		focused_workspace    $lightgray $lightgray $bg
 		inactive_workspace   $bg       $bg       $lightgray
 		active_workspace     $bg       $bg       $lightgray
-		urgent_workspace     $red $red $bg
+		urgent_workspace     $softgray $softgray $lightgray
 	}
 	workspace_min_width 30px
 	tray_output none
