@@ -158,11 +158,11 @@
         "opam-repository": "opam-repository"
       },
       "locked": {
-        "lastModified": 1713218098,
-        "narHash": "sha256-UZpqdbWDQoFizS1NOC283ecK0VcuEBKZLsaONnesPe4=",
+        "lastModified": 1713362021,
+        "narHash": "sha256-N6e2pU9LelWXEk9UwdvIRNR0mhH3pnAwi8YQuDinM14=",
         "owner": "RyanGibb",
         "repo": "eon",
-        "rev": "572c362ba436b53af328330f64a4a8e0f1a22c37",
+        "rev": "815bac6735ab327a6b4a7a12f205531e07f94e72",
         "type": "github"
       },
       "original": {

@@ -50,12 +50,7 @@
   security.acme-eon = {
     acceptTerms = true;
     defaults.email = "${config.custom.username}@${config.networking.domain}";
-    certs = {
-      ${config.networking.domain} = {
-        group = "nginx";
-        reloadServices = [ "nginx" ];
-      };
-    };
+    nginxCerts = [ config.networking.domain ];
   };
 
   services.nginx = {
