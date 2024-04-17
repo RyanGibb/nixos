@@ -160,7 +160,6 @@
               })
               home-manager.nixosModule
               eilean.nixosModules.default
-              hyperbib-eeg.nixosModules.default
               agenix.nixosModules.default
             ];
           };
