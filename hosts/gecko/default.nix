@@ -46,6 +46,7 @@
     gthumb
     restic
     jellyfin-media-player
+    mosquitto
   ];
 
   virtualisation.docker.enable = true;

@@ -21,6 +21,8 @@
   networking.firewall.enable = false;
   networking.firewall.allowedTCPPorts = [ 44 ];
 
+  environment.systemPackages = with pkgs; [ mosquitto ];
+
   services.caddy = {
     enable = true;
     virtualHosts."http://capybara" = {

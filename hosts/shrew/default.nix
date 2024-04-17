@@ -28,6 +28,8 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [ mosquitto ];
+
   services.zigbee2mqtt = {
     enable = true;
     settings = {
