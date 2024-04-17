@@ -17,6 +17,7 @@
   #  group = "eon";
   #};
   #services.eon.capnpSecretKeyFile = config.age.secrets.eon-capnp.path;
+  #services.eon.prod = false;
 
   security.acme-eon = {
     acceptTerms = true;
