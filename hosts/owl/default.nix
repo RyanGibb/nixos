@@ -23,6 +23,14 @@
   networking.domain = lib.mkDefault "freumh.org";
   eilean.publicInterface = "enp1s0";
   eilean.mailserver.enable = true;
+  age.secrets.radicale-ryan = {
+    file = ../../secrets/email-ryan.age;
+    mode = "770";
+    owner = "${config.systemd.services.radicale.serviceConfig.User}";
+    group = "${config.systemd.services.radicale.serviceConfig.Group}";
+  };
+  eilean.radicale.enable = true;
+  eilean.radicale.users.${config.eilean.username}.passwordFile = config.age.secrets.radicale-ryan.path;
   age.secrets.matrix-shared-secret = {
     file = ../../secrets/matrix-shared-secret.age;
     mode = "770";
@@ -74,7 +82,7 @@
 
   eilean.services.dns.zones = {
     ${config.networking.domain} = {
-      soa.serial = 2018011658;
+      soa.serial = 2018011659;
       records = [
         {
           name = "@";
