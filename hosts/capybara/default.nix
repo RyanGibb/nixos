@@ -88,4 +88,7 @@
       http.trusted_proxies = "100.64.0.2";
     };
   };
+
+  # https://github.com/NixOS/nixpkgs/issues/180175
+  systemd.services.NetworkManager-wait-online.enable = false;
 }
