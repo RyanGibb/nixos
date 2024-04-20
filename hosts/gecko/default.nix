@@ -124,8 +124,22 @@
         echo "Connection is metered. Aborting start."
         exit 1
       fi
+      systemctl start notify-backup-started
     '';
     unitConfig.OnFailure = "notify-backup-failed.service";
+  };
+
+  systemd.services."notify-backup-started" = {
+    enable = true;
+    description = "Notify on backup start";
+    serviceConfig = {
+      Type = "oneshot";
+      User = config.users.users.${config.custom.username}.name;
+    };
+    script = ''
+      export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u ${config.custom.username})/bus"
+      ${pkgs.libnotify}/bin/notify-send "Starting backup..."
+    '';
   };
 
   systemd.services."notify-backup-failed" = {
@@ -135,12 +149,8 @@
       Type = "oneshot";
       User = config.users.users.${config.custom.username}.name;
     };
-
-    environment.DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/${
-        toString config.users.users.${config.custom.username}.uid
-      }/bus";
-
     script = ''
+      export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u ${config.custom.username})/bus"
       ${pkgs.libnotify}/bin/notify-send --urgency=critical \
         "Backup failed" \
         "$(journalctl -u restic-backups-daily -n 5 -o cat)"
