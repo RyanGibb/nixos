@@ -47,7 +47,10 @@
     restic
     jellyfin-media-player
     mosquitto
+    gnome.gnome-calendar
   ];
+
+  services.gnome.evolution-data-server.enable = true;
 
   virtualisation.docker.enable = true;
   users.users.ryan.extraGroups = [ "docker" ];
