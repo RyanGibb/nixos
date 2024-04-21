@@ -33,7 +33,6 @@
   services.zigbee2mqtt = {
     enable = true;
     settings = {
-      permit_join = true;
       mqtt = {
         server = "mqtt://shrew:1883";
         user = "zigbee2mqtt";
@@ -117,8 +116,12 @@
             aliases = [ "CEILING" ];
             room = "Bedroom";
           };
-          "switch.room_strip" = {
+          "light.room_strip" = {
             name = "STRIP";
+            room = "Bedroom";
+          };
+          "switch.fan" = {
+            name = "FAN";
             room = "Bedroom";
           };
         };
