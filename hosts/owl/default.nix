@@ -1,4 +1,4 @@
-{ pkgs, config, lib, eilean, ... }@inputs:
+{ pkgs, config, lib, eilean, patrick-nixos, ... }@inputs:
 
 {
   imports = [
@@ -80,6 +80,7 @@
     };
   };
 
+  eilean.dns.nameservers = [ "ns1" ];
   eilean.services.dns.zones = {
     ${config.networking.domain} = {
       soa.serial = 2018011659;
@@ -99,33 +100,7 @@
         {
           name = "@";
           type = "NS";
-          data = "ns1";
-        }
-        {
-          name = "@";
-          type = "NS";
-          data = "ns2";
-        }
-
-        {
-          name = "ns1";
-          type = "A";
-          data = config.eilean.serverIpv4;
-        }
-        {
-          name = "ns1";
-          type = "AAAA";
-          data = config.eilean.serverIpv6;
-        }
-        {
-          name = "ns2";
-          type = "A";
-          data = config.eilean.serverIpv4;
-        }
-        {
-          name = "ns2";
-          type = "AAAA";
-          data = config.eilean.serverIpv6;
+          data = "ns1.sirref.org.";
         }
 
         {
@@ -283,6 +258,7 @@
         }
       ];
     };
+    "sirref.org" = patrick-nixos.nixosConfigurations.sirref.config.eilean.services.dns.zones."sirref.org";
   };
   services.bind.zones.${config.networking.domain}.extraConfig = ''
     dnssec-policy default;
