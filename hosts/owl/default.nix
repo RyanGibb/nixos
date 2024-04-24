@@ -1,4 +1,4 @@
-{ pkgs, config, lib, eilean, ... }@inputs:
+{ pkgs, config, lib, eilean, patrick-nixos, ... }@inputs:
 
 {
   imports = [
@@ -33,6 +33,14 @@
   networking.domain = lib.mkDefault "freumh.org";
   eilean.publicInterface = "enp1s0";
   eilean.mailserver.enable = true;
+  age.secrets.radicale-ryan = {
+    file = ../../secrets/email-ryan.age;
+    mode = "770";
+    owner = "${config.systemd.services.radicale.serviceConfig.User}";
+    group = "${config.systemd.services.radicale.serviceConfig.Group}";
+  };
+  eilean.radicale.enable = true;
+  eilean.radicale.users.${config.eilean.username}.passwordFile = config.age.secrets.radicale-ryan.path;
   age.secrets.matrix-shared-secret = {
     file = ../../secrets/matrix-shared-secret.age;
     mode = "770";
@@ -82,9 +90,10 @@
     };
   };
 
+  eilean.dns.nameservers = [ "ns1" ];
   eilean.services.dns.zones = {
     ${config.networking.domain} = {
-      soa.serial = 2018011658;
+      soa.serial = 2018011659;
       records = [
         {
           name = "@";
@@ -101,33 +110,7 @@
         {
           name = "@";
           type = "NS";
-          data = "ns1";
-        }
-        {
-          name = "@";
-          type = "NS";
-          data = "ns2";
-        }
-
-        {
-          name = "ns1";
-          type = "A";
-          data = config.eilean.serverIpv4;
-        }
-        {
-          name = "ns1";
-          type = "AAAA";
-          data = config.eilean.serverIpv6;
-        }
-        {
-          name = "ns2";
-          type = "A";
-          data = config.eilean.serverIpv4;
-        }
-        {
-          name = "ns2";
-          type = "AAAA";
-          data = config.eilean.serverIpv6;
+          data = "ns1.sirref.org.";
         }
 
         {
@@ -285,6 +268,7 @@
         }
       ];
     };
+    "sirref.org" = patrick-nixos.nixosConfigurations.sirref.config.eilean.services.dns.zones."sirref.org";
   };
   services.bind.zones.${config.networking.domain}.extraConfig = ''
     dnssec-policy default;

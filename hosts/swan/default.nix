@@ -1,8 +1,12 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, hyperbib-eeg, ... }:
 
 let domain = "eeg.cl.cam.ac.uk";
 in {
-  imports = [ ./hardware-configuration.nix ./minimal.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ./minimal.nix
+    hyperbib-eeg.nixosModules.default
+  ];
 
   security.acme = {
     defaults.email = "${config.custom.username}@${config.networking.domain}";

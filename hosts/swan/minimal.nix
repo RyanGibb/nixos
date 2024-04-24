@@ -1,4 +1,4 @@
-{ pkgs, config, lib, eilean, ... }:
+{ pkgs, config, lib, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];

@@ -7,10 +7,6 @@ in {
   options = {
     custom.website.fn06 = {
       enable = mkEnableOption "fn06's website";
-      zone = mkOption {
-        type = types.str;
-        default = "${config.networking.domain}";
-      };
       domain = mkOption {
         type = types.str;
         default = "fn06.${config.networking.domain}";
@@ -62,17 +58,7 @@ in {
       };
     };
 
-    eilean.services.dns.zones.${cfg.zone}.records = [
-      {
-        name = "${cfg.domain}.";
-        type = "CNAME";
-        data = cfg.cname;
-      }
-      {
-        name = "www.${cfg.domain}.";
-        type = "CNAME";
-        data = cfg.cname;
-      }
-    ];
+    security.acme.certs."${cfg.domain}".extraDomainNames =
+      [ "www.${cfg.domain}" ];
   };
 }
