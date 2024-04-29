@@ -19,6 +19,8 @@ in {
         };
         settings = {
           default.default_calendar = "ryan_freumh_org";
+          keybindings.external_edit = "ctrl e";
+          keybindings.save = "ctrl s";
         };
       };
     };
