@@ -455,8 +455,6 @@ bindsym $mod+p exec @displays@
 bindsym $mod+Control+p output * enable; output * dpms on
 bindsym $mod+Shift+p   exec @wmmsg@ output "$($SCRIPT_DIR/get_focused_output.sh)" disable
 
-bindsym $mod+Shift+c exec echo -n "$(yad --calendar --text "")" | wl-copy
-
 # disable firefox quit shortcut
 bindsym Control+q nop
 
