@@ -57,8 +57,5 @@ in {
           };
       };
     };
-
-    security.acme.certs."${cfg.domain}".extraDomainNames =
-      [ "www.${cfg.domain}" ];
   };
 }
