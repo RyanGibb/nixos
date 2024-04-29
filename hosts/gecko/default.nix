@@ -21,6 +21,7 @@
     machineColour = "blue";
     nvim-lsps = true;
     mail.enable = true;
+    calendar.enable = true;
   };
 
   boot.loader.grub = {

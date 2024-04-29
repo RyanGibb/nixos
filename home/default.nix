@@ -2,7 +2,7 @@
 
 let cfg = config.custom;
 in {
-  imports = [ ./mail.nix ./gui.nix ./i3.nix ./sway.nix ./nvim/default.nix ];
+  imports = [ ./mail.nix ./calendar.nix ./gui.nix ./i3.nix ./sway.nix ./nvim/default.nix ];
 
   options.custom.machineColour = lib.mkOption {
     type = lib.types.str;
