@@ -77,7 +77,7 @@ in {
             "text/html" = "html | colorize";
           };
         };
-        extraBinds = import ./aerc-binds.nix;
+        extraBinds = import ./aerc-binds.nix { inherit pkgs; };
       };
       neomutt = {
         enable = true;
