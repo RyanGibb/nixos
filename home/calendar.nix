@@ -7,6 +7,8 @@ in {
 
   config = lib.mkIf cfg.enable {
     programs = {
+      password-store.enable = true;
+      gpg.enable = true;
       vdirsyncer.enable = true;
       khal = {
         enable = true;
