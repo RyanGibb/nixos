@@ -301,7 +301,7 @@ mode "$mode_gaps" {
  	          gaps outer current plus $outer_gap;\
  	          gaps top current set $top_gap;\
 	          gaps bottom current set $bottom_gap;
-	
+
 	bindsym h gaps horizontal current minus $gaps_inc
 	bindsym j gaps vertical   current plus  $gaps_inc
 	bindsym k gaps vertical   current minus $gaps_inc
@@ -350,44 +350,6 @@ bindsym $mod+Shift+y exec $SCRIPT_DIR/cycle_sink.sh back
 bindsym $mod+n       $volume_mute
 bindsym $mod+Shift+n $volume_mic_mute
 
-set $mode_control_volume Control volume | -/+ | (m) mute | Shift+(m)ic mute
-mode "$mode_control_volume" {
-	bindsym minus         $volume_dec
-	bindsym equal         $volume_inc
-	bindsym Shift+equal   $volume_inc_1
-	bindsym Shift+minus   $volume_dec_1
-	bindsym Control+equal $volume_inc_5
-	bindsym Control+minus $volume_dec_5
-	bindsym n             $volume_mute
-	bindsym Shift+n       $volume_mic_mute
-	
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-}
-
-set $mode_control_player Control player | o/p/[/]
-mode "$mode_control_player" {
-	bindsym o            $play_stop
-	bindsym p            $play_pause
-	bindsym bracketleft  $play_prev
-	bindsym bracketright $play_next
-
-	bindsym 1 exec $SCRIPT_DIR/pause_player.sh 1
-	bindsym 2 exec $SCRIPT_DIR/pause_player.sh 2
-	bindsym 3 exec $SCRIPT_DIR/pause_player.sh 3
-	bindsym 4 exec $SCRIPT_DIR/pause_player.sh 4
-	bindsym 5 exec $SCRIPT_DIR/pause_player.sh 5
-	bindsym 6 exec $SCRIPT_DIR/pause_player.sh 6
-	bindsym 7 exec $SCRIPT_DIR/pause_player.sh 7
-	bindsym 8 exec $SCRIPT_DIR/pause_player.sh 8
-	bindsym 9 exec $SCRIPT_DIR/pause_player.sh 9
-
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-
-	bindsym $mod+p $play_pause; mode "default"
-}
-
 set $mode_control_backlight Control backlight | -/+
 mode "$mode_control_backlight" {
 	bindsym minus         $backlight_dec
@@ -410,26 +372,12 @@ mode "$mode_control_dwt" {
 	bindsym Escape mode "default"
 }
 
-set $mode_airplane Airplane mode (e)nable/(d)isable
-mode "$mode_airplane" {
-	bindsym e exec nmcli r wifi off;  mode "default"
-	bindsym d exec nmcli r wifi on; mode "default"
-
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-}
-
 set $mode_control Control v(V)/p/b/B/t/d/n/a
 mode "$mode_control" {
 	bindsym v mode "$mode_control_volume"
-	bindsym p mode "$mode_control_player"
 	bindsym b mode "$mode_control_backlight"
 	bindsym t mode "$mode_control_dwt"
-	bindsym a mode "$mode_airplane"
 	bindsym d exec $SCRIPT_DIR/dpms_off.sh; mode "default"
-	bindsym Shift+v exec pavucontrol;       mode "default"
-	bindsym Shift+b exec blueman-manager;   mode "default"
-	bindsym n exec $term -e zsh -c nmtui;   mode "default"
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
