@@ -22,7 +22,6 @@ in {
       arandr
       xss-lock
       xsecurelock
-      i3blocks
       redshift
       alacritty
       rofi

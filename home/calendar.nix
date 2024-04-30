@@ -1,7 +1,6 @@
 { pkgs, config, lib, ... }:
 
-let
-  cfg = config.custom.calendar;
+let cfg = config.custom.calendar;
 in {
   options.custom.calendar.enable = lib.mkEnableOption "calendar";
 
@@ -27,9 +26,7 @@ in {
       };
     };
 
-    services = {
-      vdirsyncer.enable = true;
-    };
+    services = { vdirsyncer.enable = true; };
 
     accounts.calendar = {
       basePath = "calendar";
@@ -39,13 +36,13 @@ in {
             enable = true;
             color = "white";
           };
-          vdirsyncer = {
-            enable = true;
-          };
+          vdirsyncer = { enable = true; };
           remote = {
             type = "caldav";
-            url = "https://cal.freumh.org/ryan/f497c073-d027-2aa5-1e58-cbec1bf5a8c7/";
-            passwordCommand = [ "${pkgs.pass}/bin/pass" "show" "calendar/ryan@freumh.org" ];
+            url =
+              "https://cal.freumh.org/ryan/f497c073-d027-2aa5-1e58-cbec1bf5a8c7/";
+            passwordCommand =
+              [ "${pkgs.pass}/bin/pass" "show" "calendar/ryan@freumh.org" ];
             userName = "ryan";
           };
           local = {

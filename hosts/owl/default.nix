@@ -30,7 +30,8 @@
     group = "${config.systemd.services.radicale.serviceConfig.Group}";
   };
   eilean.radicale.enable = true;
-  eilean.radicale.users.${config.eilean.username}.passwordFile = config.age.secrets.radicale-ryan.path;
+  eilean.radicale.users.${config.eilean.username}.passwordFile =
+    config.age.secrets.radicale-ryan.path;
   age.secrets.matrix-shared-secret = {
     file = ../../secrets/matrix-shared-secret.age;
     mode = "770";
@@ -258,7 +259,8 @@
         }
       ];
     };
-    "sirref.org" = patrick-nixos.nixosConfigurations.sirref.config.eilean.services.dns.zones."sirref.org";
+    "sirref.org" =
+      patrick-nixos.nixosConfigurations.sirref.config.eilean.services.dns.zones."sirref.org";
   };
   services.bind.zones.${config.networking.domain}.extraConfig = ''
     dnssec-policy default;

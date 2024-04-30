@@ -19,28 +19,8 @@ client.unfocused        $softgray  $darkgray  $lightgray $purple   $softgray
 client.urgent           $red       $red       $white     $purple   $red
 client.placeholder      #000000    #lightgray $bg        #000000   $lightgray
 
-bar {
-	position bottom
-	status_command i3blocks
-	colors {
-		# bar background color
-		background $bg
-		# text color used for blocks that do not have a color specified.
-		statusline $lightgray
-		# workspaces section            
-		#                    border  backgr. text
-		focused_workspace    $lightgray $lightgray $bg
-		inactive_workspace   $bg       $bg       $lightgray
-		active_workspace     $bg       $bg       $lightgray
-		urgent_workspace     $softgray $softgray $lightgray
-	}
-	workspace_min_width 30px
-	tray_output none
-	@bar_extra@
-}
-
-hide_edge_borders smart
-smart_borders on
+hide_edge_borders none
+smart_borders off
 smart_gaps on
 
 client.background #ffffff

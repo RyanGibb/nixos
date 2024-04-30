@@ -38,10 +38,9 @@ mode "$mode_capture" {
 	bindsym v exec wf-recorder\
 		-a="$(pactl info | sed -En 's/Default Sink: (.*)/\1/p').monitor"\
 		-o $(@wmmsg@ -t get_outputs | jq -r '.[] | select(.type=="output" and .focused).name')\
-		-f $HOME/videos/"$(date '+%Y-%m-%d %H.%M')".mp4\
-		&& pkill -RTMIN+13 i3blocks
+		-f $HOME/videos/"$(date '+%Y-%m-%d %H.%M')".mp4
 
-	bindsym Shift+v exec pkill -SIGINT wf-recorder && pkill -RTMIN+13 i3blocks
+	bindsym Shift+v exec pkill -SIGINT wf-recorder
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"

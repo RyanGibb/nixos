@@ -95,7 +95,8 @@
     "q" = ":close<Enter>";
     "O" = ":open<Enter>";
     "o" = ":open<Enter>";
-    "c" = ":open ${pkgs.libsForQt5.kitinerary}/libexec/kf5/kitinerary-extractor -o ical {} | khal import --batch";
+    "c" =
+      ":open ${pkgs.libsForQt5.kitinerary}/libexec/kf5/kitinerary-extractor -o ical {} | khal import --batch";
     "S" = ":save<space>";
     "|" = ":pipe<space>";
     "d" = ":read<Enter>:move Bin<Enter>";

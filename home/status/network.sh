@@ -11,10 +11,10 @@ if [ ! -z "$SSID" ]; then
 # otherwise, if ethernet connection exists display that
 elif [ ! -z "$(echo $INTERFACES | awk -F : '/ethernet:connected/ {print $4}')" ]; then
 	echo "󰈀 "
-# if wifi is enabled, display x
+# if wifi is enabled, display unlink
 elif [ "$(nmcli r wifi)" == "enabled" ]; then
 	echo " "
-# otherwise, display unlink
+# otherwise, display x
 else
-	echo "x "
+	echo "x"
 fi

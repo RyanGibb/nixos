@@ -38,17 +38,6 @@ END {
 		pct=used/total*100
 	}
 
-	# printf("%.1fG(%.1fG)/%.1fG\n", used, swap_used, total)
-
-	printf("%.f%%(%.f%%)\n", pct, swap_pct)
-
-	# color
-	#if (pct > 90) {		
-	#	print("#FF0000")
-	#} else if (pct > 80) {
-	#	print("#FFAE00")
-	#} else if (pct > 70) {
-	#	print("#FFF600")
-	#}
+	printf(" %.f%%(%.f%%)\n", pct, swap_pct)
 }
 ' /proc/meminfo

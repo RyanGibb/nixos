@@ -21,7 +21,6 @@ in {
     environment.systemPackages = with pkgs; [
       fusuma
       kanshi
-      acpi
       v4l-utils # for qv4l2
     ];
   };

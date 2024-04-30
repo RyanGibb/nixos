@@ -16,7 +16,6 @@ in {
         jq
         swaylock
         swayidle
-        i3blocks
         wl-clipboard
         clipman
         wtype

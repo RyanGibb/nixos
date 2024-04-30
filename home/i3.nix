@@ -55,7 +55,6 @@ in {
         in let i3Filenames = util.listFilesInDir ./wm/i3;
         in (util.concatFilesReplace
           ([ ./wm/config ] ++ wmFilenames ++ i3Filenames) replacements);
-        "i3blocks".source = ./i3blocks;
         "rofi/config.rasi".source = ./rofi.rasi;
       };
     in (util.inDirReplace ./wm/scripts "i3/scripts" replacements) // entries;

@@ -72,7 +72,7 @@ in {
           in let swayFilenames = util.listFilesInDir ./wm/sway;
           in (util.concatFilesReplace
             ([ ./wm/config ] ++ wmFilenames ++ swayFilenames) replacements);
-        "i3blocks".source = ./i3blocks;
+        "status".source = ./status;
       };
     in (util.inDirReplace ./wm/scripts "sway/scripts" replacements) // entries;
 
