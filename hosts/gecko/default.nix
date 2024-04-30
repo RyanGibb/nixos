@@ -105,7 +105,7 @@
     repository = "rest:http://100.64.0.9:8000/${config.networking.hostName}/";
     passwordFile = config.age.secrets.restic-gecko.path;
     initialize = true;
-    paths = [ "/home/ryan}" "/etc/NetworkManager/system-connections" ];
+    paths = [ "/home/ryan" "/etc/NetworkManager/system-connections" ];
     exclude = [
       "/home/ryan/videos"
       "/home/ryan/.thunderbird"
