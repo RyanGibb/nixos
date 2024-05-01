@@ -13,9 +13,9 @@ in {
         enable = true;
         locale = {
           timeformat = "%I:%M%p";
-          dateformat = "%Y-%m-%d";
+          dateformat = "%y-%m-%d";
           longdateformat = "%Y-%m-%d";
-          datetimeformat = "%Y-%m-%d %I:%M%p";
+          datetimeformat = "%y-%m-%d %I:%M%p";
           longdatetimeformat = "%Y-%m-%d %I:%M%p";
         };
         settings = {
