@@ -19,8 +19,7 @@ client.unfocused        $softgray  $darkgray  $lightgray $purple   $softgray
 client.urgent           $red       $red       $white     $purple   $red
 client.placeholder      #000000    #lightgray $bg        #000000   $lightgray
 
-hide_edge_borders none
-smart_borders off
+smart_borders on
 smart_gaps on
 
 client.background #ffffff
