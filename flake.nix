@@ -122,6 +122,8 @@
                     }))
                   ];
               });
+            notmuch = (final.callPackage ./pkgs/notmuch.nix { }).overrideAttrs
+              (o: { doCheck = false; });
           })
         ];
     in rec {

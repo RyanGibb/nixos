@@ -93,6 +93,7 @@ in {
                                          "mu find results"
         '';
       };
+      notmuch.enable = true;
     };
 
     services = {
@@ -159,6 +160,7 @@ in {
               macro index gt "<change-folder>=${folders.trash}<enter>"
             '';
           };
+          notmuch.enable = true;
         };
         "misc@freumh.org" = rec {
           userName = "misc@freumh.org";
@@ -199,6 +201,7 @@ in {
               macro index gt "<change-folder>=${folders.trash}<enter>"
             '';
           };
+          notmuch.enable = true;
         };
         "ryan.gibb@cl.cam.ac.uk" = rec {
           userName = "rtg24@fm.cl.cam.ac.uk";
@@ -251,6 +254,7 @@ in {
               macro index gt "<change-folder>=${folders.trash}<enter>"
             '';
           };
+          notmuch.enable = true;
         };
         "ryangibb321@gmail.com" = rec {
           userName = "ryangibb321@gmail.com";
@@ -308,6 +312,7 @@ in {
               macro index gt "<change-folder>=${folders.trash}<enter>"
             '';
           };
+          notmuch.enable = true;
         };
       };
     };

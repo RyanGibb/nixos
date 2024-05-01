@@ -112,6 +112,8 @@ in {
         # TODO nvim-dap
 
         copilot-vim
+
+        pkgs.notmuch
       ];
     };
   };
