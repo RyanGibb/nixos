@@ -24,4 +24,4 @@ if [ "$BATTERY" != "" ]; then INFOS+=("$BATTERY"); fi
 
 IFS=$'\n'; echo "${INFOS[*]}"
 
-dunstify -r '101010' -t 10 -u low "Status" "`IFS=$'\n'; echo "${INFOS[*]}"`"
+dunstify -r '101010' -t 10000 -u low "Status" "`IFS=$'\n'; echo "${INFOS[*]}"`"
