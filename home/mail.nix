@@ -285,8 +285,15 @@ in {
                 "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com && ${pkgs.mu}/bin/mu index";
               check-mail-timeout = "1m";
               check-mail = "1h";
-              folders-sort =
-                [ "Inbox" "Sidebox" "[Gmail]/'Sent Mail'" "[Gmail]/Drafts" "[Gmail]/'All Mail'" "[Gmail]/Spam" "[Gmail]/Trash" ];
+              folders-sort = [
+                "Inbox"
+                "Sidebox"
+                "[Gmail]/'Sent Mail'"
+                "[Gmail]/Drafts"
+                "[Gmail]/'All Mail'"
+                "[Gmail]/Spam"
+                "[Gmail]/Trash"
+              ];
               copy-to = "'Send Mail'";
               archive = "'All Mail'";
             };
