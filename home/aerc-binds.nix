@@ -188,4 +188,11 @@
     "<C-PgUp>" = ":prev-tab<Enter>";
     "<C-PgDn>" = ":next-tab<Enter>";
   };
+
+  "messages:account=ryangibb321@gmail.com" = {
+    "ga" = ":cf [Gmail]/'All Mail'<Enter>";
+    "gs" = ":cf [Gmail]/'Sent Mail'<Enter>";
+    "Ma" = ":move [Gmail]/'All Mail'<Enter>";
+    "Ms" = ":move [Gmail]/'Sent Mail'<Enter>";
+  };
 }

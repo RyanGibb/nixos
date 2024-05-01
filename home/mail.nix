@@ -286,12 +286,9 @@ in {
               check-mail-timeout = "1m";
               check-mail = "1h";
               folders-sort =
-                [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
-              folder-map = "${pkgs.writeText "folder-map" ''
-                * = [Gmail]/*
-                Sent = 'Sent Mail'
-                Archive = 'All Mail'
-              ''}";
+                [ "Inbox" "Sidebox" "[Gmail]/'Sent Mail'" "[Gmail]/Drafts" "[Gmail]/'All Mail'" "[Gmail]/Spam" "[Gmail]/Trash" ];
+              copy-to = "'Send Mail'";
+              archive = "'All Mail'";
             };
           };
           neomutt = {
