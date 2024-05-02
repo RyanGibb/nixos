@@ -1,4 +1,4 @@
-{ fetchurl, lib, stdenv, makeWrapper
+{ fetchurl, lib, stdenv, makeWrapper, buildEnv
 , pkg-config, gnupg
 , xapian, gmime3, sfsexp, talloc, zlib
 , doxygen, perl, texinfo
@@ -6,7 +6,6 @@
 , python3Packages
 , emacs
 , ruby
-, rubyPackages
 , testers
 , gitUpdater
 , which, dtach, openssl, bash, gdb, man, git
@@ -131,11 +130,24 @@ stdenv.mkDerivation rec {
     make -C vim DESTDIR="$out/share/vim-plugins/notmuch" prefix="" install
     mkdir -p $out/share/nvim
     ln -s $out/share/vim-plugins/notmuch $out/share/nvim/site
-  '' + lib.optionalString (withVim && withRuby) ''
-    cat >> $out/share/vim-plugins/notmuch/plugin/notmuch.vim << EOF
-      let \$RUBYLIB=\$RUBYLIB . ":$out/${ruby.libPath}/${ruby.system}:${rubyPackages.mail}/lib/ruby/gems/${ruby.version.libDir}/gems/mail-${rubyPackages.mail.version}/lib"
+  '' + lib.optionalString (withVim && withRuby) (let
+    gemEnv = buildEnv {
+      name = "notmuch-vim-gems";
+      paths = with ruby.gems; [ mail ];
+      pathsToLink = [ "/lib" "/nix-support" ];
+    };
+  in ''
+    PLUG=$out/share/vim-plugins/notmuch/plugin/notmuch.vim
+    cat >> $PLUG << EOF
+      let \$GEM_PATH=\$GEM_PATH . ":${gemEnv}/${ruby.gemPath}"
+      let \$RUBYLIB=\$RUBYLIB . ":$out/${ruby.libPath}/${ruby.system}"
+      if has('nvim')
     EOF
-  '';
+    for gem in ${gemEnv}/${ruby.gemPath}/gems/*/lib; do
+      echo "ruby \$LOAD_PATH.unshift('$gem')" >> $PLUG
+    done
+    echo 'endif' >> $PLUG
+  '');
 
   passthru = {
     pythonSourceRoot = "notmuch-${version}/bindings/python";
