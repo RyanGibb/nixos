@@ -292,14 +292,15 @@ in {
               folders-sort = [
                 "Inbox"
                 "Sidebox"
-                "[Gmail]/'Sent Mail'"
+                "[Gmail]/Sent Mail"
                 "[Gmail]/Drafts"
-                "[Gmail]/'All Mail'"
+                "[Gmail]/All Mail"
                 "[Gmail]/Spam"
                 "[Gmail]/Trash"
               ];
-              copy-to = "'Send Mail'";
-              archive = "'All Mail'";
+              copy-to = "'[Gmail]/Sent Mail'";
+              archive = "'[Gmail]/All Mail'";
+              postpone = "[Gmail]/Drafts";
             };
           };
           neomutt = {
