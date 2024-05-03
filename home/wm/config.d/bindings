@@ -283,7 +283,7 @@ bindsym button2 kill
 bindsym $mod+i exec i3-workspace-history -mode=forward @i3-workspace-history-args@
 bindsym $mod+o exec i3-workspace-history -mode=back    @i3-workspace-history-args@
 
-set $mode_gaps Gaps | h/j/k/l/-/+ | 0 1 2 3 4
+set $mode_gaps gaps
 mode "$mode_gaps" {
 	bindsym 0 gaps inner current set 0;\
 	          gaps outer current set 0;\
@@ -318,26 +318,26 @@ mode "$mode_gaps" {
 	bindsym Shift+equal  gaps inner current plus  1
 	bindsym Shift+minus  gaps inner current minus 1
 
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-	bindsym $mod+Shift+g mode "default"
+	bindsym Return mode "default";       exec notify-send "default"
+	bindsym Escape mode "default";       exec notify-send "default"
+	bindsym $mod+Shift+g mode "default"; exec notify-send "default"
 }
-bindsym $mod+Shift+g mode "$mode_gaps"
+bindsym $mod+Shift+g mode "$mode_gaps"; exec notify-send "Gaps | h/j/k/l/-/+ | 0 1 2 3 4"
 
-set $mode_system System | l/e/s/h/r/p/u/S
+set $mode_system system
 mode "$mode_system" {
-	bindsym l exec loginctl lock-session,                  mode "default"
-	bindsym e exec @wmmsg@ exit,                           mode "default"
-	bindsym s exec systemctl suspend,                      mode "default"
-	bindsym h exec systemctl hibernate,                    mode "default"
-	bindsym r exec systemctl reboot,                       mode "default"
-	bindsym p exec systemctl poweroff -i,                  mode "default"
-	bindsym u exec systemctl reboot --firmware-setup,      mode "default"
-	bindsym Shift+s exec systemctl suspend-then-hibernate, mode "default"
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
+	bindsym l exec loginctl lock-session,                  mode "default"; exec notify-send "default"
+	bindsym e exec @wmmsg@ exit,                           mode "default"; exec notify-send "default"
+	bindsym s exec systemctl suspend,                      mode "default"; exec notify-send "default"
+	bindsym h exec systemctl hibernate,                    mode "default"; exec notify-send "default"
+	bindsym r exec systemctl reboot,                       mode "default"; exec notify-send "default"
+	bindsym p exec systemctl poweroff -i,                  mode "default"; exec notify-send "default"
+	bindsym u exec systemctl reboot --firmware-setup,      mode "default"; exec notify-send "default"
+	bindsym Shift+s exec systemctl suspend-then-hibernate, mode "default"; exec notify-send "default"
+	bindsym Return mode "default"; exec notify-send "default"
+	bindsym Escape mode "default"; exec notify-send "default"
 }
-bindsym $mod+x mode "$mode_system"
+bindsym $mod+x mode "$mode_system"; exec notify-send "System | l/e/s/h/r/p/u/S"
 
 bindsym @locked@ $mod+equal         $volume_inc
 bindsym @locked@ $mod+minus         $volume_dec
@@ -351,7 +351,7 @@ bindsym $mod+Shift+y exec $SCRIPT_DIR/cycle_sink.sh back
 bindsym $mod+n       $volume_mute
 bindsym $mod+Shift+n $volume_mic_mute
 
-set $mode_control_backlight Control backlight | -/+
+set $mode_control_backlight control_backlight
 mode "$mode_control_backlight" {
 	bindsym minus         $backlight_dec
 	bindsym equal         $backlight_inc
@@ -360,30 +360,29 @@ mode "$mode_control_backlight" {
 	bindsym Control+equal $backlight_inc_5
 	bindsym Control+minus $backlight_dec_5
 	
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
+	bindsym Return mode "default"; exec notify-send "default"
+	bindsym Escape mode "default"; exec notify-send "default"
 }
 
-set $mode_control_dwt Control DWT | (e)nabled (d)isabled
+set $mode_control_dwt control_dwt
 mode "$mode_control_dwt" {
-	bindsym e input type:touchpad dwt enabled;  mode "default"
-	bindsym d input type:touchpad dwt disabled; mode "default"
+	bindsym e input type:touchpad dwt enabled;  mode "default"; exec notify-send "default"
+	bindsym d input type:touchpad dwt disabled; mode "default"; exec notify-send "default"
 	
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
+	bindsym Return mode "default"; exec notify-send "default"
+	bindsym Escape mode "default"; exec notify-send "default"
 }
 
-set $mode_control Control v(V)/p/b/B/t/d/n/a
+set $mode_control control
 mode "$mode_control" {
-	bindsym v mode "$mode_control_volume"
-	bindsym b mode "$mode_control_backlight"
-	bindsym t mode "$mode_control_dwt"
-	bindsym d exec $SCRIPT_DIR/dpms_off.sh; mode "default"
+	bindsym b mode "$mode_control_backlight"; exec notify-send "Control backlight | -/+"
+	bindsym t mode "$mode_control_dwt";       exec notify-send "Control DWT | (e)nabled (d)isabled"
+	bindsym d exec $SCRIPT_DIR/dpms_off.sh;   exec notify-send "DPMS Off"; mode "default"
 
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
+	bindsym Return mode "default"; exec notify-send "default"
+	bindsym Escape mode "default"; exec notify-send "default"
 }
-bindsym $mod+c mode "$mode_control"
+bindsym $mod+c mode "$mode_control"; exec notify-send "Control v(V)/p/b/B/t/d/n/a"
 
 bindsym $mod+b         exec $browser
 bindsym $mod+Shift+b   exec $browser -P secondary
