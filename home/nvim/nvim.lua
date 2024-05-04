@@ -95,6 +95,8 @@ key_mapper('n', '<C-s>', ']s1z=')
 
 key_mapper('n', '<leader>l', '<C-w>l')
 
+key_mapper('n', '!', ':term ')
+
 key_mapper('n', '<leader>G', ':Git ')
 
 vim.api.nvim_create_autocmd('TermOpen', {
