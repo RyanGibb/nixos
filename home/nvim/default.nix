@@ -88,7 +88,7 @@ in {
         telescope-nvim
         telescope-fzf-native-nvim
         trouble-nvim
-        gitsigns-nvim
+        vim-fugitive
 
         obsidian-nvim
         plenary-nvim

@@ -95,6 +95,8 @@ key_mapper('n', '<C-s>', ']s1z=')
 
 key_mapper('n', '<leader>l', '<C-w>l')
 
+key_mapper('n', '<leader>G', ':Git ')
+
 vim.api.nvim_create_autocmd('TermOpen', {
 	pattern = '*',
 	command = 'startinsert',
@@ -154,10 +156,6 @@ vim.keymap.set('n', '<leader>xd', function() require('trouble').toggle('document
 vim.keymap.set('n', '<leader>xq', function() require('trouble').toggle('quickfix') end)
 vim.keymap.set('n', '<leader>xl', function() require('trouble').toggle('loclist') end)
 vim.keymap.set('n', 'gR', function() require('trouble').toggle('lsp_references') end)
-
--- gitsigns
-
-require('gitsigns').setup()
 
 -- lspconfig
 
