@@ -93,11 +93,9 @@ end
 -- go though spelling mistakes
 key_mapper('n', '<C-s>', ']s1z=')
 
-key_mapper('n', '<leader>l', '<C-w>l')
-
 key_mapper('n', '!', ':term ')
 
-key_mapper('n', '<leader>G', ':Git ')
+key_mapper('n', '<leader>v', ':Git ')
 
 vim.api.nvim_create_autocmd('TermOpen', {
 	pattern = '*',
@@ -368,5 +366,5 @@ vim.api.nvim_create_user_command('SaveSession', save_session, { nargs = '?', com
 vim.api.nvim_create_user_command('LoadSession', load_session, { nargs = '?', complete = session_completion })
 
 key_mapper('n', '<leader>s', ':SaveSession<CR>')
-key_mapper('n', '<leader>l', ':LoadSession<CR>')
+key_mapper('n', '<leader>a', ':LoadSession<CR>')
 
