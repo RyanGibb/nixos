@@ -73,6 +73,12 @@ key_mapper('t', '<Esc>', '<C-\\><C-n>')
 key_mapper('n', '<leader>d',
     [[<Cmd>lua vim.api.nvim_put({vim.fn.strftime('%Y-%m-%d')}, 'c', true, true)<CR>]])
 
+key_mapper('n', '!', ':term ')
+
+key_mapper('n', '<leader>v', ':Git ')
+
+key_mapper('n', '<leader>m', ':make<Enter>')
+
 -- if in an SSH session enable OSC 52 system clipboard
 -- required as neovim can't detect alacritty capabilities as it doesn't support XTGETTCAP
 if os.getenv('SSH_TTY') then
@@ -92,10 +98,6 @@ end
 
 -- go though spelling mistakes
 key_mapper('n', '<C-s>', ']s1z=')
-
-key_mapper('n', '!', ':term ')
-
-key_mapper('n', '<leader>v', ':Git ')
 
 vim.api.nvim_create_autocmd('TermOpen', {
 	pattern = '*',
