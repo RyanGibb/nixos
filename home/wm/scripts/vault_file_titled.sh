@@ -2,5 +2,5 @@
 
 title="$(yad --entry --text=Title:)" || exit
 file="$(date '+%Y-%m-%d') $title.md"
-cd ~/projects/vault || exit
+cd ~/vault || exit
 vim "$file"
