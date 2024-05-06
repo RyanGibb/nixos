@@ -276,6 +276,20 @@ cmp.setup {
 			require('luasnip').lsp_expand(args.body)
 		end,
 	},
+	formatting = {
+		format = function(entry, vim_item)
+				vim_item.menu = ({
+					omni = (vim.inspect(vim_item.menu):gsub('%"', "")),
+					nvim_lsp = "[LSP]",
+					nvim_lsp_signature_help = "[Signature]",
+					spell = "[Spell]",
+					buffer = "[Buffer]",
+					path = "[Path]",
+					luasnip = "[Luasnip]",
+					})[entry.source.name]
+				return vim_item
+			end,
+	},
 	mapping = cmp.mapping.preset.insert({
 		['<C-b>'] = cmp.mapping.scroll_docs(-4),
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -288,14 +302,15 @@ cmp.setup {
 			behavior = cmp.ConfirmBehavior.Replace,
 		}),
 	}),
-	sources = cmp.config.sources({
+	sources = {
+		{ priority = 2, name = "omni", trigger_characters = { "{", "\\" } },
 		{ priority = 2, name = 'nvim_lsp' },
 		{ priority = 2, name = 'nvim_lsp_signature_help' },
-		{ priority = 1, name = 'spell' },
+		{ priority = 1, name = 'spell', },
 		{ priority = 1, name = 'buffer', },
-		{ priority = 1, name = 'path' },
+		{ priority = 1, name = 'path', },
 		{ priority = 1, name = 'luasnip' },
-	}),
+	},
 }
 -- `/` cmdline setup.
 cmp.setup.cmdline('/', {
@@ -312,22 +327,6 @@ cmp.setup.cmdline(':', {
 	}, {
 		{ name = 'cmdline' }
 	})
-})
--- vimtex `:h vimtex-complete-nvim-cmp`
-cmp.setup.filetype("tex", {
-	formatting = {
-		format = function(entry, vim_item)
-				vim_item.menu = ({
-					omni = (vim.inspect(vim_item.menu):gsub('%"', "")),
-					buffer = "[Buffer]",
-					})[entry.source.name]
-				return vim_item
-			end,
-	},
-	sources = {
-		{ name = "omni", trigger_characters = { "{", "\\" } },
-		{ name = 'buffer' },
-	},
 })
 
 --- session management
