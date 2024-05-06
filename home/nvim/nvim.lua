@@ -261,6 +261,12 @@ require('ltex-ls').setup {
 
 vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
 
+-- vimtex
+vim.cmd [[
+  filetype plugin indent on
+  syntax enable
+]]
+
 -- nvim-cmp
 
 local cmp = require 'cmp'
@@ -306,6 +312,22 @@ cmp.setup.cmdline(':', {
 	}, {
 		{ name = 'cmdline' }
 	})
+})
+-- vimtex `:h vimtex-complete-nvim-cmp`
+cmp.setup.filetype("tex", {
+	formatting = {
+		format = function(entry, vim_item)
+				vim_item.menu = ({
+					omni = (vim.inspect(vim_item.menu):gsub('%"', "")),
+					buffer = "[Buffer]",
+					})[entry.source.name]
+				return vim_item
+			end,
+	},
+	sources = {
+		{ name = "omni", trigger_characters = { "{", "\\" } },
+		{ name = 'buffer' },
+	},
 })
 
 --- session management

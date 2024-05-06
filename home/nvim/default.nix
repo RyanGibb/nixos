@@ -104,6 +104,8 @@ in {
         nvim-cmp
 
         vimtex
+        cmp-omni
+
         nvim-surround
         comment-nvim
 
