@@ -1,5 +1,5 @@
-require('gruvbox').setup{
-	terminal_colors = false;
+require('gruvbox').setup {
+	terminal_colors = false,
 }
 vim.cmd [[colorscheme gruvbox]]
 vim.api.nvim_command('hi Normal guibg=NONE ctermbg=NONE')
@@ -20,13 +20,13 @@ vim.wo.signcolumn = 'yes'
 vim.o.smartcase = true
 
 vim.o.spelllang = 'en'
-vim.o.spellfile = os.getenv('HOME')..'/.config/vim/spell.en.utf-8.add'
+vim.o.spellfile = os.getenv('HOME') .. '/.config/vim/spell.en.utf-8.add'
 vim.opt_local.spell = true
 vim.opt_local.spelllang = 'en_gb'
 
 vim.wo.number = true
-vim.api.nvim_create_augroup('numbertoggle', {clear = true})
-vim.api.nvim_create_autocmd({'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter'}, {
+vim.api.nvim_create_augroup('numbertoggle', { clear = true })
+vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter' }, {
 	group = 'numbertoggle',
 	pattern = '*',
 	callback = function()
@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd({'BufEnter', 'FocusGained', 'InsertLeave', 'WinEnter
 		end
 	end,
 })
-vim.api.nvim_create_autocmd({'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave'}, {
+vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
 	group = 'numbertoggle',
 	pattern = '*',
 	callback = function()
@@ -56,7 +56,7 @@ local key_mapper = function(mode, key, result)
 		mode,
 		key,
 		result,
-		{noremap = true, silent = true}
+		{ noremap = true, silent = true }
 	)
 end
 
@@ -71,7 +71,7 @@ key_mapper('n', 'ZA', ':cquit<Enter>')
 key_mapper('t', '<Esc>', '<C-\\><C-n>')
 
 key_mapper('n', '<leader>d',
-    [[<Cmd>lua vim.api.nvim_put({vim.fn.strftime('%Y-%m-%d')}, 'c', true, true)<CR>]])
+	[[<Cmd>lua vim.api.nvim_put({vim.fn.strftime('%Y-%m-%d')}, 'c', true, true)<CR>]])
 
 key_mapper('n', '!', ':term ')
 
@@ -112,7 +112,7 @@ require("Comment").setup()
 require('obsidian').setup({
 	dir = '~/vault',
 	note_id_func = function(title)
-	local suffix = ''
+		local suffix = ''
 		if title ~= nil then
 			suffix = ' ' .. title
 		end
@@ -131,7 +131,7 @@ require('obsidian').setup({
 
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {})
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, {})
-vim.keymap.set('n', '<leader>fb', function() require('telescope.builtin').buffers({sort_mru = true}) end, { })
+vim.keymap.set('n', '<leader>fb', function() require('telescope.builtin').buffers({ sort_mru = true }) end, {})
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, {})
 vim.keymap.set('n', '<leader>fc', require('telescope.builtin').command_history, {})
 vim.keymap.set('n', '<leader>fs', require('telescope.builtin').search_history, {})
@@ -148,8 +148,8 @@ require('telescope').load_extension('fzf')
 
 -- trouble
 
-require('trouble').setup{
-	icons = false;
+require('trouble').setup {
+	icons = false,
 }
 
 vim.keymap.set('n', '<leader>xx', function() require('trouble').toggle() end)
@@ -278,17 +278,17 @@ cmp.setup {
 	},
 	formatting = {
 		format = function(entry, vim_item)
-				vim_item.menu = ({
-					omni = (vim.inspect(vim_item.menu):gsub('%"', "")),
-					nvim_lsp = "[LSP]",
-					nvim_lsp_signature_help = "[Signature]",
-					spell = "[Spell]",
-					buffer = "[Buffer]",
-					path = "[Path]",
-					luasnip = "[Luasnip]",
-					})[entry.source.name]
-				return vim_item
-			end,
+			vim_item.menu = ({
+				omni = (vim.inspect(vim_item.menu):gsub('%"', "")),
+				nvim_lsp = "[LSP]",
+				nvim_lsp_signature_help = "[Signature]",
+				spell = "[Spell]",
+				buffer = "[Buffer]",
+				path = "[Path]",
+				luasnip = "[Luasnip]",
+			})[entry.source.name]
+			return vim_item
+		end,
 	},
 	mapping = cmp.mapping.preset.insert({
 		['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -303,7 +303,8 @@ cmp.setup {
 		}),
 	}),
 	sources = {
-		{ priority = 2, name = "omni", trigger_characters = { "{", "\\" } },
+		{ priority = 2, name = "omni",
+			trigger_characters = { "{", "\\" } },
 		{ priority = 2, name = 'nvim_lsp' },
 		{ priority = 2, name = 'nvim_lsp_signature_help' },
 		{ priority = 1, name = 'spell', },
@@ -382,7 +383,7 @@ end
 
 vim.api.nvim_create_autocmd('VimLeave', {
 	pattern = '*',
-	callback = function() save_session({args = ''}) end,
+	callback = function() save_session({ args = '' }) end,
 })
 
 vim.api.nvim_create_user_command('SaveSession', save_session, { nargs = '?', complete = session_completion })
@@ -390,4 +391,3 @@ vim.api.nvim_create_user_command('LoadSession', load_session, { nargs = '?', com
 
 key_mapper('n', '<leader>s', ':SaveSession<CR>')
 key_mapper('n', '<leader>a', ':LoadSession<CR>')
-
