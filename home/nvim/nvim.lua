@@ -290,14 +290,13 @@ cmp.setup {
 			return vim_item
 		end,
 	},
+	-- see https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/mapping.lua
 	mapping = cmp.mapping.preset.insert({
 		['<C-b>'] = cmp.mapping.scroll_docs(-4),
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
 		['<C-Space>'] = cmp.mapping.complete(),
 		['<C-e>'] = cmp.mapping.abort(),
-		['<Tab>'] = cmp.mapping.confirm({
-			select = true
-		}),
+		['<Tab>'] = cmp.mapping.confirm({ select = true }),
 		['<CR>'] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Replace,
 		}),
