@@ -10,42 +10,47 @@ bindsym $mod+Shift+v         exec clipman pick -t wofi -T-i
 bindsym $mod+Control+v       exec wl-copy "$(clipman pick -t STDOUT | head -n 1)"
 bindsym $mod+Shift+Control+v exec wtype "$(clipman pick -t STDOUT | head -n 1)"
 
-set $mode_idle Idle mode i/d/l/s/L
+set $mode_idle idle
 mode "$mode_idle" {
-	bindsym i exec $SCRIPT_DIR/swayidle_inhibit.sh;         mode "default"
-	bindsym d exec $SCRIPT_DIR/swayidle_dpms.sh;            mode "default"
-	bindsym l exec $SCRIPT_DIR/swayidle_lock.sh;            mode "default"
-	bindsym s exec $SCRIPT_DIR/swayidle_suspend.sh;         mode "default"
-	bindsym Shift+l exec $SCRIPT_DIR/swayidle_lock_no_dpms.sh;    mode "default"
+	bindsym i exec $SCRIPT_DIR/swayidle_inhibit.sh;               mode "default"; exec notify-send "idle"
+	bindsym d exec $SCRIPT_DIR/swayidle_dpms.sh;                  mode "default"; exec notify-send "dpms"
+	bindsym l exec $SCRIPT_DIR/swayidle_lock.sh;                  mode "default"; exec notify-send "lock"
+	bindsym s exec $SCRIPT_DIR/swayidle_suspend.sh;               mode "default"; exec notify-send "suspend"
+	bindsym Shift+l exec $SCRIPT_DIR/swayidle_lock_no_dpms.sh;    mode "default"; exec notify-send "lock no dpms"
 
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
+	bindsym Return mode "default"; exec notify-send "default"
+	bindsym Escape mode "default"; exec notify-send "default"
 }
-bindsym $mod+u mode "$mode_idle"
+bindsym $mod+u mode "$mode_idle"; exec notify-send "Idle i/d/l/s/L"
 
 bindsym Print exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | wl-copy
-set $mode_capture Capture c(C)/e(E)/f(F) | v/V
+set $mode_capture capture
 mode "$mode_capture" {
-	bindsym c exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | wl-copy
-	bindsym e exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | swappy -f -
-	bindsym f exec grim -g "$($SCRIPT_DIR/slurp_point.sh)"\
-		$HOME/capture/capture/"$(date '+%Y-%m-%d %H.%M.%S')".png
+    bindsym q exec makoctl dismiss
 
-	bindsym Shift+c exec grim - | wl-copy
-	bindsym Shift+e exec grim - | swappy -f -
-	bindsym Shift+f exec grim $HOME/capture/capture/screenshot"_$(date '+%Y-%m-%d %H.%M.%S')".png
+	bindsym c exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | wl-copy;     mode "default";
+	bindsym e exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | swappy -f -; mode "default;
+	bindsym f exec grim -g "$($SCRIPT_DIR/slurp_point.sh)"\
+		$XDG_PICTURES_DIR/"$(date '+%Y-%m-%d %H.%M.%S')".png;           mode "default";
+
+	bindsym Shift+c exec grim - | wl-copy;     mode "default"; exec notify-send "copied"
+	bindsym Shift+e exec grim - | swappy -f -; mode "default"; exec notify-send "saved"
+	bindsym Shift+f exec grim $XDG_PICTURES_DIR/"$(date '+%Y-%m-%d %H.%M.%S')".png;\
+		mode "default"; exec notify-send "saved to file"
 
 	bindsym v exec wf-recorder\
 		-a="$(pactl info | sed -En 's/Default Sink: (.*)/\1/p').monitor"\
 		-o $(@wmmsg@ -t get_outputs | jq -r '.[] | select(.type=="output" and .focused).name')\
-		-f $HOME/videos/"$(date '+%Y-%m-%d %H.%M')".mp4
+		-f $XDG_VIDEOS_DIR/"$(date '+%Y-%m-%d %H.%M')".mp4;\
+		mode "default";
 
-	bindsym Shift+v exec pkill -SIGINT wf-recorder
+	bindsym Shift+v exec pkill -SIGINT wf-recorder; exec notify-send "stop recording"
 
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
+	bindsym Return mode "default"; exec notify-send "default"
+	bindsym Escape mode "default"; exec notify-send "default"
 }
-bindsym $mod+Print mode "$mode_capture"
+bindsym $mod+Print mode "$mode_capture"; exec notify-send "Capture (c)opy/(e)dit/(f)file c/e/f selection C/E/F output (v)ideo"
+bindsym $mod+Shift+Print exec pkill -SIGINT wf-recorder; exec notify-send "stop recording"
 
 # workaround for https://github.com/alacritty/alacritty/issues/2734
 bindsym $mod+$alt+Return exec WAYLAND_DISPLAY= $term
@@ -55,8 +60,8 @@ bindsym $mod+$alt+Return exec WAYLAND_DISPLAY= $term
 bindsym $mod+$alt+space       exec yad --entry --text input | wl-copy
 bindsym $mod+$alt+Shift+space exec yad --entry --text input | xargs wtype
 
-set $mode_passthrough Pass through
+set $mode_passthrough passthrough
 mode "$mode_passthrough" {
-    bindsym $mod+Delete mode "default"
+    bindsym $mod+Delete mode "default"; notify-send "passthrough"
 }
-bindsym $mod+Delete mode "$mode_passthrough"
+bindsym $mod+Delete mode "$mode_passthrough"; notify-send "passthrough"

@@ -326,14 +326,14 @@ bindsym $mod+Shift+g mode "$mode_gaps"; exec notify-send "Gaps | h/j/k/l/-/+ | 0
 
 set $mode_system system
 mode "$mode_system" {
-	bindsym l exec loginctl lock-session,                  mode "default"; exec notify-send "default"
-	bindsym e exec @wmmsg@ exit,                           mode "default"; exec notify-send "default"
-	bindsym s exec systemctl suspend,                      mode "default"; exec notify-send "default"
-	bindsym h exec systemctl hibernate,                    mode "default"; exec notify-send "default"
-	bindsym r exec systemctl reboot,                       mode "default"; exec notify-send "default"
-	bindsym p exec systemctl poweroff -i,                  mode "default"; exec notify-send "default"
-	bindsym u exec systemctl reboot --firmware-setup,      mode "default"; exec notify-send "default"
-	bindsym Shift+s exec systemctl suspend-then-hibernate, mode "default"; exec notify-send "default"
+	bindsym l exec loginctl lock-session,                  mode "default"; exec notify-send "lock"
+	bindsym e exec @wmmsg@ exit,                           mode "default"; exec notify-send "exit"
+	bindsym s exec systemctl suspend,                      mode "default"; exec notify-send "suspend"
+	bindsym h exec systemctl hibernate,                    mode "default"; exec notify-send "hibernate"
+	bindsym r exec systemctl reboot,                       mode "default"; exec notify-send "reboot"
+	bindsym p exec systemctl poweroff -i,                  mode "default"; exec notify-send "poweroff"
+	bindsym u exec systemctl reboot --firmware-setup,      mode "default"; exec notify-send "uefi/bios"
+	bindsym Shift+s exec systemctl suspend-then-hibernate, mode "default"; exec notify-send "suspend then hibernate"
 	bindsym Return mode "default"; exec notify-send "default"
 	bindsym Escape mode "default"; exec notify-send "default"
 }
@@ -366,8 +366,8 @@ mode "$mode_control_backlight" {
 
 set $mode_control_dwt control_dwt
 mode "$mode_control_dwt" {
-	bindsym e input type:touchpad dwt enabled;  mode "default"; exec notify-send "default"
-	bindsym d input type:touchpad dwt disabled; mode "default"; exec notify-send "default"
+	bindsym e input type:touchpad dwt enabled;  mode "default"; exec notify-send "enabled"
+	bindsym d input type:touchpad dwt disabled; mode "default"; exec notify-send "disabled"
 	
 	bindsym Return mode "default"; exec notify-send "default"
 	bindsym Escape mode "default"; exec notify-send "default"
