@@ -302,14 +302,15 @@ cmp.setup {
 		}),
 	}),
 	sources = {
-		{ priority = 2, name = "omni",
-			trigger_characters = { "{", "\\" } },
-		{ priority = 2, name = 'nvim_lsp' },
-		{ priority = 2, name = 'nvim_lsp_signature_help' },
-		{ priority = 1, name = 'spell', },
-		{ priority = 1, name = 'buffer', },
-		{ priority = 1, name = 'path', },
-		{ priority = 1, name = 'luasnip' },
+		{ name = "omni", trigger_characters = { "{", "\\" } },
+		{ name = 'nvim_lsp' },
+		{ name = 'nvim_lsp_signature_help' },
+		{ name = 'spell', option = {
+			preselect_correct_word = false,
+		}, },
+		{ name = 'buffer', },
+		{ name = 'path', },
+		{ name = 'luasnip' },
 	},
 }
 -- `/` cmdline setup.

@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 
 let
-  obsidian-nvim = (pkgs.vimUtils.buildVimPlugin {
+  obsidian-nvim = pkgs.vimUtils.buildVimPlugin {
     pname = "obsidian.nvim";
     version = "2.6.0";
     src = pkgs.fetchFromGitHub {
@@ -10,8 +10,8 @@ let
       rev = "v2.6.0";
       sha256 = "sha256-+w3XYoobuH17oinPfQxhrizbmQB5IbbulUK69674/Wg=";
     };
-  });
-  ltex-ls-nvim = (pkgs.vimUtils.buildVimPlugin {
+  };
+  ltex-ls-nvim = pkgs.vimUtils.buildVimPlugin {
     pname = "ltex-ls.nvim";
     version = "2.6.0";
     src = pkgs.fetchFromGitHub {
@@ -20,7 +20,18 @@ let
       rev = "c8139ea6b7f3d71adcff121e16ee8726037ffebd";
       sha256 = "sha256-jY3ALr6h88xnWN2QdKe3R0vvRcSNhFWDW56b2NvnTCs=";
     };
-  });
+  };
+  cmp-spell = pkgs.vimUtils.buildVimPlugin {
+    pname = "cmp-spell";
+    version = "2024-05-07";
+    src = pkgs.fetchFromGitHub {
+      owner = "f3fora";
+      repo = "cmp-spell";
+      rev = "694a4e50809d6d645c1ea29015dad0c293f019d6";
+      sha256 = "Gf7HSocvHmTleVQytNYmmN+fFX7kl5sYHQSpUJc0CGI=";
+    };
+    meta.homepage = "https://github.com/f3fora/cmp-spell/";
+  };
   cfg = config.custom;
 in {
   options.custom.nvim-lsps = lib.mkEnableOption "nvim-lsps";
