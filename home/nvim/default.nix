@@ -126,7 +126,20 @@ in {
 
         copilot-vim
 
-        pkgs.notmuch
+        {
+          plugin = pkgs.notmuch;
+          runtime = let
+            notmuch-style = ''
+              let g:notmuch_date_format = '%Y-%m-%d'
+              let g:notmuch_datetime_format = '%Y-%m-%d %I:%M%p'
+            '';
+          in {
+            "ftplugin/notmuch-folders.vim".text = notmuch-style;
+            "ftplugin/notmuch-search.vim".text = notmuch-style;
+            "ftplugin/notmuch-show.vim".text = notmuch-style;
+            "ftplugin/notmuch-compose.vim".text = notmuch-style;
+          };
+        }
       ];
     };
   };
