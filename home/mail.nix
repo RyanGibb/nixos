@@ -71,6 +71,7 @@ in {
           filters = {
             "text/plain" = "wrap -w 90 | colorize";
             "text/calendar" = "calendar";
+            "application/ics" = "calendar";
             "message/delivery-status" = "colorize";
             "message/rfc822" = "colorize";
             "text/html" = "html | colorize";
