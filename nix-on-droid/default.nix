@@ -31,8 +31,6 @@
     htop
     bind
     inetutils
-    dua
-    fd
     gnumake
     bat
     killall
@@ -41,6 +39,11 @@
     fzf
     netcat
     gawk
+
+    # multicore rust command line utils
+    dua
+    fd
+    ripgrep
   ];
 
   environment.etcBackupExtension = ".bak";
