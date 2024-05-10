@@ -51,6 +51,13 @@ vim.opt.timeout = false
 -- remove warning delay
 vim.opt.readonly = false
 
+vim.opt.undodir = vim.fn.stdpath('data') .. 'undodir'
+vim.opt.undofile = true
+
+vim.opt.hlsearch = false
+
+vim.opt.updatetime = 500
+
 local key_mapper = function(mode, key, result)
 	vim.api.nvim_set_keymap(
 		mode,
@@ -70,14 +77,31 @@ key_mapper('n', 'ZA', ':cquit<Enter>')
 
 key_mapper('t', '<Esc>', '<C-\\><C-n>')
 
-key_mapper('n', '<leader>d',
+key_mapper('n', '<leader>D',
 	[[<Cmd>lua vim.api.nvim_put({vim.fn.strftime('%Y-%m-%d')}, 'c', true, true)<CR>]])
 
 key_mapper('n', '!', ':term ')
 
-key_mapper('n', '<leader>v', ':Git ')
+vim.keymap.set('n', '<leader>v', vim.cmd.Git)
 
 key_mapper('n', '<leader>m', ':make<Enter>')
+
+-- go though spelling mistakes
+key_mapper('n', '<C-s>', ']s1z=')
+
+key_mapper('v', '<C-J>', ":m '>+1<CR>gv=gv")
+key_mapper('v', '<C-K>', ":m '<-2<CR>gv=gv")
+key_mapper('n', '<C-d>', '<C-d>zz')
+key_mapper('n', '<C-u>', '<C-u>zz')
+key_mapper('n', 'n', 'nzzzv')
+key_mapper('n', 'N', 'Nzzzv')
+vim.keymap.set('x', '<leader><C-p>', [["_dP]])
+vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]])
+vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
+vim.keymap.set({ 'n', 'v' }, '<leader>p', [["+p]])
+vim.keymap.set({ 'n', 'v' }, '<leader>P', [["+P]])
+vim.keymap.set('n', '<leader>Y', [["+Y]])
+vim.keymap.set('n', '<leader>S', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- if in an SSH session enable OSC 52 system clipboard
 -- required as neovim can't detect alacritty capabilities as it doesn't support XTGETTCAP
@@ -95,17 +119,16 @@ if os.getenv('SSH_TTY') then
 	}
 end
 
-
--- go though spelling mistakes
-key_mapper('n', '<C-s>', ']s1z=')
-
 vim.api.nvim_create_autocmd('TermOpen', {
 	pattern = '*',
 	command = 'startinsert',
 })
 
+--- utils
+
 require("nvim-surround").setup({})
 require("Comment").setup()
+vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 
 --- obsidian
 
@@ -129,8 +152,9 @@ require('obsidian').setup({
 
 -- telescope
 
-vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {})
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').git_files, {})
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, {})
+vim.keymap.set('n', '<leader>fv', require('telescope.builtin').find_files, {})
 vim.keymap.set('n', '<leader>fb', function() require('telescope.builtin').buffers({ sort_mru = true }) end, {})
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, {})
 vim.keymap.set('n', '<leader>fc', require('telescope.builtin').command_history, {})
@@ -143,6 +167,7 @@ vim.keymap.set('n', '<leader>fc', require('telescope.builtin').lsp_incoming_call
 vim.keymap.set('n', '<leader>fo', require('telescope.builtin').lsp_outgoing_calls, {})
 vim.keymap.set('n', '<leader>fi', require('telescope.builtin').lsp_implementations, {})
 vim.keymap.set('n', '<leader>fx', require('telescope.builtin').diagnostics, {})
+vim.keymap.set('n', '<leader>fy', require('telescope.builtin').registers, {})
 
 require('telescope').load_extension('fzf')
 
@@ -180,13 +205,12 @@ On_attach = function(client, bufnr)
 	local bufopts = function(desc)
 		return { noremap = true, silent = true, buffer = bufnr, desc = desc }
 	end
-	vim.keymap.set('n', '<leader>K', vim.lsp.buf.hover, bufopts("Hover"))
-	vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration, bufopts("Goto declaration"))
-	vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, bufopts("Goto definition"))
+	vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts("Hover"))
+	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts("Goto definition"))
 	vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, bufopts("Goto implementation"))
 	vim.keymap.set('n', '<leader>gt', vim.lsp.buf.type_definition, bufopts("Goto type definition"))
-	vim.keymap.set('n', '<leader>gn', vim.diagnostic.goto_next, bufopts("Goto next issue"))
-	vim.keymap.set('n', '<leader>gN', vim.diagnostic.goto_prev, bufopts("Goto prev issue"))
+	vim.keymap.set('n', '[d', vim.diagnostic.goto_next, bufopts("Goto next issue"))
+	vim.keymap.set('n', ']d', vim.diagnostic.goto_prev, bufopts("Goto prev issue"))
 	vim.keymap.set('n', '<leader>gf', vim.lsp.buf.references, bufopts("Show references"))
 	vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts("Code action"))
 	vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, bufopts("Rename"))
@@ -302,7 +326,8 @@ cmp.setup {
 		}),
 	}),
 	sources = {
-		{ name = "omni", trigger_characters = { "{", "\\" } },
+		{ name = "omni",
+			trigger_characters = { "{", "\\" } },
 		{ name = 'nvim_lsp' },
 		{ name = 'nvim_lsp_signature_help' },
 		{ name = 'spell', option = {
@@ -389,5 +414,5 @@ vim.api.nvim_create_autocmd('VimLeave', {
 vim.api.nvim_create_user_command('SaveSession', save_session, { nargs = '?', complete = session_completion })
 vim.api.nvim_create_user_command('LoadSession', load_session, { nargs = '?', complete = session_completion })
 
-key_mapper('n', '<leader>s', ':SaveSession<CR>')
-key_mapper('n', '<leader>a', ':LoadSession<CR>')
+key_mapper('n', '<leader>ss', ':SaveSession<CR>')
+key_mapper('n', '<leader>sl', ':LoadSession<CR>')

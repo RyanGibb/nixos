@@ -119,6 +119,7 @@ in {
 
         nvim-surround
         comment-nvim
+        undotree
 
         ltex-ls-nvim
         nvim-jdtls
