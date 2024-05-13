@@ -77,7 +77,7 @@ key_mapper('n', 'ZA', ':cquit<Enter>')
 
 key_mapper('t', '<Esc>', '<C-\\><C-n>')
 
-key_mapper('n', '<leader>D',
+key_mapper('n', '<leader>t',
 	[[<Cmd>lua vim.api.nvim_put({vim.fn.strftime('%Y-%m-%d')}, 'c', true, true)<CR>]])
 
 key_mapper('n', '!', ':term ')
@@ -91,16 +91,22 @@ key_mapper('n', '<C-s>', ']s1z=')
 
 key_mapper('v', '<C-J>', ":m '>+1<CR>gv=gv")
 key_mapper('v', '<C-K>', ":m '<-2<CR>gv=gv")
+
 key_mapper('n', '<C-d>', '<C-d>zz')
 key_mapper('n', '<C-u>', '<C-u>zz')
 key_mapper('n', 'n', 'nzzzv')
 key_mapper('n', 'N', 'Nzzzv')
-vim.keymap.set('x', '<leader><C-p>', [["_dP]])
-vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]])
+
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
 vim.keymap.set({ 'n', 'v' }, '<leader>p', [["+p]])
 vim.keymap.set({ 'n', 'v' }, '<leader>P', [["+P]])
+vim.keymap.set({ 'n', 'v' }, '<leader>d', [["+d]])
+vim.keymap.set({ 'n', 'v' }, '<leader>D', [["+D]])
 vim.keymap.set('n', '<leader>Y', [["+Y]])
+
+vim.keymap.set('x', '<leader><C-p>', [["_dP]])
+vim.keymap.set({ 'n', 'v' }, '<leader><C-d>', [["_d]])
+
 vim.keymap.set('n', '<leader>S', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- if in an SSH session enable OSC 52 system clipboard
