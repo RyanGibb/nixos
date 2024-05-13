@@ -247,15 +247,21 @@
         }
 
         {
+          name = "www.fn06.org.";
+          type = "CNAME";
+          data = "fn06.org.";
+        }
+
+        {
           name = "@";
           type = "LOC";
           data = "52 12 40.4 N 0 5 31.9 E 22m 10m 10m 10m";
         }
 
         {
-          name = "capybara.fn06.org";
+          name = "capybara.fn06.org.";
           type = "CNAME";
-          data = "fn06.org";
+          data = "fn06.org.";
         }
       ];
     };
