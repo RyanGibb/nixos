@@ -377,7 +377,7 @@
       automatic = true;
       dates = lib.mkForce "03:00";
       randomizedDelaySec = "1hr";
-      options = lib.mkForce "--delete-older-than 3d";
+      options = lib.mkForce "--delete-older-than 2d";
     };
   };
 
