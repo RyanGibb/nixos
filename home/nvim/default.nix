@@ -113,9 +113,6 @@ in {
         ltex-ls-nvim
         nvim-jdtls
         # TODO nvim-dap
-
-        copilot-vim
-
         {
           plugin = pkgs.notmuch;
           runtime = let
