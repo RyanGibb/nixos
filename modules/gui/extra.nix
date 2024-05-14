@@ -10,7 +10,6 @@ in {
       element-desktop
       gomuks
       zotero
-      obsidian
       spotify
       gimp
       texlive.combined.scheme-full

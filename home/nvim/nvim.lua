@@ -136,26 +136,6 @@ require("nvim-surround").setup({})
 require("Comment").setup()
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 
---- obsidian
-
-require('obsidian').setup({
-	dir = '~/vault',
-	note_id_func = function(title)
-		local suffix = ''
-		if title ~= nil then
-			suffix = ' ' .. title
-		end
-		return tostring(os.date('%Y-%m-%d')) .. suffix
-	end,
-	disable_frontmatter = true,
-	attachments = {
-		img_folder = '',
-	},
-	ui = {
-		enable = false,
-	},
-})
-
 -- telescope
 
 vim.keymap.set('n', '<leader>f', require('telescope.builtin').find_files, {})

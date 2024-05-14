@@ -1,16 +1,6 @@
 { pkgs, config, lib, ... }:
 
 let
-  obsidian-nvim = pkgs.vimUtils.buildVimPlugin {
-    pname = "obsidian.nvim";
-    version = "2.6.0";
-    src = pkgs.fetchFromGitHub {
-      owner = "epwalsh";
-      repo = "obsidian.nvim";
-      rev = "v2.6.0";
-      sha256 = "sha256-+w3XYoobuH17oinPfQxhrizbmQB5IbbulUK69674/Wg=";
-    };
-  };
   ltex-ls-nvim = pkgs.vimUtils.buildVimPlugin {
     pname = "ltex-ls.nvim";
     version = "2.6.0";
@@ -101,7 +91,6 @@ in {
         trouble-nvim
         vim-fugitive
 
-        obsidian-nvim
         plenary-nvim
         pkgs.ripgrep
 

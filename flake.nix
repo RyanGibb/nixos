@@ -149,8 +149,6 @@
                 nixpkgs = {
                   config.allowUnfree = true;
                   config.permittedInsecurePackages = [
-                    # obsidian
-                    "electron-25.9.0"
                     # https://github.com/nix-community/nixd/issues/357
                     "nix-2.16.2"
                   ];
