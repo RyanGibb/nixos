@@ -46,7 +46,8 @@ in {
           clang-tools
           typst-lsp
         ];
-      extraLuaConfig = builtins.readFile ./nvim.lua;
+      extraLuaConfig = builtins.readFile ./nvim.lua +
+        (if cfg.nvim-lsps then builtins.readFile ./nvim.lua else "");
       # undo transparent background
       # + "colorscheme gruvbox";
       plugins = with pkgs.vimPlugins; [
@@ -110,9 +111,6 @@ in {
         comment-nvim
         undotree
 
-        ltex-ls-nvim
-        nvim-jdtls
-        # TODO nvim-dap
         {
           plugin = pkgs.notmuch;
           runtime = let
@@ -127,6 +125,10 @@ in {
             "ftplugin/notmuch-compose.vim".text = notmuch-style;
           };
         }
+      ] ++ lib.lists.optionals cfg.nvim-lsps [
+        ltex-ls-nvim
+        nvim-jdtls
+        # TODO nvim-dap
       ];
     };
   };
