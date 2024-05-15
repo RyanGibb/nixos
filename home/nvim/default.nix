@@ -50,86 +50,87 @@ in {
         + (if cfg.nvim-lsps then builtins.readFile ./lsp.lua else "");
       # undo transparent background
       # + "colorscheme gruvbox";
-      plugins = with pkgs.vimPlugins; [
-        {
-          plugin = nvim-lspconfig;
-          runtime = let
-            ml-style = ''
-              setlocal expandtab
-              setlocal shiftwidth=2
-              setlocal tabstop=2
-              setlocal softtabstop=2
-            '';
-          in {
-            # format-flowed
-            "ftplugin/mail.vim".text = ''
-              setlocal tw=72
-              set formatoptions+=w
-            '';
-            "ftplugin/nix.vim".text = ml-style;
-            "ftplugin/ocaml.vim".text = ml-style;
-            "after/ftplugin/markdown.vim".text = ''
-              set com-=fb:-
-              set com+=b:-\ [\ ],b:-\ [x],b:-
-              set formatoptions+=ro
-            '';
-            "ftplugin/java.lua".text = ''
-              local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
-              local workspace_dir = '~/.cache/jdt/' .. project_name
-              require('jdtls').start_or_attach {
-              	on_attach = On_attach,
-              	capabilities = Capabilities,
-                cmd = { 'jdt-language-server', '-data', workspace_dir, },
-                root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
-              }
-            '';
-          };
-        }
-        gruvbox-nvim
+      plugins = with pkgs.vimPlugins;
+        [
+          {
+            plugin = nvim-lspconfig;
+            runtime = let
+              ml-style = ''
+                setlocal expandtab
+                setlocal shiftwidth=2
+                setlocal tabstop=2
+                setlocal softtabstop=2
+              '';
+            in {
+              # format-flowed
+              "ftplugin/mail.vim".text = ''
+                setlocal tw=72
+                set formatoptions+=w
+              '';
+              "ftplugin/nix.vim".text = ml-style;
+              "ftplugin/ocaml.vim".text = ml-style;
+              "after/ftplugin/markdown.vim".text = ''
+                set com-=fb:-
+                set com+=b:-\ [\ ],b:-\ [x],b:-
+                set formatoptions+=ro
+              '';
+              "ftplugin/java.lua".text = ''
+                local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+                local workspace_dir = '~/.cache/jdt/' .. project_name
+                require('jdtls').start_or_attach {
+                	on_attach = On_attach,
+                	capabilities = Capabilities,
+                  cmd = { 'jdt-language-server', '-data', workspace_dir, },
+                  root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+                }
+              '';
+            };
+          }
+          gruvbox-nvim
 
-        telescope-nvim
-        telescope-fzf-native-nvim
-        trouble-nvim
-        vim-fugitive
+          telescope-nvim
+          telescope-fzf-native-nvim
+          trouble-nvim
+          vim-fugitive
 
-        plenary-nvim
-        pkgs.ripgrep
+          plenary-nvim
+          pkgs.ripgrep
 
-        cmp-nvim-lsp
-        cmp-nvim-lsp-signature-help
-        cmp-path
-        cmp-buffer
-        cmp-cmdline
-        cmp-spell
-        luasnip
-        nvim-cmp
+          cmp-nvim-lsp
+          cmp-nvim-lsp-signature-help
+          cmp-path
+          cmp-buffer
+          cmp-cmdline
+          cmp-spell
+          luasnip
+          nvim-cmp
 
-        vimtex
-        cmp-omni
+          vimtex
+          cmp-omni
 
-        nvim-surround
-        comment-nvim
-        undotree
+          nvim-surround
+          comment-nvim
+          undotree
 
-        {
-          plugin = pkgs.notmuch;
-          runtime = let
-            notmuch-style = ''
-              let g:notmuch_date_format = '%Y-%m-%d'
-              let g:notmuch_datetime_format = '%Y-%m-%d %I:%M%p'
-            '';
-          in {
-            "ftplugin/notmuch-folders.vim".text = notmuch-style;
-            "ftplugin/notmuch-search.vim".text = notmuch-style;
-            "ftplugin/notmuch-show.vim".text = notmuch-style;
-            "ftplugin/notmuch-compose.vim".text = notmuch-style;
-          };
-        }
-      ] ++ lib.lists.optionals cfg.nvim-lsps [
-        ltex-ls-nvim
-        nvim-jdtls
-        # TODO nvim-dap
-      ];
+          {
+            plugin = pkgs.notmuch;
+            runtime = let
+              notmuch-style = ''
+                let g:notmuch_date_format = '%Y-%m-%d'
+                let g:notmuch_datetime_format = '%Y-%m-%d %I:%M%p'
+              '';
+            in {
+              "ftplugin/notmuch-folders.vim".text = notmuch-style;
+              "ftplugin/notmuch-search.vim".text = notmuch-style;
+              "ftplugin/notmuch-show.vim".text = notmuch-style;
+              "ftplugin/notmuch-compose.vim".text = notmuch-style;
+            };
+          }
+        ] ++ lib.lists.optionals cfg.nvim-lsps [
+          ltex-ls-nvim
+          nvim-jdtls
+          # TODO nvim-dap
+        ];
     };
   };
 }
