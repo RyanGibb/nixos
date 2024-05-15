@@ -73,24 +73,7 @@
                   });
               });
             # https://github.com/swaywm/sway/pull/7226
-            sway-unwrapped = prev.callPackage ./pkgs/sway-im/package.nix {
-              libdrm = final.overlay-unstable.libdrm;
-              wlroots = prev.callPackage ./pkgs/wlroots/default.nix {
-                # for libdrm >=2.4.120
-                mesa = final.overlay-unstable.mesa;
-                wayland-protocols = prev.wayland-protocols.overrideAttrs
-                  (old: rec {
-                    pname = "wayland-protocols";
-                    version = "1.33";
-                    src = prev.fetchurl {
-                      url =
-                        "https://gitlab.freedesktop.org/wayland/${pname}/-/releases/${version}/downloads/${pname}-${version}.tar.xz";
-                      hash =
-                        "sha256-lPDFCwkNbmGgP2IEhGexmrvoUb5OEa57NvZfi5jDljo=";
-                    };
-                  });
-              };
-            };
+            sway-unwrapped = final.overlay-unstable.sway-unwrapped;
             neovim-unwrapped = if neovim.packages ? ${system} then
               neovim.packages.${system}.default
             else
