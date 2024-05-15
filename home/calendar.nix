@@ -26,7 +26,10 @@ in {
       };
     };
 
-    services = { vdirsyncer.enable = true; };
+    services = {
+      vdirsyncer.enable = true;
+      gpg-agent.enable = true;
+    };
 
     accounts.calendar = {
       basePath = "calendar";
