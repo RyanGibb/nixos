@@ -403,7 +403,4 @@ bindsym $mod+p exec @displays@
 bindsym $mod+Control+p output * enable; output * dpms on
 bindsym $mod+Shift+p   exec @wmmsg@ output "$($SCRIPT_DIR/get_focused_output.sh)" disable
 
-# disable firefox quit shortcut
-bindsym Control+q nop
-
 focus_on_window_activation smart
