@@ -36,20 +36,12 @@
   environment.systemPackages = with pkgs; [
     dell-command-configure
     (python3.withPackages (p: with p; [ numpy matplotlib pandas ]))
-    python39Packages.pip
-    jupyter
-    #vagrant
-    discord
-    #teams
     wine64
-    anki
     lsof
     wally-cli
     gthumb
     restic
-    jellyfin-media-player
     mosquitto
-    gnome.gnome-calendar
   ];
 
   services.gnome.evolution-data-server.enable = true;
