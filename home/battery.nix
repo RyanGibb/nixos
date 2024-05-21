@@ -11,20 +11,19 @@ in {
         ExecStart = pkgs.writeScript "battery_monitor.sh" ''
           #!${pkgs.bash}/bin/bash
 
+          battery=/sys/class/power_supply/BAT0
+
           while :
           do
-          	echo "$(${pkgs.acpi}/bin/acpi -b)"\
-          		  | ${pkgs.gawk}/bin/awk -F'[,:%]' '{print $2; print $3}' | {
-          		read -r status
-          		read -r capacity
+          	status="$(${pkgs.coreutils}/bin/cat $battery/status)"
+          	capacity="$(${pkgs.coreutils}/bin/cat $battery/capacity)"
 
-          		if [ "$status" = Discharging -a "$capacity" -lt 5 ]; then
-          			logger "Critical battery threshold"
-          			systemctl hibernate
-          		elif [ "$status" = Discharging -a "$capacity" -lt 10 ]; then
-          			notify-send "warning: battery at $capacity%"
-          		fi
-          	}
+          	if [ "$status" = Discharging -a "$capacity" -lt 5 ]; then
+          		logger "Critical battery threshold"
+          		systemctl hibernate
+          	elif [ "$status" = Discharging -a "$capacity" -lt 10 ]; then
+          		notify-send "warning: battery at $capacity%"
+          	fi
           	${pkgs.coreutils}/bin/sleep 60
           done
         '';
