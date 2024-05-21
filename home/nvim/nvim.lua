@@ -5,6 +5,7 @@ vim.cmd [[colorscheme gruvbox]]
 vim.api.nvim_command('hi Normal guibg=NONE ctermbg=NONE')
 
 vim.o.mouse = 'a'
+vim.o.mousemodel = 'extend'
 
 vim.o.shiftwidth = 4
 vim.o.tabstop = 4
