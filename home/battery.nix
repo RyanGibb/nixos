@@ -13,15 +13,10 @@ in {
 
           while :
           do
-          	echo "$(${pkgs.coreutils}/bin/date -Ins) $(${pkgs.acpi}/bin/acpi -b)"\
-          		| ${pkgs.coreutils}/bin/tee -a ~/.bat_hist\
-          		| ${pkgs.gawk}/bin/awk -F'[,:%]' '{print $6; print $7}' | {
+          	echo "$(${pkgs.acpi}/bin/acpi -b)"\
+          		  | ${pkgs.gawk}/bin/awk -F'[,:%]' '{print $2; print $3}' | {
           		read -r status
           		read -r capacity
-
-          		#if [ "$status" = Charging -o "$status" = Full ]; then
-          		#	~/.config/sway/scripts/swayidle_lock.sh
-          		#fi
 
           		if [ "$status" = Discharging -a "$capacity" -lt 5 ]; then
           			logger "Critical battery threshold"

@@ -79,6 +79,8 @@ in {
     services.gammastep = {
       enable = true;
       provider = "geoclue2";
+      temperature.day = 6500;
     };
+    systemd.user.services.gammastep.Service.ExecStart = lib.mkForce "gammastep -r";
   };
 }
