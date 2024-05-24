@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+INFOS=()
+
+DATE=`date "+%a %Y-%m-%d %I:%M:%S%p"`
+INFOS+=("$DATE")
+
+WORKSPACE="`$(dirname "$0")/../lib/workspace.sh`"
+if [ "$WORKSPACE" != "" ]; then INFOS+=("$WORKSPACE"); fi
+MAIL="`$(dirname "$0")/../lib/mail.sh`"
+if [ "$MAIL" != "" ]; then INFOS+=("$MAIL"); fi
+IDLE="`$(dirname "$0")/../lib/idle.sh`"
+if [ "$IDLE" != "" ]; then INFOS+=("$IDLE"); fi
+INFOS+=("`$(dirname "$0")/../lib/disk.sh`");
+INFOS+=("`$(dirname "$0")/../lib/cpu.sh`");
+INFOS+=("`$(dirname "$0")/../lib/temperature.sh`");
+INFOS+=("`$(dirname "$0")/../lib/load_average.sh`");
+INFOS+=("`$(dirname "$0")/../lib/memory.sh`");
+INFOS+=("`$(dirname "$0")/../lib/network.sh`");
+BACKLIGHT="`$(dirname "$0")/../lib/backlight.sh`"
+if [ "$BACKLIGHT" != "" ]; then INFOS+=("$BACKLIGHT"); fi
+PULSE="`$(dirname "$0")/../lib/pulse.sh`"
+if [ "$PULSE" != "" ]; then INFOS+=("$PULSE"); fi
+BATTERY="`$(dirname "$0")/../lib/battery.sh`"
+if [ "$BATTERY" != "" ]; then INFOS+=("$BATTERY"); fi
+
+IFS=$'\n'; echo "${INFOS[*]}"
+
+dunstify -r '101010' -t 10000 -u low "Status" "`IFS=$'\n'; echo "${INFOS[*]}"`"

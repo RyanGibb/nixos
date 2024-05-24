@@ -1,6 +1,16 @@
 { pkgs, config, lib, ... }:
 
 let cfg = config.custom;
+    status = pkgs.stdenv.mkDerivation {
+      name = "status";
+
+      src = ./status;
+
+      installPhase = ''
+        mkdir -p $out
+        cp -r * $out
+      '';
+    };
 in {
   imports = [
     ./mail.nix
@@ -56,6 +66,7 @@ in {
       ripgrep
       toot
       iamb
+      status
     ];
 
     home.shellAliases = {

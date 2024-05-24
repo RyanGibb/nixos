@@ -171,8 +171,7 @@ bindsym $mod+$alt+Control+0 exec @wmmsg@ rename workspace to $ws20
 bindsym $mod+Shift+numbersign move scratchpad
 bindsym $mod+numbersign scratchpad show
 
-bindsym $mod+Escape exec $HOME/.config/status/indicator.sh
-bindsym $mod+Shift+Escape exec notify-send "workspace: `$SCRIPT_DIR/get_cur_ws_name.sh`"
+bindsym $mod+Escape exec st
 
 # grave=`
 bindsym $mod+grave workspace back_and_forth
