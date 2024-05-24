@@ -196,7 +196,40 @@ in {
               tmux set-option status off
           fi
         '';
+        # https://github.com/ThePrimeagen/.dotfiles/blob/master/tmux/.tmux.conf
+        sessionizer = pkgs.writeScript "toggle-status-bar.sh" ''
+          #!/usr/bin/env bash
+
+          if [[ $# -eq 1 ]]; then
+              selected=$1
+          else
+              selected=$(find ~ -not -path '*/.*' -maxdepth 2 -type d | fzf)
+          fi
+
+          if [[ -z $selected ]]; then
+              exit 0
+          fi
+
+          selected_name=$(basename "$selected" | tr . _)
+          tmux_running=$(pgrep tmux)
+
+          if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+              tmux new-session -s $selected_name -c $selected
+              exit 0
+          fi
+
+          if ! tmux has-session -t=$selected_name 2> /dev/null; then
+              tmux new-session -ds $selected_name -c $selected
+          fi
+
+          tmux switch-client -t $selected_name
+        '';
       in ''
+        # alternative modifier
+        unbind C-b
+        set-option -g prefix C-a
+        bind-key C-a send-prefix
+
         set-window-option -g mode-keys vi
         set-option -g mouse on
         set-option -g set-titles on
@@ -217,6 +250,17 @@ in {
         set-option -g update-environment XDG_VTNR
         # Allow clipboard with OSC-52 work
         set -s set-clipboard on
+        # toggle
+        bind -r ^ last-window
+        # vim copy
+        bind -T copy-mode-vi v send-keys -X begin-selection
+        bind -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+        # find
+        bind-key -r f run-shell "tmux neww ${sessionizer}"
+        # reload
+        bind r source-file ~/.config/tmux/tmux.conf
+        # kill unattached
+        bind-key K run-shell 'tmux ls | grep -v attached | cut -d: -f1 | xargs -I {} tmux kill-window -t {}'
       '';
     };
 
