@@ -28,7 +28,7 @@ in {
         WALLPAPER = let wallpaper = ./wallpaper.jpg;
         in pkgs.runCommand (builtins.baseNameOf wallpaper) { }
         "cp ${wallpaper} $out";
-
+        TERMINAL = "alacritty";
       };
       pointerCursor = {
         name = "Adwaita";

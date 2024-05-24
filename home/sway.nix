@@ -29,28 +29,25 @@ in {
   options.custom.gui.sway.enable = lib.mkEnableOption "sway";
 
   config = lib.mkIf cfg.enable {
-    home.sessionVariables = {
-      QT_QPA_PLATFORM = "wayland";
-      SDL_VIDEODRIVER = "wayland";
-      MOZ_ENABLE_WAYLAND = 1;
-      MOZ_DBUS_REMOTE = 1;
-      QT_STYLE_OVERRIDE = "Fusion";
-      TERMINAL = "alacritty";
-      WLR_NO_HARDWARE_CURSORS = 1;
-      NIXOS_OZONE_WL = 1;
-
-      # for intellij
-      _JAVA_AWT_WM_NONREPARENTING = 1;
-
-      # for screensharing
-      XDG_SESSION_TYPE = "wayland";
-      XDG_CURRENT_DESKTOP = "sway";
-    };
-
     home.file.".zprofile".text = ''
       # Autostart sway at login on TTY 1
       if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
         source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+        export QT_QPA_PLATFORM="wayland"
+        export SDL_VIDEODRIVER="wayland"
+        export MOZ_ENABLE_WAYLAND=1
+        export MOZ_DBUS_REMOTE=1
+        export QT_STYLE_OVERRIDE="Fusion"
+        export WLR_NO_HARDWARE_CURSORS=1
+        export NIXOS_OZONE_WL=1
+
+        # for intellij
+        export _JAVA_AWT_WM_NONREPARENTING=1
+
+        # for screensharing
+        export XDG_SESSION_TYPE="wayland"
+        export XDG_CURRENT_DESKTOP="sway"
+
       	exec sway -d 2> $HOME/.sway_log
       fi
     '';
