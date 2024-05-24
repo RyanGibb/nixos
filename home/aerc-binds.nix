@@ -171,14 +171,19 @@
   };
 
   "compose::review" = {
-    "y" = ":send -a flat<Enter>";
-    "Y" = ":send<Enter>";
+    "y" = ":send<Enter>";
+    "Y" = ":send -a flat<Enter>";
     "q" = ":abort<Enter>";
     "v" = ":preview<Enter>";
     "p" = ":postpone<Enter>";
     "e" = ":edit<Enter>";
     "a" = ":attach -m<space>";
     "d" = ":detach<space>";
+  };
+
+  "compose::review:folder=Inbox" = {
+    "y" = ":send -a flat<Enter>";
+    "Y" = ":send<Enter>";
   };
 
   terminal = {
