@@ -1165,11 +1165,11 @@
     },
     "nixpkgs_7": {
       "locked": {
-        "lastModified": 1715395895,
-        "narHash": "sha256-DreMqi6+qa21ffLQqhMQL2XRUkAGt3N7iVB5FhJKie4=",
+        "lastModified": 1716361217,
+        "narHash": "sha256-mzZDr00WUiUXVm1ujBVv6A0qRd8okaITyUp4ezYRgc4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "71bae31b7dbc335528ca7e96f479ec93462323ff",
+        "rev": "46397778ef1f73414b03ed553a3368f0e7e33c2f",
         "type": "github"
       },
       "original": {
@@ -1484,11 +1484,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1715602085,
-        "narHash": "sha256-pkDtbzOeyxNYK1D4BDZ4/e1EfCdyTWhcaJICBaji6uU=",
+        "lastModified": 1716196427,
+        "narHash": "sha256-IW+LYPoRsNI7movrAnGaC80JFaBNGPjtuQkMNY6fgd0=",
         "ref": "refs/heads/master",
-        "rev": "b30f098c61bed35636ccaef6bd5a5d3063ca07e8",
-        "revCount": 518,
+        "rev": "52622d6223e2d1b42ebb2c9823e3acd552093b1f",
+        "revCount": 519,
         "type": "git",
         "url": "ssh://git@github.com/RyanGibb/website.git"
       },
