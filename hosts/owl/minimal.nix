@@ -14,10 +14,9 @@
     "yellow";
 
   boot.tmp.cleanOnBoot = true;
-  zramSwap.enable = true;
 
   swapDevices = [{
     device = "/var/swap";
-    size = 2048;
+    size = 4096;
   }];
 }
