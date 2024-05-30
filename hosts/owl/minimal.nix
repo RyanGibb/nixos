@@ -14,9 +14,4 @@
     "yellow";
 
   boot.tmp.cleanOnBoot = true;
-
-  swapDevices = [{
-    device = "/var/swap";
-    size = 4096;
-  }];
 }

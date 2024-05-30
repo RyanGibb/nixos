@@ -13,9 +13,13 @@
     fsType = "ext4";
   };
 
-  networking.useDHCP = false;
+  swapDevices = [{
+    device = "/var/swap";
+    size = 2048;
+  }];
 
   networking = {
+    useDHCP = false;
     interfaces."enX0" = {
       ipv4.addresses = [{
         address = "128.232.113.136";

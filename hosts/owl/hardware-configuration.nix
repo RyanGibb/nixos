@@ -6,10 +6,17 @@
   boot.initrd.availableKernelModules =
     [ "ata_piix" "uhci_hcd" "xen_blkfront" "vmw_pvscsi" ];
   boot.initrd.kernelModules = [ "nvme" ];
+
   fileSystems."/" = {
     device = "/dev/sda1";
     fsType = "ext4";
   };
+
+  swapDevices = [{
+    device = "/var/swap";
+    size = 4096;
+  }];
+
   networking = {
     interfaces."enp1s0" = {
       ipv6.addresses = [{
@@ -22,5 +29,6 @@
       interface = "enp1s0";
     };
   };
+
   nixpkgs.hostPlatform = "x86_64-linux";
 }

@@ -8,7 +8,6 @@ in {
     ./external-hdd-backup.nix
     ./freumh.nix
     ./gui/default.nix
-    ./gui/extra.nix
     ./gui/i3.nix
     ./gui/kde.nix
     ./gui/sway.nix
@@ -24,6 +23,7 @@ in {
     ./tailscale.nix
     ./use-nix-cache.nix
     ./workstation.nix
+    ./zsa.nix
   ];
 
   options.custom = {

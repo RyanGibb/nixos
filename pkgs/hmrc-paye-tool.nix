@@ -9,7 +9,8 @@ let
     inherit version;
 
     src = fetchurl {
-      url = "https://www.gov.uk/government/uploads/uploaded/hmrc/payetools-rti-${version}-linux.zip";
+      url =
+        "https://www.gov.uk/government/uploads/uploaded/hmrc/payetools-rti-${version}-linux.zip";
       hash = "sha256-QOW6Loqg001AcqWX/TOH6wvI2uAY4qNyFvQzCVEe8VU=";
     };
 
@@ -45,28 +46,29 @@ let
 in buildFHSUserEnv {
   name = "hmrc-paye-tools-fhs";
 
-  targetPkgs = pkgs: (with pkgs; [
-    glibc
-    zlib
-    fontconfig
-    glib
-    libpng
-    freetype
-    xorg.libSM
-    xorg.libICE
-    xorg.libXrender
-    xorg.libXext
-    xorg.libX11
-    xorg.libXt
-    xorg.libXau
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-    gst_all_1.gst-libav
-    gst_all_1.gst-vaapi
-    sqlite
-    libGL
-    gtk2
-  ]);
+  targetPkgs = pkgs:
+    (with pkgs; [
+      glibc
+      zlib
+      fontconfig
+      glib
+      libpng
+      freetype
+      xorg.libSM
+      xorg.libICE
+      xorg.libXrender
+      xorg.libXext
+      xorg.libX11
+      xorg.libXt
+      xorg.libXau
+      gst_all_1.gstreamer
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-libav
+      gst_all_1.gst-vaapi
+      sqlite
+      libGL
+      gtk2
+    ]);
   runScript = "${package}/rti.linux";
 
   meta = with lib; {

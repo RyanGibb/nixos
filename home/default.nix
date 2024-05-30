@@ -1,16 +1,6 @@
 { pkgs, config, lib, ... }:
 
 let cfg = config.custom;
-    status = pkgs.stdenv.mkDerivation {
-      name = "status";
-
-      src = ./status;
-
-      installPhase = ''
-        mkdir -p $out
-        cp -r * $out
-      '';
-    };
 in {
   imports = [
     ./mail.nix
@@ -35,38 +25,34 @@ in {
       BROWSER = "firefox"; # urlview
       GOPATH = "$HOME/.go";
     };
-    home.packages = with pkgs; [
-      deploy-rs
+    home.packages = let
+      status = pkgs.stdenv.mkDerivation {
+        name = "status";
+
+        src = ./status;
+
+        installPhase = ''
+          mkdir -p $out
+          cp -r * $out
+        '';
+      };
+    in with pkgs; [
+      status
       tree
       htop
-      bind
+      gnumake
+      killall
       inetutils
+      nmap
       dua
       fd
-      nix-prefetch-git
-      gnumake
-      vlock
       bat
-      killall
-      nmap
+      ripgrep
       gcc
       fzf
-      tcpdump
-      sshfs
       nix-tree
-      #atuin
-      git-crypt
       jq
       bc
-      pandoc
-      w3m
-      ranger
-      bluetuith
-      powertop
-      ripgrep
-      toot
-      iamb
-      status
     ];
 
     home.shellAliases = {
@@ -243,7 +229,7 @@ in {
         # https://stackoverflow.com/questions/62182401/neovim-screen-lagging-when-switching-mode-from-insert-to-normal
         # locking
         set -s escape-time 0
-        set -g lock-command vlock
+        set -g lock-command ${pkgs.vlock}/bin/vlock
         set -g lock-after-time 0 # Seconds; 0 = never
         bind L lock-session
         # for .zprofile display environment starting https://github.com/tmux/tmux/issues/3483

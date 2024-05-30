@@ -20,7 +20,10 @@
     fsType = "ext4";
   };
 
-  swapDevices = [ ];
+  swapDevices = [{
+    device = "/var/swap";
+    size = 1024;
+  }];
 
   networking = {
     useDHCP = false;

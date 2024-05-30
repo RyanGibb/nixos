@@ -14,9 +14,4 @@
     "green";
 
   services.openssh.openFirewall = true;
-
-  swapDevices = [{
-    device = "/var/swap";
-    size = 1024;
-  }];
 }

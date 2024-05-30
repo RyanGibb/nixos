@@ -17,11 +17,6 @@
   home-manager.users.${config.custom.username}.config.custom.machineColour =
     "green";
 
-  swapDevices = [{
-    device = "/var/swap";
-    size = 2048;
-  }];
-
   environment.systemPackages = with pkgs; [ xe-guest-utilities ];
 
   networking.domain = "cl.freumh.org";

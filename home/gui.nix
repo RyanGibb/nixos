@@ -159,15 +159,5 @@ in {
         publicShare = "$HOME/";
       };
     };
-
-    services.kdeconnect.enable = true;
-
-    services.spotifyd = {
-      enable = true;
-      settings.global = {
-        username = "ryangibb321@gmail.com";
-        password_cmd = "pass show spotify/ryangibb321@gmail.com";
-      };
-    };
   };
 }

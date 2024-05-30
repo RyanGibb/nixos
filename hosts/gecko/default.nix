@@ -1,7 +1,10 @@
 { pkgs, lib, config, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ./backups.nix
+  ];
 
   custom = {
     enable = true;
@@ -10,19 +13,29 @@
     printing = true;
     gui.i3 = true;
     gui.sway = true;
-    gui.extra = true;
     ocaml = true;
     workstation = true;
     autoUpgrade.enable = true;
     homeManager.enable = true;
+    zsa = true;
   };
 
-  home-manager.users.${config.custom.username}.config.custom = {
-    machineColour = "blue";
-    nvim-lsps = true;
-    mail.enable = true;
-    calendar.enable = true;
-    battery.enable = true;
+  home-manager.users.${config.custom.username} = {
+    services.kdeconnect.enable = true;
+    services.spotifyd = {
+      enable = true;
+      settings.global = {
+        username = "ryangibb321@gmail.com";
+        password_cmd = "pass show spotify/ryangibb321@gmail.com";
+      };
+    };
+    custom = {
+      machineColour = "blue";
+      nvim-lsps = true;
+      mail.enable = true;
+      calendar.enable = true;
+      battery.enable = true;
+    };
   };
 
   boot.loader.grub = {
@@ -35,17 +48,51 @@
 
   environment.systemPackages = with pkgs; [
     dell-command-configure
+    gnome.file-roller
+    gnome.cheese
+    gparted
+    chromium
+    calibre
+    zotero
+    element-desktop
+    gomuks
+    iamb
+    spotify
+    gimp
     (python3.withPackages (p: with p; [ numpy matplotlib pandas ]))
-    wine64
     lsof
-    wally-cli
     gthumb
     restic
     mosquitto
+    texlive.combined.scheme-full
     typst
+    evince
+    pdfpc
+    krop
+    transmission
+    transmission-gtk
+    libreoffice
+    obs-studio
+    xournalpp
+    inkscape
+    kdenlive
+    tor-browser-bundle-bin
+    ffmpeg
+    audio-recorder
+    speechd
+    deploy-rs
+    nix-prefetch-git
+    tcpdump
+    pandoc
+    w3m
+    ranger
+    bluetuith
+    powertop
+    toot
   ];
 
-  services.gnome.evolution-data-server.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  programs.seahorse.enable = true;
 
   virtualisation.docker.enable = true;
   users.users.ryan.extraGroups = [ "docker" ];
@@ -91,67 +138,6 @@
     distributedBuilds = true;
     extraOptions = ''
       builders-use-substitutes = true
-    '';
-  };
-
-  age.secrets.restic-gecko.file = ../../secrets/restic-gecko.age;
-  services.restic.backups.${config.networking.hostName} = {
-    repository = "rest:http://100.64.0.9:8000/${config.networking.hostName}/";
-    passwordFile = config.age.secrets.restic-gecko.path;
-    initialize = true;
-    paths = [ "/home/ryan" "/etc/NetworkManager/system-connections" ];
-    exclude = [
-      "/home/ryan/videos"
-      "/home/ryan/.thunderbird"
-      "/home/ryan/.cache"
-      "/home/ryan/.local/share/Steam"
-    ];
-    timerConfig = {
-      OnCalendar = "03:00";
-      Persistent = true;
-    };
-    extraBackupArgs = [ "-vv" ];
-  };
-
-  systemd.services."restic-backups-${config.networking.hostName}" = {
-    # fail to start on metered connection
-    preStart = ''
-      DEVICE=$(${pkgs.iproute2}/bin/ip route list 0/0 | sed -r 's/.*dev (\S*).*/\1/g')
-      METERED=$(${pkgs.networkmanager}/bin/nmcli -f GENERAL.METERED dev show "$DEVICE" | ${pkgs.gawk}/bin/awk '/GENERAL.METERED/ {print $2}')
-      if [ "$METERED_STATUS" = "yes" ]; then
-        echo "Connection is metered. Aborting start."
-        exit 1
-      fi
-      systemctl start notify-backup-started
-    '';
-    unitConfig.OnFailure = "notify-backup-failed.service";
-  };
-
-  systemd.services."notify-backup-started" = {
-    enable = true;
-    description = "Notify on backup start";
-    serviceConfig = {
-      Type = "oneshot";
-      User = config.users.users.${config.custom.username}.name;
-    };
-    script = ''
-      export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u ${config.custom.username})/bus"
-      ${pkgs.libnotify}/bin/notify-send "Starting backup..."
-    '';
-  };
-
-  systemd.services."notify-backup-failed" = {
-    enable = true;
-    description = "Notify on failed backup";
-    serviceConfig = {
-      Type = "oneshot";
-      User = config.users.users.${config.custom.username}.name;
-    };
-    script = ''
-      export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u ${config.custom.username})/bus"
-      ${pkgs.libnotify}/bin/notify-send --urgency=critical \
-        "Backup failed" \
-        "$(journalctl -u restic-backups-daily -n 5 -o cat)"
     '';
   };
 
