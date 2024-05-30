@@ -196,8 +196,8 @@ in {
               tmux set-option status off
           fi
         '';
-        # https://github.com/ThePrimeagen/.dotfiles/blob/master/tmux/.tmux.conf
-        sessionizer = pkgs.writeScript "toggle-status-bar.sh" ''
+        # https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
+        sessionizer = pkgs.writeScript "sessionizer.sh" ''
           #!/usr/bin/env bash
 
           if [[ $# -eq 1 ]]; then
@@ -256,9 +256,9 @@ in {
         bind -T copy-mode-vi v send-keys -X begin-selection
         bind -T copy-mode-vi y send-keys -X copy-selection-and-cancel
         # find
-        bind-key -r f run-shell "tmux neww ${sessionizer}"
+        bind-key -r g run-shell "tmux neww ${sessionizer}"
         # reload
-        bind r source-file ~/.config/tmux/tmux.conf
+        bind-key r source-file ~/.config/tmux/tmux.conf
         # kill unattached
         bind-key K run-shell 'tmux ls | grep -v attached | cut -d: -f1 | xargs -I {} tmux kill-window -t {}'
       '';
