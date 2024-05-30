@@ -101,19 +101,6 @@ in {
         chromium
         gparted
         vlc
-        (vscode-with-extensions.override {
-          vscode = vscodium;
-          vscodeExtensions = with vscode-extensions; [
-            asvetliakov.vscode-neovim
-            james-yu.latex-workshop
-            ocamllabs.ocaml-platform
-            streetsidesoftware.code-spell-checker
-            jdinhlife.gruvbox
-            bbenoist.nix
-          ];
-        })
-        vscode
-
         i3-workspace-history
       ] ++ desktopEntries;
 
