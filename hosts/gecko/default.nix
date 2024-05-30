@@ -42,6 +42,7 @@
     gthumb
     restic
     mosquitto
+    typst
   ];
 
   services.gnome.evolution-data-server.enable = true;

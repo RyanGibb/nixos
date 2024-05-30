@@ -107,6 +107,7 @@
               });
             notmuch = (final.callPackage ./pkgs/notmuch.nix { }).overrideAttrs
               (o: { doCheck = false; });
+            typst = final.overlay-unstable.typst;
           })
         ];
     in rec {
