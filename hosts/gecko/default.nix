@@ -49,6 +49,7 @@
   environment.systemPackages = with pkgs; [
     dell-command-configure
     gnome.file-roller
+    unzip
     gnome.cheese
     gparted
     chromium

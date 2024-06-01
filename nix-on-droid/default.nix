@@ -3,49 +3,7 @@
 {
   user.shell = "${pkgs.zsh}/bin/zsh";
 
-  environment.packages = with pkgs; [
-    diffutils
-    findutils
-    utillinux
-    tzdata
-    hostname
-    man
-    gnugrep
-    gnupg
-    gnused
-    gnutar
-    bzip2
-    gzip
-    xz
-    zip
-    unzip
-
-    which
-
-    openssh
-    iputils
-    curl
-
-    nix
-    tree
-    htop
-    bind
-    inetutils
-    gnumake
-    bat
-    killall
-    nmap
-    gcc
-    fzf
-    netcat
-    gawk
-
-    # multicore rust command line utils
-    dua
-    fd
-    ripgrep
-  ];
-
+  environment.packages = with pkgs; [ ];
   environment.etcBackupExtension = ".bak";
 
   # Tailscale nameserver https://github.com/nix-community/nix-on-droid/issues/2

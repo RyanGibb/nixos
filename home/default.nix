@@ -43,16 +43,19 @@ in {
       gnumake
       killall
       inetutils
+      dnsutils
       nmap
-      dua
-      fd
-      bat
-      ripgrep
       gcc
       fzf
       nix-tree
       jq
       bc
+      openssh
+      # multicore rust command line utils
+      dua
+      fd
+      bat
+      ripgrep
     ];
 
     home.shellAliases = {
