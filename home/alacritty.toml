@@ -33,4 +33,4 @@ mods = "Shift"
 
 [window]
 dynamic_title = true
-opacity = 0.95
+opacity = 0.8
