@@ -12,9 +12,7 @@ let
     locker = "xsecurelock";
     enable_output = "xrandr --output $laptop_output --auto";
     disable_output = "xrandr --output $laptop_output --off";
-    drun = "rofi -matching fuzzy -i -modi drun -show drun";
-    run = "rofi -matching fuzzy -i -modi run -show run";
-    dmenu = "rofi -matching fuzzy -i -dmenu -p";
+    drun = "rofi -i -modi drun -show drun";
     displays = "arandr";
     bar = "i3bar";
     notification_deamon = "dunst";

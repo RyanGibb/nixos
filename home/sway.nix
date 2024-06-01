@@ -14,9 +14,7 @@ let
     locker = "swaylock -f -i $WALLPAPER";
     enable_output = "swaymsg output $laptop_output enable";
     disable_output = "swaymsg output $laptop_output disable";
-    drun = "wofi -M fuzzy -i --show drun --allow-images -a";
-    run = "wofi -M fuzzy -i --show run";
-    dmenu = "wofi -M fuzzy -d -i -p";
+    drun = "wofi -i --show drun --allow-images -a";
     displays = "wdisplays";
     bar = "swaybar";
     notification_deamon = "mako";

@@ -49,8 +49,6 @@ bindsym $mod+Shift+Return exec $term attach
 bindsym $mod+Shift+BackSpace kill
 
 bindsym $mod+d         exec @drun@
-bindsym $mod+Shift+d   exec @run@
-bindsym $mod+Control+d exec "$(yad --entry --text run)"
 
 bindsym $mod+g split h
 bindsym $mod+v split v
