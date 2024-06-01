@@ -59,7 +59,6 @@
   custom = {
     freumh.enable = true;
     rmfakecloud.enable = true;
-    useNixCache = true;
     website = {
       ryan = {
         enable = true;
