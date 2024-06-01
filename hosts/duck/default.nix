@@ -46,6 +46,7 @@
     acceptTerms = true;
     defaults.email = "${config.custom.username}@${config.networking.domain}";
     nginxCerts = [ config.networking.domain ];
+    defaults.capFile = "/var/lib/acme-eon/root.cap";
   };
 
   services.nginx = {

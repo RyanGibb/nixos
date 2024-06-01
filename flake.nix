@@ -1,13 +1,13 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    #home-manager.url = "github:nix-community/home-manager/release-23.11";
-    home-manager.url = "github:RyanGibb/home-manager/fork";
+    #home-manager.url = "github:nix-community/home-manager/release-24.05";
+    home-manager.url = "github:RyanGibb/home-manager/fork-24.05";
     agenix.url = "github:ryantm/agenix";
     deploy-rs.url = "github:serokell/deploy-rs";
-    nix-on-droid.url = "github:nix-community/nix-on-droid/release-23.05";
+    nix-on-droid.url = "github:nix-community/nix-on-droid/release-23.11";
     eon.url = "github:RyanGibb/eon";
     eilean.url = "github:RyanGibb/eilean-nix/main";
     ryan-website.url = "git+ssh://git@github.com/RyanGibb/website.git";
@@ -56,22 +56,6 @@
               i3-workspace-history.packages.${system}.default;
             maildir-rank-addr =
               final.callPackage ./pkgs/maildir-rank-addr.nix { };
-            # https://github.com/NixOS/nixpkgs/issues/86349#issuecomment-624489806
-            aerc = (prev.callPackage
-              "${prev.path}/pkgs/applications/networking/mailreaders/aerc/default.nix" {
-                buildGoModule = args:
-                  prev.buildGoModule (args // {
-                    src = prev.fetchFromSourcehut {
-                      owner = "~rjarry";
-                      repo = "aerc";
-                      rev = "930e50328c3a57faeec7fd23881e044257eda157";
-                      hash =
-                        "sha256-V1cjjJBAGqfBZIizAweMUYl7X3QorgLh/8J4HulmKAE=";
-                    };
-                    vendorHash =
-                      "sha256-IzQKgNilBq53w41gNLXCd1BgYXW/aUuQQtFeKEI/dKw=";
-                  });
-              });
             # https://github.com/swaywm/sway/pull/7226
             sway-unwrapped = final.overlay-unstable.sway-unwrapped;
             neovim-unwrapped = if neovim.packages ? ${system} then
@@ -126,7 +110,7 @@
                 networking.hostName = "${host}";
                 # pin nix command's nixpkgs flake to the system flake to avoid unnecessary downloads
                 nix.registry.nixpkgs.flake = nixpkgs;
-                system.stateVersion = "22.05";
+                system.stateVersion = "24.05";
                 # record git revision (can be queried with `nixos-version --json)
                 system.configurationRevision =
                   nixpkgs.lib.mkIf (self ? rev) self.rev;

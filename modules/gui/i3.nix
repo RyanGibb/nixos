@@ -9,10 +9,10 @@ in {
       config.custom.gui.i3.enable = true;
     };
 
+    #services.displayManager.lightdm.enable = true;
+    services.displayManager.defaultSession = "none+i3";
     services.xserver = {
       enable = true;
-      # displayManager.lightdm.enable = true;
-      displayManager.defaultSession = "none+i3";
       windowManager.i3.enable = true;
     };
 

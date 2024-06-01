@@ -136,7 +136,7 @@ in {
       configFile = {
         "Thunar/uca.xml".source = ./thunar.xml;
         "fontconfig/fonts.conf".source = ./fonts.conf;
-        "alacritty.yml".source = ./alacritty.yml;
+        "alacritty.toml".source = ./alacritty.toml;
         "Element/config.json".source = ./element.json;
         "swappy/config".text = ''
           [Default]

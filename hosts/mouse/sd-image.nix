@@ -66,16 +66,6 @@
     allowedUDPPorts = [ config.services.tailscale.port ];
   };
 
-  services.caddy = {
-    enable = true;
-    virtualHosts."http://mouse.fn06.org" = {
-      extraConfig = "reverse_proxy http://127.0.0.1:15606";
-    };
-    virtualHosts."http://mouse" = {
-      extraConfig = "reverse_proxy http://127.0.0.1:15606";
-    };
-  };
-
   services.openssh = {
     enable = true;
     openFirewall = lib.mkDefault false;
@@ -83,48 +73,5 @@
       PermitRootLogin = "yes";
       PasswordAuthentication = false;
     };
-  };
-
-  services.zigbee2mqtt = {
-    enable = true;
-    settings = {
-      permit_join = true;
-      mqtt = {
-        server = "mqtt://mouse:1883";
-        user = "zigbee2mqtt";
-        password = "test";
-      };
-      serial = { port = "/dev/ttyUSB0"; };
-      frontend = {
-        port = 15606;
-        url = "http://mouse";
-      };
-      homeassistant = true;
-      advanced = { channel = 15; };
-    };
-  };
-
-  services.mosquitto = {
-    enable = true;
-    listeners = [{
-      users = {
-        zigbee2mqtt = {
-          acl = [ "readwrite #" ];
-          hashedPassword =
-            "$6$nuDIW/ZPVsrDHyBe$JffJJvvMG+nH8GH9V5h4FqJkU0nfiFkDzAsdYNTHeJMgBXEX9epPkQTUdLG9L47K54vMxm/+toeMAiKD63Dfkw==";
-        };
-        homeassistant = {
-          acl = [ "readwrite #" ];
-          hashedPassword =
-            "$7$101$wGQZPdVdeW7iQFmH$bK/VOR6LXCLJKbb6M4PNeVptocjBAWXCLMtEU5fQNBr0Y5UAWlhVg8UAu4IkIXgnViI51NnhXKykdlWF63VkVQ==";
-        };
-      };
-    }];
-  };
-
-  services.home-assistant = {
-    enable = true;
-    extraComponents = [ "esphome" "met" "radio_browser" "mqtt" "zha" ];
-    config = { default_config = { }; };
   };
 }

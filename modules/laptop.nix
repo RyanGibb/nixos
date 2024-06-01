@@ -7,7 +7,7 @@ in {
   config = lib.mkIf cfg.laptop {
     users.users.${config.custom.username}.extraGroups = [ "input" ];
 
-    services.xserver.libinput.enable = true;
+    services.libinput.enable = true;
 
     services.tlp.enable = true;
     powerManagement.enable = true;
