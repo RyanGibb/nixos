@@ -152,4 +152,8 @@
       extraFlags = [ "--no-auth" ];
     };
   };
+  systemd.services.restic-rest-server = {
+    after = [ "tailscaled.service" ];
+    requires = [ "tailscaled.service" ];
+  };
 }
