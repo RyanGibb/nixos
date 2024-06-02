@@ -1,6 +1,7 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, ... }@inputs:
 
 let
+  i3-workspace-history = inputs.i3-workspace-history.packages.${pkgs.stdenv.hostPlatform.system}.default;
   replacements = {
     wm = "i3";
     wmmsg = "i3-msg";
@@ -16,7 +17,7 @@ let
     displays = "arandr";
     bar = "i3bar";
     notification_deamon = "dunst";
-    i3-workspace-history = "${pkgs.i3-workspace-history}";
+    i3-workspace-history = "${i3-workspace-history}";
     i3-workspace-history-args = "";
   };
   util = import ./util.nix { inherit pkgs lib; };
@@ -27,6 +28,10 @@ in {
   config = lib.mkIf cfg.enable {
     # TODO
     # idling
+
+    home.packages = with pkgs; [
+      i3-workspace-history
+    ];
 
     home.pointerCursor.x11.enable = true;
 

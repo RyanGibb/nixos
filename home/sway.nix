@@ -1,6 +1,7 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, ... }@inputs:
 
 let
+  i3-workspace-history = inputs.i3-workspace-history.packages.${pkgs.stdenv.hostPlatform.system}.default;
   replacements = {
     wm = "sway";
     wmmsg = "swaymsg";
@@ -18,7 +19,7 @@ let
     displays = "wdisplays";
     bar = "swaybar";
     notification_deamon = "mako";
-    i3-workspace-history = "${pkgs.i3-workspace-history}";
+    i3-workspace-history = "${i3-workspace-history}";
     i3-workspace-history-args = "-sway";
   };
   util = import ./util.nix { inherit pkgs lib; };
@@ -27,6 +28,10 @@ in {
   options.custom.gui.sway.enable = lib.mkEnableOption "sway";
 
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      i3-workspace-history
+    ];
+
     home.file.".zprofile".text = ''
       # Autostart sway at login on TTY 1
       if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then

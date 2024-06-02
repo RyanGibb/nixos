@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, agenix, ... }:
 
 let cfg = config.custom;
 in {
@@ -84,7 +84,11 @@ in {
       users.root.hashedPassword = hashedPassword;
     };
 
-    environment.systemPackages = with pkgs; [ nix agenix git ];
+    environment.systemPackages = with pkgs; [
+      nix
+      git
+      agenix.packages.${system}.default
+    ];
 
     networking = rec {
       # nameservers = [ "freumh.org" ];

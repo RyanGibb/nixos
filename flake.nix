@@ -49,49 +49,19 @@
               # follow stable nixpkgs config
               config = nixpkgsConfig;
             };
-            agenix = agenix.packages.${system}.default;
-            eon = eon.defaultPackage.${system};
-            mautrix-signal = final.overlay-unstable.mautrix-signal;
-            i3-workspace-history =
-              i3-workspace-history.packages.${system}.default;
-            maildir-rank-addr =
-              final.callPackage ./pkgs/maildir-rank-addr.nix { };
-            # https://github.com/swaywm/sway/pull/7226
-            sway-unwrapped = final.overlay-unstable.sway-unwrapped;
+            # to use an unstable version of a package
+            #package = final.overlay-unstable.package;
+            # to use an custom version of a package
+            #package = prev.callPackage ./pkgs/package.nix { };
+            # to use an unstable custom version of a package
+            #package = final.callPackage ./pkgs/package.nix { };
+            # to override attributes of a package
+            # package = prev.package.overrideAttrs
+            #  (_: { patches = [ ./pkgs/package.patch ]; });
             neovim-unwrapped = if neovim.packages ? ${system} then
               neovim.packages.${system}.default
             else
               prev.neovim-unwrapped;
-            # https://github.com/NixOS/nixpkgs/pull/291559
-            libvpl = final.overlay-unstable.libvpl.overrideAttrs
-              (_: { patches = [ ./pkgs/opengl-driver-lib.patch ]; });
-            # https://github.com/jellyfin/jellyfin-media-player/issues/165#issuecomment-1966131861
-            jellyfin-media-player = prev.jellyfin-media-player.overrideAttrs
-              (old: {
-                buildInputs =
-                  (prev.lib.filter (input: input != prev.mpv) old.buildInputs)
-                  ++ [
-                    (prev.mpv-unwrapped.overrideAttrs (old: {
-                      buildInputs =
-                        (prev.lib.filter (input: input != prev.libva)
-                          old.buildInputs) ++ [
-                            (prev.libva.overrideAttrs (_: {
-                              src = prev.fetchFromGitHub {
-                                owner = "intel";
-                                repo = "libva";
-                                rev =
-                                  "1b7d71f68b6ebc7f7c3b80e3eb6b3d888b0463e1";
-                                hash =
-                                  "sha256-Bufv8/8YAMvo6P/8HgPKaWXI7TCE/mf98MGeclT2XyA=";
-                              };
-                            }))
-                          ];
-                    }))
-                  ];
-              });
-            notmuch = (final.callPackage ./pkgs/notmuch.nix { }).overrideAttrs
-              (o: { doCheck = false; });
-            typst = final.overlay-unstable.typst;
           })
         ];
     in rec {

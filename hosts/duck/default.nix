@@ -23,7 +23,8 @@
 
   services = {
     eon = {
-      enable = true;
+      enable = lib.mkForce true;
+      package = eon.defaultPackage.${config.nixpkgs.hostPlatform.system};
       # TODO make this zonefile derivation a config parameter `services.eilean.services.dns.zonefile`
       # TODO add module in eilean for eon
       zoneFiles = [
@@ -44,6 +45,7 @@
 
   security.acme-eon = {
     acceptTerms = true;
+    package = eon.defaultPackage.${config.nixpkgs.hostPlatform.system};
     defaults.email = "${config.custom.username}@${config.networking.domain}";
     nginxCerts = [ config.networking.domain ];
     defaults.capFile = "/var/lib/acme-eon/root.cap";

@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, i3-workspace-history, ... }:
 
 let cfg = config.custom.gui;
 in {
@@ -87,7 +87,6 @@ in {
         })
         tridactyl-native
         vlc
-        i3-workspace-history
       ] ++ desktopEntries;
 
     fonts.packages = with pkgs; [
