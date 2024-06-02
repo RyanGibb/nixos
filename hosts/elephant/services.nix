@@ -9,14 +9,30 @@
   custom = {
     nix-cache = {
       enable = true;
-      domain = "nix-cache";
+      domain = "nix-cache.vpn.freumh.org";
     };
   };
 
+  age.secrets."eon-vpn.freumh.org.cap" = {
+    file = ../../secrets/eon-vpn.freumh.org.cap.age;
+    mode = "770";
+    owner = "eon";
+    group = "eon";
+  };
+  security.acme-eon = {
+    defaults.capFile = config.age.secrets."eon-vpn.freumh.org.cap".path;
+    nginxCerts = [
+      "nix-cache.vpn.freumh.org"
+      "jellyfin.vpn.freumh.org"
+      "transmission.vpn.freumh.org"
+    ];
+  };
+
   services.nginx = {
+    #requires = [ "tailscaled.service" ];
     virtualHosts = {
-      "nix-cache" = { listenAddresses = [ "100.64.0.9" ]; };
-      "jellyfin" = {
+      "nix-cache.vpn.freumh.org" = { listenAddresses = [ "100.64.0.9" ]; };
+      "jellyfin.vpn.freumh.org" = {
         listenAddresses = [ "100.64.0.9" ];
         locations."/" = {
           proxyPass = ''
@@ -25,7 +41,7 @@
           proxyWebsockets = true;
         };
       };
-      "transmission" = {
+      "transmission.vpn.freumh.org" = {
         listenAddresses = [ "100.64.0.9" ];
         locations."/" = {
           proxyPass = ''

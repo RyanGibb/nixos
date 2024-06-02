@@ -1,11 +1,7 @@
 { pkgs, config, lib, eilean, eon, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-    eon.nixosModules.default
-    eon.nixosModules.acme
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   custom = {
     enable = true;
@@ -24,7 +20,6 @@
   services = {
     eon = {
       enable = lib.mkForce true;
-      package = eon.defaultPackage.${config.nixpkgs.hostPlatform.system};
       # TODO make this zonefile derivation a config parameter `services.eilean.services.dns.zonefile`
       # TODO add module in eilean for eon
       zoneFiles = [
@@ -37,7 +32,7 @@
         }/cl.freumh.org"
       ];
       logLevel = 1;
-      application = "cap";
+      application = "capd";
       capnpAddress = "cl.freumh.org";
       #prod = false;
     };
@@ -45,10 +40,9 @@
 
   security.acme-eon = {
     acceptTerms = true;
-    package = eon.defaultPackage.${config.nixpkgs.hostPlatform.system};
     defaults.email = "${config.custom.username}@${config.networking.domain}";
     nginxCerts = [ config.networking.domain ];
-    defaults.capFile = "/var/lib/acme-eon/root.cap";
+    defaults.capFile = "/var/lib/eon/caps/domain/cl.freumh.org.cap";
   };
 
   services.nginx = {
