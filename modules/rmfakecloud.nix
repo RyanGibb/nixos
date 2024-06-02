@@ -35,7 +35,7 @@ in {
     mailserver.loginAccounts."misc@${domain}".aliases =
       [ "remarkable@${domain}" ];
 
-    # nginx handles letsencrypt
+    security.acme-eon.nginxCerts = [ cfg.domain ];
     services.nginx = {
       enable = true;
       recommendedProxySettings = true;
@@ -44,7 +44,6 @@ in {
       clientMaxBodySize = "100M";
       virtualHosts."${cfg.domain}" = {
         forceSSL = true;
-        enableACME = true;
         locations."/".proxyPass = ''
           http://localhost:${builtins.toString cfg.port}
         '';

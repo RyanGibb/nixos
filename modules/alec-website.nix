@@ -27,12 +27,15 @@ in {
   };
 
   config = mkIf cfg.enable {
+    security.acme-eon.nginxCerts = [ cfg.domain ];
+    security.acme-eon.certs.${cfg.domain}.extraDomainNames =
+      [ "www.${cfg.domain}" ];
+
     services.nginx = {
       enable = true;
       virtualHosts = {
         "${cfg.domain}" = {
           forceSSL = true;
-          enableACME = true;
           root =
             "${alec-website.packages.${pkgs.stdenv.hostPlatform.system}.default}";
           locations."/var/".extraConfig = ''
@@ -45,18 +48,19 @@ in {
             access_log /var/log/nginx/${cfg.domain}.log;
           '';
         };
-        "www.${cfg.domain}" = {
-          forceSSL = true;
-          useACMEHost = cfg.domain;
-          extraConfig = ''
-            return 301 https://${cfg.domain}$request_uri;
-          '';
-        };
+        "www.${cfg.domain}" =
+          let certDir = config.security.acme-eon.certs.${cfg.domain}.directory;
+          in {
+            forceSSL = true;
+            sslCertificate = "${certDir}/fullchain.pem";
+            sslCertificateKey = "${certDir}/key.pem";
+            sslTrustedCertificate = "${certDir}/chain.pem";
+            extraConfig = ''
+              return 301 https://${cfg.domain}$request_uri;
+            '';
+          };
       };
     };
-
-    security.acme.certs."${cfg.domain}".extraDomainNames =
-      [ "www.${cfg.domain}" ];
 
     eilean.services.dns.zones.${cfg.zone}.records = [
       {

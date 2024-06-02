@@ -9,7 +9,7 @@
     deploy-rs.url = "github:serokell/deploy-rs";
     nix-on-droid.url = "github:nix-community/nix-on-droid/release-23.11";
     eon.url = "github:RyanGibb/eon";
-    eilean.url = "github:RyanGibb/eilean-nix/main";
+    eilean.url = "github:RyanGibb/eilean-nix/eon-acme";
     ryan-website.url = "git+ssh://git@github.com/RyanGibb/website.git";
     alec-website.url = "github:alexanderhthompson/website";
     fn06-website.url = "github:RyanGibb/fn06";
@@ -96,6 +96,7 @@
                   # uncomment for cross compilation (https://github.com/NixOS/nix/issues/3843)
                   #buildPlatform.system = "cpu-os";
                 };
+                security.acme-eon.acceptTerms = true;
               })
               home-manager.nixosModule
               eilean.nixosModules.default

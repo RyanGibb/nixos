@@ -12,10 +12,11 @@ in {
       settings = {
         substituters = [
           "https://cache.nixos.org?priority=100"
-          "http://nix-cache?priority=10"
+          "https://nix-cache.vpn.freumh.org?priority=10"
         ];
-        trusted-public-keys =
-          [ "nix-cache:Go6ACovVBhR4P6Ug3DsE0p0DIRQtkIBHui1DGM7qK5c=" ];
+        trusted-public-keys = [
+          "nix-cache.vpn.freumh.org:Go6ACovVBhR4P6Ug3DsE0p0DIRQtkIBHui1DGM7qK5c="
+        ];
       };
     };
   };

@@ -1,4 +1,4 @@
-{ pkgs, config, lib, eilean, patrick-nixos, ... }@inputs:
+{ pkgs, config, lib, eon, patrick-nixos, ... }@inputs:
 
 {
   imports = [
@@ -10,15 +10,27 @@
     ../../modules/fn06-website.nix
   ];
 
-  security.acme = {
-    defaults.email = "${config.custom.username}@${config.networking.domain}";
+  age.secrets.eon-capnp = {
+    file = ../../secrets/eon-capnp.age;
+    mode = "770";
+    owner = "eon";
+    group = "eon";
+  };
+  services.eon.capnpSecretKeyFile = config.age.secrets.eon-capnp.path;
+  services.eon.prod = false;
+
+  security.acme-eon = {
     acceptTerms = true;
+    package = eon.defaultPackage.${config.nixpkgs.hostPlatform.system};
+    defaults.email = "${config.custom.username}@${config.networking.domain}";
+    defaults.capFile = "/var/lib/eon/caps/domain/freumh.org.cap";
   };
 
   eilean = {
     username = config.custom.username;
     serverIpv4 = "135.181.100.27";
     serverIpv6 = "2a01:4f9:c011:87ad:0:0:0:0";
+    acme-eon = true;
   };
   networking.domain = lib.mkDefault "freumh.org";
   eilean.publicInterface = "enp1s0";
@@ -308,9 +320,10 @@
       basicAuthFile = config.age.secrets.website-phd.path;
     };
   };
+
+  security.acme-eon.nginxCerts = [ "capybara.fn06.org" "shrew.freumh.org" ];
   services.nginx.virtualHosts."capybara.fn06.org" = {
     forceSSL = true;
-    enableACME = true;
     locations."/" = {
       proxyPass = ''
         http://100.64.0.10:8123
@@ -320,7 +333,6 @@
   };
   services.nginx.virtualHosts."shrew.freumh.org" = {
     forceSSL = true;
-    enableACME = true;
     locations."/" = {
       # need to specify ip or there's a bootstrap problem with headscale
       proxyPass = ''

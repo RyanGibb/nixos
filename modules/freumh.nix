@@ -32,10 +32,11 @@ in {
       group = "php";
     };
     users.groups.php = { };
+
+    security.acme-eon.nginxCerts = [ config.networking.domain ];
     services.nginx = {
       enable = true;
       virtualHosts."${config.networking.domain}" = {
-        enableACME = true;
         forceSSL = true;
         locations."/root" = let
           random-root = pkgs.writeScript "random-root.php" ''

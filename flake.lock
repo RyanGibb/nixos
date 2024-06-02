@@ -429,16 +429,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1717252989,
-        "narHash": "sha256-qMvd1PloCsNLI9Rk584UQXoJKDxdE+TDlIVc0Is33cQ=",
+        "lastModified": 1718115151,
+        "narHash": "sha256-ZRAqW9RixSTJjzGFQb7vvf95p1ns6WPmpxJQg/r4AYY=",
         "owner": "RyanGibb",
         "repo": "eilean-nix",
-        "rev": "f1cab2428cf6272b763cc2322b47631214454b78",
+        "rev": "b354949aac308b77d742c5a6321eac53508ab700",
         "type": "github"
       },
       "original": {
         "owner": "RyanGibb",
-        "ref": "main",
+        "ref": "eon-acme",
         "repo": "eilean-nix",
         "type": "github"
       }
@@ -531,11 +531,11 @@
         "opam-repository": "opam-repository"
       },
       "locked": {
-        "lastModified": 1717328982,
-        "narHash": "sha256-+zR2cuBSyunBxqkW15KACPyicaotG4w/o78gvtBT1s8=",
+        "lastModified": 1718122335,
+        "narHash": "sha256-ooeplCUj5dY2KT840ecFtR+iDq1V2iB5rDsFqjbdFSs=",
         "owner": "RyanGibb",
         "repo": "eon",
-        "rev": "14906ebc2de360df26b45eb4224093ac00502761",
+        "rev": "87b7ec1cd6cb7dc0f950d8d37a91845465780faf",
         "type": "github"
       },
       "original": {
