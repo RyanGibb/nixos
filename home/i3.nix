@@ -14,6 +14,7 @@ let
     enable_output = "xrandr --output $laptop_output --auto";
     disable_output = "xrandr --output $laptop_output --off";
     drun = "rofi -i -modi drun -show drun";
+    dmenu = "rofi -i -dmenu -p";
     displays = "arandr";
     bar = "i3bar";
     notification_deamon = "dunst";

@@ -16,6 +16,7 @@ let
     enable_output = "swaymsg output $laptop_output enable";
     disable_output = "swaymsg output $laptop_output disable";
     drun = "wofi -i --show drun --allow-images -a";
+    dmenu = "wofi -d -i -p";
     displays = "wdisplays";
     bar = "swaybar";
     notification_deamon = "mako";
