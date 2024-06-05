@@ -129,6 +129,7 @@ in {
         trust = "ultimate";
       }];
     };
+    services.gpg-agent.pinentryPackage = pkgs.pinentry-qt;
 
     programs.git = {
       enable = true;
