@@ -27,7 +27,6 @@ in {
     };
 
     services = {
-      vdirsyncer.enable = true;
       gpg-agent.enable = true;
     };
 
