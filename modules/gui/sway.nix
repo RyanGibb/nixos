@@ -21,7 +21,7 @@ in {
         wtype
         gammastep
         waybar
-        alacritty
+        foot
         wofi
         wofi-emoji
         wdisplays

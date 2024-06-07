@@ -28,7 +28,7 @@ in {
         WALLPAPER = let wallpaper = ./wallpaper.jpg;
         in pkgs.runCommand (builtins.baseNameOf wallpaper) { }
         "cp ${wallpaper} $out";
-        TERMINAL = "alacritty";
+        TERMINAL = "foot";
       };
       pointerCursor = {
         name = "Adwaita";
@@ -117,7 +117,7 @@ in {
         nvim = {
           name = "Neovim";
           genericName = "Text Editor";
-          exec = "alacritty -e nvim %F";
+          exec = "foot -e nvim %F";
           terminal = false;
           categories = [ "Application" "Utility" "TextEditor" ];
           icon = "nvim";
@@ -126,7 +126,7 @@ in {
         aerc = {
           name = "aerc";
           genericName = "Mail Client";
-          exec = "alacritty -e aerc";
+          exec = "foot -e aerc";
           terminal = false;
           categories = [ "Office" "Network" "Email" "ConsoleOnly" ];
           icon = "utilities-terminal";
@@ -135,7 +135,7 @@ in {
         ranger = {
           name = "ranger";
           type = "Application";
-          exec = "alacritty -e ranger";
+          exec = "foot -e ranger";
           terminal = false;
           categories = [ "ConsoleOnly" "System" "FileTools" "FileManager" ];
           icon = "utilities-terminal";
@@ -146,6 +146,7 @@ in {
         "Thunar/uca.xml".source = ./thunar.xml;
         "fontconfig/fonts.conf".source = ./fonts.conf;
         "alacritty.toml".source = ./alacritty.toml;
+        "foot/foot.ini".source = ./foot.ini;
         "Element/config.json".source = ./element.json;
         "swappy/config".text = ''
           [Default]

@@ -23,7 +23,7 @@ in {
       xss-lock
       xsecurelock
       redshift
-      alacritty
+      foot
       rofi
       dconf
       rofimoji
