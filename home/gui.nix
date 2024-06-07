@@ -132,6 +132,15 @@ in {
           icon = "utilities-terminal";
           mimeType = [ "x-scheme-handler/mailto" ];
         };
+        ranger = {
+          name = "ranger";
+          type = "Application";
+          exec = "alacritty -e ranger";
+          terminal = false;
+          categories = [ "ConsoleOnly" "System" "FileTools" "FileManager" ];
+          icon = "utilities-terminal";
+          mimeType = [ "inode/directory" ];
+        };
       };
       configFile = {
         "Thunar/uca.xml".source = ./thunar.xml;
