@@ -3,7 +3,7 @@ font pango:Noto Sans Mono 14px
 set $mod Mod4
 set $alt Mod1
 
-set $term foot -e tmux
+set $term alacritty -e tmux
 set $browser exec firefox
 
 set $SCRIPT_DIR $HOME/.config/@wm@/scripts
