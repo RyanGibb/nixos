@@ -56,18 +56,4 @@
       onevpl-intel-gpu
     ];
   };
-  # remove after https://github.com/NixOS/nixpkgs/pull/264621
-  nixpkgs.config.packageOverrides = prev: {
-    ffmpeg_6 = prev.ffmpeg_6.overrideAttrs (old: rec {
-      configureFlags =
-        # Remove deprecated Intel Media SDK support
-        (builtins.filter (e: e != "--enable-libmfx") old.configureFlags)
-        # Add Intel VPL support
-        ++ [ "--enable-libvpl" ];
-      buildInputs = old.buildInputs ++ [
-        # VPL dispatcher
-        pkgs.libvpl
-      ];
-    });
-  };
 }
