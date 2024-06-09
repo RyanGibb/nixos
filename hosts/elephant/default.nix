@@ -56,4 +56,9 @@
       onevpl-intel-gpu
     ];
   };
+  nixpkgs.config.packageOverrides = prev: {
+    jellyfin-ffmpeg = prev.jellyfin-ffmpeg.overrideAttrs (_: {
+      withVpl = true;
+    });
+  };
 }
