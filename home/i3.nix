@@ -1,7 +1,8 @@
 { pkgs, config, lib, ... }@inputs:
 
 let
-  i3-workspace-history = inputs.i3-workspace-history.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  i3-workspace-history =
+    inputs.i3-workspace-history.packages.${pkgs.stdenv.hostPlatform.system}.default;
   replacements = {
     wm = "i3";
     wmmsg = "i3-msg";
@@ -30,9 +31,7 @@ in {
     # TODO
     # idling
 
-    home.packages = with pkgs; [
-      i3-workspace-history
-    ];
+    home.packages = with pkgs; [ i3-workspace-history ];
 
     home.pointerCursor.x11.enable = true;
 

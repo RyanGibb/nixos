@@ -1,7 +1,8 @@
 { pkgs, config, lib, ... }@inputs:
 
 let
-  i3-workspace-history = inputs.i3-workspace-history.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  i3-workspace-history =
+    inputs.i3-workspace-history.packages.${pkgs.stdenv.hostPlatform.system}.default;
   replacements = {
     wm = "sway";
     wmmsg = "swaymsg";
@@ -29,9 +30,7 @@ in {
   options.custom.gui.sway.enable = lib.mkEnableOption "sway";
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      i3-workspace-history
-    ];
+    home.packages = with pkgs; [ i3-workspace-history ];
 
     home.file.".zprofile".text = ''
       # Autostart sway at login on TTY 1

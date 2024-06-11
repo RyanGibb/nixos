@@ -7,7 +7,9 @@ in {
   config = lib.mkIf cfg.enable {
     home-manager = {
       useGlobalPkgs = true;
-      extraSpecialArgs = { i3-workspace-history = inputs.i3-workspace-history; };
+      extraSpecialArgs = {
+        i3-workspace-history = inputs.i3-workspace-history;
+      };
       users.${config.custom.username} = import ../home/default.nix;
     };
     # zsh completion

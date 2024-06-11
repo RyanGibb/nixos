@@ -26,9 +26,7 @@ in {
       };
     };
 
-    services = {
-      gpg-agent.enable = true;
-    };
+    services = { gpg-agent.enable = true; };
 
     accounts.calendar = {
       basePath = "calendar";

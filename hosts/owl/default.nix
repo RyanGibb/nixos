@@ -1,6 +1,7 @@
 { pkgs, config, lib, eon, ... }@inputs:
 
-let vpnRecords = [
+let
+  vpnRecords = [
     {
       name = "nix-cache.vpn.${config.networking.domain}";
       type = "A";
@@ -22,8 +23,7 @@ let vpnRecords = [
       value = "100.64.0.9";
     }
   ];
-in
-{
+in {
   imports = [
     ./hardware-configuration.nix
     ./minimal.nix

@@ -1,10 +1,7 @@
 { pkgs, lib, config, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-    ./backups.nix
-  ];
+  imports = [ ./hardware-configuration.nix ./backups.nix ];
 
   custom = {
     enable = true;
