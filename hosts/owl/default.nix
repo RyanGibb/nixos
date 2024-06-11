@@ -25,7 +25,7 @@
   services.eon = {
     capnpSecretKeyFile = config.age.secrets.eon-capnp.path;
     primaries = [ config.age.secrets.eon-sirref-primary.path ];
-    prod = false;
+    prod = true;
   };
 
   security.acme-eon = {
