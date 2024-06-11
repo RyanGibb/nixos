@@ -1,4 +1,4 @@
-{ pkgs, config, lib, eon, patrick-nixos, ... }@inputs:
+{ pkgs, config, lib, eon, ... }@inputs:
 
 {
   imports = [
@@ -276,8 +276,6 @@
         }
       ];
     };
-    "sirref.org" =
-      patrick-nixos.nixosConfigurations.sirref.config.eilean.services.dns.zones."sirref.org";
   };
   services.bind.zones.${config.networking.domain}.extraConfig = ''
     dnssec-policy default;

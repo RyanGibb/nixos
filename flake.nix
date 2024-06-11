@@ -20,7 +20,6 @@
     neovim.url =
       "github:neovim/neovim/f40df63bdca33d343cada6ceaafbc8b765ed7cc6?dir=contrib";
     nix-rpi5.url = "gitlab:vriska/nix-rpi5?ref=main";
-    patrick-nixos.url = "github:patricoferris/nixos";
 
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
