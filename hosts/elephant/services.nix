@@ -1,11 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  security.acme = {
-    defaults.email = "${config.custom.username}@${config.networking.domain}";
-    acceptTerms = true;
-  };
-
   custom = {
     nix-cache = {
       enable = true;
@@ -16,10 +11,12 @@
   age.secrets."eon-vpn.freumh.org.cap" = {
     file = ../../secrets/eon-vpn.freumh.org.cap.age;
     mode = "770";
-    owner = "eon";
-    group = "eon";
+    owner = "acme-eon";
+    group = "acme-eon";
   };
   security.acme-eon = {
+    acceptTerms = true;
+    defaults.email = "${config.custom.username}@${config.networking.domain}";
     defaults.capFile = config.age.secrets."eon-vpn.freumh.org.cap".path;
     nginxCerts = [
       "nix-cache.vpn.freumh.org"
@@ -33,6 +30,7 @@
     virtualHosts = {
       "nix-cache.vpn.freumh.org" = { listenAddresses = [ "100.64.0.9" ]; };
       "jellyfin.vpn.freumh.org" = {
+        enableSSL = true;
         listenAddresses = [ "100.64.0.9" ];
         locations."/" = {
           proxyPass = ''
@@ -42,6 +40,7 @@
         };
       };
       "transmission.vpn.freumh.org" = {
+        enableSSL = true;
         listenAddresses = [ "100.64.0.9" ];
         locations."/" = {
           proxyPass = ''

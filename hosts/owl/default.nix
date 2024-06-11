@@ -1,5 +1,28 @@
 { pkgs, config, lib, eon, ... }@inputs:
 
+let vpnRecords = [
+    {
+      name = "nix-cache.vpn.${config.networking.domain}";
+      type = "A";
+      value = "100.64.0.9";
+    }
+    {
+      name = "jellyfin.vpn.${config.networking.domain}";
+      type = "A";
+      value = "100.64.0.9";
+    }
+    {
+      name = "nextcloud.vpn.${config.networking.domain}";
+      type = "A";
+      value = "100.64.0.9";
+    }
+    {
+      name = "transmission.vpn.${config.networking.domain}";
+      type = "A";
+      value = "100.64.0.9";
+    }
+  ];
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -218,7 +241,7 @@
           value =
             "2 1 1 bd936e72b212ef6f773102c6b77d38f94297322efc25396bc3279422e0c89270";
         }
-      ];
+      ] ++ vpnRecords;
     };
     "fn06.org" = {
       soa.serial = 1706745602;
@@ -361,28 +384,7 @@
     "net.ipv6.conf.all.forwarding" = 1;
   };
 
-  services.headscale.settings.dns_config.extra_records = [
-    {
-      name = "nix-cache.vpn.${config.networking.domain}";
-      type = "A";
-      value = "100.64.0.9";
-    }
-    {
-      name = "jellyfin.vpn.${config.networking.domain}";
-      type = "A";
-      value = "100.64.0.9";
-    }
-    {
-      name = "nextcloud.vpn.${config.networking.domain}";
-      type = "A";
-      value = "100.64.0.9";
-    }
-    {
-      name = "transmission.vpn.${config.networking.domain}";
-      type = "A";
-      value = "100.64.0.9";
-    }
-  ];
+  services.headscale.settings.dns_config.extra_records = vpnRecords;
 
   age.secrets.restic-owl.file = ../../secrets/restic-owl.age;
   services.restic.backups.${config.networking.hostName} = {
