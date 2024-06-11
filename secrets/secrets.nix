@@ -29,4 +29,5 @@ in {
   "headscale.age".publicKeys = user ++ [ owl ];
   "eon-capnp.age".publicKeys = user ++ [ owl ];
   "eon-vpn.freumh.org.cap.age".publicKeys = user ++ [ elephant ];
+  "eon-sirref-primary.cap.age".publicKeys = user ++ [ owl ];
 }

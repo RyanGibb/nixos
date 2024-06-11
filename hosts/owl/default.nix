@@ -16,8 +16,17 @@
     owner = "eon";
     group = "eon";
   };
-  services.eon.capnpSecretKeyFile = config.age.secrets.eon-capnp.path;
-  services.eon.prod = false;
+  age.secrets.eon-sirref-primary = {
+    file = ../../secrets/eon-sirref-primary.cap.age;
+    mode = "770";
+    owner = "eon";
+    group = "eon";
+  };
+  services.eon = {
+    capnpSecretKeyFile = config.age.secrets.eon-capnp.path;
+    primaries = [ config.age.secrets.eon-sirref-primary.path ];
+    prod = false;
+  };
 
   security.acme-eon = {
     acceptTerms = true;
