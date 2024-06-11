@@ -109,74 +109,74 @@
         {
           name = "@";
           type = "TXT";
-          data =
+          value =
             "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc";
         }
         {
           name = "teapot";
           type = "CNAME";
-          data = "vps";
+          value = "vps";
         }
 
         {
           name = "@";
           type = "NS";
-          data = "ns1.sirref.org.";
+          value = "ns1.sirref.org.";
         }
 
         {
           name = "@";
           type = "A";
-          data = config.eilean.serverIpv4;
+          value = config.eilean.serverIpv4;
         }
         {
           name = "@";
           type = "AAAA";
-          data = config.eilean.serverIpv6;
+          value = config.eilean.serverIpv6;
         }
         {
           name = "vps";
           type = "A";
-          data = config.eilean.serverIpv4;
+          value = config.eilean.serverIpv4;
         }
         {
           name = "vps";
           type = "AAAA";
-          data = config.eilean.serverIpv6;
+          value = config.eilean.serverIpv6;
         }
 
         {
           name = "@";
           type = "LOC";
-          data = "52 12 40.4 N 0 5 31.9 E 22m 10m 10m 10m";
+          value = "52 12 40.4 N 0 5 31.9 E 22m 10m 10m 10m";
         }
 
         {
           name = "ns.cl";
           type = "A";
-          data = "128.232.113.136";
+          value = "128.232.113.136";
         }
         {
           name = "cl";
           type = "NS";
-          data = "ns.cl";
+          value = "ns.cl";
         }
 
         {
           name = "ns1.eilean";
           type = "A";
-          data = "65.109.10.223";
+          value = "65.109.10.223";
         }
         {
           name = "eilean";
           type = "NS";
-          data = "ns1.eilean";
+          value = "ns1.eilean";
         }
 
         {
           name = "shrew";
           type = "CNAME";
-          data = "vps";
+          value = "vps";
         }
 
         # generate with
@@ -184,7 +184,7 @@
         {
           name = "_25._tcp.mail";
           type = "TLSA";
-          data =
+          value =
             "3 1 1 2f0fd413f063c75141937dd196a9f4ab66139d599e0dcf2a7ce6d557647e26a6";
         }
         # generate with
@@ -194,28 +194,28 @@
         {
           name = "_25._tcp.mail";
           type = "TLSA";
-          data =
+          value =
             "2 1 1 8d02536c887482bc34ff54e41d2ba659bf85b341a0a20afadb5813dcfbcf286d";
         }
         # LE E1
         {
           name = "_25._tcp.mail";
           type = "TLSA";
-          data =
+          value =
             "2 1 1 276fe8a8c4ec7611565bf9fce6dcace9be320c1b5bea27596b2204071ed04f10";
         }
         # LE R4
         {
           name = "_25._tcp.mail";
           type = "TLSA";
-          data =
+          value =
             "2 1 1 e5545e211347241891c554a03934cde9b749664a59d26d615fe58f77990f2d03";
         }
         # LE E2
         {
           name = "_25._tcp.mail";
           type = "TLSA";
-          data =
+          value =
             "2 1 1 bd936e72b212ef6f773102c6b77d38f94297322efc25396bc3279422e0c89270";
         }
       ];
@@ -226,62 +226,62 @@
         {
           name = "@";
           type = "NS";
-          data = "ns1";
+          value = "ns1";
         }
         {
           name = "@";
           type = "NS";
-          data = "ns2";
+          value = "ns2";
         }
 
         {
           name = "ns1";
           type = "A";
-          data = config.eilean.serverIpv4;
+          value = config.eilean.serverIpv4;
         }
         {
           name = "ns1";
           type = "AAAA";
-          data = config.eilean.serverIpv6;
+          value = config.eilean.serverIpv6;
         }
         {
           name = "ns2";
           type = "A";
-          data = config.eilean.serverIpv4;
+          value = config.eilean.serverIpv4;
         }
         {
           name = "ns2";
           type = "AAAA";
-          data = config.eilean.serverIpv6;
+          value = config.eilean.serverIpv6;
         }
 
         {
           name = "@";
           type = "A";
-          data = config.eilean.serverIpv4;
+          value = config.eilean.serverIpv4;
         }
         {
           name = "@";
           type = "AAAA";
-          data = config.eilean.serverIpv6;
+          value = config.eilean.serverIpv6;
         }
 
         {
           name = "www.fn06.org.";
           type = "CNAME";
-          data = "fn06.org.";
+          value = "fn06.org.";
         }
 
         {
           name = "@";
           type = "LOC";
-          data = "52 12 40.4 N 0 5 31.9 E 22m 10m 10m 10m";
+          value = "52 12 40.4 N 0 5 31.9 E 22m 10m 10m 10m";
         }
 
         {
           name = "capybara.fn06.org.";
           type = "CNAME";
-          data = "fn06.org.";
+          value = "fn06.org.";
         }
       ];
     };

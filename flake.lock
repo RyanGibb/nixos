@@ -134,16 +134,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1718115151,
-        "narHash": "sha256-ZRAqW9RixSTJjzGFQb7vvf95p1ns6WPmpxJQg/r4AYY=",
+        "lastModified": 1718119981,
+        "narHash": "sha256-HHIpsu4T/p4ESWpT5ka4WLbpEb1yqzKX5+JBYr02d8s=",
         "owner": "RyanGibb",
         "repo": "eilean-nix",
-        "rev": "b354949aac308b77d742c5a6321eac53508ab700",
+        "rev": "b24cfcf8b70ba94e844de7eb7584791a9e679c75",
         "type": "github"
       },
       "original": {
         "owner": "RyanGibb",
-        "ref": "eon-acme",
+        "ref": "main",
         "repo": "eilean-nix",
         "type": "github"
       }

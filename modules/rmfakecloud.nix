@@ -53,7 +53,7 @@ in {
     eilean.services.dns.zones.${config.networking.domain}.records = [{
       name = "rmfakecloud";
       type = "CNAME";
-      data = "vps";
+      value = "vps";
     }];
   };
 }

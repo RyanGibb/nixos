@@ -69,12 +69,12 @@ in {
       {
         name = "${cfg.domain}.";
         type = "CNAME";
-        data = cfg.cname;
+        value = cfg.cname;
       }
       {
         name = "www.${cfg.domain}.";
         type = "CNAME";
-        data = cfg.cname;
+        value = cfg.cname;
       }
     ];
   };

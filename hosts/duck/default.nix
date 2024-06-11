@@ -85,39 +85,39 @@
         {
           name = "@";
           type = "NS";
-          data = "ns";
+          value = "ns";
         }
 
         {
           name = "ns";
           type = "A";
-          data = ipv4;
+          value = ipv4;
         }
         {
           name = "ns";
           type = "AAAA";
-          data = ipv6;
+          value = ipv6;
         }
 
         {
           name = "@";
           type = "A";
-          data = ipv4;
+          value = ipv4;
         }
         {
           name = "@";
           type = "AAAA";
-          data = ipv6;
+          value = ipv6;
         }
         {
           name = "vps";
           type = "A";
-          data = ipv4;
+          value = ipv4;
         }
         {
           name = "vps";
           type = "AAAA";
-          data = ipv6;
+          value = ipv6;
         }
       ];
     };

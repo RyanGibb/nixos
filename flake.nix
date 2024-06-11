@@ -9,7 +9,7 @@
     deploy-rs.url = "github:serokell/deploy-rs";
     nix-on-droid.url = "github:nix-community/nix-on-droid/release-23.11";
     eon.url = "github:RyanGibb/eon";
-    eilean.url = "github:RyanGibb/eilean-nix/eon-acme";
+    eilean.url = "github:RyanGibb/eilean-nix/main";
     ryan-website.url = "git+ssh://git@github.com/RyanGibb/website.git";
     alec-website.url = "github:alexanderhthompson/website";
     fn06-website.url = "github:RyanGibb/fn06";
