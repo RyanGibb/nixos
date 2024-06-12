@@ -134,11 +134,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1718183021,
-        "narHash": "sha256-GtBsdMX8qu/BfQyXPd6vzxCeMpJvDalzUU2YKfARlus=",
+        "lastModified": 1718183947,
+        "narHash": "sha256-Bg+jyKt3nPoJi8WWOibcL8nZCzcjo+p6PFjqub6l77I=",
         "owner": "RyanGibb",
         "repo": "eilean-nix",
-        "rev": "c55549f13de3df83212c03a61971e88a4c03e67c",
+        "rev": "47f1762a6c7a9521f6d305454617c8c5b8b08dec",
         "type": "github"
       },
       "original": {
@@ -687,18 +687,18 @@
         "utils": "utils_2"
       },
       "locked": {
-        "lastModified": 1718182050,
+        "lastModified": 1718183756,
         "narHash": "sha256-m5JQT/RIegSLZJx41Cv7d8Xoa2KKq+5uLkgB5KJR5D0=",
         "owner": "RyanGibb",
         "repo": "nixos-mailserver",
-        "rev": "fe7d01cbded4ab866d2ca42ea9374b41ab753e3f",
-        "type": "github"
+        "rev": "9dc7a8d40232f600e6ca1e78356cd4398665b46b",
+        "type": "gitlab"
       },
       "original": {
         "owner": "RyanGibb",
         "ref": "fork-24.05",
         "repo": "nixos-mailserver",
-        "type": "github"
+        "type": "gitlab"
       }
     },
     "nixpkgs": {
