@@ -1,12 +1,7 @@
 { config, pkgs, lib, ... }:
 
 {
-  custom = {
-    nix-cache = {
-      enable = true;
-      domain = "nix-cache.vpn.freumh.org";
-    };
-  };
+  custom.nix-cache.enable = true;
 
   age.secrets."eon-vpn.freumh.org.cap" = {
     file = ../../secrets/eon-vpn.freumh.org.cap.age;

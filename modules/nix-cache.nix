@@ -6,7 +6,7 @@ in {
     enable = lib.mkEnableOption "nix-cache";
     domain = lib.mkOption {
       type = lib.types.str;
-      default = "nix-cache.${config.networking.domain}";
+      default = "nix-cache.vpn.${config.networking.domain}";
     };
   };
 

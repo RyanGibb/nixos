@@ -15,7 +15,7 @@ in {
           "https://nix-cache.vpn.freumh.org?priority=10"
         ];
         trusted-public-keys = [
-          "nix-cache.vpn.freumh.org:Go6ACovVBhR4P6Ug3DsE0p0DIRQtkIBHui1DGM7qK5c="
+          "nix-cache.vpn.freumh.org:+jBJN2k1WO9wNr8uHQn7P4mT8c+VeP9uFGf+VTtfzHk="
         ];
       };
     };
