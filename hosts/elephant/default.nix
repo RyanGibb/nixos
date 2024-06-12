@@ -59,5 +59,7 @@
   nixpkgs.config.packageOverrides = prev: {
     jellyfin-ffmpeg =
       prev.jellyfin-ffmpeg.overrideAttrs (_: { withVpl = true; });
+    ffmpeg =
+      prev.ffmpeg.overrideAttrs (_: { withVpl = true; });
   };
 }
