@@ -3,7 +3,9 @@
 {
   user.shell = "${pkgs.zsh}/bin/zsh";
 
-  environment.packages = with pkgs; [ ];
+  environment.packages = with pkgs; [
+    util-linux # for whereis
+  ];
   environment.etcBackupExtension = ".bak";
 
   # Tailscale nameserver https://github.com/nix-community/nix-on-droid/issues/2
