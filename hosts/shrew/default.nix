@@ -6,7 +6,6 @@
   custom = {
     enable = true;
     tailscale = true;
-    gui.sway = true;
     autoUpgrade.enable = true;
     homeManager.enable = true;
   };
