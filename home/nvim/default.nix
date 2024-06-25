@@ -91,6 +91,7 @@ in {
           telescope-nvim
           telescope-fzf-native-nvim
           trouble-nvim
+          vim-gitgutter
           vim-fugitive
 
           plenary-nvim
