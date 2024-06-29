@@ -19,10 +19,10 @@ in {
           	capacity="$(${pkgs.coreutils}/bin/cat $battery/capacity)"
 
           	if [ "$status" = Discharging -a "$capacity" -lt 5 ]; then
-          		logger "Critical battery threshold"
-          		systemctl hibernate
+          		${pkgs.util-linux}/bin/logger "Critical battery threshold"
+          		${pkgs.systemd}/bin/systemctl hibernate
           	elif [ "$status" = Discharging -a "$capacity" -lt 10 ]; then
-          		notify-send "warning: battery at $capacity%"
+          		${pkgs.libnotify}/bin/notify-send "warning: battery at $capacity%"
           	fi
           	${pkgs.coreutils}/bin/sleep 60
           done
