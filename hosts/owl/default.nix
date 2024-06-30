@@ -82,6 +82,9 @@ in {
     owner = "${config.systemd.services.matrix-synapse.serviceConfig.User}";
     group = "${config.systemd.services.matrix-synapse.serviceConfig.Group}";
   };
+  age.secrets.matrix-sliding-sync = {
+    file = ../../secrets/matrix-sliding-sync.age;
+  };
   eilean.matrix = {
     enable = true;
     registrationSecretFile = config.age.secrets.matrix-shared-secret.path;
@@ -89,6 +92,10 @@ in {
     bridges.signal = true;
     bridges.instagram = true;
     bridges.messenger = true;
+    slidingSync = {
+      enable = true;
+      secretFile = config.age.secrets.matrix-sliding-sync.path;
+    };
   };
   eilean.turn.enable = true;
   eilean.mastodon.enable = true;
