@@ -87,6 +87,7 @@
     bluetuith
     powertop
     toot
+    ledger
   ];
 
   services.gnome.gnome-keyring.enable = true;

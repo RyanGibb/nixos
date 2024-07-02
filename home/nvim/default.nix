@@ -127,6 +127,8 @@ in {
               "ftplugin/notmuch-compose.vim".text = notmuch-style;
             };
           }
+
+          vim-ledger
         ] ++ lib.lists.optionals cfg.nvim-lsps [
           ltex-ls-nvim
           nvim-jdtls
