@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, ... }@inputs:
 
 {
   imports = [ ./hardware-configuration.nix ./zfs.nix ./services.nix ];
@@ -18,6 +18,7 @@
     powertop
     hdparm
     restic
+    inputs.rustmission.packages.${config.nixpkgs.hostPlatform.system}.default
   ];
 
   eilean = { publicInterface = "enp1s0"; };

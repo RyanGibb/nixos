@@ -19,6 +19,7 @@
     hyperbib-eeg.url = "github:RyanGibb/hyperbib?ref=nixify";
     neovim.url =
       "github:neovim/neovim/f40df63bdca33d343cada6ceaafbc8b765ed7cc6?dir=contrib";
+    rustmission.url = "github:intuis/rustmission";
     nix-rpi5.url = "gitlab:vriska/nix-rpi5?ref=main";
 
     # deduplicate flake inputs
