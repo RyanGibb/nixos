@@ -18,6 +18,7 @@
     powertop
     hdparm
     restic
+    ffmpeg
     inputs.rustmission.packages.${config.nixpkgs.hostPlatform.system}.default
   ];
 
