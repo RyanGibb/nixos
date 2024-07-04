@@ -181,6 +181,17 @@ vim.cmd [[
   syntax enable
 ]]
 
+-- luasnip
+
+local ls = require("luasnip")
+local s = ls.snippet
+local f = ls.function_node
+ls.add_snippets("all", {
+	s("d", {
+		f(function() return os.date("%Y-%m-%d") end)
+	}),
+})
+
 -- nvim-cmp
 
 local cmp = require 'cmp'
@@ -210,10 +221,53 @@ cmp.setup {
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
 		['<C-Space>'] = cmp.mapping.complete(),
 		['<C-e>'] = cmp.mapping.abort(),
-		['<Tab>'] = cmp.mapping.confirm({ select = true }),
-		['<CR>'] = cmp.mapping.confirm({
-			behavior = cmp.ConfirmBehavior.Replace,
-		}),
+		-- luasnip mappings from https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
+		['<Tab>'] =
+			cmp.mapping(function(fallback)
+				if cmp.visible() then
+					if ls.expandable() then
+						ls.expand()
+					else
+						cmp.mapping.confirm({ select = true })
+					end
+				else
+					fallback()
+				end
+			end),
+		['<CR>'] =
+			cmp.mapping(function(fallback)
+				if cmp.visible() then
+					if ls.expandable() then
+						ls.expand()
+					else
+						cmp.confirm({
+							behavior = cmp.ConfirmBehavior.Replace,
+						})
+					end
+				else
+					fallback()
+				end
+			end),
+		['<Down>'] =
+			cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.mapping.select_next_item()
+				elseif ls.locally_jumpable(1) then
+					ls.jump(1)
+				else
+					fallback()
+				end
+			end),
+		['<Up>'] =
+			cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.mapping.select_prev_item()
+				elseif ls.locally_jumpable(1) then
+					ls.jump(1)
+				else
+					fallback()
+				end
+			end)
 	}),
 	sources = {
 		{ name = "omni",
@@ -245,7 +299,7 @@ cmp.setup.cmdline(':', {
 	})
 })
 
---- session management
+-- session management
 
 local session_dir = vim.fn.stdpath('data') .. '/sessions/'
 
