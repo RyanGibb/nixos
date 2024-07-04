@@ -204,7 +204,7 @@ cmp.setup {
 	formatting = {
 		format = function(entry, vim_item)
 			vim_item.menu = ({
-				omni = (vim.inspect(vim_item.menu):gsub('%"', "")),
+				omni = "[Omni]",
 				nvim_lsp = "[LSP]",
 				nvim_lsp_signature_help = "[Signature]",
 				spell = "[Spell]",
@@ -270,8 +270,7 @@ cmp.setup {
 			end)
 	}),
 	sources = {
-		{ name = "omni",
-			trigger_characters = { "{", "\\" } },
+		{ name = "omni" },
 		{ name = 'nvim_lsp' },
 		{ name = 'nvim_lsp_signature_help' },
 		{ name = 'spell', option = {
@@ -298,6 +297,10 @@ cmp.setup.cmdline(':', {
 		{ name = 'cmdline' }
 	})
 })
+
+-- vim-ledger
+
+vim.g.ledger_fuzzy_account_completion = true
 
 -- session management
 
