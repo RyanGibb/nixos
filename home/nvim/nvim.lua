@@ -188,9 +188,19 @@ local s = ls.snippet
 local f = ls.function_node
 local t = ls.text_node
 local i = ls.insert_node
+local c = ls.choice_node
+local sn = ls.snippet_node
 
 local function date_input()
-    return os.date("%Y-%m-%d")
+	return os.date("%Y-%m-%d")
+end
+
+local function amount_spacing(args)
+	local len = #args[1][1]
+	local cur_col = len + 2
+	local spaces = 32 - cur_col
+	if spaces < 0 then spaces = 1 end
+	return string.rep(" ", spaces)
 end
 
 ls.add_snippets("all", {
@@ -198,10 +208,14 @@ ls.add_snippets("all", {
 		f(date_input)
 	}),
 	s("ledger", {
-		i(1, date_input()), t(" "), i(2, "description"),
-		t({ "", "  ; " }), i(3, "comment"),
-		t({ "", "  " }), i(4, "account1"), t("  £"), i(6, "amount"),
-		t({ "", "  " }), i(5, "account2"),
+		i(6, date_input()), t(" "), i(1, "description"),
+		c(2, {
+			sn(nil, { t({ "", "  ; " }), i(1, "Comment") }),
+			t(""),
+		}),
+		t({ "", "  " }), i(3, "Account"), f(amount_spacing, { 3 }), t("£"), i(5, "Amount"),
+		t({ "", "  " }), i(4, "Account"),
+		t({ "", "", "" }),
 	}),
 })
 
