@@ -69,11 +69,6 @@ in {
               '';
               "ftplugin/nix.vim".text = ml-style;
               "ftplugin/ocaml.vim".text = ml-style;
-              "after/ftplugin/markdown.vim".text = ''
-                set com-=fb:-
-                set com+=b:-\ [\ ],b:-\ [x],b:-
-                set formatoptions+=ro
-              '';
               "ftplugin/java.lua".text = ''
                 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
                 local workspace_dir = '~/.cache/jdt/' .. project_name
@@ -129,6 +124,7 @@ in {
           }
 
           vim-ledger
+          vim-markdown
         ] ++ lib.lists.optionals cfg.nvim-lsps [
           ltex-ls-nvim
           nvim-jdtls
