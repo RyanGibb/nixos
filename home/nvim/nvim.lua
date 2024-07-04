@@ -59,6 +59,9 @@ vim.opt.hlsearch = false
 
 vim.opt.updatetime = 500
 
+vim.g.markdown_folding = true
+vim.o.foldlevel = 99
+
 local key_mapper = function(mode, key, result)
 	vim.api.nvim_set_keymap(
 		mode,
