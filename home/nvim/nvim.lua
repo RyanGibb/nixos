@@ -186,9 +186,22 @@ vim.cmd [[
 local ls = require('luasnip')
 local s = ls.snippet
 local f = ls.function_node
+local t = ls.text_node
+local i = ls.insert_node
+
+local function date_input()
+    return os.date("%Y-%m-%d")
+end
+
 ls.add_snippets("all", {
 	s("d", {
-		f(function() return os.date("%Y-%m-%d") end)
+		f(date_input)
+	}),
+	s("ledger", {
+		i(1, date_input()), t(" "), i(2, "description"),
+		t({ "", "  ; " }), i(3, "comment"),
+		t({ "", "  " }), i(4, "account1"), t("  £"), i(6, "amount"),
+		t({ "", "  " }), i(5, "account2"),
 	}),
 })
 
@@ -225,6 +238,9 @@ cmp.setup {
 		end,
 	},
 	mapping = {
+		['<C-y>'] = {
+			i = cmp.mapping.confirm({ select = false }),
+		},
 		['<C-e>'] = {
 			i = cmp.mapping.abort(),
 		},
