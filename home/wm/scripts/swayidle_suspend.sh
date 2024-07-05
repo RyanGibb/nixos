@@ -9,6 +9,5 @@ swayidle -w\
 		resume '@wmmsg@ "output * dpms on"'\
 	timeout 240 'loginctl lock-session'\
 	timeout 300 'systemctl suspend-then-hibernate'\
-	before-sleep 'playerctl -a pause; loginctl lock-session'\
-	&> ~/.swayidle_log
+	before-sleep 'playerctl -a pause; loginctl lock-session'
 

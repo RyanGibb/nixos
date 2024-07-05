@@ -7,6 +7,5 @@ swayidle -w\
 	timeout 120 "notify-send 'going to sleep soon!' -t 3000"\
 	timeout 180 '@wmmsg@ "output * dpms off"'\
 		resume '@wmmsg@ "output * dpms on"'\
-	before-sleep 'playerctl -a pause; loginctl lock-session'\
-	&> ~/.swayidle_log
+	before-sleep 'playerctl -a pause; loginctl lock-session'
 

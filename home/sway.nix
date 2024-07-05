@@ -51,7 +51,7 @@ in {
         export XDG_SESSION_TYPE="wayland"
         export XDG_CURRENT_DESKTOP="sway"
 
-      	exec sway -d 2> $HOME/.sway_log
+        exec sway -d
       fi
     '';
 

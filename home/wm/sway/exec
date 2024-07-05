@@ -1,7 +1,7 @@
 
 exec $SCRIPT_DIR/swayidle_lock.sh
 
-exec_always "pkill kanshi; kanshi &> ~/.kanshi_log"
+exec_always "pkill kanshi; kanshi"
 
 # https://elis.nu/blog/2021/02/detailed-setup-of-screen-sharing-in-sway/#orga91b409
 exec systemctl --user import-environment XDG_SESSION_TYPE XDG_CURRENT_DESKTOP

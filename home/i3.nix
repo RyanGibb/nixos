@@ -40,7 +40,7 @@ in {
         export XDG_SESSION_TYPE=x11
         export GDK_BACKEND=x11
         export DESKTOP_SESSION=plasma
-        exec i3 &> ~/.i3_log
+        exec i3
       '';
       ".zprofile".text = ''
         # Autostart at login on TTY 2
