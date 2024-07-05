@@ -258,6 +258,9 @@ cmp.setup {
 		['<C-e>'] = {
 			i = cmp.mapping.abort(),
 		},
+		['<C-Space>'] = {
+			i = cmp.mapping.complete(),
+		},
 		["<Down>"] = {
 			i = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })
 		},
