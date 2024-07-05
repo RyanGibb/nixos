@@ -5,8 +5,9 @@
 
   environment.packages = with pkgs; [
     util-linux # for whereis
-    awk # for shell history search
+    gawk # for shell history search
     ffmpeg
+    ledger
   ];
   environment.etcBackupExtension = ".bak";
 
