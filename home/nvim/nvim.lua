@@ -265,16 +265,33 @@ cmp.setup {
 			i = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
 		},
 	},
-	sources = {
-		{ name = "omni" },
-		{ name = 'nvim_lsp' },
-		{ name = 'nvim_lsp_signature_help' },
-		{ name = 'spell', option = {
-			preselect_correct_word = false,
-		}, },
-		{ name = 'buffer', },
-		{ name = 'path', },
-		{ name = 'luasnip' },
+	sources = cmp.config.sources({
+		{ name = 'nvim_lsp_signature_help', priority = 1000 },
+		{ name = 'nvim_lsp',                priority = 900 },
+		{ name = 'luasnip',                 priority = 800 },
+		{ name = 'omni',                    priority = 700 },
+		{ name = 'buffer',                  priority = 600 },
+		{ name = 'path',                    priority = 500 },
+		{
+			name = 'spell',
+			priority = 400,
+			option = { preselect_correct_word = false }
+		},
+	}),
+	sorting = {
+		priority_weight = 2,
+		comparators = {
+			cmp.config.compare.offset,
+			cmp.config.compare.exact,
+			-- cmp.config.compare.scopes,
+			cmp.config.compare.score,
+			cmp.config.compare.recently_used,
+			cmp.config.compare.locality,
+			cmp.config.compare.kind,
+			-- cmp.config.compare.sort_text,
+			-- cmp.config.compare.length,
+			cmp.config.compare.order,
+		},
 	},
 }
 -- `/` cmdline setup.
