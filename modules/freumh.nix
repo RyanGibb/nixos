@@ -72,6 +72,11 @@ in {
                     background-repeat: no-repeat;
                     background-size: cover;
                   }
+                  @media (prefers-color-scheme: dark) {
+                    body {
+                      filter: invert(1);
+                    }
+                  }
                 </style>
                 <script>
                   function fetchImage() {
