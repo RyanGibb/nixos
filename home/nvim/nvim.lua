@@ -317,6 +317,7 @@ cmp.setup.cmdline(':', {
 -- vim-ledger
 
 vim.g.ledger_fuzzy_account_completion = true
+vim.g.ledger_extra_options = '--pedantic'
 
 -- session management
 
