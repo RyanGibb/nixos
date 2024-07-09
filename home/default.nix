@@ -130,7 +130,7 @@ in {
         trust = "ultimate";
       }];
     };
-    services.gpg-agent.pinentryPackage = pkgs.pinentry-qt;
+    services.gpg-agent.pinentryPackage = pkgs.pinentry-tty;
 
     programs.git = {
       enable = true;
