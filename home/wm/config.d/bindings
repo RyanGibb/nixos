@@ -384,7 +384,6 @@ bindsym $mod+Shift+b   exec $browser -P secondary
 bindsym $mod+Control+b exec $browser -private-window
 
 bindsym $mod+slash   exec xdg-open ~
-bindsym $mod+Shift+slash exec $term -e zsh -c $SCRIPT_DIR/open_file.sh
 
 bindsym $mod+apostrophe exec rofimoji --selector @rofi@ --selector-args=-i --skin-tone neutral --prompt "" -a copy
 
