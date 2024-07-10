@@ -56,6 +56,10 @@ in {
     package = eon.defaultPackage.${config.nixpkgs.hostPlatform.system};
     defaults.email = "${config.custom.username}@${config.networking.domain}";
     defaults.capFile = "/var/lib/eon/caps/domain/freumh.org.cap";
+    certs = {
+      "fn06.org".capFile = "/var/lib/eon/caps/domain/fn06.org.cap";
+      "capybara.fn06.org".capFile = "/var/lib/eon/caps/domain/fn06.org.cap";
+    };
   };
 
   eilean = {
