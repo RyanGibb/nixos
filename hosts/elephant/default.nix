@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }@inputs:
+{ pkgs, config, lib, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ./zfs.nix ./services.nix ];
@@ -19,7 +19,7 @@
     hdparm
     restic
     ffmpeg
-    inputs.rustmission.packages.${config.nixpkgs.hostPlatform.system}.default
+    stig
   ];
 
   eilean = { publicInterface = "enp1s0"; };

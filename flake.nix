@@ -19,7 +19,6 @@
     hyperbib-eeg.url = "github:RyanGibb/hyperbib?ref=nixify";
     neovim.url =
       "github:neovim/neovim/f40df63bdca33d343cada6ceaafbc8b765ed7cc6?dir=contrib";
-    rustmission.url = "github:intuis/rustmission";
     nix-rpi5.url = "gitlab:vriska/nix-rpi5?ref=main";
 
     # deduplicate flake inputs
@@ -61,6 +60,17 @@
               neovim.packages.${system}.default
             else
               prev.neovim-unwrapped;
+            stig = prev.stig.overrideAttrs (_: rec {
+              version = "0.12.10a0";
+              src = prev.fetchFromGitHub {
+                owner = "rndusr";
+                repo = "stig";
+                rev = "v${version}";
+                sha256 = "sha256-lSFI4/DxWl17KFgLXZ7c5nW/e5IUGN7s8Gm6wTM5ZWg=";
+              };
+              meta.broken = false;
+              dontUsePytestCheck = true;
+            });
           })
         ];
     in {
@@ -186,8 +196,10 @@
 
       legacyPackages = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed
         (system: {
-          nixpkgs = nixpkgs.legacyPackages.${system};
-          nixpkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+          nixpkgs = import nixpkgs {
+            inherit system;
+            overlays = getSystemOverlays system { };
+          };
         });
 
       formatter = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed
