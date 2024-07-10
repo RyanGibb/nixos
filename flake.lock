@@ -8,11 +8,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1716561646,
-        "narHash": "sha256-UIGtLO89RxKt7RF2iEgPikSdU53r6v/6WYB0RW3k89I=",
+        "lastModified": 1720546205,
+        "narHash": "sha256-boCXsjYVxDviyzoEyAk624600f3ZBo/DKtUdvMTpbGY=",
         "owner": "ryantm",
         "repo": "agenix",
-        "rev": "c2fc0762bbe8feb06a2e59a364fa81b3a57671c9",
+        "rev": "de96bd907d5fbc3b14fc33ad37d1b9a3cb15edc6",
         "type": "github"
       },
       "original": {
@@ -110,11 +110,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1715699772,
-        "narHash": "sha256-sKhqIgucN5sI/7UQgBwsonzR4fONjfMr9OcHK/vPits=",
+        "lastModified": 1718194053,
+        "narHash": "sha256-FaGrf7qwZ99ehPJCAwgvNY5sLCqQ3GDiE/6uLhxxwSY=",
         "owner": "serokell",
         "repo": "deploy-rs",
-        "rev": "b3ea6f333f9057b77efd9091119ba67089399ced",
+        "rev": "3867348fa92bc892eba5d9ddb2d7a97b9e127a8a",
         "type": "github"
       },
       "original": {
@@ -158,11 +158,11 @@
         "opam-repository": "opam-repository"
       },
       "locked": {
-        "lastModified": 1718122335,
-        "narHash": "sha256-ooeplCUj5dY2KT840ecFtR+iDq1V2iB5rDsFqjbdFSs=",
+        "lastModified": 1719664786,
+        "narHash": "sha256-g4MiDcMybEqgCMMNrD/g0idYke6wMm3kL6MOH2V0gwY=",
         "owner": "RyanGibb",
         "repo": "eon",
-        "rev": "87b7ec1cd6cb7dc0f950d8d37a91845465780faf",
+        "rev": "20ea90f0086a8e3f6f0a1c79820bfaa2844d47de",
         "type": "github"
       },
       "original": {
@@ -683,11 +683,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1716987116,
-        "narHash": "sha256-uuEkErFVsFdg2K0cKbNQ9JlFSAm/xYqPr4rbPLI91Y8=",
+        "lastModified": 1720515935,
+        "narHash": "sha256-8b+fzR4W2hI5axwB+4nBwoA15awPKkck4ghhCt8v39M=",
         "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "8251761f93d6f5b91cee45ac09edb6e382641009",
+        "rev": "a111ce6b537df12a39874aa9672caa87f8677eda",
         "type": "github"
       },
       "original": {
@@ -784,11 +784,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1716948383,
-        "narHash": "sha256-SzDKxseEcHR5KzPXLwsemyTR/kaM9whxeiJohbL04rs=",
+        "lastModified": 1720418205,
+        "narHash": "sha256-cPJoFPXU44GlhWg4pUk9oUPqurPlCFZ11ZQPk21GTPU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "ad57eef4ef0659193044870c731987a6df5cf56b",
+        "rev": "655a58a72a6601292512670343087c2d75d859c1",
         "type": "github"
       },
       "original": {
@@ -878,11 +878,11 @@
     },
     "nixpkgs_7": {
       "locked": {
-        "lastModified": 1719838683,
-        "narHash": "sha256-Zw9rQjHz1ilNIimEXFeVa1ERNRBF8DoXDhLAZq5B4pE=",
+        "lastModified": 1720386169,
+        "narHash": "sha256-NGKVY4PjzwAa4upkGtAMz1npHGoRzWotlSnVlqI40mo=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d032c1a6dfad4eedec7e35e91986becc699d7d69",
+        "rev": "194846768975b7ad2c4988bdb82572c00222c0d7",
         "type": "github"
       },
       "original": {
@@ -1162,11 +1162,11 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "lastModified": 1719059108,
-        "narHash": "sha256-7E9vvfrKs91M27xAEN3XbNWxfj8hvCcvFzpatDWeUD4=",
+        "lastModified": 1720467720,
+        "narHash": "sha256-Vjbz3Yfcn14oVJ5+lRMYO09Zcim3xqpjWepkkRBD454=",
         "owner": "intuis",
         "repo": "rustmission",
-        "rev": "939a2f6b249b198d31ae8eec3ef7a03b1a88e32f",
+        "rev": "ccc14f162d28bf969b7a0a50cf637df7c25c4ca0",
         "type": "github"
       },
       "original": {
@@ -1183,11 +1183,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1717058920,
-        "narHash": "sha256-kxMtrXO6tmxTljbfauJbcG82Z7ncmu04qIlY+02LWbk=",
+        "lastModified": 1719918975,
+        "narHash": "sha256-f3P1Q7TAhfvqYXIQXwsi+wzLiwL3hx6USTHMWpmzSDM=",
         "ref": "refs/heads/master",
-        "rev": "f3ac7a6656615170fd7ac39a9b769d8e3e76723f",
-        "revCount": 522,
+        "rev": "bbc2d613f757ed08e710aefa6ab4643e65d766bf",
+        "revCount": 523,
         "type": "git",
         "url": "ssh://git@github.com/RyanGibb/website.git"
       },
