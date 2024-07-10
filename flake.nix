@@ -37,9 +37,8 @@
     hyperbib-eeg.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager
-    , agenix, deploy-rs, nix-on-droid, eon, eilean, fn06-website
-    , i3-workspace-history, hyperbib-eeg, neovim, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, agenix, deploy-rs
+    , nix-on-droid, eilean, neovim, ... }@inputs:
     let
       getSystemOverlays = system: nixpkgsConfig:
         [
@@ -64,7 +63,7 @@
               prev.neovim-unwrapped;
           })
         ];
-    in rec {
+    in {
       nixosConfigurations = let
         mkMode = mode: host:
           nixpkgs.lib.nixosSystem {
