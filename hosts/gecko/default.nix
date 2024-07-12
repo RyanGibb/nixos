@@ -88,6 +88,7 @@
     powertop
     toot
     ledger
+    virtualbox
   ];
 
   services.gnome.gnome-keyring.enable = true;
@@ -95,6 +96,9 @@
 
   virtualisation.docker.enable = true;
   users.users.ryan.extraGroups = [ "docker" ];
+
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "ryan" ];
 
   systemd.extraConfig = ''
     DefaultTimeoutStopSec=30s
