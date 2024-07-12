@@ -17,6 +17,7 @@
       "nix-cache.vpn.freumh.org"
       "jellyfin.vpn.freumh.org"
       "transmission.vpn.freumh.org"
+      "nextcloud.vpn.freumh.org"
     ];
   };
 
@@ -42,6 +43,10 @@
             http://localhost:9091
           '';
         };
+      };
+      "nextcloud.vpn.freumh.org" = {
+        enableSSL = true;
+        listenAddresses = [ "100.64.0.9" ];
       };
     };
   };
@@ -110,7 +115,7 @@
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud29;
-    hostName = "nextcloud";
+    hostName = "nextcloud.vpn.freumh.org";
     config.adminpassFile = config.age.secrets.nextcloud.path;
   };
 
