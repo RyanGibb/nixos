@@ -208,7 +208,7 @@ ls.add_snippets("all", {
 		f(date_input)
 	}),
 	s("ledger", {
-		i(6, date_input()), t(" "), i(1, "description"),
+		i(6, date_input()), t(" "), i(1, "Recipient"),
 		c(2, {
 			sn(nil, { t({ "", "  ; " }), i(1, "Comment") }),
 			t(""),
