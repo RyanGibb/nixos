@@ -33,6 +33,9 @@
       calendar.enable = true;
       battery.enable = true;
     };
+    home.sessionVariables = {
+      LEDGER_FILE = ''~/vault/ledger/`date "+%Y"`.ledger'';
+    };
   };
 
   boot.loader.grub = {

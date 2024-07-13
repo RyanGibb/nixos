@@ -23,7 +23,6 @@ in {
       NIX_AUTO_RUN = "y";
       NIX_AUTO_RUN_INTERACTIVE = "y";
       GOPATH = "$HOME/.go";
-      LEDGER_FILE = ''~/vault/ledger/`date "+%Y"`.ledger'';
     };
     home.packages = let
       status = pkgs.stdenv.mkDerivation {

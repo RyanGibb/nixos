@@ -319,6 +319,7 @@ cmp.setup.cmdline(':', {
 vim.g.ledger_fuzzy_account_completion = true
 vim.g.ledger_extra_options = '--pedantic'
 vim.g.ledger_align_at = 50
+vim.g.ledger_accounts_cmd = 'ledger accounts --add-budget'
 
 -- session management
 
