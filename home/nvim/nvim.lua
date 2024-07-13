@@ -197,7 +197,7 @@ end
 
 local function amount_spacing(args)
 	local account_length = #args[1][1]
-	local desired_column = 50
+	local desired_column = vim.g.ledger_align_at or 50
 	local current_column = 2 + account_length + 2 -- 2 spaces after account
 	local amount = args[2][1]
 	local period_position = amount:find("%.") or (#amount + 1)
