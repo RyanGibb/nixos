@@ -196,11 +196,16 @@ local function date_input()
 end
 
 local function amount_spacing(args)
-	local len = #args[1][1]
-	local cur_col = len + 2
-	local spaces = 32 - cur_col
-	if spaces < 0 then spaces = 1 end
-	return string.rep(" ", spaces)
+	local account_length = #args[1][1]
+	local desired_column = 50
+	local current_column = 2 + account_length + 2 -- 2 spaces after account
+	local amount = args[2][1]
+	local period_position = amount:find("%.") or (#amount + 1)
+	local pre_period_length = period_position - 1
+	local total_length = current_column + pre_period_length
+	local spaces_needed = desired_column - total_length
+	if spaces_needed < 0 then spaces_needed = 1 end
+	return string.rep(" ", spaces_needed)
 end
 
 ls.add_snippets("all", {
@@ -213,7 +218,7 @@ ls.add_snippets("all", {
 			sn(nil, { t({ "", "  ; " }), i(1, "Comment") }),
 			t(""),
 		}),
-		t({ "", "  " }), i(3, "Account"), f(amount_spacing, { 3 }), t("£"), i(5, "Amount"),
+		t({ "", "  " }), i(3, "Account"), f(amount_spacing, {3, 5}), t("£"), i(5, "0"),
 		t({ "", "  " }), i(4, "Account"),
 		t({ "", "", "" }),
 	}),
@@ -221,8 +226,8 @@ ls.add_snippets("all", {
 
 vim.keymap.set({ "i" }, "<C-k>", function() ls.expand() end, { silent = true })
 vim.keymap.set({ "i", "s" }, "<C-l>", function() ls.jump(1) end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<C-j>", function() ls.jump(-1) end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<C-e>", function()
+vim.keymap.set({ "i", "s" }, "<C-h>", function() ls.jump(-1) end, { silent = true })
+vim.keymap.set({ "i", "s" }, "<C-j>", function()
 	if ls.choice_active() then
 		ls.change_choice(1)
 	end
