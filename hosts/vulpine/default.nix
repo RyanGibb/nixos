@@ -23,6 +23,9 @@
     device = "nodev";
     efiSupport = true;
   };
+  boot.loader.efi = {
+    canTouchEfiVariables = true;
+  };
 
   boot.supportedFilesystems = [ "ntfs" ];
 
