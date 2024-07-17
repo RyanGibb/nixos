@@ -388,6 +388,16 @@ vim.api.nvim_create_user_command('LoadSession', load_session, { nargs = '?', com
 key_mapper('n', '<leader>ss', ':SaveSession<CR>')
 key_mapper('n', '<leader>sl', ':LoadSession<CR>')
 
+-- org-mode
+
+-- Open agenda prompt: <Leader>oa
+-- Open capture prompt: <Leader>oc
+-- In any orgmode buffer press g? for help
+require('orgmode').setup({
+	org_agenda_files = { '~/vault/agenda/*.org' },
+	org_default_notes_file = '~/vault/refile.org',
+})
+
 -- free real-estate
 -- <leader>q
 -- <leader>n

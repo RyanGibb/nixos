@@ -139,6 +139,8 @@ in {
 
           vim-ledger-2024-07-15
           vim-markdown
+
+          orgmode
         ] ++ lib.lists.optionals cfg.nvim-lsps [
           ltex-ls-nvim
           nvim-jdtls
