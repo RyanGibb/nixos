@@ -137,8 +137,8 @@ vim.api.nvim_create_autocmd('TermOpen', {
 
 --- utils
 
-require("nvim-surround").setup({})
-require("Comment").setup()
+require('nvim-surround').setup({})
+require('Comment').setup()
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 
 -- telescope
@@ -192,7 +192,7 @@ local c = ls.choice_node
 local sn = ls.snippet_node
 
 local function date_input()
-	return os.date("%Y-%m-%d")
+	return os.date('%Y-%m-%d')
 end
 
 local function amount_spacing(args)
@@ -200,34 +200,34 @@ local function amount_spacing(args)
 	local desired_column = vim.g.ledger_align_at or 50
 	local current_column = 2 + account_length + 2 -- 2 spaces after account
 	local amount = args[2][1]
-	local period_position = amount:find("%.") or (#amount + 1)
+	local period_position = amount:find('%.') or (#amount + 1)
 	local pre_period_length = period_position - 1
 	local total_length = current_column + pre_period_length
 	local spaces_needed = desired_column - total_length
 	if spaces_needed < 0 then spaces_needed = 1 end
-	return string.rep(" ", spaces_needed)
+	return string.rep(' ', spaces_needed)
 end
 
-ls.add_snippets("all", {
-	s("d", {
+ls.add_snippets('all', {
+	s('d', {
 		f(date_input)
 	}),
-	s("ledger", {
-		i(6, date_input()), t(" "), i(1, "Recipient"),
+	s('ledger', {
+		i(6, date_input()), t(' '), i(1, 'Recipient'),
 		c(2, {
-			sn(nil, { t({ "", "  ; " }), i(1, "Comment") }),
-			t(""),
+			sn(nil, { t({ '', '  ; ' }), i(1, 'Comment') }),
+			t(''),
 		}),
-		t({ "", "  " }), i(3, "Account"), f(amount_spacing, {3, 5}), t("£"), i(5, "0"),
-		t({ "", "  " }), i(4, "Account"),
-		t({ "", "", "" }),
+		t({ '', '  ' }), i(3, 'Account'), f(amount_spacing, { 3, 5 }), t('£'), i(5, '0'),
+		t({ '', '  ' }), i(4, 'Account'),
+		t({ '', '', '' }),
 	}),
 })
 
-vim.keymap.set({ "i" }, "<C-k>", function() ls.expand() end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<C-l>", function() ls.jump(1) end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<C-h>", function() ls.jump(-1) end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<C-j>", function()
+vim.keymap.set({ 'i' }, '<C-k>', function() ls.expand() end, { silent = true })
+vim.keymap.set({ 'i', 's' }, '<C-l>', function() ls.jump(1) end, { silent = true })
+vim.keymap.set({ 'i', 's' }, '<C-h>', function() ls.jump(-1) end, { silent = true })
+vim.keymap.set({ 'i', 's' }, '<C-j>', function()
 	if ls.choice_active() then
 		ls.change_choice(1)
 	end
@@ -245,13 +245,13 @@ cmp.setup {
 	formatting = {
 		format = function(entry, vim_item)
 			vim_item.menu = ({
-				omni = "[Omni]",
-				nvim_lsp = "[LSP]",
-				nvim_lsp_signature_help = "[Signature]",
-				spell = "[Spell]",
-				buffer = "[Buffer]",
-				path = "[Path]",
-				ls = "[Luasnip]",
+				omni = '[Omni]',
+				nvim_lsp = '[LSP]',
+				nvim_lsp_signature_help = '[Signature]',
+				spell = '[Spell]',
+				buffer = '[Buffer]',
+				path = '[Path]',
+				ls = '[Luasnip]',
 			})[entry.source.name]
 			return vim_item
 		end,
@@ -266,10 +266,10 @@ cmp.setup {
 		['<C-Space>'] = {
 			i = cmp.mapping.complete(),
 		},
-		["<Down>"] = {
+		['<Down>'] = {
 			i = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })
 		},
-		["<Up>"] = {
+		['<Up>'] = {
 			i = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
 		},
 	},
@@ -361,7 +361,7 @@ local function load_session(args)
 	if vim.fn.filereadable(session_file) == 1 then
 		vim.cmd('source ' .. vim.fn.fnameescape(session_file))
 	else
-		print("No session file found for " .. (args.args == "" and "this directory" or args.args))
+		print('No session file found for ' .. (args.args == '' and 'this directory' or args.args))
 	end
 end
 
