@@ -22,6 +22,17 @@ let
     };
     meta.homepage = "https://github.com/f3fora/cmp-spell/";
   };
+  vim-ledger-2024-07-15 = pkgs.vimUtils.buildVimPlugin {
+    pname = "vim-ledger";
+    version = "2024-07-15";
+    src = pkgs.fetchFromGitHub {
+      owner = "ledger";
+      repo = "vim-ledger";
+      rev = "dbc683e24bd5338b8c12540227a58b2d247e097a";
+      sha256 = "sha256-y2f0s0aAieXtj4mSnJdH7UxQlMqJqABNVPoGLlLc57A=";
+    };
+    meta.homepage = "https://github.com/ledger/vim-ledger/";
+  };
   cfg = config.custom;
 in {
   options.custom.nvim-lsps = lib.mkEnableOption "nvim-lsps";
@@ -126,7 +137,7 @@ in {
             };
           }
 
-          vim-ledger
+          vim-ledger-2024-07-15
           vim-markdown
         ] ++ lib.lists.optionals cfg.nvim-lsps [
           ltex-ls-nvim
