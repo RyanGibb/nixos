@@ -33,6 +33,17 @@ let
     };
     meta.homepage = "https://github.com/ledger/vim-ledger/";
   };
+  calendar-nvim = pkgs.vimUtils.buildVimPlugin {
+    pname = "calendar-nvim";
+    version = "2024-07-22";
+    src = pkgs.fetchFromGitHub {
+      owner = "RyanGibb";
+      repo = "calendar.nvim";
+      rev = "5da095e7e773621a35f68a2409fb040cf2c2bb5d";
+      sha256 = "sha256-+jehY85P2UjVFxbYFfjYOZlI5tNFX5Yq5XQseyokgW0=";
+    };
+    meta.homepage = "https://github.com/RyanGibb/calendar.nvim/";
+  };
   cfg = config.custom;
 in {
   options.custom.nvim-lsps = lib.mkEnableOption "nvim-lsps";
@@ -141,6 +152,7 @@ in {
           vim-markdown
 
           orgmode
+          calendar-nvim
         ] ++ lib.lists.optionals cfg.nvim-lsps [
           ltex-ls-nvim
           nvim-jdtls

@@ -398,6 +398,10 @@ require('orgmode').setup({
 	org_default_notes_file = '~/vault/refile.org',
 })
 
+-- calendar
+
+require('calendar')
+
 -- free real-estate
 -- <leader>q
 -- <leader>n
