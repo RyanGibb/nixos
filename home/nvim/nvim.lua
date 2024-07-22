@@ -406,3 +406,11 @@ require('calendar')
 -- <leader>q
 -- <leader>n
 -- <leader>;
+
+vim.cmd([[
+augroup RememberView
+  autocmd!
+  autocmd BufWinLeave * let b:win_view = winsaveview()
+  autocmd BufWinEnter * if exists('b:win_view') | call winrestview(b:win_view) | endif
+augroup END
+]])
