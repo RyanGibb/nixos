@@ -132,15 +132,6 @@
 
   #system.includeBuildDependencies = true;
   nix = {
-    buildMachines = [{
-      hostName = "rtg24@daintree.cl.cam.ac.uk";
-      system = "x86_64-linux";
-      protocol = "ssh-ng";
-      maxJobs = 1;
-      speedFactor = 2;
-      supportedFeatures = [ "benchmark" "big-parallel" "kvm" ];
-      mandatoryFeatures = [ ];
-    }];
     distributedBuilds = true;
     extraOptions = ''
       builders-use-substitutes = true
