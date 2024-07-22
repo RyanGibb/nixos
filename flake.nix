@@ -17,8 +17,6 @@
       "git+ssh://git@github.com/ryangibb/colour-guesser.git?ref=develop";
     i3-workspace-history.url = "github:RyanGibb/i3-workspace-history";
     hyperbib-eeg.url = "github:RyanGibb/hyperbib?ref=nixify";
-    neovim.url =
-      "github:neovim/neovim/f40df63bdca33d343cada6ceaafbc8b765ed7cc6?dir=contrib";
     nix-rpi5.url = "gitlab:vriska/nix-rpi5?ref=main";
 
     # deduplicate flake inputs
@@ -37,7 +35,7 @@
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, agenix, deploy-rs
-    , nix-on-droid, eilean, neovim, ... }@inputs:
+    , nix-on-droid, eilean, ... }@inputs:
     let
       getSystemOverlays = system: nixpkgsConfig:
         [
@@ -56,21 +54,8 @@
             # to override attributes of a package
             # package = prev.package.overrideAttrs
             #  (_: { patches = [ ./pkgs/package.patch ]; });
-            neovim-unwrapped = if neovim.packages ? ${system} then
-              neovim.packages.${system}.default
-            else
-              prev.neovim-unwrapped;
-            stig = prev.stig.overrideAttrs (_: rec {
-              version = "0.12.10a0";
-              src = prev.fetchFromGitHub {
-                owner = "rndusr";
-                repo = "stig";
-                rev = "v${version}";
-                sha256 = "sha256-lSFI4/DxWl17KFgLXZ7c5nW/e5IUGN7s8Gm6wTM5ZWg=";
-              };
-              meta.broken = false;
-              dontUsePytestCheck = true;
-            });
+            neovim-unwrapped = final.overlay-unstable.neovim-unwrapped;
+            stig = final.overlay-unstable.stig;
           })
         ];
     in {
