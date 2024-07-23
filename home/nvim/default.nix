@@ -35,12 +35,12 @@ let
   };
   calendar-nvim = pkgs.vimUtils.buildVimPlugin {
     pname = "calendar-nvim";
-    version = "2024-07-22";
+    version = "2024-07-23";
     src = pkgs.fetchFromGitHub {
       owner = "RyanGibb";
       repo = "calendar.nvim";
-      rev = "5da095e7e773621a35f68a2409fb040cf2c2bb5d";
-      sha256 = "sha256-+jehY85P2UjVFxbYFfjYOZlI5tNFX5Yq5XQseyokgW0=";
+      rev = "e1ebd87eb953a91de5cba2c6eff04b127c6a894b";
+      sha256 = "sha256-0iiW6dAvdS5UDbjJvXWKTDqvo/4yoFkYfDind+RuTmE=";
     };
     meta.homepage = "https://github.com/RyanGibb/calendar.nvim/";
   };
