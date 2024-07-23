@@ -44,6 +44,16 @@ let
     };
     meta.homepage = "https://github.com/RyanGibb/calendar.nvim/";
   };
+  himalaya-vim = pkgs.vimUtils.buildVimPlugin {
+    pname = "himalaya-vim";
+    version = "2024-05-27";
+    src = pkgs.fetchgit {
+      url = "https://git.sr.ht/~soywod/himalaya-vim";
+      rev = "cea041c927a04a841aea53abcedd4a0d153d4ca8";
+      sha256 = "sha256-w1hpnjvavW/vrU9o6XLKC7pakuN+6jbtdMvRiTekMXs=";
+    };
+    meta.homepage = "https://git.sr.ht/~soywod/himalaya-vim";
+  };
   cfg = config.custom;
 in {
   options.custom.nvim-lsps = lib.mkEnableOption "nvim-lsps";
@@ -147,6 +157,7 @@ in {
               "ftplugin/notmuch-compose.vim".text = notmuch-style;
             };
           }
+          himalaya-vim
 
           vim-ledger-2024-07-15
           vim-markdown

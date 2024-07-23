@@ -25,6 +25,7 @@ in {
         > ${config.accounts.email.maildirBasePath}/addressbook/cam-ldap
       '')
       address-book
+      himalaya
     ];
 
     xdg.configFile = {
@@ -317,6 +318,10 @@ in {
           notmuch.enable = true;
         };
       };
+    };
+
+    xdg.configFile = {
+      "himalaya/config.toml".source = ./himalaya.toml;
     };
   };
 }
