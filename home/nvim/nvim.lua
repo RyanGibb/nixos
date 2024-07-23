@@ -436,10 +436,6 @@ require('orgmode').setup({
 
 require('calendar')
 
--- himalaya
-
-vim.g.himalaya_folder_picker = 'telescope'
-
 -- free real-estate
 -- <leader>q
 -- <leader>n
