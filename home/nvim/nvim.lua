@@ -190,6 +190,7 @@ local t = ls.text_node
 local i = ls.insert_node
 local c = ls.choice_node
 local sn = ls.snippet_node
+local d = ls.dynamic_node
 
 local function date_input()
 	return os.date('%Y-%m-%d')
@@ -197,9 +198,12 @@ end
 
 local function amount_spacing(args)
 	local account_length = #args[1][1]
+	local amount = args[2][1]
+	if amount == '' then
+		return ''
+	end
 	local desired_column = vim.g.ledger_align_at or 50
 	local current_column = 2 + account_length + 2 -- 2 spaces after account
-	local amount = args[2][1]
 	local period_position = amount:find('%.') or (#amount + 1)
 	local pre_period_length = period_position - 1
 	local total_length = current_column + pre_period_length
@@ -208,21 +212,51 @@ local function amount_spacing(args)
 	return string.rep(' ', spaces_needed)
 end
 
+local function recursive_accounts()
+	return sn(nil, {
+		t({ '', '  ' }), i(1, 'Account'), f(amount_spacing, { 1, 2 }),
+		c(2, {
+			t(''),
+			sn(nil, { i(1, '£') })
+		}),
+		c(3, {
+			t(''),
+			d(nil, recursive_accounts)
+		})
+	})
+end
+
 ls.add_snippets('all', {
 	s('d', {
 		f(date_input)
 	}),
 	s('ledger', {
-		i(6, date_input()), t(' '), i(1, 'Recipient'),
-		c(2, {
+		i(1, date_input()), t(' '), i(2, 'Description'),
+		c(3, {
 			sn(nil, { t({ '', '  ; ' }), i(1, 'Comment') }),
 			t(''),
 		}),
-		t({ '', '  ' }), i(3, 'Account'), f(amount_spacing, { 3, 5 }), t('£'), i(5, '0'),
-		t({ '', '  ' }), i(4, 'Account'),
+		t({ '', '  ' }), i(4, 'Account'), f(amount_spacing, { 4, 5 }),
+		c(5, {
+			sn(nil, { i(1, '£') }),
+			t(''),
+		}),
+		d(6, recursive_accounts),
 		t({ '', '', '' }),
 	}),
 })
+ls.add_snippets('mail', {
+	s('attach', {
+		t({ '<#part filename=' }),
+		i(1, '~/'),
+		c(2, {
+			sn(nil, { t({ ' description="', }), i(1, ''), t({ '"', }) }),
+			t(''),
+		}),
+		t({ '><#/part>', '' }),
+	}),
+})
+
 
 vim.keymap.set({ 'i' }, '<C-k>', function() ls.expand() end, { silent = true })
 vim.keymap.set({ 'i', 's' }, '<C-l>', function() ls.jump(1) end, { silent = true })
