@@ -3,6 +3,9 @@ require('gruvbox').setup {
 }
 vim.cmd [[colorscheme gruvbox]]
 vim.api.nvim_command('hi Normal guibg=NONE ctermbg=NONE')
+vim.cmd([[
+  highlight SignColumn ctermbg=none guibg=none
+]])
 
 vim.o.mouse = 'a'
 vim.o.mousemodel = 'extend'
@@ -140,6 +143,14 @@ vim.api.nvim_create_autocmd('TermOpen', {
 require('nvim-surround').setup({})
 require('Comment').setup()
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+
+-- git gutter
+
+vim.cmd([[
+  highlight GitGutterAdd ctermbg=none guibg=none
+  highlight GitGutterDelete ctermbg=none guibg=none
+  highlight GitGutterChange ctermbg=none guibg=none
+]])
 
 -- telescope
 
