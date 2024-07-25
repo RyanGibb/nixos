@@ -21,15 +21,15 @@ On_attach = function(client, bufnr)
 	end
 	vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts('Hover'))
 	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts('Goto definition'))
-	vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, bufopts('Goto implementation'))
-	vim.keymap.set('n', '<leader>gt', vim.lsp.buf.type_definition, bufopts('Goto type definition'))
 	vim.keymap.set('n', '[d', vim.diagnostic.goto_next, bufopts('Goto next issue'))
 	vim.keymap.set('n', ']d', vim.diagnostic.goto_prev, bufopts('Goto prev issue'))
-	vim.keymap.set('n', '<leader>gf', vim.lsp.buf.references, bufopts('Show references'))
-	vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts('Code action'))
-	vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, bufopts('Rename'))
-	vim.keymap.set('n', '<leader>cf', function() vim.lsp.buf.format { async = true } end, bufopts('Format'))
-	vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, bufopts('Get error'))
+	vim.keymap.set('n', '<leader>li', vim.lsp.buf.implementation, bufopts('Goto implementation'))
+	vim.keymap.set('n', '<leader>lt', vim.lsp.buf.type_definition, bufopts('Goto type definition'))
+	vim.keymap.set('n', '<leader>lr', vim.lsp.buf.references, bufopts('Show references'))
+	vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, bufopts('Code action'))
+	vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, bufopts('Rename'))
+	vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format { async = true } end, bufopts('Format'))
+	vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float, bufopts('Get error'))
 end
 
 -- Add additional capabilities supported by nvim-cmp

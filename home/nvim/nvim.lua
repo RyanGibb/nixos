@@ -75,10 +75,6 @@ local key_mapper = function(mode, key, result)
 	)
 end
 
-key_mapper('n', '<leader>h', '<C-w>h')
-key_mapper('n', '<leader>j', '<C-w>j')
-key_mapper('n', '<leader>k', '<C-w>k')
-key_mapper('n', '<leader>l', '<C-w>l')
 key_mapper('n', '<leader>w', ':w<CR>')
 
 key_mapper('n', 'ZA', ':cquit<Enter>')
@@ -154,22 +150,22 @@ vim.cmd([[
 
 -- telescope
 
-vim.keymap.set('n', '<leader>f', require('telescope.builtin').find_files, {})
-vim.keymap.set('n', '<leader>a', require('telescope.builtin').live_grep, {})
-vim.keymap.set('n', '<leader>tv', require('telescope.builtin').git_files, {})
-vim.keymap.set('n', '<leader>b', function() require('telescope.builtin').buffers({ sort_mru = true }) end, {})
-vim.keymap.set('n', '<leader>th', require('telescope.builtin').help_tags, {})
-vim.keymap.set('n', '<leader>tc', require('telescope.builtin').command_history, {})
-vim.keymap.set('n', '<leader>ts', require('telescope.builtin').search_history, {})
-vim.keymap.set('n', '<leader>tj', require('telescope.builtin').jumplist, {})
-vim.keymap.set('n', '<leader>tm', require('telescope.builtin').marks, {})
-vim.keymap.set('n', '<leader>tr', require('telescope.builtin').lsp_references, {})
-vim.keymap.set('n', '<leader>tS', require('telescope.builtin').lsp_document_symbols, {})
-vim.keymap.set('n', '<leader>tc', require('telescope.builtin').lsp_incoming_calls, {})
-vim.keymap.set('n', '<leader>to', require('telescope.builtin').lsp_outgoing_calls, {})
-vim.keymap.set('n', '<leader>ti', require('telescope.builtin').lsp_implementations, {})
-vim.keymap.set('n', '<leader>tx', require('telescope.builtin').diagnostics, {})
-vim.keymap.set('n', '<leader>ty', require('telescope.builtin').registers, {})
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {})
+vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, {})
+vim.keymap.set('n', '<leader>fv', require('telescope.builtin').git_files, {})
+vim.keymap.set('n', '<leader>fb', function() require('telescope.builtin').buffers({ sort_mru = true }) end, {})
+vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, {})
+vim.keymap.set('n', '<leader>fc', require('telescope.builtin').command_history, {})
+vim.keymap.set('n', '<leader>fs', require('telescope.builtin').search_history, {})
+vim.keymap.set('n', '<leader>fj', require('telescope.builtin').jumplist, {})
+vim.keymap.set('n', '<leader>fm', require('telescope.builtin').marks, {})
+vim.keymap.set('n', '<leader>fr', require('telescope.builtin').lsp_references, {})
+vim.keymap.set('n', '<leader>fS', require('telescope.builtin').lsp_document_symbols, {})
+vim.keymap.set('n', '<leader>fc', require('telescope.builtin').lsp_incoming_calls, {})
+vim.keymap.set('n', '<leader>fo', require('telescope.builtin').lsp_outgoing_calls, {})
+vim.keymap.set('n', '<leader>fi', require('telescope.builtin').lsp_implementations, {})
+vim.keymap.set('n', '<leader>fx', require('telescope.builtin').diagnostics, {})
+vim.keymap.set('n', '<leader>fy', require('telescope.builtin').registers, {})
 
 require('telescope').load_extension('fzf')
 
@@ -184,7 +180,7 @@ vim.keymap.set('n', '<leader>xw', function() require('trouble').toggle('workspac
 vim.keymap.set('n', '<leader>xd', function() require('trouble').toggle('document_diagnostics') end)
 vim.keymap.set('n', '<leader>xq', function() require('trouble').toggle('quickfix') end)
 vim.keymap.set('n', '<leader>xl', function() require('trouble').toggle('loclist') end)
-vim.keymap.set('n', 'gR', function() require('trouble').toggle('lsp_references') end)
+vim.keymap.set('n', '<leader>xr', function() require('trouble').toggle('lsp_references') end)
 
 -- vimtex
 vim.cmd [[
@@ -451,6 +447,11 @@ require('calendar')
 -- <leader>q
 -- <leader>n
 -- <leader>;
+-- <leader>h
+-- <leader>j
+-- <leader>k
+-- <leader>e
+-- <leader>b
 
 vim.cmd([[
 augroup RememberView
