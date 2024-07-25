@@ -9,6 +9,7 @@ in {
     ./i3.nix
     ./sway.nix
     ./nvim/default.nix
+    ./emacs/default.nix
     ./battery.nix
   ];
 
