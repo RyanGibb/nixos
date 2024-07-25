@@ -68,7 +68,7 @@ in {
           clang-tools
           typst-lsp
         ];
-      extraLuaConfig = builtins.readFile ./nvim.lua
+      extraLuaConfig = builtins.readFile ./init.lua
         + (if cfg.nvim-lsps then builtins.readFile ./lsp.lua else "");
       # undo transparent background
       # + "colorscheme gruvbox";
