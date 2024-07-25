@@ -98,3 +98,50 @@ require('ltex-ls').setup {
 }
 
 vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
+
+-- dap
+
+-- TODO
+-- stdout
+-- args
+
+local dap = require('dap')
+dap.adapters.ocamlearlybird = {
+	type = 'executable',
+	command = 'ocamlearlybird',
+	args = { 'debug' }
+}
+
+dap.configurations.ocaml = {
+	{
+		name = 'OCaml',
+		type = 'ocamlearlybird',
+		request = 'launch',
+		program = function()
+			local path = vim.fn.input({
+				prompt = 'Path to executable: ',
+				default = vim.fn.getcwd() .. '/_build/default/bin/',
+				completion = 'file'
+			})
+			return (path and path ~= "") and path or dap.ABORT
+		end,
+	},
+}
+
+vim.keymap.set('n', '<leader>;c', function() require('dap').continue() end)
+vim.keymap.set('n', '<leader>;s', function() require('dap').step_over() end)
+vim.keymap.set('n', '<leader>;i', function() require('dap').step_into() end)
+vim.keymap.set('n', '<leader>;o', function() require('dap').step_out() end)
+vim.keymap.set('n', '<leader>;b', function() require('dap').toggle_breakpoint() end)
+vim.keymap.set('n', '<leader>;m',
+	function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
+vim.keymap.set('n', '<leader>;r', function() require('dap').repl.open() end)
+vim.keymap.set('n', '<leader>;l', function() require('dap').run_last() end)
+vim.keymap.set('n', '<leader>;f', function()
+	local widgets = require('dap.ui.widgets')
+	widgets.centered_float(widgets.frames)
+end)
+vim.keymap.set('n', '<leader>;S', function()
+	local widgets = require('dap.ui.widgets')
+	widgets.centered_float(widgets.scopes)
+end)

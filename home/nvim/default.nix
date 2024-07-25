@@ -156,7 +156,7 @@ in {
         ] ++ lib.lists.optionals cfg.nvim-lsps [
           ltex-ls-nvim
           nvim-jdtls
-          # TODO nvim-dap
+          nvim-dap
         ];
     };
   };
