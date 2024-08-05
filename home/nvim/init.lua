@@ -113,6 +113,14 @@ vim.keymap.set({ 'n', 'v' }, '<leader><C-d>', [["_d]])
 
 vim.keymap.set('n', '<leader>S', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
+vim.keymap.set('n', '<leader>tc', ':tabnew<CR>')
+vim.keymap.set('n', '<leader>te', ':tabedit ')
+vim.keymap.set('n', '<leader>tn', ':tabnext<CR>')
+vim.keymap.set('n', '<leader>tp', ':tabprevious<CR>')
+vim.keymap.set('n', '<leader>tN', ':tabmove +1<CR>')
+vim.keymap.set('n', '<leader>tP', ':tabmove -1<CR>')
+vim.keymap.set('n', '<leader>tq', ':tabclose<CR>')
+
 -- if in an SSH session enable OSC 52 system clipboard
 -- required as neovim can't detect alacritty capabilities as it doesn't support XTGETTCAP
 if os.getenv('SSH_TTY') then
@@ -152,14 +160,14 @@ vim.cmd([[
 
 require('telescope').load_extension('fzf')
 require('telescope').setup {
-  defaults = {
-    mappings = {
-      i = {
-        ["<C-Down>"] = require('telescope.actions').cycle_history_next,
-        ["<C-Up>"] = require('telescope.actions').cycle_history_prev,
-      },
-    },
-  }
+	defaults = {
+		mappings = {
+			i = {
+				["<C-Down>"] = require('telescope.actions').cycle_history_next,
+				["<C-Up>"] = require('telescope.actions').cycle_history_prev,
+			},
+		},
+	}
 }
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {})
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, {})
