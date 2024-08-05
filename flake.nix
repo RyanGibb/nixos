@@ -56,6 +56,7 @@
             #  (_: { patches = [ ./pkgs/package.patch ]; });
             neovim-unwrapped = final.overlay-unstable.neovim-unwrapped;
             stig = final.overlay-unstable.stig;
+            pantalaimon = prev.callPackage ./pkgs/pantalaimon.nix { };
           })
         ];
     in {

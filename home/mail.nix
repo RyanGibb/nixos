@@ -10,7 +10,7 @@ let
   sync-mail = pkgs.writeScriptBin "sync-mail" ''
     #!/usr/bin/env bash
     ${pkgs.isync}/bin/mbsync "$1"
-    ${pkgs.mu}/bin/mu index
+    ${pkgs.mu}/bin/mu index || ${pkgs.emacs29-pgtk}/bin/emacsclient --eval '(mu4e-update-index)'
   '';
   cfg = config.custom.mail;
 in {
@@ -127,7 +127,7 @@ in {
             enable = true;
             boxes = [ "Inbox" ];
             onNotify =
-              "${pkgs.isync}/bin/mbsync ryan@freumh.org && ${pkgs.mu}/bin/mu index";
+              "${pkgs.isync}/bin/mbsync ryan@freumh.org && ${pkgs.mu}/bin/mu index || ${pkgs.emacs29-pgtk}/bin/emacsclient --eval '(mu4e-update-index)'";
           };
           mbsync = {
             enable = true;
@@ -140,7 +140,7 @@ in {
             enable = true;
             extraAccounts = {
               check-mail-cmd =
-                "${pkgs.isync}/bin/mbsync ryan@freumh.org && ${pkgs.mu}/bin/mu index";
+                "${pkgs.isync}/bin/mbsync ryan@freumh.org && ${pkgs.mu}/bin/mu index || ${pkgs.emacs29-pgtk}/bin/emacsclient --eval '(mu4e-update-index)'";
               check-mail-timeout = "1m";
               check-mail = "1h";
               folders-sort =
@@ -183,7 +183,7 @@ in {
             enable = true;
             boxes = [ "Inbox" ];
             onNotify =
-              "${pkgs.isync}/bin/mbsync misc@freumh.org && ${pkgs.mu}/bin/mu index";
+              "${pkgs.isync}/bin/mbsync misc@freumh.org && ${pkgs.mu}/bin/mu index || ${pkgs.emacs29-pgtk}/bin/emacsclient --eval '(mu4e-update-index)'";
           };
           mbsync = {
             enable = true;
@@ -221,7 +221,7 @@ in {
             enable = true;
             boxes = [ "Inbox" ];
             onNotify =
-              "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && ${pkgs.mu}/bin/mu index";
+              "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && ${pkgs.mu}/bin/mu index || ${pkgs.emacs29-pgtk}/bin/emacsclient --eval '(mu4e-update-index)'";
           };
           mbsync = {
             enable = true;
@@ -234,7 +234,7 @@ in {
             enable = true;
             extraAccounts = {
               check-mail-cmd =
-                "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && ${pkgs.mu}/bin/mu index";
+                "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && ${pkgs.mu}/bin/mu index || ${pkgs.emacs29-pgtk}/bin/emacsclient --eval '(mu4e-update-index)'";
               check-mail-timeout = "1m";
               check-mail = "1h";
               aliases = "rtg24@cam.ac.uk";
@@ -274,7 +274,7 @@ in {
             enable = true;
             boxes = [ "Inbox" ];
             onNotify =
-              "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com && ${pkgs.mu}/bin/mu index";
+              "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com && ${pkgs.mu}/bin/mu index || ${pkgs.emacs29-pgtk}/bin/emacsclient --eval '(mu4e-update-index)'";
           };
           mbsync = {
             enable = true;
@@ -287,7 +287,7 @@ in {
             enable = true;
             extraAccounts = {
               check-mail-cmd =
-                "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com && ${pkgs.mu}/bin/mu index";
+                "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com && ${pkgs.mu}/bin/mu index || ${pkgs.emacs29-pgtk}/bin/emacsclient --eval '(mu4e-update-index)'";
               check-mail-timeout = "1m";
               check-mail = "1h";
               folders-sort = [
