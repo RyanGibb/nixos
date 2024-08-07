@@ -36,6 +36,7 @@
     home.sessionVariables = {
       LEDGER_FILE = ''~/vault/ledger/`date "+%Y"`.ledger'';
     };
+    programs.git.extraConfig.commit.gpgSign = true;
   };
 
   boot.loader.grub = {
