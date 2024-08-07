@@ -172,12 +172,21 @@
           };
         };
 
-      homeConfigurations.ryan = let
-        system = "x86_64-linux";
-        pkgs = nixpkgs.legacyPackages.${system};
-      in home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./home/default.nix ];
+      homeConfigurations = {
+        rtg24 = let
+          system = "x86_64-linux";
+          pkgs = nixpkgs.legacyPackages.${system};
+        in home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            ./home/default.nix
+            {
+              nix.package = pkgs.nix;
+              home.username = "rtg24";
+              home.homeDirectory = "/home/rtg24";
+            }
+          ];
+        };
       };
 
       legacyPackages = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed
