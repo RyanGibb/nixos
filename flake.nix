@@ -182,6 +182,7 @@
             ./home/default.nix
             {
               nix.package = pkgs.nix;
+              nixpkgs.overlays = getSystemOverlays system { };
               home.username = "rtg24";
               home.homeDirectory = "/home/rtg24";
             }
