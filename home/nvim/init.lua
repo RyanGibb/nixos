@@ -317,18 +317,23 @@ cmp.setup {
 	mapping = {
 		['<C-y>'] = {
 			i = cmp.mapping.confirm({ select = false }),
+			c = cmp.mapping.confirm({ select = false }),
 		},
 		['<C-e>'] = {
 			i = cmp.mapping.abort(),
+			c = cmp.mapping.abort(),
 		},
 		['<C-Space>'] = {
 			i = cmp.mapping.complete(),
+			c = cmp.mapping.complete(),
 		},
 		['<Down>'] = {
-			i = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+			i = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+			c = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
 		},
 		['<Up>'] = {
-			i = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+			i = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+			c = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 		},
 	},
 	sources = cmp.config.sources({
@@ -362,14 +367,12 @@ cmp.setup {
 }
 -- `/` cmdline setup.
 cmp.setup.cmdline('/', {
-	mapping = cmp.mapping.preset.cmdline(),
 	sources = {
 		{ name = 'buffer' }
 	}
 })
 -- `:` cmdline setup.
 cmp.setup.cmdline(':', {
-	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
 		{ name = 'path' }
 	}, {
