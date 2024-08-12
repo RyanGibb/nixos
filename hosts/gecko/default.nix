@@ -93,6 +93,13 @@
     toot
     ledger
     virtualbox
+    llm
+    (writeShellScriptBin "q" ''
+      llm -m 4 "$*"
+    '')
+    (writeShellScriptBin "qc" ''
+      llm -m 4 "$*" -c
+    '')
   ];
 
   services.gnome.gnome-keyring.enable = true;
