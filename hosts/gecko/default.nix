@@ -100,6 +100,7 @@
     (writeShellScriptBin "qc" ''
       llm -m 4 "$*" -c
     '')
+    ddcutil
   ];
 
   services.gnome.gnome-keyring.enable = true;
@@ -153,4 +154,7 @@
   boot.extraModprobeConfig =''
     options snd-hda-intel dmic_detect=0
   '';
+
+  # ddcutil
+  hardware.i2c.enable = true;
 }
