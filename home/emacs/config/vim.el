@@ -31,8 +31,7 @@
   "fb" 'helm-buffers-list)
 
 (require 'evil-collection)
-; (evil-collection-init)
-(with-eval-after-load 'mu4e (evil-collection-mu4e-setup))
+(evil-collection-init)
 
 ; (require 'vertico)
 ; (vertico-mode)
@@ -78,3 +77,9 @@ then it takes a second \\[keyboard-quit] to abort the minibuffer."
 (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
 (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+
+(require 'evil-org)
+(add-hook 'org-mode-hook 'evil-org-mode)
+(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+(require 'evil-org-agenda)
+(evil-org-agenda-set-keys)

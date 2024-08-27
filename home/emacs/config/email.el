@@ -165,3 +165,5 @@
 (evil-collection-define-key 'normal 'mu4e-main-mode-map (kbd "c") 'mu4e-search-query) ; should probably upsteam
 (evil-collection-define-key 'normal 'mu4e-main-mode-map (kbd "i") 'mu4e-update-index)
 
+(setq mu4e-split-view nil)
+

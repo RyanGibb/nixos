@@ -23,7 +23,7 @@
       ];
     };
     home.file = {
-      ".emacs.d/init.el".source = ./init.el;
+       ".emacs.d/init.el".source = ./init.el;
        ".emacs.d/config".source = ./config;
        ".mail.cap".text = ''
          application/pdf; xdg-open %s
