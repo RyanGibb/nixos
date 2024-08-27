@@ -65,3 +65,7 @@ mode "$mode_passthrough" {
     bindsym $mod+Delete mode "default"; notify-send "passthrough"
 }
 bindsym $mod+Delete mode "$mode_passthrough"; notify-send "passthrough"
+
+# for when latop output is disabled on resume
+bindsym $mod+Control+p output * enable; output * dpms on
+bindsym $mod+Shift+p   exec @wmmsg@ output "$($SCRIPT_DIR/get_focused_output.sh)" disable
