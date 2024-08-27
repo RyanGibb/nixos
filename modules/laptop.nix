@@ -16,7 +16,8 @@ in {
       HibernateDelaySec=1h
     '';
 
-    services.logind.lidSwitch = "suspend-then-hibernate";
+    # https://github.com/systemd/systemd/issues/12001#issuecomment-1711464475
+    services.logind.lidSwitch = "ignore";
 
     environment.systemPackages = with pkgs; [
       fusuma
