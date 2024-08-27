@@ -8,7 +8,8 @@
       extraPackages = epkgs: with epkgs; [
         evil
         evil-leader
-        evil-collection
+        # https://github.com/emacs-evil/evil-collection/pull/812/commits/149eacce58354f0ee3a55d4c12059148ef4ff953
+        pkgs.overlay-unstable.emacsPackages.evil-collection
         evil-ledger
         evil-org
         undo-tree
