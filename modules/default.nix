@@ -93,7 +93,8 @@ in {
     networking = rec {
       # nameservers = [ "freumh.org" ];
       nameservers = [ "1.1.1.1" ];
-      networkmanager.dns = "none";
+      # uncomment to stop using DHCP nameservers
+      #networkmanager.dns = "none";
     };
   };
 }
