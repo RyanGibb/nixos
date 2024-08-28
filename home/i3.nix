@@ -41,6 +41,8 @@ in {
         export GDK_BACKEND=x11
         export DESKTOP_SESSION=plasma
         export TMUX_TMPDIR=$XDG_RUNTIME_DIR/x-tmux
+        eval `dbus-launch`
+        export DBUS_SESSION_BUS_ADDRESS DBUS_SESSION_BUS_PID DBUS_SESSION_BUS_WINDOWID
         exec i3
       '';
       ".zprofile".text = ''

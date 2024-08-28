@@ -167,7 +167,7 @@ bindsym $mod+$alt+Control+0 exec @wmmsg@ rename workspace to $ws20
 bindsym $mod+Shift+numbersign move scratchpad
 bindsym $mod+numbersign scratchpad show
 
-bindsym $mod+Escape exec st workspace mail idle disk temperature load_average memory backlight player battery
+bindsym $mod+Escape exec st date workspace mail idle disk temperature load_average memory backlight player battery
 bindsym $mod+Shift+Escape exec st
 
 # grave=`
