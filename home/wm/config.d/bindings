@@ -1,23 +1,23 @@
-set $volume_inc      exec pactl set-sink-volume @DEFAULT_SINK@   +10%
-set $volume_dec      exec pactl set-sink-volume @DEFAULT_SINK@   -10%
-set $volume_inc_1    exec pactl set-sink-volume @DEFAULT_SINK@   +1%
-set $volume_dec_1    exec pactl set-sink-volume @DEFAULT_SINK@   -1%
-set $volume_inc_5    exec pactl set-sink-volume @DEFAULT_SINK@   +5%
-set $volume_dec_5    exec pactl set-sink-volume @DEFAULT_SINK@   -5%
-set $volume_mute     exec pactl set-sink-mute   @DEFAULT_SINK@   toggle
-set $volume_mic_mute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+set $volume_inc      exec pactl set-sink-volume @DEFAULT_SINK@   +10%   ; exec st pulse
+set $volume_dec      exec pactl set-sink-volume @DEFAULT_SINK@   -10%   ; exec st pulse
+set $volume_inc_1    exec pactl set-sink-volume @DEFAULT_SINK@   +1     ; exec st pulse
+set $volume_dec_1    exec pactl set-sink-volume @DEFAULT_SINK@   -1%    ; exec st pulse
+set $volume_inc_5    exec pactl set-sink-volume @DEFAULT_SINK@   +5%    ; exec st pulse
+set $volume_dec_5    exec pactl set-sink-volume @DEFAULT_SINK@   -5%    ; exec st pulse
+set $volume_mute     exec pactl set-sink-mute   @DEFAULT_SINK@   toggle ; exec st pulse
+set $volume_mic_mute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle ; exec st pulse
 
-set $play_pause exec playerctl play-pause
+set $play_pause exec playerctl play-pause && st player
 set $play_prev  exec playerctl previous
 set $play_next  exec playerctl next
-set $play_stop  exec playerctl stop
+set $play_stop  exec playerctl stop && st player
 
-set $backlight_inc   exec brightnessctl set 10%+
-set $backlight_dec   exec brightnessctl set 10%-
-set $backlight_inc_1 exec brightnessctl set 1%+
-set $backlight_dec_1 exec brightnessctl set 1%-
-set $backlight_inc_5 exec brightnessctl set 5%+
-set $backlight_dec_5 exec brightnessctl set 5%-
+set $backlight_inc   exec brightnessctl set 10%+ ; exec st backlight
+set $backlight_dec   exec brightnessctl set 10%- ; exec st backlight
+set $backlight_inc_1 exec brightnessctl set 1%+  ; exec st backlight
+set $backlight_dec_1 exec brightnessctl set 1%-  ; exec st backlight
+set $backlight_inc_5 exec brightnessctl set 5%+  ; exec st backlight
+set $backlight_dec_5 exec brightnessctl set 5%-  ; exec st backlight
 
 bindsym @locked@ XF86AudioRaiseVolume         $volume_inc
 bindsym @locked@ XF86AudioLowerVolume         $volume_dec
@@ -167,7 +167,8 @@ bindsym $mod+$alt+Control+0 exec @wmmsg@ rename workspace to $ws20
 bindsym $mod+Shift+numbersign move scratchpad
 bindsym $mod+numbersign scratchpad show
 
-bindsym $mod+Escape exec st
+bindsym $mod+Escape exec st workspace mail idle disk temperature load_average memory backlight player battery
+bindsym $mod+Shift+Escape exec st
 
 # grave=`
 bindsym $mod+grave workspace back_and_forth
@@ -259,9 +260,9 @@ bindsym $mod+Shift+bracketright   move container to output right
 bindsym $mod+Control+bracketleft  move workspace to output left
 bindsym $mod+Control+bracketright move workspace to output right
 
-bindsym $mod+m exec         $SCRIPT_DIR/ws_switch.sh    "$SCRIPT_DIR/get_free_ws_num.sh"
-bindsym $mod+Shift+m exec   $SCRIPT_DIR/ws_mv.sh        "$SCRIPT_DIR/get_free_ws_num.sh"
-bindsym $mod+Control+m exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/get_free_ws_num.sh"
+bindsym $mod+m exec         $SCRIPT_DIR/ws_switch.sh    "$SCRIPT_DIR/get_free_ws_num.sh" ; exec st workspace
+bindsym $mod+Shift+m exec   $SCRIPT_DIR/ws_mv.sh        "$SCRIPT_DIR/get_free_ws_num.sh" ; exec st workspace
+bindsym $mod+Control+m exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/get_free_ws_num.sh" ; exec st workspace
 
 bindsym $mod+backslash         exec $SCRIPT_DIR/ws_switch.sh    "$SCRIPT_DIR/select_ws.sh"
 bindsym $mod+Shift+backslash   exec $SCRIPT_DIR/ws_mv.sh         "$SCRIPT_DIR/select_ws.sh"
