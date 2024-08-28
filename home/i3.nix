@@ -40,6 +40,7 @@ in {
         export XDG_SESSION_TYPE=x11
         export GDK_BACKEND=x11
         export DESKTOP_SESSION=plasma
+        export TMUX_TMPDIR=$XDG_RUNTIME_DIR/x-tmux
         exec i3
       '';
       ".zprofile".text = ''
