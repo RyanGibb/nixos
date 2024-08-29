@@ -171,11 +171,11 @@ bindsym $mod+Escape exec st date workspace mail idle disk temperature load_avera
 bindsym $mod+Shift+Escape exec st
 
 # grave=`
-bindsym $mod+grave workspace back_and_forth
+bindsym $mod+grave workspace back_and_forth ; exec st workspace
 bindsym $mod+Shift+grave move container to workspace back_and_forth
 
-bindsym $mod+period workspace next_on_output
-bindsym $mod+comma workspace prev_on_output
+bindsym $mod+period workspace next_on_output ; exec st workspace
+bindsym $mod+comma  workspace prev_on_output ; exec st workspace
 
 bindsym $mod+Shift+period move container to workspace next_on_output
 bindsym $mod+Shift+comma move container to workspace prev_on_output
@@ -342,8 +342,8 @@ bindsym @locked@ $mod+Shift+minus   $volume_dec_1
 bindsym @locked@ $mod+Control+equal $volume_inc_5
 bindsym @locked@ $mod+Control+minus $volume_dec_5
 
-bindsym $mod+y       exec $SCRIPT_DIR/cycle_sink.sh
-bindsym $mod+Shift+y exec $SCRIPT_DIR/cycle_sink.sh back
+bindsym $mod+y       exec $SCRIPT_DIR/cycle_sink.sh      && st pulse
+bindsym $mod+Shift+y exec $SCRIPT_DIR/cycle_sink.sh back && st pulse
 bindsym $mod+n       $volume_mute
 bindsym $mod+Shift+n $volume_mic_mute
 

@@ -52,4 +52,11 @@ fi
 
 IFS=$'\n'; echo "${INFOS[*]}"
 
-dunstify -r '101010' -t 10000 -u low "Status" "`IFS=$'\n'; echo "${INFOS[*]}"`"
+ID_FILE="${XDG_CACHE_DIR:-"$HOME/.cache"}/st_id"
+ID="$(cat $ID_FILE)"
+REPLACE_ARG=""
+if [ ! -z $ID ]; then
+	REPLACE="-r"
+fi
+
+dunstify -r '101010' -t 10000 -u low "Status" -p $REPLACE $ID "`IFS=$'\n'; echo "${INFOS[*]}"`" > $ID_FILE
