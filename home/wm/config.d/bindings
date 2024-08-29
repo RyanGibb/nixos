@@ -171,7 +171,7 @@ bindsym $mod+Escape exec st date workspace mail idle disk temperature load_avera
 bindsym $mod+Shift+Escape exec st
 
 # grave=`
-bindsym $mod+grave workspace back_and_forth ; exec st workspace
+bindsym $mod+grave workspace back_and_forth ; exec makoctl dismiss -n `cat ~/.cache/st_id` && st workspace
 bindsym $mod+Shift+grave move container to workspace back_and_forth
 
 bindsym $mod+period workspace next_on_output ; exec st workspace
@@ -252,13 +252,12 @@ bindsym $mod+$alt+Control+down  move workspace to output down
 bindsym $mod+$alt+Control+up    move workspace to output up
 bindsym $mod+$alt+Control+right move workspace to output right
 
-
-bindsym $mod+bracketleft          focus output left
-bindsym $mod+bracketright         focus output right
-bindsym $mod+Shift+bracketleft    move container to output left
-bindsym $mod+Shift+bracketright   move container to output right
-bindsym $mod+Control+bracketleft  move workspace to output left
-bindsym $mod+Control+bracketright move workspace to output right
+bindsym $mod+bracketleft          focus output left              ; exec makoctl dismiss -n `cat ~/.cache/st_id` && st workspace
+bindsym $mod+bracketright         focus output right             ; exec makoctl dismiss -n `cat ~/.cache/st_id` && st workspace
+bindsym $mod+Shift+bracketleft    move container to output left  ; exec makoctl dismiss -n `cat ~/.cache/st_id` && st workspace
+bindsym $mod+Shift+bracketright   move container to output right ; exec makoctl dismiss -n `cat ~/.cache/st_id` && st workspace
+bindsym $mod+Control+bracketleft  move workspace to output left  ; exec makoctl dismiss -n `cat ~/.cache/st_id` && st workspace
+bindsym $mod+Control+bracketright move workspace to output right ; exec makoctl dismiss -n `cat ~/.cache/st_id` && st workspace
 
 bindsym $mod+m exec         $SCRIPT_DIR/ws_switch.sh    "$SCRIPT_DIR/get_free_ws_num.sh" ; exec st workspace
 bindsym $mod+Shift+m exec   $SCRIPT_DIR/ws_mv.sh        "$SCRIPT_DIR/get_free_ws_num.sh" ; exec st workspace
