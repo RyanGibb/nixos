@@ -59,4 +59,4 @@ if [ ! -z $ID ]; then
 	REPLACE="-r"
 fi
 
-dunstify -r '101010' -t 10000 -u low "Status" -p $REPLACE $ID "`IFS=$'\n'; echo "${INFOS[*]}"`" > $ID_FILE
+dunstify -t 10000 -u low "Status" -p $REPLACE $ID "`IFS=$'\n'; echo "${INFOS[*]}"`" > $ID_FILE
