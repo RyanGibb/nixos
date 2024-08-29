@@ -5,49 +5,59 @@ INFOS=()
 DATE=`date "+%a %Y-%m-%d %I:%M:%S%p"`
 
 add_info() {
-    local SCRIPT_NAME=$1
-    local INFO="`$(dirname "$0")/../lib/${SCRIPT_NAME}.sh`"
-    if [ "$INFO" != "" ]; then
-        INFOS+=("$INFO")
-    fi
+	local SCRIPT_NAME=$1
+	local INFO="`$(dirname "$0")/../lib/${SCRIPT_NAME}.sh`"
+	if [ "$INFO" != "" ]; then
+		INFOS+=("$INFO")
+	fi
 }
 
-if [ "$#" -eq 0 ]; then
-    INFOS+=("$DATE")
-    add_info "workspace"
-    add_info "mail"
-    add_info "idle"
-    add_info "disk"
-    add_info "cpu"
-    add_info "temperature"
-    add_info "load_average"
-    add_info "memory"
-    add_info "network"
-    add_info "backlight"
-    add_info "pulse"
-    add_info "player"
-    add_info "battery"
+TIMEOUT=10000
+
+if [ "$#" -eq 0 ] || ([ "$#" -eq 2 ] && ([[ "$1" = "-t" ]] || [[ "$1" = "--timeout" ]])) ; then
+	INFOS+=("$DATE")
+	add_info "workspace"
+	add_info "mail"
+	add_info "idle"
+	add_info "disk"
+	add_info "cpu"
+	add_info "temperature"
+	add_info "load_average"
+	add_info "memory"
+	add_info "network"
+	add_info "backlight"
+	add_info "pulse"
+	add_info "player"
+	add_info "battery"
 else
-    for arg in "$@"
-    do
-        case "$arg" in
-			date)         INFOS+=("$DATE") ;;
-            workspace)    add_info "workspace" ;;
-            mail)         add_info "mail" ;;
-            idle)         add_info "idle" ;;
-            disk)         add_info "disk" ;;
-            cpu)          add_info "cpu" ;;
-            temperature)  add_info "temperature" ;;
-            load_average) add_info "load_average" ;;
-            memory)       add_info "memory" ;;
-            network)      add_info "network" ;;
-            backlight)    add_info "backlight" ;;
-            pulse)        add_info "pulse" ;;
-            player)       add_info "player" ;;
-            battery)      add_info "battery" ;;
-            *) echo "Warning: Unknown argument '$arg'";;
-        esac
-    done
+	while (( "$#" )); do
+		case "$1" in
+			-t|--timeout)
+				TIMEOUT=$2
+				shift 2
+				;;
+			*)
+				case "$1" in
+					date)         INFOS+=("$DATE") ;;
+					workspace)    add_info "workspace" ;;
+					mail)         add_info "mail" ;;
+					idle)         add_info "idle" ;;
+					disk)         add_info "disk" ;;
+					cpu)          add_info "cpu" ;;
+					temperature)  add_info "temperature" ;;
+					load_average) add_info "load_average" ;;
+					memory)       add_info "memory" ;;
+					network)      add_info "network" ;;
+					backlight)    add_info "backlight" ;;
+					pulse)        add_info "pulse" ;;
+					player)       add_info "player" ;;
+					battery)      add_info "battery" ;;
+					*) echo "Warning: Unknown argument '$1'";;
+				esac
+				shift
+				;;
+		esac
+	done
 fi
 
 IFS=$'\n'; echo "${INFOS[*]}"
@@ -59,4 +69,4 @@ if [ ! -z $ID ]; then
 	REPLACE="-r"
 fi
 
-dunstify -t 10000 -u low "Status" -p $REPLACE $ID "`IFS=$'\n'; echo "${INFOS[*]}"`" > $ID_FILE
+dunstify -t $TIMEOUT -u low "Status" -p $REPLACE $ID "`IFS=$'\n'; echo "${INFOS[*]}"`" > $ID_FILE
