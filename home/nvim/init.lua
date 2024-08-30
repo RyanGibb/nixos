@@ -66,6 +66,9 @@ vim.o.foldlevel = 99
 
 vim.g.vim_markdown_follow_anchor = 1
 
+vim.o.cursorcolumn = true
+vim.o.cursorline = true
+
 local key_mapper = function(mode, key, result)
 	vim.api.nvim_set_keymap(
 		mode,
