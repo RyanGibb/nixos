@@ -14,3 +14,4 @@
 
 (require 'ledger-mode)
 
+(setq-default truncate-lines t)
