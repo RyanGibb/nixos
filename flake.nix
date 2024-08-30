@@ -58,10 +58,10 @@
             stig = final.overlay-unstable.stig;
             pantalaimon = prev.callPackage ./pkgs/pantalaimon.nix { };
             sway-unwrapped = prev.callPackage ./pkgs/sway-im/package.nix {
-              libdrm = final.overlay-unstable.libdrm;
+              libdrm = prev.libdrm;
               wlroots = prev.callPackage ./pkgs/wlroots/default.nix {
                 # for libdrm >=2.4.120
-                mesa = final.overlay-unstable.mesa;
+                mesa = prev.mesa;
                 wayland-protocols = prev.wayland-protocols.overrideAttrs
                   (old: rec {
                     pname = "wayland-protocols";
