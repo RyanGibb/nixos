@@ -101,6 +101,7 @@
       llm -m 4 "$*" -c
     '')
     ddcutil
+    anki
   ];
 
   services.gnome.gnome-keyring.enable = true;
