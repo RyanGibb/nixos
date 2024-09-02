@@ -724,13 +724,29 @@
         "type": "github"
       }
     },
-    "nixpkgs-unstable": {
+    "nixpkgs-neovim": {
       "locked": {
         "lastModified": 1721818836,
         "narHash": "sha256-oN8i9xd91okESBjp2LqXpVI61x3X23F3Y/FIS8bv4Xo=",
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "a76212122970925d09aa2021a93e00d359e631dd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1725103162,
+        "narHash": "sha256-Ym04C5+qovuQDYL/rKWSR+WESseQBbNAe5DsXNx5trY=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "12228ff1752d7b7624a54e9c1af4b222b3c1073b",
         "type": "github"
       },
       "original": {
@@ -1060,6 +1076,7 @@
         "nix-rpi5": "nix-rpi5",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_6",
+        "nixpkgs-neovim": "nixpkgs-neovim",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "ryan-website": "ryan-website"
       }

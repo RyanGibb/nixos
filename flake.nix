@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-neovim.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     #home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.url = "github:RyanGibb/home-manager/fork-24.05";
@@ -34,8 +35,8 @@
     hyperbib-eeg.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, agenix, deploy-rs
-    , nix-on-droid, eilean, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-neovim, home-manager
+    , agenix, deploy-rs, nix-on-droid, eilean, ... }@inputs:
     let
       getSystemOverlays = system: nixpkgsConfig:
         [
@@ -54,7 +55,9 @@
             # to override attributes of a package
             # package = prev.package.overrideAttrs
             #  (_: { patches = [ ./pkgs/package.patch ]; });
-            neovim-unwrapped = final.overlay-unstable.neovim-unwrapped;
+            neovim-unwrapped = (import nixpkgs-neovim {
+              inherit system;
+            }).neovim-unwrapped;
             stig = final.overlay-unstable.stig;
             pantalaimon = prev.callPackage ./pkgs/pantalaimon.nix { };
             sway-unwrapped = prev.callPackage ./pkgs/sway-im/package.nix {
