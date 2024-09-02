@@ -110,6 +110,8 @@ in {
 
           telescope-nvim
           telescope-fzf-native-nvim
+          telescope-undo-nvim
+
           trouble-nvim
           vim-gitgutter
           vim-fugitive
