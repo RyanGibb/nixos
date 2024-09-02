@@ -153,6 +153,12 @@ vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 
 -- git gutter
 
+vim.g.gitgutter_map_keys = 0
+vim.api.nvim_set_keymap('n', ']c', '<Plug>(GitGutterNextHunk)', {})
+vim.api.nvim_set_keymap('n', '[c', '<Plug>(GitGutterPrevHunk)', {})
+vim.api.nvim_set_keymap('n', '<Leader>hp', '<Plug>(GitGutterPreviewHunk)', {})
+vim.api.nvim_set_keymap('n', '<Leader>hs', '<Plug>(GitGutterStageHunk)', {})
+vim.api.nvim_set_keymap('n', '<Leader>hu', '<Plug>(GitGutterUndoHunk)', {})
 vim.cmd([[
   highlight GitGutterAdd ctermbg=none guibg=none
   highlight GitGutterDelete ctermbg=none guibg=none
