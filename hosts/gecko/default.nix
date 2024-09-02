@@ -152,7 +152,7 @@
   systemd.services.NetworkManager-wait-online.enable = false;
 
   # https://github.com/NixOS/nixpkgs/issues/330685
-  boot.extraModprobeConfig =''
+  boot.extraModprobeConfig = ''
     options snd-hda-intel dmic_detect=0
   '';
 

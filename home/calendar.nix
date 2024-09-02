@@ -58,8 +58,7 @@ in {
           vdirsyncer = { enable = true; };
           remote = {
             type = "http";
-            url =
-              "https://talks.cam.ac.uk/show/ics/8316.ics";
+            url = "https://talks.cam.ac.uk/show/ics/8316.ics";
           };
           local = {
             type = "filesystem";

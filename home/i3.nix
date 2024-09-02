@@ -70,8 +70,6 @@ in {
       provider = "geoclue2";
     };
 
-    services.picom = {
-      enable = true;
-    };
+    services.picom.enable = true;
   };
 }
