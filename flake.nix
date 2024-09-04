@@ -206,6 +206,11 @@
               nixpkgs.overlays = getSystemOverlays system { };
               home.username = "rtg24";
               home.homeDirectory = "/home/rtg24";
+              home.packages = with pkgs; [ home-manager ];
+              custom = {
+                machineColour = "red";
+                nvim-lsps = true;
+              };
             }
           ];
         };
