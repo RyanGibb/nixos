@@ -27,7 +27,7 @@ On_attach = function(client, bufnr)
 	vim.keymap.set('n', '<leader>lt', vim.lsp.buf.type_definition, bufopts('Goto type definition'))
 	vim.keymap.set('n', '<leader>lr', vim.lsp.buf.references, bufopts('Show references'))
 	vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, bufopts('Code action'))
-	vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, bufopts('Rename'))
+	vim.keymap.set('n', '<leader>lR', vim.lsp.buf.rename, bufopts('Rename'))
 	vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format { async = true } end, bufopts('Format'))
 	vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float, bufopts('Get error'))
 end
