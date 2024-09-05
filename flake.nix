@@ -59,7 +59,6 @@
               inherit system;
             }).neovim-unwrapped;
             stig = final.overlay-unstable.stig;
-            pantalaimon = prev.callPackage ./pkgs/pantalaimon.nix { };
             sway-unwrapped = prev.callPackage ./pkgs/sway-im/package.nix {
               libdrm = prev.libdrm;
               wlroots = prev.callPackage ./pkgs/wlroots/default.nix {

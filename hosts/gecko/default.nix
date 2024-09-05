@@ -57,7 +57,6 @@
     calibre
     zotero
     element-desktop
-    gomuks
     iamb
     spotify
     gimp

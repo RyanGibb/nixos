@@ -17,7 +17,6 @@
           gruvbox-theme
           helm
           mu4e
-          ement
           ledger-mode
           org
           org-evil
@@ -29,23 +28,6 @@
       ".mail.cap".text = ''
         application/pdf; xdg-open %s
       '';
-    };
-
-    services.pantalaimon = {
-      enable = true;
-      settings = {
-        Default = {
-          LogLevel = "Info";
-          SSL = true;
-          Notifications = "On";
-        };
-        Freumh = {
-          Homeserver = "https://matrix.freumh.org";
-          ListenAddress = "localhost";
-          ListenPort = 8009;
-          IgnoreVerification = true;
-        };
-      };
     };
   };
 }
