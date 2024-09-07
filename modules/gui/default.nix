@@ -84,9 +84,6 @@ in {
         libnotify
         # https://nixos.wiki/wiki/PipeWire#pactl_not_found
         pulseaudio
-        (firefox.override {
-          nativeMessagingHosts = with pkgs; [ tridactyl-native ];
-        })
         tridactyl-native
         vlc
       ] ++ desktopEntries;
