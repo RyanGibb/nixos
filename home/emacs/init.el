@@ -4,7 +4,6 @@
 (load "appearance")
 (load "save")
 (load "email")
-(load "matrix")
 
 ;; (setq interprogram-cut-function nil)
 ;; (setq interprogram-paste-function nil)
