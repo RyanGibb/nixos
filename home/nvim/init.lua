@@ -341,18 +341,27 @@ cmp.register_source('markdown_headers', setmetatable({}, {
 		complete = function(self, params, callback)
 			local filename = params.context.cursor_before_line:match("%[.-%]%((.-)#")
 			local headers = {}
-			if #vim.fn.glob(filename) > 0 then
+			local process_line = function(line)
+				if line:match("^#+") then
+					local _, _, fragment, text = line:find("(#+)%s*(.*)")
+					table.insert(headers, {
+						label = text,
+						insertText = "#" .. text,
+						filterText = "#" .. text,
+						sortText = text,
+					})
+				end
+			end
+			if filename ~= nil and #filename > 0 and vim.uv.fs_stat(filename).type == 'file' then
 				local lines = vim.fn.readfile(filename)
 				for i, line in ipairs(lines) do
-					if line:match("^#+") then
-						local _, _, fragment, text = line:find("(#+)%s*(.*)")
-						table.insert(headers, {
-							label = text,
-							insertText = "#" .. text,
-							filterText = "#" .. text,
-							sortText = text,
-						})
-					end
+					process_line(line)
+				end
+			else
+				local buf_id = vim.api.nvim_get_current_buf()
+				for i = 0, vim.api.nvim_buf_line_count(buf_id) - 1 do
+					local line = vim.api.nvim_buf_get_lines(buf_id, i, i + 1, false)[1]
+					process_line(line)
 				end
 			end
 			callback({
