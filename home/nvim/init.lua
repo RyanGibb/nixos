@@ -352,16 +352,18 @@ cmp.register_source('markdown_headers', setmetatable({}, {
 					})
 				end
 			end
-			if filename ~= nil and #filename > 0 and vim.uv.fs_stat(filename).type == 'file' then
-				local lines = vim.fn.readfile(filename)
-				for i, line in ipairs(lines) do
-					process_line(line)
-				end
-			else
-				local buf_id = vim.api.nvim_get_current_buf()
-				for i = 0, vim.api.nvim_buf_line_count(buf_id) - 1 do
-					local line = vim.api.nvim_buf_get_lines(buf_id, i, i + 1, false)[1]
-					process_line(line)
+			if filename ~= nil then
+				if #filename == 0 then
+					local buf_id = vim.api.nvim_get_current_buf()
+					for i = 0, vim.api.nvim_buf_line_count(buf_id) - 1 do
+						local line = vim.api.nvim_buf_get_lines(buf_id, i, i + 1, false)[1]
+						process_line(line)
+					end
+				elseif vim.uv.fs_stat(filename).type == 'file' then
+					local lines = vim.fn.readfile(filename)
+					for i, line in ipairs(lines) do
+						process_line(line)
+					end
 				end
 			end
 			callback({
@@ -388,6 +390,7 @@ cmp.setup {
 				buffer = '[Buffer]',
 				path = '[Path]',
 				ls = '[Luasnip]',
+				markdown_headers = '[Markdown headers]',
 			})[entry.source.name]
 			return vim_item
 		end,
