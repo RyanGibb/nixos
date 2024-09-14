@@ -1,7 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, lib, config, ... }:
 
-{
-  config = {
+let
+  cfg = config.custom.gui.emacs;
+in {
+  options.custom.gui.emacs.enable = lib.mkEnableOption "emacs";
+
+  config = lib.mkIf cfg.enable {
     programs.emacs = {
       enable = true;
       package = pkgs.emacs29-pgtk;

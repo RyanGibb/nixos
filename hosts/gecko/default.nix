@@ -32,6 +32,7 @@
       mail.enable = true;
       calendar.enable = true;
       battery.enable = true;
+      emacs.enable = true;
     };
     home.sessionVariables = {
       LEDGER_FILE = ''~/vault/ledger/`date "+%Y"`.ledger'';
