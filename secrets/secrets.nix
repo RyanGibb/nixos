@@ -22,6 +22,7 @@ in {
   "rmfakecloud.age".publicKeys = user ++ [ owl ];
   "restic-owl.age".publicKeys = user ++ [ owl elephant ];
   "restic-gecko.age".publicKeys = user ++ [ gecko elephant ];
+  "restic-shrew.age".publicKeys = user ++ [ shrew elephant ];
   "restic-elephant.age".publicKeys = user ++ [ elephant ];
   "restic.env.age".publicKeys = user ++ [ elephant ];
   "restic-repo.age".publicKeys = user ++ [ elephant ];

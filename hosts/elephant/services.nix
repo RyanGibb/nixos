@@ -134,6 +134,7 @@
 
   age.secrets.restic-owl.file = ../../secrets/restic-owl.age;
   age.secrets.restic-gecko.file = ../../secrets/restic-gecko.age;
+  age.secrets.restic-shrew.file = ../../secrets/restic-shrew.age;
   services.restic = {
     #backups.owl = {
     #  repository = "${config.services.restic.server.dataDir}/owl";

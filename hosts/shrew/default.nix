@@ -156,4 +156,16 @@
   #    uri = "tcp://0.0.0.0:10400";
   #  };
   #};
+
+  age.secrets.restic-shrew.file = ../../secrets/restic-shrew.age;
+  services.restic.backups.${config.networking.hostName} = {
+    repository = "rest:http://100.64.0.9:8000/${config.networking.hostName}/";
+    passwordFile = config.age.secrets.restic-shrew.path;
+    initialize = true;
+    paths = [ "/var/lib/hass" ];
+    timerConfig = {
+      OnCalendar = "03:00";
+      randomizedDelaySec = "1hr";
+    };
+  };
 }
