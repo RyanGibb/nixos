@@ -102,6 +102,7 @@
     ddcutil
     anki
     (aspellWithDicts (ps: with ps; [en]))
+    moreutils
   ];
 
   services.gnome.gnome-keyring.enable = true;
