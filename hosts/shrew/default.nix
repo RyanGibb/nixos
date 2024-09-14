@@ -125,6 +125,18 @@
           };
         };
       };
+      circadian_lighting = {};
+      switch = [
+        {
+          platform = "circadian_lighting";
+          lights_ct = [
+            "light.room_bed_left"
+            "light.room_bed_right"
+            "light.room_ceil"
+            "light.room_strip"
+          ];
+        }
+      ];
     };
   };
 
