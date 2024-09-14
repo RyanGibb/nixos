@@ -19,7 +19,7 @@
     hdparm
     restic
     ffmpeg
-    stig
+    #stig
   ];
 
   eilean = { publicInterface = "enp1s0"; };

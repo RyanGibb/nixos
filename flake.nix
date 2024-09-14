@@ -58,7 +58,6 @@
             neovim-unwrapped = (import nixpkgs-neovim {
               inherit system;
             }).neovim-unwrapped;
-            stig = final.overlay-unstable.stig;
             sway-unwrapped = prev.callPackage ./pkgs/sway-im/package.nix {
               libdrm = prev.libdrm;
               wlroots = prev.callPackage ./pkgs/wlroots/default.nix {
