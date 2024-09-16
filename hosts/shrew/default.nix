@@ -84,6 +84,9 @@
       "google_assistant"
       "google_translate"
     ];
+    customComponents = with pkgs.overlay-unstable.home-assistant-custom-components; [
+      adaptive_lighting
+    ];
     config = {
       # Includes dependencies for a basic setup
       # https://www.home-assistant.io/integrations/default_config/
@@ -125,18 +128,16 @@
           };
         };
       };
-      circadian_lighting = {};
-      switch = [
-        {
-          platform = "circadian_lighting";
-          lights_ct = [
-            "light.room_bed_left"
-            "light.room_bed_right"
-            "light.room_ceil"
-            "light.room_strip"
-          ];
-        }
-      ];
+      adaptive_lighting = {
+        sunrise_time = "06:00:00";
+        sunset_time = "18:00:00";
+        lights = [
+          "light.bed_left"
+          "light.bed_right"
+          "light.ceiling"
+          "light.strip"
+        ];
+      };
     };
   };
 
