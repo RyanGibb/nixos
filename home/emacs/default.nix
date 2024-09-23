@@ -1,9 +1,9 @@
 { pkgs, lib, config, ... }:
 
 let
-  cfg = config.custom.gui.emacs;
+  cfg = config.custom.emacs;
 in {
-  options.custom.gui.emacs.enable = lib.mkEnableOption "emacs";
+  options.custom.emacs.enable = lib.mkEnableOption "emacs";
 
   config = lib.mkIf cfg.enable {
     programs.emacs = {
