@@ -492,11 +492,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1714560835,
-        "narHash": "sha256-h3bPMCslFLUi/71ysQOl/9IPDaJOzeGEKQLZiw0us1c=",
+        "lastModified": 1729157628,
+        "narHash": "sha256-mPUzO8HqJAJJl40qJxp4TkBpulEL+t/z0wjVznVQNxI=",
         "owner": "RyanGibb",
         "repo": "i3-workspace-history",
-        "rev": "5db6e68fff5106c3a0ad9b286b62cce3ec315a6e",
+        "rev": "1e5ff0949a70c1961f7695d61ad963b4cd076101",
         "type": "github"
       },
       "original": {
@@ -820,11 +820,11 @@
     },
     "nixpkgs_6": {
       "locked": {
-        "lastModified": 1726447378,
-        "narHash": "sha256-2yV8nmYE1p9lfmLHhOCbYwQC/W8WYfGQABoGzJOb1JQ=",
+        "lastModified": 1728909085,
+        "narHash": "sha256-WLxED18lodtQiayIPDE5zwAfkPJSjHJ35UhZ8h3cJUg=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "086b448a5d54fd117f4dc2dee55c9f0ff461bdc1",
+        "rev": "c0b1da36f7c34a7146501f684e9ebdf15d2bebf8",
         "type": "github"
       },
       "original": {
