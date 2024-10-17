@@ -93,6 +93,7 @@ in {
       noto-fonts-emoji
       (nerdfonts.override { fonts = [ "DroidSansMono" ]; })
       wqy_zenhei
+      libertine
     ];
 
     # thunar

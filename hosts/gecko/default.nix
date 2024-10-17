@@ -92,7 +92,6 @@
     powertop
     toot
     ledger
-    virtualbox
     llm
     (writeShellScriptBin "q" ''
       llm -m 4 "$*"
