@@ -275,8 +275,8 @@ bindsym $mod+Shift+Tab exec $SCRIPT_DIR/window_switcher_scratch.sh
 
 bindsym button2 kill
 
-bindsym $mod+i exec i3-workspace-history -mode=forward @i3-workspace-history-args@
-bindsym $mod+o exec i3-workspace-history -mode=back    @i3-workspace-history-args@
+bindsym $mod+i exec i3-workspace-history -mode=forward @i3-workspace-history-args@; exec st workspace -t 500
+bindsym $mod+o exec i3-workspace-history -mode=back    @i3-workspace-history-args@; exec st workspace -t 500
 
 set $mode_gaps gaps
 mode "$mode_gaps" {
