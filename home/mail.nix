@@ -317,6 +317,21 @@ in {
           };
           notmuch.enable = true;
         };
+        search = {
+          maildir.path = "search";
+          realName = "Search Index";
+          address = "search@local";
+          aerc.enable = true;
+          aerc.extraAccounts = {
+            source = "maildir://~/mail/search";
+          };
+          aerc.extraConfig = {
+            ui = {
+              index-columns = "flags>4,date<*,to<30,name<30,subject<*";
+              column-to = "{{(index .To 0).Address}}";
+            };
+          };
+        };
       };
     };
   };

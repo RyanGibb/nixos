@@ -80,12 +80,11 @@
     "n" = ":next-result<Enter>";
     "N" = ":prev-result<Enter>";
     "<Esc>" = ":clear<Enter>";
-    "s" = ":split<Enter>";
-    "S" = ":vsplit<Enter>";
     "<C-r>" = ":check-mail<Enter>";
     "<C-a>" = ":mark -a<Enter>";
     "e" = ":envelope<Enter>";
     "E" = ":envelope -h<Enter>";
+    "s" = ":exec mu find --clearlinks --format=links --linksdir=~/mail/search/results<space>";
   };
 
   "messages:folder=Drafts" = { "<Enter>" = ":recall<Enter>"; };
