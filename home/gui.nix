@@ -12,19 +12,19 @@ in {
         package = pkgs.noto-fonts;
       };
       iconTheme = {
-        package = pkgs.gruvbox-dark-icons-gtk;
-        name = "gruvbox-dark";
+        package = pkgs.gruvbox-gtk-theme;
+        name = "Gruvbox-Dark";
       };
       theme = {
-        package = pkgs.gruvbox-dark-gtk;
-        name = "gruvbox-dark";
+        package = pkgs.gruvbox-gtk-theme;
+        name = "Gruvbox-Dark";
       };
     };
 
     home = {
       sessionVariables = {
         # evince workaround
-        GTK_THEME = "gruvbox-dark";
+        GTK_THEME = "Gruvbox-Dark";
         WALLPAPER = let wallpaper = ./wallpaper.jpg;
         in pkgs.runCommand (builtins.baseNameOf wallpaper) { }
         "cp ${wallpaper} $out";
