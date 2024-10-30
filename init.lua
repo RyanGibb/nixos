@@ -416,6 +416,11 @@ vim.g.ledger_fuzzy_account_completion = true
 vim.g.ledger_extra_options = '--pedantic'
 vim.g.ledger_align_at = 50
 vim.g.ledger_accounts_cmd = 'ledger accounts --add-budget'
+vim.g.ledger_date_format = '%Y-%m-%d'
+
+vim.cmd([[
+autocmd FileType ledger nnoremap <buffer> <leader>e :call ledger#entry()<CR>
+]])
 
 -- session management
 
