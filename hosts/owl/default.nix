@@ -49,6 +49,7 @@ in {
     capnpSecretKeyFile = config.age.secrets.eon-capnp.path;
     primaries = [ config.age.secrets.eon-sirref-primary.path ];
     prod = true;
+    capnpAddress = "135.181.100.27";
   };
 
   security.acme-eon = {
