@@ -36,13 +36,9 @@ in {
       virtualHosts = {
         "${cfg.domain}" = {
           forceSSL = true;
-          root =
-            "${ryan-website.packages.${pkgs.stdenv.hostPlatform.system}.default}";
+          root = "/var/www/ryan.freumh.org/";
           locations."/teapot".extraConfig = ''
             return 418;
-          '';
-          locations."/var/".extraConfig = ''
-            alias /var/website/;
           '';
           extraConfig = ''
             error_page 403 =404 /404.html;
