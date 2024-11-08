@@ -76,6 +76,7 @@
                   });
               };
             };
+            gnome-calendar = final.overlay-unstable.gnome-calendar;
           })
         ];
     in {

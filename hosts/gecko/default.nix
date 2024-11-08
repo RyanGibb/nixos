@@ -103,7 +103,7 @@
     anki
     (aspellWithDicts (ps: with ps; [en]))
     moreutils
-    gnome.gnome-calendar
+    gnome-calendar
   ];
 
   services.gnome.gnome-keyring.enable = true;
