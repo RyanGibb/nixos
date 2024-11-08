@@ -10,109 +10,109 @@
 (let ((full-name "Ryan Gibb")
       (signature "Ryan Gibb"))
   (setq mu4e-contexts
-	`(,
-	  (let ((mail-address "ryan@freumh.org")
-		(dir-name (concat "/ryan@freumh.org")))
-	    (make-mu4e-context
-	     :name (concat "1 " mail-address)
-	     :match-func
-	     `(lambda (msg)
-		(when msg
-		  (string-match-p
-		   ,(concat "^" dir-name)
-		   (mu4e-message-field msg :maildir))))
-	     :vars
-	     `((user-mail-address    . ,mail-address)
-	       (user-full-name       . ,full-name)
-	       (mu4e-sent-folder     . ,(concat dir-name "/Sent"))
-	       (mu4e-drafts-folder   . ,(concat dir-name "/Drafts"))
-	       (mu4e-trash-folder    . ,(concat dir-name "/Trash"))
-	       (mu4e-refile-folder   . ,(concat dir-name "/Archive"))
-	       (mu4e-compose-signature . ,signature)
-	       (mu4e-maildir-shortcuts .
-				       ,'((:maildir "/ryan@freumh.org/Inbox"   :key ?i)
-					  (:maildir "/ryan@freumh.org/Sent"    :key ?s)
-					  (:maildir "/ryan@freumh.org/Drafts"  :key ?d)
-					  (:maildir "/ryan@freumh.org/Archive" :key ?a)
-					  (:maildir "/ryan@freumh.org/Trash"   :key ?t)))
-	       )))
-	  ,(let ((mail-address "ryangibb321@gmail.com")
-		(dir-name (concat "/ryangibb321@gmail.com")))
-	    (make-mu4e-context
-	     :name (concat "2 " mail-address)
-	     :match-func
-	     `(lambda (msg)
-		(when msg
-		  (string-match-p
-		   ,(concat "^" dir-name)
-		   (mu4e-message-field msg :maildir))))
-	     :vars
-	     `((user-mail-address    . ,mail-address)
-	       (user-full-name       . ,full-name)
-	       (mu4e-sent-folder     . ,(concat dir-name "/[Gmail]/Sent Mail"))
-	       (mu4e-drafts-folder   . ,(concat dir-name "/[Gmail]/Drafts"))
-	       (mu4e-trash-folder    . ,(concat dir-name "/[Gmail]/Bin"))
-	       (mu4e-refile-folder   . ,(concat dir-name "/[Gmail]/All Mail"))
-	       (mu4e-compose-signature . ,signature)
-	       (mu4e-maildir-shortcuts .
-				   ,'((:maildir "/ryangibb321@gmail.com/Inbox"             :key ?i)
-					  (:maildir "/ryangibb321@gmail.com/[Gmail]/Sent Mail" :key ?s)
-					  (:maildir "/ryangibb321@gmail.com/[Gmail]/Drafts"    :key ?d)
-					  (:maildir "/ryangibb321@gmail.com/[Gmail]/All Mail"  :key ?a)
-					  (:maildir "/ryangibb321@gmail.com/[Gmail]/Spam"      :key ?x)
-					  (:maildir "/ryangibb321@gmail.com/[Gmail]/Bin"       :key ?t)))
-	       )))
-	  ,(let ((mail-address "ryan.gibb@cl.cam.ac.uk")
-		(dir-name (concat "/ryan.gibb@cl.cam.ac.uk")))
-	    (make-mu4e-context
-	     :name (concat "3 " mail-address)
-	     :match-func
-	     `(lambda (msg)
-		(when msg
-		  (string-match-p
-		   ,(concat "^" dir-name)
-		   (mu4e-message-field msg :maildir))))
-	     :vars
-	     `((user-mail-address    . ,mail-address)
-	       (user-full-name       . ,full-name)
-	       (mu4e-sent-folder     . ,(concat dir-name "/Sent"))
-	       (mu4e-drafts-folder   . ,(concat dir-name "/Drafts"))
-	       (mu4e-trash-folder    . ,(concat dir-name "/Trash"))
-	       (mu4e-refile-folder   . ,(concat dir-name "/Archive"))
-	       (mu4e-compose-signature . ,signature)
-	       (mu4e-maildir-shortcuts .
-				   ,'((:maildir "/ryan.gibb@cl.cam.ac.uk/Inbox"     :key ?i)
-					  (:maildir "/ryan.gibb@cl.cam.ac.uk/Sent"      :key ?s)
-					  (:maildir "/ryan.gibb@cl.cam.ac.uk/Drafts"    :key ?d)
-					  (:maildir "/ryan.gibb@cl.cam.ac.uk/Archive"   :key ?a)
-					  (:maildir "/ryan.gibb@cl.cam.ac.uk/Spam"      :key ?x)
-					  (:maildir "/ryan.gibb@cl.cam.ac.uk/Trash"     :key ?t)))
-	       )))
-	  ,(let ((mail-address "misc@freumh.org")
-		(dir-name (concat "/misc@freumh.org")))
-	    (make-mu4e-context
-	     :name (concat "4 " mail-address)
-	     :match-func
-	     `(lambda (msg)
-		(when msg
-		  (string-match-p
-		   ,(concat "^" dir-name)
-		   (mu4e-message-field msg :maildir))))
-	     :vars
-	     `((user-mail-address    . ,mail-address)
-	       (user-full-name       . ,full-name)
-	       (mu4e-sent-folder     . ,(concat dir-name "/Sent"))
-	       (mu4e-drafts-folder   . ,(concat dir-name "/Drafts"))
-	       (mu4e-trash-folder    . ,(concat dir-name "/Trash"))
-	       (mu4e-refile-folder   . ,(concat dir-name "/Archive"))
-	       (mu4e-compose-signature . ,signature)
-	       (mu4e-maildir-shortcuts .
+    `(,
+      (let ((mail-address "ryan@freumh.org")
+        (dir-name (concat "/ryan@freumh.org")))
+        (make-mu4e-context
+         :name (concat "1 " mail-address)
+         :match-func
+         `(lambda (msg)
+        (when msg
+          (string-match-p
+           ,(concat "^" dir-name)
+           (mu4e-message-field msg :maildir))))
+         :vars
+         `((user-mail-address    . ,mail-address)
+           (user-full-name       . ,full-name)
+           (mu4e-sent-folder     . ,(concat dir-name "/Sent"))
+           (mu4e-drafts-folder   . ,(concat dir-name "/Drafts"))
+           (mu4e-trash-folder    . ,(concat dir-name "/Trash"))
+           (mu4e-refile-folder   . ,(concat dir-name "/Archive"))
+           (mu4e-compose-signature . ,signature)
+           (mu4e-maildir-shortcuts .
+                   ,'((:maildir "/ryan@freumh.org/Inbox"   :key ?i)
+                      (:maildir "/ryan@freumh.org/Sent"    :key ?s)
+                      (:maildir "/ryan@freumh.org/Drafts"  :key ?d)
+                      (:maildir "/ryan@freumh.org/Archive" :key ?a)
+                      (:maildir "/ryan@freumh.org/Trash"   :key ?t)))
+           )))
+      ,(let ((mail-address "ryangibb321@gmail.com")
+        (dir-name (concat "/ryangibb321@gmail.com")))
+        (make-mu4e-context
+         :name (concat "2 " mail-address)
+         :match-func
+         `(lambda (msg)
+        (when msg
+          (string-match-p
+           ,(concat "^" dir-name)
+           (mu4e-message-field msg :maildir))))
+         :vars
+         `((user-mail-address    . ,mail-address)
+           (user-full-name       . ,full-name)
+           (mu4e-sent-folder     . ,(concat dir-name "/[Gmail]/Sent Mail"))
+           (mu4e-drafts-folder   . ,(concat dir-name "/[Gmail]/Drafts"))
+           (mu4e-trash-folder    . ,(concat dir-name "/[Gmail]/Bin"))
+           (mu4e-refile-folder   . ,(concat dir-name "/[Gmail]/All Mail"))
+           (mu4e-compose-signature . ,signature)
+           (mu4e-maildir-shortcuts .
+                   ,'((:maildir "/ryangibb321@gmail.com/Inbox"             :key ?i)
+                      (:maildir "/ryangibb321@gmail.com/[Gmail]/Sent Mail" :key ?s)
+                      (:maildir "/ryangibb321@gmail.com/[Gmail]/Drafts"    :key ?d)
+                      (:maildir "/ryangibb321@gmail.com/[Gmail]/All Mail"  :key ?a)
+                      (:maildir "/ryangibb321@gmail.com/[Gmail]/Spam"      :key ?x)
+                      (:maildir "/ryangibb321@gmail.com/[Gmail]/Bin"       :key ?t)))
+           )))
+      ,(let ((mail-address "ryan.gibb@cl.cam.ac.uk")
+        (dir-name (concat "/ryan.gibb@cl.cam.ac.uk")))
+        (make-mu4e-context
+         :name (concat "3 " mail-address)
+         :match-func
+         `(lambda (msg)
+        (when msg
+          (string-match-p
+           ,(concat "^" dir-name)
+           (mu4e-message-field msg :maildir))))
+         :vars
+         `((user-mail-address    . ,mail-address)
+           (user-full-name       . ,full-name)
+           (mu4e-sent-folder     . ,(concat dir-name "/Sent"))
+           (mu4e-drafts-folder   . ,(concat dir-name "/Drafts"))
+           (mu4e-trash-folder    . ,(concat dir-name "/Trash"))
+           (mu4e-refile-folder   . ,(concat dir-name "/Archive"))
+           (mu4e-compose-signature . ,signature)
+           (mu4e-maildir-shortcuts .
+                   ,'((:maildir "/ryan.gibb@cl.cam.ac.uk/Inbox"     :key ?i)
+                      (:maildir "/ryan.gibb@cl.cam.ac.uk/Sent"      :key ?s)
+                      (:maildir "/ryan.gibb@cl.cam.ac.uk/Drafts"    :key ?d)
+                      (:maildir "/ryan.gibb@cl.cam.ac.uk/Archive"   :key ?a)
+                      (:maildir "/ryan.gibb@cl.cam.ac.uk/Spam"      :key ?x)
+                      (:maildir "/ryan.gibb@cl.cam.ac.uk/Trash"     :key ?t)))
+           )))
+      ,(let ((mail-address "misc@freumh.org")
+        (dir-name (concat "/misc@freumh.org")))
+        (make-mu4e-context
+         :name (concat "4 " mail-address)
+         :match-func
+         `(lambda (msg)
+        (when msg
+          (string-match-p
+           ,(concat "^" dir-name)
+           (mu4e-message-field msg :maildir))))
+         :vars
+         `((user-mail-address    . ,mail-address)
+           (user-full-name       . ,full-name)
+           (mu4e-sent-folder     . ,(concat dir-name "/Sent"))
+           (mu4e-drafts-folder   . ,(concat dir-name "/Drafts"))
+           (mu4e-trash-folder    . ,(concat dir-name "/Trash"))
+           (mu4e-refile-folder   . ,(concat dir-name "/Archive"))
+           (mu4e-compose-signature . ,signature)
+           (mu4e-maildir-shortcuts .
                    ,'((:maildir "/misc@freumh.org/Inbox"   :key ?i)
-					  (:maildir "/misc@freumh.org/Sent"    :key ?s)
-					  (:maildir "/misc@freumh.org/Drafts"  :key ?d)
-					  (:maildir "/misc@freumh.org/Archive" :key ?a)
-					  (:maildir "/misc@freumh.org/Trash"   :key ?t)))
-	       )))
+                      (:maildir "/misc@freumh.org/Sent"    :key ?s)
+                      (:maildir "/misc@freumh.org/Drafts"  :key ?d)
+                      (:maildir "/misc@freumh.org/Archive" :key ?a)
+                      (:maildir "/misc@freumh.org/Trash"   :key ?t)))
+           )))
 
           )))
 
@@ -128,7 +128,7 @@
 (setq mu4e-bookmarks
       '((:name "Unified Inbox"
                :query "maildir:/ryan@freumh.org/Inbox OR maildir:/ryangibb321@gmail.com/Inbox OR maildir:/ryan.gibb@cl.cam.ac.uk/Inbox"
-	       :favorite t
+           :favorite t
                :key ?i)
         (:name "Unread messages"
                :query "flag:unread AND NOT flag:trashed AND NOT maildir:\"/ryangibb321@gmail.com/[Gmail]/All Mail\""
@@ -146,11 +146,11 @@
 
 (setq mu4e-headers-fields
       '((:maildir . 40)
-	(:human-date . 12)
-	(:flags . 6)
-	(:mailing-list . 10)
-	(:from-or-to . 22)
-	(:thread-subject . nil)))
+    (:human-date . 12)
+    (:flags . 6)
+    (:mailing-list . 10)
+    (:from-or-to . 22)
+    (:thread-subject . nil)))
 
 (setq mu4e-search-show-threads nil)
 
