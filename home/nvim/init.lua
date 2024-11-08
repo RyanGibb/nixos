@@ -268,7 +268,7 @@ end
 
 local function recursive_accounts()
 	return sn(nil, {
-		t({ '', '  ' }), i(1, 'Account'), f(amount_spacing, { 1, 2 }),
+		t({ '', '    ' }), i(1, 'Account'), f(amount_spacing, { 1, 2 }),
 		c(2, {
 			t(''),
 			sn(nil, { i(1, '£') })
@@ -287,10 +287,10 @@ ls.add_snippets('all', {
 	s('ledger', {
 		i(1, f(date_input)), t(' '), i(2, 'Description'),
 		c(3, {
-			sn(nil, { t({ '', '  ; ' }), i(1, 'Comment') }),
+			sn(nil, { t({ '', '    ; ' }), i(1, 'Comment') }),
 			t(''),
 		}),
-		t({ '', '  ' }), i(4, 'Account'), f(amount_spacing, { 4, 5 }),
+		t({ '', '    ' }), i(4, 'Account'), f(amount_spacing, { 4, 5 }),
 		c(5, {
 			sn(nil, { i(1, '£') }),
 			t(''),
