@@ -103,6 +103,8 @@
                   config.permittedInsecurePackages = [
                     # https://github.com/nix-community/nixd/issues/357
                     "nix-2.16.2"
+                    # https://github.com/mautrix/go/issues/262
+                    "olm-3.2.16"
                   ];
                   overlays =
                     getSystemOverlays config.nixpkgs.hostPlatform.system
