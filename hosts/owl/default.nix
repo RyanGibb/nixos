@@ -130,7 +130,7 @@ in {
         domain = "fn06.org";
       };
       colour-guesser = {
-        enable = true;
+        # enable = true;
         cname = "vps";
       };
     };
