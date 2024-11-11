@@ -127,6 +127,9 @@ cmp.setup {
 cmp.setup.cmdline('/', {
 	sources = {
 		{ name = 'buffer' }
+	},
+	completion = {
+		autocomplete = false
 	}
 })
 -- `:` cmdline setup.
@@ -135,5 +138,8 @@ cmp.setup.cmdline(':', {
 		{ name = 'path' }
 	}, {
 		{ name = 'cmdline' }
-	})
+	}),
+	completion = {
+		autocomplete = false
+	}
 })
