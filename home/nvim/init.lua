@@ -5,6 +5,9 @@ vim.cmd [[colorscheme gruvbox]]
 vim.api.nvim_command('hi Normal guibg=NONE ctermbg=NONE')
 vim.cmd([[
   highlight SignColumn ctermbg=none guibg=none
+  highlight DiffAdd ctermbg=none guibg=none
+  highlight DiffChange ctermbg=none guibg=none
+  highlight DiffDelete ctermbg=none guibg=none
 ]])
 
 vim.o.mouse = 'a'
