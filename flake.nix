@@ -11,7 +11,6 @@
     nix-on-droid.url = "github:nix-community/nix-on-droid/release-23.11";
     eon.url = "github:RyanGibb/eon";
     eilean.url = "github:RyanGibb/eilean-nix/main";
-    ryan-website.url = "git+ssh://git@github.com/RyanGibb/website.git";
     alec-website.url = "github:alexanderhthompson/website";
     fn06-website.url = "github:RyanGibb/fn06";
     colour-guesser.url =
@@ -26,7 +25,6 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
     nix-on-droid.inputs.home-manager.follows = "home-manager";
-    ryan-website.inputs.nixpkgs.follows = "nixpkgs";
     alec-website.inputs.nixpkgs.follows = "nixpkgs";
     fn06-website.inputs.nixpkgs.follows = "nixpkgs";
     eon.inputs.nixpkgs.follows = "nixpkgs";
