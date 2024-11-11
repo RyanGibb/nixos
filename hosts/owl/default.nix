@@ -148,6 +148,12 @@ in {
             "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc";
         }
         {
+          name = "_atproto.ryan";
+          type = "TXT";
+          value = "did=did:plc:3lfhu6ehlynzjgehef6alnvg";
+        }
+
+        {
           name = "teapot";
           type = "CNAME";
           value = "vps";
