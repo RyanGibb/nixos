@@ -108,13 +108,47 @@ in {
           }
           gruvbox-nvim
 
-          telescope-nvim
+          {
+            plugin = telescope-nvim;
+            type = "lua";
+            config = builtins.readFile ./telescope-nvim.lua;
+          }
           telescope-fzf-native-nvim
           telescope-undo-nvim
 
-          trouble-nvim
-          vim-gitgutter
-          vim-fugitive
+          {
+            plugin = trouble-nvim;
+            type = "lua";
+            config = ''
+              require('trouble').setup {
+              	icons = false,
+              }
+              vim.keymap.set('n', '<leader>xx', function() require('trouble').toggle() end)
+              vim.keymap.set('n', '<leader>xw', function() require('trouble').toggle('workspace_diagnostics') end)
+              vim.keymap.set('n', '<leader>xd', function() require('trouble').toggle('document_diagnostics') end)
+              vim.keymap.set('n', '<leader>xq', function() require('trouble').toggle('quickfix') end)
+              vim.keymap.set('n', '<leader>xl', function() require('trouble').toggle('loclist') end)
+              vim.keymap.set('n', '<leader>xr', function() require('trouble').toggle('lsp_references') end)
+            '';
+          }
+          {
+            plugin = vim-gitgutter; # gitsigns-nvim
+            type = "lua";
+            config = ''
+              vim.g.gitgutter_map_keys = 0
+              vim.api.nvim_set_keymap('n', ']c', '<Plug>(GitGutterNextHunk)', {})
+              vim.api.nvim_set_keymap('n', '[c', '<Plug>(GitGutterPrevHunk)', {})
+              vim.api.nvim_set_keymap('n', '<Leader>hp', '<Plug>(GitGutterPreviewHunk)', {})
+              vim.api.nvim_set_keymap('n', '<Leader>hs', '<Plug>(GitGutterStageHunk)', {})
+              vim.api.nvim_set_keymap('n', '<Leader>hu', '<Plug>(GitGutterUndoHunk)', {})
+              vim.cmd([[
+                  highlight GitGutterAdd ctermbg=none guibg=none
+                  highlight GitGutterDelete ctermbg=none guibg=none
+                  highlight GitGutterChange ctermbg=none guibg=none
+              ]])
+            '';
+          }
+          vim-fugitive # neogit
 
           plenary-nvim
           pkgs.ripgrep
@@ -125,15 +159,65 @@ in {
           cmp-buffer
           cmp-cmdline
           cmp-spell
-          luasnip
-          nvim-cmp
+          {
+            plugin = luasnip;
+            type = "lua";
+            config = builtins.readFile ./luasnip.lua;
+          }
+          {
+            plugin = nvim-cmp;
+            type = "lua";
+            config = builtins.readFile ./nvim-cmp.lua;
+          }
 
-          vimtex
+          {
+            plugin = nvim-treesitter.withAllGrammars;
+            type = "lua";
+            config = ''
+              require'nvim-treesitter.configs'.setup {
+                highlight = {
+                  enable = true,
+                },
+              }
+              vim.opt.foldmethod = "expr"
+              vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+              vim.opt.foldenable = false
+            '';
+          }
+
+          {
+            plugin = vimtex;
+            type = "lua";
+            config = ''
+              vim.cmd [[
+                filetype plugin indent on
+                syntax enable
+              ]]
+            '';
+          }
           cmp-omni
 
-          nvim-surround
-          comment-nvim
-          undotree
+          {
+            plugin = nvim-surround;
+            type = "lua";
+            config = ''
+              require('nvim-surround').setup({})
+            '';
+          }
+          {
+            plugin = comment-nvim;
+            type = "lua";
+            config = ''
+              require('Comment').setup()
+            '';
+          }
+          {
+            plugin = undotree;
+            type = "lua";
+            config = ''
+              vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+            '';
+          }
 
           {
             plugin = pkgs.notmuch;
@@ -150,11 +234,44 @@ in {
             };
           }
 
-          vim-ledger-2024-07-15
+          {
+            plugin = vim-ledger-2024-07-15;
+            type = "lua";
+            config = ''
+              vim.g.ledger_fuzzy_account_completion = true
+              vim.g.ledger_extra_options = '--pedantic'
+              vim.g.ledger_align_at = 50
+              vim.g.ledger_accounts_cmd = 'ledger accounts --add-budget'
+              
+              vim.g.ledger_date_format = '%Y-%m-%d'
+              
+              vim.cmd([[
+              autocmd FileType ledger nnoremap <buffer> <leader>e :call ledger#entry()<CR>
+              ]])
+            '';
+          }
           vim-markdown
 
-          orgmode
-          calendar-nvim
+          {
+            plugin = orgmode;
+            type = "lua";
+            config = ''
+              -- Open agenda prompt: <Leader>oa
+              -- Open capture prompt: <Leader>oc
+              -- In any orgmode buffer press g? for help
+              require('orgmode').setup({
+              	org_agenda_files = { '~/vault/agenda/*.org' },
+              	org_default_notes_file = '~/vault/refile.org',
+              })
+            '';
+          }
+          {
+            plugin = calendar-nvim;
+            type = "lua";
+            config = ''
+              require('calendar')
+            '';
+          }
         ] ++ lib.lists.optionals cfg.nvim-lsps [
           ltex-ls-nvim
           nvim-jdtls
