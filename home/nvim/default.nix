@@ -181,7 +181,14 @@ in {
               }
             '';
           }
-          vim-fugitive # neogit
+          {
+            plugin = neogit;
+            type = "lua";
+            config = ''
+              local neogit = require('neogit')
+              neogit.setup {}
+            '';
+          }
 
           plenary-nvim
           pkgs.ripgrep
