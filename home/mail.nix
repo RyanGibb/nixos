@@ -3,14 +3,14 @@
 let
   address-book = pkgs.writeScriptBin "address-book" ''
     #!/usr/bin/env bash
-    ${pkgs.ugrep}/bin/ugrep -jPh -m 100 --color=never "$1"\
-      ${config.accounts.email.maildirBasePath}/addressbook/maildir\
-      ${config.accounts.email.maildirBasePath}/addressbook/cam-ldap
+    ${pkgs.mu}/bin/mu cfind "$1" | sed -E 's/(.*) (.*@.*)/\2\t\1/'
+    ${pkgs.ugrep}/bin/ugrep -jPh -m 100 --color=never "$1" cat ${config.accounts.email.maildirBasePath}/addressbook/cam-ldap)
   '';
   sync-mail = pkgs.writeScriptBin "sync-mail" ''
     #!/usr/bin/env bash
-    ${pkgs.isync}/bin/mbsync "$1"
+    ${pkgs.isync}/bin/mbsync "$1" || exit 1
     ${pkgs.procps}/bin/pkill -2 -x mu
+    sleep 1
     ${pkgs.mu}/bin/mu index
   '';
   cfg = config.custom.mail;
@@ -19,32 +19,14 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      (callPackage ../pkgs/maildir-rank-addr.nix { })
       (pkgs.writeScriptBin "cam-ldap-addr" ''
         ${pkgs.openldap}/bin/ldapsearch -xZ -H ldaps://ldap.lookup.cam.ac.uk -b "ou=people,o=University of Cambridge,dc=cam,dc=ac,dc=uk" displayName mail\
         | ${pkgs.gawk}/bin/awk '/^dn:/{displayName=""; mail=""; next} /^displayName:/{displayName=$2; for(i=3;i<=NF;i++) displayName=displayName " " $i; next} /^mail:/{mail=$2; next} /^$/{if(displayName!="" && mail!="") print mail "\t" displayName}'\
         > ${config.accounts.email.maildirBasePath}/addressbook/cam-ldap
       '')
       address-book
+      sync-mail
     ];
-
-    xdg.configFile = {
-      "maildir-rank-addr/config".text = with config.accounts.email; ''
-        maildir = "${config.accounts.email.maildirBasePath}"
-        outputpath = "${config.accounts.email.maildirBasePath}/addressbook/maildir"
-        addresses = [
-            "ryan@freumh.org",
-            "misc@freumh.org",
-            "ryan@gibbr.org",
-            "misc@gibbr.org",
-            "ryan.gibb@cl.cam.ac.uk",
-            "rtg24@cam.ac.uk",
-            "rtg2@st-andrews.ac.uk",
-            "ryangibb321@gmail.com",
-            "ryangibb@btconnect.com",
-        ]
-      '';
-    };
 
     programs = {
       password-store.enable = true;
@@ -127,8 +109,7 @@ in {
           imapnotify = {
             enable = true;
             boxes = [ "Inbox" ];
-            onNotify =
-              "${pkgs.isync}/bin/mbsync ryan@freumh.org && (${pkgs.procps}/bin/pkill -2 -x mu; sleep 1; ${pkgs.mu}/bin/mu index)";
+            onNotify = "${sync-mail}/bin/mbsync ryan@freumh.org";
           };
           mbsync = {
             enable = true;
@@ -140,8 +121,7 @@ in {
           aerc = {
             enable = true;
             extraAccounts = {
-              check-mail-cmd =
-                "${pkgs.isync}/bin/mbsync ryan@freumh.org && (${pkgs.procps}/bin/pkill -2 -x mu; sleep 1; ${pkgs.mu}/bin/mu index)";
+              check-mail-cmd = "${sync-mail}/bin/mbsync ryan@freumh.org";
               check-mail-timeout = "1m";
               check-mail = "1h";
               folders-sort =
@@ -183,8 +163,7 @@ in {
           imapnotify = {
             enable = true;
             boxes = [ "Inbox" ];
-            onNotify =
-              "${pkgs.isync}/bin/mbsync misc@freumh.org && (${pkgs.procps}/bin/pkill -2 -x mu; sleep 1; ${pkgs.mu}/bin/mu index)";
+            onNotify = "${sync-mail}/bin/mbsync misc@freumh.org";
           };
           mbsync = {
             enable = true;
@@ -221,8 +200,7 @@ in {
           imapnotify = {
             enable = true;
             boxes = [ "Inbox" ];
-            onNotify =
-              "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && (${pkgs.procps}/bin/pkill -2 -x mu; sleep 1; ${pkgs.mu}/bin/mu index)";
+            onNotify = "${sync-mail}/bin/mbsync ryan.gibb@cl.cam.ac.uk";
           };
           mbsync = {
             enable = true;
@@ -234,8 +212,7 @@ in {
           aerc = {
             enable = true;
             extraAccounts = {
-              check-mail-cmd =
-                "${pkgs.isync}/bin/mbsync ryan.gibb@cl.cam.ac.uk && (${pkgs.procps}/bin/pkill -2 -x mu; sleep 1; ${pkgs.mu}/bin/mu index)";
+              check-mail-cmd = "${sync-mail}/bin/mbsync ryan.gibb@cl.cam.ac.uk";
               check-mail-timeout = "1m";
               check-mail = "1h";
               aliases = "rtg24@cam.ac.uk";
@@ -274,8 +251,7 @@ in {
           imapnotify = {
             enable = true;
             boxes = [ "Inbox" ];
-            onNotify =
-              "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com && (${pkgs.procps}/bin/pkill -2 -x mu; sleep 1; ${pkgs.mu}/bin/mu index)";
+            onNotify = "${sync-mail}/bin/mbsync ryangibb321@gmail.com";
           };
           mbsync = {
             enable = true;
@@ -287,8 +263,7 @@ in {
           aerc = {
             enable = true;
             extraAccounts = {
-              check-mail-cmd =
-                "${pkgs.isync}/bin/mbsync ryangibb321@gmail.com && (${pkgs.procps}/bin/pkill -2 -x mu; sleep 1; ${pkgs.mu}/bin/mu index)";
+              check-mail-cmd = "${sync-mail}/bin/mbsync ryangibb321@gmail.com";
               check-mail-timeout = "1m";
               check-mail = "1h";
               folders-sort = [
