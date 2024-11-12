@@ -38,13 +38,13 @@ in {
         buildInputs = [ pkgs.bash ];
         dontUnpack = true;
         installPhase = ''
-          mkdir -p $out/bin
-          cat > $out/bin/xterm <<EOF
-#!/usr/bin/env bash
+                    mkdir -p $out/bin
+                    cat > $out/bin/xterm <<EOF
+          #!/usr/bin/env bash
 
-exec \$TERMINAL "\$@"
-EOF
-          chmod +x $out/bin/xterm
+          exec \$TERMINAL "\$@"
+          EOF
+                    chmod +x $out/bin/xterm
         '';
       })
     ];

@@ -1,7 +1,6 @@
 { pkgs, lib, config, ... }:
 
-let
-  cfg = config.custom.emacs;
+let cfg = config.custom.emacs;
 in {
   options.custom.emacs.enable = lib.mkEnableOption "emacs";
 

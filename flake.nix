@@ -53,9 +53,8 @@
             # to override attributes of a package
             # package = prev.package.overrideAttrs
             #  (_: { patches = [ ./pkgs/package.patch ]; });
-            neovim-unwrapped = (import nixpkgs-neovim {
-              inherit system;
-            }).neovim-unwrapped;
+            neovim-unwrapped =
+              (import nixpkgs-neovim { inherit system; }).neovim-unwrapped;
             sway-unwrapped = prev.callPackage ./pkgs/sway-im/package.nix {
               libdrm = prev.libdrm;
               wlroots = prev.callPackage ./pkgs/wlroots/default.nix {

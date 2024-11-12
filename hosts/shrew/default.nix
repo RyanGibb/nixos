@@ -84,9 +84,9 @@
       "google_assistant"
       "google_translate"
     ];
-    customComponents = with pkgs.overlay-unstable.home-assistant-custom-components; [
-      adaptive_lighting
-    ];
+    customComponents =
+      with pkgs.overlay-unstable.home-assistant-custom-components;
+      [ adaptive_lighting ];
     config = {
       # Includes dependencies for a basic setup
       # https://www.home-assistant.io/integrations/default_config/
@@ -131,12 +131,8 @@
       adaptive_lighting = {
         sunrise_time = "06:00:00";
         sunset_time = "18:00:00";
-        lights = [
-          "light.bed_left"
-          "light.bed_right"
-          "light.ceiling"
-          "light.strip"
-        ];
+        lights =
+          [ "light.bed_left" "light.bed_right" "light.ceiling" "light.strip" ];
       };
     };
   };

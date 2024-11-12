@@ -38,9 +38,7 @@ in {
     boot.kernelModules = [ "hid-apple" ];
 
     services.xserver = {
-      excludePackages = with pkgs; [
-        xterm
-      ];
+      excludePackages = with pkgs; [ xterm ];
       displayManager.startx.enable = true;
       xkb.layout = "gb";
     };

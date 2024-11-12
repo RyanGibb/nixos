@@ -84,7 +84,8 @@
     "<C-a>" = ":mark -a<Enter>";
     "e" = ":envelope<Enter>";
     "E" = ":envelope -h<Enter>";
-    "s" = ":exec mu find --clearlinks --format=links --linksdir=~/mail/search/results<space>";
+    "s" =
+      ":exec mu find --clearlinks --format=links --linksdir=~/mail/search/results<space>";
   };
 
   "messages:folder=Drafts" = { "<Enter>" = ":recall<Enter>"; };

@@ -297,9 +297,7 @@ in {
           realName = "Search Index";
           address = "search@local";
           aerc.enable = true;
-          aerc.extraAccounts = {
-            source = "maildir://~/mail/search";
-          };
+          aerc.extraAccounts = { source = "maildir://~/mail/search"; };
           aerc.extraConfig = {
             ui = {
               index-columns = "flags>4,date<*,to<30,name<30,subject<*";
