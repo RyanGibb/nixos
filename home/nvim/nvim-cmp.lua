@@ -63,6 +63,7 @@ cmp.setup {
 				nvim_lsp = '[LSP]',
 				nvim_lsp_signature_help = '[Signature]',
 				spell = '[Spell]',
+				dictionary = '[Dictionaryy]',
 				buffer = '[Buffer]',
 				path = '[Path]',
 				ls = '[Luasnip]',
@@ -102,8 +103,13 @@ cmp.setup {
 		{ name = 'buffer',                  priority = 600 },
 		{ name = 'path',                    priority = 500 },
 		{
-			name = 'spell',
+			name = 'dictionary',
 			priority = 400,
+			keyword_length = 2,
+		},
+		{
+			name = 'spell',
+			priority = 300,
 			option = { preselect_correct_word = false }
 		},
 	}),

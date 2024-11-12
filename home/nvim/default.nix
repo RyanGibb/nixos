@@ -200,6 +200,16 @@ in {
           cmp-cmdline
           cmp-spell
           {
+            plugin = cmp-dictionary;
+            type = "lua";
+            config = ''
+              require("cmp_dictionary").setup({
+                paths = { os.getenv("WORDLIST") },
+                exact_length = 2,
+              })
+            '';
+          }
+          {
             plugin = luasnip;
             type = "lua";
             config = builtins.readFile ./luasnip.lua;
