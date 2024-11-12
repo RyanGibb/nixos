@@ -115,6 +115,7 @@ in {
           }
           telescope-fzf-native-nvim
           telescope-undo-nvim
+          telescope-file-browser-nvim
 
           {
             plugin = trouble-nvim;
@@ -278,6 +279,7 @@ in {
               vim.keymap.set({'n', 'x', 'o'}, 'gs', '<Plug>(leap-from-window)')
             '';
           }
+          which-key-nvim
 
           {
             plugin = pkgs.notmuch;

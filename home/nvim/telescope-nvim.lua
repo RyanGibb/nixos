@@ -1,5 +1,6 @@
 require('telescope').load_extension('fzf')
 require("telescope").load_extension("undo")
+require("telescope").load_extension("file_browser")
 require('telescope').setup {
 	defaults = {
 		mappings = {
@@ -46,3 +47,4 @@ vim.keymap.set('n', '<leader>fc', require('telescope.builtin').lsp_incoming_call
 vim.keymap.set('n', '<leader>fo', require('telescope.builtin').lsp_outgoing_calls, {})
 vim.keymap.set('n', '<leader>fi', require('telescope.builtin').lsp_implementations, {})
 vim.keymap.set('n', '<leader>fu', require('telescope').extensions.undo.undo, {})
+vim.keymap.set('n', '<leader>fd', function() require('telescope').extensions.file_browser.file_browser({ path = '%:p:h', select_buffer = true }) end, {})
