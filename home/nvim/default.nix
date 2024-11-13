@@ -247,6 +247,10 @@ in {
                     keymaps = {
                       ["af"] = "@function.outer",
                       ["if"] = "@function.inner",
+                      ["ac"] = "@conditional.outer",
+                      ["ic"] = "@conditional.inner",
+                      ["al"] = "@loop.outer",
+                      ["il"] = "@loop.inner",
                     },
                     include_surrounding_whitespace = true,
                   },
@@ -277,6 +281,11 @@ in {
                   },
                 },
               }
+              -- could use some tweaking
+              vim.treesitter.query.set("ocaml", "textobjects", [[
+              ((value_definition (let_binding)) @function.outer)
+              ((let_binding body: (_) @function.inner))
+              ]])
             '';
           }
 
