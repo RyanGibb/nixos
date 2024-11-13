@@ -250,6 +250,31 @@ in {
                     },
                     include_surrounding_whitespace = true,
                   },
+                  swap = {
+                    enable = true,
+                    swap_next = {
+                      ["<leader>a"] = "@parameter.inner",
+                    },
+                    swap_previous = {
+                      ["<leader>A"] = "@parameter.inner",
+                    },
+                  },
+                  move = {
+                    enable = true,
+                    set_jumps = true,
+                    goto_next_start = {
+                      ["]m"] = "@function.outer",
+                    },
+                    goto_next_end = {
+                      ["]M"] = "@function.outer",
+                    },
+                    goto_previous_start = {
+                      ["[m"] = "@function.outer",
+                    },
+                    goto_previous_end = {
+                      ["[M"] = "@function.outer",
+                    },
+                  },
                 },
               }
             '';
@@ -260,7 +285,7 @@ in {
             type = "lua";
             config = ''
               vim.cmd [[
-                let g:vimtex_quickfix_mode=0
+              let g:vimtex_quickfix_mode=0
                 filetype plugin indent on
                 syntax enable
               ]]
