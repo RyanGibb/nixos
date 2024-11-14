@@ -205,8 +205,9 @@ in {
             type = "lua";
             config = ''
               require("cmp_dictionary").setup({
-                paths = { os.getenv("WORDLIST") },
+                paths = { "${pkgs.scowl}/share/dict/words.txt" },
                 exact_length = 2,
+                first_case_insensitive = true,
               })
             '';
           }
