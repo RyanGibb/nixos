@@ -295,11 +295,17 @@ in {
             plugin = vimtex;
             type = "lua";
             config = ''
-              vim.cmd [[
-                let g:vimtex_quickfix_mode=0
-                filetype plugin indent on
-                syntax enable
-              ]]
+              vim.cmd("filetype plugin indent on")
+              vim.cmd("syntax enable")
+              vim.g.vimtex_quickfix_mode = 0
+              vim.g.vimtex_view_general_viewer = 'evince'
+            '';
+          }
+          {
+            plugin = sved;
+            type = "lua";
+            config = ''
+              key_mapper('n', '\\lv', ':call SVED_Sync()<CR>')
             '';
           }
           cmp-omni
