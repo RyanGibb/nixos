@@ -294,7 +294,7 @@ in {
             type = "lua";
             config = ''
               vim.cmd [[
-              let g:vimtex_quickfix_mode=0
+                let g:vimtex_quickfix_mode=0
                 filetype plugin indent on
               ]]
             '';
