@@ -228,6 +228,8 @@ in {
               require'nvim-treesitter.configs'.setup {
                 highlight = {
                   enable = true,
+                  -- :h vimtex-faq-treesitter
+                  disable = { "latex" },
                 },
               }
               vim.opt.foldmethod = "expr"
@@ -296,6 +298,7 @@ in {
               vim.cmd [[
                 let g:vimtex_quickfix_mode=0
                 filetype plugin indent on
+                syntax enable
               ]]
             '';
           }
