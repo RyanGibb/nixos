@@ -22,6 +22,7 @@ vim.bo.smartindent = true
 vim.o.fixendofline = false
 
 vim.o.conceallevel = 0
+vim.o.concealcursor = 'n'
 vim.wo.signcolumn = 'yes'
 
 vim.o.smartcase = true
