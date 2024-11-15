@@ -1,5 +1,5 @@
 [Default Applications]
-inode/directory=ranger.desktop;
+inode/directory=thunar.desktop;code-oss.desktop;
 image/jpeg=feh.desktop;gimp.desktop;
 image/png=feh.desktop;
 image/svg+xml=nvim.desktop;

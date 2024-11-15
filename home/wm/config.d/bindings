@@ -383,8 +383,6 @@ bindsym $mod+b         exec $browser
 bindsym $mod+Shift+b   exec $browser -P secondary
 bindsym $mod+Control+b exec $browser -private-window
 
-bindsym $mod+slash   exec xdg-open ~
-
 bindsym $mod+apostrophe exec rofimoji --selector @rofi@ --selector-args=-i --skin-tone neutral --prompt "" -a copy
 
 bindsym $mod+semicolon         exec $SCRIPT_DIR/bluetooth_device.sh
