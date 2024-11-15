@@ -183,7 +183,7 @@ in {
             '';
           }
           {
-            plugin = neogit;
+            plugin = pkgs.overlay-unstable.vimPlugins.neogit;
             type = "lua";
             config = ''
               local neogit = require('neogit')
@@ -306,7 +306,7 @@ in {
             plugin = sved;
             type = "lua";
             config = ''
-              key_mapper('n', '\\lv', ':call SVED_Sync()<CR>')
+              vim.keymap.set('n', '\\lv', ':call SVED_Sync()<CR>')
             '';
           }
           cmp-omni
@@ -336,9 +336,9 @@ in {
             plugin = leap-nvim;
             type = "lua";
             config = ''
-              vim.keymap.set({'n', 'x', 'o'}, 's',  '<Plug>(leap-forward)')
-              vim.keymap.set({'n', 'x', 'o'}, 'S',  '<Plug>(leap-backward)')
-              vim.keymap.set({'n', 'x', 'o'}, 'gs', '<Plug>(leap-from-window)')
+              vim.keymap.set({'n', 'x', 'o'}, 's',  '<Plug>(leap-forward)', { desc = "Leap forward"} )
+              vim.keymap.set({'n', 'x', 'o'}, 'S',  '<Plug>(leap-backward)', { desc = "Leap backward"} )
+              vim.keymap.set({'n', 'x', 'o'}, 'gs', '<Plug>(leap-from-window)', { desc = "Leap from window"} )
             '';
           }
           {
@@ -348,6 +348,10 @@ in {
               local wk = require('which-key')
               wk.setup({
                 icons = { mappings = false },
+                triggers = {
+                  { "<leader>", mode = { "n", "v" } },
+                  { "<auto>", mode = "nixsotc" },
+                },
               })
               wk.add({
                 { "<leader>f", group = 'Find' },
@@ -358,6 +362,8 @@ in {
                 { "<leader>h", group = 'Hunk' },
                 { "<leader>x", group = 'Trouble' },
                 { "<leader>g", group = 'Git' },
+                { "<leader>i", group = 'Insert' },
+                { "<leader>o", group = 'Orgmode' },
               })
             '';
           }

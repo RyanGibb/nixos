@@ -14,22 +14,17 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 On_attach = function(client, bufnr)
-	-- Mappings.
-	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	local bufopts = function(desc)
-		return { noremap = true, silent = true, buffer = bufnr, desc = desc }
-	end
-	vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts('Hover'))
-	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts('Goto definition'))
-	vim.keymap.set('n', '[d', vim.diagnostic.goto_next, bufopts('Goto next issue'))
-	vim.keymap.set('n', ']d', vim.diagnostic.goto_prev, bufopts('Goto prev issue'))
-	vim.keymap.set('n', '<leader>li', vim.lsp.buf.implementation, bufopts('Goto implementation'))
-	vim.keymap.set('n', '<leader>lt', vim.lsp.buf.type_definition, bufopts('Goto type definition'))
-	vim.keymap.set('n', '<leader>lr', vim.lsp.buf.references, bufopts('Show references'))
-	vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, bufopts('Code action'))
-	vim.keymap.set('n', '<leader>lR', vim.lsp.buf.rename, bufopts('Rename'))
-	vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format { async = true } end, bufopts('Format'))
-	vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float, bufopts('Get error'))
+	vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'Hover' })
+	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Goto definition' })
+	vim.keymap.set('n', '[d', vim.diagnostic.goto_next, { desc = 'Goto next issue' })
+	vim.keymap.set('n', ']d', vim.diagnostic.goto_prev, { desc = 'Goto prev issue' })
+	vim.keymap.set('n', '<leader>li', vim.lsp.buf.implementation, { desc = 'Goto implementation' })
+	vim.keymap.set('n', '<leader>lt', vim.lsp.buf.type_definition, { desc = 'Goto type definition' })
+	vim.keymap.set('n', '<leader>lr', vim.lsp.buf.references, { desc = 'Show references' })
+	vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, { desc = 'Code action' })
+	vim.keymap.set('n', '<leader>lR', vim.lsp.buf.rename, { desc = 'Rename' })
+	vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format { async = true } end, { desc = 'Format' })
+	vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float, { desc = 'Get error' })
 end
 
 -- Add additional capabilities supported by nvim-cmp

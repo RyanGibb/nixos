@@ -73,44 +73,32 @@ vim.g.vim_markdown_follow_anchor = 1
 vim.o.cursorcolumn = true
 vim.o.cursorline = true
 
-local key_mapper = function(mode, key, result, desc)
-	vim.api.nvim_set_keymap(
-		mode,
-		key,
-		result,
-		{ noremap = true, silent = true, desc = desc }
-	)
-end
+vim.keymap.set('n', '<leader>w', ':w<CR>', { desc = 'Write file' })
+vim.keymap.set('n', '<leader>q', ':qa<CR>', { desc = 'Quit all' })
 
-key_mapper('n', '<leader>h', '<C-w>h')
-key_mapper('n', '<leader>j', '<C-w>j')
-key_mapper('n', '<leader>k', '<C-w>k')
-key_mapper('n', '<leader>l', '<C-w>l')
-key_mapper('n', '<leader>w', ':w<CR>', 'Write file')
+vim.keymap.set('n', 'ZA', ':cquit<Enter>', { desc = 'Quit and fail' })
 
-key_mapper('n', 'ZA', ':cquit<Enter>', 'Quit and fail')
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
-key_mapper('t', '<Esc>', '<C-\\><C-n>')
+vim.keymap.set('n', '<leader>id', [[<Cmd>lua vim.api.nvim_put({vim.fn.strftime('%Y-%m-%d')}, 'c', true, true)<CR>]],
+	{ desc = 'insert date' })
 
-key_mapper('n', '<leader>id', [[<Cmd>lua vim.api.nvim_put({vim.fn.strftime('%Y-%m-%d')}, 'c', true, true)<CR>]],
-	'insert date')
+vim.keymap.set('n', '!', ':term ', { desc = 'terminal' })
 
-key_mapper('n', '!', ':term ', 'terminal')
+vim.keymap.set('n', '<leader>gn', ':Neogit', { desc = 'Neogit' })
 
-key_mapper('n', '<leader>gn', ':Neogit', 'Neogit')
-
-key_mapper('n', '<leader>m', ':make<Enter>', 'Make')
+vim.keymap.set('n', '<leader>m', ':make<Enter>', { desc = 'Make' })
 
 -- go though spelling mistakes
-key_mapper('n', '<C-s>', ']s1z=', 'correct next spelling mistake')
+vim.keymap.set('n', '<C-s>', ']s1z=', { desc = 'correct next spelling mistake' })
 
-key_mapper('v', '<C-J>', ":m '>+1<CR>gv=gv", 'move up')
-key_mapper('v', '<C-K>', ":m '<-2<CR>gv=gv", 'move down')
+vim.keymap.set('v', '<C-J>', ":m '>+1<CR>gv=gv", { desc = 'move up' })
+vim.keymap.set('v', '<C-K>', ":m '<-2<CR>gv=gv", { desc = 'move down' })
 
-key_mapper('n', '<C-d>', '<C-d>zz')
-key_mapper('n', '<C-u>', '<C-u>zz')
-key_mapper('n', 'n', 'nzzzv')
-key_mapper('n', 'N', 'Nzzzv')
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
 
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
 vim.keymap.set({ 'n', 'v' }, '<leader>p', [["+p]])
@@ -212,18 +200,20 @@ vim.api.nvim_create_autocmd('VimLeave', {
 vim.api.nvim_create_user_command('SaveSession', save_session, { nargs = '?', complete = session_completion })
 vim.api.nvim_create_user_command('LoadSession', load_session, { nargs = '?', complete = session_completion })
 
-key_mapper('n', '<leader>ss', ':SaveSession<CR>')
-key_mapper('n', '<leader>sl', ':LoadSession<CR>')
+vim.keymap.set('n', '<leader>ss', ':SaveSession<CR>')
+vim.keymap.set('n', '<leader>sl', ':LoadSession<CR>')
 
 -- free real-estate
--- <leader>q
 -- <leader>n
 -- <leader>;
--- <leader>j
--- <leader>k
 -- <leader>e
 -- <leader>b
 -- <leader>v
+-- <leader>c
+-- <leader>h
+-- <leader>j
+-- <leader>k
+-- <leader>z
 
 vim.cmd([[
 augroup RememberView
