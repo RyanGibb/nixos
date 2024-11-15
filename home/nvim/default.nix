@@ -124,12 +124,12 @@ in {
               require('trouble').setup {
               	icons = false,
               }
-              vim.keymap.set('n', '<leader>xx', function() require('trouble').toggle() end)
-              vim.keymap.set('n', '<leader>xw', function() require('trouble').toggle('workspace_diagnostics') end)
-              vim.keymap.set('n', '<leader>xd', function() require('trouble').toggle('document_diagnostics') end)
-              vim.keymap.set('n', '<leader>xq', function() require('trouble').toggle('quickfix') end)
-              vim.keymap.set('n', '<leader>xl', function() require('trouble').toggle('loclist') end)
-              vim.keymap.set('n', '<leader>xr', function() require('trouble').toggle('lsp_references') end)
+              vim.keymap.set('n', '<leader>xx', function() require('trouble').toggle() end, { desc = 'Trouble toggle' })
+              vim.keymap.set('n', '<leader>xw', function() require('trouble').toggle('workspace_diagnostics') end, { desc = 'Trouble workspace' })
+              vim.keymap.set('n', '<leader>xd', function() require('trouble').toggle('document_diagnostics') end, { desc = 'Trouble document' })
+              vim.keymap.set('n', '<leader>xq', function() require('trouble').toggle('quickfix') end, { desc = 'Trouble quickfix' })
+              vim.keymap.set('n', '<leader>xl', function() require('trouble').toggle('loclist') end, { desc = 'Trouble loclist' })
+              vim.keymap.set('n', '<leader>xr', function() require('trouble').toggle('lsp_references') end, { desc = 'Trouble LSP references' })
             '';
           }
           {
@@ -162,22 +162,22 @@ in {
                     end
                   end)
 
-                  map('n', '<leader>hs', gitsigns.stage_hunk)
-                  map('n', '<leader>hr', gitsigns.reset_hunk)
-                  map('v', '<leader>hs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
-                  map('v', '<leader>hr', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
-                  map('n', '<leader>hS', gitsigns.stage_buffer)
-                  map('n', '<leader>hu', gitsigns.undo_stage_hunk)
-                  map('n', '<leader>hR', gitsigns.reset_buffer)
-                  map('n', '<leader>hp', gitsigns.preview_hunk)
-                  map('n', '<leader>hb', function() gitsigns.blame_line{full=true} end)
-                  map('n', '<leader>htb', gitsigns.toggle_current_line_blame)
-                  map('n', '<leader>hd', gitsigns.diffthis)
-                  map('n', '<leader>hD', function() gitsigns.diffthis('~') end)
-                  map('n', '<leader>htd', gitsigns.toggle_deleted)
+                  map('n', '<leader>gs', gitsigns.stage_hunk, { desc = 'Git stage hunk' })
+                  map('n', '<leader>gr', gitsigns.reset_hunk, { desc = 'Git reset hunk' })
+                  map('v', '<leader>gs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end, { desc = 'Git stage hunk' })
+                  map('v', '<leader>gr', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end, { desc = 'Git reset hunk' })
+                  map('n', '<leader>gS', gitsigns.stage_buffer, { desc = 'Git stage buffer' })
+                  map('n', '<leader>gu', gitsigns.undo_stage_hunk, { desc = 'Git unstage hunk' })
+                  map('n', '<leader>gR', gitsigns.reset_buffer, { desc = 'Git reset buffer' })
+                  map('n', '<leader>gp', gitsigns.preview_hunk, { desc = 'Git preview hunk' })
+                  map('n', '<leader>gb', function() gitsigns.blame_line{full=true} end, { desc = 'Git blame' })
+                  map('n', '<leader>gtb', gitsigns.toggle_current_line_blame, { desc = 'Git toggle line blame' })
+                  map('n', '<leader>gd', gitsigns.diffthis, { desc = 'Git diff index' })
+                  map('n', '<leader>gD', function() gitsigns.diffthis('~') end, { desc = 'Git diff last' })
+                  map('n', '<leader>gtd', gitsigns.toggle_deleted, { desc = 'Git toggle deleted' })
 
                   -- vih
-                  map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+                  map({'o', 'x'}, 'ih', ':<C-U>Git select_hunk<CR>', { desc = 'Gitsigns select hunk' })
                 end
               }
             '';
@@ -329,7 +329,7 @@ in {
             plugin = undotree;
             type = "lua";
             config = ''
-              vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+              vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { desc = 'Undotree toggle' })
             '';
           }
           {
@@ -341,7 +341,26 @@ in {
               vim.keymap.set({'n', 'x', 'o'}, 'gs', '<Plug>(leap-from-window)')
             '';
           }
-          which-key-nvim
+          {
+            plugin = pkgs.overlay-unstable.vimPlugins.which-key-nvim;
+            type = "lua";
+            config = ''
+              local wk = require('which-key')
+              wk.setup({
+                icons = { mappings = false },
+              })
+              wk.add({
+                { "<leader>f", group = 'Find' },
+                { "<leader>l", group = 'LSP' },
+                { "<leader>;", group = 'DAP' },
+                { "<leader>s", group = 'Session' },
+                { "<leader>t", group = 'Tab' },
+                { "<leader>h", group = 'Hunk' },
+                { "<leader>x", group = 'Trouble' },
+                { "<leader>g", group = 'Git' },
+              })
+            '';
+          }
 
           {
             plugin = pkgs.notmuch;
@@ -370,7 +389,7 @@ in {
               vim.g.ledger_date_format = '%Y-%m-%d'
 
               vim.cmd([[
-              autocmd FileType ledger nnoremap <buffer> <leader>e :call ledger#entry()<CR>
+                autocmd FileType ledger nnoremap <buffer> <leader>e :call ledger#entry()<CR>
               ]])
             '';
           }

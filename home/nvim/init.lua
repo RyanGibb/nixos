@@ -73,35 +73,39 @@ vim.g.vim_markdown_follow_anchor = 1
 vim.o.cursorcolumn = true
 vim.o.cursorline = true
 
-local key_mapper = function(mode, key, result)
+local key_mapper = function(mode, key, result, desc)
 	vim.api.nvim_set_keymap(
 		mode,
 		key,
 		result,
-		{ noremap = true, silent = true }
+		{ noremap = true, silent = true, desc = desc }
 	)
 end
 
-key_mapper('n', '<leader>w', ':w<CR>')
+key_mapper('n', '<leader>h', '<C-w>h')
+key_mapper('n', '<leader>j', '<C-w>j')
+key_mapper('n', '<leader>k', '<C-w>k')
+key_mapper('n', '<leader>l', '<C-w>l')
+key_mapper('n', '<leader>w', ':w<CR>', 'Write file')
 
-key_mapper('n', 'ZA', ':cquit<Enter>')
+key_mapper('n', 'ZA', ':cquit<Enter>', 'Quit and fail')
 
 key_mapper('t', '<Esc>', '<C-\\><C-n>')
 
-key_mapper('n', '<leader>id',
-	[[<Cmd>lua vim.api.nvim_put({vim.fn.strftime('%Y-%m-%d')}, 'c', true, true)<CR>]])
+key_mapper('n', '<leader>id', [[<Cmd>lua vim.api.nvim_put({vim.fn.strftime('%Y-%m-%d')}, 'c', true, true)<CR>]],
+	'insert date')
 
-key_mapper('n', '!', ':term ')
+key_mapper('n', '!', ':term ', 'terminal')
 
-vim.keymap.set('n', '<leader>v', vim.cmd.Git)
+key_mapper('n', '<leader>gn', ':Neogit', 'Neogit')
 
-key_mapper('n', '<leader>m', ':make<Enter>')
+key_mapper('n', '<leader>m', ':make<Enter>', 'Make')
 
 -- go though spelling mistakes
-key_mapper('n', '<C-s>', ']s1z=')
+key_mapper('n', '<C-s>', ']s1z=', 'correct next spelling mistake')
 
-key_mapper('v', '<C-J>', ":m '>+1<CR>gv=gv")
-key_mapper('v', '<C-K>', ":m '<-2<CR>gv=gv")
+key_mapper('v', '<C-J>', ":m '>+1<CR>gv=gv", 'move up')
+key_mapper('v', '<C-K>', ":m '<-2<CR>gv=gv", 'move down')
 
 key_mapper('n', '<C-d>', '<C-d>zz')
 key_mapper('n', '<C-u>', '<C-u>zz')
@@ -215,11 +219,11 @@ key_mapper('n', '<leader>sl', ':LoadSession<CR>')
 -- <leader>q
 -- <leader>n
 -- <leader>;
--- <leader>h
 -- <leader>j
 -- <leader>k
 -- <leader>e
 -- <leader>b
+-- <leader>v
 
 vim.cmd([[
 augroup RememberView
