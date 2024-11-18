@@ -2,9 +2,9 @@
 bindsym $mod+r exec  "pkill swaybar; swaybar --bar_id bar-0"
 bindsym $mod+Shift+r exec "pkill swaybar; swaymsg reload"
 
-bindsym $mod+q         exec makoctl dismiss
-bindsym $mod+Shift+q   exec makoctl invoke
-bindsym $mod+Control+q exec makoctl restore
+bindsym $mod+q         exec dunstctl close
+bindsym $mod+Shift+q   exec dunstctl action
+bindsym $mod+Control+q exec dunstctl history-pop
 
 bindsym $mod+Shift+v         exec clipman pick -t wofi -T-i
 bindsym $mod+Control+v       exec wl-copy "$(clipman pick -t STDOUT | head -n 1)"
@@ -26,7 +26,7 @@ bindsym $mod+u mode "$mode_idle"; exec notify-send "Idle i/d/l/s/L"
 bindsym Print exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | wl-copy
 set $mode_capture capture
 mode "$mode_capture" {
-    bindsym q exec makoctl dismiss
+    bindsym q exec dunstctl close
 
 	bindsym c exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | wl-copy;     mode "default";
 	bindsym e exec grim -g "$($SCRIPT_DIR/slurp_point.sh)" - | swappy -f -; mode "default;

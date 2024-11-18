@@ -29,7 +29,7 @@ in {
         grim
         slurp
         swappy
-        mako
+        dunst
         kanshi
       ];
     };

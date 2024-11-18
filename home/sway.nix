@@ -20,7 +20,7 @@ let
     dmenu = "wofi -d -i -p";
     displays = "wdisplays";
     bar = "swaybar";
-    notification_deamon = "mako";
+    notification_deamon = "dunst";
     i3-workspace-history = "${i3-workspace-history}";
     i3-workspace-history-args = "-sway";
   };
@@ -76,7 +76,7 @@ in {
       entries = {
         "fusuma/config.yml".source = ./fusuma.yml;
         "kanshi/config".source = ./kanshi;
-        "mako/config".source = ./mako;
+        "dunst/dunstrc".source = ./dunst;
         "swaylock/config".source = ./swaylock;
         "wofi/style.css".source = ./wofi.css;
         "swappy/config".text = ''
