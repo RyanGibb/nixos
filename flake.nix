@@ -75,6 +75,14 @@
               };
             };
             gnome-calendar = final.overlay-unstable.gnome-calendar;
+            opam = final.overlay-unstable.opam.overrideAttrs (_: {
+              src = final.fetchurl {
+                url =
+                  "http://ryan.freumh.org/software/opam-full-2.3.0-nixos-depexts.tar.gz";
+                sha256 = "sha256-mRxxZtWFgQ8v1szVq5g5+qVqa+OffoG1aHzGUiMMvT0=";
+              };
+              version = "2.3.0";
+            });
           })
         ];
     in {
