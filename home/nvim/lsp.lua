@@ -71,6 +71,16 @@ lspconfig['lua_ls'].setup {
 	},
 }
 
+lspconfig['nixd'].setup {
+	settings = {
+		nixd = {
+			formatting = {
+				command = { "nixfmt" },
+			},
+		},
+	},
+}
+
 -- wrapper around lspconfig['ltex-ls'] with support for hide false positive
 require('ltex-ls').setup {
 	on_attach = On_attach,
