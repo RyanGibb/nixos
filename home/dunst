@@ -2,6 +2,7 @@
 font="Noto Sans Mono 10"
 
 origin=top-right
+follow=keyboard
 
 background="#434c5ee0"
 frame_color="#434c5ee0"
