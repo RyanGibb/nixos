@@ -68,41 +68,18 @@ in {
           clang-tools
           typst-lsp
         ];
-      extraLuaConfig = builtins.readFile ./init.lua
-        + (if cfg.nvim-lsps then builtins.readFile ./lsp.lua else "");
+      extraLuaConfig = builtins.readFile ./init.lua;
       # undo transparent background
       # + "colorscheme gruvbox";
       plugins = with pkgs.vimPlugins;
         [
           {
-            plugin = nvim-lspconfig;
-            runtime = let
-              ml-style = ''
-                setlocal expandtab
-                setlocal shiftwidth=2
-                setlocal tabstop=2
-                setlocal softtabstop=2
-              '';
-            in {
+            plugin = null;
+            runtime = {
               # format-flowed
               "ftplugin/mail.vim".text = ''
                 setlocal tw=72
                 set formatoptions+=w
-              '';
-              "ftplugin/nix.vim".text = ml-style;
-              "ftplugin/ocaml.vim".text = ml-style;
-              "ftplugin/java.lua".text = ''
-                local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
-                local workspace_dir = '~/.cache/jdt/' .. project_name
-                require('jdtls').start_or_attach {
-                	on_attach = On_attach,
-                	capabilities = Capabilities,
-                  cmd = { 'jdt-language-server', '-data', workspace_dir, },
-                  root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
-                }
-              '';
-              "ftplugin/ledger.vim".text = ''
-                setlocal foldmethod=syntax
               '';
             };
           }
@@ -194,8 +171,11 @@ in {
           plenary-nvim
           pkgs.ripgrep
 
-          cmp-nvim-lsp
-          cmp-nvim-lsp-signature-help
+          {
+            plugin = nvim-cmp;
+            type = "lua";
+            config = builtins.readFile ./nvim-cmp.lua;
+          }
           cmp-path
           cmp-buffer
           cmp-cmdline
@@ -211,15 +191,11 @@ in {
               })
             '';
           }
+
           {
             plugin = luasnip;
             type = "lua";
             config = builtins.readFile ./luasnip.lua;
-          }
-          {
-            plugin = nvim-cmp;
-            type = "lua";
-            config = builtins.readFile ./nvim-cmp.lua;
           }
 
           {
@@ -422,9 +398,42 @@ in {
             '';
           }
         ] ++ lib.lists.optionals cfg.nvim-lsps [
+          {
+            plugin = nvim-lspconfig;
+            config = builtins.readFile ./lsp.lua;
+            runtime = let
+              ml-style = ''
+                setlocal expandtab
+                setlocal shiftwidth=2
+                setlocal tabstop=2
+                setlocal softtabstop=2
+              '';
+            in {
+              "ftplugin/nix.vim".text = ml-style;
+              "ftplugin/ocaml.vim".text = ml-style;
+              "ftplugin/java.lua".text = ''
+                local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+                local workspace_dir = '~/.cache/jdt/' .. project_name
+                require('jdtls').start_or_attach {
+                	on_attach = On_attach,
+                	capabilities = Capabilities,
+                	cmd = { 'jdt-language-server', '-data', workspace_dir, },
+                	root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+                }
+              '';
+              "ftplugin/ledger.vim".text = ''
+                setlocal foldmethod=syntax
+              '';
+            };
+          }
+          {
+            plugin = nvim-dap;
+            config = builtins.readFile ./dap.lua;
+          }
+          cmp-nvim-lsp
+          cmp-nvim-lsp-signature-help
           ltex-ls-nvim
           nvim-jdtls
-          nvim-dap
         ];
     };
   };
