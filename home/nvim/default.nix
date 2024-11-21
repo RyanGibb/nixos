@@ -319,6 +319,11 @@ in {
             config = ''
               local wk = require('which-key')
               wk.setup({
+                plugins = {
+                  spelling = {
+                    enabled = false
+                  },
+                },
                 icons = { mappings = false },
                 triggers = {
                   { "<leader>", mode = { "n", "v" } },
