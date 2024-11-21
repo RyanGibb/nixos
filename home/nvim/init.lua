@@ -1,14 +1,10 @@
 require('gruvbox').setup {
 	terminal_colors = false,
+	transparent_mode = true,
 }
-vim.cmd [[colorscheme gruvbox]]
-vim.api.nvim_command('hi Normal guibg=NONE ctermbg=NONE')
-vim.cmd([[
-  highlight SignColumn ctermbg=none guibg=none
-  highlight DiffAdd ctermbg=none guibg=none
-  highlight DiffChange ctermbg=none guibg=none
-  highlight DiffDelete ctermbg=none guibg=none
-]])
+vim.cmd "colorscheme gruvbox"
+
+vim.api.nvim_set_hl(0, "NormalFloat", { fg = require('gruvbox').palette.light1, bg = require('gruvbox').palette.dark1 })
 
 vim.o.mouse = 'a'
 vim.o.mousemodel = 'extend'
@@ -71,7 +67,6 @@ vim.o.foldlevel = 99
 vim.g.vim_markdown_follow_anchor = 1
 
 vim.o.cursorcolumn = true
-vim.o.cursorline = true
 
 vim.keymap.set('n', '<leader>w', ':w<CR>', { desc = 'Write file' })
 vim.keymap.set('n', '<leader>q', ':qa<CR>', { desc = 'Quit all' })
