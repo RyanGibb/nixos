@@ -6,21 +6,43 @@ local dap = require('dap')
 dap.adapters.ocamlearlybird = {
 	type = 'executable',
 	command = 'ocamlearlybird',
-	args = { 'debug' }
+	args = { 'debug' },
+	cwd = "${workspaceFolder}",
 }
+
+local pickers = require("telescope.pickers")
+local finders = require("telescope.finders")
+local conf = require("telescope.config").values
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
 
 dap.configurations.ocaml = {
 	{
 		name = 'OCaml',
 		type = 'ocamlearlybird',
 		request = 'launch',
+		-- https://github.com/hackwaly/ocamlearlybird/issues/75
+		arguments = function()
+			return vim.split(vim.fn.input('Arguments: '), " ", { trimempty = true })
+		end,
 		program = function()
-			local path = vim.fn.input({
-				prompt = 'Path to executable: ',
-				default = vim.fn.getcwd() .. '/_build/default/bin/',
-				completion = 'file'
-			})
-			return (path and path ~= "") and path or dap.ABORT
+			return coroutine.create(function(coro)
+				local opts = {}
+				pickers
+				.new(opts, {
+					prompt_title = "Path to executable",
+					finder = finders.new_oneshot_job({ "fd", "--hidden", "--no-ignore", "--type", "x" }, {}),
+					sorter = conf.generic_sorter(opts),
+					attach_mappings = function(buffer_number)
+						actions.select_default:replace(function()
+							actions.close(buffer_number)
+							coroutine.resume(coro, action_state.get_selected_entry()[1])
+						end)
+						return true
+					end,
+				})
+				:find()
+			end)
 		end,
 	},
 }
@@ -43,3 +65,4 @@ vim.keymap.set('n', '<leader>;S', function()
 	local widgets = require('dap.ui.widgets')
 	widgets.centered_float(widgets.scopes)
 end, { desc = 'DAP scopes' })
+vim.keymap.set('n', '<leader>;t', function() require('dap').terminate() end, { desc = 'DAP terminate' })
