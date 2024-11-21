@@ -49,6 +49,12 @@ in {
   options.custom.nvim-lsps = lib.mkEnableOption "nvim-lsps";
 
   config = {
+    xdg.configFile = {
+      "ftplugin/mail.vim".text = ''
+        setlocal tw=72
+        set formatoptions+=w
+      '';
+    };
     programs.neovim = {
       enable = true;
       viAlias = true;
@@ -73,16 +79,6 @@ in {
       # + "colorscheme gruvbox";
       plugins = with pkgs.vimPlugins;
         [
-          {
-            plugin = null;
-            runtime = {
-              # format-flowed
-              "ftplugin/mail.vim".text = ''
-                setlocal tw=72
-                set formatoptions+=w
-              '';
-            };
-          }
           gruvbox-nvim
 
           {
@@ -400,6 +396,7 @@ in {
         ] ++ lib.lists.optionals cfg.nvim-lsps [
           {
             plugin = nvim-lspconfig;
+            type = "lua";
             config = builtins.readFile ./lsp.lua;
             runtime = let
               ml-style = ''
@@ -428,6 +425,7 @@ in {
           }
           {
             plugin = nvim-dap;
+            type = "lua";
             config = builtins.readFile ./dap.lua;
           }
           cmp-nvim-lsp
