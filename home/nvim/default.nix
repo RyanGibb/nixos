@@ -278,7 +278,7 @@ in {
             plugin = sved;
             type = "lua";
             config = ''
-              vim.keymap.set('n', '\\lv', ':call SVED_Sync()<CR>')
+              vim.keymap.set('n', '<leader>lv', ':call SVED_Sync()<CR>')
             '';
           }
           cmp-omni
