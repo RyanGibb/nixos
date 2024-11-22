@@ -193,6 +193,7 @@ in {
             type = "lua";
             config = builtins.readFile ./luasnip.lua;
           }
+          cmp_luasnip
 
           {
             plugin = nvim-treesitter.withAllGrammars;
