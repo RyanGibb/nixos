@@ -377,7 +377,11 @@ in {
               ]])
             '';
           }
-          vim-markdown
+          {
+            plugin = obsidian-nvim;
+            type = "lua";
+            config = builtins.readFile ./obsidian.lua;
+          }
 
           {
             plugin = calendar-nvim;

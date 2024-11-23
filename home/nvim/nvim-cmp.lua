@@ -1,55 +1,5 @@
 local cmp = require 'cmp'
 
-cmp.register_source('markdown_headers', setmetatable({}, {
-	__index = {
-		get_debug_name = function()
-			return "markdown_headers"
-		end,
-
-		is_available = function()
-			return vim.opt.filetype:get() == 'markdown'
-		end,
-
-		get_trigger_characters = function()
-			return { '#' }
-		end,
-
-		complete = function(self, params, callback)
-			local filename = params.context.cursor_before_line:match("%[.-%]%((.-)#")
-			local headers = {}
-			local process_line = function(line)
-				if line:match("^#+") then
-					local _, _, fragment, text = line:find("(#+)%s*(.*)")
-					table.insert(headers, {
-						label = text,
-						insertText = "#" .. text,
-						filterText = "#" .. text,
-						sortText = text,
-					})
-				end
-			end
-			if filename ~= nil then
-				if #filename == 0 then
-					local buf_id = vim.api.nvim_get_current_buf()
-					for i = 0, vim.api.nvim_buf_line_count(buf_id) - 1 do
-						local line = vim.api.nvim_buf_get_lines(buf_id, i, i + 1, false)[1]
-						process_line(line)
-					end
-				elseif vim.uv.fs_stat(filename).type == 'file' then
-					local lines = vim.fn.readfile(filename)
-					for i, line in ipairs(lines) do
-						process_line(line)
-					end
-				end
-			end
-			callback({
-				items = headers,
-				isIncomplete = true
-			})
-		end,
-	}
-}))
-
 cmp.setup {
 	snippet = {
 		expand = function(args)
@@ -67,7 +17,6 @@ cmp.setup {
 				buffer = '[Buffer]',
 				path = '[Path]',
 				ls = '[Luasnip]',
-				markdown_headers = '[Markdown headers]',
 			})[entry.source.name]
 			return vim_item
 		end,
@@ -95,7 +44,6 @@ cmp.setup {
 		},
 	},
 	sources = cmp.config.sources({
-		{ name = "markdown_headers",        priority = 1100 },
 		{ name = 'nvim_lsp_signature_help', priority = 1000 },
 		{ name = 'nvim_lsp',                priority = 900 },
 		{ name = 'luasnip',                 priority = 800 },
