@@ -342,7 +342,6 @@ in {
                 { "<leader>x", group = 'Trouble' },
                 { "<leader>g", group = 'Git' },
                 { "<leader>i", group = 'Insert' },
-                { "<leader>o", group = 'Orgmode' },
               })
             '';
           }
@@ -380,19 +379,6 @@ in {
           }
           vim-markdown
 
-          {
-            plugin = orgmode;
-            type = "lua";
-            config = ''
-              -- Open agenda prompt: <Leader>oa
-              -- Open capture prompt: <Leader>oc
-              -- In any orgmode buffer press g? for help
-              require('orgmode').setup({
-              	org_agenda_files = { '~/vault/agenda/*.org' },
-              	org_default_notes_file = '~/vault/refile.org',
-              })
-            '';
-          }
           {
             plugin = calendar-nvim;
             type = "lua";
