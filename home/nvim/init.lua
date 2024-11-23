@@ -115,6 +115,10 @@ vim.keymap.set('n', '<leader>tN', ':tabmove +1<CR>')
 vim.keymap.set('n', '<leader>tP', ':tabmove -1<CR>')
 vim.keymap.set('n', '<leader>tq', ':tabclose<CR>')
 
+vim.keymap.set('n', '<leader>bn', ':bnext<CR>')
+vim.keymap.set('n', '<leader>bp', ':bprevious<CR>')
+vim.keymap.set('n', '<leader>bd', ':bdelete<CR>')
+
 -- if in an SSH session enable OSC 52 system clipboard
 -- required as neovim can't detect alacritty capabilities as it doesn't support XTGETTCAP
 if os.getenv('SSH_TTY') then
@@ -202,7 +206,6 @@ vim.keymap.set('n', '<leader>sl', ':LoadSession<CR>')
 -- <leader>n
 -- <leader>;
 -- <leader>e
--- <leader>b
 -- <leader>v
 -- <leader>c
 -- <leader>h
