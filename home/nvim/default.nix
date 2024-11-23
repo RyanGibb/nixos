@@ -194,7 +194,7 @@ in {
             config = builtins.readFile ./luasnip.lua;
           }
           cmp_luasnip
-          friendly-snippets
+          pkgs.overlay-unstable.vimPlugins.friendly-snippets
 
           {
             plugin = nvim-treesitter.withAllGrammars;
