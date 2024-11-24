@@ -63,4 +63,9 @@
       prev.jellyfin-ffmpeg.overrideAttrs (_: { withVpl = true; });
     ffmpeg = prev.ffmpeg.overrideAttrs (_: { withVpl = true; });
   };
+
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+    "net.ipv6.conf.all.forwarding" = 1;
+  };
 }
