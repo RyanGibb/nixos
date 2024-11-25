@@ -1,7 +1,8 @@
 { pkgs, config, lib, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ./zfs.nix ./services.nix ];
+  imports =
+    [ ./hardware-configuration.nix ./zfs.nix ./services.nix ./owntracks.nix ];
 
   custom = {
     enable = true;

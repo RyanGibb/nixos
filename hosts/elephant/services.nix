@@ -18,6 +18,7 @@
       "jellyfin.vpn.freumh.org"
       "transmission.vpn.freumh.org"
       "nextcloud.vpn.freumh.org"
+      #"owntracks.vpn.freumh.org"
     ];
   };
 
@@ -46,6 +47,11 @@
       };
       "nextcloud.vpn.freumh.org" = {
         enableSSL = true;
+        listenAddresses = [ "100.64.0.9" ];
+      };
+      "owntracks.vpn.freumh.org" = {
+        # TODO TLS once Eon capc is fixed
+        # enableSSL = true;
         listenAddresses = [ "100.64.0.9" ];
       };
     };
@@ -173,5 +179,11 @@
   systemd.services.restic-rest-server = {
     after = [ "tailscaled.service" ];
     requires = [ "tailscaled.service" ];
+  };
+
+  services.owntracks-recorder = {
+    enable = true;
+    host = "100.64.0.9";
+    domain = "owntracks.vpn.freumh.org";
   };
 }
