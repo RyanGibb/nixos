@@ -18,7 +18,7 @@
       "jellyfin.vpn.freumh.org"
       "transmission.vpn.freumh.org"
       "nextcloud.vpn.freumh.org"
-      #"owntracks.vpn.freumh.org"
+      "owntracks.vpn.freumh.org"
     ];
   };
 
@@ -50,8 +50,7 @@
         listenAddresses = [ "100.64.0.9" ];
       };
       "owntracks.vpn.freumh.org" = {
-        # TODO TLS once Eon capc is fixed
-        # enableSSL = true;
+        enableSSL = true;
         listenAddresses = [ "100.64.0.9" ];
       };
     };
