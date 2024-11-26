@@ -25,6 +25,7 @@ dap.configurations.ocaml = {
 		arguments = function()
 			return vim.split(vim.fn.input('Arguments: '), " ", { trimempty = true })
 		end,
+		cwd = vim.fn.getcwd(),
 		program = function()
 			return coroutine.create(function(coro)
 				local opts = {}
