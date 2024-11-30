@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ nixpkgs-unstable, config, pkgs, lib, ... }:
 
 {
   custom.nix-cache.enable = true;
@@ -19,6 +19,7 @@
       "transmission.vpn.freumh.org"
       "nextcloud.vpn.freumh.org"
       "owntracks.vpn.freumh.org"
+      "immich.vpn.freumh.org"
     ];
   };
 
@@ -40,8 +41,8 @@
         enableSSL = true;
         listenAddresses = [ "100.64.0.9" ];
         locations."/" = {
-          proxyPass = ''
-            http://localhost:9091
+          proxyPass = with config.services.transmission.settings; ''
+            http://localhost:${builtins.toString rpc-port}
           '';
         };
       };
@@ -52,6 +53,15 @@
       "owntracks.vpn.freumh.org" = {
         enableSSL = true;
         listenAddresses = [ "100.64.0.9" ];
+      };
+      "immich.vpn.freumh.org" = {
+        enableSSL = true;
+        listenAddresses = [ "100.64.0.9" ];
+        locations."/" = {
+          proxyPass = with config.services.immich; ''
+            http://${host}:${builtins.toString port}
+          '';
+        };
       };
     };
   };
@@ -78,26 +88,29 @@
 
   services.jellyfin = {
     enable = true;
-    openFirewall = true;
+    #openFirewall = true;
   };
 
   services.samba = {
     enable = true;
     openFirewall = true;
     securityType = "user";
-    extraConfig = ''
-      workgroup = WORKGROUP
-      server string = ${config.networking.hostName}
-      netbios name = ${config.networking.hostName}
-      security = user
-      #use sendfile = yes
-      #max protocol = smb2
-      # note: localhost is the ipv6 localhost ::1
-      hosts allow = 192.168.1. 192.168.0. 127.0.0.1 localhost 100.64.0.0/10
-      hosts deny = 0.0.0.0/0
-      guest account = nobody
-      map to guest = bad user
-    '';
+    settings = {
+      global = {
+        workgroup = "WORKGROUP";
+        "server string" = "${config.networking.hostName}";
+        "netbios name" = "${config.networking.hostName}";
+        "security" = "user";
+        #"use sendfile" = "yes";
+        #"max protocol" = "smb2";
+        # note: localhost is the ipv6 localhost ::1
+        "hosts allow" =
+          "192.168.1. 192.168.0. 127.0.0.1 localhost 100.64.0.0/10";
+        "hosts deny" = "0.0.0.0/0";
+        "guest account" = "nobody";
+        "map to guest" = "bad user";
+      };
+    };
     shares = {
       tank = {
         path = "/tank/";
@@ -184,5 +197,12 @@
     enable = true;
     host = "100.64.0.9";
     domain = "owntracks.vpn.freumh.org";
+  };
+
+  services.immich = {
+    enable = true;
+    openFirewall = true;
+    host = "100.64.0.9";
+    mediaLocation = "/tank/immich";
   };
 }

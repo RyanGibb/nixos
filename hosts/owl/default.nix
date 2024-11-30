@@ -27,6 +27,11 @@ let
       type = "A";
       value = "100.64.0.9";
     }
+    {
+      name = "immich.vpn.${config.networking.domain}.";
+      type = "A";
+      value = "100.64.0.9";
+    }
   ];
 in {
   imports = [

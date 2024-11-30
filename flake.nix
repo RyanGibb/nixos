@@ -5,8 +5,8 @@
     nixpkgs-neovim.url =
       "github:nixos/nixpkgs/a76212122970925d09aa2021a93e00d359e631dd";
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    #home-manager.url = "github:nix-community/home-manager/release-24.05";
-    home-manager.url = "github:RyanGibb/home-manager/fork-24.05";
+    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    home-manager-unstable.url = "github:nix-community/home-manager/master";
     agenix.url = "github:ryantm/agenix";
     deploy-rs.url = "github:serokell/deploy-rs";
     nix-on-droid.url = "github:nix-community/nix-on-droid/release-23.11";
@@ -35,7 +35,8 @@
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-neovim, home-manager
-    , agenix, deploy-rs, nix-on-droid, eilean, ... }@inputs:
+    , home-manager-unstable, agenix, deploy-rs, nix-on-droid, eilean, ...
+    }@inputs:
     let
       getSystemOverlays = system: nixpkgsConfig:
         [
@@ -83,12 +84,20 @@
               };
               version = "2.3.0";
             });
+            immich = final.overlay-unstable.immich;
           })
         ];
     in {
       nixosConfigurations = let
         mkMode = mode: host:
-          nixpkgs.lib.nixosSystem {
+          let
+            host-nixpkgs =
+              if host == "elephant" then nixpkgs-unstable else nixpkgs;
+            host-home-manager = if host == "elephant" then
+              home-manager-unstable
+            else
+              home-manager;
+          in host-nixpkgs.lib.nixosSystem {
             # use system from config.localSystem
             # see https://github.com/NixOS/nixpkgs/blob/5297d584bcc5f95c8e87c631813b4e2ab7f19ecc/nixos/lib/eval-config.nix#L55
             system = null;
@@ -100,11 +109,11 @@
               ({ config, ... }: {
                 networking.hostName = "${host}";
                 # pin nix command's nixpkgs flake to the system flake to avoid unnecessary downloads
-                nix.registry.nixpkgs.flake = nixpkgs;
+                nix.registry.nixpkgs.flake = host-nixpkgs;
                 system.stateVersion = "24.05";
                 # record git revision (can be queried with `nixos-version --json)
                 system.configurationRevision =
-                  nixpkgs.lib.mkIf (self ? rev) self.rev;
+                  host-nixpkgs.lib.mkIf (self ? rev) self.rev;
                 nixpkgs = {
                   config.allowUnfree = true;
                   config.permittedInsecurePackages = [
@@ -121,7 +130,7 @@
                 };
                 security.acme-eon.acceptTerms = true;
               })
-              home-manager.nixosModule
+              host-home-manager.nixosModule
               eilean.nixosModules.default
               agenix.nixosModules.default
             ];

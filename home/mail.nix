@@ -87,7 +87,6 @@ in {
 
     accounts.email = {
       maildirBasePath = "mail";
-      order = [ "ryangibb321@gmail.com" "ryan.gibb@cl.cam.ac.uk" ];
       accounts = {
         "ryan@freumh.org" = rec {
           primary = true;
