@@ -3,27 +3,27 @@
 let
   vpnRecords = [
     {
-      name = "nix-cache.vpn.${config.networking.domain}";
+      name = "nix-cache.vpn.${config.networking.domain}.";
       type = "A";
       value = "100.64.0.9";
     }
     {
-      name = "jellyfin.vpn.${config.networking.domain}";
+      name = "jellyfin.vpn.${config.networking.domain}.";
       type = "A";
       value = "100.64.0.9";
     }
     {
-      name = "nextcloud.vpn.${config.networking.domain}";
+      name = "nextcloud.vpn.${config.networking.domain}.";
       type = "A";
       value = "100.64.0.9";
     }
     {
-      name = "transmission.vpn.${config.networking.domain}";
+      name = "transmission.vpn.${config.networking.domain}.";
       type = "A";
       value = "100.64.0.9";
     }
     {
-      name = "owntracks.vpn.${config.networking.domain}";
+      name = "owntracks.vpn.${config.networking.domain}.";
       type = "A";
       value = "100.64.0.9";
     }
