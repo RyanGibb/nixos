@@ -69,26 +69,32 @@ in {
       virtualHosts."${cfg.domain}" = {
         locations = {
           "/ws" = {
-            proxyPass = "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}";
+            proxyPass =
+              "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}";
             proxyWebsockets = true;
             recommendedProxySettings = true;
           };
           "/" = {
-            proxyPass = "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}/";
+            proxyPass =
+              "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}/";
             recommendedProxySettings = true;
           };
           "/view/" = {
-            proxyPass = "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}/view/";
+            proxyPass =
+              "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}/view/";
             recommendedProxySettings = true;
             # Chrome fix
             extraConfig = "proxy_buffering off;";
           };
           "/static/" = {
-            proxyPass = "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}/static/";
+            proxyPass = "http://${cfg.httpHost}:${
+                builtins.toString cfg.httpPort
+              }/static/";
             recommendedProxySettings = true;
           };
           "/utils/" = {
-            proxyPass = "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}/utils/";
+            proxyPass =
+              "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}/utils/";
             recommendedProxySettings = true;
           };
         };

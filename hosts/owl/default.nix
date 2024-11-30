@@ -79,7 +79,7 @@ in {
   eilean.mailserver.enable = true;
   eilean.radicale = {
     enable = true;
-	users = null;
+    users = null;
   };
   age.secrets.matrix-shared-secret = {
     file = ../../secrets/matrix-shared-secret.age;
