@@ -458,4 +458,11 @@ in {
       aliases = [ "nas@${config.networking.domain}" ];
     };
   };
+
+  services.minecraft-server = {
+    enable = true;
+    package = pkgs.overlay-unstable.minecraft-server;
+    eula = true;
+    openFirewall = true;
+  };
 }
