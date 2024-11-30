@@ -140,7 +140,11 @@ in {
   eilean.dns.nameservers = [ "ns1" ];
   eilean.services.dns.zones = {
     ${config.networking.domain} = {
-      soa.serial = 2018011659;
+      ttl = 300;
+      soa = {
+        serial = 2018011660;
+        refresh = 300;
+      };
       records = [
         {
           name = "@";
