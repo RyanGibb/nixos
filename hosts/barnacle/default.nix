@@ -24,11 +24,11 @@
   networking.wireless = {
     # so we can use NetworkManager
     enable = lib.mkForce false;
-    networks = { "SSID" = { psk = "password"; }; };
+    # networks = { "SSID" = { psk = "password"; }; };
   };
 
   # build with:
-  #   nix build '/etc/nixos?submodules=1#nixosConfigurations.iso.config.system.build.isoImage'
+  #   nix build /etc/nixos#nixosConfigurations.barnacle.config.system.build.isoImage
   isoImage.contents = [{
     source = ../..;
     target = "nixos";
