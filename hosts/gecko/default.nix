@@ -50,9 +50,9 @@
 
   environment.systemPackages = with pkgs; [
     dell-command-configure
-    gnome.file-roller
+    file-roller
     unzip
-    gnome.cheese
+    cheese
     gparted
     chromium
     calibre
@@ -71,8 +71,8 @@
     evince
     pdfpc
     krop
-    transmission
-    transmission-gtk
+    transmission_4
+    transmission_4-gtk
     libreoffice
     obs-studio
     xournalpp

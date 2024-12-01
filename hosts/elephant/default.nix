@@ -49,14 +49,14 @@
 
   # Add hardware transcoding support to `ffmpeg_6` and derived packages (like jellyfin-ffmpeg)
   # for Intel Alder Lake N100's Quick Sync Video (QSV) using Intel OneVPL.
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       # Video Acceleration API (VA-API) user mode driver
       intel-media-driver
       # Intel Video Processing Library (VPL) API runtime implementation
       # replace with`onevpl-intel-gpu` after https://github.com/NixOS/nixpkgs/pull/264621
-      onevpl-intel-gpu
+      vpl-gpu-rt
     ];
   };
   nixpkgs.config.packageOverrides = prev: {

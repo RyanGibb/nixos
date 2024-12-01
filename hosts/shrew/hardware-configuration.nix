@@ -36,7 +36,9 @@
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 
   hardware.raspberry-pi."4".fkms-3d.enable = true;
-  boot.loader.raspberryPi.firmwareConfig = "config_hdmi_boost=5";
+  # TODO use https://github.com/nix-community/raspberry-pi-nix?tab=readme-ov-file#configtxt-generation
+  # https://github.com/NixOS/nixpkgs/pull/241534#issuecomment-2495645336
+  #boot.loader.raspberryPi.firmwareConfig = "config_hdmi_boost=5";
 
   nixpkgs.hostPlatform = "aarch64-linux";
 }

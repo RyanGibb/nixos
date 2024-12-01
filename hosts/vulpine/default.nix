@@ -41,9 +41,9 @@
 
   environment.systemPackages = with pkgs; [
     pciutils
-    gnome.file-roller
+    file-roller
     unzip
-    gnome.cheese
+    cheese
     chromium
     calibre
     zotero

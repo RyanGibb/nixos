@@ -21,7 +21,7 @@ in {
       default = 8083;
     };
     domain = lib.mkOption {
-      type = lib.types.nullOr lib.types.string;
+      type = lib.types.nullOr lib.types.str;
       default = null;
     };
   };

@@ -1,15 +1,13 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-neovim.url =
-      "github:nixos/nixpkgs/a76212122970925d09aa2021a93e00d359e631dd";
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager-unstable.url = "github:nix-community/home-manager/master";
     agenix.url = "github:ryantm/agenix";
     deploy-rs.url = "github:serokell/deploy-rs";
-    nix-on-droid.url = "github:nix-community/nix-on-droid/release-23.11";
+    nix-on-droid.url = "github:nix-community/nix-on-droid/release-24.05";
     eon.url = "github:RyanGibb/eon";
     eilean.url = "github:RyanGibb/eilean-nix/main";
     alec-website.url = "github:alexanderhthompson/website";
@@ -34,7 +32,7 @@
     hyperbib-eeg.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-neovim, home-manager
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager
     , home-manager-unstable, agenix, deploy-rs, nix-on-droid, eilean, ...
     }@inputs:
     let
@@ -55,27 +53,6 @@
             # to override attributes of a package
             # package = prev.package.overrideAttrs
             #  (_: { patches = [ ./pkgs/package.patch ]; });
-            neovim-unwrapped =
-              (import nixpkgs-neovim { inherit system; }).neovim-unwrapped;
-            sway-unwrapped = prev.callPackage ./pkgs/sway-im/package.nix {
-              libdrm = prev.libdrm;
-              wlroots = prev.callPackage ./pkgs/wlroots/default.nix {
-                # for libdrm >=2.4.120
-                mesa = prev.mesa;
-                wayland-protocols = prev.wayland-protocols.overrideAttrs
-                  (old: rec {
-                    pname = "wayland-protocols";
-                    version = "1.33";
-                    src = prev.fetchurl {
-                      url =
-                        "https://gitlab.freedesktop.org/wayland/${pname}/-/releases/${version}/downloads/${pname}-${version}.tar.xz";
-                      hash =
-                        "sha256-lPDFCwkNbmGgP2IEhGexmrvoUb5OEa57NvZfi5jDljo=";
-                    };
-                  });
-              };
-            };
-            gnome-calendar = final.overlay-unstable.gnome-calendar;
             opam = final.overlay-unstable.opam.overrideAttrs (_: {
               src = final.fetchurl {
                 url =
@@ -91,12 +68,8 @@
       nixosConfigurations = let
         mkMode = mode: host:
           let
-            host-nixpkgs =
-              if host == "elephant" then nixpkgs-unstable else nixpkgs;
-            host-home-manager = if host == "elephant" then
-              home-manager-unstable
-            else
-              home-manager;
+            host-nixpkgs = nixpkgs;
+            host-home-manager = home-manager;
           in host-nixpkgs.lib.nixosSystem {
             # use system from config.localSystem
             # see https://github.com/NixOS/nixpkgs/blob/5297d584bcc5f95c8e87c631813b4e2ab7f19ecc/nixos/lib/eval-config.nix#L55

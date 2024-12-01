@@ -37,7 +37,7 @@ Capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'nixd', 'ocamllsp', 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'gopls', 'typst_lsp' }
+local servers = { 'nixd', 'ocamllsp', 'clangd', 'rust_analyzer', 'pyright', 'gopls', 'typst_lsp' }
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup {
 		on_attach = On_attach,

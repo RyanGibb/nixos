@@ -6,4 +6,4 @@ exec @notification_deamon@
 
 exec --no-startup-id fcitx5 -d
 
-exec i3-workspace-history @i3-workspace-history-args@
+exec @i3_workspace_history@ @i3_workspace_history_args@

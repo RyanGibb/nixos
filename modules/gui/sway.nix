@@ -34,10 +34,12 @@ in {
       ];
     };
 
+    # TODO read this
+    # https://github.com/flatpak/xdg-desktop-portal/blob/1.18.1/doc/portals.conf.rst.in
     xdg.portal = {
       enable = true;
       wlr.enable = true;
-      gtkUsePortal = false;
+      config.common.default = "*";
     };
 
     services.geoclue2.appConfig.gammastep = {

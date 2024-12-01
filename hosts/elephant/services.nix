@@ -28,7 +28,7 @@
     virtualHosts = {
       "nix-cache.vpn.freumh.org" = { listenAddresses = [ "100.64.0.9" ]; };
       "jellyfin.vpn.freumh.org" = {
-        enableSSL = true;
+        onlySSL = true;
         listenAddresses = [ "100.64.0.9" ];
         locations."/" = {
           proxyPass = ''
@@ -38,7 +38,7 @@
         };
       };
       "transmission.vpn.freumh.org" = {
-        enableSSL = true;
+        onlySSL = true;
         listenAddresses = [ "100.64.0.9" ];
         locations."/" = {
           proxyPass = with config.services.transmission.settings; ''
@@ -47,15 +47,15 @@
         };
       };
       "nextcloud.vpn.freumh.org" = {
-        enableSSL = true;
+        onlySSL = true;
         listenAddresses = [ "100.64.0.9" ];
       };
       "owntracks.vpn.freumh.org" = {
-        enableSSL = true;
+        onlySSL = true;
         listenAddresses = [ "100.64.0.9" ];
       };
       "immich.vpn.freumh.org" = {
-        enableSSL = true;
+        onlySSL = true;
         listenAddresses = [ "100.64.0.9" ];
         locations."/" = {
           proxyPass = with config.services.immich; ''
@@ -94,7 +94,6 @@
   services.samba = {
     enable = true;
     openFirewall = true;
-    securityType = "user";
     settings = {
       global = {
         workgroup = "WORKGROUP";
@@ -110,8 +109,6 @@
         "guest account" = "nobody";
         "map to guest" = "bad user";
       };
-    };
-    shares = {
       tank = {
         path = "/tank/";
         browseable = "yes";
@@ -140,6 +137,7 @@
   services.transmission = {
     enable = true;
     openRPCPort = true;
+    package = pkgs.transmission_3;
     settings = {
       download-dir = "/tank/media";
       incomplete-dir-enabled = false;
