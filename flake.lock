@@ -134,11 +134,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1733054177,
-        "narHash": "sha256-Jq/EAXsXO1Ul5iqLx71H2/ffGvmE3GTWDlujpbwdXIY=",
+        "lastModified": 1733057035,
+        "narHash": "sha256-Yyrc2OqSp6sDFh7kOI9mSXcDv6YGOyj8QZpeB0ENCXM=",
         "owner": "RyanGibb",
         "repo": "eilean-nix",
-        "rev": "7b05921dc47248b4a87cba67a1e53a642adee1fc",
+        "rev": "01c3d84a7d553d02b68f73e3c9e034a3ddea40c9",
         "type": "github"
       },
       "original": {
@@ -697,6 +697,22 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-compat": {
+      "locked": {
+        "lastModified": 1732749044,
+        "narHash": "sha256-T38FQOg0BV5M8FN1712fovzNakSOENEYs+CSkg31C9Y=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "0c5b4ecbed5b155b705336aa96d878e55acd8685",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-24.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-docs": {
       "locked": {
         "lastModified": 1705957679,
@@ -1081,6 +1097,7 @@
         "nix-rpi5": "nix-rpi5",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_7",
+        "nixpkgs-compat": "nixpkgs-compat",
         "nixpkgs-unstable": "nixpkgs-unstable"
       }
     },

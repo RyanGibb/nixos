@@ -1,5 +1,6 @@
 {
   inputs = {
+    nixpkgs-compat.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -32,13 +33,19 @@
     hyperbib-eeg.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager
+  outputs = { self, nixpkgs-compat, nixpkgs, nixpkgs-unstable, home-manager
     , home-manager-unstable, agenix, deploy-rs, nix-on-droid, eilean, ...
     }@inputs:
     let
       getSystemOverlays = system: nixpkgsConfig:
         [
           (final: prev: {
+            # https://github.com/mautrix/whatsapp/issues/749
+            overlay-compat = import nixpkgs-compat {
+              inherit system;
+              # follow stable nixpkgs config
+              config = nixpkgsConfig;
+            };
             overlay-unstable = import nixpkgs-unstable {
               inherit system;
               # follow stable nixpkgs config
@@ -62,6 +69,7 @@
               version = "2.3.0";
             });
             immich = final.overlay-unstable.immich;
+            mautrix-whatsapp = final.overlay-compat.mautrix-whatsapp;
           })
         ];
     in {
