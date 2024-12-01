@@ -25,6 +25,7 @@
 
   services.nginx = {
     #requires = [ "tailscaled.service" ];
+    clientMaxBodySize = "1g";
     virtualHosts = {
       "nix-cache.vpn.freumh.org" = { listenAddresses = [ "100.64.0.9" ]; };
       "jellyfin.vpn.freumh.org" = {
