@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }@inputs:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}@inputs:
 
 let
   i3-workspace-history =
@@ -24,7 +29,8 @@ let
   };
   util = import ./util.nix { inherit pkgs lib; };
   cfg = config.custom.gui.i3;
-in {
+in
+{
   options.custom.gui.i3.enable = lib.mkEnableOption "i3";
 
   config = lib.mkIf cfg.enable {
@@ -54,16 +60,22 @@ in {
       '';
     };
 
-    xdg.configFile = let
-      entries = {
-        "dunst/dunstrc".source = ./dunst;
-        "i3/config".text = let wmFilenames = util.listFilesInDir ./wm/config.d;
-        in let i3Filenames = util.listFilesInDir ./wm/i3;
-        in (util.concatFilesReplace
-          ([ ./wm/config ] ++ wmFilenames ++ i3Filenames) replacements);
-        "rofi/config.rasi".source = ./rofi.rasi;
-      };
-    in (util.inDirReplace ./wm/scripts "i3/scripts" replacements) // entries;
+    xdg.configFile =
+      let
+        entries = {
+          "dunst/dunstrc".source = ./dunst;
+          "i3/config".text =
+            let
+              wmFilenames = util.listFilesInDir ./wm/config.d;
+            in
+            let
+              i3Filenames = util.listFilesInDir ./wm/i3;
+            in
+            (util.concatFilesReplace ([ ./wm/config ] ++ wmFilenames ++ i3Filenames) replacements);
+          "rofi/config.rasi".source = ./rofi.rasi;
+        };
+      in
+      (util.inDirReplace ./wm/scripts "i3/scripts" replacements) // entries;
 
     services.redshift = {
       enable = true;

@@ -1,8 +1,17 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 {
-  imports =
-    [ ./hardware-configuration.nix ./zfs.nix ./services.nix ./owntracks.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ./zfs.nix
+    ./services.nix
+    ./owntracks.nix
+  ];
 
   custom = {
     enable = true;
@@ -11,8 +20,7 @@
     homeManager.enable = true;
   };
 
-  home-manager.users.${config.custom.username}.config.custom.machineColour =
-    "blue";
+  home-manager.users.${config.custom.username}.config.custom.machineColour = "blue";
 
   environment.systemPackages = with pkgs; [
     smartmontools
@@ -23,7 +31,9 @@
     #stig
   ];
 
-  eilean = { publicInterface = "enp1s0"; };
+  eilean = {
+    publicInterface = "enp1s0";
+  };
 
   powerManagement = {
     powertop.enable = true;
@@ -42,9 +52,19 @@
     repositoryFile = config.age.secrets.restic-repo.path;
     passwordFile = config.age.secrets.restic-elephant.path;
     initialize = true;
-    paths = [ "/tank/family/mp4/" "/tank/family/other/" "/tank/photos/" ];
-    timerConfig = { OnCalendar = "03:00"; };
-    pruneOpts = [ "--keep-daily 7" "--keep-weekly 4" "--keep-yearly 10" ];
+    paths = [
+      "/tank/family/mp4/"
+      "/tank/family/other/"
+      "/tank/photos/"
+    ];
+    timerConfig = {
+      OnCalendar = "03:00";
+    };
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 4"
+      "--keep-yearly 10"
+    ];
   };
 
   # Add hardware transcoding support to `ffmpeg_6` and derived packages (like jellyfin-ffmpeg)
@@ -60,9 +80,12 @@
     ];
   };
   nixpkgs.config.packageOverrides = prev: {
-    jellyfin-ffmpeg =
-      prev.jellyfin-ffmpeg.overrideAttrs (_: { withVpl = true; });
-    ffmpeg = prev.ffmpeg.overrideAttrs (_: { withVpl = true; });
+    jellyfin-ffmpeg = prev.jellyfin-ffmpeg.overrideAttrs (_: {
+      withVpl = true;
+    });
+    ffmpeg = prev.ffmpeg.overrideAttrs (_: {
+      withVpl = true;
+    });
   };
 
   boot.kernel.sysctl = {

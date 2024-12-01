@@ -1,13 +1,22 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
-let cfg = config.custom.gui;
-in {
+let
+  cfg = config.custom.gui;
+in
+{
   options.custom.gui.i3 = lib.mkEnableOption "i3";
 
   config = lib.mkIf cfg.i3 {
-    home-manager.users.${config.custom.username} = { config, ... }: {
-      config.custom.gui.i3.enable = true;
-    };
+    home-manager.users.${config.custom.username} =
+      { config, ... }:
+      {
+        config.custom.gui.i3.enable = true;
+      };
 
     #services.displayManager.lightdm.enable = true;
     services.displayManager.defaultSession = "none+i3";

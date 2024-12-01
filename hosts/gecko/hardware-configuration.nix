@@ -1,10 +1,21 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules =
-    [ "xhci_pci" "thunderbolt" "nvme" "usbhid" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "thunderbolt"
+    "nvme"
+    "usbhid"
+    "rtsx_pci_sdmmc"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
@@ -19,17 +30,21 @@
     fsType = "vfat";
   };
 
-  swapDevices = [{
-    device = "/var/swap";
-    size = 16384;
-  }];
+  swapDevices = [
+    {
+      device = "/var/swap";
+      size = 16384;
+    }
+  ];
   boot.resumeDevice = "/dev/disk/by-label/nixos";
   # https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate#Hibernation_into_swap_file
-  boot.kernelParams = [ "mem_sleep_default=deep" "resume_offset=142587904" ];
+  boot.kernelParams = [
+    "mem_sleep_default=deep"
+    "resume_offset=142587904"
+  ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  hardware.cpu.intel.updateMicrocode =
-    lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   nixpkgs.hostPlatform = "x86_64-linux";
 }

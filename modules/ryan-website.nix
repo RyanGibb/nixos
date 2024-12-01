@@ -1,9 +1,17 @@
-{ pkgs, config, lib, ryan-website, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ryan-website,
+  ...
+}:
 
 with lib;
 
-let cfg = config.custom.website.ryan;
-in {
+let
+  cfg = config.custom.website.ryan;
+in
+{
   options = {
     custom.website.ryan = {
       enable = mkEnableOption "ryan's website";
@@ -28,8 +36,7 @@ in {
 
   config = mkIf cfg.enable {
     security.acme-eon.nginxCerts = [ cfg.domain ];
-    security.acme-eon.certs.${cfg.domain}.extraDomainNames =
-      [ "www.${cfg.domain}" ];
+    security.acme-eon.certs.${cfg.domain}.extraDomainNames = [ "www.${cfg.domain}" ];
 
     services.nginx = {
       enable = true;
@@ -48,8 +55,10 @@ in {
           '';
         };
         "www.${cfg.domain}" =
-          let certDir = config.security.acme-eon.certs.${cfg.domain}.directory;
-          in {
+          let
+            certDir = config.security.acme-eon.certs.${cfg.domain}.directory;
+          in
+          {
             forceSSL = true;
             sslCertificate = "${certDir}/fullchain.pem";
             sslCertificateKey = "${certDir}/key.pem";

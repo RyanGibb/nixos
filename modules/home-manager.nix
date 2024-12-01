@@ -1,7 +1,9 @@
 { config, lib, ... }@inputs:
 
-let cfg = config.custom.homeManager;
-in {
+let
+  cfg = config.custom.homeManager;
+in
+{
   options.custom.homeManager.enable = lib.mkEnableOption "homeManager";
 
   config = lib.mkIf cfg.enable {

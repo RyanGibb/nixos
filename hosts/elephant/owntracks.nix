@@ -1,7 +1,14 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
-let cfg = config.services.owntracks-recorder;
-in {
+let
+  cfg = config.services.owntracks-recorder;
+in
+{
   options.services.owntracks-recorder = {
     enable = lib.mkEnableOption "Enable the Owntracks location tracker";
     host = lib.mkOption {
@@ -31,23 +38,31 @@ in {
     services.mosquitto = {
       enable = true;
       logType = [ "debug" ];
-      listeners = [{
-        port = cfg.port;
-        address = cfg.host;
-        acl = [ "topic readwrite #" ];
-        omitPasswordAuth = true;
-        users = { };
-        settings = { allow_anonymous = true; };
-      }];
+      listeners = [
+        {
+          port = cfg.port;
+          address = cfg.host;
+          acl = [ "topic readwrite #" ];
+          omitPasswordAuth = true;
+          users = { };
+          settings = {
+            allow_anonymous = true;
+          };
+        }
+      ];
     };
 
     systemd.services.owntracks-recorder = {
       description = "OwnTracks Recorder Service";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" "mosquitto.service" ];
+      after = [
+        "network.target"
+        "mosquitto.service"
+      ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.owntracks-recorder}/bin/ot-recorder"
+        ExecStart =
+          "${pkgs.owntracks-recorder}/bin/ot-recorder"
           + " --storage /var/lib/owntracks"
           + " --doc-root ${pkgs.owntracks-recorder.src}/docroot"
           + " --host ${cfg.host} --port ${builtins.toString cfg.port}"
@@ -69,32 +84,26 @@ in {
       virtualHosts."${cfg.domain}" = {
         locations = {
           "/ws" = {
-            proxyPass =
-              "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}";
+            proxyPass = "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}";
             proxyWebsockets = true;
             recommendedProxySettings = true;
           };
           "/" = {
-            proxyPass =
-              "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}/";
+            proxyPass = "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}/";
             recommendedProxySettings = true;
           };
           "/view/" = {
-            proxyPass =
-              "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}/view/";
+            proxyPass = "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}/view/";
             recommendedProxySettings = true;
             # Chrome fix
             extraConfig = "proxy_buffering off;";
           };
           "/static/" = {
-            proxyPass = "http://${cfg.httpHost}:${
-                builtins.toString cfg.httpPort
-              }/static/";
+            proxyPass = "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}/static/";
             recommendedProxySettings = true;
           };
           "/utils/" = {
-            proxyPass =
-              "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}/utils/";
+            proxyPass = "http://${cfg.httpHost}:${builtins.toString cfg.httpPort}/utils/";
             recommendedProxySettings = true;
           };
         };

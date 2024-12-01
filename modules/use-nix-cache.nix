@@ -1,7 +1,9 @@
 { config, lib, ... }:
 
-let cfg = config.custom;
-in {
+let
+  cfg = config.custom;
+in
+{
   options.custom.useNixCache = lib.mkOption {
     type = lib.types.bool;
     default = true;

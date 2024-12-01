@@ -1,4 +1,10 @@
-{ config, pkgs, lib, nix-rpi5, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  nix-rpi5,
+  ...
+}:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -10,13 +16,11 @@
     homeManager.enable = true;
   };
 
-  home-manager.users.${config.custom.username}.config.custom.machineColour =
-    "red";
+  home-manager.users.${config.custom.username}.config.custom.machineColour = "red";
 
   networking.networkmanager.enable = true;
 
-  boot.kernelPackages =
-    nix-rpi5.legacyPackages.aarch64-linux.linuxPackages_rpi5;
+  boot.kernelPackages = nix-rpi5.legacyPackages.aarch64-linux.linuxPackages_rpi5;
 
   networking.firewall.enable = false;
   networking.firewall.allowedTCPPorts = [ 44 ];
@@ -45,29 +49,35 @@
         user = "zigbee2mqtt";
         password = "test";
       };
-      serial = { port = "/dev/ttyUSB0"; };
-      frontend = { port = 15606; };
+      serial = {
+        port = "/dev/ttyUSB0";
+      };
+      frontend = {
+        port = 15606;
+      };
       homeassistant = true;
-      advanced = { channel = 15; };
+      advanced = {
+        channel = 15;
+      };
     };
   };
 
   services.mosquitto = {
     enable = true;
-    listeners = [{
-      users = {
-        zigbee2mqtt = {
-          acl = [ "readwrite #" ];
-          hashedPassword =
-            "$6$nuDIW/ZPVsrDHyBe$JffJJvvMG+nH8GH9V5h4FqJkU0nfiFkDzAsdYNTHeJMgBXEX9epPkQTUdLG9L47K54vMxm/+toeMAiKD63Dfkw==";
+    listeners = [
+      {
+        users = {
+          zigbee2mqtt = {
+            acl = [ "readwrite #" ];
+            hashedPassword = "$6$nuDIW/ZPVsrDHyBe$JffJJvvMG+nH8GH9V5h4FqJkU0nfiFkDzAsdYNTHeJMgBXEX9epPkQTUdLG9L47K54vMxm/+toeMAiKD63Dfkw==";
+          };
+          homeassistant = {
+            acl = [ "readwrite #" ];
+            hashedPassword = "$7$101$wGQZPdVdeW7iQFmH$bK/VOR6LXCLJKbb6M4PNeVptocjBAWXCLMtEU5fQNBr0Y5UAWlhVg8UAu4IkIXgnViI51NnhXKykdlWF63VkVQ==";
+          };
         };
-        homeassistant = {
-          acl = [ "readwrite #" ];
-          hashedPassword =
-            "$7$101$wGQZPdVdeW7iQFmH$bK/VOR6LXCLJKbb6M4PNeVptocjBAWXCLMtEU5fQNBr0Y5UAWlhVg8UAu4IkIXgnViI51NnhXKykdlWF63VkVQ==";
-        };
-      };
-    }];
+      }
+    ];
   };
 
   services.home-assistant = {

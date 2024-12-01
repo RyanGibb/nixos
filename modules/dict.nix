@@ -1,7 +1,14 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
-let cfg = config.custom;
-in {
+let
+  cfg = config.custom;
+in
+{
   options.custom.dict = lib.mkOption {
     type = lib.types.bool;
     default = true;

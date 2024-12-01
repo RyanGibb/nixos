@@ -1,7 +1,14 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
-let cfg = config.custom.calendar;
-in {
+let
+  cfg = config.custom.calendar;
+in
+{
   options.custom.calendar.enable = lib.mkEnableOption "calendar";
 
   config = lib.mkIf cfg.enable {
@@ -26,7 +33,9 @@ in {
       };
     };
 
-    services = { gpg-agent.enable = true; };
+    services = {
+      gpg-agent.enable = true;
+    };
 
     accounts.calendar = {
       basePath = "calendar";
@@ -36,13 +45,17 @@ in {
             enable = true;
             color = "white";
           };
-          vdirsyncer = { enable = true; };
+          vdirsyncer = {
+            enable = true;
+          };
           remote = {
             type = "caldav";
-            url =
-              "https://cal.freumh.org/ryan/f497c073-d027-2aa5-1e58-cbec1bf5a8c7/";
-            passwordCommand =
-              [ "${pkgs.pass}/bin/pass" "show" "calendar/ryan@freumh.org" ];
+            url = "https://cal.freumh.org/ryan/f497c073-d027-2aa5-1e58-cbec1bf5a8c7/";
+            passwordCommand = [
+              "${pkgs.pass}/bin/pass"
+              "show"
+              "calendar/ryan@freumh.org"
+            ];
             userName = "ryan";
           };
           local = {
@@ -55,7 +68,9 @@ in {
             enable = true;
             color = "#CC3333";
           };
-          vdirsyncer = { enable = true; };
+          vdirsyncer = {
+            enable = true;
+          };
           remote = {
             type = "http";
             url = "https://talks.cam.ac.uk/show/ics/8316.ics";

@@ -1,7 +1,17 @@
-{ config, pkgs, lib, nixos-hardware, nixpkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  nixos-hardware,
+  nixpkgs,
+  ...
+}:
 
 {
-  imports = [ ./hardware-configuration.nix "${nixos-hardware}/raspberry-pi/4" ];
+  imports = [
+    ./hardware-configuration.nix
+    "${nixos-hardware}/raspberry-pi/4"
+  ];
 
   custom = {
     enable = true;
@@ -10,8 +20,7 @@
     homeManager.enable = true;
   };
 
-  home-manager.users.${config.custom.username}.config.custom.machineColour =
-    "red";
+  home-manager.users.${config.custom.username}.config.custom.machineColour = "red";
 
   networking.networkmanager.enable = true;
 
@@ -37,32 +46,36 @@
         user = "zigbee2mqtt";
         password = "test";
       };
-      serial = { port = "/dev/ttyUSB0"; };
+      serial = {
+        port = "/dev/ttyUSB0";
+      };
       frontend = {
         port = 15606;
         url = "http://shrew";
       };
       homeassistant = true;
-      advanced = { channel = 15; };
+      advanced = {
+        channel = 15;
+      };
     };
   };
 
   services.mosquitto = {
     enable = true;
-    listeners = [{
-      users = {
-        zigbee2mqtt = {
-          acl = [ "readwrite #" ];
-          hashedPassword =
-            "$6$nuDIW/ZPVsrDHyBe$JffJJvvMG+nH8GH9V5h4FqJkU0nfiFkDzAsdYNTHeJMgBXEX9epPkQTUdLG9L47K54vMxm/+toeMAiKD63Dfkw==";
+    listeners = [
+      {
+        users = {
+          zigbee2mqtt = {
+            acl = [ "readwrite #" ];
+            hashedPassword = "$6$nuDIW/ZPVsrDHyBe$JffJJvvMG+nH8GH9V5h4FqJkU0nfiFkDzAsdYNTHeJMgBXEX9epPkQTUdLG9L47K54vMxm/+toeMAiKD63Dfkw==";
+          };
+          homeassistant = {
+            acl = [ "readwrite #" ];
+            hashedPassword = "$7$101$wGQZPdVdeW7iQFmH$bK/VOR6LXCLJKbb6M4PNeVptocjBAWXCLMtEU5fQNBr0Y5UAWlhVg8UAu4IkIXgnViI51NnhXKykdlWF63VkVQ==";
+          };
         };
-        homeassistant = {
-          acl = [ "readwrite #" ];
-          hashedPassword =
-            "$7$101$wGQZPdVdeW7iQFmH$bK/VOR6LXCLJKbb6M4PNeVptocjBAWXCLMtEU5fQNBr0Y5UAWlhVg8UAu4IkIXgnViI51NnhXKykdlWF63VkVQ==";
-        };
-      };
-    }];
+      }
+    ];
   };
 
   services.home-assistant = {
@@ -84,9 +97,9 @@
       "google_assistant"
       "google_translate"
     ];
-    customComponents =
-      with pkgs.overlay-unstable.home-assistant-custom-components;
-      [ adaptive_lighting ];
+    customComponents = with pkgs.overlay-unstable.home-assistant-custom-components; [
+      adaptive_lighting
+    ];
     config = {
       # Includes dependencies for a basic setup
       # https://www.home-assistant.io/integrations/default_config/
@@ -101,7 +114,10 @@
         project_id = "shrew-25325";
         service_account = "!include SERVICE_ACCOUNT.JSON";
         report_state = true;
-        exposed_domains = [ "switch" "light" ];
+        exposed_domains = [
+          "switch"
+          "light"
+        ];
         entity_config = {
           "light.room_bed_left" = {
             name = "BED_LEFT";
@@ -131,8 +147,12 @@
       adaptive_lighting = {
         sunrise_time = "06:00:00";
         sunset_time = "18:00:00";
-        lights =
-          [ "light.bed_left" "light.bed_right" "light.ceiling" "light.strip" ];
+        lights = [
+          "light.bed_left"
+          "light.bed_right"
+          "light.ceiling"
+          "light.strip"
+        ];
       };
     };
   };

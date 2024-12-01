@@ -1,9 +1,17 @@
-{ pkgs, config, lib, alec-website, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  alec-website,
+  ...
+}:
 
 with lib;
 
-let cfg = config.custom.website.alec;
-in {
+let
+  cfg = config.custom.website.alec;
+in
+{
   options = {
     custom.website.alec = {
       enable = mkEnableOption "Alec's website";
@@ -28,16 +36,14 @@ in {
 
   config = mkIf cfg.enable {
     security.acme-eon.nginxCerts = [ cfg.domain ];
-    security.acme-eon.certs.${cfg.domain}.extraDomainNames =
-      [ "www.${cfg.domain}" ];
+    security.acme-eon.certs.${cfg.domain}.extraDomainNames = [ "www.${cfg.domain}" ];
 
     services.nginx = {
       enable = true;
       virtualHosts = {
         "${cfg.domain}" = {
           forceSSL = true;
-          root =
-            "${alec-website.packages.${pkgs.stdenv.hostPlatform.system}.default}";
+          root = "${alec-website.packages.${pkgs.stdenv.hostPlatform.system}.default}";
           locations."/var/".extraConfig = ''
             alias /var/${cfg.domain}/;
           '';
@@ -49,8 +55,10 @@ in {
           '';
         };
         "www.${cfg.domain}" =
-          let certDir = config.security.acme-eon.certs.${cfg.domain}.directory;
-          in {
+          let
+            certDir = config.security.acme-eon.certs.${cfg.domain}.directory;
+          in
+          {
             forceSSL = true;
             sslCertificate = "${certDir}/fullchain.pem";
             sslCertificateKey = "${certDir}/key.pem";

@@ -1,7 +1,14 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
-let cfg = config.custom;
-in {
+let
+  cfg = config.custom;
+in
+{
   options.custom.freumh.enable = lib.mkEnableOption "freumh";
 
   config = lib.mkIf cfg.freumh.enable {
@@ -38,24 +45,26 @@ in {
       enable = true;
       virtualHosts."${config.networking.domain}" = {
         forceSSL = true;
-        locations."/root" = let
-          random-root = pkgs.writeScript "random-root.php" ''
-            <?php
-            $dir = '/var/roots/';
-            $files = glob($dir . '/*.*');
-            $file = $files[array_rand($files)];
-            header('Content-Type: ' . mime_content_type($file));
-            header('X-Id: ' . pathinfo($file, PATHINFO_FILENAME));
-            readfile($file);
-            ?>
-          '';
-        in {
-          extraConfig = ''
-            fastcgi_pass unix:${config.services.phpfpm.pools.freumh.socket};
-            include ${pkgs.nginx}/conf/fastcgi_params;
-            fastcgi_param SCRIPT_FILENAME ${random-root};
-          '';
-        };
+        locations."/root" =
+          let
+            random-root = pkgs.writeScript "random-root.php" ''
+              <?php
+              $dir = '/var/roots/';
+              $files = glob($dir . '/*.*');
+              $file = $files[array_rand($files)];
+              header('Content-Type: ' . mime_content_type($file));
+              header('X-Id: ' . pathinfo($file, PATHINFO_FILENAME));
+              readfile($file);
+              ?>
+            '';
+          in
+          {
+            extraConfig = ''
+              fastcgi_pass unix:${config.services.phpfpm.pools.freumh.socket};
+              include ${pkgs.nginx}/conf/fastcgi_params;
+              fastcgi_param SCRIPT_FILENAME ${random-root};
+            '';
+          };
         locations."/index.html".root = pkgs.writeTextFile {
           name = "freumh";
           text = ''

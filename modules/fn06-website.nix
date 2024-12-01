@@ -1,9 +1,17 @@
-{ pkgs, config, lib, fn06-website, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  fn06-website,
+  ...
+}:
 
 with lib;
 
-let cfg = config.custom.website.fn06;
-in {
+let
+  cfg = config.custom.website.fn06;
+in
+{
   options = {
     custom.website.fn06 = {
       enable = mkEnableOption "fn06's website";
@@ -24,16 +32,14 @@ in {
 
   config = mkIf cfg.enable {
     security.acme-eon.nginxCerts = [ cfg.domain ];
-    security.acme-eon.certs.${cfg.domain}.extraDomainNames =
-      [ "www.${cfg.domain}" ];
+    security.acme-eon.certs.${cfg.domain}.extraDomainNames = [ "www.${cfg.domain}" ];
 
     services.nginx = {
       enable = true;
       virtualHosts = {
         "${cfg.domain}" = {
           forceSSL = true;
-          root =
-            "${fn06-website.packages.${pkgs.stdenv.hostPlatform.system}.default}";
+          root = "${fn06-website.packages.${pkgs.stdenv.hostPlatform.system}.default}";
           locations."/var/".extraConfig = ''
             alias /var/${cfg.domain}/;
           '';
@@ -45,8 +51,10 @@ in {
           '';
         };
         "www.${cfg.domain}" =
-          let certDir = config.security.acme-eon.certs.${cfg.domain}.directory;
-          in {
+          let
+            certDir = config.security.acme-eon.certs.${cfg.domain}.directory;
+          in
+          {
             forceSSL = true;
             sslCertificate = "${certDir}/fullchain.pem";
             sslCertificateKey = "${certDir}/key.pem";

@@ -1,7 +1,14 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
-let cfg = config.custom.zsa;
-in {
+let
+  cfg = config.custom.zsa;
+in
+{
   options.custom.zsa = lib.mkOption {
     type = lib.types.bool;
     default = false;

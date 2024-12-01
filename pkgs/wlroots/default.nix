@@ -1,9 +1,35 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch, meson, ninja, pkg-config
-, wayland-scanner, libGL, wayland, wayland-protocols, libinput, libxkbcommon
-, pixman, libcap, mesa, xorg, libpng, ffmpeg_4, ffmpeg, hwdata, seatd
-, vulkan-loader, glslang, libliftoff, libdisplay-info, nixosTests
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  meson,
+  ninja,
+  pkg-config,
+  wayland-scanner,
+  libGL,
+  wayland,
+  wayland-protocols,
+  libinput,
+  libxkbcommon,
+  pixman,
+  libcap,
+  mesa,
+  xorg,
+  libpng,
+  ffmpeg_4,
+  ffmpeg,
+  hwdata,
+  seatd,
+  vulkan-loader,
+  glslang,
+  libliftoff,
+  libdisplay-info,
+  nixosTests,
 
-, enableXWayland ? true, xwayland ? null }:
+  enableXWayland ? true,
+  xwayland ? null,
+}:
 
 stdenv.mkDerivation (finalAttrs: rec {
   pname = "wlroots";
@@ -20,12 +46,21 @@ stdenv.mkDerivation (finalAttrs: rec {
   };
 
   # $out for the library and $examples for the example programs (in examples):
-  outputs = [ "out" "examples" ];
+  outputs = [
+    "out"
+    "examples"
+  ];
 
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner glslang ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    wayland-scanner
+    glslang
+  ];
 
   buildInputs = [
     libGL
@@ -74,10 +109,13 @@ stdenv.mkDerivation (finalAttrs: rec {
       compositor; or about 50,000 lines of code you were going to write anyway.
     '';
     inherit (finalAttrs.src.meta) homepage;
-    changelog =
-      "https://gitlab.freedesktop.org/wlroots/wlroots/-/tags/${version}";
+    changelog = "https://gitlab.freedesktop.org/wlroots/wlroots/-/tags/${version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ primeos synthetica rewine ];
+    maintainers = with lib.maintainers; [
+      primeos
+      synthetica
+      rewine
+    ];
   };
 })

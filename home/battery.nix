@@ -1,12 +1,21 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.custom.battery;
-in {
+let
+  cfg = config.custom.battery;
+in
+{
   options.custom.battery.enable = lib.mkEnableOption "battery";
 
   config = lib.mkIf cfg.enable {
     systemd.user.services.battery_monitor = {
-      Install = { WantedBy = [ "default.target" ]; };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
       Service = {
         ExecStart = pkgs.writeScript "battery_monitor.sh" ''
           #!${pkgs.bash}/bin/bash

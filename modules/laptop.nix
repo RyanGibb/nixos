@@ -1,7 +1,14 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
-let cfg = config.custom;
-in {
+let
+  cfg = config.custom;
+in
+{
   options.custom.laptop = lib.mkEnableOption "laptop";
 
   config = lib.mkIf cfg.laptop {

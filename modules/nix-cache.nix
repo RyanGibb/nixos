@@ -1,7 +1,14 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
-let cfg = config.custom;
-in {
+let
+  cfg = config.custom;
+in
+{
   options.custom.nix-cache = {
     enable = lib.mkEnableOption "nix-cache";
     domain = lib.mkOption {
@@ -27,9 +34,7 @@ in {
       virtualHosts.${cfg.nix-cache.domain} = {
         forceSSL = true;
         locations."/".extraConfig = ''
-          proxy_pass http://localhost:${
-            toString config.services.nix-serve.port
-          };
+          proxy_pass http://localhost:${toString config.services.nix-serve.port};
           proxy_set_header Host $host;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;

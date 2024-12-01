@@ -1,4 +1,11 @@
-{ pkgs, config, lib, eilean, eon, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  eilean,
+  eon,
+  ...
+}:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -10,8 +17,7 @@
     homeManager.enable = true;
   };
 
-  home-manager.users.${config.custom.username}.config.custom.machineColour =
-    "green";
+  home-manager.users.${config.custom.username}.config.custom.machineColour = "green";
 
   environment.systemPackages = with pkgs; [ xe-guest-utilities ];
 
@@ -78,48 +84,50 @@
   eilean.services.dns = {
     zones."cl.freumh.org" = {
       soa.serial = lib.mkDefault 3;
-      records = let
-        ipv4 = "128.232.113.136";
-        ipv6 = "2a05:b400:110:1101:d051:f2ff:fe13:3781";
-      in [
-        {
-          name = "@";
-          type = "NS";
-          value = "ns";
-        }
+      records =
+        let
+          ipv4 = "128.232.113.136";
+          ipv6 = "2a05:b400:110:1101:d051:f2ff:fe13:3781";
+        in
+        [
+          {
+            name = "@";
+            type = "NS";
+            value = "ns";
+          }
 
-        {
-          name = "ns";
-          type = "A";
-          value = ipv4;
-        }
-        {
-          name = "ns";
-          type = "AAAA";
-          value = ipv6;
-        }
+          {
+            name = "ns";
+            type = "A";
+            value = ipv4;
+          }
+          {
+            name = "ns";
+            type = "AAAA";
+            value = ipv6;
+          }
 
-        {
-          name = "@";
-          type = "A";
-          value = ipv4;
-        }
-        {
-          name = "@";
-          type = "AAAA";
-          value = ipv6;
-        }
-        {
-          name = "vps";
-          type = "A";
-          value = ipv4;
-        }
-        {
-          name = "vps";
-          type = "AAAA";
-          value = ipv6;
-        }
-      ];
+          {
+            name = "@";
+            type = "A";
+            value = ipv4;
+          }
+          {
+            name = "@";
+            type = "AAAA";
+            value = ipv6;
+          }
+          {
+            name = "vps";
+            type = "A";
+            value = ipv4;
+          }
+          {
+            name = "vps";
+            type = "AAAA";
+            value = ipv6;
+          }
+        ];
     };
   };
 

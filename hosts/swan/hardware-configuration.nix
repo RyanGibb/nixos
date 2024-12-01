@@ -1,8 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  boot.initrd.availableKernelModules =
-    [ "ata_piix" "uhci_hcd" "sr_mod" "xen_blkfront" ];
+  boot.initrd.availableKernelModules = [
+    "ata_piix"
+    "uhci_hcd"
+    "sr_mod"
+    "xen_blkfront"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
@@ -20,17 +29,21 @@
     fsType = "ext4";
   };
 
-  swapDevices = [{
-    device = "/var/swap";
-    size = 1024;
-  }];
+  swapDevices = [
+    {
+      device = "/var/swap";
+      size = 1024;
+    }
+  ];
 
   networking = {
     useDHCP = false;
-    interfaces."enX0".ipv4.addresses = [{
-      address = "128.232.98.96";
-      prefixLength = 23;
-    }];
+    interfaces."enX0".ipv4.addresses = [
+      {
+        address = "128.232.98.96";
+        prefixLength = 23;
+      }
+    ];
     defaultGateway = {
       address = "128.232.98.1";
       interface = "enX0";

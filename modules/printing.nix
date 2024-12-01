@@ -1,7 +1,9 @@
 { config, lib, ... }:
 
-let cfg = config.custom;
-in {
+let
+  cfg = config.custom;
+in
+{
   options.custom.printing = lib.mkEnableOption "printing";
 
   config = lib.mkIf cfg.printing {

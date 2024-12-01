@@ -1,11 +1,17 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
-let cfg = config.custom;
-in {
+let
+  cfg = config.custom;
+in
+{
   config = lib.mkIf cfg.enable {
     users.mutableUsers = false;
-    users.users.${config.custom.username}.openssh.authorizedKeys.keyFiles =
-      [ ./authorized_keys ];
+    users.users.${config.custom.username}.openssh.authorizedKeys.keyFiles = [ ./authorized_keys ];
     users.users.root.openssh.authorizedKeys.keyFiles = [ ./authorized_keys ];
 
     programs.mosh.enable = true;

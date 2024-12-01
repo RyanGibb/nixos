@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   address-book = pkgs.writeScriptBin "address-book" ''
@@ -14,7 +19,8 @@ let
     ${pkgs.mu}/bin/mu index
   '';
   cfg = config.custom.mail;
-in {
+in
+{
   options.custom.mail.enable = lib.mkEnableOption "mail";
 
   config = lib.mkIf cfg.enable {
@@ -41,16 +47,14 @@ in {
           general.default-save-path = "~/downloads";
           ui.mouse-enabled = true;
           compose.address-book-cmd = "${address-book}/bin/address-book '%s'";
-          compose.file-picker-cmd =
-            "${pkgs.ranger}/bin/ranger --choosefiles=%f";
+          compose.file-picker-cmd = "${pkgs.ranger}/bin/ranger --choosefiles=%f";
           compose.format-flowed = true;
           ui.index-columns = "date<=,name<50,flags>=,subject<*";
           ui.column-name = "{{index (.From | persons) 0}}";
           "ui:folder=Sent".index-columns = "date<=,to<50,flags>=,subject<*";
           "ui:folder=Sent".column-to = "{{index (.To | persons) 0}}";
           openers."text/html" = "firefox --new-window";
-          hooks.mail-recieved = ''
-            notify-send "[$AERC_ACCOUNT/$AERC_FOLDER] mail from $AERC_FROM_NAME" "$AERC_SUBJECT"'';
+          hooks.mail-recieved = ''notify-send "[$AERC_ACCOUNT/$AERC_FOLDER] mail from $AERC_FROM_NAME" "$AERC_SUBJECT"'';
           filters = {
             "text/plain" = "wrap -w 90 | colorize";
             "text/calendar" = "calendar";
@@ -116,15 +120,23 @@ in {
             expunge = "both";
             remove = "both";
           };
-          msmtp = { enable = true; };
+          msmtp = {
+            enable = true;
+          };
           aerc = {
             enable = true;
             extraAccounts = {
               check-mail-cmd = "${sync-mail}/bin/mbsync ryan@freumh.org";
               check-mail-timeout = "1m";
               check-mail = "1h";
-              folders-sort =
-                [ "Inbox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
+              folders-sort = [
+                "Inbox"
+                "Sent"
+                "Drafts"
+                "Archive"
+                "Spam"
+                "Trash"
+              ];
               folder-map = "${pkgs.writeText "folder-map" ''
                 Spam = Junk
                 Bin = Trash
@@ -170,7 +182,9 @@ in {
             expunge = "both";
             remove = "both";
           };
-          msmtp = { enable = true; };
+          msmtp = {
+            enable = true;
+          };
           neomutt = {
             enable = true;
             extraConfig = ''
@@ -187,8 +201,7 @@ in {
           userName = "rtg24@fm.cl.cam.ac.uk";
           address = "ryan.gibb@cl.cam.ac.uk";
           realName = "Ryan Gibb";
-          passwordCommand =
-            "${pkgs.pass}/bin/pass show email/ryan.gibb@cl.cam.ac.uk";
+          passwordCommand = "${pkgs.pass}/bin/pass show email/ryan.gibb@cl.cam.ac.uk";
           flavor = "fastmail.com";
           folders = {
             drafts = "Drafts";
@@ -207,7 +220,9 @@ in {
             expunge = "both";
             remove = "both";
           };
-          msmtp = { enable = true; };
+          msmtp = {
+            enable = true;
+          };
           aerc = {
             enable = true;
             extraAccounts = {
@@ -215,8 +230,15 @@ in {
               check-mail-timeout = "1m";
               check-mail = "1h";
               aliases = "rtg24@cam.ac.uk";
-              folders-sort =
-                [ "Inbox" "Sidebox" "Sent" "Drafts" "Archive" "Spam" "Trash" ];
+              folders-sort = [
+                "Inbox"
+                "Sidebox"
+                "Sent"
+                "Drafts"
+                "Archive"
+                "Spam"
+                "Trash"
+              ];
               folder-map = "${pkgs.writeText "folder-map" ''
                 Bin = Trash
               ''}";
@@ -238,8 +260,7 @@ in {
           userName = "ryangibb321@gmail.com";
           address = "ryangibb321@gmail.com";
           realName = "Ryan Gibb";
-          passwordCommand =
-            "${pkgs.pass}/bin/pass show email/ryangibb321@gmail.com";
+          passwordCommand = "${pkgs.pass}/bin/pass show email/ryangibb321@gmail.com";
           flavor = "gmail.com";
           folders = {
             drafts = "Drafts";
@@ -258,7 +279,9 @@ in {
             expunge = "both";
             remove = "both";
           };
-          msmtp = { enable = true; };
+          msmtp = {
+            enable = true;
+          };
           aerc = {
             enable = true;
             extraAccounts = {
@@ -296,7 +319,9 @@ in {
           realName = "Search Index";
           address = "search@local";
           aerc.enable = true;
-          aerc.extraAccounts = { source = "maildir://~/mail/search"; };
+          aerc.extraAccounts = {
+            source = "maildir://~/mail/search";
+          };
           aerc.extraConfig = {
             ui = {
               index-columns = "flags>4,date<*,to<30,name<30,subject<*";

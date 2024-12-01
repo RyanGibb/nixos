@@ -1,4 +1,10 @@
-{ pkgs, config, lib, eon, ... }@inputs:
+{
+  pkgs,
+  config,
+  lib,
+  eon,
+  ...
+}@inputs:
 
 let
   vpnRecords = [
@@ -33,7 +39,8 @@ let
       value = "100.64.0.9";
     }
   ];
-in {
+in
+{
   imports = [
     ./hardware-configuration.nix
     ./minimal.nix
@@ -147,8 +154,7 @@ in {
         {
           name = "@";
           type = "TXT";
-          value =
-            "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc";
+          value = "google-site-verification=rEvwSqf7RYKRQltY412qMtTuoxPp64O3L7jMotj9Jnc";
         }
         {
           name = "_atproto.ryan";
@@ -228,8 +234,7 @@ in {
         {
           name = "_25._tcp.mail";
           type = "TLSA";
-          value =
-            "3 1 1 2f0fd413f063c75141937dd196a9f4ab66139d599e0dcf2a7ce6d557647e26a6";
+          value = "3 1 1 2f0fd413f063c75141937dd196a9f4ab66139d599e0dcf2a7ce6d557647e26a6";
         }
         # generate with
         #   for i in r3 e1 r4-cross-signed e2
@@ -238,29 +243,25 @@ in {
         {
           name = "_25._tcp.mail";
           type = "TLSA";
-          value =
-            "2 1 1 8d02536c887482bc34ff54e41d2ba659bf85b341a0a20afadb5813dcfbcf286d";
+          value = "2 1 1 8d02536c887482bc34ff54e41d2ba659bf85b341a0a20afadb5813dcfbcf286d";
         }
         # LE E1
         {
           name = "_25._tcp.mail";
           type = "TLSA";
-          value =
-            "2 1 1 276fe8a8c4ec7611565bf9fce6dcace9be320c1b5bea27596b2204071ed04f10";
+          value = "2 1 1 276fe8a8c4ec7611565bf9fce6dcace9be320c1b5bea27596b2204071ed04f10";
         }
         # LE R4
         {
           name = "_25._tcp.mail";
           type = "TLSA";
-          value =
-            "2 1 1 e5545e211347241891c554a03934cde9b749664a59d26d615fe58f77990f2d03";
+          value = "2 1 1 e5545e211347241891c554a03934cde9b749664a59d26d615fe58f77990f2d03";
         }
         # LE E2
         {
           name = "_25._tcp.mail";
           type = "TLSA";
-          value =
-            "2 1 1 bd936e72b212ef6f773102c6b77d38f94297322efc25396bc3279422e0c89270";
+          value = "2 1 1 bd936e72b212ef6f773102c6b77d38f94297322efc25396bc3279422e0c89270";
         }
       ] ++ vpnRecords;
     };
@@ -330,23 +331,25 @@ in {
       ];
     };
   };
-  services.bind.zones.${config.networking.domain}.extraConfig = ''
-    dnssec-policy default;
-    inline-signing yes;
-    journal "${config.services.bind.directory}/${config.networking.domain}.signed.jnl";
-  '' +
-    # dig ns org +short | xargs dig +short
-    # replace with `checkds true;` in bind 9.20
+  services.bind.zones.${config.networking.domain}.extraConfig =
     ''
-      parental-agents {
-        199.19.56.1;
-        199.249.112.1;
-        199.19.54.1;
-        199.249.120.1;
-        199.19.53.1;
-        199.19.57.1;
-      };
-    '';
+      dnssec-policy default;
+      inline-signing yes;
+      journal "${config.services.bind.directory}/${config.networking.domain}.signed.jnl";
+    ''
+    +
+      # dig ns org +short | xargs dig +short
+      # replace with `checkds true;` in bind 9.20
+      ''
+        parental-agents {
+          199.19.56.1;
+          199.249.112.1;
+          199.19.54.1;
+          199.249.120.1;
+          199.19.53.1;
+          199.19.57.1;
+        };
+      '';
 
   services.nginx.commonHttpConfig = ''
     add_header Strict-Transport-Security max-age=31536000 always;
@@ -372,7 +375,10 @@ in {
     };
   };
 
-  security.acme-eon.nginxCerts = [ "capybara.fn06.org" "shrew.freumh.org" ];
+  security.acme-eon.nginxCerts = [
+    "capybara.fn06.org"
+    "shrew.freumh.org"
+  ];
   services.nginx.virtualHosts."capybara.fn06.org" = {
     forceSSL = true;
     locations."/" = {
@@ -416,7 +422,11 @@ in {
     repository = "rest:http://100.64.0.9:8000/${config.networking.hostName}/";
     passwordFile = config.age.secrets.restic-owl.path;
     initialize = true;
-    paths = [ "/var/" "/run/" "/etc/" ];
+    paths = [
+      "/var/"
+      "/run/"
+      "/etc/"
+    ];
     timerConfig = {
       OnCalendar = "03:00";
       randomizedDelaySec = "1hr";
@@ -434,8 +444,7 @@ in {
 
   age.secrets.email-ryan.file = ../../secrets/email-ryan.age;
   age.secrets.email-system.file = ../../secrets/email-system.age;
-  eilean.mailserver.systemAccountPasswordFile =
-    config.age.secrets.email-system.path;
+  eilean.mailserver.systemAccountPasswordFile = config.age.secrets.email-system.path;
   mailserver.loginAccounts = {
     "${config.eilean.username}@${config.networking.domain}" = {
       passwordFile = config.age.secrets.email-ryan.path;

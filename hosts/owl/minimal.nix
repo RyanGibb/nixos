@@ -1,4 +1,10 @@
-{ pkgs, config, lib, eilean, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  eilean,
+  ...
+}:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -10,8 +16,7 @@
     homeManager.enable = true;
   };
 
-  home-manager.users.${config.custom.username}.config.custom.machineColour =
-    "yellow";
+  home-manager.users.${config.custom.username}.config.custom.machineColour = "yellow";
 
   boot.tmp.cleanOnBoot = true;
 }

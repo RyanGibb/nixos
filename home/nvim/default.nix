@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   ltex-ls-nvim = pkgs.vimUtils.buildVimPlugin {
@@ -45,7 +50,8 @@ let
     meta.homepage = "https://github.com/RyanGibb/calendar.nvim/";
   };
   cfg = config.custom;
-in {
+in
+{
   options.custom.nvim-lsps = lib.mkEnableOption "nvim-lsps";
 
   config = {
@@ -59,8 +65,13 @@ in {
       enable = true;
       viAlias = true;
       vimAlias = true;
-      extraPackages = with pkgs;
-        [ ripgrep nixd ] ++ lib.lists.optionals cfg.nvim-lsps [
+      extraPackages =
+        with pkgs;
+        [
+          ripgrep
+          nixd
+        ]
+        ++ lib.lists.optionals cfg.nvim-lsps [
           nixfmt-rfc-style
           # stop complaining when launching but a devshell is better
           ocamlPackages.ocaml-lsp
@@ -77,7 +88,8 @@ in {
       extraLuaConfig = builtins.readFile ./init.lua;
       # undo transparent background
       # + "colorscheme gruvbox";
-      plugins = with pkgs.vimPlugins;
+      plugins =
+        with pkgs.vimPlugins;
         [
           gruvbox-nvim
 
@@ -348,17 +360,19 @@ in {
 
           {
             plugin = pkgs.notmuch;
-            runtime = let
-              notmuch-style = ''
-                let g:notmuch_date_format = '%Y-%m-%d'
-                let g:notmuch_datetime_format = '%Y-%m-%d %I:%M%p'
-              '';
-            in {
-              "ftplugin/notmuch-folders.vim".text = notmuch-style;
-              "ftplugin/notmuch-search.vim".text = notmuch-style;
-              "ftplugin/notmuch-show.vim".text = notmuch-style;
-              "ftplugin/notmuch-compose.vim".text = notmuch-style;
-            };
+            runtime =
+              let
+                notmuch-style = ''
+                  let g:notmuch_date_format = '%Y-%m-%d'
+                  let g:notmuch_datetime_format = '%Y-%m-%d %I:%M%p'
+                '';
+              in
+              {
+                "ftplugin/notmuch-folders.vim".text = notmuch-style;
+                "ftplugin/notmuch-search.vim".text = notmuch-style;
+                "ftplugin/notmuch-show.vim".text = notmuch-style;
+                "ftplugin/notmuch-compose.vim".text = notmuch-style;
+              };
           }
 
           {
@@ -390,35 +404,38 @@ in {
               require('calendar')
             '';
           }
-        ] ++ lib.lists.optionals cfg.nvim-lsps [
+        ]
+        ++ lib.lists.optionals cfg.nvim-lsps [
           {
             plugin = nvim-lspconfig;
             type = "lua";
             config = builtins.readFile ./lsp.lua;
-            runtime = let
-              ml-style = ''
-                setlocal expandtab
-                setlocal shiftwidth=2
-                setlocal tabstop=2
-                setlocal softtabstop=2
-              '';
-            in {
-              "ftplugin/nix.vim".text = ml-style;
-              "ftplugin/ocaml.vim".text = ml-style;
-              "ftplugin/java.lua".text = ''
-                local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
-                local workspace_dir = '~/.cache/jdt/' .. project_name
-                require('jdtls').start_or_attach {
-                	on_attach = On_attach,
-                	capabilities = Capabilities,
-                	cmd = { 'jdt-language-server', '-data', workspace_dir, },
-                	root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
-                }
-              '';
-              "ftplugin/ledger.vim".text = ''
-                setlocal foldmethod=syntax
-              '';
-            };
+            runtime =
+              let
+                ml-style = ''
+                  setlocal expandtab
+                  setlocal shiftwidth=2
+                  setlocal tabstop=2
+                  setlocal softtabstop=2
+                '';
+              in
+              {
+                "ftplugin/nix.vim".text = ml-style;
+                "ftplugin/ocaml.vim".text = ml-style;
+                "ftplugin/java.lua".text = ''
+                  local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+                  local workspace_dir = '~/.cache/jdt/' .. project_name
+                  require('jdtls').start_or_attach {
+                  	on_attach = On_attach,
+                  	capabilities = Capabilities,
+                  	cmd = { 'jdt-language-server', '-data', workspace_dir, },
+                  	root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+                  }
+                '';
+                "ftplugin/ledger.vim".text = ''
+                  setlocal foldmethod=syntax
+                '';
+              };
           }
           {
             plugin = nvim-dap;

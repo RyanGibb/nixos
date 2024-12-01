@@ -1,7 +1,15 @@
-{ pkgs, config, lib, agenix, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  agenix,
+  ...
+}:
 
-let cfg = config.custom;
-in {
+let
+  cfg = config.custom;
+in
+{
   imports = [
     ./auto-upgrade.nix
     ./dict.nix
@@ -34,67 +42,76 @@ in {
     };
   };
 
-  config = let nixPath = "/etc/nix-path";
-  in lib.mkIf cfg.enable {
-    console = {
-      font = "Lat2-Terminus16";
-      keyMap = "uk";
-    };
-    i18n.defaultLocale = "en_GB.UTF-8";
-
-    networking.domain = lib.mkDefault "freumh.org";
-
-    eilean.username = cfg.username;
-
-    nix = {
-      settings = lib.mkMerge [{
-        experimental-features = [ "nix-command" "flakes" ];
-        auto-optimise-store = true;
-        trusted-users = [ cfg.username ];
-      }];
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 30d";
+  config =
+    let
+      nixPath = "/etc/nix-path";
+    in
+    lib.mkIf cfg.enable {
+      console = {
+        font = "Lat2-Terminus16";
+        keyMap = "uk";
       };
-      # https://discourse.nixos.org/t/do-flakes-also-set-the-system-channel/19798/16
-      nixPath = [ "nixpkgs=${nixPath}" ];
-    };
-    systemd.tmpfiles.rules = [ "L+ ${nixPath} - - - - ${pkgs.path}" ];
+      i18n.defaultLocale = "en_GB.UTF-8";
 
-    users = let
-      hashedPassword =
-        "$6$IPvnJnu6/fp1Jxfy$U6EnzYDOC2NqE4iqRrkJJbSTHHNWk0KwK1xyk9jEvlu584UWQLyzDVF5I1Sh47wQhSVrvUI4mrqw6XTTjfPj6.";
-    in {
-      mutableUsers = false;
-      groups.plugdev = { };
-      users.${cfg.username} = {
-        isNormalUser = true;
-        extraGroups = [
-          "wheel" # enable sudo
-          "networkmanager"
-          "video"
-          "plugdev"
+      networking.domain = lib.mkDefault "freumh.org";
+
+      eilean.username = cfg.username;
+
+      nix = {
+        settings = lib.mkMerge [
+          {
+            experimental-features = [
+              "nix-command"
+              "flakes"
+            ];
+            auto-optimise-store = true;
+            trusted-users = [ cfg.username ];
+          }
         ];
-        shell = pkgs.zsh;
-        # we let home manager manager zsh
-        ignoreShellProgramCheck = true;
-        hashedPassword = hashedPassword;
+        gc = {
+          automatic = true;
+          dates = "weekly";
+          options = "--delete-older-than 30d";
+        };
+        # https://discourse.nixos.org/t/do-flakes-also-set-the-system-channel/19798/16
+        nixPath = [ "nixpkgs=${nixPath}" ];
       };
-      users.root.hashedPassword = hashedPassword;
-    };
+      systemd.tmpfiles.rules = [ "L+ ${nixPath} - - - - ${pkgs.path}" ];
 
-    environment.systemPackages = with pkgs; [
-      nix
-      git
-      agenix.packages.${system}.default
-    ];
+      users =
+        let
+          hashedPassword = "$6$IPvnJnu6/fp1Jxfy$U6EnzYDOC2NqE4iqRrkJJbSTHHNWk0KwK1xyk9jEvlu584UWQLyzDVF5I1Sh47wQhSVrvUI4mrqw6XTTjfPj6.";
+        in
+        {
+          mutableUsers = false;
+          groups.plugdev = { };
+          users.${cfg.username} = {
+            isNormalUser = true;
+            extraGroups = [
+              "wheel" # enable sudo
+              "networkmanager"
+              "video"
+              "plugdev"
+            ];
+            shell = pkgs.zsh;
+            # we let home manager manager zsh
+            ignoreShellProgramCheck = true;
+            hashedPassword = hashedPassword;
+          };
+          users.root.hashedPassword = hashedPassword;
+        };
 
-    networking = rec {
-      # nameservers = [ "freumh.org" ];
-      nameservers = [ "1.1.1.1" ];
-      # uncomment to stop using DHCP nameservers
-      #networkmanager.dns = "none";
+      environment.systemPackages = with pkgs; [
+        nix
+        git
+        agenix.packages.${system}.default
+      ];
+
+      networking = rec {
+        # nameservers = [ "freumh.org" ];
+        nameservers = [ "1.1.1.1" ];
+        # uncomment to stop using DHCP nameservers
+        #networkmanager.dns = "none";
+      };
     };
-  };
 }

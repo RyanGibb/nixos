@@ -1,11 +1,17 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 with lib;
 
 let
   cfg = config.custom.rmfakecloud;
   domain = config.networking.domain;
-in {
+in
+{
   options.custom.rmfakecloud = {
     enable = mkEnableOption "rmfakecloud";
     port = mkOption {
@@ -32,8 +38,7 @@ in {
       };
     };
 
-    mailserver.loginAccounts."misc@${domain}".aliases =
-      [ "remarkable@${domain}" ];
+    mailserver.loginAccounts."misc@${domain}".aliases = [ "remarkable@${domain}" ];
 
     security.acme-eon.nginxCerts = [ cfg.domain ];
     services.nginx = {
@@ -50,10 +55,12 @@ in {
       };
     };
 
-    eilean.services.dns.zones.${config.networking.domain}.records = [{
-      name = "rmfakecloud";
-      type = "CNAME";
-      value = "vps";
-    }];
+    eilean.services.dns.zones.${config.networking.domain}.records = [
+      {
+        name = "rmfakecloud";
+        type = "CNAME";
+        value = "vps";
+      }
+    ];
   };
 }

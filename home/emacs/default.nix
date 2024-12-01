@@ -1,15 +1,22 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
-let cfg = config.custom.emacs;
-in {
+let
+  cfg = config.custom.emacs;
+in
+{
   options.custom.emacs.enable = lib.mkEnableOption "emacs";
 
   config = lib.mkIf cfg.enable {
     programs.emacs = {
       enable = true;
       package = pkgs.emacs29-pgtk;
-      extraPackages = epkgs:
-        with epkgs; [
+      extraPackages =
+        epkgs: with epkgs; [
           evil
           evil-leader
           # https://github.com/emacs-evil/evil-collection/pull/812/commits/149eacce58354f0ee3a55d4c12059148ef4ff953

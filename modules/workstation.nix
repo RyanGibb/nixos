@@ -1,7 +1,14 @@
-{ pkgs, config, lib, ... }@inputs:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}@inputs:
 
-let cfg = config.custom;
-in {
+let
+  cfg = config.custom;
+in
+{
   options.custom.workstation = lib.mkEnableOption "custom";
 
   config = lib.mkIf cfg.workstation {

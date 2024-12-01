@@ -1,7 +1,15 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
-  imports = [ ./hardware-configuration.nix ./backups.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ./backups.nix
+  ];
 
   custom = {
     enable = true;
@@ -61,7 +69,13 @@
     iamb
     spotify
     gimp
-    (python3.withPackages (p: with p; [ numpy matplotlib pandas ]))
+    (python3.withPackages (
+      p: with p; [
+        numpy
+        matplotlib
+        pandas
+      ]
+    ))
     lsof
     gthumb
     restic

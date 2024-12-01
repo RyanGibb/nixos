@@ -1,7 +1,16 @@
-{ pkgs, config, lib, options, colour-guesser, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  options,
+  colour-guesser,
+  ...
+}:
 
-let cfg = config.custom.website.colour-guesser;
-in {
+let
+  cfg = config.custom.website.colour-guesser;
+in
+{
   options = {
     custom.website.colour-guesser = {
       enable = lib.mkEnableOption "Colour Guesser";
@@ -27,8 +36,7 @@ in {
       recommendedProxySettings = true;
       virtualHosts."${cfg.domain}" = {
         forceSSL = true;
-        root =
-          "${colour-guesser.packages.${pkgs.stdenv.hostPlatform.system}.default}";
+        root = "${colour-guesser.packages.${pkgs.stdenv.hostPlatform.system}.default}";
       };
     };
 

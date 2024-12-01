@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }@inputs:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}@inputs:
 
 let
   i3-workspace-history =
@@ -26,7 +31,8 @@ let
   };
   util = import ./util.nix { inherit pkgs lib; };
   cfg = config.custom.gui.sway;
-in {
+in
+{
   options.custom.gui.sway.enable = lib.mkEnableOption "sway";
 
   config = lib.mkIf cfg.enable {
@@ -72,32 +78,36 @@ in {
       fi
     '';
 
-    xdg.configFile = let
-      entries = {
-        "fusuma/config.yml".source = ./fusuma.yml;
-        "kanshi/config".source = ./kanshi;
-        "dunst/dunstrc".source = ./dunst;
-        "swaylock/config".source = ./swaylock;
-        "wofi/style.css".source = ./wofi.css;
-        "swappy/config".text = ''
-          [Default]
-          save_dir=$XDG_PICTURES_DIR/capture/
-          save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
-        '';
-        "sway/config".text =
-          let wmFilenames = util.listFilesInDir ./wm/config.d;
-          in let swayFilenames = util.listFilesInDir ./wm/sway;
-          in (util.concatFilesReplace
-            ([ ./wm/config ] ++ wmFilenames ++ swayFilenames) replacements);
-      };
-    in (util.inDirReplace ./wm/scripts "sway/scripts" replacements) // entries;
+    xdg.configFile =
+      let
+        entries = {
+          "fusuma/config.yml".source = ./fusuma.yml;
+          "kanshi/config".source = ./kanshi;
+          "dunst/dunstrc".source = ./dunst;
+          "swaylock/config".source = ./swaylock;
+          "wofi/style.css".source = ./wofi.css;
+          "swappy/config".text = ''
+            [Default]
+            save_dir=$XDG_PICTURES_DIR/capture/
+            save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
+          '';
+          "sway/config".text =
+            let
+              wmFilenames = util.listFilesInDir ./wm/config.d;
+            in
+            let
+              swayFilenames = util.listFilesInDir ./wm/sway;
+            in
+            (util.concatFilesReplace ([ ./wm/config ] ++ wmFilenames ++ swayFilenames) replacements);
+        };
+      in
+      (util.inDirReplace ./wm/scripts "sway/scripts" replacements) // entries;
 
     services.gammastep = {
       enable = true;
       provider = "geoclue2";
       temperature.day = 6500;
     };
-    systemd.user.services.gammastep.Service.ExecStart =
-      lib.mkForce "${pkgs.gammastep}/bin/gammastep -r";
+    systemd.user.services.gammastep.Service.ExecStart = lib.mkForce "${pkgs.gammastep}/bin/gammastep -r";
   };
 }

@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 with pkgs;
 let
@@ -9,8 +11,7 @@ let
     inherit version;
 
     src = fetchurl {
-      url =
-        "https://www.gov.uk/government/uploads/uploaded/hmrc/payetools-rti-${version}-linux.zip";
+      url = "https://www.gov.uk/government/uploads/uploaded/hmrc/payetools-rti-${version}-linux.zip";
       hash = "sha256-QOW6Loqg001AcqWX/TOH6wvI2uAY4qNyFvQzCVEe8VU=";
     };
 
@@ -43,10 +44,12 @@ let
       mv prefix $out
     '';
   };
-in buildFHSUserEnv {
+in
+buildFHSUserEnv {
   name = "hmrc-paye-tools-fhs";
 
-  targetPkgs = pkgs:
+  targetPkgs =
+    pkgs:
     (with pkgs; [
       glibc
       zlib

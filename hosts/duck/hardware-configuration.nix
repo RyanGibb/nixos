@@ -1,8 +1,18 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
-  boot.initrd.availableKernelModules =
-    [ "ata_piix" "uhci_hcd" "sr_mod" "xen_blkfront" ];
+  boot.initrd.availableKernelModules = [
+    "ata_piix"
+    "uhci_hcd"
+    "sr_mod"
+    "xen_blkfront"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
@@ -13,18 +23,22 @@
     fsType = "ext4";
   };
 
-  swapDevices = [{
-    device = "/var/swap";
-    size = 2048;
-  }];
+  swapDevices = [
+    {
+      device = "/var/swap";
+      size = 2048;
+    }
+  ];
 
   networking = {
     useDHCP = false;
     interfaces."enX0" = {
-      ipv4.addresses = [{
-        address = "128.232.113.136";
-        prefixLength = 23;
-      }];
+      ipv4.addresses = [
+        {
+          address = "128.232.113.136";
+          prefixLength = 23;
+        }
+      ];
     };
     defaultGateway = {
       address = "128.232.112.1";
@@ -33,6 +47,5 @@
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode =
-    lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

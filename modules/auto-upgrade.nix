@@ -1,7 +1,14 @@
-{ pkgs, config, lib, ... }@inputs:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}@inputs:
 
-let cfg = config.custom.autoUpgrade;
-in {
+let
+  cfg = config.custom.autoUpgrade;
+in
+{
   options.custom.autoUpgrade.enable = lib.mkEnableOption "autoUpgrade";
 
   config = lib.mkIf cfg.enable {
@@ -9,7 +16,11 @@ in {
       enable = true;
       allowReboot = true;
       flake = inputs.self.outPath;
-      flags = [ "--update-input" "nixpkgs" "-L" ];
+      flags = [
+        "--update-input"
+        "nixpkgs"
+        "-L"
+      ];
       dates = "03:00";
       randomizedDelaySec = "1hr";
       rebootWindow = {

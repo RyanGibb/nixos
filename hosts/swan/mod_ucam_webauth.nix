@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, apacheHttpd, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  apacheHttpd,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mod_ucam_webauth";

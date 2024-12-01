@@ -1,4 +1,10 @@
-{ nixpkgs-unstable, config, pkgs, lib, ... }:
+{
+  nixpkgs-unstable,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   custom.nix-cache.enable = true;
@@ -27,7 +33,9 @@
     #requires = [ "tailscaled.service" ];
     clientMaxBodySize = "1g";
     virtualHosts = {
-      "nix-cache.vpn.freumh.org" = { listenAddresses = [ "100.64.0.9" ]; };
+      "nix-cache.vpn.freumh.org" = {
+        listenAddresses = [ "100.64.0.9" ];
+      };
       "jellyfin.vpn.freumh.org" = {
         onlySSL = true;
         listenAddresses = [ "100.64.0.9" ];
@@ -104,8 +112,7 @@
         #"use sendfile" = "yes";
         #"max protocol" = "smb2";
         # note: localhost is the ipv6 localhost ::1
-        "hosts allow" =
-          "192.168.1. 192.168.0. 127.0.0.1 localhost 100.64.0.0/10";
+        "hosts allow" = "192.168.1. 192.168.0. 127.0.0.1 localhost 100.64.0.0/10";
         "hosts deny" = "0.0.0.0/0";
         "guest account" = "nobody";
         "map to guest" = "bad user";

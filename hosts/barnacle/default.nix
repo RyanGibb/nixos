@@ -1,4 +1,10 @@
-{ config, lib, pkgs, nixpkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  nixpkgs,
+  ...
+}:
 
 {
   imports = [
@@ -29,10 +35,12 @@
 
   # build with:
   #   nix build /etc/nixos#nixosConfigurations.barnacle.config.system.build.isoImage
-  isoImage.contents = [{
-    source = ../..;
-    target = "nixos";
-  }];
+  isoImage.contents = [
+    {
+      source = ../..;
+      target = "nixos";
+    }
+  ];
 
   # comment this out to make a smaller image
   isoImage.squashfsCompression = "gzip -Xcompression-level 1";

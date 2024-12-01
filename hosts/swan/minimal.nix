@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -10,8 +15,7 @@
     useNixCache = false;
   };
 
-  home-manager.users.${config.custom.username}.config.custom.machineColour =
-    "green";
+  home-manager.users.${config.custom.username}.config.custom.machineColour = "green";
 
   services.openssh.openFirewall = true;
 }

@@ -1,16 +1,26 @@
-{ pkgs, config, lib, i3-workspace-history, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  i3-workspace-history,
+  ...
+}:
 
-let cfg = config.custom.gui;
-in {
+let
+  cfg = config.custom.gui;
+in
+{
   options.custom.gui.enable = lib.mkOption {
     type = lib.types.bool;
     default = cfg.i3 || cfg.sway || cfg.kde;
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${config.custom.username} = { config, ... }: {
-      config.custom.gui.enable = true;
-    };
+    home-manager.users.${config.custom.username} =
+      { config, ... }:
+      {
+        config.custom.gui.enable = true;
+      };
 
     networking.networkmanager.enable = true;
 
@@ -55,7 +65,8 @@ in {
     hardware.bluetooth.enable = true;
     services.blueman.enable = true;
 
-    environment.systemPackages = with pkgs;
+    environment.systemPackages =
+      with pkgs;
       let
         desktopEntries = [
           (pkgs.makeDesktopItem {
@@ -65,7 +76,8 @@ in {
             icon = "feh";
           })
         ];
-      in [
+      in
+      [
         jq
         playerctl
         brightnessctl
@@ -74,7 +86,10 @@ in {
         networkmanagerapplet
         pavucontrol
         (xfce.thunar.override {
-          thunarPlugins = with xfce; [ thunar-archive-plugin xfconf ];
+          thunarPlugins = with xfce; [
+            thunar-archive-plugin
+            xfconf
+          ];
         })
         # https://discourse.nixos.org/t/sway-wm-configuration-polkit-login-manager/3857/6
         polkit_gnome
@@ -85,7 +100,8 @@ in {
         pulseaudio
         tridactyl-native
         vlc
-      ] ++ desktopEntries;
+      ]
+      ++ desktopEntries;
 
     fonts.packages = with pkgs; [
       noto-fonts

@@ -1,7 +1,14 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
-let cfg = config.custom.gui;
-in {
+let
+  cfg = config.custom.gui;
+in
+{
   options.custom.gui.enable = lib.mkEnableOption "gui";
 
   config = lib.mkIf cfg.enable {
@@ -25,9 +32,11 @@ in {
       sessionVariables = {
         # evince workaround
         GTK_THEME = "Gruvbox-Dark";
-        WALLPAPER = let wallpaper = ./wallpaper.jpg;
-        in pkgs.runCommand (builtins.baseNameOf wallpaper) { }
-        "cp ${wallpaper} $out";
+        WALLPAPER =
+          let
+            wallpaper = ./wallpaper.jpg;
+          in
+          pkgs.runCommand (builtins.baseNameOf wallpaper) { } "cp ${wallpaper} $out";
         TERMINAL = "alacritty";
       };
       pointerCursor = {
@@ -57,58 +66,62 @@ in {
       };
     };
 
-    programs.firefox = let
-      settings = {
-        "browser.ctrlTab.recentlyUsedOrder" = false;
-        "browser.tabs.warnOnClose" = false;
-        "browser.toolbars.bookmarks.visibility" = "never";
+    programs.firefox =
+      let
+        settings = {
+          "browser.ctrlTab.recentlyUsedOrder" = false;
+          "browser.tabs.warnOnClose" = false;
+          "browser.toolbars.bookmarks.visibility" = "never";
 
-        # Only hide UI elements on F11 (i.e. don't go fullscreen, leave that to WM)
-        "full-screen-api.ignore-widgets" = true;
-        # Right click issue fix
-        "ui.context_menus.after_mouseup" = true;
+          # Only hide UI elements on F11 (i.e. don't go fullscreen, leave that to WM)
+          "full-screen-api.ignore-widgets" = true;
+          # Right click issue fix
+          "ui.context_menus.after_mouseup" = true;
 
-        # Use userChrome.css
-        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+          # Use userChrome.css
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
-        "browser.shell.checkDefaultBrowser" = false;
+          "browser.shell.checkDefaultBrowser" = false;
 
-        # sync toolbar
-        "services.sync.prefs.sync.browser.uiCustomization.state" = true;
+          # sync toolbar
+          "services.sync.prefs.sync.browser.uiCustomization.state" = true;
 
-        "extensions.pocket.enabled" = false;
+          "extensions.pocket.enabled" = false;
+        };
+        userChrome = ''
+          #webrtcIndicator {
+            display: none;
+          }
+
+          /* Move find bar to top */
+          .browserContainer > findbar {
+            -moz-box-ordinal-group: 0;
+          }
+
+          #TabsToolbar
+          {
+              visibility: collapse;
+          }
+        '';
+      in
+      {
+        enable = true;
+        profiles.default = {
+          settings = settings;
+          userChrome = userChrome;
+        };
+        profiles.secondary = {
+          id = 1;
+          isDefault = false;
+          settings = settings;
+          userChrome = userChrome;
+        };
+        package = (
+          pkgs.firefox.override {
+            nativeMessagingHosts = with pkgs; [ tridactyl-native ];
+          }
+        );
       };
-      userChrome = ''
-        #webrtcIndicator {
-          display: none;
-        }
-
-        /* Move find bar to top */
-        .browserContainer > findbar {
-          -moz-box-ordinal-group: 0;
-        }
-
-        #TabsToolbar
-        {
-            visibility: collapse;
-        }
-      '';
-    in {
-      enable = true;
-      profiles.default = {
-        settings = settings;
-        userChrome = userChrome;
-      };
-      profiles.secondary = {
-        id = 1;
-        isDefault = false;
-        settings = settings;
-        userChrome = userChrome;
-      };
-      package = (pkgs.firefox.override {
-        nativeMessagingHosts = with pkgs; [ tridactyl-native ];
-      });
-    };
 
     xdg = {
       configFile = {

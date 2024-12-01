@@ -1,13 +1,22 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
-let cfg = config.custom.gui;
-in {
+let
+  cfg = config.custom.gui;
+in
+{
   options.custom.gui.sway = lib.mkEnableOption "sway";
 
   config = lib.mkIf cfg.sway {
-    home-manager.users.${config.custom.username} = { config, ... }: {
-      config.custom.gui.sway.enable = true;
-    };
+    home-manager.users.${config.custom.username} =
+      { config, ... }:
+      {
+        config.custom.gui.sway.enable = true;
+      };
 
     programs.sway = {
       enable = true;
