@@ -112,8 +112,8 @@
           let files = builtins.readDir dir;
           in let
             filtered = nixpkgs.lib.attrsets.filterAttrs (n: v:
-              v == "regular" && (n == "default.nix" || n == "minimal.nix" || n
-                == "sd-image.nix")) files;
+              v == "regular" && (n == "default.nix" || n == "minimal.nix"))
+              files;
           in let names = nixpkgs.lib.attrNames filtered;
           in builtins.map (f: nixpkgs.lib.strings.removeSuffix ".nix" f) names;
         mkModes = host: modes:
