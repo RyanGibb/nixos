@@ -9,8 +9,8 @@
 {
   custom.nix-cache.enable = true;
 
-  age.secrets."eon-vpn.freumh.org.cap" = {
-    file = ../../secrets/eon-vpn.freumh.org.cap.age;
+  age.secrets."eon-freumh.org.cap" = {
+    file = ../../secrets/eon-freumh.org.cap.age;
     mode = "770";
     owner = "acme-eon";
     group = "acme-eon";
@@ -18,10 +18,11 @@
   security.acme-eon = {
     acceptTerms = true;
     defaults.email = "${config.custom.username}@${config.networking.domain}";
-    defaults.capFile = config.age.secrets."eon-vpn.freumh.org.cap".path;
+    defaults.capFile = config.age.secrets."eon-freumh.org.cap".path;
     nginxCerts = [
       "nix-cache.vpn.freumh.org"
       "jellyfin.vpn.freumh.org"
+      "jellyfin.freumh.org"
       "transmission.vpn.freumh.org"
       "nextcloud.vpn.freumh.org"
       "owntracks.vpn.freumh.org"
@@ -40,6 +41,16 @@
         onlySSL = true;
         listenAddresses = [ "100.64.0.9" ];
         locations."/" = {
+          proxyPass = ''
+            http://localhost:8096
+          '';
+          proxyWebsockets = true;
+        };
+      };
+      "jellyfin.freumh.org" = {
+        onlySSL = true;
+        locations."/" = {
+          recommendedProxySettings = true;
           proxyPass = ''
             http://localhost:8096
           '';
@@ -210,5 +221,34 @@
     openFirewall = true;
     host = "100.64.0.9";
     mediaLocation = "/tank/immich";
+  };
+
+  services.fail2ban = {
+    enable = true;
+    bantime = "24h";
+    bantime-increment = {
+      enable = true;
+      multipliers = "1 2 4 8 16 32 64";
+      maxtime = "168h";
+      overalljails = true;
+    };
+    jails."jellyfin".settings = {
+      backend = "auto";
+      port = "80,443";
+      protocol = "tcp";
+      filter = "jellyfin";
+      maxRetry = 3;
+      bantime = "86400";
+      findTime = "43200";
+      logPath = "/var/lib/jellyfin/log/*.log";
+    };
+  };
+  environment.etc = {
+    "fail2ban/filter.d/jellyfin.local".text = pkgs.lib.mkDefault (
+      pkgs.lib.mkAfter ''
+        [Definition]
+        failregex = ^.*Authentication request for .* has been denied \(IP: "<ADDR>"\)\.
+      ''
+    );
   };
 }

@@ -328,6 +328,13 @@ in
           type = "CNAME";
           value = "fn06.org.";
         }
+
+        {
+          name = "jellyfin.${config.networking.domain}.";
+          type = "A";
+          # TODO dynamic update
+          value = "86.188.33.97";
+        }
       ];
     };
   };
