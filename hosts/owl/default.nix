@@ -86,6 +86,7 @@ in
     serverIpv4 = "135.181.100.27";
     serverIpv6 = "2a01:4f9:c011:87ad:0:0:0:0";
     acme-eon = true;
+	fail2ban.enable = true;
   };
   networking.domain = lib.mkDefault "freumh.org";
   eilean.publicInterface = "enp1s0";
