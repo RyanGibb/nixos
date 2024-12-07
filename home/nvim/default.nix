@@ -343,6 +343,7 @@ in
                   { "<leader>", mode = { "n", "v" } },
                   { "<auto>", mode = "nixsotc" },
                 },
+                delay = 1000,
               })
               wk.add({
                 { "<leader>f", group = 'Find' },
