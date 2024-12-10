@@ -115,6 +115,10 @@
                         "nix-2.16.2"
                         # https://github.com/mautrix/go/issues/262
                         "olm-3.2.16"
+                        "aspnetcore-runtime-6.0.36"
+                        "aspnetcore-runtime-wrapped-6.0.36"
+                        "dotnet-sdk-6.0.428"
+                        "dotnet-sdk-wrapped-6.0.428"
                       ];
                       overlays = getSystemOverlays config.nixpkgs.hostPlatform.system config.nixpkgs.config;
                       # uncomment for cross compilation (https://github.com/NixOS/nix/issues/3843)

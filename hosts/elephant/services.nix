@@ -23,6 +23,7 @@
       "nix-cache.vpn.freumh.org"
       "jellyfin.vpn.freumh.org"
       "jellyfin.freumh.org"
+      "jellyseerr.freumh.org"
       "transmission.vpn.freumh.org"
       "nextcloud.vpn.freumh.org"
       "owntracks.vpn.freumh.org"
@@ -53,6 +54,16 @@
           recommendedProxySettings = true;
           proxyPass = ''
             http://localhost:8096
+          '';
+          proxyWebsockets = true;
+        };
+      };
+      "jellyseerr.freumh.org" = {
+        onlySSL = true;
+        locations."/" = {
+          recommendedProxySettings = true;
+          proxyPass = ''
+            http://localhost:${builtins.toString config.services.jellyseerr.port}
           '';
           proxyWebsockets = true;
         };
@@ -110,6 +121,14 @@
     enable = true;
     openFirewall = true;
   };
+  users.users.${config.services.jellyfin.user}.extraGroups = [
+    config.services.transmission.user
+    config.services.sonarr.user
+    config.services.radarr.user
+    config.services.bazarr.user
+    config.services.lidarr.user
+    config.services.readarr.user
+  ];
 
   services.samba = {
     enable = true;
@@ -158,7 +177,7 @@
     openRPCPort = true;
     package = pkgs.transmission_3;
     settings = {
-      download-dir = "/tank/media";
+      download-dir = "/tank/transmission";
       incomplete-dir-enabled = false;
       rpc-whitelist = "127.0.0.1,100.64.*.*,192.168.1.*";
       rpc-bind-address = "0.0.0.0";
@@ -166,6 +185,36 @@
       ratio-limit-enabled = true;
     };
   };
+
+  services.prowlarr.enable = true;
+  services.sonarr.enable = true;
+  services.radarr.enable = true;
+  services.bazarr.enable = true;
+  services.lidarr.enable = true;
+  services.readarr.enable = true;
+  services.nzbget.enable = true;
+  services.jellyseerr.enable = true;
+  users.users.${config.services.sonarr.user}.extraGroups = [
+    config.services.transmission.user
+    config.services.nzbget.user
+  ];
+  users.users.${config.services.radarr.user}.extraGroups = [
+    config.services.transmission.user
+    config.services.nzbget.user
+  ];
+  users.users.${config.services.bazarr.user}.extraGroups = [
+    config.services.sonarr.user
+    config.services.radarr.user
+  ];
+  users.users.${config.services.lidarr.user}.extraGroups = [
+    config.services.transmission.user
+    config.services.nzbget.user
+  ];
+  users.users.${config.services.readarr.user}.extraGroups = [
+    config.services.transmission.user
+    config.services.nzbget.user
+  ];
+  # services.calibre-server.enable = true;
 
   age.secrets.restic-owl.file = ../../secrets/restic-owl.age;
   age.secrets.restic-gecko.file = ../../secrets/restic-gecko.age;
@@ -242,13 +291,26 @@
       findTime = "43200";
       logPath = "/var/lib/jellyfin/log/*.log";
     };
+    # requires 'Enable Proxy Support' for jellyseerr
+    jails."jellyseerr".settings = {
+      backend = "auto";
+      port = "80,443";
+      protocol = "tcp";
+      filter = "jellyseerr";
+      maxRetry = 3;
+      bantime = "86400";
+      findTime = "43200";
+      logPath = "/var/lib/jellyseerr/logs/overseerr.log";
+    };
   };
   environment.etc = {
-    "fail2ban/filter.d/jellyfin.local".text = pkgs.lib.mkDefault (
-      pkgs.lib.mkAfter ''
-        [Definition]
-        failregex = ^.*Authentication request for .* has been denied \(IP: "<ADDR>"\)\.
-      ''
-    );
+    "fail2ban/filter.d/jellyfin.local".text = ''
+      [Definition]
+      failregex = ^.*Authentication request for .* has been denied \(IP: "<ADDR>"\)\.
+    '';
+    "fail2ban/filter.d/jellyseerr.local".text = ''
+      [Definition]
+      failregex = ^.*\[warn\]\[Auth\]: Failed login attempt from user with incorrect Jellyfin credentials {"account":{"ip":"<HOST>","email":
+    '';
   };
 }
