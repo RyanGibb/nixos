@@ -178,7 +178,7 @@
     package = pkgs.transmission_3;
     settings = {
       download-dir = "/tank/transmission";
-      incomplete-dir-enabled = false;
+      incomplete-dir-enabled = true;
       rpc-whitelist = "127.0.0.1,100.64.*.*,192.168.1.*";
       rpc-bind-address = "0.0.0.0";
       rpc-host-whitelist-enabled = false;
