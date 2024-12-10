@@ -91,7 +91,27 @@ in
       plugins =
         with pkgs.vimPlugins;
         [
-          gruvbox-nvim
+          {
+            plugin = gruvbox-nvim;
+            type = "lua";
+            # TODO is there a better place to put this?
+            runtime =
+              let
+                ml-style = ''
+                  setlocal expandtab
+                  setlocal shiftwidth=2
+                  setlocal tabstop=2
+                  setlocal softtabstop=2
+                '';
+              in
+              {
+                "ftplugin/nix.vim".text = ml-style;
+                "ftplugin/ocaml.vim".text = ml-style;
+                "ftplugin/ledger.vim".text = ''
+                  setlocal foldmethod=syntax
+                '';
+              };
+          }
 
           {
             plugin = telescope-nvim;
@@ -411,32 +431,18 @@ in
             plugin = nvim-lspconfig;
             type = "lua";
             config = builtins.readFile ./lsp.lua;
-            runtime =
-              let
-                ml-style = ''
-                  setlocal expandtab
-                  setlocal shiftwidth=2
-                  setlocal tabstop=2
-                  setlocal softtabstop=2
-                '';
-              in
-              {
-                "ftplugin/nix.vim".text = ml-style;
-                "ftplugin/ocaml.vim".text = ml-style;
-                "ftplugin/java.lua".text = ''
-                  local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
-                  local workspace_dir = '~/.cache/jdt/' .. project_name
-                  require('jdtls').start_or_attach {
-                  	on_attach = On_attach,
-                  	capabilities = Capabilities,
-                  	cmd = { 'jdt-language-server', '-data', workspace_dir, },
-                  	root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
-                  }
-                '';
-                "ftplugin/ledger.vim".text = ''
-                  setlocal foldmethod=syntax
-                '';
-              };
+            runtime = {
+              "ftplugin/java.lua".text = ''
+                local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+                local workspace_dir = '~/.cache/jdt/' .. project_name
+                require('jdtls').start_or_attach {
+                	on_attach = On_attach,
+                	capabilities = Capabilities,
+                	cmd = { 'jdt-language-server', '-data', workspace_dir, },
+                	root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+                }
+              '';
+            };
           }
           {
             plugin = nvim-dap;
