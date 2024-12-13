@@ -191,10 +191,10 @@ local function session_completion(arg_lead, cmd_line, cursor_pos)
 	return sessions
 end
 
-vim.api.nvim_create_autocmd('VimLeave', {
-	pattern = '*',
-	callback = function() save_session({ args = '' }) end,
-})
+-- vim.api.nvim_create_autocmd('VimLeave', {
+-- 	pattern = '*',
+-- 	callback = function() save_session({ args = '' }) end,
+-- })
 
 vim.api.nvim_create_user_command('SaveSession', save_session, { nargs = '?', complete = session_completion })
 vim.api.nvim_create_user_command('LoadSession', load_session, { nargs = '?', complete = session_completion })
