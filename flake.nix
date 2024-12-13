@@ -3,6 +3,7 @@
     nixpkgs-compat.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-element.url = "github:nixos/nixpkgs/b91f647a35c4e18a73adf617e6ef9eb5f3baa503";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     agenix.url = "github:ryantm/agenix";
@@ -39,6 +40,7 @@
       nixpkgs-compat,
       nixpkgs,
       nixpkgs-unstable,
+      nixpkgs-element,
       home-manager,
       agenix,
       deploy-rs,
@@ -78,6 +80,11 @@
           });
           immich = final.overlay-unstable.immich;
           mautrix-whatsapp = final.overlay-compat.mautrix-whatsapp;
+          element-desktop  =
+            (import nixpkgs-element {
+              inherit system;
+              config = nixpkgsConfig;
+            }).element-desktop;
         })
       ];
     in
