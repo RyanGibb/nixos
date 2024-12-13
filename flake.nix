@@ -5,7 +5,6 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
-    home-manager-unstable.url = "github:nix-community/home-manager/master";
     agenix.url = "github:ryantm/agenix";
     deploy-rs.url = "github:serokell/deploy-rs";
     nix-on-droid.url = "github:nix-community/nix-on-droid/release-24.05";
@@ -22,6 +21,7 @@
     eilean.inputs.nixpkgs.follows = "nixpkgs";
     eilean.inputs.eon.follows = "eon";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
     nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
     nix-on-droid.inputs.home-manager.follows = "home-manager";
     alec-website.inputs.nixpkgs.follows = "nixpkgs";
@@ -30,6 +30,7 @@
     colour-guesser.inputs.nixpkgs.follows = "nixpkgs";
     i3-workspace-history.inputs.nixpkgs.follows = "nixpkgs";
     hyperbib-eeg.inputs.nixpkgs.follows = "nixpkgs";
+    nix-rpi5.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -39,7 +40,6 @@
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
-      home-manager-unstable,
       agenix,
       deploy-rs,
       nix-on-droid,
