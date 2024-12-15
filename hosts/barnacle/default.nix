@@ -6,6 +6,9 @@
   ...
 }:
 
+# build with:
+#   nix build /etc/nixos#nixosConfigurations.barnacle.config.system.build.isoImage
+
 {
   imports = [
     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
@@ -23,7 +26,7 @@
     homeManager.enable = true;
     username = "nixos";
   };
-  users.users.nixos.hashedPassword = lib.mkForce null;
+  users.users.${config.custom.username}.hashedPassword = lib.mkForce null;
   users.users.root.hashedPassword = lib.mkForce null;
 
   services.openssh.settings.PermitRootLogin = lib.mkForce "no";
@@ -36,14 +39,13 @@
     # networks = { "SSID" = { psk = "password"; }; };
   };
 
-  # build with:
-  #   nix build /etc/nixos#nixosConfigurations.barnacle.config.system.build.isoImage
-  isoImage.contents = [
-    {
+  home-manager.users.${config.custom.username}.config.home.file = {
+    "partition.sh".source = ./partition.sh;
+    "nixos" = {
+      recursive = true;
       source = ../..;
-      target = "nixos";
-    }
-  ];
+    };
+  };
 
   # comment this out to make a smaller image
   isoImage.squashfsCompression = "gzip -Xcompression-level 1";
