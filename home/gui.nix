@@ -87,6 +87,8 @@ in
           "services.sync.prefs.sync.browser.uiCustomization.state" = true;
 
           "extensions.pocket.enabled" = false;
+
+          "extensions.autoDisableScopes" = 0;
         };
         userChrome = ''
           #webrtcIndicator {
@@ -103,18 +105,30 @@ in
               visibility: collapse;
           }
         '';
+        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+          auto-tab-discard
+          bitwarden
+          multi-account-containers
+          news-feed-eradicator
+          istilldontcareaboutcookies
+          leechblock-ng
+          search-by-image
+          simple-translate
+          tree-style-tab
+          tridactyl
+          ublock-origin
+          zotero-connector
+        ];
       in
       {
         enable = true;
         profiles.default = {
-          settings = settings;
-          userChrome = userChrome;
+          inherit settings userChrome extensions;
         };
         profiles.secondary = {
+          inherit settings userChrome extensions;
           id = 1;
           isDefault = false;
-          settings = settings;
-          userChrome = userChrome;
         };
         package = (
           pkgs.firefox.override {
