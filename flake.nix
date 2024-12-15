@@ -83,7 +83,7 @@
           });
           immich = final.overlay-unstable.immich;
           mautrix-whatsapp = final.overlay-compat.mautrix-whatsapp;
-          element-desktop  =
+          element-desktop =
             (import nixpkgs-element {
               inherit system;
               config = nixpkgsConfig;
