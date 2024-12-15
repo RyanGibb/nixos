@@ -9,7 +9,12 @@ let
   cfg = config.custom;
 in
 {
-  config = lib.mkIf cfg.enable {
+  options.custom.useNixIndex = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+  };
+
+  config = lib.mkIf cfg.useNixIndex {
     environment.systemPackages = [ pkgs.nix-index ];
     programs.command-not-found.enable = false;
     home-manager.users.${config.custom.username} =
