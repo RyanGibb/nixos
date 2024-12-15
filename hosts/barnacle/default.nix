@@ -21,7 +21,10 @@
     gui.i3 = true;
     gui.sway = true;
     homeManager.enable = true;
+    username = "nixos";
   };
+  users.users.nixos.hashedPassword = lib.mkForce null;
+  users.users.root.hashedPassword = lib.mkForce null;
 
   services.openssh.settings.PermitRootLogin = lib.mkForce "no";
   services.getty.autologinUser = lib.mkForce "${config.custom.username}";
