@@ -81,5 +81,6 @@
 
   specialisation.nvidia.configuration = {
     services.xserver.videoDrivers = [ "nvidia" ];
+    hardware.nvidia.open = false;
   };
 }
