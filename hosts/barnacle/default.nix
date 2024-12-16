@@ -40,7 +40,7 @@
   };
 
   home-manager.users.${config.custom.username}.config.home.file = {
-    "partition.sh".source = ./partition.sh;
+    "install.sh".source = ./install.sh;
     "nixos" = {
       recursive = true;
       source = ../..;

@@ -273,5 +273,7 @@
       formatter = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
         system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style
       );
+
+      templates.host.path = ./templates/host;
     };
 }
