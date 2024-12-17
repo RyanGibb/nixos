@@ -62,9 +62,9 @@ bindsym $mod+$alt+Shift+space exec yad --entry --text input | xargs wtype
 
 set $mode_passthrough passthrough
 mode "$mode_passthrough" {
-    bindsym $mod+Delete mode "default"; notify-send "passthrough"
+    bindsym $mod+Delete mode "default"; exec notify-send "passthrough"
 }
-bindsym $mod+Delete mode "$mode_passthrough"; notify-send "passthrough"
+bindsym $mod+Delete mode "$mode_passthrough"; exec notify-send "passthrough"
 
 # for when latop output is disabled on resume
 bindsym $mod+Control+p output * enable; output * dpms on
