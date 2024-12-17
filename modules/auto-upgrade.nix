@@ -14,13 +14,13 @@ in
   config = lib.mkIf cfg.enable {
     system.autoUpgrade = {
       enable = true;
-      allowReboot = true;
+      # allowReboot = true;
       flake = inputs.self.outPath;
-      flags = [
-        "--update-input"
-        "nixpkgs"
-        "-L"
-      ];
+      # flags = [
+      #   "--update-input"
+      #   "nixpkgs"
+      #   "-L"
+      # ];
       dates = "03:00";
       randomizedDelaySec = "1hr";
       rebootWindow = {
