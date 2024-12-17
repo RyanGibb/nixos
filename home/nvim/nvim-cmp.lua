@@ -13,7 +13,7 @@ cmp.setup {
 				nvim_lsp = '[LSP]',
 				nvim_lsp_signature_help = '[Signature]',
 				spell = '[Spell]',
-				dictionary = '[Dictionaryy]',
+				dictionary = '[Dictionary]',
 				buffer = '[Buffer]',
 				path = '[Path]',
 				ls = '[Luasnip]',
@@ -65,7 +65,6 @@ cmp.setup {
 		priority_weight = 2,
 		comparators = {
 			cmp.config.compare.offset,
-			cmp.config.compare.exact,
 			-- cmp.config.compare.scopes,
 			cmp.config.compare.score,
 			cmp.config.compare.recently_used,
