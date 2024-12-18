@@ -12,9 +12,7 @@ in
   imports = [
     ./mail.nix
     ./calendar.nix
-    ./gui.nix
-    ./i3.nix
-    ./sway.nix
+    ./gui/default.nix
     ./nvim/default.nix
     ./emacs/default.nix
     ./battery.nix

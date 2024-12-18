@@ -9,6 +9,11 @@ let
   cfg = config.custom.gui;
 in
 {
+  imports = [
+    ./i3.nix
+    ./sway.nix
+  ];
+
   options.custom.gui.enable = lib.mkEnableOption "gui";
 
   config = lib.mkIf cfg.enable {
