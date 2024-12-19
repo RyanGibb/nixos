@@ -26,7 +26,7 @@ let
     displays = "wdisplays";
     bar = "swaybar";
     notification_deamon = "dunst";
-    i3_workspace_history = "${i3-workspace-history}";
+    i3_workspace_history = "${i3-workspace-history}/bin/i3-workspace-history";
     i3_workspace_history_args = "-sway";
   };
   util = import ./util.nix { inherit pkgs lib; };

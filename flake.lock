@@ -772,6 +772,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-stable": {
+      "locked": {
+        "lastModified": 1734323986,
+        "narHash": "sha256-m/lh6hYMIWDYHCAsn81CDAiXoT3gmxXI9J987W5tZrE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "394571358ce82dff7411395829aa6a3aad45b907",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-24.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1733940404,
@@ -1056,6 +1072,7 @@
         "colour-guesser": "colour-guesser",
         "deploy-rs": "deploy-rs",
         "eilean": "eilean",
+        "emacs-overlay": "emacs-overlay",
         "eon": "eon",
         "fn06-website": "fn06-website",
         "home-manager": "home-manager_2",

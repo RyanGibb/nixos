@@ -24,7 +24,7 @@ let
     displays = "arandr";
     bar = "i3bar";
     notification_deamon = "dunst";
-    i3_workspace_history = "${i3-workspace-history}";
+    i3_workspace_history = "${i3-workspace-history}/bin/i3-workspace-history";
     i3_workspace_history_args = "";
   };
   util = import ./util.nix { inherit pkgs lib; };
