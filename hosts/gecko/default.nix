@@ -115,7 +115,13 @@
     '')
     ddcutil
     anki
-    (aspellWithDicts (ps: with ps; [ en ]))
+    (aspellWithDicts (
+      ps: with ps; [
+        en
+        en-computers
+        en-science
+      ]
+    ))
     moreutils
     gnome-calendar
   ];
