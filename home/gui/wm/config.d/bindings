@@ -259,9 +259,9 @@ bindsym $mod+Shift+bracketright   move container to output right ; exec dunstify
 bindsym $mod+Control+bracketleft  move workspace to output left  ; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500
 bindsym $mod+Control+bracketright move workspace to output right ; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500
 
-bindsym $mod+m exec         $SCRIPT_DIR/ws_switch.sh    "$SCRIPT_DIR/get_free_ws_num.sh" ; exec st workspace -t 500
-bindsym $mod+Shift+m exec   $SCRIPT_DIR/ws_mv.sh        "$SCRIPT_DIR/get_free_ws_num.sh" ; exec st workspace -t 500
-bindsym $mod+Control+m exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/get_free_ws_num.sh" ; exec st workspace -t 500
+bindsym $mod+m exec         $SCRIPT_DIR/ws_switch.sh    "$SCRIPT_DIR/get_free_ws_num.sh"
+bindsym $mod+Shift+m exec   $SCRIPT_DIR/ws_mv.sh        "$SCRIPT_DIR/get_free_ws_num.sh"
+bindsym $mod+Control+m exec $SCRIPT_DIR/ws_switch_mv.sh "$SCRIPT_DIR/get_free_ws_num.sh"
 
 bindsym $mod+backslash         exec $SCRIPT_DIR/ws_switch.sh    "$SCRIPT_DIR/select_ws.sh"
 bindsym $mod+Shift+backslash   exec $SCRIPT_DIR/ws_mv.sh         "$SCRIPT_DIR/select_ws.sh"

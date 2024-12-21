@@ -9,3 +9,5 @@ $(dirname "$0")/focus_on_id.sh "$ID"
 @wmmsg@ workspace \"$NAME\"
 
 $(dirname "$0")/focus_on_id.sh "$ID"
+
+notify-send "$NAME" -t 500

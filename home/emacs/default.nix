@@ -33,14 +33,21 @@ in
       zstd
     ];
 
-    home.sessionPath = [ "$XDG_CONFIG_HOME/emacs/bin" ];
-
-    # modules.shell.zsh.rcFiles = [ "${config.xdg.configHome}/emacs/aliases.zsh" ];
+    programs.zsh.initExtra = lib.mkAfter ''
+      PATH="''${XDG_CONFIG_HOME:-$HOME/.config}/emacs/bin":$PATH
+    '';
 
     home.file = {
       ".mail.cap".text = ''
         application/pdf; xdg-open %s
       '';
+    };
+
+    services.emacs = {
+      enable = true;
+      package = emacs;
+      socketActivation.enable = true;
+      # defaultEditor = true;
     };
   };
 }

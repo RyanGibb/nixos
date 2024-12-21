@@ -150,6 +150,27 @@
         "type": "github"
       }
     },
+    "emacs-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-stable": "nixpkgs-stable"
+      },
+      "locked": {
+        "lastModified": 1734599675,
+        "narHash": "sha256-jTfIoLxbVK3r6rFHKs0JS8WEYrmp0AGomzGaPTDZvrE=",
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "rev": "df40078d8d4f3f0439e52a3f3e44af0005e6072e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "type": "github"
+      }
+    },
     "eon": {
       "inputs": {
         "flake-utils": "flake-utils_3",
