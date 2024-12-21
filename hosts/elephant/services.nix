@@ -3,6 +3,7 @@
   config,
   pkgs,
   lib,
+  nixpkgs-chromedriver,
   ...
 }:
 
@@ -183,10 +184,12 @@
       rpc-bind-address = "0.0.0.0";
       rpc-host-whitelist-enabled = false;
       ratio-limit-enabled = true;
+      download-queue-size = 20;
     };
   };
 
   services.prowlarr.enable = true;
+  services.flaresolverr.enable = true;
   services.sonarr.enable = true;
   services.radarr.enable = true;
   services.bazarr.enable = true;

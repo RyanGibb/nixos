@@ -18,6 +18,8 @@
     tailscale = true;
     autoUpgrade.enable = true;
     homeManager.enable = true;
+    gui.i3 = true;
+    gui.sway = true;
   };
 
   home-manager.users.${config.custom.username}.config.custom.machineColour = "blue";
