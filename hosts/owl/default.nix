@@ -334,13 +334,13 @@ in
           name = "jellyfin.${config.networking.domain}.";
           type = "A";
           # TODO dynamic update
-          value = "86.188.33.97";
+          value = "81.153.45.163";
         }
         {
           name = "jellyseerr.${config.networking.domain}.";
           type = "A";
           # TODO dynamic update
-          value = "86.188.33.97";
+          value = "81.153.45.163";
         }
       ];
     };
@@ -490,4 +490,6 @@ in
     eula = true;
     openFirewall = true;
   };
+
+  networking.firewall.allowedTCPPorts = [ 7001 ];
 }
