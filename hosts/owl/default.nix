@@ -338,11 +338,21 @@ in
           ttl = 60;
         }
         {
+          name = "jellyfin.${config.networking.domain}.";
+          type = "AAAA";
+          value = "2a00:23c6:aa22:e401:8dff:9b9a:cb3c:3fcb";
+        }
+        {
           name = "jellyseerr.${config.networking.domain}.";
           type = "A";
           # TODO dynamic update
           value = "81.153.45.163";
           ttl = 60;
+        }
+        {
+          name = "jellyseerr.${config.networking.domain}.";
+          type = "AAAA";
+          value = "2a00:23c6:aa22:e401:8dff:9b9a:cb3c:3fcb";
         }
       ];
     };
