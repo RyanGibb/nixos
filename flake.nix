@@ -5,6 +5,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-element.url = "github:nixos/nixpkgs/b91f647a35c4e18a73adf617e6ef9eb5f3baa503";
     nixpkgs-flaresolverr.url = "github:nixos/nixpkgs/ebbc0409688869938bbcf630da1c1c13744d2a7b";
+    nixpkgs-sonarr.url = "github:nixos/nixpkgs/394571358ce82dff7411395829aa6a3aad45b907";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     agenix.url = "github:ryantm/agenix";
@@ -53,6 +54,7 @@
       eilean,
       nur,
       nixpkgs-flaresolverr,
+      nixpkgs-sonarr,
       ...
     }@inputs:
     let
@@ -98,6 +100,11 @@
               inherit system;
               config = nixpkgsConfig;
             }).flaresolverr;
+          sonarr =
+            (import nixpkgs-sonarr {
+              inherit system;
+              config = nixpkgsConfig;
+            }).sonarr;
         })
         nur.overlays.default
       ];
