@@ -335,12 +335,14 @@ in
           type = "A";
           # TODO dynamic update
           value = "81.153.45.163";
+          ttl = 60;
         }
         {
           name = "jellyseerr.${config.networking.domain}.";
           type = "A";
           # TODO dynamic update
           value = "81.153.45.163";
+          ttl = 60;
         }
       ];
     };
