@@ -201,8 +201,8 @@ end
 vim.api.nvim_create_user_command('SaveSession', save_session, { nargs = '?', complete = session_completion })
 vim.api.nvim_create_user_command('LoadSession', load_session, { nargs = '?', complete = session_completion })
 
-vim.keymap.set('n', '<leader>qs', ':SaveSession<CR>')
-vim.keymap.set('n', '<leader>ql', ':LoadSession<CR>')
+vim.keymap.set('n', '<leader>qs', ':SaveSession<CR>', { desc = 'Save session' })
+vim.keymap.set('n', '<leader>ql', ':LoadSession<CR>', { desc = 'Load session' })
 
 -- free real-estate
 -- <leader>n

@@ -12,7 +12,6 @@ cmp.setup {
 				omni = '[Omni]',
 				nvim_lsp = '[LSP]',
 				nvim_lsp_signature_help = '[Signature]',
-				spell = '[Spell]',
 				dictionary = '[Dictionary]',
 				buffer = '[Buffer]',
 				path = '[Path]',
@@ -54,12 +53,8 @@ cmp.setup {
 			name = 'dictionary',
 			priority = 400,
 			keyword_length = 2,
-		},
-		{
-			name = 'spell',
-			priority = 300,
-			option = { preselect_correct_word = false }
-		},
+		}
+		,
 	}),
 	sorting = {
 		priority_weight = 2,

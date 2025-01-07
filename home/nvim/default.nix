@@ -16,17 +16,6 @@ let
       sha256 = "sha256-jY3ALr6h88xnWN2QdKe3R0vvRcSNhFWDW56b2NvnTCs=";
     };
   };
-  cmp-spell = pkgs.vimUtils.buildVimPlugin {
-    pname = "cmp-spell";
-    version = "2024-05-07";
-    src = pkgs.fetchFromGitHub {
-      owner = "f3fora";
-      repo = "cmp-spell";
-      rev = "694a4e50809d6d645c1ea29015dad0c293f019d6";
-      sha256 = "Gf7HSocvHmTleVQytNYmmN+fFX7kl5sYHQSpUJc0CGI=";
-    };
-    meta.homepage = "https://github.com/f3fora/cmp-spell/";
-  };
   vim-ledger-2024-07-15 = pkgs.vimUtils.buildVimPlugin {
     pname = "vim-ledger";
     version = "2024-07-15";
@@ -123,21 +112,6 @@ in
           telescope-file-browser-nvim
 
           {
-            plugin = trouble-nvim;
-            type = "lua";
-            config = ''
-              require('trouble').setup {
-              	icons = false,
-              }
-              vim.keymap.set('n', '<leader>xx', function() require('trouble').toggle() end, { desc = 'Trouble toggle' })
-              vim.keymap.set('n', '<leader>xw', function() require('trouble').toggle('workspace_diagnostics') end, { desc = 'Trouble workspace' })
-              vim.keymap.set('n', '<leader>xd', function() require('trouble').toggle('document_diagnostics') end, { desc = 'Trouble document' })
-              vim.keymap.set('n', '<leader>xq', function() require('trouble').toggle('quickfix') end, { desc = 'Trouble quickfix' })
-              vim.keymap.set('n', '<leader>xl', function() require('trouble').toggle('loclist') end, { desc = 'Trouble loclist' })
-              vim.keymap.set('n', '<leader>xr', function() require('trouble').toggle('lsp_references') end, { desc = 'Trouble LSP references' })
-            '';
-          }
-          {
             plugin = gitsigns-nvim;
             type = "lua";
             config = ''
@@ -207,7 +181,6 @@ in
           cmp-path
           cmp-buffer
           cmp-cmdline
-          cmp-spell
           {
             plugin = cmp-dictionary;
             type = "lua";
@@ -380,23 +353,6 @@ in
           }
 
           {
-            plugin = pkgs.notmuch;
-            runtime =
-              let
-                notmuch-style = ''
-                  let g:notmuch_date_format = '%Y-%m-%d'
-                  let g:notmuch_datetime_format = '%Y-%m-%d %I:%M%p'
-                '';
-              in
-              {
-                "ftplugin/notmuch-folders.vim".text = notmuch-style;
-                "ftplugin/notmuch-search.vim".text = notmuch-style;
-                "ftplugin/notmuch-show.vim".text = notmuch-style;
-                "ftplugin/notmuch-compose.vim".text = notmuch-style;
-              };
-          }
-
-          {
             plugin = vim-ledger-2024-07-15;
             type = "lua";
             config = ''
@@ -423,14 +379,6 @@ in
                org_agenda_files = { '~/vault/*.org' },
                org_default_notes_file = '~/vault/refile.org',
               })
-            '';
-          }
-
-          {
-            plugin = calendar-nvim;
-            type = "lua";
-            config = ''
-              require('calendar')
             '';
           }
         ]
