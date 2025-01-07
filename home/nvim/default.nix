@@ -413,9 +413,17 @@ in
             '';
           }
           {
-            plugin = obsidian-nvim;
+            plugin = orgmode;
             type = "lua";
-            config = builtins.readFile ./obsidian.lua;
+            config = ''
+              -- Open agenda prompt: <Leader>oa
+              -- Open capture prompt: <Leader>oc
+              -- In any orgmode buffer press g? for help
+              require('orgmode').setup({
+               org_agenda_files = { '~/vault/*.org' },
+               org_default_notes_file = '~/vault/refile.org',
+              })
+            '';
           }
 
           {
