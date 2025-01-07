@@ -68,8 +68,8 @@ vim.g.vim_markdown_follow_anchor = 1
 
 vim.o.cursorcolumn = true
 
-vim.keymap.set('n', '<leader>w', ':w<CR>', { desc = 'Write file' })
-vim.keymap.set('n', '<leader>q', ':qa<CR>', { desc = 'Quit all' })
+vim.keymap.set('n', '<leader>fs', ':w<CR>', { desc = 'Write file' })
+vim.keymap.set('n', '<leader>qq', ':qa<CR>', { desc = 'Quit all' })
 
 vim.keymap.set('n', 'ZA', ':cquit<Enter>', { desc = 'Quit and fail' })
 
@@ -80,9 +80,11 @@ vim.keymap.set('n', '<leader>id', [[<Cmd>lua vim.api.nvim_put({vim.fn.strftime('
 
 vim.keymap.set('n', '!', ':term ', { desc = 'terminal' })
 
-vim.keymap.set('n', '<leader>gn', ':Neogit', { desc = 'Neogit' })
+vim.keymap.set('n', '<leader>gg', ':Neogit', { desc = 'Neogit' })
 
 vim.keymap.set('n', '<leader>m', ':make<Enter>', { desc = 'Make' })
+
+vim.keymap.set('n', '<leader>w', '<C-w>', { desc = 'Window commands' })
 
 -- go though spelling mistakes
 vim.keymap.set('n', '<C-s>', ']s1z=', { desc = 'correct next spelling mistake' })
@@ -199,16 +201,15 @@ end
 vim.api.nvim_create_user_command('SaveSession', save_session, { nargs = '?', complete = session_completion })
 vim.api.nvim_create_user_command('LoadSession', load_session, { nargs = '?', complete = session_completion })
 
-vim.keymap.set('n', '<leader>ss', ':SaveSession<CR>')
-vim.keymap.set('n', '<leader>sl', ':LoadSession<CR>')
+vim.keymap.set('n', '<leader>qs', ':SaveSession<CR>')
+vim.keymap.set('n', '<leader>ql', ':LoadSession<CR>')
 
 -- free real-estate
 -- <leader>n
 -- <leader>;
 -- <leader>e
 -- <leader>v
--- <leader>c
--- <leader>h
+-- <leader>l
 -- <leader>j
 -- <leader>k
 -- <leader>z

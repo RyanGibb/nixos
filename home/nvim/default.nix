@@ -416,8 +416,8 @@ in
             plugin = orgmode;
             type = "lua";
             config = ''
-              -- Open agenda prompt: <Leader>oa
-              -- Open capture prompt: <Leader>oc
+              -- Open agenda prompt: <leader>oa
+              -- Open capture prompt: <leader>oc
               -- In any orgmode buffer press g? for help
               require('orgmode').setup({
                org_agenda_files = { '~/vault/*.org' },
