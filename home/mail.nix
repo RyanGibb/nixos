@@ -12,10 +12,9 @@ let
     ${pkgs.ugrep}/bin/ugrep -jPh -m 100 --color=never "$1" cat ${config.accounts.email.maildirBasePath}/addressbook/cam-ldap)
   '';
   sync-mail = pkgs.writeScriptBin "sync-mail" ''
-    #!/usr/bin/env bash
     ${pkgs.isync}/bin/mbsync "$1" || exit 1
     ${pkgs.procps}/bin/pkill -2 -x mu
-    sleep 1
+    ${pkgs.coreutils}/bin/sleep 1
     ${pkgs.mu}/bin/mu index
   '';
   cfg = config.custom.mail;
@@ -112,7 +111,7 @@ in
           imapnotify = {
             enable = true;
             boxes = [ "Inbox" ];
-            onNotify = "${sync-mail}/bin/mbsync ryan@freumh.org";
+            onNotify = "${sync-mail}/bin/sync-mail ryan@freumh.org:INBOX";
           };
           mbsync = {
             enable = true;
@@ -126,7 +125,7 @@ in
           aerc = {
             enable = true;
             extraAccounts = {
-              check-mail-cmd = "${sync-mail}/bin/mbsync ryan@freumh.org";
+              check-mail-cmd = "${sync-mail}/bin/sync-mail ryan@freumh.org";
               check-mail-timeout = "1m";
               check-mail = "1h";
               folders-sort = [
@@ -174,7 +173,7 @@ in
           imapnotify = {
             enable = true;
             boxes = [ "Inbox" ];
-            onNotify = "${sync-mail}/bin/mbsync misc@freumh.org";
+            onNotify = "${sync-mail}/bin/sync-mail misc@freumh.org:INBOX";
           };
           mbsync = {
             enable = true;
@@ -212,7 +211,7 @@ in
           imapnotify = {
             enable = true;
             boxes = [ "Inbox" ];
-            onNotify = "${sync-mail}/bin/mbsync ryan.gibb@cl.cam.ac.uk";
+            onNotify = "${sync-mail}/bin/sync-mail ryan.gibb@cl.cam.ac.uk:INBOX";
           };
           mbsync = {
             enable = true;
@@ -226,7 +225,7 @@ in
           aerc = {
             enable = true;
             extraAccounts = {
-              check-mail-cmd = "${sync-mail}/bin/mbsync ryan.gibb@cl.cam.ac.uk";
+              check-mail-cmd = "${sync-mail}/bin/sync-mail ryan.gibb@cl.cam.ac.uk";
               check-mail-timeout = "1m";
               check-mail = "1h";
               aliases = "rtg24@cam.ac.uk";
@@ -271,7 +270,7 @@ in
           imapnotify = {
             enable = true;
             boxes = [ "Inbox" ];
-            onNotify = "${sync-mail}/bin/mbsync ryangibb321@gmail.com";
+            onNotify = "${sync-mail}/bin/sync-mail ryangibb321@gmail.com:INBOX";
           };
           mbsync = {
             enable = true;
@@ -285,7 +284,7 @@ in
           aerc = {
             enable = true;
             extraAccounts = {
-              check-mail-cmd = "${sync-mail}/bin/mbsync ryangibb321@gmail.com";
+              check-mail-cmd = "${sync-mail}/bin/sync-mail ryangibb321@gmail.com";
               check-mail-timeout = "1m";
               check-mail = "1h";
               folders-sort = [
