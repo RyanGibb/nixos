@@ -39,7 +39,7 @@ in
           status = pkgs.stdenv.mkDerivation {
             name = "status";
 
-            src = ./status;
+            src = ../status;
 
             installPhase = ''
               mkdir -p $out
