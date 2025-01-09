@@ -16,6 +16,7 @@ cmp.setup {
 				buffer = '[Buffer]',
 				path = '[Path]',
 				ls = '[Luasnip]',
+				orgmode = '[Orgmode]',
 			})[entry.source.name]
 			return vim_item
 		end,
@@ -43,6 +44,7 @@ cmp.setup {
 		},
 	},
 	sources = cmp.config.sources({
+		{ name = 'orgmode',                 priority = 1100 },
 		{ name = 'nvim_lsp_signature_help', priority = 1000 },
 		{ name = 'nvim_lsp',                priority = 900 },
 		{ name = 'luasnip',                 priority = 800 },

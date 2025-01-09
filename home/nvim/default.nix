@@ -372,12 +372,16 @@ in
             plugin = orgmode;
             type = "lua";
             config = ''
-              -- Open agenda prompt: <leader>oa
-              -- Open capture prompt: <leader>oc
               -- In any orgmode buffer press g? for help
               require('orgmode').setup({
-               org_agenda_files = { '~/vault/*.org' },
-               org_default_notes_file = '~/vault/todo.org',
+                org_agenda_files = { '~/vault/*.org' },
+                org_default_notes_file = '~/vault/todo.org',
+                org_capture_templates = {
+                  t = {
+                    description = 'Task',
+                    template = '* TODO %?\n  %u',
+                  },
+                },
               })
             '';
           }
