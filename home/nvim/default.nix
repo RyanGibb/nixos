@@ -377,7 +377,7 @@ in
               -- In any orgmode buffer press g? for help
               require('orgmode').setup({
                org_agenda_files = { '~/vault/*.org' },
-               org_default_notes_file = '~/vault/refile.org',
+               org_default_notes_file = '~/vault/todo.org',
               })
             '';
           }
