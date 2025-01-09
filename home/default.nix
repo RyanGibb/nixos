@@ -30,41 +30,20 @@ in
       NIX_AUTO_RUN_INTERACTIVE = "y";
       GOPATH = "$HOME/.go";
     };
-    home.packages =
-      let
-        status = pkgs.stdenv.mkDerivation {
-          name = "status";
-
-          src = ./status;
-
-          installPhase = ''
-            mkdir -p $out
-            cp -r * $out
-          '';
-        };
-      in
-      with pkgs;
-      [
-        status
-        tree
-        htop
-        gnumake
-        killall
-        inetutils
-        dnsutils
-        nmap
-        gcc
-        fzf
-        nix-tree
-        jq
-        bc
-        openssh
-        # multicore rust command line utils
-        dua
-        fd
-        bat
-        ripgrep
-      ];
+    home.packages = with pkgs; [
+      htop
+      gnumake
+      inetutils
+      dig
+      fzf
+      jq
+      bc
+      openssh
+      # multicore rust command line utils
+      dua
+      fd
+      ripgrep
+    ];
 
     home.shellAliases = {
       ls = "ls -p --color=auto";

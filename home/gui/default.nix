@@ -34,6 +34,20 @@ in
     };
 
     home = {
+      packages =
+        let
+          status = pkgs.stdenv.mkDerivation {
+            name = "status";
+
+            src = ./status;
+
+            installPhase = ''
+              mkdir -p $out
+              cp -r * $out
+            '';
+          };
+        in
+        [ status ];
       sessionVariables = {
         # evince workaround
         GTK_THEME = "Gruvbox-Dark";

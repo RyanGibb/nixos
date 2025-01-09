@@ -11,7 +11,6 @@
   environment.packages = with pkgs; [
     util-linux # for whereis
     gawk # for shell history search
-    ffmpeg
     ledger
   ];
   environment.etcBackupExtension = ".bak";
@@ -29,6 +28,8 @@
       { pkgs, lib, ... }:
       {
         imports = [ ../home/default.nix ];
+
+        programs.gpg.enable = lib.mkForce false;
 
         # Use the same overlays as the system packages
         nixpkgs = { inherit (config.nixpkgs) overlays; };
