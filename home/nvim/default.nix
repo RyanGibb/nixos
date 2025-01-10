@@ -98,6 +98,8 @@ in
                 "ftplugin/ocaml.vim".text = ml-style;
                 "ftplugin/ledger.vim".text = ''
                   setlocal foldmethod=syntax
+                  vnoremap <silent> <buffer> <Tab> :LedgerAlign<CR>
+                  nnoremap <silent> <buffer> <Tab> :LedgerAlign<CR>
                 '';
               };
           }
