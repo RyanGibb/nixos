@@ -316,4 +316,28 @@
       failregex = ^.*\[warn\]\[Auth\]: Failed login attempt from user with incorrect Jellyfin credentials {"account":{"ip":"<HOST>","email":
     '';
   };
+
+  systemd.services.ddns = {
+    description = "Dynamic DNS";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    serviceConfig = {
+      ExecStart = pkgs.writeShellScript "update-dns" ''
+        while true; do
+          IP="$(${pkgs.curl}/bin/curl https://ipinfo.io/ip 2> /dev/null)";
+          echo $IP;
+          ${config.services.eon.package}/bin/capc update /run/agenix/eon-freumh.org.cap \
+            -u remove/jellyfin.freumh.org/A \
+            -u remove/jellyseerr.freumh.org/A \
+            -u add/jellyfin.freumh.org/A/"$IP"/60 \
+            -u add/jellyseerr.freumh.org/A/"$IP"/60;
+          sleep 3600;
+        done
+      '';
+      Restart = "always";
+      RestartSec = 5;
+      User = "root";
+    };
+  };
 }
