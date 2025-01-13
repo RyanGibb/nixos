@@ -32,6 +32,7 @@ require('telescope').setup {
 }
 
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = 'Find files' })
+vim.keymap.set('n', '<leader><leader>', require('telescope.builtin').find_files, { desc = 'Find files' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').live_grep, { desc = 'Find grep' })
 vim.keymap.set('n', '<leader>fv', require('telescope.builtin').git_files, { desc = 'Find version control' })
 vim.keymap.set('n', '<leader>bb', function() require('telescope.builtin').buffers({ sort_mru = true }) end, { desc = 'Find buffer' })
