@@ -57,6 +57,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    gcc
     dell-command-configure
     file-roller
     unzip
