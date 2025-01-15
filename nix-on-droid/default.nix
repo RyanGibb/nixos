@@ -67,7 +67,7 @@
         };
 
         home.sessionVariables = {
-          LEDGER_FILE = ''~/storage/Documents/vault/ledger/`date "+%Y"`.ledger'';
+          LEDGER_FILE = "~/storage/Documents/vault/finaces.ledger";
         };
 
         home.stateVersion = "22.05";
