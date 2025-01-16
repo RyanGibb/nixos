@@ -100,6 +100,7 @@ in
         pulseaudio
         tridactyl-native
         vlc
+        timewall
       ]
       ++ desktopEntries;
 

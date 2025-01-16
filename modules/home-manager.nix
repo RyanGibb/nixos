@@ -11,6 +11,7 @@ in
       useGlobalPkgs = true;
       extraSpecialArgs = {
         i3-workspace-history = inputs.i3-workspace-history;
+        timewall = inputs.timewall;
       };
       users.${config.custom.username} = import ../home/default.nix;
     };

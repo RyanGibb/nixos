@@ -3,7 +3,7 @@
   config,
   lib,
   ...
-}:
+}@inputs:
 
 let
   cfg = config.custom.gui;
@@ -12,6 +12,7 @@ in
   imports = [
     ./i3.nix
     ./sway.nix
+    inputs.timewall.homeManagerModules.default
   ];
 
   options.custom.gui.enable = lib.mkEnableOption "gui";
@@ -48,6 +49,7 @@ in
           };
         in
         [ status ];
+
       sessionVariables = {
         # evince workaround
         GTK_THEME = "Gruvbox-Dark";
@@ -181,6 +183,20 @@ in
         desktop = "$HOME/";
         templates = "$HOME/";
         publicShare = "$HOME/";
+      };
+    };
+
+    services.timewall = {
+      config = {
+        location = {
+          lat = 52;
+          lon = 0;
+        };
+        setter.command = [
+          "sh"
+          "-c"
+          "ln -fs %f ~/.cache/timewall/last_image && swaymsg output \\* bg %f fill #282828"
+        ];
       };
     };
   };
