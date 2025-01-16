@@ -82,7 +82,7 @@ vim.keymap.set('n', '!', ':term ', { desc = 'terminal' })
 
 vim.keymap.set('n', '<leader>gg', ':Neogit', { desc = 'Neogit' })
 
-vim.keymap.set('n', '<leader>m', ':make<Enter>', { desc = 'Make' })
+vim.keymap.set('n', '<leader>om', ':make<Enter>', { desc = 'Make' })
 
 vim.keymap.set('n', '<leader>w', '<C-w>', { desc = 'Window commands' })
 

@@ -286,9 +286,11 @@ in
           {
             plugin = sved;
             type = "lua";
-            config = ''
-              vim.keymap.set('n', '<leader>lv', ':call SVED_Sync()<CR>')
-            '';
+            runtime = {
+              "ftplugin/tex.lua".text = ''
+                vim.keymap.set('n', '<localleader>v', ':call SVED_Sync()<CR>')
+              '';
+            };
           }
           cmp-omni
 
