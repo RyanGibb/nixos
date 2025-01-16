@@ -131,7 +131,7 @@ in
           news-feed-eradicator
           istilldontcareaboutcookies
           leechblock-ng
-          search-by-image
+          # search-by-image
           simple-translate
           tree-style-tab
           tridactyl
