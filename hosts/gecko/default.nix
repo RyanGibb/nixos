@@ -125,6 +125,9 @@
     ))
     moreutils
     gnome-calendar
+    cargo
+    rustc
+    rust-analyzer
   ];
 
   services.gnome.gnome-keyring.enable = true;

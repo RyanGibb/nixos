@@ -73,6 +73,7 @@ in
           nodejs_18
           clang-tools
           typst-lsp
+          rust-analyzer
         ];
       extraLuaConfig = builtins.readFile ./init.lua;
       # undo transparent background
