@@ -101,9 +101,6 @@
     nix-prefetch-git
     tcpdump
     pandoc
-    w3m
-    ranger
-    bluetuith
     powertop
     toot
     ledger

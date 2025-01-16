@@ -63,7 +63,6 @@ in
     };
 
     hardware.bluetooth.enable = true;
-    services.blueman.enable = true;
 
     environment.systemPackages =
       with pkgs;
@@ -81,6 +80,7 @@ in
         jq
         playerctl
         brightnessctl
+        bluetuith
         xdg-utils
         yad
         networkmanagerapplet

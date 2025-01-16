@@ -60,9 +60,6 @@
     nix-prefetch-git
     tcpdump
     pandoc
-    ranger
-    bluetuith
-    powertop
     ledger
   ];
 
