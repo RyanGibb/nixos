@@ -20,7 +20,6 @@
     hyperbib-eeg.url = "github:RyanGibb/hyperbib?ref=nixify";
     nix-rpi5.url = "gitlab:vriska/nix-rpi5?ref=main";
     nur.url = "github:nix-community/NUR/e9e77b7985ef9bdeca12a38523c63d47555cc89b";
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
 
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
@@ -37,36 +36,20 @@
     hyperbib-eeg.inputs.nixpkgs.follows = "nixpkgs";
     nix-rpi5.inputs.nixpkgs.follows = "nixpkgs";
     nur.inputs.nixpkgs.follows = "nixpkgs";
-    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
-    {
-      self,
-      nixpkgs-compat,
-      nixpkgs,
-      nixpkgs-unstable,
-      nixpkgs-element,
-      home-manager,
-      agenix,
-      deploy-rs,
-      nix-on-droid,
-      eilean,
-      nur,
-      nixpkgs-flaresolverr,
-      nixpkgs-sonarr,
-      ...
-    }@inputs:
+    inputs:
     let
       getSystemOverlays = system: nixpkgsConfig: [
         (final: prev: {
           # https://github.com/mautrix/whatsapp/issues/749
-          overlay-compat = import nixpkgs-compat {
+          overlay-compat = import inputs.nixpkgs-compat {
             inherit system;
             # follow stable nixpkgs config
             config = nixpkgsConfig;
           };
-          overlay-unstable = import nixpkgs-unstable {
+          overlay-unstable = import inputs.nixpkgs-unstable {
             inherit system;
             # follow stable nixpkgs config
             config = nixpkgsConfig;
@@ -90,23 +73,23 @@
           immich = final.overlay-unstable.immich;
           mautrix-whatsapp = final.overlay-compat.mautrix-whatsapp;
           element-desktop =
-            (import nixpkgs-element {
+            (import inputs.nixpkgs-element {
               inherit system;
               config = nixpkgsConfig;
             }).element-desktop;
           # https://github.com/NixOS/nixpkgs/issues/332776
           flaresolverr =
-            (import nixpkgs-flaresolverr {
+            (import inputs.nixpkgs-flaresolverr {
               inherit system;
               config = nixpkgsConfig;
             }).flaresolverr;
           sonarr =
-            (import nixpkgs-sonarr {
+            (import inputs.nixpkgs-sonarr {
               inherit system;
               config = nixpkgsConfig;
             }).sonarr;
         })
-        nur.overlays.default
+        inputs.nur.overlays.default
       ];
     in
     {
@@ -115,8 +98,8 @@
           mkMode =
             mode: host:
             let
-              host-nixpkgs = nixpkgs;
-              host-home-manager = home-manager;
+              host-nixpkgs = inputs.nixpkgs;
+              host-home-manager = inputs.home-manager;
             in
             host-nixpkgs.lib.nixosSystem {
               # use system from config.localSystem
@@ -135,7 +118,7 @@
                     nix.registry.nixpkgs.flake = host-nixpkgs;
                     system.stateVersion = "24.05";
                     # record git revision (can be queried with `nixos-version --json)
-                    system.configurationRevision = host-nixpkgs.lib.mkIf (self ? rev) self.rev;
+                    system.configurationRevision = host-nixpkgs.lib.mkIf (inputs.self ? rev) inputs.self.rev;
                     nixpkgs = {
                       config.allowUnfree = true;
                       config.permittedInsecurePackages = [
@@ -156,8 +139,8 @@
                   }
                 )
                 host-home-manager.nixosModule
-                eilean.nixosModules.default
-                agenix.nixosModules.default
+                inputs.eilean.nixosModules.default
+                inputs.agenix.nixosModules.default
               ];
             };
           readModes =
@@ -166,14 +149,14 @@
               files = builtins.readDir dir;
             in
             let
-              filtered = nixpkgs.lib.attrsets.filterAttrs (
+              filtered = inputs.nixpkgs.lib.attrsets.filterAttrs (
                 n: v: v == "regular" && (n == "default.nix" || n == "minimal.nix")
               ) files;
             in
             let
-              names = nixpkgs.lib.attrNames filtered;
+              names = inputs.nixpkgs.lib.attrNames filtered;
             in
-            builtins.map (f: nixpkgs.lib.strings.removeSuffix ".nix" f) names;
+            builtins.map (f: inputs.nixpkgs.lib.strings.removeSuffix ".nix" f) names;
           mkModes =
             host: modes:
             builtins.map (mode: {
@@ -186,7 +169,7 @@
               nestedList = builtins.map (host: mkModes host (readModes ./hosts/${host})) hosts;
             in
             let
-              list = nixpkgs.lib.lists.flatten nestedList;
+              list = inputs.nixpkgs.lib.lists.flatten nestedList;
             in
             builtins.listToAttrs list;
           hosts = builtins.attrNames (builtins.readDir ./hosts);
@@ -200,14 +183,14 @@
             (
               name:
               let
-                machine = self.nixosConfigurations.${name};
+                machine = inputs.self.nixosConfigurations.${name};
                 system = machine.pkgs.system;
-                pkgs = import nixpkgs { inherit system; };
+                pkgs = import inputs.nixpkgs { inherit system; };
                 # nixpkgs with deploy-rs overlay but force the nixpkgs package
-                deployPkgs = import nixpkgs {
+                deployPkgs = import inputs.nixpkgs {
                   inherit system;
                   overlays = [
-                    deploy-rs.overlay
+                    inputs.deploy-rs.overlay
                     (self: super: {
                       deploy-rs = {
                         inherit (pkgs) deploy-rs;
@@ -244,9 +227,9 @@
         );
       };
 
-      nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
+      nixOnDroidConfigurations.default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
         modules = [ ./nix-on-droid/default.nix ];
-        pkgs = import nixpkgs {
+        pkgs = import inputs.nixpkgs {
           overlays = getSystemOverlays "aarch64-linux" { };
           config.permittedInsecurePackages = [
             # https://github.com/nix-community/nixd/issues/357
@@ -259,9 +242,9 @@
         rtg24 =
           let
             system = "x86_64-linux";
-            pkgs = nixpkgs.legacyPackages.${system};
+            pkgs = inputs.nixpkgs.legacyPackages.${system};
           in
-          home-manager.lib.homeManagerConfiguration {
+          inputs.home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
             modules = [
               ./home/default.nix
@@ -280,15 +263,15 @@
           };
       };
 
-      legacyPackages = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: {
-        nixpkgs = import nixpkgs {
+      legacyPackages = inputs.nixpkgs.lib.genAttrs inputs.nixpkgs.lib.systems.flakeExposed (system: {
+        nixpkgs = import inputs.nixpkgs {
           inherit system;
           overlays = getSystemOverlays system { };
         };
       });
 
-      formatter = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
-        system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style
+      formatter = inputs.nixpkgs.lib.genAttrs inputs.nixpkgs.lib.systems.flakeExposed (
+        system: inputs.nixpkgs.legacyPackages.${system}.nixfmt-rfc-style
       );
 
       templates.host.path = ./templates/host;

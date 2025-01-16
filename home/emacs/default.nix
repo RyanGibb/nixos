@@ -3,7 +3,7 @@
   lib,
   config,
   ...
-}@inputs:
+}:
 
 let
   cfg = config.custom.emacs;
@@ -19,10 +19,6 @@ in
   options.custom.emacs.enable = lib.mkEnableOption "emacs";
 
   config = lib.mkIf cfg.enable {
-    nixpkgs.overlays = [
-      inputs.emacs-overlay.overlays.default
-    ];
-
     home.packages = with pkgs; [
       binutils
       emacs
