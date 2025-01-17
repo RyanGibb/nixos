@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-pkill swayidle
+pkill -x swayidle
 
 swayidle -w\
 	lock '@locker@'\

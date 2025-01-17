@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-pkill swayidle
+pkill -x swayidle
 
 swayidle -w\
 	lock '@locker@'\
@@ -9,5 +9,6 @@ swayidle -w\
 		resume '@wmmsg@ "output * dpms on"'\
 	timeout 240 'loginctl lock-session'\
 	timeout 300 'systemctl suspend-then-hibernate'\
-	before-sleep 'playerctl -a pause; loginctl lock-session'
+	before-sleep 'playerctl -a pause; loginctl lock-session'\
+	after-resume 'pkill -x swaylock; timewall set; loginctl lock-session' # for timewall
 
