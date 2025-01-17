@@ -13,3 +13,10 @@ exec wl-paste -t text --watch clipman store -P --max-items=100
 exec systemctl --user start gammastep
 
 exec timewall set --daemon
+
+# https://github.com/dunst-project/dunst/issues/1396
+exec while true; do \
+        swaymsg -t subscribe '["output"]'; \
+        sleep 3; \
+        pkill dunst; \
+    done
