@@ -23,7 +23,7 @@ in
       wrapperFeatures.gtk = true; # so that gtk works properly
       extraPackages = with pkgs; [
         jq
-        swaylock
+        swaylock-plugin
         swayidle
         wl-clipboard
         clipman
@@ -55,5 +55,7 @@ in
       isAllowed = true;
       isSystem = false;
     };
+
+    security.pam.services.swaylock-plugin = {};
   };
 }

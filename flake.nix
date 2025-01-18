@@ -88,6 +88,7 @@
               inherit system;
               config = nixpkgsConfig;
             }).sonarr;
+          swaylock-plugin = prev.callPackage ./pkgs/swaylock-plugin.nix { };
         })
         inputs.nur.overlays.default
       ];
