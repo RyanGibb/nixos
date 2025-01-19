@@ -55,5 +55,9 @@ in
       isAllowed = true;
       isSystem = false;
     };
+    services.geoclue2.appConfig.timewall = {
+      isAllowed = true;
+      isSystem = false;
+    };
   };
 }
