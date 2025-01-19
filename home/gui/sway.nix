@@ -18,7 +18,7 @@ let
     '';
     locked = "--locked";
     polkit_gnome = "${pkgs.polkit_gnome}";
-    locker = ''swaylock-plugin -f --command "timewall set --daemon"'';
+    locker = "swaylock -f -i ~/.cache/timewall/last_image";
     enable_output = "swaymsg output $laptop_output enable";
     disable_output = "swaymsg output $laptop_output disable";
     drun = "wofi -i --show drun --allow-images -a";
