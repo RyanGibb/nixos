@@ -100,7 +100,7 @@ in
         pulseaudio
         tridactyl-native
         vlc
-        overlay-unstable.timewall
+        timewall
         swaybg
       ]
       ++ desktopEntries;

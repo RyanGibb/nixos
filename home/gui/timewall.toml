@@ -3,21 +3,4 @@ lat = 52
 lon = 0
 
 [setter]
-# TODO something better
-command = [
-    "sh",
-    "-c",
-    """
-    ln -fs %f ~/.cache/timewall/last_image
-    pid_file=~/.cache/timewall/pid-$(ps -o ppid= -p $(ps -o ppid= -p $$ | tr -d " ") | tr -d " ")
-    if [ -f "$pid_file" ]; then
-        old_pid=$(cat "$pid_file")
-    fi;
-    (setsid sh -c 'swaybg -i %f -c 282828 -m fill >/dev/null 2>&1 & echo $! > '"$pid_file"' && disown')
-	sleep 1
-    if kill -0 $old_pid 2>/dev/null; then
-        kill $old_pid &&
-        echo "Killed old swaybg process with PID $old_pid" >&2;
-    fi
-	"""
-]
+command = [ "swaybg", "-i", "%f", "-c", "282828", "-m", "fill" ]
