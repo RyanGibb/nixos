@@ -1102,29 +1102,7 @@
         "nixpkgs-flaresolverr": "nixpkgs-flaresolverr",
         "nixpkgs-sonarr": "nixpkgs-sonarr",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nur": "nur",
-        "timewall": "timewall"
-      }
-    },
-    "rust-overlay": {
-      "inputs": {
-        "nixpkgs": [
-          "timewall",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1734230139,
-        "narHash": "sha256-zsp0Mz8VgyIAnU8UhP/YT1g+zlsl+NIJTBMAbY+RifQ=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "150fbc8aa2bc501041810bbc1dbfe73694a861be",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
+        "nur": "nur"
       }
     },
     "scss-reset": {
@@ -1245,27 +1223,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "timewall": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "rust-overlay": "rust-overlay"
-      },
-      "locked": {
-        "lastModified": 1737283895,
-        "narHash": "sha256-Ec+jlOQMnPcabN5fSep1KFfCcRl3FCE68zoNwpFwAS8=",
-        "owner": "RyanGibb",
-        "repo": "timewall",
-        "rev": "ff67aafa70dd8f6e1858e8ac2e64851664af235e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "RyanGibb",
-        "repo": "timewall",
         "type": "github"
       }
     },

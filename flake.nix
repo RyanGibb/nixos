@@ -20,7 +20,6 @@
     hyperbib-eeg.url = "github:RyanGibb/hyperbib?ref=nixify";
     nix-rpi5.url = "gitlab:vriska/nix-rpi5?ref=main";
     nur.url = "github:nix-community/NUR/e9e77b7985ef9bdeca12a38523c63d47555cc89b";
-    timewall.url = "github:RyanGibb/timewall";
 
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
@@ -37,7 +36,6 @@
     hyperbib-eeg.inputs.nixpkgs.follows = "nixpkgs";
     nix-rpi5.inputs.nixpkgs.follows = "nixpkgs";
     nur.inputs.nixpkgs.follows = "nixpkgs";
-    timewall.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -91,7 +89,6 @@
               config = nixpkgsConfig;
             }).sonarr;
           swaylock-plugin = prev.callPackage ./pkgs/swaylock-plugin.nix { };
-          timewall = inputs.timewall.packages.${system}.default;
         })
         inputs.nur.overlays.default
       ];
