@@ -490,4 +490,6 @@ in
   };
 
   networking.firewall.allowedTCPPorts = [ 7001 ];
+
+  services.openssh.openFirewall = true;
 }
