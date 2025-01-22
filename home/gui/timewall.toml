@@ -1,2 +1,3 @@
 [setter]
-command = [ "sh", "-c", "ln -fs %f ~/.cache/timewall/last_image && (setsid swaybg -i %f -c 282828 -m fill >/dev/null 2>&1 &) && (sleep 1; (grep -v $(pgrep -nf ^swaybg) <(pgrep -f ^swaybg) | tee ~/x | xargs -r kill)) && exit 0" ]
+command = [ "swaybg", "-i", "%f", "-c", "282828", "-m", "fill" ]
+overlap = 1000
