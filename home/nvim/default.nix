@@ -74,6 +74,7 @@ in
           clang-tools
           typst-lsp
           rust-analyzer
+          rustfmt
         ];
       extraLuaConfig = builtins.readFile ./init.lua;
       # undo transparent background
