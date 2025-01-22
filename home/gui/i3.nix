@@ -22,7 +22,6 @@ let
     drun = "rofi -i -modi drun -show drun";
     dmenu = "rofi -i -dmenu -p";
     displays = "arandr";
-    bar = "i3bar";
     notification_deamon = "dunst";
     i3_workspace_history = "${i3-workspace-history}/bin/i3-workspace-history";
     i3_workspace_history_args = "";

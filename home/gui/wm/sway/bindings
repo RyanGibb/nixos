@@ -1,6 +1,5 @@
 
-bindsym $mod+r exec  "pkill swaybar; swaybar --bar_id bar-0"
-bindsym $mod+Shift+r exec "pkill swaybar; swaymsg reload"
+bindsym $mod+Shift+r exec swaymsg reload
 
 bindsym $mod+q         exec dunstctl close
 bindsym $mod+Shift+q   exec dunstctl action
