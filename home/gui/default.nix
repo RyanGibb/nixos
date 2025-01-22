@@ -12,6 +12,7 @@ in
   imports = [
     ./i3.nix
     ./sway.nix
+    inputs.timewall.homeManagerModules.default
   ];
 
   options.custom.gui.enable = lib.mkEnableOption "gui";
@@ -169,7 +170,6 @@ in
           save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
         '';
         "tridactyl/tridactylrc".source = ./tridactylrc;
-        "timewall/config.toml".source = ./timewall.toml;
       };
       userDirs = {
         enable = true;
@@ -183,6 +183,24 @@ in
         desktop = "$HOME/";
         templates = "$HOME/";
         publicShare = "$HOME/";
+      };
+    };
+
+    services.timewall = {
+      enable = true;
+      config = {
+        setter = {
+          command = [
+            "${pkgs.swaybg}/bin/swaybg"
+            "-i"
+            "%f"
+            "-c"
+            "282828"
+            "-m"
+            "fill"
+          ];
+          overlap = 1000;
+        };
       };
     };
   };

@@ -1,7 +1,0 @@
-[geoclue]
-enable = true
-prefer = true
-
-[setter]
-command = [ "swaybg", "-i", "%f", "-c", "282828", "-m", "fill" ]
-overlap = 1000
