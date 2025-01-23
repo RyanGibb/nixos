@@ -237,20 +237,20 @@ bindsym $mod+Control+Shift+down  resize grow   height 1px
 bindsym $mod+Control+Shift+up    resize shrink height 1px
 bindsym $mod+Control+Shift+right resize grow   width  1px
 
-bindsym $mod+$alt+left  focus output left
-bindsym $mod+$alt+down  focus output down
-bindsym $mod+$alt+up    focus output up
-bindsym $mod+$alt+right focus output right
+bindsym $mod+$alt+left  focus output left  ; exec st workspace -t 500
+bindsym $mod+$alt+down  focus output down  ; exec st workspace -t 500
+bindsym $mod+$alt+up    focus output up    ; exec st workspace -t 500
+bindsym $mod+$alt+right focus output right ; exec st workspace -t 500
 
-bindsym $mod+$alt+Shift+left  move container to output left
-bindsym $mod+$alt+Shift+down  move container to output down
-bindsym $mod+$alt+Shift+up    move container to output up
-bindsym $mod+$alt+Shift+right move container to output right
+bindsym $mod+$alt+Shift+left  move container to output left  ; exec st workspace -t 500
+bindsym $mod+$alt+Shift+down  move container to output down  ; exec st workspace -t 500
+bindsym $mod+$alt+Shift+up    move container to output up    ; exec st workspace -t 500
+bindsym $mod+$alt+Shift+right move container to output right ; exec st workspace -t 500
 
-bindsym $mod+$alt+Control+left  move workspace to output left
-bindsym $mod+$alt+Control+down  move workspace to output down
-bindsym $mod+$alt+Control+up    move workspace to output up
-bindsym $mod+$alt+Control+right move workspace to output right
+bindsym $mod+$alt+Control+left  move workspace to output left  ; exec st workspace -t 500
+bindsym $mod+$alt+Control+down  move workspace to output down  ; exec st workspace -t 500
+bindsym $mod+$alt+Control+up    move workspace to output up    ; exec st workspace -t 500
+bindsym $mod+$alt+Control+right move workspace to output right ; exec st workspace -t 500
 
 bindsym $mod+bracketleft          focus output left              ; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500
 bindsym $mod+bracketright         focus output right             ; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500
