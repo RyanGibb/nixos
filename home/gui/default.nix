@@ -189,6 +189,7 @@ in
     services.timewall = {
       enable = true;
       config = {
+        geoclue.timeout = 300000;
         setter = {
           command = [
             "${pkgs.swaybg}/bin/swaybg"
