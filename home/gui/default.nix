@@ -192,13 +192,9 @@ in
         geoclue.timeout = 300000;
         setter = {
           command = [
-            "${pkgs.swaybg}/bin/swaybg"
-            "-i"
-            "%f"
+            "${pkgs.bash}/bin/sh"
             "-c"
-            "282828"
-            "-m"
-            "fill"
+            "${pkgs.coreutils}/bin/ln -fs %f ~/.cache/timewall/last_image && ${pkgs.swaybg}/bin/swaybg -i %f -c 282828 -m fill"
           ];
           overlap = 1000;
         };
