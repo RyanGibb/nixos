@@ -53,6 +53,7 @@ in
             # see http://nginx.org/en/docs/http/ngx_http_log_module.html#access_log
             access_log /var/log/nginx/${cfg.domain}.log;
           '';
+          locations."/var".root = "/var/www/var/";
         };
         "www.${cfg.domain}" =
           let
