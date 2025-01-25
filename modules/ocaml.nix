@@ -13,8 +13,6 @@ in
 
   config = lib.mkIf cfg.ocaml {
     environment.systemPackages = with pkgs; [
-      opam
-      pkg-config
     ];
   };
 }

@@ -20,7 +20,6 @@
     services.kdeconnect.enable = true;
     custom = {
       machineColour = "magenta";
-      nvim-lsps = true;
       mail.enable = true;
       calendar.enable = true;
       battery.enable = true;

@@ -23,7 +23,6 @@ in
     ./laptop.nix
     ./nix-cache.nix
     ./nix-index.nix
-    ./ocaml.nix
     ./printing.nix
     ./rmfakecloud.nix
     ./scripts.nix

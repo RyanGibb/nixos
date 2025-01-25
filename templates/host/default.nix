@@ -31,7 +31,6 @@
   home-manager.users.${config.custom.username} = {
     custom = {
       machineColour = "blue";
-      # nvim-lsps = true;
     };
   };
 

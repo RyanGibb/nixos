@@ -41,8 +41,6 @@ let
   cfg = config.custom;
 in
 {
-  options.custom.nvim-lsps = lib.mkEnableOption "nvim-lsps";
-
   config = {
     xdg.configFile = {
       "ftplugin/mail.vim".text = ''
@@ -54,28 +52,7 @@ in
       enable = true;
       viAlias = true;
       vimAlias = true;
-      extraPackages =
-        with pkgs;
-        [
-          ripgrep
-          nixd
-        ]
-        ++ lib.lists.optionals cfg.nvim-lsps [
-          nixfmt-rfc-style
-          # stop complaining when launching but a devshell is better
-          ocamlPackages.ocaml-lsp
-          ocamlPackages.ocamlformat
-          lua-language-server
-          pyright
-          black
-          ltex-ls
-          jdt-language-server
-          nodejs_18
-          clang-tools
-          typst-lsp
-          rust-analyzer
-          rustfmt
-        ];
+      extraPackages = with pkgs; [ ripgrep ];
       extraLuaConfig = builtins.readFile ./init.lua;
       # undo transparent background
       # + "colorscheme gruvbox";
@@ -391,8 +368,7 @@ in
               })
             '';
           }
-        ]
-        ++ lib.lists.optionals cfg.nvim-lsps [
+
           {
             plugin = nvim-lspconfig;
             type = "lua";

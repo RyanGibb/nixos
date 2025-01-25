@@ -18,7 +18,6 @@
     printing = true;
     gui.i3 = true;
     gui.sway = true;
-    ocaml = true;
     workstation = true;
     autoUpgrade.enable = true;
     homeManager.enable = true;
@@ -36,7 +35,6 @@
     };
     custom = {
       machineColour = "blue";
-      nvim-lsps = true;
       mail.enable = true;
       calendar.enable = true;
       battery.enable = true;
@@ -122,9 +120,37 @@
     ))
     moreutils
     gnome-calendar
+
+    # nix
+    nixd
+    nixfmt-rfc-style
+    # ocaml
+    opam
+    pkg-config
+    ocamlPackages.ocaml-lsp
+    ocamlPackages.ocamlformat
+    # rust
     cargo
     rustc
     rust-analyzer
+    rustfmt
+    # haskell
+    cabal-install
+    ghc
+    haskell-language-server
+    # python
+    pyright
+    black
+    # jave
+    jdt-language-server
+    nodejs_18
+    # c
+    clang-tools
+    # lua
+    lua-language-server
+    # other
+    ltex-ls
+    typst-lsp
   ];
 
   services.gnome.gnome-keyring.enable = true;

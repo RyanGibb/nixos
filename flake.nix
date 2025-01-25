@@ -259,7 +259,6 @@
                 home.packages = with pkgs; [ home-manager ];
                 custom = {
                   machineColour = "red";
-                  nvim-lsps = true;
                 };
               }
             ];
