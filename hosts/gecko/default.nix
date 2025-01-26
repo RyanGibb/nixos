@@ -44,6 +44,11 @@
       LEDGER_FILE = "~/vault/finaces.ledger";
     };
     programs.git.extraConfig.commit.gpgSign = true;
+    programs.direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      enableBashIntegration = true;
+    };
   };
 
   boot.loader.grub = {
