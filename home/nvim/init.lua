@@ -80,7 +80,7 @@ vim.keymap.set('n', '<leader>id', [[<Cmd>lua vim.api.nvim_put({vim.fn.strftime('
 
 vim.keymap.set('n', '!', ':term ', { desc = 'terminal' })
 
-vim.keymap.set('n', '<leader>gg', ':Neogit', { desc = 'Neogit' })
+vim.keymap.set('n', '<leader>gg', ':Neogit<CR>', { desc = 'Neogit' })
 
 vim.keymap.set('n', '<leader>om', ':make<Enter>', { desc = 'Make' })
 

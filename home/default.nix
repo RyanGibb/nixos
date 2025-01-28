@@ -182,15 +182,19 @@ in
           sessionizer = pkgs.writeScript "sessionizer.sh" ''
             #!/usr/bin/env bash
 
+            hist_file=~/.cache/sessionizer.hist
+
             if [[ $# -eq 1 ]]; then
                 selected=$1
             else
-                selected=$((find ~/ ~/projects -mindepth 1 -maxdepth 1 -type d -not -path '*/[.]*'; echo /etc/nixos) | fzf)
+                selected=$((tac "$hist_file"; find ~/ ~/projects -mindepth 1 -maxdepth 1 -type d -not -path '*/[.]*'; echo /etc/nixos) | awk '!seen[$0]++' | fzf --print-query | tail -n 1)
             fi
 
             if [[ -z $selected ]]; then
                 exit 0
             fi
+
+            echo "$selected" >> $hist_file
 
             selected_name=$(basename "$selected" | tr . _)
             tmux_running=$(pgrep tmux)
