@@ -185,7 +185,7 @@ in
             if [[ $# -eq 1 ]]; then
                 selected=$1
             else
-                selected=$(find ~ -not -path '*/.*' -maxdepth 2 -type d | fzf)
+                selected=$((find ~/ ~/projects -mindepth 1 -maxdepth 1 -type d -not -path '*/[.]*'; echo /etc/nixos) | fzf)
             fi
 
             if [[ -z $selected ]]; then
@@ -239,7 +239,7 @@ in
           bind -T copy-mode-vi v send-keys -X begin-selection
           bind -T copy-mode-vi y send-keys -X copy-selection-and-cancel
           # find
-          bind-key -r g run-shell "tmux neww ${sessionizer}"
+          bind-key -r f run-shell "tmux neww ${sessionizer}"
           # reload
           bind-key r source-file ~/.config/tmux/tmux.conf
           # kill unattached
