@@ -6,7 +6,37 @@
 }:
 
 let
-  cfg = config.custom;
+  tmux-sessionizer = pkgs.writeScriptBin "tmux-sessionizer" ''
+    #!/usr/bin/env bash
+
+    hist_file=~/.cache/sessionizer.hist
+
+    if [[ $# -eq 1 ]]; then
+        selected=$1
+    else
+        selected=$((tac "$hist_file"; find ~/ ~/projects -mindepth 1 -maxdepth 1 -type d -not -path '*/[.]*'; echo /etc/nixos) | awk '!seen[$0]++' | fzf --print-query | tail -n 1)
+    fi
+
+    if [[ -z $selected ]]; then
+        exit 0
+    fi
+
+    echo "$selected" >> $hist_file
+
+    selected_name=$(basename "$selected" | tr . _)
+    tmux_running=$(pgrep tmux)
+
+    if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+        tmux new-session -s $selected_name -c $selected
+        exit 0
+    fi
+
+    if ! tmux has-session -t=$selected_name 2> /dev/null; then
+        tmux new-session -ds $selected_name -c $selected
+    fi
+
+    tmux switch-client -t $selected_name
+  '';
 in
 {
   imports = [
@@ -43,6 +73,7 @@ in
       dua
       fd
       ripgrep
+      tmux-sessionizer
     ];
 
     home.shellAliases = {
@@ -179,37 +210,6 @@ in
             fi
           '';
           # https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
-          sessionizer = pkgs.writeScript "sessionizer.sh" ''
-            #!/usr/bin/env bash
-
-            hist_file=~/.cache/sessionizer.hist
-
-            if [[ $# -eq 1 ]]; then
-                selected=$1
-            else
-                selected=$((tac "$hist_file"; find ~/ ~/projects -mindepth 1 -maxdepth 1 -type d -not -path '*/[.]*'; echo /etc/nixos) | awk '!seen[$0]++' | fzf --print-query | tail -n 1)
-            fi
-
-            if [[ -z $selected ]]; then
-                exit 0
-            fi
-
-            echo "$selected" >> $hist_file
-
-            selected_name=$(basename "$selected" | tr . _)
-            tmux_running=$(pgrep tmux)
-
-            if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-                tmux new-session -s $selected_name -c $selected
-                exit 0
-            fi
-
-            if ! tmux has-session -t=$selected_name 2> /dev/null; then
-                tmux new-session -ds $selected_name -c $selected
-            fi
-
-            tmux switch-client -t $selected_name
-          '';
         in
         ''
           # alternative modifier
@@ -243,7 +243,7 @@ in
           bind -T copy-mode-vi v send-keys -X begin-selection
           bind -T copy-mode-vi y send-keys -X copy-selection-and-cancel
           # find
-          bind-key -r f run-shell "tmux neww ${sessionizer}"
+          bind-key -r f run-shell "tmux neww tmux-sessionizer"
           # reload
           bind-key r source-file ~/.config/tmux/tmux.conf
           # kill unattached
