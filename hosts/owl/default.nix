@@ -50,6 +50,12 @@ in
     ../../modules/fn06-website.nix
   ];
 
+  environment.systemPackages = with pkgs; [
+    # nix
+    nixd
+    nixfmt-rfc-style
+  ];
+
   age.secrets.eon-capnp = {
     file = ../../secrets/eon-capnp.age;
     mode = "770";

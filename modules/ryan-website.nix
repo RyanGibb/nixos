@@ -44,16 +44,17 @@ in
         "${cfg.domain}" = {
           forceSSL = true;
           root = "/var/www/ryan.freumh.org/";
+          locations."/".index = "home.html index.html";
           locations."/teapot".extraConfig = ''
             return 418;
           '';
+          locations."/var".root = "/var/www/var/";
           extraConfig = ''
             error_page 403 =404 /404.html;
             error_page 404 /404.html;
             # see http://nginx.org/en/docs/http/ngx_http_log_module.html#access_log
             access_log /var/log/nginx/${cfg.domain}.log;
           '';
-          locations."/var".root = "/var/www/var/";
         };
         "www.${cfg.domain}" =
           let
