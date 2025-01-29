@@ -291,7 +291,7 @@ in
             plugin = undotree;
             type = "lua";
             config = ''
-              vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { desc = 'Undotree toggle' })
+              vim.keymap.set('n', '<leader>su', vim.cmd.UndotreeToggle, { desc = 'Undo history' })
             '';
           }
           {
@@ -323,9 +323,9 @@ in
               })
               wk.add({
                 { "<leader>f", group = 'Find' },
-                { "<leader>l", group = 'LSP' },
+                { "<leader>c", group = 'Code' },
                 { "<leader>;", group = 'DAP' },
-                { "<leader>s", group = 'Session' },
+                { "<leader>s", group = 'Search' },
                 { "<leader>t", group = 'Tab' },
                 { "<leader>h", group = 'Hunk' },
                 { "<leader>x", group = 'Trouble' },
