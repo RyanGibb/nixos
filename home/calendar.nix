@@ -63,23 +63,6 @@ in
             fileExt = ".ics";
           };
         };
-        "srg" = {
-          khal = {
-            enable = true;
-            color = "#CC3333";
-          };
-          vdirsyncer = {
-            enable = true;
-          };
-          remote = {
-            type = "http";
-            url = "https://talks.cam.ac.uk/show/ics/8316.ics";
-          };
-          local = {
-            type = "filesystem";
-            fileExt = ".ics";
-          };
-        };
       };
     };
   };
