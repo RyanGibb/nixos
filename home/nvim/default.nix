@@ -75,6 +75,7 @@ in
               {
                 "ftplugin/nix.vim".text = ml-style;
                 "ftplugin/ocaml.vim".text = ml-style;
+                "ftplugin/haskell.vim".text = ml-style;
                 "ftplugin/ledger.vim".text = ''
                   setlocal foldmethod=syntax
                   vnoremap <silent> <buffer> <Tab> :LedgerAlign<CR>
