@@ -70,6 +70,7 @@
     calibre
     zotero
     element-desktop
+    nheko
     iamb
     spotify
     gimp
