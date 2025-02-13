@@ -231,7 +231,7 @@
       };
 
       nixOnDroidConfigurations.default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
-        modules = [ ./nix-on-droid/default.nix ];
+        modules = [ (import ./nix-on-droid/default.nix inputs) ];
         pkgs = import inputs.nixpkgs {
           overlays = getSystemOverlays "aarch64-linux" { };
           config.permittedInsecurePackages = [

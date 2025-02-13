@@ -12,7 +12,8 @@ in
   imports = [
     ./i3.nix
     ./sway.nix
-  ] ++ (if (inputs ? timewall) then [ inputs.timewall.homeManagerModules.default ] else [ ]);
+    inputs.timewall.homeManagerModules.default
+  ];
 
   options.custom.gui.enable = lib.mkEnableOption "gui";
 
