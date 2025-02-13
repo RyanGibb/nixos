@@ -209,8 +209,8 @@ in
                 tmux set-option status off
             fi
           '';
-          # https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
         in
+        # https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
         ''
           # alternative modifier
           unbind C-b
