@@ -1,8 +1,6 @@
 {
-  pkgs,
   config,
   lib,
-  ryan-website,
   ...
 }:
 
@@ -48,7 +46,7 @@ in
           locations."/teapot".extraConfig = ''
             return 418;
           '';
-          locations."/var".root = "/var/www/var/";
+          locations."/var/".alias = "/var/www/var/";
           extraConfig = ''
             error_page 403 =404 /404.html;
             error_page 404 /404.html;
