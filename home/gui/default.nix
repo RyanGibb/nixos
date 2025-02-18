@@ -189,7 +189,7 @@ in
     services.timewall = {
       enable = true;
       config = {
-        geoclue.timeout = 300000;
+        geoclue.timeout = 1000;
         setter = {
           command = [
             "${pkgs.bash}/bin/sh"

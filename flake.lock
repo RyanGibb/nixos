@@ -1256,11 +1256,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1737663538,
-        "narHash": "sha256-qrCHymJGE3hbLqxVZK98PNYvw03kQItelDAR2kkwA0o=",
+        "lastModified": 1739621014,
+        "narHash": "sha256-bFNAAmytYErdLqw7OJyKKeCSeHZ2XcxmXMSg09Y9b6U=",
         "owner": "bcyran",
         "repo": "timewall",
-        "rev": "8c0a4bf755b714b41144bd830f8e718e5dee5afd",
+        "rev": "686e9d2154621fadf6ce4c8d5fae0b16c29acc8e",
         "type": "github"
       },
       "original": {
