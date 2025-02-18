@@ -74,7 +74,7 @@ inputs:
         };
 
         home.sessionVariables = {
-          LEDGER_FILE = "~/storage/Documents/vault/finaces.ledger";
+          LEDGER_FILE = "~/storage/Documents/vault/finances.ledger";
         };
 
         home.stateVersion = "22.05";

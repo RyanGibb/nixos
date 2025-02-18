@@ -25,7 +25,7 @@
       battery.enable = true;
     };
     home.sessionVariables = {
-      LEDGER_FILE = "~/vault/finaces.ledger";
+      LEDGER_FILE = "~/vault/finances.ledger";
     };
   };
 
