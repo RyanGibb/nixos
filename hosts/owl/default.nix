@@ -346,6 +346,11 @@ in
           type = "AAAA";
           value = "2a00:23c6:aa22:e401:8dff:9b9a:cb3c:3fcb";
         }
+        {
+          name = "calibre.${config.networking.domain}.";
+          type = "AAAA";
+          value = "2a00:23c6:aa22:e401:8dff:9b9a:cb3c:3fcb";
+        }
       ];
     };
   };

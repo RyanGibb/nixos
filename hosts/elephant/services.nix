@@ -29,6 +29,7 @@
       "nextcloud.vpn.freumh.org"
       "owntracks.vpn.freumh.org"
       "immich.vpn.freumh.org"
+      "calibre.freumh.org"
     ];
   };
 
@@ -94,6 +95,21 @@
             http://${host}:${builtins.toString port}
           '';
         };
+      };
+      "calibre.freumh.org" = {
+        addSSL = true;
+        locations."/" = {
+          recommendedProxySettings = true;
+          proxyPass = ''
+            http://127.0.0.1:${builtins.toString config.services.calibre-web.listen.port}
+          '';
+          proxyWebsockets = true;
+          extraConfig = ''
+            proxy_buffer_size 128k;
+            proxy_buffers 4 256k;
+            proxy_busy_buffers_size 256k;
+          '';
+          };
       };
     };
   };
@@ -217,7 +233,19 @@
     config.services.transmission.user
     config.services.nzbget.user
   ];
-  # services.calibre-server.enable = true;
+
+  services.calibre-web = {
+    enable = true;
+    listen = {
+      port = 8084;
+      ip = "127.0.0.1";
+    };
+    options = {
+      enableBookConversion = true;
+      enableBookUploading = true;
+      enableKepubify = true;
+    };
+  };
 
   age.secrets.restic-owl.file = ../../secrets/restic-owl.age;
   age.secrets.restic-gecko.file = ../../secrets/restic-gecko.age;
@@ -305,6 +333,17 @@
       findTime = "43200";
       logPath = "/var/lib/jellyseerr/logs/overseerr.log";
     };
+    # requires 'Enable Proxy Support' for jellyseerr
+    jails."calibre-web".settings = {
+      backend = "auto";
+      port = "80,443";
+      protocol = "tcp";
+      filter = "calibre-web";
+      maxRetry = 3;
+      bantime = "86400";
+      findTime = "43200";
+      logPath = "/var/lib/calibre-web/log";
+    };
   };
   environment.etc = {
     "fail2ban/filter.d/jellyfin.local".text = ''
@@ -314,6 +353,10 @@
     "fail2ban/filter.d/jellyseerr.local".text = ''
       [Definition]
       failregex = ^.*\[warn\]\[Auth\]: Failed login attempt from user with incorrect Jellyfin credentials {"account":{"ip":"<HOST>","email":
+    '';
+    "fail2ban/filter.d/calibre-web.local".text = ''
+      [Definition]
+      failregex = ^(?:\[\])?\s*WARN \{[^\}]*\} Login failed for user "<F-USER>[^"]*</F-USER>" IP-address: <ADDR>
     '';
   };
 
@@ -325,14 +368,17 @@
     serviceConfig = {
       ExecStart = pkgs.writeShellScript "update-dns" ''
         while true; do
-          IP="$(${pkgs.curl}/bin/curl https://ipinfo.io/ip 2> /dev/null)";
-          echo $IP;
+          IP="$(${pkgs.curl}/bin/curl https://ipinfo.io/ip 2> /dev/null)"
+          echo $IP
           ${config.services.eon.package}/bin/capc update /run/agenix/eon-freumh.org.cap \
-            -u remove/jellyfin.freumh.org/A \
-            -u remove/jellyseerr.freumh.org/A \
-            -u add/jellyfin.freumh.org/A/"$IP"/60 \
-            -u add/jellyseerr.freumh.org/A/"$IP"/60;
-          sleep 3600;
+            -u "remove|jellyfin.freumh.org|A" \
+            -u "remove|jellyseerr.freumh.org|A" \
+            -u "remove|calibre.freumh.org|A" \
+            -u "add|jellyfin.freumh.org|A|$IP|60" \
+            -u "add|jellyseerr.freumh.org|A|$IP|60" \
+            -u "add|calibre.freumh.org|A|$IP|60" \
+            ;
+          sleep 3600
         done
       '';
       Restart = "always";
