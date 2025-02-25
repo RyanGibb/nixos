@@ -217,4 +217,14 @@
 
   # ddcutil
   hardware.i2c.enable = true;
+
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      # Video Acceleration API (VA-API) user mode driver
+      intel-media-driver
+      # Intel Video Processing Library (VPL) API runtime implementation
+      vpl-gpu-rt
+    ];
+  };
 }

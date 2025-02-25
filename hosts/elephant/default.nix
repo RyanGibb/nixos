@@ -77,7 +77,6 @@
       # Video Acceleration API (VA-API) user mode driver
       intel-media-driver
       # Intel Video Processing Library (VPL) API runtime implementation
-      # replace with`onevpl-intel-gpu` after https://github.com/NixOS/nixpkgs/pull/264621
       vpl-gpu-rt
     ];
   };
