@@ -12,7 +12,7 @@ let
     ${pkgs.ugrep}/bin/ugrep -jPh -m 100 --color=never "$1" cat ${config.accounts.email.maildirBasePath}/addressbook/cam-ldap)
   '';
   sync-mail = pkgs.writeScriptBin "sync-mail" ''
-    ${pkgs.isync}/bin/mbsync "$1" || exit 1
+    ${pkgs.isync}/bin/mbsync "$@" || exit 1
     ${pkgs.procps}/bin/pkill -2 -x mu
     ${pkgs.coreutils}/bin/sleep 1
     ${pkgs.mu}/bin/mu index
@@ -210,8 +210,8 @@ in
           };
           imapnotify = {
             enable = true;
-            boxes = [ "Inbox" ];
-            onNotify = "${sync-mail}/bin/sync-mail ryan.gibb@cl.cam.ac.uk:INBOX";
+            boxes = [ "Inbox" "Sidebox" ];
+            onNotify = "${sync-mail}/bin/sync-mail ryan.gibb@cl.cam.ac.uk:INBOX ryan.gibb@cl.cam.ac.uk:Sidebox";
           };
           mbsync = {
             enable = true;
@@ -269,8 +269,8 @@ in
           };
           imapnotify = {
             enable = true;
-            boxes = [ "Inbox" ];
-            onNotify = "${sync-mail}/bin/sync-mail ryangibb321@gmail.com:INBOX";
+            boxes = [ "Inbox" "Sidebox" ];
+            onNotify = "${sync-mail}/bin/sync-mail ryangibb321@gmail.com:INBOX ryangibb321@gmail.com:Sidebox";
           };
           mbsync = {
             enable = true;
