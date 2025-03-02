@@ -186,7 +186,7 @@ in
       };
     };
 
-    services.timewall = {
+    services.timewall = lib.mkIf (inputs ? timewall) {
       enable = true;
       config = {
         geoclue.timeout = 1000;
