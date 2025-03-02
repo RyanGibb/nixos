@@ -478,7 +478,7 @@ in
       sieveScript = ''
         require ["fileinto", "mailbox"];
 
-        if header :contains ["to", "cc"] ["~rjarry/aerc-discuss@lists.sr.ht"] {
+        if header :contains ["to", "cc"] ["ai-control@ietf.org"] {
           fileinto :create "lists.aerc";
           stop;
         }
