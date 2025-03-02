@@ -479,7 +479,7 @@ in
         require ["fileinto", "mailbox"];
 
         if header :contains ["to", "cc"] ["ai-control@ietf.org"] {
-          fileinto :create "lists.aerc";
+          fileinto :create "lists.aietf";
           stop;
         }
       '';
