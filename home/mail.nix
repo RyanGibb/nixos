@@ -40,7 +40,7 @@ in
       mu.enable = true;
       msmtp.enable = true;
       aerc = {
-        enable = true;
+        # enable = true;
         extraConfig = {
           general.unsafe-accounts-conf = true;
           general.default-save-path = "~/downloads";
@@ -66,7 +66,7 @@ in
         extraBinds = import ./aerc-binds.nix { inherit pkgs; };
       };
       neomutt = {
-        enable = true;
+        # enable = true;
         extraConfig = ''
           # Macro to switch accounts
           macro index,pager <F1> '"<change-folder> ${config.accounts.email.maildirBasePath}/ryan@freumh.org/Inbox<enter>"'
@@ -80,7 +80,6 @@ in
                                          "mu find results"
         '';
       };
-      notmuch.enable = true;
     };
 
     services = {
@@ -152,7 +151,6 @@ in
               macro index gt "<change-folder>=${folders.trash}<enter>"
             '';
           };
-          notmuch.enable = true;
         };
         "misc@freumh.org" = rec {
           userName = "misc@freumh.org";
@@ -194,7 +192,6 @@ in
               macro index gt "<change-folder>=${folders.trash}<enter>"
             '';
           };
-          notmuch.enable = true;
         };
         "ryan.gibb@cl.cam.ac.uk" = rec {
           userName = "rtg24@fm.cl.cam.ac.uk";
@@ -253,7 +250,6 @@ in
               macro index gt "<change-folder>=${folders.trash}<enter>"
             '';
           };
-          notmuch.enable = true;
         };
         "ryangibb321@gmail.com" = rec {
           userName = "ryangibb321@gmail.com";
@@ -311,7 +307,6 @@ in
               macro index gt "<change-folder>=${folders.trash}<enter>"
             '';
           };
-          notmuch.enable = true;
         };
         search = {
           maildir.path = "search";
