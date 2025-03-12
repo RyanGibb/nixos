@@ -232,6 +232,7 @@
   users.users.${config.services.readarr.user}.extraGroups = [
     config.services.transmission.user
     config.services.nzbget.user
+    config.services.calibre-web.user
   ];
 
   services.calibre-web = {
