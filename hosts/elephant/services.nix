@@ -232,7 +232,6 @@
   users.users.${config.services.readarr.user}.extraGroups = [
     config.services.transmission.user
     config.services.nzbget.user
-    config.services.calibre-web.user
   ];
 
   services.calibre-web = {
@@ -247,6 +246,9 @@
       enableKepubify = true;
     };
   };
+  users.users.${config.services.calibre-web.user}.extraGroups = [
+    config.services.readarr.user
+  ];
 
   age.secrets.restic-owl.file = ../../secrets/restic-owl.age;
   age.secrets.restic-gecko.file = ../../secrets/restic-gecko.age;
