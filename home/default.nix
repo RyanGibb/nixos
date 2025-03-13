@@ -14,7 +14,10 @@ let
     if [[ $# -eq 1 ]]; then
         selected=$1
     else
-        selected=$((tac "$hist_file"; find ~/ ~/projects -mindepth 1 -maxdepth 1 -type d -not -path '*/[.]*'; echo /etc/nixos) | awk '!seen[$0]++' | fzf --print-query | tail -n 1)
+        selected=$((tac "$hist_file"
+            find ~/ ~/projects -mindepth 1 -maxdepth 1 -type d -not -path '*/[.]*'
+            awk '{print "ssh " $1}' ~/.ssh/known_hosts 2>/dev/null | sort -u
+            echo /etc/nixos) | awk '!seen[$0]++' | fzf --print-query | tail -n 1)
     fi
 
     if [[ -z $selected ]]; then
@@ -26,16 +29,28 @@ let
     selected_name=$(basename "$selected" | tr . _)
     tmux_running=$(pgrep tmux)
 
-    if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-        tmux new-session -s $selected_name -c $selected
-        exit 0
+    if [[ $selected == ssh\ * ]]; then
+        if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+            tmux new-session -s "$selected_name" "$selected"
+            exit 0
+        fi
+
+        if ! tmux has-session -t="$selected_name" 2> /dev/null; then
+            tmux new-session -ds "$selected_name" "$selected"
+        fi
+    else
+        if [[ -z $TMUX ]] && [[ -z "$tmux_running" ]]; then
+            tmux new-session -s "$selected_name" -c "$selected"
+            exit 0
+        fi
+
+        if ! tmux has-session -t="$selected_name" 2> /dev/null; then
+            tmux new-session -ds "$selected_name" -c "$selected"
+        fi
     fi
 
-    if ! tmux has-session -t=$selected_name 2> /dev/null; then
-        tmux new-session -ds $selected_name -c $selected
-    fi
 
-    tmux switch-client -t $selected_name
+    tmux switch-client -t "$selected_name"
   '';
 in
 {
@@ -243,7 +258,7 @@ in
           bind -T copy-mode-vi v send-keys -X begin-selection
           bind -T copy-mode-vi y send-keys -X copy-selection-and-cancel
           # find
-          bind-key -r f run-shell "tmux neww tmux-sessionizer"
+          bind-key -r f run-shell tmux-sessionizer
           # reload
           bind-key r source-file ~/.config/tmux/tmux.conf
           # kill unattached
