@@ -137,7 +137,9 @@
     ocamlPackages.ocamlformat
     # rust
     cargo
-    rustup
+    rustc
+    rust-analyzer
+    rustfmt
     # haskell
     cabal-install
     ghc
