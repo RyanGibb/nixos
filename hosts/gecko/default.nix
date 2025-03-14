@@ -136,10 +136,10 @@
     ocamlPackages.ocaml-lsp
     ocamlPackages.ocamlformat
     # rust
-    cargo
-    rustc
-    rust-analyzer
-    rustfmt
+    overlay-unstable.cargo
+    overlay-unstable.rustc
+    overlay-unstable.rust-analyzer
+    overlay-unstable.rustfmt
     # haskell
     cabal-install
     ghc
