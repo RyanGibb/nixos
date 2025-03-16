@@ -20,7 +20,6 @@
     services.kdeconnect.enable = true;
     custom = {
       machineColour = "magenta";
-      mail.enable = true;
       calendar.enable = true;
       battery.enable = true;
     };
@@ -65,15 +64,6 @@
   security.sudo.extraConfig = ''
     Defaults !tty_tickets
   '';
-
-  services = {
-    syncthing = {
-      enable = true;
-      user = config.custom.username;
-      dataDir = "/home/ryan/syncthing";
-      configDir = "/home/ryan/.config/syncthing";
-    };
-  };
 
   services.avahi.enable = true;
 
