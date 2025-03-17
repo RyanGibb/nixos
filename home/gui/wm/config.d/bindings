@@ -201,10 +201,10 @@ bindsym $mod+Control+Shift+j resize grow   height 1px
 bindsym $mod+Control+Shift+k resize shrink height 1px
 bindsym $mod+Control+Shift+l resize grow   width  1px
 
-bindsym $mod+$alt+h focus output left
-bindsym $mod+$alt+j focus output down
-bindsym $mod+$alt+k focus output up
-bindsym $mod+$alt+l focus output right
+bindsym $mod+$alt+h focus output left ; exec st workspace -t 500
+bindsym $mod+$alt+j focus output down ; exec st workspace -t 500
+bindsym $mod+$alt+k focus output up ; exec st workspace -t 500
+bindsym $mod+$alt+l focus output right ; exec st workspace -t 500
 
 bindsym $mod+$alt+Shift+h move container to output left
 bindsym $mod+$alt+Shift+j move container to output down
