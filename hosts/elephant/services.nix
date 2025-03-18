@@ -30,6 +30,7 @@
       "owntracks.vpn.freumh.org"
       "immich.vpn.freumh.org"
       "calibre.freumh.org"
+      "audiobookshelf.vpn.freumh.org"
     ];
   };
 
@@ -110,6 +111,16 @@
             proxy_busy_buffers_size 256k;
           '';
           };
+      };
+      "audiobookshelf.vpn.freumh.org" = {
+        onlySSL = true;
+        listenAddresses = [ "100.64.0.9" ];
+        locations."/" = {
+          proxyPass = ''
+            http://localhost:${builtins.toString config.services.audiobookshelf.port}
+          '';
+          proxyWebsockets = true;
+        };
       };
     };
   };
@@ -305,6 +316,14 @@
     host = "100.64.0.9";
     mediaLocation = "/tank/immich";
   };
+
+  services.audiobookshelf = {
+    enable = true;
+    port = 8001;
+  };
+  users.users.${config.services.audiobookshelf.user}.extraGroups = [
+    config.services.readarr.user
+  ];
 
   services.fail2ban = {
     enable = true;
