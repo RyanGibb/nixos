@@ -47,4 +47,5 @@ in
     owl
   ];
   "eon-sirref-primary.cap.age".publicKeys = user ++ [ owl ];
+  "tangled.age".publicKeys = user ++ [ owl ];
 }

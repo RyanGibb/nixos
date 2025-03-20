@@ -53,6 +53,7 @@ in
     ../../modules/ryan-website.nix
     ../../modules/alec-website.nix
     ../../modules/fn06-website.nix
+    inputs.tangled.nixosModules.knotserver
   ];
 
   environment.systemPackages = with pkgs; [
@@ -241,6 +242,12 @@ in
           value = "vps";
         }
 
+        {
+          name = "knot";
+          type = "CNAME";
+          value = "vps";
+        }
+
         # generate with
         #   sudo openssl x509 -in /var/lib/acme/mail.freumh.org/fullchain.pem -pubkey -noout | openssl pkey -pubin -outform der | sha256sum | awk '{print "3 1 1", $1}'
         {
@@ -406,6 +413,7 @@ in
   security.acme-eon.nginxCerts = [
     "capybara.fn06.org"
     "shrew.freumh.org"
+    "knot.freumh.org"
   ];
   services.nginx.virtualHosts."capybara.fn06.org" = {
     forceSSL = true;
@@ -508,4 +516,30 @@ in
   networking.firewall.allowedTCPPorts = [ 7001 ];
 
   services.openssh.openFirewall = true;
+
+  age.secrets.tangled = {
+    file = ../../secrets/tangled.age;
+    mode = "660";
+    owner = "git";
+    group = "git";
+  };
+  services.tangled-knotserver = {
+    enable = true;
+    repo.mainBranch = "master";
+    server.hostname = "knot.freumh.org";
+    server = {
+      secretFile = config.age.secrets.tangled.path;
+      listenAddr = "127.0.0.1:5555";
+      internalListenAddr = "127.0.0.1:5444";
+    };
+  };
+  services.nginx.virtualHosts."knot.freumh.org" = {
+    forceSSL = true;
+    locations."/" = {
+      proxyPass = ''
+        http://${config.services.tangled-knotserver.server.listenAddr}
+      '';
+      proxyWebsockets = true;
+    };
+  };
 }

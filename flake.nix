@@ -21,6 +21,7 @@
     nix-rpi5.url = "gitlab:vriska/nix-rpi5?ref=main";
     nur.url = "github:nix-community/NUR/e9e77b7985ef9bdeca12a38523c63d47555cc89b";
     timewall.url = "github:bcyran/timewall/";
+    tangled.url = "github:RyanGibb/tangled/";
 
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
@@ -38,6 +39,7 @@
     nix-rpi5.inputs.nixpkgs.follows = "nixpkgs";
     nur.inputs.nixpkgs.follows = "nixpkgs";
     timewall.inputs.nixpkgs.follows = "nixpkgs";
+    tangled.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
