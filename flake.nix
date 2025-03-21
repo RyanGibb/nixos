@@ -15,7 +15,6 @@
     eilean.url = "github:RyanGibb/eilean-nix/main";
     alec-website.url = "github:alexanderhthompson/website";
     fn06-website.url = "github:RyanGibb/fn06";
-    colour-guesser.url = "git+ssh://git@github.com/ryangibb/colour-guesser.git?ref=develop";
     i3-workspace-history.url = "github:RyanGibb/i3-workspace-history";
     hyperbib-eeg.url = "github:RyanGibb/hyperbib?ref=nixify";
     nix-rpi5.url = "gitlab:vriska/nix-rpi5?ref=main";
@@ -33,7 +32,6 @@
     alec-website.inputs.nixpkgs.follows = "nixpkgs";
     fn06-website.inputs.nixpkgs.follows = "nixpkgs";
     eon.inputs.nixpkgs.follows = "nixpkgs";
-    colour-guesser.inputs.nixpkgs.follows = "nixpkgs";
     i3-workspace-history.inputs.nixpkgs.follows = "nixpkgs";
     hyperbib-eeg.inputs.nixpkgs.follows = "nixpkgs";
     nix-rpi5.inputs.nixpkgs.follows = "nixpkgs";

@@ -58,29 +58,6 @@
         "type": "gitlab"
       }
     },
-    "colour-guesser": {
-      "inputs": {
-        "flake-utils": "flake-utils_2",
-        "nix-filter": "nix-filter",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1713180220,
-        "narHash": "sha256-hTdD8t3/hvaexQXDFL2lsXgyxg93IrTFszXeCrBcmEY=",
-        "ref": "develop",
-        "rev": "6ecf853ca91af2e6ddcecd64e6eaa1214aaf87fa",
-        "revCount": 11,
-        "type": "git",
-        "url": "ssh://git@github.com/ryangibb/colour-guesser.git"
-      },
-      "original": {
-        "ref": "develop",
-        "type": "git",
-        "url": "ssh://git@github.com/ryangibb/colour-guesser.git"
-      }
-    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -152,7 +129,7 @@
     },
     "eon": {
       "inputs": {
-        "flake-utils": "flake-utils_3",
+        "flake-utils": "flake-utils_2",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -287,24 +264,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems_2"
-      },
-      "locked": {
-        "lastModified": 1681202837,
-        "narHash": "sha256-H+Rh19JDwRtpVPAWp64F+rlEtxUWBAQW28eAi3SRSzg=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "cfacdce06f30d2b68473a46042957675eebb3401",
-        "type": "github"
-      },
-      "original": {
-        "id": "flake-utils",
-        "type": "indirect"
-      }
-    },
-    "flake-utils_3": {
-      "inputs": {
-        "systems": "systems_5"
+        "systems": "systems_4"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -320,7 +280,7 @@
         "type": "github"
       }
     },
-    "flake-utils_4": {
+    "flake-utils_3": {
       "locked": {
         "lastModified": 1676283394,
         "narHash": "sha256-XX2f9c3iySLCw54rJ/CZs+ZK6IQy7GXNY4nSOyu2QG4=",
@@ -334,9 +294,9 @@
         "type": "indirect"
       }
     },
-    "flake-utils_5": {
+    "flake-utils_4": {
       "inputs": {
-        "systems": "systems_6"
+        "systems": "systems_5"
       },
       "locked": {
         "lastModified": 1694529238,
@@ -352,7 +312,7 @@
         "type": "github"
       }
     },
-    "flake-utils_6": {
+    "flake-utils_5": {
       "locked": {
         "lastModified": 1638122382,
         "narHash": "sha256-sQzZzAbvKEqN9s0bzWuYmRaA03v40gaJ4+iL1LXjaeI=",
@@ -367,9 +327,9 @@
         "type": "github"
       }
     },
-    "flake-utils_7": {
+    "flake-utils_6": {
       "inputs": {
-        "systems": "systems_7"
+        "systems": "systems_6"
       },
       "locked": {
         "lastModified": 1692799911,
@@ -387,7 +347,7 @@
     },
     "fn06-website": {
       "inputs": {
-        "flake-utils": "flake-utils_4",
+        "flake-utils": "flake-utils_3",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -505,7 +465,7 @@
     },
     "hyperbib-eeg": {
       "inputs": {
-        "flake-utils": "flake-utils_5",
+        "flake-utils": "flake-utils_4",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -529,7 +489,7 @@
     },
     "i3-workspace-history": {
       "inputs": {
-        "flake-utils": "flake-utils_7",
+        "flake-utils": "flake-utils_6",
         "gomod2nix": "gomod2nix",
         "nixpkgs": [
           "nixpkgs"
@@ -622,21 +582,6 @@
       "original": {
         "owner": "dune-universe",
         "repo": "mirage-opam-overlays",
-        "type": "github"
-      }
-    },
-    "nix-filter": {
-      "locked": {
-        "lastModified": 1681154353,
-        "narHash": "sha256-MCJ5FHOlbfQRFwN0brqPbCunLEVw05D/3sRVoNVt2tI=",
-        "owner": "numtide",
-        "repo": "nix-filter",
-        "rev": "f529f42792ade8e32c4be274af6b6d60857fbee7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "nix-filter",
         "type": "github"
       }
     },
@@ -1023,7 +968,7 @@
     "opam-nix_2": {
       "inputs": {
         "flake-compat": "flake-compat_4",
-        "flake-utils": "flake-utils_6",
+        "flake-utils": "flake-utils_5",
         "mirage-opam-overlays": "mirage-opam-overlays_2",
         "nixpkgs": [
           "hyperbib-eeg",
@@ -1162,7 +1107,6 @@
       "inputs": {
         "agenix": "agenix",
         "alec-website": "alec-website",
-        "colour-guesser": "colour-guesser",
         "deploy-rs": "deploy-rs",
         "eilean": "eilean",
         "eon": "eon",
@@ -1311,21 +1255,6 @@
         "type": "github"
       }
     },
-    "systems_7": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
     "tangled": {
       "inputs": {
         "gitignore": "gitignore",
@@ -1395,7 +1324,7 @@
     },
     "utils": {
       "inputs": {
-        "systems": "systems_3"
+        "systems": "systems_2"
       },
       "locked": {
         "lastModified": 1701680307,
@@ -1413,7 +1342,7 @@
     },
     "utils_2": {
       "inputs": {
-        "systems": "systems_4"
+        "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1709126324,

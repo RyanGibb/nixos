@@ -1,8 +1,5 @@
 {
-  pkgs,
   config,
-  lib,
-  eilean,
   ...
 }:
 
