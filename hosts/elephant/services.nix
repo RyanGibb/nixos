@@ -110,7 +110,7 @@
             proxy_buffers 4 256k;
             proxy_busy_buffers_size 256k;
           '';
-          };
+        };
       };
       "audiobookshelf.vpn.freumh.org" = {
         onlySSL = true;

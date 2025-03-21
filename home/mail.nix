@@ -207,7 +207,10 @@ in
           };
           imapnotify = {
             enable = true;
-            boxes = [ "Inbox" "Sidebox" ];
+            boxes = [
+              "Inbox"
+              "Sidebox"
+            ];
             onNotify = "${sync-mail}/bin/sync-mail ryan.gibb@cl.cam.ac.uk:INBOX ryan.gibb@cl.cam.ac.uk:Sidebox";
           };
           mbsync = {
@@ -265,7 +268,10 @@ in
           };
           imapnotify = {
             enable = true;
-            boxes = [ "Inbox" "Sidebox" ];
+            boxes = [
+              "Inbox"
+              "Sidebox"
+            ];
             onNotify = "${sync-mail}/bin/sync-mail ryangibb321@gmail.com:INBOX ryangibb321@gmail.com:Sidebox";
           };
           mbsync = {
