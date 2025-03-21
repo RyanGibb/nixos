@@ -276,6 +276,9 @@
         system: inputs.nixpkgs.legacyPackages.${system}.nixfmt-rfc-style
       );
 
-      templates.host.path = ./templates/host;
+      templates.host = {
+        path = ./templates/host;
+        description = "A basic host configuration";
+      };
     };
 }
