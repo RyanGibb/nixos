@@ -26,9 +26,6 @@ For non-NixOS systems, you can use Home Manager standalone:
 2. Clone this repository and follow the [Home Manager manual](https://nix-community.github.io/home-manager/index.xhtml#sec-install-standalone).
 3. Deploy the profile with `home-manager switch`.
 
-Alternatively, use the home-manager command after installing it:
-`home-manager --flake /path/to/repo#<username>@<hostname> switch`
-
 ### Nix-on-Droid
 
 See [upstream](https://github.com/nix-community/nix-on-droid/).
