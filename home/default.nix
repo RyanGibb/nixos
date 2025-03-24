@@ -258,7 +258,7 @@ in
           bind -T copy-mode-vi v send-keys -X begin-selection
           bind -T copy-mode-vi y send-keys -X copy-selection-and-cancel
           # find
-          bind-key -r f run-shell tmux-sessionizer
+          bind-key -r f run-shell "tmux neww tmux-sessionizer"
           # reload
           bind-key r source-file ~/.config/tmux/tmux.conf
           # kill unattached
