@@ -544,13 +544,14 @@
     "lucide-src": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-5ipNSxTlQ7627lGgsyZxk7vS1sr9RkrlR8/QMj2Zg6s=",
-        "type": "file",
-        "url": "https://unpkg.com/lucide@0.482.0"
+        "lastModified": 1742302029,
+        "narHash": "sha256-OyPVtpnC4/AAmPq84Wt1r1Gcs48d9KG+UBCtZK87e9k=",
+        "type": "tarball",
+        "url": "https://github.com/lucide-icons/lucide/releases/download/0.483.0/lucide-icons-0.483.0.zip"
       },
       "original": {
-        "type": "file",
-        "url": "https://unpkg.com/lucide@0.482.0"
+        "type": "tarball",
+        "url": "https://github.com/lucide-icons/lucide/releases/download/0.483.0/lucide-icons-0.483.0.zip"
       }
     },
     "mirage-opam-overlays": {
@@ -1267,17 +1268,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1742406297,
-        "narHash": "sha256-cgvmt451qgo44nLYdYkxs02btGyCROj9esDzZRRRU10=",
-        "owner": "RyanGibb",
-        "repo": "tangled",
-        "rev": "396ea88e0c5e7e50de3bc77a3fb72bcb19b64e85",
-        "type": "github"
+        "lastModified": 1742921920,
+        "narHash": "sha256-NXAQbw7TFPJ7BPzfYrl2i7FKPXSNtQ+d93XIvRI9f6o=",
+        "ref": "refs/heads/master",
+        "rev": "527e848514f4d7c62468c36b7959d2e0983e33f4",
+        "revCount": 382,
+        "type": "git",
+        "url": "https://tangled.sh/@tangled.sh/core"
       },
       "original": {
-        "owner": "RyanGibb",
-        "repo": "tangled",
-        "type": "github"
+        "type": "git",
+        "url": "https://tangled.sh/@tangled.sh/core"
       }
     },
     "timewall": {
