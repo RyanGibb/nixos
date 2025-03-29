@@ -157,6 +157,8 @@
     # other
     ltex-ls
     typst-lsp
+
+    overlay-unstable.claude-code
   ];
 
   services.gnome.gnome-keyring.enable = true;
