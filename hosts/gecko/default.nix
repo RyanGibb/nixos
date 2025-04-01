@@ -42,6 +42,7 @@
     };
     home.sessionVariables = {
       LEDGER_FILE = "~/vault/finances.ledger";
+      CALENDAR_DIR = "~/calendar";
     };
     programs.git.extraConfig.commit.gpgSign = true;
     programs.direnv = {
