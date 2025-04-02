@@ -93,6 +93,7 @@ in
     "capybara.fn06.org"
     "shrew.freumh.org"
     "knot.freumh.org"
+    "enki.freumh.org"
   ];
 
   # VPN
@@ -269,6 +270,29 @@ in
     };
   };
   
+  services.nginx.virtualHosts."enki.freumh.org" = {
+    forceSSL = true;
+    locations."/" = {
+      proxyPass = ''
+        http://localhost:8000
+      '';
+      proxyWebsockets = true;
+      extraConfig = ''
+        # SSE-specific settings
+        proxy_buffering off;
+        proxy_read_timeout 3600s;
+        proxy_send_timeout 3600s;
+        proxy_connect_timeout 60s;
+
+        # Forward headers
+        proxy_set_header Connection "";
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $host;
+      '';
+    };
+  };
+
   # minecraft server
   services.minecraft-server = {
     enable = true;
@@ -357,6 +381,12 @@ in
 
         {
           name = "knot";
+          type = "CNAME";
+          value = "vps";
+        }
+
+        {
+          name = "enki";
           type = "CNAME";
           value = "vps";
         }
