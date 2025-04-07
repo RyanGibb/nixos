@@ -21,6 +21,7 @@
     nur.url = "github:nix-community/NUR/e9e77b7985ef9bdeca12a38523c63d47555cc89b";
     timewall.url = "github:bcyran/timewall/";
     tangled.url = "git+https://tangled.sh/@tangled.sh/core";
+    disko.url = "github:nix-community/disko";
 
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
@@ -38,6 +39,7 @@
     nur.inputs.nixpkgs.follows = "nixpkgs";
     timewall.inputs.nixpkgs.follows = "nixpkgs";
     tangled.inputs.nixpkgs.follows = "nixpkgs";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -116,7 +118,7 @@
                 (
                   { config, ... }:
                   {
-                    networking.hostName = "${host}";
+                    networking.hostName = host-nixpkgs.lib.mkDefault "${host}";
                     # pin nix command's nixpkgs flake to the system flake to avoid unnecessary downloads
                     nix.registry.nixpkgs.flake = host-nixpkgs;
                     system.stateVersion = "24.05";

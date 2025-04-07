@@ -269,7 +269,7 @@ in
       proxyWebsockets = true;
     };
   };
-  
+
   services.nginx.virtualHosts."enki.freumh.org" = {
     forceSSL = true;
     locations."/" = {
@@ -389,6 +389,12 @@ in
           name = "enki";
           type = "CNAME";
           value = "vps";
+        }
+
+        {
+          name = "hippo";
+          type = "A";
+          value = "128.232.124.251";
         }
 
         # generate with
