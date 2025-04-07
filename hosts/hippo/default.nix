@@ -24,4 +24,8 @@
   networking.hostName = "iphito";
 
   services.openssh.openFirewall = true;
+
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA7UrJmBFWR3c7jVzpoyg4dJjON9c7t9bT9acfrj6G7i mtelvers"
+  ];
 }
