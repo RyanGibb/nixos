@@ -231,7 +231,6 @@ in
           unbind C-b
           set-option -g prefix C-a
           bind-key C-a send-prefix
-
           set-window-option -g mode-keys vi
           set-option -g mouse on
           set-option -g set-titles on
@@ -245,9 +244,6 @@ in
           # https://stackoverflow.com/questions/62182401/neovim-screen-lagging-when-switching-mode-from-insert-to-normal
           # locking
           set -s escape-time 0
-          set -g lock-command ${pkgs.vlock}/bin/vlock
-          set -g lock-after-time 0 # Seconds; 0 = never
-          bind L lock-session
           # for .zprofile display environment starting https://github.com/tmux/tmux/issues/3483
           set-option -g update-environment XDG_VTNR
           # Allow clipboard with OSC-52 work
@@ -261,8 +257,6 @@ in
           bind-key -r f run-shell "tmux neww tmux-sessionizer"
           # reload
           bind-key r source-file ~/.config/tmux/tmux.conf
-          # kill unattached
-          bind-key K run-shell 'tmux ls | grep -v attached | cut -d: -f1 | xargs -I {} tmux kill-window -t {}'
         '';
     };
 

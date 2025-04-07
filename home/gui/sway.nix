@@ -63,7 +63,6 @@ in
         export MOZ_ENABLE_WAYLAND=1
         export MOZ_DBUS_REMOTE=1
         export QT_STYLE_OVERRIDE="Fusion"
-        export WLR_NO_HARDWARE_CURSORS=1
         export NIXOS_OZONE_WL=1
 
         # for intellij
