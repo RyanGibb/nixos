@@ -388,7 +388,12 @@ in
         {
           name = "enki";
           type = "CNAME";
-          value = "vps";
+          value = "hippo";
+        }
+        {
+          name = "packages";
+          type = "CNAME";
+          value = "hippo";
         }
 
         {
@@ -433,19 +438,29 @@ in
         }
 
         {
-          name = "jellyfin";
+          name = "elephant";
           type = "AAAA";
           value = "2a00:23c6:aa22:e401:8dff:9b9a:cb3c:3fcb";
+        }
+        {
+          name = "jellyfin";
+          type = "CNAME";
+          value = "elephant";
         }
         {
           name = "jellyseerr";
-          type = "AAAA";
-          value = "2a00:23c6:aa22:e401:8dff:9b9a:cb3c:3fcb";
+          type = "CNAME";
+          value = "elephant";
         }
         {
           name = "calibre";
-          type = "AAAA";
-          value = "2a00:23c6:aa22:e401:8dff:9b9a:cb3c:3fcb";
+          type = "CNAME";
+          value = "elephant";
+        }
+        {
+          name = "photos";
+          type = "CNAME";
+          value = "elephant";
         }
       ] ++ vpnRecords;
     };

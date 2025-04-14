@@ -29,6 +29,7 @@
       "nextcloud.vpn.freumh.org"
       "owntracks.vpn.freumh.org"
       "immich.vpn.freumh.org"
+      "photos.freumh.org"
       "calibre.freumh.org"
       "audiobookshelf.vpn.freumh.org"
     ];
@@ -91,6 +92,14 @@
       "immich.vpn.freumh.org" = {
         onlySSL = true;
         listenAddresses = [ "100.64.0.9" ];
+        locations."/" = {
+          proxyPass = with config.services.immich; ''
+            http://${host}:${builtins.toString port}
+          '';
+        };
+      };
+      "photos.freumh.org" = {
+        onlySSL = true;
         locations."/" = {
           proxyPass = with config.services.immich; ''
             http://${host}:${builtins.toString port}
@@ -393,12 +402,8 @@
           IP="$(${pkgs.curl}/bin/curl https://ipinfo.io/ip 2> /dev/null)"
           echo $IP
           ${config.services.eon.package}/bin/capc update /run/agenix/eon-freumh.org.cap \
-            -u "remove|jellyfin.freumh.org|A" \
-            -u "remove|jellyseerr.freumh.org|A" \
-            -u "remove|calibre.freumh.org|A" \
-            -u "add|jellyfin.freumh.org|A|$IP|60" \
-            -u "add|jellyseerr.freumh.org|A|$IP|60" \
-            -u "add|calibre.freumh.org|A|$IP|60" \
+            -u "remove|elephant.freumh.org|A" \
+            -u "add|elephant.freumh.org|A|$IP|60" \
             ;
           sleep 3600
         done
