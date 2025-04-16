@@ -30,4 +30,6 @@
   };
 
   services.openssh.openFirewall = true;
+
+  users.mutableUsers = lib.mkForce true;
 }
