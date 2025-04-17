@@ -160,6 +160,7 @@
     typst-lsp
 
     overlay-unstable.claude-code
+    imagemagickBig
   ];
 
   services.gnome.gnome-keyring.enable = true;
