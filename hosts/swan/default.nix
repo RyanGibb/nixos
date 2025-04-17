@@ -23,6 +23,11 @@ in
 
   environment.systemPackages = with pkgs; [ xe-guest-utilities ];
 
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICMmmaDFqSmbQLnPuTtg32wBdJs1xsituz3jrJBqlM1u avsm"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEl1IdWeuW+VmNdfAojJhjn3vVrNnZk4ukhxspeh4ikL avsm"
+  ];
+
   services.hyperbib = {
     enable = true;
     domain = domain;
