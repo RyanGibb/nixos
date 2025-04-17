@@ -22,6 +22,11 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
+  fileSystems."/mnt/disk1" = {
+    device = "/dev/disk/by-uuid/b56bee51-9959-424f-9ccb-7f14dd7613c8";
+    fsType = "ext4";
+  };
+
   networking.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
