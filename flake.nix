@@ -265,6 +265,27 @@
               }
             ];
           };
+        droid =
+          let
+            system = "aarch64-linux";
+            pkgs = inputs.nixpkgs.legacyPackages.${system};
+          in
+          inputs.home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            modules = [
+              ./home/default.nix
+              {
+                nix.package = pkgs.nix;
+                nixpkgs.overlays = getSystemOverlays system { };
+                home.username = "droid";
+                home.homeDirectory = "/home/droid";
+                home.packages = with pkgs; [ home-manager ];
+                custom = {
+                  machineColour = "red";
+                };
+              }
+            ];
+          };
       };
 
       legacyPackages = inputs.nixpkgs.lib.genAttrs inputs.nixpkgs.lib.systems.flakeExposed (system: {
