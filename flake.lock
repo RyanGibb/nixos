@@ -156,11 +156,11 @@
         "opam-nix": "opam-nix"
       },
       "locked": {
-        "lastModified": 1743149102,
-        "narHash": "sha256-pW24ij8CqAdU8m5OFD1amwNmovf25YRygl1bv+s390o=",
+        "lastModified": 1745235152,
+        "narHash": "sha256-cHlhi/sciYiKcpnEQ5c+jjPNpdym8f7DoaRZu4wdgJU=",
         "owner": "RyanGibb",
         "repo": "eon",
-        "rev": "81bdd51d1e2651c46df2a1ce38b7df5661e7eef1",
+        "rev": "8ff9899d71e8019f1d25ab66b32390c6e6c55a92",
         "type": "github"
       },
       "original": {
