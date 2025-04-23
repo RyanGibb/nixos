@@ -19,7 +19,7 @@
     hyperbib-eeg.url = "github:RyanGibb/hyperbib?ref=nixify";
     nix-rpi5.url = "gitlab:vriska/nix-rpi5?ref=main";
     nur.url = "github:nix-community/NUR/e9e77b7985ef9bdeca12a38523c63d47555cc89b";
-    timewall.url = "github:bcyran/timewall/";
+    timewall.url = "github:bcyran/timewall/2.0.0";
     tangled.url = "git+https://tangled.sh/@tangled.sh/core";
     disko.url = "github:nix-community/disko";
 
@@ -67,12 +67,13 @@
           # to override attributes of a package
           # package = prev.package.overrideAttrs
           #  (_: { patches = [ ./pkgs/package.patch ]; });
-          opam = final.overlay-unstable.opam.overrideAttrs (_: {
+          opam = final.overlay-unstable.opam.overrideAttrs (_: rec {
+            version = "2.4.0-alpha1";
             src = final.fetchurl {
-              url = "http://ryan.freumh.org/software/opam-full-2.3.0-nixos-depexts.tar.gz";
-              sha256 = "sha256-mRxxZtWFgQ8v1szVq5g5+qVqa+OffoG1aHzGUiMMvT0=";
+              url = "https://github.com/ocaml/opam/releases/download/${version}/opam-full-${version}.tar.gz";
+              sha256 = "sha256-kRGh8K5sMvmbJtSAEEPIOsim8uUUhrw11I+vVd/nnx4=";
             };
-            version = "2.3.0";
+            patches = [ ./pkgs/opam-shebangs.patch ];
           });
           immich = final.overlay-unstable.immich;
           mautrix-whatsapp = final.overlay-compat.mautrix-whatsapp;
