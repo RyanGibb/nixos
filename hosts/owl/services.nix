@@ -278,6 +278,12 @@ in
     openFirewall = true;
   };
 
+  services.nginx.virtualHosts."meands.org" = {
+    forceSSL = true;
+    enableACME = true;
+    root = "/var/www/meands.org/";
+  };
+
   # DNS records
   eilean.dns.nameservers = [ "ns1" ];
   eilean.services.dns.zones = {
