@@ -284,10 +284,16 @@ in
     root = "/var/www/meands.org/_site";
     extraConfig = ''
       add_header Content-Security-Policy "
-        style-src 'self' https://cdn.jsdelivr.net;
-        font-src 'self' https://fonts.gstatic.com;
-        script-src 'self' https://cdn.jsdelivr.net;
-      ";
+            default-src 'self' 'unsafe-inline' 'unsafe-eval' blob:;
+            base-uri 'self';
+            frame-src 'self';
+            frame-ancestors 'self';
+            form-action 'self';
+            style-src 'self' https://cdn.jsdelivr.net;
+            font-src 'self' https://fonts.gstatic.com;
+            script-src 'self' https://cdn.jsdelivr.net;
+            "
+            always;
     '';
   };
 
