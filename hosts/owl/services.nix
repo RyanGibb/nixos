@@ -281,7 +281,7 @@ in
   services.nginx.virtualHosts."meands.org" = {
     forceSSL = true;
     enableACME = true;
-    root = "/var/www/meands.org/";
+    root = "/var/www/meands.org/_site";
   };
 
   # DNS records
