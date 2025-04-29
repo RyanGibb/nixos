@@ -282,6 +282,13 @@ in
     forceSSL = true;
     enableACME = true;
     root = "/var/www/meands.org/_site";
+    extraConfig = ''
+      add_header Content-Security-Policy "
+        style-src 'self' https://cdn.jsdelivr.net;
+        font-src 'self' https://fonts.gstatic.com;
+        script-src 'self' https://cdn.jsdelivr.net;
+      ";
+    '';
   };
 
   # DNS records
