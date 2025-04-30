@@ -11,8 +11,6 @@
       "/etc/NetworkManager/system-connections"
     ];
     exclude = [
-      "/home/ryan/videos"
-      "/home/ryan/.thunderbird"
       "/home/ryan/.cache"
       "/home/ryan/.local/share/Steam"
     ];

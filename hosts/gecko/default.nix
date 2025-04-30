@@ -161,6 +161,11 @@
 
     overlay-unstable.claude-code
     imagemagickBig
+
+    exiftool
+    darktable
+    gphoto2
+    gphoto2fs
   ];
 
   services.gnome.gnome-keyring.enable = true;
@@ -229,6 +234,8 @@
       intel-media-driver
       # Intel Video Processing Library (VPL) API runtime implementation
       vpl-gpu-rt
+      # OpenCL
+      intel-compute-runtime
     ];
   };
 }
