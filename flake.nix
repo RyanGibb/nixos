@@ -227,6 +227,7 @@
               "elephant"
               "gecko"
               "owl"
+              "hippo"
               "shrew"
               "swan"
             ]
