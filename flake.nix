@@ -213,7 +213,13 @@
                   #remoteBuild = machine.config.nixpkgs.hostPlatform.system == builtins.currentSystem;
                   remoteBuild = true;
                   sshUser = "root";
-                  hostname = if name == "swan" then "eeg.cl.cam.ac.uk" else machine.config.networking.hostName;
+                  hostname =
+                    if name == "swan" then
+                      "eeg.cl.cam.ac.uk"
+                    else if "name" == "hippo" then
+                      "hippo.freumh.org"
+                    else
+                      machine.config.networking.hostName;
                   profiles.system = {
                     user = "root";
                     path = deployPkgs.deploy-rs.lib.activate.nixos machine;
