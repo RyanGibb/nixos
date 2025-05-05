@@ -15,9 +15,14 @@
 
   networking.hostId = "e768032f";
 
-  services.zfs.autoScrub = {
-    enable = true;
-    interval = "Tue, 02:00";
+  services.zfs = {
+    autoScrub = {
+      enable = true;
+      interval = "monthly";
+    };
+    autoSnapshot = {
+      enable = true;
+    };
   };
 
   age.secrets.email-elephant.file = ../../secrets/email-system.age;
