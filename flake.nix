@@ -216,7 +216,7 @@
                   hostname =
                     if name == "swan" then
                       "eeg.cl.cam.ac.uk"
-                    else if "name" == "hippo" then
+                    else if name == "hippo" then
                       "hippo.freumh.org"
                     else
                       machine.config.networking.hostName;
