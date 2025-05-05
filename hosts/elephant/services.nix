@@ -96,6 +96,7 @@
           proxyPass = with config.services.immich; ''
             http://${host}:${builtins.toString port}
           '';
+          proxyWebsockets = true;
         };
       };
       "photos.freumh.org" = {
@@ -104,6 +105,7 @@
           proxyPass = with config.services.immich; ''
             http://${host}:${builtins.toString port}
           '';
+          proxyWebsockets = true;
         };
       };
       "calibre.freumh.org" = {
