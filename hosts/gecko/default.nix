@@ -166,6 +166,8 @@
     darktable
     gphoto2
     gphoto2fs
+
+    graphviz
   ];
 
   services.gnome.gnome-keyring.enable = true;
