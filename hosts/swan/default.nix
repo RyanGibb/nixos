@@ -153,6 +153,7 @@ in
       {
         server_name = domain;
         enable_registration = false;
+        registration_shared_secret_path = "/var/lib/matrix-synapse/reigstration-shared-secret";
         auto_join_rooms = [ "#EEG:eeg.cl.cam.ac.uk" ];
         password_config.enabled = false;
         listeners = [

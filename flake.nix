@@ -228,13 +228,13 @@
               }
             )
             [
-              "capybara"
+              # "capybara"
               "duck"
               "elephant"
               "gecko"
               "owl"
               "hippo"
-              "shrew"
+              # "shrew"
               "swan"
             ]
         );
