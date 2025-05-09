@@ -106,6 +106,19 @@ in
 
           Alias /.well-known/matrix/server "${matrixServerConfig}"
           Alias /.well-known/matrix/client "${matrixClientConfig}"
+
+          ### Calendar config
+
+          RewriteEngine On
+          RewriteRule ^/cal$ /cal/ [R,L]
+
+          <Location "/cal/">
+              ProxyPass        http://localhost:5232/ retry=0
+              ProxyPassReverse http://localhost:5232/
+              RequestHeader    set X-Script-Name /cal
+              RequestHeader    set X-Forwarded-Port "%{SERVER_PORT}s"
+              RequestHeader    set X-Forwarded-Proto expr=%{REQUEST_SCHEME}
+          </Location>
         '';
     };
     virtualHosts."watch.${domain}" = {
@@ -335,5 +348,19 @@ in
          level="default"
          flush="1">
     '';
+  };
+
+  networking.domain = domain;
+  services.radicale = {
+    enable = true;
+    settings = {
+      server = { hosts = [ "0.0.0.0:5232" ]; };
+      auth = {
+        type = "htpasswd";
+        htpasswd_filename = "/var/lib/radicale/users/passwd";
+        htpasswd_encryption = "bcrypt";
+      };
+      storage = { filesystem_folder = "/var/lib/radicale/collections"; };
+    };
   };
 }
