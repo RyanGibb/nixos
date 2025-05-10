@@ -81,6 +81,7 @@ in
         playerctl
         brightnessctl
         bluetuith
+        pulsemixer
         xdg-utils
         yad
         networkmanagerapplet
