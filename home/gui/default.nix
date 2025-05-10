@@ -110,6 +110,8 @@ in
           "extensions.pocket.enabled" = false;
 
           "extensions.autoDisableScopes" = 0;
+
+          "sidebar.verticalTabs" = true;
         };
         userChrome = ''
           #webrtcIndicator {
@@ -120,11 +122,6 @@ in
           .browserContainer > findbar {
             -moz-box-ordinal-group: 0;
           }
-
-          #TabsToolbar
-          {
-              visibility: collapse;
-          }
         '';
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           auto-tab-discard
@@ -133,9 +130,7 @@ in
           news-feed-eradicator
           istilldontcareaboutcookies
           leechblock-ng
-          # search-by-image
           simple-translate
-          tree-style-tab
           tridactyl
           ublock-origin
           zotero-connector
