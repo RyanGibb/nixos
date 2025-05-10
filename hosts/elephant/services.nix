@@ -26,7 +26,6 @@
       "jellyfin.freumh.org"
       "jellyseerr.freumh.org"
       "transmission.vpn.freumh.org"
-      "nextcloud.vpn.freumh.org"
       "owntracks.vpn.freumh.org"
       "immich.vpn.freumh.org"
       "photos.freumh.org"
@@ -80,10 +79,6 @@
             http://localhost:${builtins.toString rpc-port}
           '';
         };
-      };
-      "nextcloud.vpn.freumh.org" = {
-        onlySSL = true;
-        listenAddresses = [ "100.64.0.9" ];
       };
       "owntracks.vpn.freumh.org" = {
         onlySSL = true;
@@ -197,19 +192,6 @@
     };
   };
   users.mutableUsers = lib.mkForce true;
-
-  age.secrets.nextcloud = {
-    file = ../../secrets/nextcloud.age;
-    mode = "770";
-    owner = "nextcloud";
-    group = "nextcloud";
-  };
-  services.nextcloud = {
-    enable = true;
-    package = pkgs.nextcloud29;
-    hostName = "nextcloud.vpn.freumh.org";
-    config.adminpassFile = config.age.secrets.nextcloud.path;
-  };
 
   services.transmission = {
     enable = true;
