@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   lib,
   ...
 }@inputs:
@@ -32,4 +33,26 @@
   services.openssh.openFirewall = true;
 
   users.mutableUsers = lib.mkForce true;
+
+  age.secrets.restic-owl.file = ../../secrets/restic-owl.age;
+  services.restic.backups.${config.networking.hostName} = {
+    repository = "rest:http://100.64.0.9:8000/${config.networking.hostName}/";
+    passwordFile = config.age.secrets.restic-owl.path;
+    initialize = true;
+    paths = [
+      "/var/"
+      "/etc/"
+      "/home/"
+    ];
+    timerConfig = {
+      OnCalendar = "03:00";
+      randomizedDelaySec = "1hr";
+    };
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 4"
+      "--keep-monthly 12"
+      "--keep-yearly 10"
+    ];
+  };
 }

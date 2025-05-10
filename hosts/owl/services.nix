@@ -206,23 +206,6 @@ in
     streamingProcesses = lib.mkForce 1;
   };
 
-  # restic
-  age.secrets.restic-owl.file = ../../secrets/restic-owl.age;
-  services.restic.backups.${config.networking.hostName} = {
-    repository = "rest:http://100.64.0.9:8000/${config.networking.hostName}/";
-    passwordFile = config.age.secrets.restic-owl.path;
-    initialize = true;
-    paths = [
-      "/var/"
-      "/run/"
-      "/etc/"
-    ];
-    timerConfig = {
-      OnCalendar = "03:00";
-      randomizedDelaySec = "1hr";
-    };
-  };
-
   # reverse proxy
   services.nginx.virtualHosts."capybara.fn06.org" = {
     forceSSL = true;

@@ -272,43 +272,12 @@
     config.services.readarr.user
   ];
 
-  age.secrets.restic-owl.file = ../../secrets/restic-owl.age;
-  age.secrets.restic-gecko.file = ../../secrets/restic-gecko.age;
-  age.secrets.restic-shrew.file = ../../secrets/restic-shrew.age;
-  services.restic = {
-    #backups.owl = {
-    #  repository = "${config.services.restic.server.dataDir}/owl";
-    #  passwordFile = "${config.custom.secretsDir}/restic-password-owl";
-    #  timerConfig = {
-    #    OnCalendar = "02:00";
-    #  };
-    #  pruneOpts = [
-    #    "--keep-daily 7"
-    #    "--keep-weekly 5"
-    #    "--keep-monthly 12"
-    #    "--keep-yearly 5"
-    #  ];
-    #};
-    #backups.gecko = {
-    #  repository = "${config.services.restic.server.dataDir}/gecko";
-    #  passwordFile = "${config.custom.secretsDir}/restic-password-gecko";
-    #  timerConfig = {
-    #    OnCalendar = "02:00";
-    #  };
-    #  pruneOpts = [
-    #    "--keep-daily 7"
-    #    "--keep-weekly 5"
-    #    "--keep-monthly 12"
-    #    "--keep-yearly 5"
-    #  ];
-    #};
-    server = {
-      enable = true;
-      listenAddress = "100.64.0.9:8000";
-      dataDir = "/tank/backups/restic";
-      appendOnly = true;
-      extraFlags = [ "--no-auth" ];
-    };
+  services.restic.server = {
+    enable = true;
+    listenAddress = "100.64.0.9:8000";
+    dataDir = "/tank/backups/restic";
+    appendOnly = true;
+    extraFlags = [ "--no-auth" ];
   };
   systemd.services.restic-rest-server = {
     after = [ "tailscaled.service" ];

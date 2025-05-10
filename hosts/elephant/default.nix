@@ -46,6 +46,7 @@
     '';
   };
 
+  # backblaze
   age.secrets."restic.env".file = ../../secrets/restic.env.age;
   age.secrets.restic-repo.file = ../../secrets/restic-repo.age;
   age.secrets.restic-elephant.file = ../../secrets/restic-elephant.age;
@@ -60,11 +61,33 @@
       "/tank/photos/"
     ];
     timerConfig = {
-      OnCalendar = "03:00";
+      OnCalendar = "monthly";
     };
     pruneOpts = [
       "--keep-daily 7"
       "--keep-weekly 4"
+      "--keep-yearly 10"
+    ];
+  };
+
+  # local backup
+  services.restic.backups.${config.networking.hostName} = {
+    repository = "${config.services.restic.server.dataDir}/elephant";
+    passwordFile = config.age.secrets.restic-elephant.path;
+    initialize = true;
+    paths = [
+      "/var/"
+      "/etc/"
+      "/home/"
+    ];
+    timerConfig = {
+      OnCalendar = "03:00";
+      randomizedDelaySec = "1hr";
+    };
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 4"
+      "--keep-monthly 12"
       "--keep-yearly 10"
     ];
   };
@@ -90,4 +113,5 @@
     "net.ipv4.ip_forward" = 1;
     "net.ipv6.conf.all.forwarding" = 1;
   };
+
 }

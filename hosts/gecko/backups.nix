@@ -7,17 +7,21 @@
     passwordFile = config.age.secrets.restic-gecko.path;
     initialize = true;
     paths = [
-      "/home/ryan"
+      "/var/"
+      "/etc/"
+      "/home/"
       "/etc/NetworkManager/system-connections"
-    ];
-    exclude = [
-      "/home/ryan/.cache"
-      "/home/ryan/.local/share/Steam"
     ];
     timerConfig = {
       OnCalendar = "03:00";
       Persistent = true;
     };
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 4"
+      "--keep-monthly 12"
+      "--keep-yearly 10"
+    ];
     extraBackupArgs = [ "-vv" ];
   };
 

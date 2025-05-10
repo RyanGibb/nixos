@@ -181,8 +181,14 @@
     initialize = true;
     paths = [ "/var/lib/hass" ];
     timerConfig = {
-      OnCalendar = "03:00";
+      OnCalendar = "monthly";
       randomizedDelaySec = "1hr";
     };
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 4"
+      "--keep-monthly 12"
+      "--keep-yearly 10"
+    ];
   };
 }
