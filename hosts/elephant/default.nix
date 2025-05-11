@@ -76,7 +76,7 @@
     passwordFile = config.age.secrets.restic-elephant.path;
     initialize = true;
     paths = [
-      "/var/"
+      "/var/lib/"
       "/etc/"
       "/home/"
     ];

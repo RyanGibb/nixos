@@ -40,7 +40,7 @@
     passwordFile = config.age.secrets.restic-owl.path;
     initialize = true;
     paths = [
-      "/var/"
+      "/var/lib/"
       "/etc/"
       "/home/"
     ];

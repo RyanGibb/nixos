@@ -7,7 +7,7 @@
     passwordFile = config.age.secrets.restic-gecko.path;
     initialize = true;
     paths = [
-      "/var/"
+      "/var/lib/"
       "/etc/"
       "/home/"
       "/etc/NetworkManager/system-connections"
