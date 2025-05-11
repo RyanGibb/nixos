@@ -249,6 +249,10 @@
       enableBookUploading = true;
       enableKepubify = true;
     };
+    # https://github.com/NixOS/nixpkgs/issues/405974
+    package = pkgs.calibre-web.overridePythonAttrs (old: rec {
+      dependencies = old.dependencies ++ old.optional-dependencies.kobo;
+    });
   };
   users.users.${config.services.calibre-web.user}.extraGroups = [
     config.services.readarr.user
