@@ -258,6 +258,50 @@
     config.services.readarr.user
   ];
 
+  age.secrets.restic-gecko.file = ../../secrets/restic-gecko.age;
+  age.secrets.restic-owl.file = ../../secrets/restic-owl.age;
+  age.secrets.restic-shrew.file = ../../secrets/restic-shrew.age;
+  services.restic.backups = {
+    gecko = {
+      repository = "${config.services.restic.server.dataDir}/gecko";
+      passwordFile = config.age.secrets.restic-gecko.path;
+      timerConfig = {
+        OnCalendar = "02:00";
+      };
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 4"
+        "--keep-monthly 12"
+        "--keep-yearly 10"
+      ];
+    };
+    owl = {
+      repository = "${config.services.restic.server.dataDir}/owl";
+      passwordFile = config.age.secrets.restic-owl.path;
+      timerConfig = {
+        OnCalendar = "02:00";
+      };
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 4"
+        "--keep-monthly 12"
+        "--keep-yearly 10"
+      ];
+    };
+    shrew = {
+      repository = "${config.services.restic.server.dataDir}/shrew";
+      passwordFile = config.age.secrets.restic-shrew.path;
+      timerConfig = {
+        OnCalendar = "02:00";
+      };
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 4"
+        "--keep-monthly 12"
+        "--keep-yearly 10"
+      ];
+    };
+  };
   services.restic.server = {
     enable = true;
     listenAddress = "100.64.0.9:8000";

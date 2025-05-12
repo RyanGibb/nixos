@@ -184,11 +184,5 @@
       OnCalendar = "monthly";
       randomizedDelaySec = "1hr";
     };
-    pruneOpts = [
-      "--keep-daily 7"
-      "--keep-weekly 4"
-      "--keep-monthly 12"
-      "--keep-yearly 10"
-    ];
   };
 }

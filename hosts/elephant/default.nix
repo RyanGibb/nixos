@@ -50,7 +50,7 @@
   age.secrets."restic.env".file = ../../secrets/restic.env.age;
   age.secrets.restic-repo.file = ../../secrets/restic-repo.age;
   age.secrets.restic-elephant.file = ../../secrets/restic-elephant.age;
-  services.restic.backups.sync = {
+  services.restic.backups.elephant-tank = {
     environmentFile = config.age.secrets."restic.env".path;
     repositoryFile = config.age.secrets.restic-repo.path;
     passwordFile = config.age.secrets.restic-elephant.path;
