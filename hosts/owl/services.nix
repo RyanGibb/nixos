@@ -184,9 +184,16 @@ in
     owner = "${config.systemd.services.matrix-synapse.serviceConfig.User}";
     group = "${config.systemd.services.matrix-synapse.serviceConfig.Group}";
   };
+  age.secrets.matrix-livekit-keys = {
+    file = ../../secrets/matrix-livekit-keys.age;
+    mode = "770";
+    owner = "root";
+    group = "root";
+  };
   eilean.matrix = {
     enable = true;
     registrationSecretFile = config.age.secrets.matrix-shared-secret.path;
+    livekitKeys = config.age.secrets.matrix-livekit-keys.path;
     bridges.whatsapp = true;
     bridges.signal = true;
     bridges.instagram = true;

@@ -21,6 +21,7 @@ in
   ];
   "matrix-shared-secret.age".publicKeys = user ++ [ owl ];
   "matrix-turn-shared-secret.age".publicKeys = user ++ [ owl ];
+  "matrix-livekit-keys.age".publicKeys = user ++ [ owl ];
   "coturn.age".publicKeys = user ++ [ owl ];
   "website-phd.age".publicKeys = user ++ [ owl ];
   "rmfakecloud.age".publicKeys = user ++ [ owl ];

@@ -130,14 +130,15 @@
         "nixos-mailserver": "nixos-mailserver",
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "nixpkgs-unstable": "nixpkgs-unstable"
       },
       "locked": {
-        "lastModified": 1740855157,
-        "narHash": "sha256-qnKyiLva/VVWYTYWH2tN7xxj9jJ4dsl/jOxkpotlZIE=",
+        "lastModified": 1747661153,
+        "narHash": "sha256-NcNQoJTczugMolsahubyaymXim1DfhybbBiONoalUnA=",
         "owner": "RyanGibb",
         "repo": "eilean-nix",
-        "rev": "f68975d7d049ab10b7c26eeceb63a6ddd357bb30",
+        "rev": "a4eca30597164f4a9b76dd4b35fc4cd0b808c744",
         "type": "github"
       },
       "original": {
@@ -859,6 +860,22 @@
     },
     "nixpkgs-unstable": {
       "locked": {
+        "lastModified": 1747542820,
+        "narHash": "sha256-GaOZntlJ6gPPbbkTLjbd8BMWaDYafhuuYRNrxCGnPJw=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "292fa7d4f6519c074f0a50394dbbe69859bb6043",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-unstable_2": {
+      "locked": {
         "lastModified": 1747327360,
         "narHash": "sha256-LSmTbiq/nqZR9B2t4MRnWG7cb0KVNU70dB7RT4+wYK4=",
         "owner": "nixos",
@@ -1154,7 +1171,7 @@
         "nixpkgs-element": "nixpkgs-element",
         "nixpkgs-flaresolverr": "nixpkgs-flaresolverr",
         "nixpkgs-sonarr": "nixpkgs-sonarr",
-        "nixpkgs-unstable": "nixpkgs-unstable",
+        "nixpkgs-unstable": "nixpkgs-unstable_2",
         "nur": "nur",
         "tangled": "tangled",
         "timewall": "timewall"
