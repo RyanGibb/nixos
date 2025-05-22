@@ -13,6 +13,8 @@ gap_size=10
 vertical_alignement=top
 offset=10x10
 
+height=500
+
 [urgency_low]
 background="#2e3440e0"
 frame_color="#2e3440e0"
