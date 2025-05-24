@@ -20,7 +20,7 @@ in
     home-manager.users.${config.custom.username} =
       { ... }:
       {
-        programs.zsh.initExtra = ''
+        programs.zsh.initContent = ''
           source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
         '';
       };

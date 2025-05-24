@@ -29,7 +29,7 @@ in
       zstd
     ];
 
-    programs.zsh.initExtra = lib.mkAfter ''
+    programs.zsh.initContent = lib.mkAfter ''
       PATH="''${XDG_CONFIG_HOME:-$HOME/.config}/emacs/bin":$PATH
     '';
 

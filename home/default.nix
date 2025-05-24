@@ -131,12 +131,16 @@ in
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       enableCompletion = true;
-      initExtraFirst = ''
-        export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
-        export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=5"
-        PROMPT='%(?..%F{red}%3?%f )%F{${config.custom.machineColour}}%n@%m%f:%~ %#'$'\n'
-      '';
-      initExtra = builtins.readFile ./zsh.cfg;
+      initContent =
+        let
+          zshConfigEarlyInit = lib.mkOrder 500 ''
+            export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
+            export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=5"
+            PROMPT='%(?..%F{red}%3?%f )%F{${config.custom.machineColour}}%n@%m%f:%~ %#'$'\n'
+          '';
+          zshConfig = lib.mkOrder 1000 (builtins.readFile ./zsh.cfg);
+        in
+          lib.mkMerge [ zshConfigEarlyInit zshConfig ];
     };
 
     programs.bash.initExtra = ''
@@ -166,7 +170,7 @@ in
         }
       ];
     };
-    services.gpg-agent.pinentryPackage = pkgs.pinentry-qt;
+    services.gpg-agent.pinentry.package = pkgs.pinentry-qt;
 
     programs.git = {
       enable = true;

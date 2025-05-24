@@ -2,7 +2,6 @@
   pkgs,
   config,
   lib,
-  hyperbib-eeg,
   ...
 }:
 
@@ -13,7 +12,6 @@ in
   imports = [
     ./hardware-configuration.nix
     ./minimal.nix
-    hyperbib-eeg.nixosModules.default
   ];
 
   security.acme = {
@@ -27,13 +25,6 @@ in
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICMmmaDFqSmbQLnPuTtg32wBdJs1xsituz3jrJBqlM1u avsm"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEl1IdWeuW+VmNdfAojJhjn3vVrNnZk4ukhxspeh4ikL avsm"
   ];
-
-  services.hyperbib = {
-    enable = true;
-    domain = domain;
-    # servicePath = "/bib/";
-    # proxyPath = "/";
-  };
 
   services.nginx.enable = lib.mkForce false;
   services.httpd = {
@@ -53,9 +44,6 @@ in
       forceSSL = true;
       enableACME = true;
       documentRoot = "/var/www/eeg/";
-      locations."/bib/" = {
-        proxyPass = "http://127.0.0.1:${builtins.toString config.services.hyperbib.port}/bib/";
-      };
       extraConfig =
         let
           keyfile = pkgs.writeTextFile {

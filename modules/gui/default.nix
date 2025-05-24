@@ -109,12 +109,7 @@ in
     fonts.packages = with pkgs; [
       noto-fonts
       noto-fonts-emoji
-      (nerdfonts.override {
-        fonts = [
-          "DroidSansMono"
-          "NerdFontsSymbolsOnly"
-        ];
-      })
+      nerd-fonts.droid-sans-mono
       wqy_zenhei
       libertine
     ];

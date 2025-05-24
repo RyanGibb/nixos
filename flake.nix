@@ -1,13 +1,9 @@
 {
   inputs = {
-    nixpkgs-compat.url = "github:nixos/nixpkgs/nixos-24.05";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-element.url = "github:nixos/nixpkgs/b91f647a35c4e18a73adf617e6ef9eb5f3baa503";
-    nixpkgs-flaresolverr.url = "github:nixos/nixpkgs/ebbc0409688869938bbcf630da1c1c13744d2a7b";
-    nixpkgs-sonarr.url = "github:nixos/nixpkgs/394571358ce82dff7411395829aa6a3aad45b907";
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
     agenix.url = "github:ryantm/agenix";
     deploy-rs.url = "github:serokell/deploy-rs";
     nix-on-droid.url = "github:nix-community/nix-on-droid/release-24.05";
@@ -16,7 +12,6 @@
     alec-website.url = "github:alexanderhthompson/website";
     fn06-website.url = "github:RyanGibb/fn06";
     i3-workspace-history.url = "github:RyanGibb/i3-workspace-history";
-    hyperbib-eeg.url = "github:RyanGibb/hyperbib?ref=nixify";
     nix-rpi5.url = "gitlab:vriska/nix-rpi5?ref=main";
     nur.url = "github:nix-community/NUR/e9e77b7985ef9bdeca12a38523c63d47555cc89b";
     timewall.url = "github:bcyran/timewall/2.0.0";
@@ -34,7 +29,6 @@
     fn06-website.inputs.nixpkgs.follows = "nixpkgs";
     eon.inputs.nixpkgs.follows = "nixpkgs";
     i3-workspace-history.inputs.nixpkgs.follows = "nixpkgs";
-    hyperbib-eeg.inputs.nixpkgs.follows = "nixpkgs";
     nix-rpi5.inputs.nixpkgs.follows = "nixpkgs";
     nur.inputs.nixpkgs.follows = "nixpkgs";
     timewall.inputs.nixpkgs.follows = "nixpkgs";
@@ -47,12 +41,6 @@
     let
       getSystemOverlays = system: nixpkgsConfig: [
         (final: prev: {
-          # https://github.com/mautrix/whatsapp/issues/749
-          overlay-compat = import inputs.nixpkgs-compat {
-            inherit system;
-            # follow stable nixpkgs config
-            config = nixpkgsConfig;
-          };
           overlay-unstable = import inputs.nixpkgs-unstable {
             inherit system;
             # follow stable nixpkgs config
@@ -76,23 +64,6 @@
             patches = [ ./pkgs/opam-shebangs.patch ];
           });
           immich = final.overlay-unstable.immich;
-          mautrix-whatsapp = final.overlay-compat.mautrix-whatsapp;
-          element-desktop =
-            (import inputs.nixpkgs-element {
-              inherit system;
-              config = nixpkgsConfig;
-            }).element-desktop;
-          # https://github.com/NixOS/nixpkgs/issues/332776
-          flaresolverr =
-            (import inputs.nixpkgs-flaresolverr {
-              inherit system;
-              config = nixpkgsConfig;
-            }).flaresolverr;
-          sonarr =
-            (import inputs.nixpkgs-sonarr {
-              inherit system;
-              config = nixpkgsConfig;
-            }).sonarr;
           timewall = inputs.timewall.packages.${system}.default;
         })
         inputs.nur.overlays.default
@@ -144,7 +115,7 @@
                     security.acme-eon.acceptTerms = true;
                   }
                 )
-                host-home-manager.nixosModule
+                host-home-manager.nixosModules.default
                 inputs.eilean.nixosModules.default
                 inputs.agenix.nixosModules.default
               ];
@@ -187,8 +158,10 @@
         nodes = builtins.listToAttrs (
           builtins.map
             (
-              name:
+              host:
               let
+                name = builtins.elemAt host 0;
+                remote = builtins.elemAt host 1;
                 machine = inputs.self.nixosConfigurations.${name};
                 system = machine.pkgs.system;
                 pkgs = import inputs.nixpkgs { inherit system; };
@@ -211,7 +184,7 @@
                 value = {
                   # if we're on a different system build on the remote
                   #remoteBuild = machine.config.nixpkgs.hostPlatform.system == builtins.currentSystem;
-                  remoteBuild = true;
+                  remoteBuild = remote;
                   sshUser = "root";
                   hostname =
                     if name == "swan" then
@@ -229,13 +202,13 @@
             )
             [
               # "capybara"
-              "duck"
-              "elephant"
-              "gecko"
-              "owl"
-              "hippo"
+              ["duck" false]
+              ["elephant" true]
+              ["gecko" true]
+              ["owl" false]
+              ["hippo" true]
               # "shrew"
-              "swan"
+              ["swan" false]
             ]
         );
       };

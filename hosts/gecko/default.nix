@@ -97,7 +97,7 @@
     obs-studio
     xournalpp
     inkscape
-    kdenlive
+    kdePackages.kdenlive
     tor-browser-bundle-bin
     ffmpeg
     audio-recorder
@@ -150,14 +150,14 @@
     black
     # jave
     jdt-language-server
-    nodejs_18
+    nodejs
     # c
     clang-tools
     # lua
     lua-language-server
     # other
     ltex-ls
-    typst-lsp
+    tinymist
 
     overlay-unstable.claude-code
     imagemagickBig

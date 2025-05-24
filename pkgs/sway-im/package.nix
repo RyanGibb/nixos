@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   fetchpatch,
-  substituteAll,
+  replaceVars,
   swaybg,
   meson,
   ninja,
@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     [
       ./load-configuration-from-etc.patch
 
-      (substituteAll {
+      (replaceVars {
         src = ./fix-paths.patch;
         inherit swaybg;
       })
