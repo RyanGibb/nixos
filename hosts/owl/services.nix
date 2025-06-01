@@ -266,6 +266,8 @@ in
     enableACME = true;
     root = "/var/www/meands.org/_site";
     extraConfig = ''
+      error_page 403 =404 /404.html;
+      error_page 404 /404.html;
       add_header Strict-Transport-Security max-age=31536000 always;
         add_header X-Frame-Options SAMEORIGIN always;
         add_header X-Content-Type-Options nosniff always;
