@@ -23,7 +23,6 @@ let
     disable_output = "swaymsg output $laptop_output disable";
     drun = "wofi -i --show drun --allow-images -a";
     dmenu = "wofi -d -i -p";
-    displays = "wdisplays";
     notification_deamon = "dunst";
     i3_workspace_history = "${i3-workspace-history}/bin/i3-workspace-history";
     i3_workspace_history_args = "-sway";
@@ -52,6 +51,7 @@ in
                     chmod +x $out/bin/xterm
         '';
       })
+      wl-kbptr
     ];
 
     home.file.".zprofile".text = ''

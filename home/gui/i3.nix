@@ -21,7 +21,6 @@ let
     disable_output = "xrandr --output $laptop_output --off";
     drun = "rofi -i -modi drun -show drun";
     dmenu = "rofi -i -dmenu -p";
-    displays = "arandr";
     notification_deamon = "dunst";
     i3_workspace_history = "${i3-workspace-history}/bin/i3-workspace-history";
     i3_workspace_history_args = "";

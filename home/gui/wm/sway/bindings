@@ -1,4 +1,25 @@
 
+set $mode_control_outputs control_outputs
+mode "$mode_control_outputs" {
+	bindsym e output * enable; output * dpms on; mode "default";
+	bindsym d exec @wmmsg@ output "$($SCRIPT_DIR/get_focused_output.sh)" disable;
+
+	bindsym Return mode "default"; exec notify-send "default"
+	bindsym Escape mode "default"; exec notify-send "default"
+}
+
+set $mode_control control
+mode "$mode_control" {
+	bindsym b mode "$mode_control_backlight"; exec notify-send "Control backlight | -/+"
+	bindsym t mode "$mode_control_dwt";       exec notify-send "Control DWT | (e)nabled (d)isabled"
+	bindsym d exec $SCRIPT_DIR/dpms_off.sh;   exec notify-send "DPMS Off"; mode "default"
+    bindsym o mode "$mode_control_outputs";   exec notify-send "Control Outputs | (e)nable (d)isable"
+
+	bindsym Return mode "default"; exec notify-send "default"
+	bindsym Escape mode "default"; exec notify-send "default"
+}
+bindsym $mod+c mode "$mode_control"; exec notify-send "Control b/t/d/o"
+
 bindsym $mod+Shift+r exec swaymsg reload
 
 bindsym $mod+q         exec dunstctl close
@@ -65,6 +86,29 @@ mode "$mode_passthrough" {
 }
 bindsym $mod+Delete mode "$mode_passthrough"; exec notify-send "passthrough"
 
-# for when latop output is disabled on resume
-bindsym $mod+Control+p output * enable; output * dpms on
-bindsym $mod+Shift+p   exec @wmmsg@ output "$($SCRIPT_DIR/get_focused_output.sh)" disable
+set $mode_mouse mouse
+mode $mode_mouse {
+    # Mouse move
+    bindsym h seat seat0 cursor move -15 0
+    bindsym j seat seat0 cursor move 0 15
+    bindsym k seat seat0 cursor move 0 -15
+    bindsym l seat seat0 cursor move 15 0
+
+    # Left button
+    bindsym s seat seat0 cursor press button1
+    bindsym --release s seat seat0 cursor release button1
+
+    # Middle button
+    bindsym d seat seat0 cursor press button2
+    bindsym --release d seat seat0 cursor release button2
+
+    # Right button
+    bindsym f seat seat0 cursor press button3
+    bindsym --release f seat seat0 cursor release button3
+
+	bindsym Return mode "default"; exec notify-send "default"; seat seat0 hide_cursor when-typing enable;
+	bindsym Escape mode "default"; exec notify-send "default"; seat seat0 hide_cursor when-typing enable;
+}
+
+bindsym $mod+p exec wl-kbptr -o modes=floating','click -o mode_floating.source=detect
+bindsym $mod+Shift+p mode $mode_mouse; seat seat0 hide_cursor when-typing disable; exec notify-send "Mouse a/h/j/k/l s/d/f"
