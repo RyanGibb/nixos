@@ -88,6 +88,8 @@ bindsym $mod+Delete mode "$mode_passthrough"; exec notify-send "passthrough"
 
 set $mode_mouse mouse
 mode $mode_mouse {
+    bindsym a mode default, exec 'wl-kbptr; swaymsg mode Mouse'
+
     # Mouse move
     bindsym h seat seat0 cursor move -15 0
     bindsym j seat seat0 cursor move 0 15
