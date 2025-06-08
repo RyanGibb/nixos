@@ -263,6 +263,7 @@
   age.secrets.restic-shrew.file = ../../secrets/restic-shrew.age;
   services.restic.backups = {
     gecko = {
+      user = "restic";
       repository = "${config.services.restic.server.dataDir}/gecko";
       passwordFile = config.age.secrets.restic-gecko.path;
       timerConfig = {
@@ -276,6 +277,7 @@
       ];
     };
     owl = {
+      user = "restic";
       repository = "${config.services.restic.server.dataDir}/owl";
       passwordFile = config.age.secrets.restic-owl.path;
       timerConfig = {
@@ -289,6 +291,7 @@
       ];
     };
     shrew = {
+      user = "restic";
       repository = "${config.services.restic.server.dataDir}/shrew";
       passwordFile = config.age.secrets.restic-shrew.path;
       timerConfig = {
