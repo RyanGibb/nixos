@@ -111,7 +111,7 @@ in
     programs.thunar = {
       enable = true;
       plugins = with pkgs.xfce; [ thunar-archive-plugin thunar-volman ];
-    }
+    };
     services.gvfs.enable = true;
     # thumbnail support for images
     services.tumbler.enable = true;

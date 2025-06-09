@@ -13,7 +13,7 @@
     ../../modules/ryan-website.nix
     ../../modules/alec-website.nix
     ../../modules/fn06-website.nix
-    inputs.tangled.nixosModules.knotserver
+    inputs.tangled.nixosModules.knot
   ];
 
   environment.systemPackages = with pkgs; [
