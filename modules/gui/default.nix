@@ -86,12 +86,6 @@ in
         yad
         networkmanagerapplet
         pavucontrol
-        (xfce.thunar.override {
-          thunarPlugins = with xfce; [
-            thunar-archive-plugin
-            xfconf
-          ];
-        })
         # https://discourse.nixos.org/t/sway-wm-configuration-polkit-login-manager/3857/6
         polkit_gnome
         glib
@@ -114,10 +108,12 @@ in
       libertine
     ];
 
-    # thunar
+    programs.thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [ thunar-archive-plugin thunar-volman ];
+    }
     services.gvfs.enable = true;
-    services.udisks2.enable = true;
-    # thunar thumbnail support for images
+    # thumbnail support for images
     services.tumbler.enable = true;
 
     # sets $WORLDLIST for `dict`
