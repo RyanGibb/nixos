@@ -53,9 +53,9 @@ bindsym $mod+d         exec @drun@
 bindsym $mod+g split h
 bindsym $mod+v split v
 
-bindsym $mod+f         fullscreen toggle;        exec notify-send "fullscreen" -t 500
-bindsym $mod+Shift+f   exec wtype -k F11;        exec notify-send "fullscreen" -t 500
-bindsym $mod+Control+f fullscreen toggle global; exec notify-send "fullscreen" -t 500
+bindsym $mod+f         fullscreen toggle;        exec st fullscreen -t 500
+bindsym $mod+Shift+f   exec wtype -k F11
+bindsym $mod+Control+f fullscreen toggle global; exec st fullscreen -t 500
 # toggle bar
 bindsym $mod+$alt+f    exec pgrep @bar@ && pkill @bar@ || @bar@ --bar_id bar-0
 

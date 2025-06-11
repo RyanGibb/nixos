@@ -52,6 +52,7 @@ else
 					pulse)        add_info "pulse" ;;
 					player)       add_info "player" ;;
 					battery)      add_info "battery" ;;
+					fullscreen)   add_info "fullscreen" ;;
 					*) echo "Warning: Unknown argument '$1'";;
 				esac
 				shift

@@ -127,7 +127,7 @@
             in
             let
               filtered = inputs.nixpkgs.lib.attrsets.filterAttrs (
-                n: v: v == "regular" && (n == "default.nix" || n == "minimal.nix")
+                n: v: v == "regular" && (n == "default.nix" || n == "minimal.nix" || n == "sd-image.nix")
               ) files;
             in
             let
