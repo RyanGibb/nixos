@@ -110,11 +110,13 @@ in
 
     programs.thunar = {
       enable = true;
-      plugins = with pkgs.xfce; [ thunar-archive-plugin thunar-volman ];
+      plugins = with pkgs.xfce; [
+        thunar-archive-plugin
+        thunar-volman
+      ];
     };
     services.gvfs.enable = true;
-    # thumbnail support for images
-    services.tumbler.enable = true;
+    services.tumbler.enable = true; # thumbnails
 
     # sets $WORLDLIST for `dict`
     environment.wordlist.enable = true;

@@ -1,6 +1,6 @@
 
 exec playerctld daemon
-exec thunar --daemon
+exec systemctl --user start thunar
 
 exec @notification_deamon@
 
