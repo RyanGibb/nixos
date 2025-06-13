@@ -124,7 +124,7 @@ in
     programs.zsh = {
       enable = true;
       history = {
-        size = 1000000;
+        size = 10000000000;
         path = "$HOME/.histfile";
         share = false;
       };
