@@ -36,7 +36,7 @@
 
   services.nginx = {
     #requires = [ "tailscaled.service" ];
-    clientMaxBodySize = "1g";
+    clientMaxBodySize = "10g";
     virtualHosts = {
       "nix-cache.vpn.freumh.org" = {
         listenAddresses = [ "100.64.0.9" ];
