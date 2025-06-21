@@ -168,6 +168,7 @@
     gphoto2fs
 
     graphviz
+    mpv
   ];
 
   services.gnome.gnome-keyring.enable = true;
