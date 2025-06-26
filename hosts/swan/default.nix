@@ -15,7 +15,7 @@ in
   ];
 
   security.acme = {
-    defaults.email = "${config.custom.username}@${config.networking.domain}";
+    defaults.email = lib.mkForce "${config.custom.username}@freumh.org";
     acceptTerms = true;
   };
 
@@ -254,7 +254,11 @@ in
       settings = {
         listen.hostname = "0.0.0.0";
         instance.name = "PeerTube Test Server";
-        storage.videos = "/tank/peertube/videos";
+        storage = {
+          videos = "/tank/peertube/videos";
+          streaming_playlists = "/tank/peertube/streaming-playlists";
+          web_videos = "/tank/peertube/web-videos";
+        };
       };
       secrets.secretsFile = "/secrets/peertube";
       serviceEnvironmentFile = "/secrets/peertube.env";
