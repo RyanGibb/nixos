@@ -271,9 +271,9 @@
       };
       pruneOpts = [
         "--keep-daily 7"
-        "--keep-weekly 4"
+        "--keep-weekly 300"
         "--keep-monthly 12"
-        "--keep-yearly 10"
+        "--keep-yearly 100"
       ];
     };
     owl = {
