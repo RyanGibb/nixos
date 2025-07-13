@@ -31,6 +31,7 @@
       "photos.freumh.org"
       "calibre.freumh.org"
       "audiobookshelf.vpn.freumh.org"
+      "anki.vpn.freumh.org"
     ];
   };
 
@@ -124,6 +125,16 @@
         locations."/" = {
           proxyPass = ''
             http://localhost:${builtins.toString config.services.audiobookshelf.port}
+          '';
+          proxyWebsockets = true;
+        };
+      };
+      "anki.vpn.freumh.org" = {
+        onlySSL = true;
+        listenAddresses = [ "100.64.0.9" ];
+        locations."/" = {
+          proxyPass = ''
+            http://localhost:${builtins.toString config.services.anki-sync-server.port}
           '';
           proxyWebsockets = true;
         };
@@ -337,6 +348,18 @@
   users.users.${config.services.audiobookshelf.user}.extraGroups = [
     config.services.readarr.user
   ];
+
+  age.secrets.anki.file = ../../secrets/anki.age;
+  services.anki-sync-server = {
+    enable = true;
+    users = [
+      {
+        username = "ryan";
+        passwordFile = config.age.secrets.anki.path;
+      }
+    ];
+  };
+  systemd.services.anki-sync-server.environment.MAX_SYNC_PAYLOAD_MEGS = "1000";
 
   services.fail2ban = {
     enable = true;
