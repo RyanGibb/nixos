@@ -47,6 +47,11 @@ in
             return 418;
           '';
           locations."/var/".alias = "/var/www/var/";
+          locations."~ \\.bib$" = {
+            extraConfig = ''
+              default_type text/plain;
+            '';
+          };
           extraConfig = ''
             error_page 403 =404 /404.html;
             error_page 404 /404.html;
