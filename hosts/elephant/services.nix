@@ -226,7 +226,6 @@
   services.bazarr.enable = true;
   services.lidarr.enable = true;
   services.readarr.enable = true;
-  services.nzbget.enable = true;
   services.jellyseerr.enable = true;
   users.users.${config.services.sonarr.user}.extraGroups = [
     config.services.transmission.user
