@@ -279,12 +279,12 @@
       timerConfig = {
         OnCalendar = "02:00";
       };
-      pruneOpts = [
-        "--keep-daily 7"
-        "--keep-weekly 300"
-        "--keep-monthly 12"
-        "--keep-yearly 100"
-      ];
+      # pruneOpts = [
+      #   "--keep-daily 7"
+      #   "--keep-weekly 300"
+      #   "--keep-monthly 12"
+      #   "--keep-yearly 100"
+      # ];
     };
     owl = {
       user = "restic";
