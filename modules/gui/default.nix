@@ -95,7 +95,6 @@ in
         pulseaudio
         tridactyl-native
         vlc
-        timewall
         swaybg
       ]
       ++ desktopEntries;

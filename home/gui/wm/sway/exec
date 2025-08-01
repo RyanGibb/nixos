@@ -12,7 +12,7 @@ exec wl-paste -t text --watch clipman store -P --max-items=100
 
 exec systemctl --user start gammastep
 
-exec systemctl --user start timewall
-
 # https://github.com/dunst-project/dunst/issues/1396
 exec $SCRIPT_DIR/dunst_restart.sh
+
+output * bg $WALLPAPER fill #282828

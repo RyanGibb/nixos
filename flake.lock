@@ -1036,29 +1036,7 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
-        "tangled": "tangled",
-        "timewall": "timewall"
-      }
-    },
-    "rust-overlay": {
-      "inputs": {
-        "nixpkgs": [
-          "timewall",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1743820323,
-        "narHash": "sha256-UXxJogXhPhBFaX4uxmMudcD/x3sEGFtoSc4busTcftY=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "b4734ce867252f92cdc7d25f8cc3b7cef153e703",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
+        "tangled": "tangled"
       }
     },
     "scss-reset": {
@@ -1207,28 +1185,6 @@
       "original": {
         "type": "git",
         "url": "https://tangled.sh/@tangled.sh/core"
-      }
-    },
-    "timewall": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "rust-overlay": "rust-overlay"
-      },
-      "locked": {
-        "lastModified": 1744298714,
-        "narHash": "sha256-KUPy/mv6cV0BmvBcom+cCXk0s4Erz0hf5dg1i5QB0OE=",
-        "owner": "bcyran",
-        "repo": "timewall",
-        "rev": "b5836e159142715087e2e487eed20dd38f1aa339",
-        "type": "github"
-      },
-      "original": {
-        "owner": "bcyran",
-        "ref": "2.0.0",
-        "repo": "timewall",
-        "type": "github"
       }
     },
     "treefmt-nix": {

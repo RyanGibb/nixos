@@ -12,7 +12,6 @@ in
   imports = [
     ./i3.nix
     ./sway.nix
-    inputs.timewall.homeManagerModules.default
   ];
 
   options.custom.gui.enable = lib.mkEnableOption "gui";
@@ -178,21 +177,6 @@ in
         desktop = "$HOME/";
         templates = "$HOME/";
         publicShare = "$HOME/";
-      };
-    };
-
-    services.timewall = lib.mkIf (inputs ? timewall) {
-      enable = true;
-      config = {
-        geoclue.timeout = 1000;
-        setter = {
-          command = [
-            "${pkgs.bash}/bin/sh"
-            "-c"
-            "${pkgs.coreutils}/bin/ln -fs %f ~/.cache/timewall/last_image && ${pkgs.swaybg}/bin/swaybg -i %f -c 282828 -m fill"
-          ];
-          overlap = 1000;
-        };
       };
     };
   };

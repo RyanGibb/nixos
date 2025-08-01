@@ -14,7 +14,6 @@
     i3-workspace-history.url = "github:RyanGibb/i3-workspace-history";
     nix-rpi5.url = "gitlab:vriska/nix-rpi5?ref=main";
     nur.url = "github:nix-community/NUR/e9e77b7985ef9bdeca12a38523c63d47555cc89b";
-    timewall.url = "github:bcyran/timewall/2.0.0";
     tangled.url = "git+https://tangled.sh/@tangled.sh/core";
     disko.url = "github:nix-community/disko";
 
@@ -31,7 +30,6 @@
     i3-workspace-history.inputs.nixpkgs.follows = "nixpkgs";
     nix-rpi5.inputs.nixpkgs.follows = "nixpkgs";
     nur.inputs.nixpkgs.follows = "nixpkgs";
-    timewall.inputs.nixpkgs.follows = "nixpkgs";
     tangled.inputs.nixpkgs.follows = "nixpkgs";
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -64,7 +62,6 @@
             patches = [ ./pkgs/opam-shebangs.patch ];
           });
           immich = final.overlay-unstable.immich;
-          timewall = inputs.timewall.packages.${system}.default;
         })
         inputs.nur.overlays.default
       ];
