@@ -380,5 +380,8 @@ bindsym $mod+Control+semicolon exec $SCRIPT_DIR/wifi.sh
 
 focus_on_window_activation smart
 
+bindsym $mod+Shift+w   exec $SCRIPT_DIR/set_random_wallpaper.sh
+bindsym $mod+Control+w exec $SCRIPT_DIR/set_selected_wallpaper.sh
+
 # free:
 # - forwardslash

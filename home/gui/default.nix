@@ -52,11 +52,7 @@ in
       sessionVariables = {
         # evince workaround
         GTK_THEME = "Gruvbox-Dark";
-        WALLPAPER =
-          let
-            wallpaper = ./wallpaper.jpg;
-          in
-          pkgs.runCommand (builtins.baseNameOf wallpaper) { } "cp ${wallpaper} $out";
+        WALLPAPER_DIR = "$XDG_PICTURES_DIR/wallpapers";
         TERMINAL = "alacritty";
       };
       pointerCursor = {

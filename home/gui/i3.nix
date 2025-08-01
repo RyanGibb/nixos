@@ -16,6 +16,9 @@ let
     bar_extra = "";
     locked = "";
     polkit_gnome = "${pkgs.polkit_gnome}";
+    set_wallpaper = ''
+      feh --bg-fill $HOME/.cache/wallpaper
+    '';
     locker = "xsecurelock";
     enable_output = "xrandr --output $laptop_output --auto";
     disable_output = "xrandr --output $laptop_output --off";

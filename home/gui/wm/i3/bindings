@@ -10,7 +10,7 @@ mode "$mode_control" {
 }
 bindsym $mod+c mode "$mode_control"; exec notify-send "Control b/t/d"
 
-bindsym $mod+Shift+r exec "i3-msg reload"
+bindsym $mod+Shift+r exec "i3-msg reload; fed --bg-fill $HOME/.cache/wallpaper"
 
 bindsym $mod+q exec dunstctl close-all
 
