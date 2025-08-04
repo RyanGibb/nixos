@@ -52,7 +52,7 @@ in
       sessionVariables = {
         # evince workaround
         GTK_THEME = "Gruvbox-Dark";
-        WALLPAPER_DIR = "$XDG_PICTURES_DIR/wallpapers";
+        WALLPAPER_DIR = "$HOME/pictures/wallpapers";
         TERMINAL = "alacritty";
       };
       pointerCursor = {
