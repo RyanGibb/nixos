@@ -2,31 +2,15 @@
   config,
   pkgs,
   lib,
-  nixos-hardware,
-  nixpkgs,
   ...
 }:
 
 {
   imports = [
-    ./hardware-configuration.nix
-    "${nixos-hardware}/raspberry-pi/4"
+    ./minimal.nix
   ];
 
-  custom = {
-    enable = true;
-    tailscale = true;
-    autoUpgrade.enable = true;
-    homeManager.enable = true;
-  };
-
-  home-manager.users.${config.custom.username}.config.custom.machineColour = "red";
-
   networking.networkmanager.enable = true;
-
-  services.journald.extraConfig = ''
-    SystemMaxUse=4G
-  '';
 
   services.caddy = {
     enable = true;

@@ -3,14 +3,18 @@
 # to /etc/nixos/configuration.nix instead.
 {
   config,
-  lib,
   pkgs,
+  lib,
   modulesPath,
+  nixos-hardware,
   ...
 }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    "${nixos-hardware}/raspberry-pi/4"
+  ];
 
   boot.initrd.availableKernelModules = [
     "xhci_pci"
