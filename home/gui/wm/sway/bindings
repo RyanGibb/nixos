@@ -32,7 +32,7 @@ bindsym $mod+Shift+Control+v exec wtype "$(clipman pick -t STDOUT | head -n 1)"
 
 set $mode_idle idle
 mode "$mode_idle" {
-	bindsym i exec $SCRIPT_DIR/swayidle_inhibit.sh;               mode "default"; exec notify-send "idle"
+	bindsym i exec $SCRIPT_DIR/swayidle_inhibit.sh;               mode "default"; exec notify-send "inhibit"
 	bindsym d exec $SCRIPT_DIR/swayidle_dpms.sh;                  mode "default"; exec notify-send "dpms"
 	bindsym l exec $SCRIPT_DIR/swayidle_lock.sh;                  mode "default"; exec notify-send "lock"
 	bindsym s exec $SCRIPT_DIR/swayidle_suspend.sh;               mode "default"; exec notify-send "suspend"
