@@ -22,7 +22,8 @@
     "kvm-intel"
     "wl"
   ];
-  boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
+  # insecure
+  # boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
   # loading bcma/b43 at the same time as wl seems to cause issues
   boot.blacklistedKernelModules = [
     "bcma"

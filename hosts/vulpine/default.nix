@@ -59,6 +59,11 @@
     tcpdump
     pandoc
     ledger
+    nixd
+    (pkgs.kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
+                                     jellyfin
+                                     steam-launcher
+    ]))
   ];
 
   security.sudo.extraConfig = ''
