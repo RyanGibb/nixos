@@ -82,9 +82,9 @@ bindsym $mod+$alt+Shift+space exec yad --entry --text input | xargs wtype
 
 set $mode_passthrough passthrough
 mode "$mode_passthrough" {
-    bindsym $mod+Delete mode "default"; exec notify-send "passthrough"
+    bindsym $mod+Delete mode "default"; exec notify-send "passthrough off"
 }
-bindsym $mod+Delete mode "$mode_passthrough"; exec notify-send "passthrough"
+bindsym $mod+Delete mode "$mode_passthrough"; exec notify-send "passthrough on"
 
 set $mode_mouse mouse
 mode $mode_mouse {
