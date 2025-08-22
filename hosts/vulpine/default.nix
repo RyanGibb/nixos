@@ -70,7 +70,6 @@
     nixd
     (pkgs.kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
       jellyfin
-      steam-library
     ]))
   ];
 
