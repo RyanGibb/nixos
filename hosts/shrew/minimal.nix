@@ -13,7 +13,7 @@
   custom = {
     enable = true;
     tailscale = true;
-    autoUpgrade.enable = true;
+    # autoUpgrade.enable = true;
     homeManager.enable = true;
   };
 

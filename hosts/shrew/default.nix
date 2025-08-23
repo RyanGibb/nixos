@@ -20,7 +20,12 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [ mosquitto ];
+  environment.systemPackages = with pkgs; [
+    mosquitto
+    (pkgs.kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
+      jellyfin
+    ]))
+  ];
 
   services.zigbee2mqtt = {
     enable = true;
