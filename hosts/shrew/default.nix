@@ -12,6 +12,10 @@
 
   networking.networkmanager.enable = true;
 
+  custom = {
+    gui.sway = true;
+  };
+
   services.caddy = {
     enable = true;
     virtualHosts."http://shrew" = {
