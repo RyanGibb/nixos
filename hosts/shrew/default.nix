@@ -12,10 +12,6 @@
 
   networking.networkmanager.enable = true;
 
-  custom = {
-    gui.sway = true;
-  };
-
   services.caddy = {
     enable = true;
     virtualHosts."http://shrew" = {
@@ -26,9 +22,6 @@
 
   environment.systemPackages = with pkgs; [
     mosquitto
-    (pkgs.kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
-      jellyfin
-    ]))
   ];
 
   services.zigbee2mqtt = {
