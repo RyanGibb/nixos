@@ -148,7 +148,8 @@
     # python
     pyright
     black
-    # jave
+    python3Packages.python-lsp-server
+    # java
     jdt-language-server
     nodejs
     # c
