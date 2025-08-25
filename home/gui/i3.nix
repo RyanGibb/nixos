@@ -8,36 +8,17 @@
 let
   i3-workspace-history =
     inputs.i3-workspace-history.packages.${pkgs.stdenv.hostPlatform.system}.default;
-  replacements = {
-    wm = "i3";
-    wmmsg = "i3-msg";
-    rofi = "rofi";
-    app_id = "class";
-    bar_extra = "";
-    locked = "";
-    polkit_gnome = "${pkgs.polkit_gnome}";
-    set_wallpaper = ''
-      feh --bg-fill $HOME/.cache/wallpaper
-    '';
-    locker = "xsecurelock";
-    enable_output = "xrandr --output $laptop_output --auto";
-    disable_output = "xrandr --output $laptop_output --off";
-    drun = "rofi -i -modi drun -show drun";
-    dmenu = "rofi -i -dmenu -p";
-    notification_deamon = "dunst";
-    i3_workspace_history = "${i3-workspace-history}/bin/i3-workspace-history";
-    i3_workspace_history_args = "";
-  };
   util = import ./util.nix { inherit pkgs lib; };
   cfg = config.custom.gui.i3;
+  wmCommon = import ./wm-config.nix {
+    inherit pkgs lib i3-workspace-history;
+  };
+  scriptDir = "$HOME/.config/i3/scripts";
 in
 {
   options.custom.gui.i3.enable = lib.mkEnableOption "i3";
 
   config = lib.mkIf cfg.enable {
-    # TODO
-    # idling
-
     home.packages = with pkgs; [ i3-workspace-history ];
 
     home.pointerCursor.x11.enable = true;
@@ -61,22 +42,61 @@ in
       '';
     };
 
+    xsession.windowManager.i3 = {
+      enable = true;
+      config = {
+        modifier = "Mod4";
+        terminal = "alacritty -e tmux";
+        menu = "rofi -i -modi drun -show drun";
+        bars = [];
+        fonts = wmCommon.fonts;
+        colors = wmCommon.wmColors;
+        gaps = wmCommon.gaps;
+        window = wmCommon.window // {
+          commands = wmCommon.windowCommands.i3;
+        };
+        floating = wmCommon.floating // {
+          criteria = wmCommon.floatingCriteria.i3;
+        };
+        focus = wmCommon.focus;
+
+        keybindings = lib.mkForce (
+          (wmCommon.commonKeybindings scriptDir) //
+          (wmCommon.mediaKeybindings false) //  # locked=false for i3
+          (wmCommon.i3Keybindings scriptDir)
+        );
+
+        modes = wmCommon.commonModes // (wmCommon.i3Modes scriptDir);
+
+        startup = wmCommon.commonStartup ++ (wmCommon.i3Startup scriptDir);
+      };
+    };
+
     xdg.configFile =
       let
+        replacements = {
+          wm = "i3";
+          wmmsg = "i3-msg";
+          rofi = "rofi";
+          app_id = "class";
+          bar_extra = "";
+          locked = "";
+          polkit_gnome = "${pkgs.polkit_gnome}";
+          set_wallpaper = ''feh --bg-fill $HOME/.cache/wallpaper'';
+          locker = "xsecurelock";
+          enable_output = "xrandr --output $laptop_output --auto";
+          disable_output = "xrandr --output $laptop_output --off";
+          drun = "rofi -i -modi drun -show drun";
+          dmenu = "rofi -i -dmenu -p";
+          notification_deamon = "dunst";
+          i3_workspace_history = "${i3-workspace-history}/bin/i3-workspace-history";
+          i3_workspace_history_args = "";
+        };
         entries = {
           "dunst/dunstrc".source = ./dunst;
-          "i3/config".text =
-            let
-              wmFilenames = util.listFilesInDir ./wm/config.d;
-            in
-            let
-              i3Filenames = util.listFilesInDir ./wm/i3;
-            in
-            (util.concatFilesReplace ([ ./wm/config ] ++ wmFilenames ++ i3Filenames) replacements);
           "rofi/config.rasi".source = ./rofi.rasi;
         };
-      in
-      (util.inDirReplace ./wm/scripts "i3/scripts" replacements) // entries;
+      in (util.inDirReplace ./scripts "i3/scripts" replacements) // entries;
 
     services.redshift = {
       enable = true;

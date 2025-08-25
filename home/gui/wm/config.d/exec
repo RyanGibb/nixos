@@ -1,9 +1,0 @@
-
-exec playerctld daemon
-exec systemctl --user start thunar
-
-exec @notification_deamon@
-
-exec --no-startup-id fcitx5 -d
-
-exec @i3_workspace_history@ @i3_workspace_history_args@

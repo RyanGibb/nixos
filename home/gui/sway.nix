@@ -8,30 +8,12 @@
 let
   i3-workspace-history =
     inputs.i3-workspace-history.packages.${pkgs.stdenv.hostPlatform.system}.default;
-  replacements = {
-    wm = "sway";
-    wmmsg = "swaymsg";
-    rofi = "wofi";
-    app_id = "app_id";
-    bar_extra = ''
-      icon_theme Papirus
-    '';
-    locked = "--locked";
-    polkit_gnome = "${pkgs.polkit_gnome}";
-    set_wallpaper = ''
-      swaymsg "output * bg $HOME/.cache/wallpaper fill #282828"
-    '';
-    locker = "swaylock -f -i $HOME/.cache/wallpaper";
-    enable_output = "swaymsg output $laptop_output enable";
-    disable_output = "swaymsg output $laptop_output disable";
-    drun = "wofi -i --show drun --allow-images -a";
-    dmenu = "wofi -d -i -p";
-    notification_deamon = "dunst";
-    i3_workspace_history = "${i3-workspace-history}/bin/i3-workspace-history";
-    i3_workspace_history_args = "-sway";
-  };
   util = import ./util.nix { inherit pkgs lib; };
   cfg = config.custom.gui.sway;
+  wmCommon = import ./wm-config.nix {
+    inherit pkgs lib i3-workspace-history;
+  };
+  scriptDir = "$HOME/.config/sway/scripts";
 in
 {
   options.custom.gui.sway.enable = lib.mkEnableOption "sway";
@@ -45,13 +27,12 @@ in
         buildInputs = [ pkgs.bash ];
         dontUnpack = true;
         installPhase = ''
-                    mkdir -p $out/bin
-                    cat > $out/bin/xterm <<EOF
+          mkdir -p $out/bin
+          cat > $out/bin/xterm <<EOF
           #!/usr/bin/env bash
-
           exec \$TERMINAL "\$@"
           EOF
-                    chmod +x $out/bin/xterm
+          chmod +x $out/bin/xterm
         '';
       })
       wl-kbptr
@@ -79,8 +60,77 @@ in
       fi
     '';
 
+    wayland.windowManager.sway = {
+      enable = true;
+      config = {
+        modifier = "Mod4";
+        terminal = "alacritty -e tmux";
+        menu = "wofi -i --show drun --allow-images -a";
+        bars = [];
+        fonts = wmCommon.fonts;
+        colors = wmCommon.wmColors;
+        gaps = wmCommon.gaps;
+        window = wmCommon.window // {
+          commands = wmCommon.windowCommands.sway;
+        };
+        floating = wmCommon.floating // {
+          criteria = wmCommon.floatingCriteria.sway;
+        };
+        focus = wmCommon.focus;
+        input = {
+          "type:keyboard" = {
+            xkb_layout = "gb";
+            xkb_numlock = "enable";
+          };
+          "type:pointer" = {
+            accel_profile = "flat";
+            pointer_accel = "0";
+          };
+          "type:touchpad" = {
+            tap = "enabled";
+            natural_scroll = "enabled";
+            dwt = "enabled";
+            pointer_accel = "0.2";
+            click_method = "clickfinger";
+            scroll_factor = "0.5";
+          };
+        };
+        seat."seat0".hide_cursor = "when-typing enable";
+        keybindings = lib.mkForce (
+          (wmCommon.commonKeybindings scriptDir) //
+          (wmCommon.mediaKeybindings true) //
+          (wmCommon.swayKeybindings scriptDir)
+        );
+        modes = wmCommon.commonModes // wmCommon.swayModes;
+        startup = wmCommon.commonStartup ++ (wmCommon.swayStartup scriptDir);
+      };
+      extraConfig = ''
+        focus_on_window_activation smart
+        bindswitch --reload --locked lid:on exec ${scriptDir}/lock_on_lid_close.sh; exec ${scriptDir}/laptop_clamshell.sh
+        bindswitch --reload --locked lid:off exec ${scriptDir}/lock_on_lid_close.sh; exec ${scriptDir}/laptop_clamshell.sh
+      '';
+    };
+
     xdg.configFile =
       let
+        replacements = {
+          wm = "sway";
+          wmmsg = "swaymsg";
+          rofi = "wofi";
+          app_id = "app_id";
+          bar_extra = ''icon_theme Papirus'';
+          locked = "--locked";
+          polkit_gnome = "${pkgs.polkit_gnome}";
+          set_wallpaper = ''swaymsg "output * bg $HOME/.cache/wallpaper fill #282828"'';
+          locker = "swaylock -f -i $HOME/.cache/wallpaper";
+          enable_output = "swaymsg output $laptop_output enable";
+          disable_output = "swaymsg output $laptop_output disable";
+          drun = "wofi -i --show drun --allow-images -a";
+          dmenu = "wofi -d -i -p";
+          notification_deamon = "dunst";
+          i3_workspace_history = "${i3-workspace-history}/bin/i3-workspace-history";
+          i3_workspace_history_args = "-sway";
+        };
         entries = {
           "fusuma/config.yml".source = ./fusuma.yml;
           "kanshi/config".source = ./kanshi;
@@ -92,17 +142,8 @@ in
             save_dir=$XDG_PICTURES_DIR/capture/
             save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
           '';
-          "sway/config".text =
-            let
-              wmFilenames = util.listFilesInDir ./wm/config.d;
-            in
-            let
-              swayFilenames = util.listFilesInDir ./wm/sway;
-            in
-            (util.concatFilesReplace ([ ./wm/config ] ++ wmFilenames ++ swayFilenames) replacements);
         };
-      in
-      (util.inDirReplace ./wm/scripts "sway/scripts" replacements) // entries;
+      in (util.inDirReplace ./scripts "sway/scripts" replacements) // entries;
 
     services.gammastep = {
       enable = true;
