@@ -75,21 +75,6 @@ in
       };
     };
 
-    # Restart Bluetooth after sleep to ensure keyboard reconnects
-    systemd.services.bluetooth-restart-after-sleep = {
-      description = "Restart Bluetooth after sleep for keyboard connectivity";
-      after = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
-      wantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
-      script = ''
-        ${pkgs.kmod}/bin/modprobe -r btusb
-        sleep 1
-        ${pkgs.systemd}/bin/systemctl restart bluetooth
-        sleep 1
-        ${pkgs.kmod}/bin/modprobe btusb
-      '';
-      serviceConfig.Type = "oneshot";
-    };
-
     environment.systemPackages =
       with pkgs;
       let
