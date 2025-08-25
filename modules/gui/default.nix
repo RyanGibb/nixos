@@ -45,6 +45,7 @@ in
     boot.extraModprobeConfig = ''
       options hid_apple fnmode=2
       options i915 enable_psr=0
+      options btusb enable_autosuspend=n
     '';
     boot.kernelModules = [ "hid-apple" ];
 
@@ -62,7 +63,31 @@ in
       pulse.enable = true;
     };
 
-    hardware.bluetooth.enable = true;
+    hardware.bluetooth = {
+      enable = true;
+      settings = {
+        General = {
+          FastConnectable = true;
+          ReconnectAttempts = 7;
+          ReconnectIntervals = "1,2,3";
+        };
+      };
+    };
+
+    # Restart Bluetooth after sleep to ensure keyboard reconnects
+    systemd.services.bluetooth-restart-after-sleep = {
+      description = "Restart Bluetooth after sleep for keyboard connectivity";
+      after = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+      wantedBy = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+      script = ''
+        ${pkgs.kmod}/bin/modprobe -r btusb
+        sleep 1
+        ${pkgs.systemd}/bin/systemctl restart bluetooth
+        sleep 1
+        ${pkgs.kmod}/bin/modprobe btusb
+      '';
+      serviceConfig.Type = "oneshot";
+    };
 
     environment.systemPackages =
       with pkgs;
