@@ -85,4 +85,8 @@
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia.open = false;
   };
+
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="usb", TEST=="power/wakeup", ATTR{power/wakeup}="enabled"
+  '';
 }
