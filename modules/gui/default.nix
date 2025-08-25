@@ -70,6 +70,7 @@ in
           FastConnectable = true;
           ReconnectAttempts = 7;
           ReconnectIntervals = "1,2,3";
+          Experimental = "true";
         };
       };
     };
