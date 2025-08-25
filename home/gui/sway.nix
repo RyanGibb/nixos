@@ -16,7 +16,13 @@ let
   scriptDir = "$HOME/.config/sway/scripts";
 in
 {
-  options.custom.gui.sway.enable = lib.mkEnableOption "sway";
+  options.custom.gui.sway = {
+    enable = lib.mkEnableOption "sway";
+    idle = lib.mkOption {
+      type = lib.types.str;
+      default = "lock";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
@@ -102,7 +108,7 @@ in
           (wmCommon.swayKeybindings scriptDir)
         );
         modes = wmCommon.commonModes // wmCommon.swayModes;
-        startup = wmCommon.commonStartup ++ (wmCommon.swayStartup scriptDir);
+        startup = wmCommon.commonStartup ++ (wmCommon.swayStartup cfg.idle scriptDir);
       };
       extraConfig = ''
         focus_on_window_activation smart

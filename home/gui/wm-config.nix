@@ -125,6 +125,10 @@ in
         criteria = { shell = ".*"; };
         command = "title_format \"%title :: %shell\"";
       }
+      {
+        criteria = { app_id = "Kodi"; };
+        command = "1";
+      }
     ];
     i3 = [
       {
@@ -572,9 +576,9 @@ in
     { command = "gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'"; always = true; }
   ];
 
-  swayStartup = scriptDir: [
+  swayStartup = idle: scriptDir: [
     { command = "${i3-workspace-history}/bin/i3-workspace-history -sway"; }
-    { command = "${scriptDir}/swayidle_lock.sh"; }
+    { command = "${scriptDir}/swayidle_${idle}.sh"; }
     { command = "pkill kanshi; kanshi"; always = true; }
     { command = "systemctl --user import-environment XDG_SESSION_TYPE XDG_CURRENT_DESKTOP SWAYSOCK"; }
     { command = "wl-paste -t text --watch clipman store -P --max-items=100"; }

@@ -30,6 +30,7 @@
       machineColour = "magenta";
       calendar.enable = true;
       battery.enable = true;
+      gui.sway.idle = "suspend";
     };
     home.sessionVariables = {
       LEDGER_FILE = "~/vault/finances.ledger";
