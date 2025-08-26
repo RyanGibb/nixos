@@ -109,13 +109,6 @@
     powertop
     toot
     ledger
-    llm
-    (writeShellScriptBin "q" ''
-      llm -m 4 "$*"
-    '')
-    (writeShellScriptBin "qc" ''
-      llm -m 4 "$*" -c
-    '')
     ddcutil
     anki
     (aspellWithDicts (
@@ -127,6 +120,7 @@
     ))
     moreutils
     gnome-calendar
+    ncdu
 
     # nix
     nixd
@@ -171,6 +165,9 @@
     graphviz
     mpv
     texlab
+
+    # due to https://github.com/TigerVNC/tigervnc/issues/274
+    realvnc-vnc-viewer
   ];
 
   services.gnome.gnome-keyring.enable = true;
