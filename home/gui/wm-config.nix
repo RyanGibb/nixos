@@ -461,7 +461,7 @@ in
     };
   };
 
-  swayModes = {
+  swayModes = scriptDir: {
     system = {
       "l" = "exec loginctl lock-session, mode default; exec notify-send lock";
       "e" = "exec swaymsg exit, mode default; exec notify-send exit";
@@ -475,19 +475,19 @@ in
       "Escape" = "mode default; exec notify-send default";
     };
     idle = {
-      "i" = "exec \${SCRIPT_DIR}/swayidle_inhibit.sh, mode default; exec notify-send inhibit";
-      "d" = "exec \${SCRIPT_DIR}/swayidle_dpms.sh, mode default; exec notify-send dpms";
-      "l" = "exec \${SCRIPT_DIR}/swayidle_lock.sh, mode default; exec notify-send lock";
-      "s" = "exec \${SCRIPT_DIR}/swayidle_suspend.sh, mode default; exec notify-send suspend";
-      "Shift+l" = "exec \${SCRIPT_DIR}/swayidle_lock_no_dpms.sh, mode default; exec notify-send \"lock no dpms\"";
+      "i" = "exec ${scriptDir}/swayidle_inhibit.sh, mode default; exec notify-send inhibit";
+      "d" = "exec ${scriptDir}/swayidle_dpms.sh, mode default; exec notify-send dpms";
+      "l" = "exec ${scriptDir}/swayidle_lock.sh, mode default; exec notify-send lock";
+      "s" = "exec ${scriptDir}/swayidle_suspend.sh, mode default; exec notify-send suspend";
+      "Shift+l" = "exec ${scriptDir}/swayidle_lock_no_dpms.sh, mode default; exec notify-send \"lock no dpms\"";
       "Return" = "mode default; exec notify-send default";
       "Escape" = "mode default; exec notify-send default";
     };
     capture = {
       "q" = "exec dunstctl close";
-      "c" = "exec grim -g \"\$(\${SCRIPT_DIR}/slurp_point.sh)\" - | wl-copy, mode default";
-      "e" = "exec grim -g \"\$(\${SCRIPT_DIR}/slurp_point.sh)\" - | swappy -f -, mode default";
-      "f" = "exec grim -g \"\$(\${SCRIPT_DIR}/slurp_point.sh)\" \$XDG_PICTURES_DIR/\"\$(date '+%Y-%m-%d %H.%M.%S')\".png, mode default";
+      "c" = "exec grim -g \"\$(${scriptDir}/slurp_point.sh)\" - | wl-copy, mode default";
+      "e" = "exec grim -g \"\$(${scriptDir}/slurp_point.sh)\" - | swappy -f -, mode default";
+      "f" = "exec grim -g \"\$(${scriptDir}/slurp_point.sh)\" \$XDG_PICTURES_DIR/\"\$(date '+%Y-%m-%d %H.%M.%S')\".png, mode default";
       "Shift+c" = "exec grim - | wl-copy, mode default; exec notify-send copied";
       "Shift+e" = "exec grim - | swappy -f -, mode default; exec notify-send saved";
       "Shift+f" = "exec grim \$XDG_PICTURES_DIR/\"\$(date '+%Y-%m-%d %H.%M.%S')\".png, mode default; exec notify-send \"saved to file\"";
@@ -532,14 +532,14 @@ in
     };
     control_outputs = {
       "e" = "output * enable; output * dpms on, mode default";
-      "d" = "exec swaymsg output \"\$(\${SCRIPT_DIR}/get_focused_output.sh)\" disable";
+      "d" = "exec swaymsg output \"\$(${scriptDir}/get_focused_output.sh)\" disable";
       "Return" = "mode default; exec notify-send default";
       "Escape" = "mode default; exec notify-send default";
     };
     control = {
       "b" = "mode control_backlight; exec notify-send \"Control backlight | -/+\"";
       "t" = "mode control_dwt; exec notify-send \"Control DWT | (e)nabled (d)isabled\"";
-      "d" = "exec \${SCRIPT_DIR}/dpms_off.sh; exec notify-send \"DPMS Off\", mode default";
+      "d" = "exec ${scriptDir}/dpms_off.sh; exec notify-send \"DPMS Off\", mode default";
       "o" = "mode control_outputs; exec notify-send \"Control Outputs | (e)nable (d)isable\"";
       "Return" = "mode default; exec notify-send default";
       "Escape" = "mode default; exec notify-send default";

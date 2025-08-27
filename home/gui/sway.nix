@@ -107,7 +107,7 @@ in
           (wmCommon.mediaKeybindings true) //
           (wmCommon.swayKeybindings scriptDir)
         );
-        modes = wmCommon.commonModes // wmCommon.swayModes;
+        modes = wmCommon.commonModes // (wmCommon.swayModes scriptDir);
         startup = wmCommon.commonStartup ++ (wmCommon.swayStartup cfg.idle scriptDir);
       };
       extraConfig = ''
