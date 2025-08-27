@@ -23,6 +23,7 @@
       settings.global = {
         username = "ryangibb321@gmail.com";
         password_cmd = "pass show spotify/ryangibb321@gmail.com";
+        zeroconf_port = 1234;
       };
     };
     services.gpg-agent.pinentry.package = lib.mkForce pkgs.pinentry-tty;
@@ -90,4 +91,7 @@
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="usb", TEST=="power/wakeup", ATTR{power/wakeup}="enabled"
   '';
+
+  networking.firewall.allowedTCPPorts = [ 1234 ];
+  networking.firewall.allowedUDPPorts = [ 1234 ];
 }
