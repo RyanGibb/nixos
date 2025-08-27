@@ -164,9 +164,9 @@ in
       userDirs = {
         enable = true;
         createDirectories = true;
-        download = "$HOME/downloads";
-        pictures = "$HOME/pictures";
-        videos = "$HOME/videos";
+        download = "$HOME/downloads/";
+        pictures = "$HOME/pictures/";
+        videos = "$HOME/pictures/videos/";
         documents = "$HOME/documents/";
         music = "$HOME/";
         # https://bugzilla.mozilla.org/show_bug.cgi?id=1082717
