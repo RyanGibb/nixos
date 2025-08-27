@@ -410,7 +410,7 @@ in
     "Mod4+d" = "exec wofi -i --show drun --allow-images -a";
 
     "Mod4+c" = "mode \"control\"; exec notify-send \"Control b/t/d/o\"";
-    "Mod4+u" = "mode \"idle\"; exec notify-send \"Idle i/d/l/s/L\"";
+    "Mod4+u" = "mode \"idle\"; exec notify-send \"Idle i/d/l/s/S/L\"";
     "Mod4+Print" = "mode \"capture\"; exec notify-send \"Capture (c)opy/(e)dit/(f)file c/e/f selection C/E/F output (v)ideo\"";
     "Mod4+Shift+Print" = "exec pkill -SIGINT wf-recorder; exec notify-send \"stop recording\"";
     "Mod4+Delete" = "mode \"passthrough\"; exec notify-send \"passthrough on\"";
@@ -479,6 +479,7 @@ in
       "d" = "exec ${scriptDir}/swayidle_dpms.sh, mode default; exec notify-send dpms";
       "l" = "exec ${scriptDir}/swayidle_lock.sh, mode default; exec notify-send lock";
       "s" = "exec ${scriptDir}/swayidle_suspend.sh, mode default; exec notify-send suspend";
+      "Shift+s" = "exec ${scriptDir}/swayidle_suspend_long.sh, mode default; exec notify-send suspend_long";
       "Shift+l" = "exec ${scriptDir}/swayidle_lock_no_dpms.sh, mode default; exec notify-send \"lock no dpms\"";
       "Return" = "mode default; exec notify-send default";
       "Escape" = "mode default; exec notify-send default";
