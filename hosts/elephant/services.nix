@@ -32,10 +32,14 @@
       "calibre.freumh.org"
       "audiobookshelf.vpn.freumh.org"
       "anki.vpn.freumh.org"
+      "webdav.vpn.freumh.org"
     ];
   };
 
   services.nginx = {
+    package = pkgs.nginxMainline.override {
+      modules = with pkgs.nginxModules; [ dav ];
+    };
     #requires = [ "tailscaled.service" ];
     clientMaxBodySize = "10g";
     virtualHosts = {
@@ -139,7 +143,24 @@
           proxyWebsockets = true;
         };
       };
+      "webdav.vpn.freumh.org" = {
+        onlySSL = true;
+        listenAddresses = [ "100.64.0.9" ];
+        root = "/var/lib/webdav/";
+        extraConfig = ''
+          location / {
+            dav_methods PUT DELETE MKCOL COPY MOVE;
+            dav_ext_methods PROPFIND OPTIONS;
+            create_full_put_path on;
+            dav_access user:rw group:rw all:r;
+            autoindex on;
+          }
+        '';
+      };
     };
+  };
+  systemd.services.nginx.serviceConfig = {
+    ReadWritePaths = [ "/var/lib/webdav" ];
   };
 
   services.avahi = {

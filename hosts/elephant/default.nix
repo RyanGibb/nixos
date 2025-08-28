@@ -32,6 +32,7 @@
       withVpl = true;
     }))
     #stig
+    nixd
   ];
 
   eilean = {
