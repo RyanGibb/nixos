@@ -53,14 +53,7 @@
           # to override attributes of a package
           # package = prev.package.overrideAttrs
           #  (_: { patches = [ ./pkgs/package.patch ]; });
-          opam = final.overlay-unstable.opam.overrideAttrs (_: rec {
-            version = "2.4.0-alpha1";
-            src = final.fetchurl {
-              url = "https://github.com/ocaml/opam/releases/download/${version}/opam-full-${version}.tar.gz";
-              sha256 = "sha256-kRGh8K5sMvmbJtSAEEPIOsim8uUUhrw11I+vVd/nnx4=";
-            };
-            patches = [ ./pkgs/opam-shebangs.patch ];
-          });
+          opam = final.overlay-unstable.opam;
           immich = final.overlay-unstable.immich;
         })
         inputs.nur.overlays.default
