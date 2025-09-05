@@ -252,8 +252,8 @@
       After = "dev-fujifilmxt3.device";
     };
     serviceConfig = {
-      ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /run/media/ryan";
-      ExecStart = "${pkgs.gphoto2fs}/bin/gphotofs /run/media/ryan -f";
+      ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /mnt/x-t3";
+      ExecStart = "${pkgs.gphoto2fs}/bin/gphotofs /mnt/x-t3 -f";
       Restart = "no";
       KillMode = "process";
     };
