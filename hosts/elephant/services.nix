@@ -38,7 +38,29 @@
 
   services.nginx = {
     package = pkgs.nginxMainline.override {
-      modules = with pkgs.nginxModules; [ dav ];
+      modules = with pkgs.nginxModules; [
+        # https://github.com/seedvault-app/seedvault/issues/500
+        # https://github.com/mid1221213/nginx-dav-ext-module/commit/51185d0aa980bafcd02f5a039cf6e46e75b35935
+        {
+          name = "dav";
+          src = pkgs.fetchFromGitHub {
+            name = "dav";
+            owner = "mid1221213";
+            repo = "nginx-dav-ext-module";
+            rev = "9f112cf8e396ea5e1bdc70cedfa4f5cbc48fe98a";
+            sha256 = "sha256-BMYRH/BNuq/TTWPWdQJpz/Mx64vNEN7SQ/Swu3by92A=";
+          };
+
+          inputs = [ pkgs.expat ];
+
+          meta = with lib; {
+            description = "WebDAV PROPFIND,OPTIONS,LOCK,UNLOCK support";
+            homepage = "https://github.com/arut/nginx-dav-ext-module";
+            license = with licenses; [ bsd2 ];
+            maintainers = [ ];
+          };
+        }
+      ];
     };
     #requires = [ "tailscaled.service" ];
     clientMaxBodySize = "10g";
