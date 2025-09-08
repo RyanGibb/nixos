@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-sink_ids=($(pactl list short sinks | cut -f 1))
-sinks=($(pactl list short sinks | cut -f 2))
+mapfile -t sink_ids < <(pactl list short sinks | cut -f 1)
+mapfile -t sinks < <(pactl list short sinks | cut -f 2)
 
 default_sink=$(pactl info | sed -En 's/Default Sink: (.*)/\1/p')
 default_source=$(pactl info | sed -En 's/Default Source: (.*)/\1/p')
@@ -17,7 +17,7 @@ vol="$(echo "$deets" | grep "Volume" | head -1 | awk '{print $5}')"
 mute="$(echo "$deets" | grep "Mute: yes")"
 desc="$(echo "$deets" | grep "Description:" | sed 's/.*Description: //')"
 
-if [ ! -z "$mute" ]; then
+if [ -n "$mute" ]; then
 	label=""
 else
 	label=""
