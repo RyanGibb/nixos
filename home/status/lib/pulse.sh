@@ -15,6 +15,7 @@ done
 deets="$(pactl list sinks | grep -A14 "#${sink_ids[$i]}")"
 vol="$(echo "$deets" | grep "Volume" | head -1 | awk '{print $5}')"
 mute="$(echo "$deets" | grep "Mute: yes")"
+desc="$(echo "$deets" | grep "Description:" | sed 's/.*Description: //')"
 
 if [ ! -z "$mute" ]; then
 	label=""
@@ -29,5 +30,5 @@ else
 	mic=""
 fi
 
-echo "$label $vol [${sink_ids[$i]}] $mic"
+echo "$label $vol $desc $mic"
 
