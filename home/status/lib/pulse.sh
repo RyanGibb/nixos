@@ -30,5 +30,5 @@ else
 	mic=""
 fi
 
-echo "$label $vol $desc $mic"
+echo "$label $vol $mic $desc"
 
