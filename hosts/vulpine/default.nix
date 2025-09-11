@@ -88,10 +88,6 @@
     hardware.nvidia.open = false;
   };
 
-  services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="usb", TEST=="power/wakeup", ATTR{power/wakeup}="enabled"
-  '';
-
   networking.firewall.allowedTCPPorts = [ 1234 ];
   networking.firewall.allowedUDPPorts = [ 1234 ];
 }

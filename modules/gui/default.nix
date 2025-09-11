@@ -149,5 +149,10 @@ in
 
     # sets $WORLDLIST for `dict`
     environment.wordlist.enable = true;
+
+    # allow wake from USB
+    services.udev.extraRules = ''
+      ACTION=="add", SUBSYSTEM=="usb", TEST=="power/wakeup", ATTR{power/wakeup}="enabled"
+    '';
   };
 }
