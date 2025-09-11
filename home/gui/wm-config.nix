@@ -399,7 +399,7 @@ in
     "button2" = "kill";
 
     "Mod4+Shift+g" = "mode \"gaps\"; exec notify-send \"Gaps | h/j/k/l/-/+ | 0 1 2 3 4\"";
-    "Mod4+x" = "mode \"system\"; exec notify-send \"System | l/e/s/h/r/p/u/S\"";
+    "Mod4+x" = "mode \"system\"; exec notify-send \"System | l/e/s/h/r/p⏻/u/S\"";
 
     "Mod4+Shift+w" = "exec ${scriptDir}/set_random_wallpaper.sh";
     "Mod4+Control+w" = "exec ${scriptDir}/set_selected_wallpaper.sh";
