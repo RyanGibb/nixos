@@ -216,7 +216,10 @@ in
             '';
           };
         };
-        app_service_config_files = [ "/var/lib/heisenbridge/registration.yml" ];
+        app_service_config_files = [
+          "/var/lib/heisenbridge/registration.yml"
+          "/var/lib/matrix-zulip-bridge/registration.yaml"
+        ];
       }
     ];
   };
@@ -278,6 +281,74 @@ in
     address = "0.0.0.0";
     homeserver = "https://${domain}";
   };
+
+  # Matrix-Zulip bridge service
+  systemd.services.matrix-zulip-bridge = {
+    description = "matrix-zulip-bridge - a puppeteering Matrix<->Zulip bridge";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" "matrix-synapse.service" ];
+
+    preStart = ''
+      # Ensure the directory exists with proper permissions
+      mkdir -p /var/lib/matrix-zulip-bridge
+      chown matrix-zulip-bridge:matrix-synapse /var/lib/matrix-zulip-bridge
+      chmod 750 /var/lib/matrix-zulip-bridge
+
+      # Ensure the registration file exists with proper tokens
+      if [ ! -f /var/lib/matrix-zulip-bridge/registration.yaml ]; then
+        # Generate random tokens if they don't exist
+        if [ ! -f /var/lib/matrix-zulip-bridge/tokens ]; then
+          AS_TOKEN=$(${pkgs.openssl}/bin/openssl rand -hex 32)
+          HS_TOKEN=$(${pkgs.openssl}/bin/openssl rand -hex 32)
+          echo "AS_TOKEN=$AS_TOKEN" > /var/lib/matrix-zulip-bridge/tokens
+          echo "HS_TOKEN=$HS_TOKEN" >> /var/lib/matrix-zulip-bridge/tokens
+          chown matrix-zulip-bridge:matrix-zulip-bridge /var/lib/matrix-zulip-bridge/tokens
+          chmod 600 /var/lib/matrix-zulip-bridge/tokens
+        fi
+
+        source /var/lib/matrix-zulip-bridge/tokens
+
+        cat > /var/lib/matrix-zulip-bridge/registration.yaml <<EOF
+      id: zulipbridge
+      url: http://127.0.0.1:28464
+      as_token: $AS_TOKEN
+      hs_token: $HS_TOKEN
+      rate_limited: false
+      sender_localpart: zulipbridge
+      namespaces:
+        users:
+        - regex: '@zulip_.*'
+          exclusive: true
+        aliases: []
+        rooms: []
+      EOF
+
+        # Set proper ownership - matrix-synapse needs to read this file
+        chown matrix-zulip-bridge:matrix-synapse /var/lib/matrix-zulip-bridge/registration.yaml
+        chmod 640 /var/lib/matrix-zulip-bridge/registration.yaml
+      fi
+    '';
+
+    serviceConfig = {
+      ExecStart = "${pkgs.matrix-zulip-bridge}/bin/matrix-zulip-bridge -c /var/lib/matrix-zulip-bridge/registration.yaml -o @rtg24:${domain} https://${domain}";
+      User = "matrix-zulip-bridge";
+      Group = "matrix-zulip-bridge";
+      RuntimeDirectory = "matrix-zulip-bridge";
+      Restart = "on-failure";
+      RestartSec = "30s";
+      SupplementaryGroups = [ "matrix-synapse" ];
+    };
+  };
+
+  # Create the zulip bridge user
+  users.users.matrix-zulip-bridge = {
+    isSystemUser = true;
+    group = "matrix-zulip-bridge";
+    description = "Matrix Zulip Bridge";
+  };
+
+  users.groups.matrix-zulip-bridge = {};
+
   systemd.services.inspircd.serviceConfig.Group = "wwwrun";
   services.inspircd = {
     #enable = true;
