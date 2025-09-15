@@ -90,4 +90,9 @@
 
   networking.firewall.allowedTCPPorts = [ 1234 ];
   networking.firewall.allowedUDPPorts = [ 1234 ];
+
+  # allow wake from USB
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="usb", TEST=="power/wakeup", ATTR{power/wakeup}="enabled"
+  '';
 }
