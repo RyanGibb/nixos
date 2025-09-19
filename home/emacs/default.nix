@@ -7,31 +7,39 @@
 
 let
   cfg = config.custom.emacs;
-  emacs = (pkgs.emacsPackagesFor pkgs.emacs30-pgtk).emacsWithPackages (
-    epkgs: with epkgs; [
-      treesit-grammars.with-all-grammars
-      vterm
-      mu4e
-    ]
-  );
+  emacs = pkgs.emacsWithDoom {
+    emacs = pkgs.emacs30-pgtk;
+    extraPackages =
+      epkgs: with epkgs; [
+        lsp-mode
+        treesit-grammars.with-all-grammars
+        vterm
+        mu4e
+        evil-collection
+        gruvbox-theme
+      ];
+    doomDir = ./doom;
+    doomLocalDir = "~/.local/share/nix-doom";
+    extraBinPackages = with pkgs; [
+      binutils
+      gnutls
+      imagemagick
+      pinentry-emacs
+      zstd # for undo-fu-session/undo-tree compression
+      git
+      fd
+      ripgrep
+      nixd
+    ];
+  };
 in
 {
   options.custom.emacs.enable = lib.mkEnableOption "emacs";
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      binutils
+    home.packages = [
       emacs
-      gnutls
-      imagemagick
-      pinentry-emacs
-      # for undo-fu-session/undo-tree compression
-      zstd
     ];
-
-    programs.zsh.initContent = lib.mkAfter ''
-      PATH="''${XDG_CONFIG_HOME:-$HOME/.config}/emacs/bin":$PATH
-    '';
 
     home.file = {
       ".mail.cap".text = ''
