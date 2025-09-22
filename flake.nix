@@ -203,7 +203,7 @@
               ["gecko" true]
               ["owl" false]
               ["hippo" true]
-              # "shrew"
+              ["shrew" true]
               ["swan" false]
             ]
         );
