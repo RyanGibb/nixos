@@ -80,67 +80,11 @@
       "piper"
       "wyoming"
       "wake_word"
-      "google_assistant"
-      "google_translate"
     ];
     customComponents = with pkgs.overlay-unstable.home-assistant-custom-components; [
       adaptive_lighting
     ];
-    config = {
-      # Includes dependencies for a basic setup
-      # https://www.home-assistant.io/integrations/default_config/
-      default_config = { };
-      automation = "!include automations.yaml";
-      scene = "!include scenes.yaml";
-      http = {
-        use_x_forwarded_for = true;
-        trusted_proxies = [ "100.64.0.2" ];
-      };
-      google_assistant = {
-        project_id = "shrew-25325";
-        service_account = "!include SERVICE_ACCOUNT.JSON";
-        report_state = true;
-        exposed_domains = [
-          "switch"
-          "light"
-        ];
-        entity_config = {
-          "light.room_bed_left" = {
-            name = "BED_LEFT";
-            aliases = [ "LEFT" ];
-            room = "Bedroom";
-          };
-          "switch.room_bed_right" = {
-            name = "BED_RIGHT";
-            aliases = [ "RIGHT" ];
-            room = "Bedroom";
-          };
-          "light.room_ceil" = {
-            name = "CEIL";
-            aliases = [ "CEILING" ];
-            room = "Bedroom";
-          };
-          "light.room_strip" = {
-            name = "STRIP";
-            room = "Bedroom";
-          };
-          "switch.fan" = {
-            name = "FAN";
-            room = "Bedroom";
-          };
-        };
-      };
-      adaptive_lighting = {
-        sunrise_time = "06:00:00";
-        sunset_time = "18:00:00";
-        lights = [
-          "light.bed_left"
-          "light.bed_right"
-          "light.ceiling"
-          "light.strip"
-        ];
-      };
-    };
+    config = null;
   };
 
   #services.wyoming = {
