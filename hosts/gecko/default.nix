@@ -3,7 +3,7 @@
   lib,
   config,
   ...
-}:
+}@inputs:
 
 {
   imports = [
@@ -168,6 +168,8 @@
 
     # due to https://github.com/TigerVNC/tigervnc/issues/274
     realvnc-vnc-viewer
+
+    inputs.caledonia.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   services.gnome.gnome-keyring.enable = true;

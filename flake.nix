@@ -22,6 +22,7 @@
       flake = false;
     };
     nix-doom-emacs.url = "github:marienz/nix-doom-emacs-unstraightened";
+    caledonia.url = "github:RyanGibb/caledonia";
 
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
@@ -41,6 +42,7 @@
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     nix-doom-emacs.inputs.doomemacs.follows = "doomemacs";
     nix-doom-emacs.inputs.emacs-overlay.follows = "emacs-overlay";
+    caledonia.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
