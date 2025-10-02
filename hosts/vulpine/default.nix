@@ -73,6 +73,7 @@
     (pkgs.kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
       jellyfin
     ]))
+  jellyfin-media-player
   ];
 
   security.sudo.extraConfig = ''
