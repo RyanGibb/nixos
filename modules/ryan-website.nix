@@ -46,7 +46,16 @@ in
           locations."/teapot".extraConfig = ''
             return 418;
           '';
-          locations."/var/".alias = "/var/www/var/";
+          locations."/var/" = {
+            alias = "/var/www/var/";
+            extraConfig = ''
+              add_header Strict-Transport-Security max-age=31536000 always;
+              add_header X-Frame-Options SAMEORIGIN always;
+              add_header X-Content-Type-Options nosniff always;
+              add_header Referrer-Policy 'same-origin';
+              add_header Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; base-uri 'self'; frame-src 'self'; frame-ancestors 'self'; form-action 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' https://unpkg.com data:;" always;
+            '';
+          };
           locations."~ \\.bib$" = {
             extraConfig = ''
               default_type text/plain;
