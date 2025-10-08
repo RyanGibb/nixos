@@ -237,18 +237,12 @@ in
   };
 
   # tangled
-  age.secrets.tangled = {
-    file = ../../secrets/tangled.age;
-    mode = "660";
-    owner = "git";
-    group = "git";
-  };
   services.tangled-knot = {
     enable = true;
     repo.mainBranch = "master";
     server.hostname = "knot.freumh.org";
     server = {
-      secretFile = config.age.secrets.tangled.path;
+      owner = "did:plc:3lfhu6ehlynzjgehef6alnvg";
       listenAddr = "127.0.0.1:5555";
       internalListenAddr = "127.0.0.1:5444";
     };
