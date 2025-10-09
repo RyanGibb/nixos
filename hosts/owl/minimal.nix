@@ -16,4 +16,8 @@
   home-manager.users.${config.custom.username}.config.custom.machineColour = "yellow";
 
   boot.tmp.cleanOnBoot = true;
+
+  services.journald.extraConfig = ''
+    SystemMaxUse=4G
+  '';
 }
