@@ -15,7 +15,8 @@
     enable = true;
     tailscale = true;
     laptop = true;
-    printing = true;
+    # cups-browsed is using 100% of a core
+    printing = false;
     gui.i3 = true;
     gui.sway = true;
     workstation = true;
