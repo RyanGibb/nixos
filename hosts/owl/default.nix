@@ -49,4 +49,6 @@
       randomizedDelaySec = "1hr";
     };
   };
+
+  services.postgresql.package = pkgs.postgresql_13;
 }
