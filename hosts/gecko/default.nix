@@ -245,10 +245,10 @@
   };
 
   # camera
-  services.udev.extraRules = ''
-    SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="04cb", ENV{ID_MODEL_ID}=="02dd", TAG+="systemd", SYMLINK+="fujifilmxt3"
-    ACTION=="add", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="04cb", ENV{ID_MODEL_ID}=="02dd", TAG+="systemd", ENV{SYSTEMD_USER_WANTS}="mount-camera.service"
-  '';
+  # services.udev.extraRules = ''
+  #   SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="04cb", ENV{ID_MODEL_ID}=="02dd", TAG+="systemd", SYMLINK+="fujifilmxt3"
+  #   ACTION=="add", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="04cb", ENV{ID_MODEL_ID}=="02dd", TAG+="systemd", ENV{SYSTEMD_USER_WANTS}="mount-camera.service"
+  # '';
   systemd.user.services.mount-camera = {
     unitConfig = {
       BindsTo = "dev-fujifilmxt3.device";
