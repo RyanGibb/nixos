@@ -58,9 +58,12 @@
     passwordFile = config.age.secrets.restic-elephant.path;
     initialize = true;
     paths = [
+      "/var/lib/"
+      "/etc/"
+      "/home/"
       "/tank/family/mp4/"
       "/tank/family/other/"
-      "/tank/photos/"
+      "/tank/immich/"
     ];
     timerConfig = {
       OnCalendar = "monthly";
