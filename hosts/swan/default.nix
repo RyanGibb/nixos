@@ -265,7 +265,7 @@ in
       };
       secrets.secretsFile = "/secrets/peertube";
       serviceEnvironmentFile = "/secrets/peertube.env";
-      dataDirs = [ "/tank/peertube/videos" ];
+      dataDirs = [ "/tank/peertube/" ];
     };
 
     redis.servers.peertube = {
