@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  nixpkgs-unstable,
   ...
 }:
 
@@ -9,7 +10,15 @@ let
   domain = "eeg.cl.cam.ac.uk";
 in
 {
+  # peertube: for fchown in SystemCallFilter used by YouTube import
+  # https://github.com/NixOS/nixpkgs/commit/9654acae0e32d642aa796e95519c95fa496aaf6d#diff-4777ecc9c39f65314c4616d1287b6082fac99fefff66fe2251688dbf467ffca3R596
+  disabledModules = [
+    "services/web-apps/peertube.nix"
+    "services/mail/postfix.nix"
+  ];
   imports = [
+    "${nixpkgs-unstable}/nixos/modules/services/web-apps/peertube.nix"
+    "${nixpkgs-unstable}/nixos/modules/services/mail/postfix.nix"
     ./hardware-configuration.nix
     ./minimal.nix
   ];
@@ -240,6 +249,7 @@ in
   services = {
     peertube = {
       enable = true;
+      package = pkgs.overlay-unstable.peertube;
       localDomain = "watch.eeg.cl.cam.ac.uk";
       listenWeb = 443;
       enableWebHttps = true;
