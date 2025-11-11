@@ -237,7 +237,7 @@ in
   };
 
   # tangled
-  services.tangled-knot = {
+  services.tangled.knot = {
     enable = true;
     repo.mainBranch = "master";
     server.hostname = "knot.freumh.org";
@@ -251,7 +251,7 @@ in
     forceSSL = true;
     locations."/" = {
       proxyPass = ''
-        http://${config.services.tangled-knot.server.listenAddr}
+        http://${config.services.tangled.knot.server.listenAddr}
       '';
       proxyWebsockets = true;
     };
