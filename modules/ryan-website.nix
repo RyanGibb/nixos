@@ -43,6 +43,9 @@ in
           forceSSL = true;
           root = "/var/www/ryan.freumh.org/";
           locations."/".index = "home.html index.html";
+          locations."/atom.xml".extraConfig = ''
+            return 301 $scheme://$host/home.xml;
+          '';
           locations."/teapot".extraConfig = ''
             return 418;
           '';
