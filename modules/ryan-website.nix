@@ -64,6 +64,12 @@ in
               default_type text/plain;
             '';
           };
+          locations."~ \\.md$" = {
+            extraConfig = ''
+              types { }
+              default_type "text/markdown; charset=utf-8";
+            '';
+          };
           extraConfig = ''
             error_page 403 =404 /404.html;
             error_page 404 /404.html;
