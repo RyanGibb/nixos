@@ -14,6 +14,24 @@ let
     inherit pkgs lib i3-workspace-history;
   };
   scriptDir = "$HOME/.config/i3/scripts";
+  replacements = {
+    wm = "i3";
+    wmmsg = "i3-msg";
+    rofi = "rofi";
+    app_id = "class";
+    bar_extra = "";
+    locked = "";
+    polkit_gnome = "${pkgs.polkit_gnome}";
+    set_wallpaper = ''feh --bg-fill $HOME/.cache/wallpaper'';
+    locker = "xsecurelock";
+    enable_output = "xrandr --output $laptop_output --auto";
+    disable_output = "xrandr --output $laptop_output --off";
+    drun = "rofi -i -modi drun -show drun";
+    dmenu = "rofi -i -dmenu -p";
+    notification_deamon = "dunst";
+    i3_workspace_history = "${i3-workspace-history}/bin/i3-workspace-history";
+    i3_workspace_history_args = "";
+  };
 in
 {
   options.custom.gui.i3.enable = lib.mkEnableOption "i3";
@@ -59,39 +77,18 @@ in
           criteria = wmCommon.floatingCriteria.i3;
         };
         focus = wmCommon.focus;
-
         keybindings = lib.mkForce (
           (wmCommon.commonKeybindings scriptDir) //
           (wmCommon.mediaKeybindings false) //  # locked=false for i3
           (wmCommon.i3Keybindings scriptDir)
         );
-
         modes = wmCommon.commonModes // (wmCommon.i3Modes scriptDir);
-
-        startup = wmCommon.commonStartup ++ (wmCommon.i3Startup scriptDir);
+        startup = wmCommon.commonStartup ++ (wmCommon.i3Startup scriptDir replacements.set_wallpaper);
       };
     };
 
     xdg.configFile =
       let
-        replacements = {
-          wm = "i3";
-          wmmsg = "i3-msg";
-          rofi = "rofi";
-          app_id = "class";
-          bar_extra = "";
-          locked = "";
-          polkit_gnome = "${pkgs.polkit_gnome}";
-          set_wallpaper = ''feh --bg-fill $HOME/.cache/wallpaper'';
-          locker = "xsecurelock";
-          enable_output = "xrandr --output $laptop_output --auto";
-          disable_output = "xrandr --output $laptop_output --off";
-          drun = "rofi -i -modi drun -show drun";
-          dmenu = "rofi -i -dmenu -p";
-          notification_deamon = "dunst";
-          i3_workspace_history = "${i3-workspace-history}/bin/i3-workspace-history";
-          i3_workspace_history_args = "";
-        };
         entries = {
           "dunst/dunstrc".source = ./dunst;
           "rofi/config.rasi".source = ./rofi.rasi;

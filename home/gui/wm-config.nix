@@ -577,7 +577,7 @@ in
     { command = "gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'"; always = true; }
   ];
 
-  swayStartup = idle: scriptDir: [
+  swayStartup = idle: scriptDir: set_wallpaper: [
     { command = "${i3-workspace-history}/bin/i3-workspace-history -sway"; }
     { command = "${scriptDir}/swayidle_${idle}.sh"; }
     { command = "pkill kanshi; kanshi"; always = true; }
@@ -585,11 +585,14 @@ in
     { command = "wl-paste -t text --watch clipman store -P --max-items=100"; }
     { command = "systemctl --user start gammastep"; }
     { command = "${scriptDir}/dunst_restart.sh"; }
-    { command = "${scriptDir}/set_random_wallpaper.sh"; }
+    {
+      command = set_wallpaper;
+      always = true;
+    }
     { command = "${scriptDir}/laptop_clamshell.sh"; always = true; }
   ];
 
-  i3Startup = scriptDir: [
+  i3Startup = scriptDir: set_wallpaper: [
     { command = "${i3-workspace-history}/bin/i3-workspace-history"; }
     { command = "xss-lock --transfer-sleep-lock -- xsecurelock"; }
     { command = "greenclip daemon"; }
@@ -598,6 +601,9 @@ in
     { command = "xinput set-prop 'Logitech Gaming Mouse G502' 'libinput Accel Profile Enabled' 0, 1"; }
     { command = "xinput set-prop 'DLL0945:00 06CB:CDE6 Touchpad' 'libinput Natural Scrolling Enabled' 1"; }
     { command = "xrandr --output DP-1-2 --primary --mode 2560x1440 --pos 0x0 --rotate normal --output DP-1-3 --mode 1920x1080 --pos 2560x0 --rotate left"; }
-    { command = "${scriptDir}/set_random_wallpaper.sh"; }
+    {
+      command = set_wallpaper;
+      always = true;
+    }
   ];
 }

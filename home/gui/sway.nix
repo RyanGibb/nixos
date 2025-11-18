@@ -14,6 +14,24 @@ let
     inherit pkgs lib i3-workspace-history;
   };
   scriptDir = "$HOME/.config/sway/scripts";
+  replacements = {
+    wm = "sway";
+    wmmsg = "swaymsg";
+    rofi = "wofi";
+    app_id = "app_id";
+    bar_extra = ''icon_theme Papirus'';
+    locked = "--locked";
+    polkit_gnome = "${pkgs.polkit_gnome}";
+    set_wallpaper = ''swaymsg "output * bg $HOME/.cache/wallpaper fill #282828"'';
+    locker = "swaylock -f -i $HOME/.cache/wallpaper";
+    enable_output = "swaymsg output $laptop_output enable";
+    disable_output = "swaymsg output $laptop_output disable";
+    drun = "wofi -i --show drun --allow-images -a";
+    dmenu = "wofi -d -i -p";
+    notification_deamon = "dunst";
+    i3_workspace_history = "${i3-workspace-history}/bin/i3-workspace-history";
+    i3_workspace_history_args = "-sway";
+  };
 in
 {
   options.custom.gui.sway = {
@@ -108,7 +126,7 @@ in
           (wmCommon.swayKeybindings scriptDir)
         );
         modes = wmCommon.commonModes // (wmCommon.swayModes scriptDir);
-        startup = wmCommon.commonStartup ++ (wmCommon.swayStartup cfg.idle scriptDir);
+        startup = wmCommon.commonStartup ++ (wmCommon.swayStartup cfg.idle scriptDir replacements.set_wallpaper);
       };
       extraConfig = ''
         focus_on_window_activation smart
@@ -119,24 +137,6 @@ in
 
     xdg.configFile =
       let
-        replacements = {
-          wm = "sway";
-          wmmsg = "swaymsg";
-          rofi = "wofi";
-          app_id = "app_id";
-          bar_extra = ''icon_theme Papirus'';
-          locked = "--locked";
-          polkit_gnome = "${pkgs.polkit_gnome}";
-          set_wallpaper = ''swaymsg "output * bg $HOME/.cache/wallpaper fill #282828"'';
-          locker = "swaylock -f -i $HOME/.cache/wallpaper";
-          enable_output = "swaymsg output $laptop_output enable";
-          disable_output = "swaymsg output $laptop_output disable";
-          drun = "wofi -i --show drun --allow-images -a";
-          dmenu = "wofi -d -i -p";
-          notification_deamon = "dunst";
-          i3_workspace_history = "${i3-workspace-history}/bin/i3-workspace-history";
-          i3_workspace_history_args = "-sway";
-        };
         entries = {
           "fusuma/config.yml".source = ./fusuma.yml;
           "kanshi/config".source = ./kanshi;
