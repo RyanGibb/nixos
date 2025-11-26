@@ -26,3 +26,8 @@ profile {
 	exec ~/.config/sway/scripts/swayidle_lock.sh
 }
 
+profile {
+    output 'Sony SONY TV  *00 0x01010101' mode 1920x1080@60Hz scale 1.5
+	exec ~/.config/sway/scripts/swayidle_suspend_long.sh
+}
+
