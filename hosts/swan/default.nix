@@ -272,6 +272,7 @@ in
           streaming_playlists = "/tank/peertube/streaming-playlists";
           web_videos = "/tank/peertube/web-videos";
         };
+        video_transcription.enabled = true;
       };
       secrets.secretsFile = "/secrets/peertube";
       serviceEnvironmentFile = "/secrets/peertube.env";
