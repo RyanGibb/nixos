@@ -151,6 +151,8 @@ in
     systemd.user.services.clipman.Service.ExecStart =
       lib.mkForce "${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store -P --max-items=1000";
 
+    systemd.user.services.dunst.Service.Type = lib.mkForce "simple";
+
     systemd.user.services = {
       fcitx5-daemon = {
         Unit = {
