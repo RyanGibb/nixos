@@ -64,6 +64,7 @@ in
 
     wayland.windowManager.sway = {
       enable = true;
+      package = null;
       config = {
         modifier = "Mod4";
         terminal = "alacritty -e tmux";
