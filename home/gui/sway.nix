@@ -149,7 +149,7 @@ in
       lib.mkForce "${pkgs.gammastep}/bin/gammastep -r";
 
     systemd.user.services.clipman.Service.ExecStart =
-      lib.mkForce "${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store -P --max-items=100";
+      lib.mkForce "${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store -P --max-items=1000";
 
     systemd.user.services = {
       fcitx5-daemon = {
