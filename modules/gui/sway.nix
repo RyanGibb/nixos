@@ -24,6 +24,9 @@ in
     programs.sway = {
       enable = true;
       wrapperFeatures.gtk = true; # so that gtk works properly
+      extraOptions = [
+        "--unsupported-gpu"
+      ];
       extraSessionCommands = ''
         source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
         export QT_QPA_PLATFORM="wayland"
