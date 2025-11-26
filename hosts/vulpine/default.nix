@@ -6,9 +6,8 @@
   custom = {
     enable = true;
     tailscale = true;
-    laptop = true;
     printing = true;
-    gui.i3 = true;
+    gui.kde = true;
     gui.sway = true;
     workstation = true;
     autoUpgrade.enable = true;
@@ -47,6 +46,11 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
 
+  fileSystems."/mnt/ssd" = {
+    device = "/dev/disk/by-uuid/481c5422-0311-4d51-a5d9-b7d7ac1d5fac";
+    fsType = "ext4";
+  };
+
   environment.systemPackages = with pkgs; [
     pciutils
     file-roller
@@ -74,6 +78,7 @@
       jellyfin
     ]))
   jellyfin-media-player
+  mangohud
   ];
 
   security.sudo.extraConfig = ''
@@ -81,8 +86,6 @@
   '';
 
   services.avahi.enable = true;
-
-  programs.steam.enable = true;
 
   specialisation.nvidia.configuration = {
     services.xserver.videoDrivers = [ "nvidia" ];
@@ -96,4 +99,27 @@
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="usb", TEST=="power/wakeup", ATTR{power/wakeup}="enabled"
   '';
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    gamescopeSession = {
+      enable = true;
+      env.MANGOHUD = "1";
+    };
+    dedicatedServer.openFirewall = true;
+  };
+
+  programs.gamescope = {
+    enable = true;
+    capSysNice = true;  # reduces stutter
+    env.MANGOHUD = "1";
+  };
+
+  programs.gamemode.enable = true;
 }

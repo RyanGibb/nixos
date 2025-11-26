@@ -89,7 +89,7 @@ in
       fd
       ripgrep
       tmux-sessionizer
-      bfs
+      # bfs
     ];
 
     home.shellAliases = {

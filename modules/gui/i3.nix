@@ -19,7 +19,7 @@ in
       };
 
     #services.displayManager.lightdm.enable = true;
-    services.displayManager.defaultSession = "none+i3";
+    services.displayManager.sddm.enable = true;
     services.xserver = {
       enable = true;
       windowManager.i3.enable = true;

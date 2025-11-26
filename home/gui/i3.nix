@@ -51,13 +51,6 @@ in
         export DBUS_SESSION_BUS_ADDRESS DBUS_SESSION_BUS_PID DBUS_SESSION_BUS_WINDOWID
         exec i3
       '';
-      ".zprofile".text = ''
-        # Autostart at login on TTY 2
-        if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 2 ]; then
-          source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
-          exec startx
-        fi
-      '';
     };
 
     xsession.windowManager.i3 = {
