@@ -8,6 +8,7 @@
     tailscale = true;
     printing = true;
     gui.kde = true;
+    gui.i3 = true;
     gui.sway = true;
     workstation = true;
     autoUpgrade.enable = true;
@@ -77,8 +78,8 @@
     (pkgs.kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
       jellyfin
     ]))
-  jellyfin-media-player
-  mangohud
+    jellyfin-media-player
+    mangohud
   ];
 
   security.sudo.extraConfig = ''
