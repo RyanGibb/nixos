@@ -80,6 +80,7 @@
     ]))
     jellyfin-media-player
     mangohud
+    stremio
   ];
 
   security.sudo.extraConfig = ''
