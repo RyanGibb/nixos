@@ -570,26 +570,19 @@ in
   };
 
   commonStartup = [
-    { command = "playerctld daemon"; }
     { command = "systemctl --user start thunar"; }
-    { command = "dunst"; }
-    { command = "fcitx5 -d"; always = false; }
     { command = "gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'"; always = true; }
   ];
 
   swayStartup = idle: scriptDir: set_wallpaper: [
-    { command = "${i3-workspace-history}/bin/i3-workspace-history -sway"; }
-    { command = "${scriptDir}/swayidle_${idle}.sh"; }
-    { command = "pkill kanshi; kanshi"; always = true; }
+    { command = "${scriptDir}/swayidle_${idle}.sh"; always = true; }
     { command = "systemctl --user import-environment XDG_SESSION_TYPE XDG_CURRENT_DESKTOP SWAYSOCK"; }
-    { command = "wl-paste -t text --watch clipman store -P --max-items=100"; }
-    { command = "systemctl --user start gammastep"; }
-    { command = "${scriptDir}/dunst_restart.sh"; }
+    { command = "pkill -f dunst_restart; ${scriptDir}/dunst_restart.sh"; always = true; }
     {
       command = set_wallpaper;
       always = true;
     }
-    { command = "${scriptDir}/laptop_clamshell.sh"; always = true; }
+    { command = "pkill -f laptop_clamshell; ${scriptDir}/laptop_clamshell.sh"; always = true; }
   ];
 
   i3Startup = scriptDir: set_wallpaper: [

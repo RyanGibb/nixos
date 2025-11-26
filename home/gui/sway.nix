@@ -62,7 +62,10 @@ in
       wl-kbptr
     ];
 
+    wayland.systemd.target = "sway-session.target";
+
     wayland.windowManager.sway = {
+      systemd.enable = true;
       enable = true;
       package = null;
       config = {
@@ -130,12 +133,49 @@ in
         };
       in (util.inDirReplace ./scripts "sway/scripts" replacements) // entries;
 
-    services.gammastep = {
-      enable = true;
-      provider = "geoclue2";
-      temperature.day = 6500;
+    services = {
+      gammastep = {
+        enable = true;
+        provider = "geoclue2";
+        temperature.day = 6500;
+      };
+      playerctld.enable = true;
+      dunst.enable = true;
+      kanshi.enable = true;
+      clipman.enable = true;
     };
+
     systemd.user.services.gammastep.Service.ExecStart =
       lib.mkForce "${pkgs.gammastep}/bin/gammastep -r";
+
+    systemd.user.services.clipman.Service.ExecStart =
+      lib.mkForce "${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store -P --max-items=100";
+
+    systemd.user.services = {
+      fcitx5-daemon = {
+        Unit = {
+          Description = "Fcitx5 input method";
+          PartOf = [ "sway-session.target" ];
+        };
+        Service = {
+          ExecStart = "${pkgs.fcitx5}/bin/fcitx5 -d --replace";
+          Restart = "on-failure";
+        };
+        Install.WantedBy = [ "sway-session.target" ];
+      };
+
+      i3-workspace-history = {
+        Unit = {
+          Description = "i3 workspace history tracker";
+          PartOf = [ "sway-session.target" ];
+          After = [ "sway-session.target" ];
+        };
+        Service = {
+          ExecStart = "${i3-workspace-history}/bin/i3-workspace-history -sway";
+          Restart = "on-failure";
+        };
+        Install.WantedBy = [ "sway-session.target" ];
+      };
+    };
   };
 }
