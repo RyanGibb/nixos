@@ -268,6 +268,7 @@ in
         listen.hostname = "0.0.0.0";
         instance.name = "PeerTube Test Server";
         storage = {
+          tmp = "/tank/peertube/tmp";
           videos = "/tank/peertube/videos";
           streaming_playlists = "/tank/peertube/streaming-playlists";
           web_videos = "/tank/peertube/web-videos";
