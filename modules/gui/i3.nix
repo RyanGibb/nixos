@@ -18,8 +18,7 @@ in
         config.custom.gui.i3.enable = true;
       };
 
-    #services.displayManager.lightdm.enable = true;
-    services.displayManager.sddm.enable = true;
+    services.displayManager.ly.enable = true;
     services.xserver = {
       enable = true;
       windowManager.i3.enable = true;

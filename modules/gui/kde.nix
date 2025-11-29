@@ -8,8 +8,7 @@ in
 
   config = lib.mkIf cfg.kde {
     services.desktopManager.plasma6.enable = true;
-    services.displayManager.sddm.enable = true;
-    services.displayManager.sddm.wayland.enable = true;
+    services.displayManager.ly.enable = true;
 
     i18n.inputMethod.fcitx5. plasma6Support = true;
 
