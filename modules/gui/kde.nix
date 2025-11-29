@@ -9,8 +9,12 @@ in
   config = lib.mkIf cfg.kde {
     services.desktopManager.plasma6.enable = true;
     services.displayManager.ly.enable = true;
+    services.displayManager.defaultSession = lib.mkDefault null;
 
-    i18n.inputMethod.fcitx5. plasma6Support = true;
+    # screen reader
+    services.orca.enable = false;
+
+    i18n.inputMethod.fcitx5.plasma6Support = true;
 
     # Fix audio delay by disabling node suspension
     services.pipewire.wireplumber.configPackages = [

@@ -19,6 +19,7 @@ in
       };
 
     services.displayManager.ly.enable = true;
+    services.displayManager.defaultSession = lib.mkDefault "sway";
 
     programs.sway = {
       enable = true;

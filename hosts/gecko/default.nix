@@ -175,7 +175,7 @@
   ];
 
   services.gnome.gnome-keyring.enable = true;
-  programs.seahorse.enable = true;
+  # programs.seahorse.enable = true;
 
   programs.dconf.enable = true;
   services.gnome.evolution-data-server.enable = true;
