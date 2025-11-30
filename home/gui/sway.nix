@@ -101,7 +101,8 @@ in
             scroll_factor = "0.5";
           };
         };
-        seat."seat0".hide_cursor = "when-typing enable";
+        # https://github.com/swaywm/sway/issues/8958
+        # seat."seat0".hide_cursor = "when-typing enable";
         keybindings = lib.mkForce (
           (wmCommon.commonKeybindings scriptDir) //
           (wmCommon.mediaKeybindings true) //
