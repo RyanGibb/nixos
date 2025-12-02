@@ -399,7 +399,7 @@ in
     "button2" = "kill";
 
     "Mod4+Shift+g" = "mode \"gaps\"; exec notify-send \"Gaps | h/j/k/l/-/+ | 0 1 2 3 4\"";
-    "Mod4+x" = "mode \"system\"; exec notify-send \"System | l/e/s/h/r/p⏻/u/S\"";
+    "Mod4+x" = "mode \"system\"; exec notify-send \"System | l/e/s/S/h/r/p/u\"";
 
     "Mod4+Shift+w" = "exec ${scriptDir}/set_random_wallpaper.sh";
     "Mod4+Control+w" = "exec ${scriptDir}/set_selected_wallpaper.sh";
@@ -465,12 +465,12 @@ in
     system = {
       "l" = "exec loginctl lock-session, mode default; exec notify-send lock";
       "e" = "exec swaymsg exit, mode default; exec notify-send exit";
-      "s" = "exec systemctl suspend, mode default; exec notify-send suspend";
+      "s" = "exec systemctl suspend-then-hibernate, mode default; exec notify-send suspend-then-hibernate";
+      "Shift+s" = "exec systemctl suspend, mode default; exec notify-send suspend";
       "h" = "exec systemctl hibernate, mode default; exec notify-send hibernate";
       "r" = "exec systemctl reboot, mode default; exec notify-send reboot";
       "p" = "exec systemctl poweroff -i, mode default; exec notify-send poweroff";
       "u" = "exec systemctl reboot --firmware-setup, mode default; exec notify-send uefi/bios";
-      "Shift+s" = "exec systemctl suspend-then-hibernate, mode default; exec notify-send suspend-then-hibernate";
       "Return" = "mode default; exec notify-send default";
       "Escape" = "mode default; exec notify-send default";
     };
