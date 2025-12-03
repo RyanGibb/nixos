@@ -1,9 +1,9 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     agenix.url = "github:ryantm/agenix";
     deploy-rs.url = "github:serokell/deploy-rs";
     nix-on-droid.url = "github:nix-community/nix-on-droid/release-24.05";
@@ -166,7 +166,7 @@
                 name = builtins.elemAt host 0;
                 remote = builtins.elemAt host 1;
                 machine = inputs.self.nixosConfigurations.${name};
-                system = machine.pkgs.system;
+                system = machine.pkgs.stdenv.hostPlatform.system;
                 pkgs = import inputs.nixpkgs { inherit system; };
                 # nixpkgs with deploy-rs overlay but force the nixpkgs package
                 deployPkgs = import inputs.nixpkgs {
@@ -206,7 +206,8 @@
               ["owl" false]
               ["hippo" true]
               ["shrew" true]
-              ["swan" false]
+              # pending https://github.com/NixOS/nixpkgs/issues/367976
+              # ["swan" false]
             ]
         );
       };

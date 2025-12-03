@@ -39,7 +39,6 @@
         port = 15606;
         url = "http://shrew";
       };
-      homeassistant = true;
       advanced = {
         channel = 15;
       };

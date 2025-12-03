@@ -25,7 +25,7 @@ in
     '';
 
     # https://github.com/systemd/systemd/issues/12001#issuecomment-1711464475
-    services.logind.lidSwitch = "ignore";
+    services.logind.settings.Login.HandleLidSwitch = "ignore";
 
     environment.systemPackages = with pkgs; [
       fusuma

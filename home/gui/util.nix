@@ -12,17 +12,21 @@
       # call `substituteAll` on all files
       (
         let
-          substitutedSource = file: {
-            source = (
-              pkgs.substituteAll (
-                {
-                  src = "/${src}/${file}";
-                  isExecutable = true;
-                }
-                // replacements
-              )
-            );
-          };
+          substitutedSource = file:
+            let
+              fileContent = builtins.readFile "/${src}/${file}";
+              # Filter replacements to only those that appear in the file
+              usedReplacements = lib.filterAttrs (name: value:
+                builtins.match ".*@${name}@.*" fileContent != null
+              ) replacements;
+            in
+            {
+              source = pkgs.writeScript (builtins.baseNameOf file) (
+                lib.fold (name: acc:
+                  builtins.replaceStrings ["@${name}@"] [replacements.${name}] acc
+                ) fileContent (builtins.attrNames usedReplacements)
+              );
+            };
         in
         builtins.map (file: lib.attrsets.nameValuePair "${dst}/${file}" (substitutedSource file))
       )

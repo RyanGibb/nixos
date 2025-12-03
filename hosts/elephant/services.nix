@@ -250,7 +250,7 @@
   services.transmission = {
     enable = true;
     openRPCPort = true;
-    package = pkgs.transmission_3;
+    package = pkgs.transmission_4;
     settings = {
       download-dir = "/tank/transmission";
       incomplete-dir-enabled = false;

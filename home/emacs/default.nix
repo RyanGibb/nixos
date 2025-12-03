@@ -21,7 +21,6 @@ let
     doomDir = ./doom;
     doomLocalDir = "~/.local/share/nix-doom";
     extraBinPackages = with pkgs; [
-      binutils
       gnutls
       imagemagick
       pinentry-emacs

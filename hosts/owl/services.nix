@@ -156,6 +156,8 @@ in
   age.secrets.email-ryan.file = ../../secrets/email-ryan.age;
   age.secrets.email-system.file = ../../secrets/email-system.age;
   eilean.mailserver.systemAccountPasswordFile = config.age.secrets.email-system.path;
+  # https://nixos-mailserver.readthedocs.io/en/latest/migrations.html
+  mailserver.stateVersion = lib.mkDefault 3;
   mailserver.loginAccounts = {
     "${config.eilean.username}@${config.networking.domain}" = {
       passwordFile = config.age.secrets.email-ryan.path;

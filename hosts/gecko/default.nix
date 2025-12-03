@@ -46,7 +46,7 @@
       LEDGER_FILE = "$HOME/vault/finances.ledger";
       CALENDAR_DIR = "$HOME/calendar";
     };
-    programs.git.extraConfig.commit.gpgSign = true;
+    programs.git.settings.commit.gpgSign = true;
     programs.direnv = {
       enable = true;
       enableZshIntegration = true;
@@ -100,7 +100,7 @@
     xournalpp
     inkscape
     kdePackages.kdenlive
-    tor-browser-bundle-bin
+    tor-browser
     ffmpeg
     audio-recorder
     speechd
@@ -187,9 +187,7 @@
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "ryan" ];
 
-  systemd.extraConfig = ''
-    DefaultTimeoutStopSec=30s
-  '';
+  systemd.settings.Manager.DefaultTimeoutStopSec = "30s";
 
   programs.steam.enable = true;
 
@@ -201,7 +199,7 @@
   nix.gc.automatic = lib.mkForce false;
 
   # for CL VPN
-  networking.networkmanager.enableStrongSwan = true;
+  networking.networkmanager.plugins = [ pkgs.networkmanager-strongswan ];
 
   services = {
     syncthing = {

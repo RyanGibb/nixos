@@ -14,8 +14,6 @@ in
     # screen reader
     services.orca.enable = false;
 
-    i18n.inputMethod.fcitx5.plasma6Support = true;
-
     # Fix audio delay by disabling node suspension
     services.pipewire.wireplumber.configPackages = [
       (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/disable-suspension.conf" ''

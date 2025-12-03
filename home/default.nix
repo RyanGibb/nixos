@@ -175,7 +175,7 @@ in
 
     programs.git = {
       enable = true;
-      extraConfig = {
+      settings = {
         init = {
           defaultBranch = "main";
         };
@@ -267,14 +267,14 @@ in
 
     programs.less = {
       enable = true;
-      keys = ''
+      config = ''
         #line-edit
         \e[1;5D  word-left
         \e[1;5C  word-right
       '';
     };
 
-    programs.go.goPath = "~/.go";
+    programs.go.env.GOPATH = "$HOME/.go";
 
     home.stateVersion = "22.05";
   };

@@ -33,7 +33,7 @@ in
           waylandFrontend = true;
           addons = with pkgs; [
             fcitx5-rime
-            fcitx5-chinese-addons
+            qt6Packages.fcitx5-chinese-addons
             fcitx5-m17n
           ];
           settings = {
@@ -132,7 +132,7 @@ in
 
     fonts.packages = with pkgs; [
       noto-fonts
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       nerd-fonts.droid-sans-mono
       wqy_zenhei
       libertine

@@ -25,7 +25,7 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      i3-gaps
+      i3
       xorg.xrandr
       arandr
       xss-lock
