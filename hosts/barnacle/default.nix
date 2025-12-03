@@ -49,4 +49,6 @@
 
   # comment this out to make a smaller image
   isoImage.squashfsCompression = "gzip -Xcompression-level 1";
+
+  system.stateVersion = "24.05";
 }

@@ -96,7 +96,6 @@
                     networking.hostName = host-nixpkgs.lib.mkDefault "${host}";
                     # pin nix command's nixpkgs flake to the system flake to avoid unnecessary downloads
                     nix.registry.nixpkgs.flake = host-nixpkgs;
-                    system.stateVersion = "24.05";
                     # record git revision (can be queried with `nixos-version --json)
                     system.configurationRevision = host-nixpkgs.lib.mkIf (inputs.self ? rev) inputs.self.rev;
                     nixpkgs = {

@@ -60,4 +60,6 @@
         "$(journalctl -u restic-backups-daily -n 5 -o cat)"
     '';
   };
+
+  system.stateVersion = "24.05";
 }

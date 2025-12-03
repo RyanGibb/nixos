@@ -28,7 +28,7 @@ in
     acceptTerms = true;
   };
 
-  environment.systemPackages = with pkgs; [ xe-guest-utilities ];
+  environment.systemPackages = with pkgs; [ xe-guest-utilities];
 
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICMmmaDFqSmbQLnPuTtg32wBdJs1xsituz3jrJBqlM1u avsm"
@@ -135,11 +135,11 @@ in
 
   services.postgresql = {
     enable = true;
+    package = pkgs.postgresql_17;
     enableTCPIP = true;
     authentication = ''
       hostnossl peertube_local peertube_test 127.0.0.1/32 md5
     '';
-    package = pkgs.postgresql_13;
     initialScript = pkgs.writeText "postgresql_init.sql" ''
       CREATE ROLE peertube_test LOGIN PASSWORD 'test123';
       CREATE DATABASE peertube_local TEMPLATE template0 ENCODING UTF8;
@@ -438,4 +438,6 @@ in
       storage = { filesystem_folder = "/var/lib/radicale/collections"; };
     };
   };
+
+  system.stateVersion = "24.11";
 }

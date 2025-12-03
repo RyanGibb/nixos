@@ -119,4 +119,5 @@
     "net.ipv6.conf.all.forwarding" = 1;
   };
 
+  system.stateVersion = "24.05";
 }

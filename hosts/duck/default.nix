@@ -140,4 +140,6 @@
       80 # HTTP
     ];
   };
+
+  system.stateVersion = "24.05";
 }

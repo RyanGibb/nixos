@@ -42,4 +42,6 @@
     nodejs
     overlay-unstable.claude-code
   ];
+
+  system.stateVersion = "24.05";
 }
