@@ -161,7 +161,7 @@ in
           PartOf = [ "sway-session.target" ];
         };
         Service = {
-          ExecStart = "${pkgs.fcitx5}/bin/fcitx5 -d --replace";
+          ExecStart = "${pkgs.fcitx5}/bin/fcitx5 --replace";
           Restart = "on-failure";
         };
         Install.WantedBy = [ "sway-session.target" ];
