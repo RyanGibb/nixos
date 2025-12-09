@@ -75,11 +75,7 @@
     pandoc
     ledger
     nixd
-    (pkgs.kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
-      jellyfin
-    ]))
-    jellyfin-media-player
-    mangohud
+    # jellyfin-media-player
     stremio
   ];
 
