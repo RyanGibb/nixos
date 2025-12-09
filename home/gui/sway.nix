@@ -155,18 +155,6 @@ in
     systemd.user.services.dunst.Service.Type = lib.mkForce "simple";
 
     systemd.user.services = {
-      fcitx5-daemon = {
-        Unit = {
-          Description = "Fcitx5 input method";
-          PartOf = [ "sway-session.target" ];
-        };
-        Service = {
-          ExecStart = "${pkgs.fcitx5}/bin/fcitx5 --replace";
-          Restart = "on-failure";
-        };
-        Install.WantedBy = [ "sway-session.target" ];
-      };
-
       i3-workspace-history = {
         Unit = {
           Description = "i3 workspace history tracker";

@@ -176,5 +176,37 @@ in
         publicShare = "$HOME/";
       };
     };
+
+    i18n = {
+      inputMethod = {
+        enable = true;
+        type = "fcitx5";
+        fcitx5 = {
+          waylandFrontend = true;
+          addons = with pkgs; [
+            fcitx5-rime
+            qt6Packages.fcitx5-chinese-addons
+            fcitx5-m17n
+          ];
+          settings = {
+            globalOptions = {
+              "Hotkey/TriggerKeys" = {
+                "0" = "Alt+Shift+space";
+              };
+            };
+            inputMethod = {
+              GroupOrder."0" = "Default";
+              "Groups/0" = {
+                Name = "Default";
+                "Default Layout" = "gb";
+                DefaultIM = "pinyin";
+              };
+              "Groups/0/Items/0".Name = "keyboard-gb";
+              "Groups/0/Items/1".Name = "pinyin";
+            };
+          };
+        };
+      };
+    };
   };
 }
