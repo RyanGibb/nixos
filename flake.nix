@@ -206,6 +206,7 @@
               ["owl" false]
               ["hippo" true]
               ["shrew" true]
+              ["vulpine" true]
               # pending https://github.com/NixOS/nixpkgs/issues/367976
               # ["swan" false]
             ]
