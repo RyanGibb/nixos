@@ -76,7 +76,7 @@
     ledger
     nixd
     # jellyfin-media-player
-    stremio
+    # stremio
   ];
 
   security.sudo.extraConfig = ''
