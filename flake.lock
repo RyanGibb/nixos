@@ -952,22 +952,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-nvidia": {
-      "locked": {
-        "lastModified": 1754214453,
-        "narHash": "sha256-Q/I2xJn/j1wpkGhWkQnm20nShYnG7TI99foDBpXm1SY=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "5b09dc45f24cf32316283e62aec81ffee3c3e376",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "5b09dc45f24cf32316283e62aec81ffee3c3e376",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1764939437,
@@ -1296,7 +1280,6 @@
         "nix-rpi5": "nix-rpi5",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_3",
-        "nixpkgs-nvidia": "nixpkgs-nvidia",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
         "tangled": "tangled"
