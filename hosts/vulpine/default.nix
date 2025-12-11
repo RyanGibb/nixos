@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, ... }@inputs:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -84,6 +84,17 @@
   '';
 
   services.avahi.enable = true;
+
+  # Use kernel and nvidia driver from nixpkgs-nvidia (6.12.41 with nvidia 575)
+  boot.kernelPackages = let nvidia-nixpkgs = import inputs.nixpkgs-nvidia {
+    inherit (pkgs.stdenv.hostPlatform) system;
+    config.allowUnfree = true;
+  }; in nvidia-nixpkgs.linuxPackages_6_12;
+
+  hardware.nvidia.package = (import inputs.nixpkgs-nvidia {
+    inherit (pkgs.stdenv.hostPlatform) system;
+    config.allowUnfree = true;
+  }).linuxPackages_6_12.nvidia_x11_latest;
 
   specialisation.nvidia.configuration = {
     services.xserver.videoDrivers = [ "nvidia" ];
