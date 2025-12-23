@@ -67,7 +67,7 @@
           #  (_: { patches = [ ./pkgs/package.patch ]; });
           opam = final.overlay-unstable.opam;
           immich = final.overlay-unstable.immich;
-          mautrix-whatsapp = prev.callPackage ./pkgs/mautrix-whatsapp.nix { };
+          mautrix-whatsapp = final.overlay-unstable.mautrix-whatsapp;
         })
         inputs.nur.overlays.default
         inputs.nix-doom-emacs.overlays.default
