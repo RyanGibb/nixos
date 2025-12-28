@@ -55,7 +55,6 @@
       frontend = {
         port = 15606;
       };
-      homeassistant = true;
       advanced = {
         channel = 15;
       };
