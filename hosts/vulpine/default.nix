@@ -75,8 +75,8 @@
     pandoc
     ledger
     nixd
-    # jellyfin-media-player
-    # stremio
+    overlay-qtwebengine.jellyfin-media-player
+    overlay-qtwebengine.stremio
   ];
 
   security.sudo.extraConfig = ''

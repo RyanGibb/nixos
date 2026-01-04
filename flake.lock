@@ -968,6 +968,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-qtwebengine": {
+      "locked": {
+        "lastModified": 1756155721,
+        "narHash": "sha256-YxPOezyQVP7uY+YdwLOJRKn46bkCqoKMuUZmRKZrP/k=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "2cbbdc9fdf6b7a254c98c79f42cc053b8d100798",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "2cbbdc9fdf6b7a254c98c79f42cc053b8d100798",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1766687554,
@@ -1297,6 +1313,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-nvidia": "nixpkgs-nvidia",
+        "nixpkgs-qtwebengine": "nixpkgs-qtwebengine",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
         "tangled": "tangled"
