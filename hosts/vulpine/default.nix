@@ -133,4 +133,62 @@
   programs.gamemode.enable = true;
 
   system.stateVersion = "24.05";
+
+  # Fix audio delay with low-latency configuration
+  services.pipewire = {
+    extraConfig.pipewire = {
+      "10-low-latency" = {
+        "context.properties" = {
+          "default.clock.rate" = 48000;
+          "default.clock.quantum" = 512;
+          "default.clock.min-quantum" = 256;
+          "default.clock.max-quantum" = 2048;
+        };
+      };
+    };
+
+    wireplumber.configPackages = [
+      (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/disable-suspension.conf" ''
+        monitor.alsa.rules = [
+          {
+            matches = [
+              {
+                # Matches all sources
+                node.name = "~alsa_input.*"
+              },
+              {
+                # Matches all sinks
+                node.name = "~alsa_output.*"
+              }
+            ]
+            actions = {
+              update-props = {
+                session.suspend-timeout-seconds = 0
+              }
+            }
+          }
+        ]
+        # bluetooth devices
+        monitor.bluez.rules = [
+          {
+            matches = [
+              {
+                # Matches all sources
+                node.name = "~bluez_input.*"
+              },
+              {
+                # Matches all sinks
+                node.name = "~bluez_output.*"
+              }
+            ]
+            actions = {
+              update-props = {
+                session.suspend-timeout-seconds = 0
+              }
+            }
+          }
+        ]
+      '')
+    ];
+  };
 }
