@@ -196,6 +196,7 @@
     gamescopeSession = {
       enable = true;
       env.MANGOHUD = "1";
+      steamArgs = [ "-steamos3" ];
     };
   };
 
