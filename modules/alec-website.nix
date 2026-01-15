@@ -43,7 +43,7 @@ in
       virtualHosts = {
         "${cfg.domain}" = {
           forceSSL = true;
-          root = "${alec-website.packages.${pkgs.stdenv.hostPlatform.system}.default}";
+          root = "/var/www/alec.freumh.org/";
           locations."/var/".extraConfig = ''
             alias /var/${cfg.domain}/;
           '';

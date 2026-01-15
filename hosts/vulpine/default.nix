@@ -77,6 +77,7 @@
     nixd
     overlay-qtwebengine.jellyfin-media-player
     overlay-qtwebengine.stremio
+    mangohud
   ];
 
   security.sudo.extraConfig = ''
