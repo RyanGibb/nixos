@@ -172,6 +172,8 @@
     realvnc-vnc-viewer
 
     inputs.caledonia.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+    mangohud
   ];
 
   services.gnome.gnome-keyring.enable = true;
@@ -189,7 +191,19 @@
 
   systemd.settings.Manager.DefaultTimeoutStopSec = "30s";
 
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    gamescopeSession = {
+      enable = true;
+      env.MANGOHUD = "1";
+    };
+  };
+
+  programs.gamescope = {
+    enable = true;
+    capSysNice = true;  # reduces stutter
+    env.MANGOHUD = "1";
+  };
 
   security.sudo.extraConfig = ''
     Defaults !tty_tickets
