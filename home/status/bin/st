@@ -64,10 +64,14 @@ fi
 IFS=$'\n'; echo "${INFOS[*]}"
 
 ID_FILE="${XDG_CACHE_DIR:-"$HOME/.cache"}/st_id"
-ID="$(cat $ID_FILE)"
-REPLACE_ARG=""
-if [ ! -z $ID ]; then
-	REPLACE="-r"
-fi
+LOCK_FILE="${XDG_CACHE_DIR:-"$HOME/.cache"}/st_lock"
 
-dunstify -t $TIMEOUT -u low "Status" -p $REPLACE $ID "`IFS=$'\n'; echo "${INFOS[*]}"`" > $ID_FILE
+# Acquire lock to prevent concurrent dunstify calls
+flock -x "$LOCK_FILE" bash -c "
+	ID=\$(cat $ID_FILE 2>/dev/null)
+	REPLACE_ARG=\"\"
+	if [ ! -z \$ID ]; then
+		REPLACE=\"-r\"
+	fi
+	dunstify -t $TIMEOUT -u low \"Status\" -p \$REPLACE \$ID \"\`IFS=\$'\\n'; echo \"${INFOS[*]}\"\`\" > $ID_FILE
+"
