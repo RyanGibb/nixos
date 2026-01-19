@@ -2,7 +2,8 @@
 
 (setq org-directory "~/vault/")
 (setq org-agenda-files (list (concat org-directory "/todo.org")
-                             (concat org-directory "/recurring.org")))
+                             (concat org-directory "/recurring.org")
+                             (concat org-directory "/habits.org")))
 
 (use-package! org-habit :after org)
 
