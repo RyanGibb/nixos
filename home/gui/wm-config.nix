@@ -570,7 +570,6 @@ in
   };
 
   commonStartup = [
-    { command = "systemctl --user start thunar"; }
     { command = "gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'"; always = true; }
   ];
 
