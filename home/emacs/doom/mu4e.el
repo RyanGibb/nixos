@@ -181,4 +181,24 @@
 
   ;; https://github.com/doomemacs/doomemacs/issues/7847
   (map! :map mu4e-view-mode-map :ni "A" #'mu4e-view-mime-part-action)
+
+  ;; Keep current email centered in headers view when navigating
+  (defun mu4e-headers-recenter (&rest _)
+    "Recenter the current line in the headers window."
+    (when-let* ((buf (mu4e-get-headers-buffer))
+                (win (get-buffer-window buf)))
+      (with-selected-window win
+        (recenter))))
+
+  ;; Add advice to headers-mode navigation
+  (advice-add 'mu4e-headers-next :after #'mu4e-headers-recenter)
+  (advice-add 'mu4e-headers-prev :after #'mu4e-headers-recenter)
+  (advice-add 'mu4e-headers-next-unread :after #'mu4e-headers-recenter)
+  (advice-add 'mu4e-headers-prev-unread :after #'mu4e-headers-recenter)
+
+  ;; Add advice to view-mode navigation (these call into headers context)
+  (advice-add 'mu4e-view-headers-next :after #'mu4e-headers-recenter)
+  (advice-add 'mu4e-view-headers-prev :after #'mu4e-headers-recenter)
+  (advice-add 'mu4e-view-headers-next-unread :after #'mu4e-headers-recenter)
+  (advice-add 'mu4e-view-headers-prev-unread :after #'mu4e-headers-recenter)
   )
