@@ -238,27 +238,6 @@ in
     };
   };
 
-  # tangled
-  services.tangled.knot = {
-    enable = true;
-    repo.mainBranch = "master";
-    server.hostname = "knot.freumh.org";
-    server = {
-      owner = "did:plc:3lfhu6ehlynzjgehef6alnvg";
-      listenAddr = "127.0.0.1:5555";
-      internalListenAddr = "127.0.0.1:5444";
-    };
-  };
-  services.nginx.virtualHosts."knot.freumh.org" = {
-    forceSSL = true;
-    locations."/" = {
-      proxyPass = ''
-        http://${config.services.tangled.knot.server.listenAddr}
-      '';
-      proxyWebsockets = true;
-    };
-  };
-
   # minecraft server
   services.minecraft-server = {
     enable = true;

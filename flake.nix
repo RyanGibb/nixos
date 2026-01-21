@@ -16,7 +16,6 @@
     i3-workspace-history.url = "github:RyanGibb/i3-workspace-history";
     nix-rpi5.url = "gitlab:vriska/nix-rpi5?ref=main";
     nur.url = "github:nix-community/NUR/e9e77b7985ef9bdeca12a38523c63d47555cc89b";
-    tangled.url = "git+https://tangled.sh/@tangled.sh/core";
     disko.url = "github:nix-community/disko";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     doomemacs = {
@@ -39,7 +38,6 @@
     i3-workspace-history.inputs.nixpkgs.follows = "nixpkgs";
     nix-rpi5.inputs.nixpkgs.follows = "nixpkgs";
     nur.inputs.nixpkgs.follows = "nixpkgs";
-    tangled.inputs.nixpkgs.follows = "nixpkgs";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     nix-doom-emacs.inputs.doomemacs.follows = "doomemacs";
