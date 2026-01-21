@@ -44,7 +44,7 @@ in
         "${cfg.domain}" = {
           forceSSL = true;
           root = "/var/www/alec.freumh.org/";
-          locations."/".index = "home.html index.html";
+          locations."/".index = "Homepage.html index.html";
           extraConfig = ''
             error_page 403 =404 /404.html;
             error_page 404 /404.html;
