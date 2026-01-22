@@ -1144,6 +1144,22 @@
         "type": "github"
       }
     },
+    "plover-revamp": {
+      "locked": {
+        "lastModified": 1768419297,
+        "narHash": "sha256-B0KSQa2l/+xsGY9FnaIdtMlMNcP8EgYbYCa8mZu0HKg=",
+        "owner": "Pandapip1",
+        "repo": "nixpkgs",
+        "rev": "8a6898ffcf4cd37b7bd15f5ef987aca5f02cee37",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Pandapip1",
+        "ref": "plover-revamp",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -1166,7 +1182,8 @@
         "nixpkgs-nvidia": "nixpkgs-nvidia",
         "nixpkgs-qtwebengine": "nixpkgs-qtwebengine",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nur": "nur"
+        "nur": "nur",
+        "plover-revamp": "plover-revamp"
       }
     },
     "scss-reset": {
