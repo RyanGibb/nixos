@@ -259,6 +259,7 @@
       rpc-host-whitelist-enabled = false;
       ratio-limit-enabled = true;
       download-queue-size = 20;
+      umask = 2; # Creates files with 664 (rw-rw-r--) for hardlinking
     };
   };
 
