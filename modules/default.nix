@@ -91,6 +91,7 @@ in
               "networkmanager"
               "video"
               "plugdev"
+              "dialout"
             ];
             shell = pkgs.zsh;
             # we let home manager manager zsh
