@@ -38,6 +38,7 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = [
       emacs
+      pkgs.nerd-fonts.symbols-only
     ];
 
     home.file = {
