@@ -59,7 +59,7 @@ in
         modifier = "Mod4";
         terminal = "alacritty -e tmux";
         menu = "rofi -i -modi drun -show drun";
-        bars = [];
+        bars = [ ];
         fonts = wmCommon.fonts;
         colors = wmCommon.wmColors;
         gaps = wmCommon.gaps;
@@ -71,9 +71,10 @@ in
         };
         focus = wmCommon.focus;
         keybindings = lib.mkForce (
-          (wmCommon.commonKeybindings scriptDir) //
-          (wmCommon.mediaKeybindings false) //  # locked=false for i3
-          (wmCommon.i3Keybindings scriptDir)
+          (wmCommon.commonKeybindings scriptDir)
+          // (wmCommon.mediaKeybindings false)
+          # locked=false for i3
+          // (wmCommon.i3Keybindings scriptDir)
         );
         modes = wmCommon.commonModes // (wmCommon.i3Modes scriptDir);
         startup = wmCommon.commonStartup ++ (wmCommon.i3Startup scriptDir replacements.set_wallpaper);
@@ -86,7 +87,8 @@ in
           "dunst/dunstrc".source = ./dunst;
           "rofi/config.rasi".source = ./rofi.rasi;
         };
-      in (util.inDirReplace ./scripts "i3/scripts" replacements) // entries;
+      in
+      (util.inDirReplace ./scripts "i3/scripts" replacements) // entries;
 
     services.redshift = {
       enable = true;

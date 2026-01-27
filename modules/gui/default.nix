@@ -1,8 +1,8 @@
 {
-  pkgs,
   config,
-  lib,
   i3-workspace-history,
+  lib,
+  pkgs,
   ...
 }:
 

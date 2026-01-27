@@ -1,7 +1,21 @@
-{ pkgs, config, lib, ... }@inputs:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}@inputs:
 
 {
   imports = [ ./hardware-configuration.nix ];
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      overlay-qtwebengine = import inputs.nixpkgs-qtwebengine {
+        inherit (pkgs.stdenv.hostPlatform) system;
+        config = config.nixpkgs.config;
+      };
+    })
+  ];
 
   custom = {
     enable = true;
@@ -87,15 +101,20 @@
   services.avahi.enable = true;
 
   # Use kernel and nvidia driver from nixpkgs-nvidia (6.12.41 with nvidia 575)
-  boot.kernelPackages = let nvidia-nixpkgs = import inputs.nixpkgs-nvidia {
-    inherit (pkgs.stdenv.hostPlatform) system;
-    config.allowUnfree = true;
-  }; in nvidia-nixpkgs.linuxPackages_6_12;
+  boot.kernelPackages =
+    let
+      nvidia-nixpkgs = import inputs.nixpkgs-nvidia {
+        inherit (pkgs.stdenv.hostPlatform) system;
+        config.allowUnfree = true;
+      };
+    in
+    nvidia-nixpkgs.linuxPackages_6_12;
 
-  hardware.nvidia.package = (import inputs.nixpkgs-nvidia {
-    inherit (pkgs.stdenv.hostPlatform) system;
-    config.allowUnfree = true;
-  }).linuxPackages_6_12.nvidia_x11_latest;
+  hardware.nvidia.package =
+    (import inputs.nixpkgs-nvidia {
+      inherit (pkgs.stdenv.hostPlatform) system;
+      config.allowUnfree = true;
+    }).linuxPackages_6_12.nvidia_x11_latest;
 
   specialisation.nvidia.configuration = {
     services.xserver.videoDrivers = [ "nvidia" ];
@@ -127,7 +146,7 @@
 
   programs.gamescope = {
     enable = true;
-    capSysNice = true;  # reduces stutter
+    capSysNice = true; # reduces stutter
     env.MANGOHUD = "1";
   };
 

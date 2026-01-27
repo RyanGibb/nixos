@@ -1,7 +1,7 @@
 {
-  pkgs,
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -42,7 +42,6 @@ in
       xf86_input_wacom
     ];
 
-    # TODO read this
     # https://github.com/flatpak/xdg-desktop-portal/blob/1.18.1/doc/portals.conf.rst.in
     xdg.portal = {
       enable = true;

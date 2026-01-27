@@ -72,7 +72,7 @@ in
         modifier = "Mod4";
         terminal = "alacritty -e tmux";
         menu = "wofi -i --show drun --allow-images -a";
-        bars = [];
+        bars = [ ];
         fonts = wmCommon.fonts;
         colors = wmCommon.wmColors;
         gaps = wmCommon.gaps;
@@ -104,12 +104,13 @@ in
         # https://github.com/swaywm/sway/issues/8958
         # seat."seat0".hide_cursor = "when-typing enable";
         keybindings = lib.mkForce (
-          (wmCommon.commonKeybindings scriptDir) //
-          (wmCommon.mediaKeybindings true) //
-          (wmCommon.swayKeybindings scriptDir)
+          (wmCommon.commonKeybindings scriptDir)
+          // (wmCommon.mediaKeybindings true)
+          // (wmCommon.swayKeybindings scriptDir)
         );
         modes = wmCommon.commonModes // (wmCommon.swayModes scriptDir);
-        startup = wmCommon.commonStartup ++ (wmCommon.swayStartup cfg.idle scriptDir replacements.set_wallpaper);
+        startup =
+          wmCommon.commonStartup ++ (wmCommon.swayStartup cfg.idle scriptDir replacements.set_wallpaper);
       };
       extraConfig = ''
         focus_on_window_activation smart
@@ -132,7 +133,8 @@ in
             save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
           '';
         };
-      in (util.inDirReplace ./scripts "sway/scripts" replacements) // entries;
+      in
+      (util.inDirReplace ./scripts "sway/scripts" replacements) // entries;
 
     services = {
       gammastep = {

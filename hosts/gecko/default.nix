@@ -11,6 +11,12 @@
     ./backups.nix
   ];
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      opam = final.overlay-unstable.opam;
+    })
+  ];
+
   custom = {
     enable = true;
     tailscale = true;
@@ -58,7 +64,9 @@
         After = [ "graphical-session.target" ];
       };
       Service = {
-        ExecStart = "${inputs.plover-revamp.legacyPackages.${pkgs.system}.python3Packages.plover-dev}/bin/plover --gui none";
+        ExecStart = "${
+          inputs.plover-revamp.legacyPackages.${pkgs.system}.python3Packages.plover-dev
+        }/bin/plover --gui none";
         Restart = "on-failure";
       };
       Install = {
@@ -217,7 +225,7 @@
 
   programs.gamescope = {
     enable = true;
-    capSysNice = true;  # reduces stutter
+    capSysNice = true; # reduces stutter
     env.MANGOHUD = "1";
   };
 

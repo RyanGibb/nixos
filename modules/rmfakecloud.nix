@@ -1,11 +1,8 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }:
-
-with lib;
 
 let
   cfg = config.custom.rmfakecloud;
@@ -13,13 +10,13 @@ let
 in
 {
   options.custom.rmfakecloud = {
-    enable = mkEnableOption "rmfakecloud";
-    port = mkOption {
-      type = types.port;
+    enable = lib.mkEnableOption "rmfakecloud";
+    port = lib.mkOption {
+      type = lib.types.port;
       default = 8082;
     };
-    domain = mkOption {
-      type = types.str;
+    domain = lib.mkOption {
+      type = lib.types.str;
       default = "rmfakecloud.${domain}";
     };
   };

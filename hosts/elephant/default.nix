@@ -13,6 +13,12 @@
     ./owntracks.nix
   ];
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      immich = final.overlay-unstable.immich;
+    })
+  ];
+
   custom = {
     enable = true;
     tailscale = true;

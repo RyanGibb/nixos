@@ -1,9 +1,8 @@
 {
-  pkgs,
   config,
   lib,
   ...
-}@inputs:
+}:
 
 let
   cfg = config.custom;

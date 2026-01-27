@@ -378,20 +378,6 @@
       }
     },
     "flake-utils_4": {
-      "locked": {
-        "lastModified": 1676283394,
-        "narHash": "sha256-XX2f9c3iySLCw54rJ/CZs+ZK6IQy7GXNY4nSOyu2QG4=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "3db36a8b464d0c4532ba1c7dda728f4576d6d073",
-        "type": "github"
-      },
-      "original": {
-        "id": "flake-utils",
-        "type": "indirect"
-      }
-    },
-    "flake-utils_5": {
       "inputs": {
         "systems": "systems_7"
       },
@@ -409,7 +395,7 @@
         "type": "github"
       }
     },
-    "flake-utils_6": {
+    "flake-utils_5": {
       "inputs": {
         "systems": "systems_8"
       },
@@ -424,27 +410,6 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "fn06-website": {
-      "inputs": {
-        "flake-utils": "flake-utils_4",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1713180741,
-        "narHash": "sha256-4+YOxNuNiKY3m5m0eMAjBO3QZMiVguZ75a1HS+HWc+0=",
-        "owner": "RyanGibb",
-        "repo": "fn06",
-        "rev": "5e8affad761bd17fba4ef9893aa09d179a49b69e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "RyanGibb",
-        "repo": "fn06",
         "type": "github"
       }
     },
@@ -501,7 +466,7 @@
     },
     "gomod2nix": {
       "inputs": {
-        "flake-utils": "flake-utils_6",
+        "flake-utils": "flake-utils_5",
         "nixpkgs": [
           "i3-workspace-history",
           "nixpkgs"
@@ -565,7 +530,7 @@
     },
     "i3-workspace-history": {
       "inputs": {
-        "flake-utils": "flake-utils_5",
+        "flake-utils": "flake-utils_4",
         "gomod2nix": "gomod2nix",
         "nixpkgs": [
           "nixpkgs"
@@ -816,6 +781,22 @@
         "owner": "nixos",
         "repo": "nixpkgs",
         "rev": "5b09dc45f24cf32316283e62aec81ffee3c3e376",
+        "type": "github"
+      }
+    },
+    "nixpkgs-pysaml2": {
+      "locked": {
+        "lastModified": 1760615349,
+        "narHash": "sha256-kterkY+ABH5bYxQQtUhtM3cHLEdLDfFpYCHTk/ehyd4=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "5d1f6df5e189570d6a24bbb80cb5731a63fa41d2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "5d1f6df5e189570d6a24bbb80cb5731a63fa41d2",
         "type": "github"
       }
     },
@@ -1171,7 +1152,6 @@
         "eilean": "eilean",
         "emacs-overlay": "emacs-overlay",
         "eon": "eon",
-        "fn06-website": "fn06-website",
         "home-manager": "home-manager_2",
         "i3-workspace-history": "i3-workspace-history",
         "nix-doom-emacs": "nix-doom-emacs",
@@ -1180,6 +1160,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-nvidia": "nixpkgs-nvidia",
+        "nixpkgs-pysaml2": "nixpkgs-pysaml2",
         "nixpkgs-qtwebengine": "nixpkgs-qtwebengine",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",

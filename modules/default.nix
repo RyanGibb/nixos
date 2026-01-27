@@ -1,8 +1,8 @@
 {
-  pkgs,
+  agenix,
   config,
   lib,
-  agenix,
+  pkgs,
   ...
 }:
 
@@ -29,6 +29,7 @@ in
     ./ssh.nix
     ./tailscale.nix
     ./use-nix-cache.nix
+    ./websites.nix
     ./workstation.nix
     ./zsa.nix
   ];

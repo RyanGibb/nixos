@@ -3,6 +3,7 @@
   config,
   lib,
   nixpkgs-unstable,
+  nixpkgs-pysaml2,
   ...
 }:
 
@@ -23,12 +24,31 @@ in
     ./minimal.nix
   ];
 
+  # pysaml2 marked as broken: https://github.com/NixOS/nixpkgs/commit/ea9c00b162c441f9ab41f004a1ddc82b5c5c2002
+  nixpkgs.overlays = [
+    (
+      final: prev:
+      let
+        pysaml2-pkgs = import nixpkgs-pysaml2 {
+          inherit (prev.stdenv.hostPlatform) system;
+        };
+      in
+      {
+        matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overridePythonAttrs (old: {
+          optional-dependencies = old.optional-dependencies // {
+            saml2 = [ pysaml2-pkgs.python3Packages.pysaml2 ];
+          };
+        });
+      }
+    )
+  ];
+
   security.acme = {
     defaults.email = lib.mkForce "${config.custom.username}@freumh.org";
     acceptTerms = true;
   };
 
-  environment.systemPackages = with pkgs; [ xe-guest-utilities];
+  environment.systemPackages = with pkgs; [ xe-guest-utilities ];
 
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICMmmaDFqSmbQLnPuTtg32wBdJs1xsituz3jrJBqlM1u avsm"
@@ -298,7 +318,10 @@ in
   systemd.services.matrix-zulip-bridge = {
     description = "matrix-zulip-bridge - a puppeteering Matrix<->Zulip bridge";
     wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" "matrix-synapse.service" ];
+    after = [
+      "network.target"
+      "matrix-synapse.service"
+    ];
 
     preStart = ''
       # Ensure the directory exists with proper permissions
@@ -359,7 +382,7 @@ in
     description = "Matrix Zulip Bridge";
   };
 
-  users.groups.matrix-zulip-bridge = {};
+  users.groups.matrix-zulip-bridge = { };
 
   systemd.services.inspircd.serviceConfig.Group = "wwwrun";
   services.inspircd = {
@@ -429,13 +452,17 @@ in
   services.radicale = {
     enable = true;
     settings = {
-      server = { hosts = [ "0.0.0.0:5232" ]; };
+      server = {
+        hosts = [ "0.0.0.0:5232" ];
+      };
       auth = {
         type = "htpasswd";
         htpasswd_filename = "/var/lib/radicale/users/passwd";
         htpasswd_encryption = "bcrypt";
       };
-      storage = { filesystem_folder = "/var/lib/radicale/collections"; };
+      storage = {
+        filesystem_folder = "/var/lib/radicale/collections";
+      };
     };
   };
 

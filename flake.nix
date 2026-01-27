@@ -4,6 +4,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-nvidia.url = "github:nixos/nixpkgs/5b09dc45f24cf32316283e62aec81ffee3c3e376";
     nixpkgs-qtwebengine.url = "github:nixos/nixpkgs/2cbbdc9fdf6b7a254c98c79f42cc053b8d100798";
+    nixpkgs-pysaml2.url = "github:nixos/nixpkgs/5d1f6df5e189570d6a24bbb80cb5731a63fa41d2";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     agenix.url = "github:ryantm/agenix";
@@ -12,7 +13,6 @@
     eon.url = "github:RyanGibb/eon";
     eilean.url = "github:RyanGibb/eilean-nix/main";
     alec-website.url = "github:alexanderhthompson/website";
-    fn06-website.url = "github:RyanGibb/fn06";
     i3-workspace-history.url = "github:RyanGibb/i3-workspace-history";
     nix-rpi5.url = "gitlab:vriska/nix-rpi5?ref=main";
     nur.url = "github:nix-community/NUR/e9e77b7985ef9bdeca12a38523c63d47555cc89b";
@@ -34,7 +34,6 @@
     nix-on-droid.inputs.nixpkgs.follows = "nixpkgs";
     nix-on-droid.inputs.home-manager.follows = "home-manager";
     alec-website.inputs.nixpkgs.follows = "nixpkgs";
-    fn06-website.inputs.nixpkgs.follows = "nixpkgs";
     eon.inputs.nixpkgs.follows = "nixpkgs";
     i3-workspace-history.inputs.nixpkgs.follows = "nixpkgs";
     nix-rpi5.inputs.nixpkgs.follows = "nixpkgs";
@@ -53,25 +52,8 @@
         (final: prev: {
           overlay-unstable = import inputs.nixpkgs-unstable {
             inherit system;
-            # follow stable nixpkgs config
             config = nixpkgsConfig;
           };
-          overlay-qtwebengine = import inputs.nixpkgs-qtwebengine {
-            inherit system;
-            config = nixpkgsConfig;
-          };
-          # to use an unstable version of a package
-          #package = final.overlay-unstable.package;
-          # to use an custom version of a package
-          #package = prev.callPackage ./pkgs/package.nix { };
-          # to use an unstable custom version of a package
-          #package = final.callPackage ./pkgs/package.nix { };
-          # to override attributes of a package
-          # package = prev.package.overrideAttrs
-          #  (_: { patches = [ ./pkgs/package.patch ]; });
-          opam = final.overlay-unstable.opam;
-          immich = final.overlay-unstable.immich;
-          mautrix-whatsapp = final.overlay-unstable.mautrix-whatsapp;
         })
         inputs.nur.overlays.default
         inputs.nix-doom-emacs.overlays.default
@@ -168,9 +150,7 @@
             (
               host:
               let
-                name = builtins.elemAt host 0;
-                remote = builtins.elemAt host 1;
-                machine = inputs.self.nixosConfigurations.${name};
+                machine = inputs.self.nixosConfigurations.${host.name};
                 system = machine.pkgs.stdenv.hostPlatform.system;
                 pkgs = import inputs.nixpkgs { inherit system; };
                 # nixpkgs with deploy-rs overlay but force the nixpkgs package
@@ -178,24 +158,23 @@
                   inherit system;
                   overlays = [
                     inputs.deploy-rs.overlays.default
-                    (self: super: { deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; })
+                    (self: super: {
+                      deploy-rs = {
+                        inherit (pkgs) deploy-rs;
+                        lib = super.deploy-rs.lib;
+                      };
+                    })
                   ];
                 };
               in
               {
-                inherit name;
+                name = host.name;
                 value = {
                   # if we're on a different system build on the remote
                   #remoteBuild = machine.config.nixpkgs.hostPlatform.system == builtins.currentSystem;
-                  remoteBuild = remote;
+                  remoteBuild = host.remoteBuild;
                   sshUser = "root";
-                  hostname =
-                    if name == "swan" then
-                      "eeg.cl.cam.ac.uk"
-                    else if name == "hippo" then
-                      "hippo.freumh.org"
-                    else
-                      machine.config.networking.hostName;
+                  hostname = host.hostname or machine.config.networking.hostName;
                   profiles.system = {
                     user = "root";
                     path = deployPkgs.deploy-rs.lib.activate.nixos machine;
@@ -204,16 +183,40 @@
               }
             )
             [
-              # "capybara"
-              ["duck" false]
-              ["elephant" true]
-              ["gecko" true]
-              ["owl" false]
-              ["hippo" true]
-              ["shrew" true]
-              ["vulpine" true]
-              # pending https://github.com/NixOS/nixpkgs/issues/367976
-              # ["swan" false]
+              {
+                name = "duck";
+                remoteBuild = false;
+              }
+              {
+                name = "elephant";
+                remoteBuild = true;
+              }
+              {
+                name = "gecko";
+                remoteBuild = true;
+              }
+              {
+                name = "owl";
+                remoteBuild = false;
+              }
+              {
+                name = "hippo";
+                remoteBuild = true;
+                hostname = "hippo.freumh.org";
+              }
+              {
+                name = "shrew";
+                remoteBuild = true;
+              }
+              {
+                name = "vulpine";
+                remoteBuild = true;
+              }
+              {
+                name = "swan";
+                remoteBuild = false;
+                hostname = "eeg.cl.cam.ac.uk";
+              }
             ]
         );
       };

@@ -10,9 +10,12 @@
     ./hardware-configuration.nix
     ./minimal.nix
     ./services.nix
-    ../../modules/ryan-website.nix
-    ../../modules/alec-website.nix
-    ../../modules/fn06-website.nix
+  ];
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      mautrix-whatsapp = final.overlay-unstable.mautrix-whatsapp;
+    })
   ];
 
   environment.systemPackages = with pkgs; [

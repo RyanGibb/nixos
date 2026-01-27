@@ -94,15 +94,27 @@ in
     sway = [
       { app_id = "yad"; }
       { app_id = "zoom"; }
-      { app_id = "zoom"; title = "Choose ONE of the audio conference options"; }
-      { app_id = "zoom"; title = "zoom"; }
+      {
+        app_id = "zoom";
+        title = "Choose ONE of the audio conference options";
+      }
+      {
+        app_id = "zoom";
+        title = "zoom";
+      }
       { app_id = "copyq"; }
     ];
     i3 = [
       { class = "yad"; }
       { class = "zoom"; }
-      { class = "zoom"; title = "Choose ONE of the audio conference options"; }
-      { class = "zoom"; title = "zoom"; }
+      {
+        class = "zoom";
+        title = "Choose ONE of the audio conference options";
+      }
+      {
+        class = "zoom";
+        title = "zoom";
+      }
       { class = "copyq"; }
     ];
   };
@@ -110,53 +122,83 @@ in
   windowCommands = {
     sway = [
       {
-        criteria = { app_id = "zoom"; title = "Zoom Meeting"; };
+        criteria = {
+          app_id = "zoom";
+          title = "Zoom Meeting";
+        };
         command = "floating disable";
       }
       {
-        criteria = { app_id = "zoom"; title = "Zoom - Free Account"; };
+        criteria = {
+          app_id = "zoom";
+          title = "Zoom - Free Account";
+        };
         command = "floating disable";
       }
       {
-        criteria = { app_id = "copyq"; };
+        criteria = {
+          app_id = "copyq";
+        };
         command = "floating enable, sticky enable, resize set height 600px width 550px, move position cursor, move down 330";
       }
       {
-        criteria = { shell = ".*"; };
+        criteria = {
+          shell = ".*";
+        };
         command = "title_format \"%title :: %shell\"";
       }
       {
-        criteria = { app_id = "Kodi"; };
+        criteria = {
+          app_id = "Kodi";
+        };
         command = "1";
       }
     ];
     i3 = [
       {
-        criteria = { class = "zoom"; title = "Zoom Meeting"; };
+        criteria = {
+          class = "zoom";
+          title = "Zoom Meeting";
+        };
         command = "floating disable";
       }
       {
-        criteria = { class = "zoom"; title = "Zoom - Free Account"; };
+        criteria = {
+          class = "zoom";
+          title = "Zoom - Free Account";
+        };
         command = "floating disable";
       }
       {
-        criteria = { class = "copyq"; };
+        criteria = {
+          class = "copyq";
+        };
         command = "floating enable, sticky enable, resize set height 600px width 550px, move position cursor, move down 330";
       }
     ];
   };
 
-  mediaKeybindings = locked:
-    let prefix = if locked then "--locked " else "";
-    in {
-      "${prefix}XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +10%; exec st pulse -t 500";
-      "${prefix}XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -10%; exec st pulse -t 500";
-      "${prefix}Shift+XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +1%; exec st pulse -t 500";
-      "${prefix}Shift+XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -1%; exec st pulse -t 500";
-      "${prefix}Control+XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%; exec st pulse -t 500";
-      "${prefix}Control+XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%; exec st pulse -t 500";
+  mediaKeybindings =
+    locked:
+    let
+      prefix = if locked then "--locked " else "";
+    in
+    {
+      "${prefix}XF86AudioRaiseVolume" =
+        "exec pactl set-sink-volume @DEFAULT_SINK@ +10%; exec st pulse -t 500";
+      "${prefix}XF86AudioLowerVolume" =
+        "exec pactl set-sink-volume @DEFAULT_SINK@ -10%; exec st pulse -t 500";
+      "${prefix}Shift+XF86AudioRaiseVolume" =
+        "exec pactl set-sink-volume @DEFAULT_SINK@ +1%; exec st pulse -t 500";
+      "${prefix}Shift+XF86AudioLowerVolume" =
+        "exec pactl set-sink-volume @DEFAULT_SINK@ -1%; exec st pulse -t 500";
+      "${prefix}Control+XF86AudioRaiseVolume" =
+        "exec pactl set-sink-volume @DEFAULT_SINK@ +5%; exec st pulse -t 500";
+      "${prefix}Control+XF86AudioLowerVolume" =
+        "exec pactl set-sink-volume @DEFAULT_SINK@ -5%; exec st pulse -t 500";
       "${prefix}XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle; exec st pulse -t 500";
-      "${prefix}XF86AudioMicMute" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle; exec st pulse -t 500";
+      "${prefix}XF86AudioMicMute" =
+        "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle; exec st pulse -t 500";
 
       "${prefix}XF86AudioPlay" = "exec playerctl play-pause && st player";
       "${prefix}XF86AudioPause" = "exec playerctl play-pause && st player";
@@ -170,13 +212,15 @@ in
       "${prefix}Shift+XF86MonBrightnessDown" = "exec brightnessctl set 1%-; exec st backlight -t 500";
       "${prefix}Control+XF86MonBrightnessUp" = "exec brightnessctl set 5%+; exec st backlight -t 500";
       "${prefix}Control+XF86MonBrightnessDown" = "exec brightnessctl set 5%-; exec st backlight -t 500";
-      
+
       "${prefix}Mod4+equal" = "exec pactl set-sink-volume @DEFAULT_SINK@ +10%; exec st pulse -t 500";
       "${prefix}Mod4+minus" = "exec pactl set-sink-volume @DEFAULT_SINK@ -10%; exec st pulse -t 500";
       "${prefix}Mod4+Shift+equal" = "exec pactl set-sink-volume @DEFAULT_SINK@ +1%; exec st pulse -t 500";
       "${prefix}Mod4+Shift+minus" = "exec pactl set-sink-volume @DEFAULT_SINK@ -1%; exec st pulse -t 500";
-      "${prefix}Mod4+Control+equal" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%; exec st pulse -t 500";
-      "${prefix}Mod4+Control+minus" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%; exec st pulse -t 500";
+      "${prefix}Mod4+Control+equal" =
+        "exec pactl set-sink-volume @DEFAULT_SINK@ +5%; exec st pulse -t 500";
+      "${prefix}Mod4+Control+minus" =
+        "exec pactl set-sink-volume @DEFAULT_SINK@ -5%; exec st pulse -t 500";
     };
 
   commonKeybindings = scriptDir: {
@@ -343,20 +387,28 @@ in
     "Mod4+Mod1+Control+Up" = "move workspace to output up; exec st workspace -t 500";
     "Mod4+Mod1+Control+Right" = "move workspace to output right; exec st workspace -t 500";
 
-    "Mod4+bracketleft" = "focus output left; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500";
-    "Mod4+bracketright" = "focus output right; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500";
-    "Mod4+Shift+bracketleft" = "move container to output left; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500";
-    "Mod4+Shift+bracketright" = "move container to output right; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500";
-    "Mod4+Control+bracketleft" = "move workspace to output left; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500";
-    "Mod4+Control+bracketright" = "move workspace to output right; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500";
+    "Mod4+bracketleft" =
+      "focus output left; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500";
+    "Mod4+bracketright" =
+      "focus output right; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500";
+    "Mod4+Shift+bracketleft" =
+      "move container to output left; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500";
+    "Mod4+Shift+bracketright" =
+      "move container to output right; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500";
+    "Mod4+Control+bracketleft" =
+      "move workspace to output left; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500";
+    "Mod4+Control+bracketright" =
+      "move workspace to output right; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500";
 
     "Mod4+b" = "exec firefox";
     "Mod4+Shift+b" = "exec firefox -P secondary";
     "Mod4+Control+b" = "exec firefox -private-window";
 
     "Mod4+Escape" = "exec st";
-    "Mod4+Shift+Escape" = "exec st date workspace mail idle disk temperature load_average memory backlight player battery";
-    "Mod4+grave" = "workspace back_and_forth; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500";
+    "Mod4+Shift+Escape" =
+      "exec st date workspace mail idle disk temperature load_average memory backlight player battery";
+    "Mod4+grave" =
+      "workspace back_and_forth; exec dunstify -C `cat ~/.cache/st_id` && st workspace -t 500";
     "Mod4+period" = "workspace next_on_output; exec st workspace -t 500";
     "Mod4+comma" = "workspace prev_on_output; exec st workspace -t 500";
 
@@ -371,10 +423,13 @@ in
     "Mod4+Shift+backslash" = "exec ${scriptDir}/ws_mv.sh ${scriptDir}/select_ws.sh";
     "Mod4+Control+backslash" = "exec ${scriptDir}/ws_switch_mv.sh ${scriptDir}/select_ws.sh";
 
-    "Mod4+t" = "exec ${scriptDir}/title_ws.sh ${scriptDir}/get_ws_title.sh ${scriptDir}/get_cur_ws_name.sh";
+    "Mod4+t" =
+      "exec ${scriptDir}/title_ws.sh ${scriptDir}/get_ws_title.sh ${scriptDir}/get_cur_ws_name.sh";
 
-    "Mod4+i" = "exec ${i3-workspace-history}/bin/i3-workspace-history -mode=forward -sway; exec st workspace -t 500";
-    "Mod4+o" = "exec ${i3-workspace-history}/bin/i3-workspace-history -mode=back -sway; exec st workspace -t 500";
+    "Mod4+i" =
+      "exec ${i3-workspace-history}/bin/i3-workspace-history -mode=forward -sway; exec st workspace -t 500";
+    "Mod4+o" =
+      "exec ${i3-workspace-history}/bin/i3-workspace-history -mode=back -sway; exec st workspace -t 500";
 
     "Mod4+Tab" = "exec ${scriptDir}/window_switcher.sh";
     "Mod4+Shift+Tab" = "exec ${scriptDir}/window_switcher_scratch.sh";
@@ -391,7 +446,8 @@ in
     "Mod4+n" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle; exec st pulse -t 500";
     "Mod4+Shift+n" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle; exec st pulse -t 500";
 
-    "Mod4+apostrophe" = "exec rofimoji --selector wofi --selector-args=-i --skin-tone neutral --prompt \"\" -a copy";
+    "Mod4+apostrophe" =
+      "exec rofimoji --selector wofi --selector-args=-i --skin-tone neutral --prompt \"\" -a copy";
     "Mod4+semicolon" = "exec ${scriptDir}/bluetooth_device.sh";
     "Mod4+Shift+semicolon" = "exec ${scriptDir}/bluetooth_device.sh disconnect";
     "Mod4+Control+semicolon" = "exec ${scriptDir}/wifi.sh";
@@ -411,11 +467,13 @@ in
 
     "Mod4+c" = "mode \"control\"; exec notify-send \"Control b/t/d/o\"";
     "Mod4+u" = "mode \"idle\"; exec notify-send \"Idle i/d/l/s/S/L\"";
-    "Mod4+Print" = "mode \"capture\"; exec notify-send \"Capture (c)opy/(e)dit/(f)file c/e/f selection C/E/F output (v)ideo\"";
+    "Mod4+Print" =
+      "mode \"capture\"; exec notify-send \"Capture (c)opy/(e)dit/(f)file c/e/f selection C/E/F output (v)ideo\"";
     "Mod4+Shift+Print" = "exec pkill -SIGINT wf-recorder; exec notify-send \"stop recording\"";
     "Mod4+Delete" = "mode \"passthrough\"; exec notify-send \"passthrough on\"";
     "Mod4+p" = "exec wl-kbptr -o modes=floating','click -o mode_floating.source=detect";
-    "Mod4+Shift+p" = "mode \"mouse\"; seat seat0 hide_cursor when-typing disable; exec notify-send \"Mouse a/h/j/k/l s/d/f\"";
+    "Mod4+Shift+p" =
+      "mode \"mouse\"; seat seat0 hide_cursor when-typing disable; exec notify-send \"Mouse a/h/j/k/l s/d/f\"";
 
     "Mod4+Mod1+Return" = "exec WAYLAND_DISPLAY= alacritty -e tmux";
     "Mod4+Mod1+space" = "exec yad --entry --text input | wl-copy";
@@ -431,7 +489,8 @@ in
 
   i3Keybindings = scriptDir: {
     "Mod4+d" = "exec rofi -i -modi drun -show drun";
-    "Mod4+Shift+v" = "exec rofi -i -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd}'";
+    "Mod4+Shift+v" =
+      "exec rofi -i -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd}'";
     "Mod4+Control+v" = "exec greenclip print | head -n 1 | xclip -i -selection \"clipboard\"";
     "Mod4+Shift+Control+v" = "exec xdotool type \"$(greenclip print | head -n 1)\"";
     "Mod4+q" = "exec dunstctl close-all";
@@ -442,11 +501,14 @@ in
 
   commonModes = {
     gaps = {
-      "0" = "gaps inner current set 0; gaps outer current set 0; gaps top current set 0; gaps bottom current set 0";
-      "1" = "gaps inner current set 10; gaps outer current set 10; gaps top current set 10; gaps bottom current set 10";
+      "0" =
+        "gaps inner current set 0; gaps outer current set 0; gaps top current set 0; gaps bottom current set 0";
+      "1" =
+        "gaps inner current set 10; gaps outer current set 10; gaps top current set 10; gaps bottom current set 10";
       "2" = "gaps inner current set 0; gaps outer current set 0";
       "3" = "gaps inner current set 10; gaps outer current set -10";
-      "4" = "gaps inner current set 0; gaps outer current set 10; gaps outer current plus 10; gaps top current set 10; gaps bottom current set 10";
+      "4" =
+        "gaps inner current set 0; gaps outer current set 10; gaps outer current plus 10; gaps top current set 10; gaps bottom current set 10";
       "h" = "gaps horizontal current minus 10";
       "j" = "gaps vertical current plus 10";
       "k" = "gaps vertical current minus 10";
@@ -465,7 +527,8 @@ in
     system = {
       "l" = "exec loginctl lock-session, mode default; exec notify-send lock";
       "e" = "exec swaymsg exit, mode default; exec notify-send exit";
-      "s" = "exec systemctl suspend-then-hibernate, mode default; exec notify-send suspend-then-hibernate";
+      "s" =
+        "exec systemctl suspend-then-hibernate, mode default; exec notify-send suspend-then-hibernate";
       "Shift+s" = "exec systemctl suspend, mode default; exec notify-send suspend";
       "h" = "exec systemctl hibernate, mode default; exec notify-send hibernate";
       "r" = "exec systemctl reboot, mode default; exec notify-send reboot";
@@ -479,8 +542,10 @@ in
       "d" = "exec ${scriptDir}/swayidle_dpms.sh, mode default; exec notify-send dpms";
       "l" = "exec ${scriptDir}/swayidle_lock.sh, mode default; exec notify-send lock";
       "s" = "exec ${scriptDir}/swayidle_suspend.sh, mode default; exec notify-send suspend";
-      "Shift+s" = "exec ${scriptDir}/swayidle_suspend_long.sh, mode default; exec notify-send suspend_long";
-      "Shift+l" = "exec ${scriptDir}/swayidle_lock_no_dpms.sh, mode default; exec notify-send \"lock no dpms\"";
+      "Shift+s" =
+        "exec ${scriptDir}/swayidle_suspend_long.sh, mode default; exec notify-send suspend_long";
+      "Shift+l" =
+        "exec ${scriptDir}/swayidle_lock_no_dpms.sh, mode default; exec notify-send \"lock no dpms\"";
       "Return" = "mode default; exec notify-send default";
       "Escape" = "mode default; exec notify-send default";
     };
@@ -488,11 +553,14 @@ in
       "q" = "exec dunstctl close";
       "c" = "exec grim -g \"\$(${scriptDir}/slurp_point.sh)\" - | wl-copy, mode default";
       "e" = "exec grim -g \"\$(${scriptDir}/slurp_point.sh)\" - | swappy -f -, mode default";
-      "f" = "exec grim -g \"\$(${scriptDir}/slurp_point.sh)\" \$XDG_PICTURES_DIR/\"\$(date '+%Y-%m-%d %H.%M.%S')\".png, mode default";
+      "f" =
+        "exec grim -g \"\$(${scriptDir}/slurp_point.sh)\" \$XDG_PICTURES_DIR/\"\$(date '+%Y-%m-%d %H.%M.%S')\".png, mode default";
       "Shift+c" = "exec grim - | wl-copy, mode default; exec notify-send copied";
       "Shift+e" = "exec grim - | swappy -f -, mode default; exec notify-send saved";
-      "Shift+f" = "exec grim \$XDG_PICTURES_DIR/\"\$(date '+%Y-%m-%d %H.%M.%S')\".png, mode default; exec notify-send \"saved to file\"";
-      "v" = "exec wf-recorder -a=\"\$(pactl info | sed -En 's/Default Sink: (.*)/\\1/p').monitor\" -o \$(swaymsg -t get_outputs | jq -r '.[] | select(.type==\"output\" and .focused).name') -f \$XDG_VIDEOS_DIR/\"\$(date '+%Y-%m-%d %H.%M')\".mp4, mode default";
+      "Shift+f" =
+        "exec grim \$XDG_PICTURES_DIR/\"\$(date '+%Y-%m-%d %H.%M.%S')\".png, mode default; exec notify-send \"saved to file\"";
+      "v" =
+        "exec wf-recorder -a=\"\$(pactl info | sed -En 's/Default Sink: (.*)/\\1/p').monitor\" -o \$(swaymsg -t get_outputs | jq -r '.[] | select(.type==\"output\" and .focused).name') -f \$XDG_VIDEOS_DIR/\"\$(date '+%Y-%m-%d %H.%M')\".mp4, mode default";
       "Shift+v" = "exec pkill -SIGINT wf-recorder; exec notify-send \"stop recording\"";
       "Return" = "mode default; exec notify-send default";
       "Escape" = "mode default; exec notify-send default";
@@ -556,7 +624,8 @@ in
       "r" = "exec systemctl reboot, mode \"default\"; exec notify-send \"reboot\"";
       "p" = "exec systemctl poweroff -i, mode \"default\"; exec notify-send \"poweroff\"";
       "u" = "exec systemctl reboot --firmware-setup, mode \"default\"; exec notify-send \"uefi/bios\"";
-      "Shift+s" = "exec systemctl suspend-then-hibernate, mode \"default\"; exec notify-send \"suspend-then-hibernate\"";
+      "Shift+s" =
+        "exec systemctl suspend-then-hibernate, mode \"default\"; exec notify-send \"suspend-then-hibernate\"";
       "Return" = "mode \"default\"; exec notify-send \"default\"";
       "Escape" = "mode \"default\"; exec notify-send \"default\"";
     };
@@ -570,18 +639,30 @@ in
   };
 
   commonStartup = [
-    { command = "gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'"; always = true; }
+    {
+      command = "gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'";
+      always = true;
+    }
   ];
 
   swayStartup = idle: scriptDir: set_wallpaper: [
-    { command = "${scriptDir}/swayidle_${idle}.sh"; always = true; }
+    {
+      command = "${scriptDir}/swayidle_${idle}.sh";
+      always = true;
+    }
     { command = "systemctl --user import-environment XDG_SESSION_TYPE XDG_CURRENT_DESKTOP SWAYSOCK"; }
-    { command = "pkill -f dunst_restart; ${scriptDir}/dunst_restart.sh"; always = true; }
+    {
+      command = "pkill -f dunst_restart; ${scriptDir}/dunst_restart.sh";
+      always = true;
+    }
     {
       command = set_wallpaper;
       always = true;
     }
-    { command = "pkill -f laptop_clamshell; ${scriptDir}/laptop_clamshell.sh"; always = true; }
+    {
+      command = "pkill -f laptop_clamshell; ${scriptDir}/laptop_clamshell.sh";
+      always = true;
+    }
   ];
 
   i3Startup = scriptDir: set_wallpaper: [
@@ -591,8 +672,12 @@ in
     { command = "systemctl --user start redshift"; }
     { command = "systemctl --user import-environment XAUTHORITY DISPLAY"; }
     { command = "xinput set-prop 'Logitech Gaming Mouse G502' 'libinput Accel Profile Enabled' 0, 1"; }
-    { command = "xinput set-prop 'DLL0945:00 06CB:CDE6 Touchpad' 'libinput Natural Scrolling Enabled' 1"; }
-    { command = "xrandr --output DP-1-2 --primary --mode 2560x1440 --pos 0x0 --rotate normal --output DP-1-3 --mode 1920x1080 --pos 2560x0 --rotate left"; }
+    {
+      command = "xinput set-prop 'DLL0945:00 06CB:CDE6 Touchpad' 'libinput Natural Scrolling Enabled' 1";
+    }
+    {
+      command = "xrandr --output DP-1-2 --primary --mode 2560x1440 --pos 0x0 --rotate normal --output DP-1-3 --mode 1920x1080 --pos 2560x0 --rotate left";
+    }
     {
       command = set_wallpaper;
       always = true;

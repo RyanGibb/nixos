@@ -141,7 +141,10 @@ in
           '';
           zshConfig = lib.mkOrder 1000 (builtins.readFile ./zsh.cfg);
         in
-          lib.mkMerge [ zshConfigEarlyInit zshConfig ];
+        lib.mkMerge [
+          zshConfigEarlyInit
+          zshConfig
+        ];
     };
 
     programs.bash.initExtra = ''

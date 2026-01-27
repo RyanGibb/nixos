@@ -94,13 +94,8 @@ in
     package = eon.defaultPackage.${config.nixpkgs.hostPlatform.system};
     defaults.email = "${config.custom.username}@${config.networking.domain}";
     defaults.capFile = "/var/lib/eon/caps/domain/freumh.org.cap";
-    certs = {
-      "fn06.org".capFile = "/var/lib/eon/caps/domain/fn06.org.cap";
-      "capybara.fn06.org".capFile = "/var/lib/eon/caps/domain/fn06.org.cap";
-    };
   };
   security.acme-eon.nginxCerts = [
-    "capybara.fn06.org"
     "shrew.freumh.org"
     "knot.freumh.org"
     "enki.freumh.org"
@@ -130,11 +125,6 @@ in
       alec = {
         enable = true;
         cname = "vps";
-      };
-      fn06 = {
-        enable = true;
-        cname = "vps";
-        domain = "fn06.org";
       };
     };
   };
@@ -219,15 +209,6 @@ in
   };
 
   # reverse proxy
-  services.nginx.virtualHosts."capybara.fn06.org" = {
-    forceSSL = true;
-    locations."/" = {
-      proxyPass = ''
-        http://100.64.0.10:8123
-      '';
-      proxyWebsockets = true;
-    };
-  };
   services.nginx.virtualHosts."shrew.freumh.org" = {
     forceSSL = true;
     locations."/" = {
@@ -255,10 +236,10 @@ in
       error_page 404 /404.html;
       access_log /var/log/nginx/meands.org.log;
       add_header Strict-Transport-Security max-age=31536000 always;
-        add_header X-Frame-Options SAMEORIGIN always;
-        add_header X-Content-Type-Options nosniff always;
-        add_header Referrer-Policy 'same-origin';
-        add_header Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; base-uri 'self'; frame-src 'self'; frame-ancestors 'self'; form-action 'self'; style-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com; script-src 'self' https://cdn.jsdelivr.net;" always;
+      add_header X-Frame-Options SAMEORIGIN always;
+      add_header X-Content-Type-Options nosniff always;
+      add_header Referrer-Policy 'same-origin';
+      add_header Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; base-uri 'self'; frame-src 'self'; frame-ancestors 'self'; form-action 'self'; style-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com; script-src 'self' https://cdn.jsdelivr.net;" always;
     '';
   };
 
@@ -412,72 +393,8 @@ in
           type = "CNAME";
           value = "elephant";
         }
-      ] ++ vpnRecords;
-    };
-    "fn06.org" = {
-      soa.serial = 1706745602;
-      records = [
-        {
-          name = "@";
-          type = "NS";
-          value = "ns1";
-        }
-        {
-          name = "@";
-          type = "NS";
-          value = "ns2";
-        }
-
-        {
-          name = "ns1";
-          type = "A";
-          value = config.eilean.serverIpv4;
-        }
-        {
-          name = "ns1";
-          type = "AAAA";
-          value = config.eilean.serverIpv6;
-        }
-        {
-          name = "ns2";
-          type = "A";
-          value = config.eilean.serverIpv4;
-        }
-        {
-          name = "ns2";
-          type = "AAAA";
-          value = config.eilean.serverIpv6;
-        }
-
-        {
-          name = "@";
-          type = "A";
-          value = config.eilean.serverIpv4;
-        }
-        {
-          name = "@";
-          type = "AAAA";
-          value = config.eilean.serverIpv6;
-        }
-
-        {
-          name = "www.fn06.org.";
-          type = "CNAME";
-          value = "fn06.org.";
-        }
-
-        {
-          name = "@";
-          type = "LOC";
-          value = "52 12 40.4 N 0 5 31.9 E 22m 10m 10m 10m";
-        }
-
-        {
-          name = "capybara.fn06.org.";
-          type = "CNAME";
-          value = "fn06.org.";
-        }
-      ];
+      ]
+      ++ vpnRecords;
     };
   };
 }

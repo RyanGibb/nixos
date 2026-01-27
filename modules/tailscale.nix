@@ -1,12 +1,10 @@
 { config, lib, ... }:
 
-with lib;
-
 let
   cfg = config.custom;
 in
 {
-  options.custom.tailscale = mkEnableOption "tailscale";
+  options.custom.tailscale = lib.mkEnableOption "tailscale";
 
   config = lib.mkIf cfg.tailscale {
     # set up with `tailscale up --login-server https://headscale.freumh.org --hostname`
