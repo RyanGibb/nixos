@@ -65,7 +65,7 @@
       };
       Service = {
         ExecStart = "${
-          inputs.plover-revamp.legacyPackages.${pkgs.system}.python3Packages.plover-dev
+          inputs.plover-revamp.legacyPackages.${pkgs.stdenv.hostPlatform.system}.python3Packages.plover-dev
         }/bin/plover --gui none";
         Restart = "on-failure";
       };

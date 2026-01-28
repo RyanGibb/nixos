@@ -53,6 +53,4 @@
   };
 
   services.postgresql.package = pkgs.postgresql_17;
-
-  system.stateVersion = "24.05";
 }

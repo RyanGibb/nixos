@@ -20,4 +20,6 @@
   services.journald.extraConfig = ''
     SystemMaxUse=4G
   '';
+
+  system.stateVersion = "24.05";
 }

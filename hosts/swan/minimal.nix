@@ -18,4 +18,6 @@
   home-manager.users.${config.custom.username}.config.custom.machineColour = "green";
 
   services.openssh.openFirewall = true;
+
+  system.stateVersion = "24.11";
 }

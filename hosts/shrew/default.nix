@@ -114,6 +114,4 @@
       randomizedDelaySec = "1hr";
     };
   };
-
-  system.stateVersion = "24.05";
 }
