@@ -20,6 +20,11 @@
     };
   };
 
+  systemd.services.caddy = {
+    after = [ "tailscale-online.service" ];
+    requires = [ "tailscale-online.service" ];
+  };
+
   environment.systemPackages = with pkgs; [
     mosquitto
   ];

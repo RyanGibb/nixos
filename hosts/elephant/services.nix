@@ -367,8 +367,28 @@
     extraFlags = [ "--no-auth" ];
   };
   systemd.services.restic-rest-server = {
-    after = [ "tailscaled.service" ];
-    requires = [ "tailscaled.service" ];
+    after = [ "tailscale-online.service" ];
+    requires = [ "tailscale-online.service" ];
+  };
+
+  systemd.sockets.restic-rest-server = {
+    after = [ "tailscale-online.service" ];
+    requires = [ "tailscale-online.service" ];
+  };
+
+  systemd.services.immich-server = {
+    after = [ "tailscale-online.service" ];
+    requires = [ "tailscale-online.service" ];
+  };
+
+  systemd.services.owntracks-recorder = {
+    after = [ "tailscale-online.service" ];
+    requires = [ "tailscale-online.service" ];
+  };
+
+  systemd.services.nginx = {
+    after = [ "tailscale-online.service" ];
+    requires = [ "tailscale-online.service" ];
   };
 
   services.owntracks-recorder = {
