@@ -197,6 +197,8 @@
     mangohud
 
     inputs.plover-revamp.legacyPackages.${pkgs.stdenv.hostPlatform.system}.python3Packages.plover-dev
+
+    slipshow
   ];
 
   services.gnome.gnome-keyring.enable = true;
