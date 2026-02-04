@@ -7,6 +7,8 @@
 }:
 
 {
+  age.secrets.relay-admin-password.file = ../../secrets/relay-admin-password.age;
+
   security.acme.acceptTerms = true;
   services.nginx.enable = true;
   services.nginx.virtualHosts."enki.freumh.org" = {
@@ -50,5 +52,11 @@
       pkgs.postgresql16Packages.pg_libversion
     ];
     dataDir = "/mnt/disk1/postgres/";
+  };
+
+  services.relay = {
+    enable = true;
+    adminPasswordFile = config.age.secrets.relay-admin-password.path;
+    plcHost = "https://plc.directory";
   };
 }

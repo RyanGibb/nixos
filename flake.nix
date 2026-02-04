@@ -25,6 +25,7 @@
     nix-doom-emacs.url = "github:marienz/nix-doom-emacs-unstraightened";
     caledonia.url = "github:RyanGibb/caledonia";
     plover-revamp.url = "github:Pandapip1/nixpkgs/plover-revamp";
+    atproto-nix.url = "git+https://tangled.org/ryan.freumh.org/nur";
 
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
@@ -43,6 +44,7 @@
     nix-doom-emacs.inputs.doomemacs.follows = "doomemacs";
     nix-doom-emacs.inputs.emacs-overlay.follows = "emacs-overlay";
     caledonia.inputs.nixpkgs.follows = "nixpkgs";
+    atproto-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =

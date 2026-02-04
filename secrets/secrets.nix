@@ -7,6 +7,7 @@ let
   owl = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILP6Cgm/BWnJvuGgU1SjWwjOCjuE5AXGqEdQonWYR7BA root@owl";
   elephant = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL+ddohsRFrypCVJqIhI3p3R12pJI8iwuMfRu0TJWuPe root@elephant";
   shrew = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHLiZ0xdXSlF1eMibrs320lVQaushEpEDMrR6lp9uFkx root@shrew";
+  hippo = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII9BxaT1bEomSOWYtqFHMgPT9jPUHGAJd7ltSg9RL4TB root@hippo";
 in
 {
   "cache-priv-key.pem.age".publicKeys = user ++ [ elephant ];
@@ -48,4 +49,5 @@ in
   ];
   "eon-sirref-primary.cap.age".publicKeys = user ++ [ owl ];
   "anki.age".publicKeys = user ++ [ elephant ];
+  "relay-admin-password.age".publicKeys = user ++ [ hippo ];
 }

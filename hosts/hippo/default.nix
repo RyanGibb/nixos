@@ -3,6 +3,7 @@
   config,
   lib,
   disko,
+  atproto-nix,
   ...
 }:
 
@@ -12,6 +13,7 @@
     disko.nixosModules.disko
     ./disk-config.nix
     ./services.nix
+    atproto-nix.nixosModules.nur-atproto
   ];
 
   custom = {
