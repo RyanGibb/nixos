@@ -208,7 +208,7 @@ in
           ap = "add --patch";
           ai = "add -i";
           ps = "push";
-          pf = "push --force";
+          pf = "push --force-with-lease";
           pu = "push --set-upstream";
           pl = "pull";
           pr = "pull --rebase";
