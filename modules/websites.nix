@@ -11,7 +11,7 @@ let
   ryanWebsite = mkStaticWebsite {
     name = "ryan";
     defaultRoot = "/var/www/ryan.freumh.org/";
-    defaultIndex = "home.html index.html";
+    indexFiles = "home.html index";
     customLocations = {
       locations."/atom.xml".extraConfig = ''
         return 301 $scheme://$host/home.xml;
@@ -53,7 +53,7 @@ let
   alecWebsite = mkStaticWebsite {
     name = "alec";
     defaultRoot = "/var/www/alec.freumh.org/";
-    defaultIndex = "Homepage.html index.html";
+    indexFiles = "Homepage.html index.html";
   };
 in
 {

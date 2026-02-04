@@ -15,7 +15,7 @@ in
       defaultDomain ? "${name}.${config.networking.domain}",
       defaultZone ? config.networking.domain,
       defaultRoot,
-      defaultIndex ? "index.html",
+      indexFiles ? ["index.html"],
       customLocations ? { },
       extraConfig ? "",
       enableDNS ? true,
@@ -51,7 +51,7 @@ in
         };
         indexFiles = mkOption {
           type = types.str;
-          default = defaultIndex;
+          default = indexFiles;
           description = "Index files for the root location";
         };
       };
