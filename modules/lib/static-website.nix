@@ -15,7 +15,7 @@ in
       defaultDomain ? "${name}.${config.networking.domain}",
       defaultZone ? config.networking.domain,
       defaultRoot,
-      indexFiles ? ["index.html"],
+      indexFiles ? "index.html",
       customLocations ? { },
       extraConfig ? "",
       enableDNS ? true,
@@ -63,17 +63,19 @@ in
         services.nginx = {
           enable = true;
           virtualHosts = {
-            "${cfg.domain}" = {
-              forceSSL = true;
-              root = cfg.root;
-              locations."/".index = cfg.indexFiles;
-              extraConfig = ''
-                error_page 403 =404 /404.html;
+            "${cfg.domain}" = lib.mkMerge [
+              {
+                forceSSL = true;
+                root = cfg.root;
+                locations."/".index = cfg.indexFiles;
+                extraConfig = ''
+                  error_page 403 =404 /404.html;
                 error_page 404 /404.html;
                 access_log /var/log/nginx/${cfg.domain}.log;
-              '' + extraConfig;
-            }
-            // customLocations;
+                '' + extraConfig;
+              }
+              customLocations
+            ];
 
             "www.${cfg.domain}" =
               let
