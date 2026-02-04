@@ -22,6 +22,8 @@ in
         config.custom.gui.enable = true;
       };
 
+    services.displayManager.ly.settings.session_log = ".local/state/ly-session.log";
+
     networking.networkmanager.enable = true;
 
     i18n = {
