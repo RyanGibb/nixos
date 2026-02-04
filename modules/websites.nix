@@ -25,8 +25,8 @@ let
           add_header Strict-Transport-Security max-age=31536000 always;
           add_header X-Frame-Options SAMEORIGIN always;
           add_header X-Content-Type-Options nosniff always;
-          add_header Referrer-Policy 'same-origin';
           add_header Content-Security-Policy "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;" always;
+          add_header Referrer-Policy 'same-origin';
         '';
       };
       locations."~ \\.bib$" = {
@@ -41,6 +41,13 @@ let
         '';
       };
     };
+    extraConfig = ''
+      add_header Strict-Transport-Security max-age=31536000 always;
+      add_header X-Frame-Options SAMEORIGIN always;
+      add_header X-Content-Type-Options nosniff always;
+      add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-src 'self' https://watch.eeg.cl.cam.ac.uk;" always;
+      add_header Referrer-Policy 'same-origin';
+    '';
   };
 
   alecWebsite = mkStaticWebsite {
