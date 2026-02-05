@@ -208,5 +208,13 @@ in
         };
       };
     };
+    # https://github.com/nix-community/home-manager/issues/3126
+    systemd.user.services.fcitx5-daemon.Service.Environment = [
+      "GLFW_IM_MODULE=bus"
+      "SDL_IM_MODULE=fcitx"
+      "GTK_IM_MODULE=fcitx"
+      "QT_IM_MODULE=fcitx"
+      "XMODIFIERS=@im=fcitx"
+    ];
   };
 }
