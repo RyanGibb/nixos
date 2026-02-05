@@ -159,7 +159,6 @@
     overlay-unstable.rust-analyzer
     overlay-unstable.rustfmt
     # haskell
-    cabal-install
     ghc
     haskell-language-server
     # python
