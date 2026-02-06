@@ -34,7 +34,14 @@ let
           default_type text/plain;
         '';
       };
-      locations."~ \\.md$" = {
+      locations."~ ^/var/.*\\.md$" = {
+        alias = "/var/www/var/";
+        extraConfig = ''
+          types { }
+          default_type "text/markdown; charset=utf-8";
+        '';
+      };
+      locations."~ ^(?!/var/).*\\.md$" = {
         extraConfig = ''
           types { }
           default_type "text/markdown; charset=utf-8";
