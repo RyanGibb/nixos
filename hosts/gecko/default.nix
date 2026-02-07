@@ -185,7 +185,6 @@
     gphoto2fs
 
     graphviz
-    mpv
     texlab
 
     # due to https://github.com/TigerVNC/tigervnc/issues/274
