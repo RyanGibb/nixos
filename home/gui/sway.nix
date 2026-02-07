@@ -60,6 +60,7 @@ in
         '';
       })
       wl-kbptr
+      wlrctl
     ];
 
     wayland.systemd.target = "sway-session.target";

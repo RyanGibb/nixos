@@ -473,7 +473,7 @@ in
     "Mod4+Delete" = "mode \"passthrough\"; exec notify-send \"passthrough on\"";
     "Mod4+p" = "exec wl-kbptr -o modes=floating','click -o mode_floating.source=detect";
     "Mod4+Shift+p" =
-      "mode \"mouse\"; seat seat0 hide_cursor when-typing disable; exec notify-send \"Mouse s/d/f a/h/j/k/l\"";
+      "mode \"mouse\"; seat seat0 hide_cursor when-typing disable; exec notify-send \"Mouse s/d/f a/h/j/k/l n/m/,/.\"";
 
     "Mod4+Mod1+Return" = "exec WAYLAND_DISPLAY= alacritty -e tmux";
     "Mod4+Mod1+space" = "exec yad --entry --text input | wl-copy";
@@ -582,6 +582,18 @@ in
       "Shift+j" = "seat seat0 cursor move 0 2";
       "Shift+k" = "seat seat0 cursor move 0 -2";
       "Shift+l" = "seat seat0 cursor move 2 0";
+      "n" = "exec wlrctl pointer scroll 0 -20";
+      "m" = "exec wlrctl pointer scroll 20 0";
+      "comma" = "exec wlrctl pointer scroll -20 0";
+      "period" = "exec wlrctl pointer scroll 0 20";
+      "Control+n" = "exec wlrctl pointer scroll 0 -10";
+      "Control+m" = "exec wlrctl pointer scroll 10 0";
+      "Control+comma" = "exec wlrctl pointer scroll -10 0";
+      "Control+period" = "exec wlrctl pointer scroll 0 10";
+      "Shift+n" = "exec wlrctl pointer scroll 0 -2";
+      "Shift+m" = "exec wlrctl pointer scroll 2 0";
+      "Shift+comma" = "exec wlrctl pointer scroll -2 0";
+      "Shift+period" = "exec wlrctl pointer scroll 0 2";
       "s" = "seat seat0 cursor press button1";
       "--release s" = "seat seat0 cursor release button1";
       "d" = "seat seat0 cursor press button2";
