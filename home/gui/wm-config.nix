@@ -473,7 +473,7 @@ in
     "Mod4+Delete" = "mode \"passthrough\"; exec notify-send \"passthrough on\"";
     "Mod4+p" = "exec wl-kbptr -o modes=floating','click -o mode_floating.source=detect";
     "Mod4+Shift+p" =
-      "mode \"mouse\"; seat seat0 hide_cursor when-typing disable; exec notify-send \"Mouse a/h/j/k/l s/d/f\"";
+      "mode \"mouse\"; seat seat0 hide_cursor when-typing disable; exec notify-send \"Mouse s/d/f a/h/j/k/l\"";
 
     "Mod4+Mod1+Return" = "exec WAYLAND_DISPLAY= alacritty -e tmux";
     "Mod4+Mod1+space" = "exec yad --entry --text input | wl-copy";
@@ -570,10 +570,18 @@ in
     };
     mouse = {
       "a" = "mode default, exec wl-kbptr; swaymsg mode Mouse";
-      "h" = "seat seat0 cursor move -15 0";
-      "j" = "seat seat0 cursor move 0 15";
-      "k" = "seat seat0 cursor move 0 -15";
-      "l" = "seat seat0 cursor move 15 0";
+      "h" = "seat seat0 cursor move -20 0";
+      "j" = "seat seat0 cursor move 0 20";
+      "k" = "seat seat0 cursor move 0 -20";
+      "l" = "seat seat0 cursor move 20 0";
+      "Control+h" = "seat seat0 cursor move -10 0";
+      "Control+j" = "seat seat0 cursor move 0 10";
+      "Control+k" = "seat seat0 cursor move 0 -10";
+      "Control+l" = "seat seat0 cursor move 10 0";
+      "Shift+h" = "seat seat0 cursor move -2 0";
+      "Shift+j" = "seat seat0 cursor move 0 2";
+      "Shift+k" = "seat seat0 cursor move 0 -2";
+      "Shift+l" = "seat seat0 cursor move 2 0";
       "s" = "seat seat0 cursor press button1";
       "--release s" = "seat seat0 cursor release button1";
       "d" = "seat seat0 cursor press button2";
