@@ -243,6 +243,7 @@
     syncthing = {
       enable = true;
       user = config.custom.username;
+      group = "users";
       dataDir = "/home/ryan/syncthing";
       configDir = "/home/ryan/.config/syncthing";
     };
