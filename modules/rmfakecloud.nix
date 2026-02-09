@@ -56,7 +56,7 @@ in
       {
         name = "rmfakecloud";
         type = "CNAME";
-        value = "vps";
+        value = "owl";
       }
     ];
   };

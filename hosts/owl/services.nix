@@ -64,6 +64,7 @@ in
     serverIpv6 = "2a01:4f9:c011:87ad:0:0:0:0";
     publicInterface = "enp1s0";
     fail2ban.enable = true;
+    domainName = "owl";
   };
 
   # eon
@@ -99,6 +100,7 @@ in
     "shrew.freumh.org"
     "knot.freumh.org"
     "enki.freumh.org"
+    "git.freumh.org"
   ];
 
   # VPN
@@ -120,11 +122,11 @@ in
     website = {
       ryan = {
         enable = true;
-        cname = "vps";
+        cname = "owl";
       };
       alec = {
         enable = true;
-        cname = "vps";
+        cname = "owl";
       };
     };
   };
@@ -267,7 +269,7 @@ in
         {
           name = "teapot";
           type = "CNAME";
-          value = "vps";
+          value = "owl";
         }
 
         {
@@ -277,12 +279,12 @@ in
         }
 
         {
-          name = "vps";
+          name = "owl";
           type = "A";
           value = config.eilean.serverIpv4;
         }
         {
-          name = "vps";
+          name = "owl";
           type = "AAAA";
           value = config.eilean.serverIpv6;
         }
@@ -318,13 +320,13 @@ in
         {
           name = "shrew";
           type = "CNAME";
-          value = "vps";
+          value = "owl";
         }
 
         {
           name = "knot";
           type = "CNAME";
-          value = "vps";
+          value = "owl";
         }
 
         {

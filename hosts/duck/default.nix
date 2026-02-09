@@ -118,12 +118,12 @@
             value = ipv6;
           }
           {
-            name = "vps";
+            name = "owl";
             type = "A";
             value = ipv4;
           }
           {
-            name = "vps";
+            name = "owl";
             type = "AAAA";
             value = ipv6;
           }
