@@ -115,6 +115,29 @@ in
     "net.ipv6.conf.all.forwarding" = 1;
   };
 
+  services.cgit."git.freumh.org" = {
+    enable = true;
+    user = "git";
+    group = "git";
+    scanPath = "/var/lib/git/repos";
+    gitHttpBackend = {
+      enable = true;
+      checkExportOkFiles = false;
+    };
+    settings = {
+      root-title = "Freumh Git Repositories";
+      root-desc = "List of Freumh devepment repositories";
+      enable-index-owner = false;
+      enable-git-config = true;
+      clone-url = "https://git.freumh.org/$CGIT_REPO_URL";
+    };
+  };
+  services.nginx.virtualHosts."git.freumh.org" = {
+    forceSSL = true;
+  };
+  users.users.ryan.extraGroups = [ "git" ];
+  home-manager.users.${config.custom.username}.programs.git.settings.safe.directory = "/var/lib/git/repos/*";
+
   # websites
   custom = {
     freumh.enable = true;
@@ -325,6 +348,12 @@ in
 
         {
           name = "knot";
+          type = "CNAME";
+          value = "owl";
+        }
+
+        {
+          name = "git";
           type = "CNAME";
           value = "owl";
         }
