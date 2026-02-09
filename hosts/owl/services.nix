@@ -215,6 +215,7 @@ in
   };
   eilean.matrix = {
     enable = true;
+    elementCall = true;
     registrationSecretFile = config.age.secrets.matrix-shared-secret.path;
     bridges.whatsapp = true;
     bridges.signal = true;
