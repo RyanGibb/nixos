@@ -137,7 +137,8 @@ in
     forceSSL = true;
   };
   users.users.ryan.extraGroups = [ "git" ];
-  home-manager.users.${config.custom.username}.programs.git.settings.safe.directory = "/var/lib/git/repos/*";
+  home-manager.users.${config.custom.username}.programs.git.settings.safe.directory =
+    "/var/lib/git/repos/*";
 
   # websites
   custom = {

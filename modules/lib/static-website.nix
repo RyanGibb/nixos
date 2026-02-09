@@ -72,7 +72,8 @@ in
                   error_page 403 =404 /404.html;
                   error_page 404 /404.html;
                   access_log /var/log/nginx/${cfg.domain}.log;
-                '' + extraConfig;
+                ''
+                + extraConfig;
               }
               customLocations
             ];

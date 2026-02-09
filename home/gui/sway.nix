@@ -19,7 +19,7 @@ let
     wmmsg = "swaymsg";
     rofi = "wofi";
     app_id = "app_id";
-    bar_extra = ''icon_theme Papirus'';
+    bar_extra = "icon_theme Papirus";
     locked = "--locked";
     polkit_gnome = "${pkgs.polkit_gnome}";
     set_wallpaper = ''swaymsg "output * bg $HOME/.cache/wallpaper fill #282828"'';
