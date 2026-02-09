@@ -34,6 +34,14 @@ let
           default_type text/plain;
         '';
       };
+      # Content negotiation for HTML files - serve .md if Accept: text/markdown
+      locations."~ ^(?!/var/)(.+)\\.html$" = {
+        extraConfig = ''
+          if ($http_accept ~* "text/markdown") {
+            rewrite ^(.+)\.html$ $1.md last;
+          }
+        '';
+      };
       locations."~ ^/var/(.*\\.md)$" = {
         alias = "/var/www/var/$1";
         extraConfig = ''
