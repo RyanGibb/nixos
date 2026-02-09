@@ -135,6 +135,10 @@ in
   };
   services.nginx.virtualHosts."git.freumh.org" = {
     forceSSL = true;
+    locations."= /robots.txt".extraConfig = ''
+      return 200 "User-agent: *\nContent-Usage: search=y, train-ai=n\nAllow: /\n\nUser-agent: Amazonbot\nDisallow: /\n\nUser-agent: Applebot-Extended\nDisallow: /\n\nUser-agent: Bytespider\nDisallow: /\n\nUser-agent: CCBot\nDisallow: /\n\nUser-agent: ClaudeBot\nDisallow: /\n\nUser-agent: Google-Extended\nDisallow: /\n\nUser-agent: GPTBot\nDisallow: /\n\nUser-agent: meta-externalagent\nDisallow: /\n";
+      default_type text/plain;
+    '';
   };
   users.users.ryan.extraGroups = [ "git" ];
   home-manager.users.${config.custom.username}.programs.git.settings.safe.directory =
