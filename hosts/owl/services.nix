@@ -130,6 +130,7 @@ in
       enable-index-owner = false;
       enable-git-config = true;
       clone-url = "https://git.freumh.org/$CGIT_REPO_URL";
+      branch-sort = "age";
     };
   };
   services.nginx.virtualHosts."git.freumh.org" = {
