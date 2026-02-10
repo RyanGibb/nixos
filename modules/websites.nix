@@ -11,7 +11,7 @@ let
   ryanWebsite = mkStaticWebsite {
     name = "ryan";
     defaultRoot = "/var/www/ryan.freumh.org/";
-    indexFiles = "home.html index.html";
+    index = "home.html index.html";
     customLocations = {
       locations."/atom.xml".extraConfig = ''
         return 301 $scheme://$host/home.xml;
@@ -21,6 +21,7 @@ let
       '';
       locations."/var/" = {
         alias = "/var/www/var/";
+        index = "home.html index.html";
         extraConfig = ''
           add_header Strict-Transport-Security max-age=31536000 always;
           add_header X-Frame-Options SAMEORIGIN always;
@@ -69,7 +70,7 @@ let
   alecWebsite = mkStaticWebsite {
     name = "alec";
     defaultRoot = "/var/www/alec.freumh.org/";
-    indexFiles = "Homepage.html index.html";
+    index = "Homepage.html index.html";
   };
 in
 {

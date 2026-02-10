@@ -15,7 +15,7 @@ in
       defaultDomain ? "${name}.${config.networking.domain}",
       defaultZone ? config.networking.domain,
       defaultRoot,
-      indexFiles ? "index.html",
+      index ? "index.html",
       customLocations ? { },
       extraConfig ? "",
       enableDNS ? true,
@@ -49,9 +49,9 @@ in
           default = defaultRoot;
           description = "Root directory or package for the website";
         };
-        indexFiles = mkOption {
+        index = mkOption {
           type = types.str;
-          default = indexFiles;
+          default = index;
           description = "Index files for the root location";
         };
       };
@@ -67,7 +67,7 @@ in
               {
                 forceSSL = true;
                 root = cfg.root;
-                locations."/".index = cfg.indexFiles;
+                locations."/".index = cfg.index;
                 extraConfig = ''
                   error_page 403 =404 /404.html;
                   error_page 404 /404.html;
