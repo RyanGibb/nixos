@@ -94,7 +94,15 @@
     calibre
     zotero
     element-desktop
-    nheko
+    (nheko.overrideAttrs (old: {
+      src = fetchFromGitHub {
+        owner = "ReillyBrogan";
+        repo = "nheko";
+        rev = "2c1a30055a2e76f7bcd318a9e37823467f3750d1";
+        hash = "sha256-XiY2slr3E6HX3mBUW9yhZ4JrFbSPcaXSUJ218grfuHw=";
+      };
+      buildInputs = old.buildInputs ++ [ kdePackages.kirigami ];
+    }))
     iamb
     spotify
     gimp
