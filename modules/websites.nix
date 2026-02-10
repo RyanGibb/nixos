@@ -62,6 +62,7 @@ let
       add_header X-Content-Type-Options nosniff always;
       add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-src 'self' https://watch.eeg.cl.cam.ac.uk;" always;
       add_header Referrer-Policy 'same-origin';
+      add_header Vary Accept always;
     '';
   };
 
