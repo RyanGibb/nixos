@@ -72,10 +72,19 @@ let
     defaultRoot = "/var/www/alec.freumh.org/";
     index = "Homepage.html index.html";
   };
+
+  fn06Website = mkStaticWebsite {
+    name = "fn06";
+    defaultDomain = "fn06.org";
+    defaultZone = "fn06.org";
+    defaultRoot = "/var/www/fn06.org/";
+    enableDNS = false;
+  };
 in
 {
   imports = [
     ryanWebsite
     alecWebsite
+    fn06Website
   ];
 }

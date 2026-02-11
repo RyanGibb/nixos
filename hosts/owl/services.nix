@@ -95,6 +95,9 @@ in
     package = eon.defaultPackage.${config.nixpkgs.hostPlatform.system};
     defaults.email = "${config.custom.username}@${config.networking.domain}";
     defaults.capFile = "/var/lib/eon/caps/domain/freumh.org.cap";
+    certs = {
+      "fn06.org".capFile = "/var/lib/eon/caps/domain/fn06.org.cap";
+    };
   };
   security.acme-eon.nginxCerts = [
     "shrew.freumh.org"
@@ -157,6 +160,7 @@ in
         enable = true;
         cname = "owl";
       };
+      fn06.enable = true;
     };
   };
   services.nginx.commonHttpConfig = ''
@@ -433,6 +437,66 @@ in
         }
       ]
       ++ vpnRecords;
+    };
+    "fn06.org" = {
+      soa.serial = 1706745602;
+      records = [
+        {
+          name = "@";
+          type = "NS";
+          value = "ns1";
+        }
+        {
+          name = "@";
+          type = "NS";
+          value = "ns2";
+        }
+
+        {
+          name = "ns1";
+          type = "A";
+          value = config.eilean.serverIpv4;
+        }
+        {
+          name = "ns1";
+          type = "AAAA";
+          value = config.eilean.serverIpv6;
+        }
+        {
+          name = "ns2";
+          type = "A";
+          value = config.eilean.serverIpv4;
+        }
+        {
+          name = "ns2";
+          type = "AAAA";
+          value = config.eilean.serverIpv6;
+        }
+
+        {
+          name = "@";
+          type = "A";
+          value = config.eilean.serverIpv4;
+        }
+        {
+          name = "@";
+          type = "AAAA";
+          value = config.eilean.serverIpv6;
+        }
+
+        {
+          name = "www.fn06.org.";
+          type = "CNAME";
+          value = "fn06.org.";
+        }
+
+        {
+          name = "@";
+          type = "LOC";
+          value = "52 12 40.4 N 0 5 31.9 E 22m 10m 10m 10m";
+        }
+
+      ];
     };
   };
 }
