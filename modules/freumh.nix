@@ -45,6 +45,14 @@ in
       enable = true;
       virtualHosts."${config.networking.domain}" = {
         forceSSL = true;
+        extraConfig = ''
+          error_page 404 /404.html;
+          add_header Strict-Transport-Security max-age=31536000 always;
+          add_header X-Frame-Options SAMEORIGIN always;
+          add_header X-Content-Type-Options nosniff always;
+          add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' blob:;" always;
+          add_header Referrer-Policy 'same-origin';
+        '';
         locations."/root" =
           let
             random-root = pkgs.writeScript "random-root.php" ''
@@ -126,9 +134,6 @@ in
           '';
           destination = "/.well-known/security.txt";
         };
-        extraConfig = ''
-          error_page 404 /404.html;
-        '';
       };
     };
   };
