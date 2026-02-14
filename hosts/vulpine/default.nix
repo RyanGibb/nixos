@@ -116,12 +116,9 @@
       config.allowUnfree = true;
     }).linuxPackages_6_12.nvidia_x11_latest;
 
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.open = false;
-  hardware.nvidia.powerManagement.enable = true;
-
-  specialisation.nouveau.configuration = {
-    services.xserver.videoDrivers = lib.mkForce [ "nouveau" ];
+  specialisation.nvidia.configuration = {
+    services.xserver.videoDrivers = [ "nvidia" ];
+    hardware.nvidia.open = false;
   };
 
   networking.firewall.allowedTCPPorts = [ 1234 ];
