@@ -34,6 +34,12 @@ in
       gtk2.force = true;
     };
 
+    qt = {
+      enable = true;
+      platformTheme.name = "gtk3";
+      style.name = "gtk2";
+    };
+
     home = {
       packages =
         let
@@ -53,6 +59,8 @@ in
       sessionVariables = {
         # evince workaround
         GTK_THEME = "Gruvbox-Dark";
+        # Make Qt apps use GTK theme
+        QT_QPA_PLATFORMTHEME = "gtk3";
         WALLPAPER_DIR = "$HOME/pictures/wallpapers";
         TERMINAL = "alacritty";
       };
