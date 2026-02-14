@@ -118,6 +118,7 @@
 
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = false;
+  hardware.nvidia.powerManagement.enable = true;
 
   specialisation.nouveau.configuration = {
     services.xserver.videoDrivers = lib.mkForce [ "nouveau" ];
