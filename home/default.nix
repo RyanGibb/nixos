@@ -174,7 +174,7 @@ in
         }
       ];
     };
-    services.gpg-agent.pinentry.package = pkgs.pinentry-qt;
+    services.gpg-agent.pinentry.package = pkgs.pinentry-curses;
 
     programs.git = {
       enable = true;
