@@ -252,7 +252,9 @@ in
         }
 
         {
-          plugin = vimtex;
+          plugin = vimtex.overrideAttrs {
+            nvimSkipModule = [ "vimtex.fzf-lua.init" ];
+          };
           type = "lua";
           config = ''
             vim.cmd("filetype plugin indent on")
