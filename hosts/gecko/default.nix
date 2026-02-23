@@ -166,6 +166,8 @@
     overlay-unstable.rustc
     overlay-unstable.rust-analyzer
     overlay-unstable.rustfmt
+    # lean
+    elan
     # haskell
     ghc
     haskell-language-server
