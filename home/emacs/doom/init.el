@@ -123,7 +123,7 @@
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
        (latex +lsp)       ; writing papers in Emacs has never been so fun
-       (lean +lsp)              ; for folks with too much to prove
+       lean              ; for folks with too much to prove
        ledger            ; be audit you can be
        lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
