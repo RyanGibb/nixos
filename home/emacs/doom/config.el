@@ -99,3 +99,19 @@
 
 (map! :leader
       :desc "Async cmd in the project root" "S" #'projectile-run-async-shell-command-in-root)
+
+;; Fix undo-tree visualizer diff: Doom's advice assigns the return value of
+;; (hide-mode-line-mode +1) (which is t) to `buff` instead of the diff buffer,
+;; causing "Wrong type argument: stringp, t" when set-window-buffer receives t.
+(after! undo-tree
+  (defadvice! +undo-tree--show-visualizer-diff-safely-a (&optional node)
+    :override #'undo-tree-visualizer-show-diff
+    (setq undo-tree-visualizer-diff t)
+    (let* ((buff (with-current-buffer undo-tree-visualizer-parent-buffer
+                   (undo-tree-diff node)))
+           (display-buffer-mark-dedicated 'soft)
+           (win (split-window (get-buffer-window undo-tree-visualizer-parent-buffer))))
+      (with-current-buffer buff
+        (hide-mode-line-mode +1))
+      (set-window-buffer win buff)
+      (shrink-window-if-larger-than-buffer win))))
