@@ -74,6 +74,7 @@ in
               "ftplugin/nix.vim".text = ml-style;
               "ftplugin/ocaml.vim".text = ml-style;
               "ftplugin/haskell.vim".text = ml-style;
+              "ftplugin/lean.vim".text = ml-style;
               "ftplugin/ledger.vim".text = ''
                 setlocal foldmethod=syntax
                 vnoremap <silent> <buffer> <Tab> :LedgerAlign<CR>
@@ -366,6 +367,20 @@ in
                   template = '* TODO %?\n  %u',
                 },
               },
+            })
+          '';
+        }
+
+        {
+          plugin = lean-nvim;
+          type = "lua";
+          config = ''
+            require('lean').setup({
+              lsp = {
+                on_attach = On_attach,
+                capabilities = Capabilities,
+              },
+              mappings = true,
             })
           '';
         }
