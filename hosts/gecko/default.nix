@@ -103,6 +103,8 @@
       };
       buildInputs = old.buildInputs ++ [ kdePackages.kirigami ];
     }))
+    zulip
+    zulip-term
     iamb
     spotify
     gimp
