@@ -121,6 +121,12 @@
 
             )))
 
+  (setq mu4e-personal-addresses
+        '("ryan@freumh.org"
+          "ryangibb321@gmail.com"
+          "ryan.gibb@cl.cam.ac.uk"
+          "misc@freumh.org"))
+
   (setq mu4e-context-policy 'pick-first)
 
                                         ; Fixing duplicate UID errors when using mbsync and mu4e
