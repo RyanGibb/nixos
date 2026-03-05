@@ -100,6 +100,15 @@
 (map! :leader
       :desc "Async cmd in the project root" "S" #'projectile-run-async-shell-command-in-root)
 
+(defun my/magit-commit-update ()
+  "Create a commit with the message \"update\"."
+  (interactive)
+  (magit-commit-create '("-m" "update")))
+
+(after! magit
+  (transient-append-suffix 'magit-commit "c"
+    '("u" "Update" my/magit-commit-update)))
+
 ;; Fix undo-tree visualizer diff: Doom's advice assigns the return value of
 ;; (hide-mode-line-mode +1) (which is t) to `buff` instead of the diff buffer,
 ;; causing "Wrong type argument: stringp, t" when set-window-buffer receives t.
