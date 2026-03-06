@@ -61,11 +61,19 @@
           (persp-kill current)
         (user-error "Can't delete last workspace"))))
 
+  (defvar my/persp-restore-flag
+    (expand-file-name "persp-restore" user-emacs-directory))
+
+  ;; Restore session if flag file exists from previous restart
+  (when (file-exists-p my/persp-restore-flag)
+    (delete-file my/persp-restore-flag)
+    (persp-load-state-from-file))
+
   (defun my/restart-and-restore ()
     "Save the current session and restart Emacs."
     (interactive)
     (persp-save-state-to-file)
-    (setq persp-auto-resume-time 1)
+    (write-region "" nil my/persp-restore-flag)
     (restart-emacs))
 
   (defun my/workspace-display ()
