@@ -161,8 +161,6 @@
     # ocaml
     opam
     pkg-config
-    ocamlPackages.ocaml-lsp
-    ocamlPackages.ocamlformat
     # rust
     overlay-unstable.cargo
     overlay-unstable.rustc
