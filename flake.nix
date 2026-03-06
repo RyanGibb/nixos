@@ -18,11 +18,6 @@
     nur.url = "github:nix-community/NUR/e9e77b7985ef9bdeca12a38523c63d47555cc89b";
     disko.url = "github:nix-community/disko";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
-    doomemacs = {
-      url = "github:doomemacs/doomemacs";
-      flake = false;
-    };
-    nix-doom-emacs.url = "github:marienz/nix-doom-emacs-unstraightened";
     caledonia.url = "github:RyanGibb/caledonia";
     plover-revamp.url = "github:Pandapip1/nixpkgs/plover-revamp";
 
@@ -40,8 +35,6 @@
     nur.inputs.nixpkgs.follows = "nixpkgs";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
-    nix-doom-emacs.inputs.doomemacs.follows = "doomemacs";
-    nix-doom-emacs.inputs.emacs-overlay.follows = "emacs-overlay";
     caledonia.inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -56,7 +49,7 @@
           };
         })
         inputs.nur.overlays.default
-        inputs.nix-doom-emacs.overlays.default
+        inputs.emacs-overlay.overlays.default
       ];
     in
     {

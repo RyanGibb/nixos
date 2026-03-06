@@ -1,0 +1,195 @@
+;;; evil.el --- Evil mode and leader keybindings -*- lexical-binding: t; -*-
+
+(use-package evil
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil) ; required for evil-collection
+  (setq evil-undo-system 'undo-tree)
+  :config
+  (evil-mode 1))
+
+(use-package evil-collection
+  :after evil
+  :init
+  (setq evil-collection-setup-minibuffer t)
+  :config
+  (evil-collection-init))
+
+(use-package undo-tree
+  :config
+  (global-undo-tree-mode)
+  (setq undo-tree-history-directory-alist
+        `(("." . ,(expand-file-name "undo-tree-hist" user-emacs-directory)))))
+
+;; Mouse back/forward buttons
+(global-set-key (kbd "<mouse-8>") #'evil-jump-backward)
+(global-set-key (kbd "<mouse-9>") #'evil-jump-forward)
+
+;;;; Leader keybindings (SPC)
+
+(use-package general
+  :after evil
+  :config
+  (general-create-definer my/leader-def
+    :states '(normal visual motion)
+    :keymaps 'override
+    :prefix "SPC")
+
+  (general-create-definer my/local-leader-def
+    :states '(normal visual motion)
+    :keymaps 'override
+    :prefix "SPC m")
+
+  (my/leader-def
+    ""    '(nil :which-key "leader")
+    "SPC" '(project-find-file :which-key "find file in project")
+    ":"   '(execute-extended-command :which-key "M-x")
+    "."   '(find-file :which-key "find file")
+    ","   '(consult-buffer :which-key "switch buffer")
+    "/"   '(consult-ripgrep :which-key "search project")
+    "`"   '(evil-switch-to-windows-last-buffer :which-key "last buffer")
+    ";"   '(pp-eval-expression :which-key "eval expression")
+    "u"   '(universal-argument :which-key "universal argument")
+    "x"   '(scratch-buffer :which-key "scratch buffer")
+    "X"   '(org-capture :which-key "org capture")
+    "A"   '(org-agenda-list :which-key "agenda list")
+
+    ;; Buffers
+    "b"   '(:ignore t :which-key "buffer")
+    "b b" '(consult-buffer :which-key "switch buffer")
+    "b d" '(kill-current-buffer :which-key "kill buffer")
+    "b k" '(kill-current-buffer :which-key "kill buffer")
+    "b K" '(my/kill-all-buffers :which-key "kill all buffers")
+    "b l" '(evil-switch-to-windows-last-buffer :which-key "last buffer")
+    "b n" '(next-buffer :which-key "next buffer")
+    "b p" '(previous-buffer :which-key "prev buffer")
+    "b r" '(revert-buffer :which-key "revert buffer")
+    "b s" '(save-buffer :which-key "save buffer")
+    "b S" '(evil-write-all :which-key "save all buffers")
+    "b ]" '(next-buffer :which-key "next buffer")
+    "b [" '(previous-buffer :which-key "prev buffer")
+
+    ;; Files
+    "f"   '(:ignore t :which-key "file")
+    "f f" '(find-file :which-key "find file")
+    "f r" '(consult-recent-file :which-key "recent files")
+    "f s" '(save-buffer :which-key "save")
+    "f S" '(write-file :which-key "save as")
+    "f D" '(delete-file :which-key "delete this file")
+    "f y" '(my/yank-file-path :which-key "yank file path")
+
+    ;; Git
+    "g"   '(:ignore t :which-key "git")
+    "g g" '(magit-status :which-key "magit status")
+    "g G" '(magit-status-here :which-key "magit status here")
+    "g B" '(magit-blame :which-key "magit blame")
+    "g /" '(magit-dispatch :which-key "magit dispatch")
+    "g l" '(magit-log-buffer-file :which-key "magit buffer log")
+    "g ]" '(diff-hl-next-hunk :which-key "next hunk")
+    "g [" '(diff-hl-previous-hunk :which-key "prev hunk")
+
+    ;; Help
+    "h"   '(:ignore t :which-key "help")
+    "h f" '(describe-function :which-key "describe function")
+    "h v" '(describe-variable :which-key "describe variable")
+    "h k" '(describe-key :which-key "describe key")
+    "h m" '(describe-mode :which-key "describe mode")
+    "h p" '(describe-package :which-key "describe package")
+    "h i" '(info :which-key "info")
+
+    ;; Notes/Org
+    "n"   '(:ignore t :which-key "notes")
+    "n a" '(org-agenda :which-key "org agenda")
+    "n c" '(org-capture :which-key "org capture")
+    "n l" '(org-store-link :which-key "store link")
+
+    ;; Open
+    "o"   '(:ignore t :which-key "open")
+    "o a" '((lambda () (interactive) (my/open-in-workspace "agenda" #'org-agenda)) :which-key "org agenda")
+    "o m" '((lambda () (interactive) (my/open-in-workspace "mu4e" #'mu4e)) :which-key "mu4e")
+    "o f" '(make-frame :which-key "new frame")
+    "o -" '(dired-jump :which-key "dired")
+    "o e" '((lambda () (interactive) (my/open-in-workspace "elfeed" #'elfeed)) :which-key "elfeed")
+
+    ;; Project
+    "p"   '(:ignore t :which-key "project")
+    "p f" '(project-find-file :which-key "find file")
+    "p p" '(project-switch-project :which-key "switch project")
+    "p b" '(consult-project-buffer :which-key "project buffers")
+    "p d" '(project-find-dir :which-key "find dir")
+    "p k" '(project-kill-buffers :which-key "kill project buffers")
+    "p !" '(project-shell-command :which-key "run cmd in project")
+    "p &" '(project-async-shell-command :which-key "async cmd in project")
+
+    ;; Quit
+    "q"   '(:ignore t :which-key "quit/session")
+    "q q" '(save-buffers-kill-terminal :which-key "quit")
+    "q Q" '(evil-quit-all-with-error-code :which-key "quit without saving")
+    "q K" '(save-buffers-kill-emacs :which-key "kill emacs (and daemon)")
+    "q f" '(delete-frame :which-key "delete frame")
+    "q F" '(my/kill-all-buffers :which-key "clear current frame")
+    "q s" '(persp-save-state-to-file :which-key "save session")
+    "q l" '(persp-load-state-from-file :which-key "restore session")
+    "q r" '(restart-emacs :which-key "restart emacs")
+    "q R" '(my/restart-and-restore :which-key "restart and restore")
+
+    ;; Search
+    "s"   '(:ignore t :which-key "search")
+    "s s" '(consult-line :which-key "search buffer")
+    "s b" '(consult-line-multi :which-key "search all buffers")
+    "s d" '(consult-find :which-key "find file in dir")
+    "s p" '(consult-ripgrep :which-key "search project")
+    "s i" '(consult-imenu :which-key "jump to symbol")
+    "s m" '(consult-bookmark :which-key "jump to bookmark")
+    "s r" '(consult-register :which-key "jump to register")
+
+    ;; Toggle
+    "t"   '(:ignore t :which-key "toggle")
+    "t l" '(display-line-numbers-mode :which-key "line numbers")
+    "t r" '(read-only-mode :which-key "read-only")
+    "t s" '(flyspell-mode :which-key "spell checker")
+    "t w" '(visual-line-mode :which-key "word wrap")
+    "t F" '(toggle-frame-fullscreen :which-key "fullscreen")
+
+    ;; Windows (inherit all C-w bindings from evil-window-map)
+    "w"   '(:keymap evil-window-map :which-key "window")
+
+    ;; Workspaces
+    "TAB"     '(:ignore t :which-key "workspace")
+    "TAB TAB" '(my/workspace-display :which-key "display workspaces")
+    "TAB ."   '(persp-switch :which-key "switch workspace")
+    "TAB `"   '(persp-switch-last :which-key "last workspace")
+    "TAB n"   '(persp-switch :which-key "new workspace")
+    "TAB N"   '(persp-switch :which-key "new named workspace")
+    "TAB d"   '(my/kill-current-workspace :which-key "kill workspace")
+    "TAB r"   '(persp-rename :which-key "rename workspace")
+    "TAB ]"   '(persp-next :which-key "next workspace")
+    "TAB ["   '(persp-prev :which-key "prev workspace")
+
+    "W"   '(weekfile :which-key "weekfile"))
+
+  (defun my/kill-all-buffers ()
+    "Kill all buffers."
+    (interactive)
+    (mapc #'kill-buffer (buffer-list)))
+
+  (defun my/yank-file-path ()
+    "Copy the current buffer's file path to the kill ring."
+    (interactive)
+    (if-let ((path (or buffer-file-name default-directory)))
+        (progn (kill-new path) (message "%s" path))
+      (error "Buffer is not visiting a file")))
+
+  (defun weekfile ()
+    "Open an Org file named YYYY-MM-DD.org for the Monday of the current week."
+    (interactive)
+    (let* ((current-time (current-time))
+           (dow (nth 6 (decode-time current-time)))
+           (offset (if (= dow 0) -6 (- 1 dow)))
+           (monday-time (time-subtract current-time (days-to-time (- offset))))
+           (formatted-date (format-time-string "%Y-%m-%d" monday-time))
+           (filename (expand-file-name (concat formatted-date ".org")
+                                       "~/projects/website/static/")))
+      (find-file filename))))
+
+;;; evil.el ends here
