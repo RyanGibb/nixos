@@ -2,37 +2,64 @@
 
 ;;;; Workspaces
 
-(use-package perspective
+(use-package persp-mode
   :custom
-  (persp-mode-prefix-key (kbd "C-c w"))
-  (persp-sort 'oldest)
+  (persp-auto-resume-time -1)
+  (persp-nil-hidden t)
+  (persp-set-last-persp-for-new-frames t)
+  (persp-switch-to-added-buffer nil)
+  (persp-autokill-buffer-on-remove 'kill-weak)
   :config
-  (persp-mode)
+  (persp-mode 1)
+
+  ;; Track last workspace for switching back
+  (defvar my/workspace--last nil)
+
   ;; M-1 through M-9 to switch workspace by number
   (dotimes (i 9)
     (global-set-key (kbd (format "M-%d" (1+ i)))
                     `(lambda () (interactive)
-                       (persp-switch-by-number ,(1+ i)))))
+                       (let* ((names (cl-remove persp-nil-name persp-names-cache :count 1))
+                              (dest (nth ,i names)))
+                         (when dest
+                           (my/workspace-switch dest))))))
+
+  (defun my/workspace-switch (name)
+    "Switch to workspace NAME, tracking the previous workspace."
+    (let ((old-name (safe-persp-name (get-current-persp))))
+      (unless (equal old-name name)
+        (setq my/workspace--last old-name)
+        (persp-frame-switch name))))
 
   (defun my/open-in-workspace (name fn)
     "Switch to workspace NAME and call FN."
-    (persp-switch name)
+    (my/workspace-switch name)
     (funcall fn))
+
+  (defun my/workspace-switch-last ()
+    "Switch to the last workspace."
+    (interactive)
+    (if (and my/workspace--last
+             (persp-get-by-name my/workspace--last))
+        (my/workspace-switch my/workspace--last)
+      (user-error "No previous workspace")))
 
   ;; Create/switch workspace when switching projects
   (advice-add 'project-switch-project :around
               (lambda (orig-fn &optional dir)
                 (let* ((dir (or dir (project-prompt-project-dir)))
                        (name (file-name-nondirectory (directory-file-name dir))))
-                  (persp-switch name)
+                  (my/workspace-switch name)
                   (funcall orig-fn dir))))
 
   (defun my/kill-current-workspace ()
     "Kill the current workspace."
     (interactive)
-    (if (cdr (persp-names))
-        (persp-kill (persp-current-name))
-      (user-error "Can't delete last workspace")))
+    (let* ((names (cl-remove persp-nil-name persp-names-cache :count 1))
+           (current (safe-persp-name (get-current-persp))))
+      (if (cdr names)
+          (persp-kill current)
+        (user-error "Can't delete last workspace"))))
 
   (defun my/restart-and-restore ()
     "Save the current session and restart Emacs."
@@ -44,8 +71,8 @@
   (defun my/workspace-display ()
     "Display a list of workspaces in the echo area."
     (interactive)
-    (let* ((names (persp-names))
-           (current (persp-current-name))
+    (let* ((names (cl-remove persp-nil-name persp-names-cache :count 1))
+           (current (safe-persp-name (get-current-persp)))
            (message-log-max nil))
       (message "%s"
                (mapconcat

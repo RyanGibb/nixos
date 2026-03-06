@@ -30,7 +30,7 @@ let
       cape
 
       # Workspaces
-      perspective
+      persp-mode
 
       # Leader keys
       general
