@@ -27,6 +27,9 @@
 ;; y/n instead of yes/no
 (setq use-short-answers t)
 
+;; Allow commands in minibuffer while in minibuffer
+(setq enable-recursive-minibuffers t)
+
 ;; Remember recent files
 (recentf-mode 1)
 
