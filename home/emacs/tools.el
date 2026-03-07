@@ -155,15 +155,6 @@
   :custom
   (pdf-view-display-size 'fit-page)
   :config
-  (require 'pdf-annot)
-  (require 'pdf-cache)
-  (require 'pdf-history)
-  (require 'pdf-isearch)
-  (require 'pdf-links)
-  (require 'pdf-misc)
-  (require 'pdf-occur)
-  (require 'pdf-outline)
-  (require 'pdf-sync)
   (pdf-tools-install-noverify)
 
   (defun my/pdf-view-fit-window-to-width ()

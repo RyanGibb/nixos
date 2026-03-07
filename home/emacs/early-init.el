@@ -1,7 +1,8 @@
 ;;; early-init.el --- Early initialization -*- lexical-binding: t; -*-
 
-;; Nix manages packages — disable package.el entirely
-(setq package-enable-at-startup nil)
+;; Nix manages packages — disable installation but keep autoload activation
+;; https://github.com/nix-community/emacs-overlay/issues/497
+(setq package-archives nil)
 
 ;; Defer garbage collection during startup for faster load
 (setq gc-cons-threshold most-positive-fixnum)

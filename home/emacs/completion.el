@@ -27,7 +27,6 @@
          ("M-s l" . consult-line)
          ("M-s r" . consult-ripgrep))
   :init
-  (autoload 'consult-xref "consult-xref")
   (setq xref-show-definitions-function #'consult-xref
         xref-show-xrefs-function #'consult-xref))
 
