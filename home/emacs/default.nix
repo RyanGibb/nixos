@@ -74,6 +74,7 @@ let
       nix-mode
       ledger-mode
       auctex
+      nael
 
       # Tree-sitter
       treesit-grammars.with-all-grammars

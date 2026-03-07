@@ -81,6 +81,25 @@
     "f" '(TeX-fold-paragraph :which-key "fold paragraph")
     "F" '(TeX-fold-clearout-paragraph :which-key "unfold paragraph")))
 
+;;;; Lean 4
+
+(use-package nael
+  :defer t
+  :init
+  (add-hook 'nael-mode-hook #'abbrev-mode)
+  :config
+  (require 'nael-eglot)
+  (add-hook 'nael-mode-hook #'eglot-ensure)
+  (add-hook 'eglot-managed-mode-hook
+            (lambda ()
+              (when (derived-mode-p 'nael-mode)
+                (nael-eglot-configure-when-managed))))
+
+  (my/local-leader-def
+    :keymaps 'nael-mode-map
+    ""  '(:ignore t :which-key "lean")
+    "a" '(nael-abbrev-help :which-key "abbrev help")))
+
 ;;;; Tree-sitter
 
 (setq treesit-font-lock-level 4)
