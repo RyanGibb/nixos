@@ -173,12 +173,13 @@
   (global-set-key [remap describe-variable] #'helpful-variable)
   (global-set-key [remap describe-key] #'helpful-key))
 
-;;;; Xref
-
-(setq xref-show-definitions-function #'consult-xref
-      xref-show-xrefs-function #'consult-xref)
-
 ;;;; Eglot (LSP)
+
+(use-package eldoc-box
+  :after eglot
+  :config
+  (evil-collection-define-key 'normal 'eglot-mode-map
+    "K" 'eldoc-box-help-at-point))
 
 (use-package eglot
   :hook ((neocaml-mode neocaml-interface-mode nix-mode) . eglot-ensure)
