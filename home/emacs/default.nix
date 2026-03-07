@@ -32,6 +32,7 @@ let
       consult
       embark
       embark-consult
+      wgrep
       corfu
       cape
 

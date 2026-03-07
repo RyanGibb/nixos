@@ -98,6 +98,7 @@
     "/"   '(consult-ripgrep :which-key "search project")
     "`"   '(evil-switch-to-windows-last-buffer :which-key "last buffer")
     ";"   '(pp-eval-expression :which-key "eval expression")
+    "a"   '(embark-act :which-key "actions")
     "u"   '(universal-argument :which-key "universal argument")
     "x"   '(scratch-buffer :which-key "scratch buffer")
     "X"   '(org-capture :which-key "org capture")
