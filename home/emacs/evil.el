@@ -26,6 +26,11 @@
 (global-set-key (kbd "<mouse-8>") #'evil-jump-backward)
 (global-set-key (kbd "<mouse-9>") #'evil-jump-forward)
 
+;; Error navigation
+(evil-define-key 'motion 'global
+  "]e" #'flymake-goto-next-error
+  "[e" #'flymake-goto-prev-error)
+
 ;;;; Leader keybindings (SPC)
 
 (use-package general
@@ -88,6 +93,19 @@
     "g l" '(magit-log-buffer-file :which-key "magit buffer log")
     "g ]" '(diff-hl-next-hunk :which-key "next hunk")
     "g [" '(diff-hl-previous-hunk :which-key "prev hunk")
+
+    ;; Code
+    "c"   '(:ignore t :which-key "code")
+    "c a" '(eglot-code-actions :which-key "code actions")
+    "c d" '(xref-find-definitions :which-key "jump to definition")
+    "c D" '(xref-find-references :which-key "jump to references")
+    "c f" '(eglot-format :which-key "format buffer/region")
+    "c i" '(eglot-find-implementation :which-key "find implementations")
+    "c k" '(eldoc-doc-buffer :which-key "documentation")
+    "c r" '(eglot-rename :which-key "rename")
+    "c t" '(eglot-find-typeDefinition :which-key "find type definition")
+    "c w" '(delete-trailing-whitespace :which-key "delete trailing whitespace")
+    "c x" '(flymake-show-buffer-diagnostics :which-key "list diagnostics")
 
     ;; Help
     "h"   '(:ignore t :which-key "help")
