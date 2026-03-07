@@ -178,15 +178,9 @@
     "o -" '(dired-jump :which-key "dired")
     "o e" '((lambda () (interactive) (my/open-in-workspace "elfeed" #'elfeed)) :which-key "elfeed")
 
-    ;; Project
-    "p"   '(:ignore t :which-key "project")
-    "p f" '(project-find-file :which-key "find file")
-    "p p" '(project-switch-project :which-key "switch project")
-    "p b" '(consult-project-buffer :which-key "project buffers")
+    ;; Project (inherit project-prefix-map, override d)
+    "p"   '(:keymap project-prefix-map :which-key "project")
     "p d" '(project-forget-project :which-key "remove known project")
-    "p k" '(project-kill-buffers :which-key "kill project buffers")
-    "p !" '(project-shell-command :which-key "run cmd in project")
-    "p &" '(project-async-shell-command :which-key "async cmd in project")
 
     ;; Quit
     "q"   '(:ignore t :which-key "quit/session")
