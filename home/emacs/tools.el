@@ -10,8 +10,6 @@
   (persp-switch-to-added-buffer nil)
   (persp-autokill-buffer-on-remove 'kill-weak)
   :config
-  (persp-mode 1)
-
   ;; Track last workspace for switching back
   (defvar my/workspace--last nil)
 
@@ -64,10 +62,18 @@
   (defvar my/persp-restore-flag
     (expand-file-name "persp-restore" user-emacs-directory))
 
-  ;; Restore session if flag file exists from previous restart
-  (when (file-exists-p my/persp-restore-flag)
-    (delete-file my/persp-restore-flag)
-    (persp-load-state-from-file))
+  (defun my/persp-init-once ()
+    "Initialize persp-mode. In daemon mode, called after first frame."
+    (remove-hook 'server-after-make-frame-hook #'my/persp-init-once)
+    (persp-mode 1)
+    (when (file-exists-p my/persp-restore-flag)
+      (delete-file my/persp-restore-flag)
+      (persp-load-state-from-file)))
+
+  ;; In daemon mode, defer persp-mode until a frame exists
+  (if (daemonp)
+      (add-hook 'server-after-make-frame-hook #'my/persp-init-once)
+    (my/persp-init-once))
 
   (defun my/restart-and-restore ()
     "Save the current session and restart Emacs."
