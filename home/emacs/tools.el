@@ -178,8 +178,21 @@
 (use-package eldoc-box
   :after eglot
   :config
+  (defun my/eldoc-box-help-at-point ()
+    "Show eldoc in a childframe. If already visible, open in a window."
+    (interactive)
+    (if (and eldoc-box--frame
+             (frame-live-p eldoc-box--frame)
+             (frame-visible-p eldoc-box--frame))
+        (let ((buf (get-buffer eldoc-box--buffer)))
+          (eldoc-box-quit-frame)
+          (when buf
+            (pop-to-buffer buf)
+            (goto-char (point-min))
+            (special-mode)))
+      (eldoc-box-help-at-point)))
   (evil-collection-define-key 'normal 'eglot-mode-map
-    "K" 'eldoc-box-help-at-point))
+    "K" 'my/eldoc-box-help-at-point))
 
 (use-package eglot
   :hook ((neocaml-mode neocaml-interface-mode nix-mode) . eglot-ensure)
