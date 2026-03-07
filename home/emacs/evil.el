@@ -102,7 +102,7 @@
     "u"   '(universal-argument :which-key "universal argument")
     "x"   '(scratch-buffer :which-key "scratch buffer")
     "X"   '(org-capture :which-key "org capture")
-    "A"   '(org-agenda-list :which-key "agenda list")
+    "A"   '((lambda () (interactive) (my/open-in-workspace "agenda" #'org-agenda-list)) :which-key "agenda list")
 
     ;; Buffers
     "b"   '(:ignore t :which-key "buffer")

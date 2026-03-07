@@ -220,7 +220,17 @@
 ;;;; RSS
 
 (use-package elfeed
-  :commands elfeed)
+  :commands elfeed
+  :config
+  (defun my/elfeed-quit ()
+    "Quit elfeed and kill the workspace."
+    (interactive)
+    (elfeed-db-save)
+    (kill-buffer)
+    (when (persp-with-name-exists-p "elfeed")
+      (my/kill-current-workspace)))
+  (evil-define-key 'normal elfeed-search-mode-map
+    "q" #'my/elfeed-quit))
 
 (use-package elfeed-org
   :after elfeed

@@ -174,6 +174,17 @@
   (advice-add 'mu4e-view-headers-next-unread :after #'my/mu4e-headers-recenter)
   (advice-add 'mu4e-view-headers-prev-unread :after #'my/mu4e-headers-recenter)
 
+  (setq mu4e-confirm-quit nil)
+
+  ;; Close mu4e workspace when main buffer is killed
+  (add-hook 'mu4e-main-mode-hook
+            (lambda ()
+              (add-hook 'kill-buffer-hook
+                        (lambda ()
+                          (when (persp-with-name-exists-p "mu4e")
+                            (my/kill-current-workspace)))
+                        nil t)))
+
   ;; 'i' to update index in main view
   (with-eval-after-load 'evil-collection
     (evil-collection-define-key 'normal 'mu4e-main-mode-map
