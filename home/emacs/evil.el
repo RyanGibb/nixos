@@ -155,14 +155,8 @@
     "c w" '(delete-trailing-whitespace :which-key "delete trailing whitespace")
     "c x" '(flymake-show-buffer-diagnostics :which-key "list diagnostics")
 
-    ;; Help
-    "h"   '(:ignore t :which-key "help")
-    "h f" '(describe-function :which-key "describe function")
-    "h v" '(describe-variable :which-key "describe variable")
-    "h k" '(describe-key :which-key "describe key")
-    "h m" '(describe-mode :which-key "describe mode")
-    "h p" '(describe-package :which-key "describe package")
-    "h i" '(info :which-key "info")
+    ;; Help (inherit all C-h bindings from help-map)
+    "h"   '(:keymap help-map :which-key "help")
 
     ;; Insert
     "i"   '(:ignore t :which-key "insert")
