@@ -13,6 +13,10 @@ let
       evil
       evil-collection
       evil-surround
+      evil-nerd-commenter
+      evil-snipe
+      evil-easymotion
+      avy
       undo-tree
 
       # Snippets

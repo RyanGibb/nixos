@@ -22,6 +22,42 @@
   :config
   (global-evil-surround-mode 1))
 
+;; gcc to comment line, gc<motion> to comment region
+(use-package evil-nerd-commenter
+  :after evil
+  :config
+  (evil-define-key '(normal visual) 'global
+    "gc" 'evilnc-comment-operator))
+
+;; s/S for 2-char search (like vim-sneak)
+(use-package evil-snipe
+  :after evil
+  :custom
+  (evil-snipe-scope 'visible)
+  :config
+  (evil-snipe-mode 1)
+  (evil-snipe-override-mode 1))
+
+;; gs prefix for label-based motions: gs s (2-char), gs / (timer), gs SPC (all windows)
+(use-package avy
+  :custom
+  (avy-all-windows nil)
+  (avy-all-windows-alt t)
+  (avy-background t)
+  (avy-single-candidate-jump nil))
+
+(use-package evil-easymotion
+  :after (evil avy)
+  :config
+  (evilem-default-keybindings "gs")
+  (define-key evilem-map "s" #'evil-avy-goto-char-2)
+  (define-key evilem-map "/" #'evil-avy-goto-char-timer)
+  (define-key evilem-map " " (lambda () (interactive)
+                               (let ((current-prefix-arg t))
+                                 (call-interactively #'evil-avy-goto-char-timer))))
+  (define-key evilem-map "a" (evilem-create #'evil-forward-arg))
+  (define-key evilem-map "A" (evilem-create #'evil-backward-arg)))
+
 (use-package undo-tree
   :config
   (global-undo-tree-mode)
