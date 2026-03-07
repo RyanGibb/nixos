@@ -115,6 +115,8 @@
     "b r" '(revert-buffer :which-key "revert buffer")
     "b s" '(save-buffer :which-key "save buffer")
     "b S" '(evil-write-all :which-key "save all buffers")
+    "b N" '(evil-buffer-new :which-key "new empty buffer")
+    "b O" '(my/kill-other-buffers :which-key "kill other buffers")
     "b ]" '(next-buffer :which-key "next buffer")
     "b [" '(previous-buffer :which-key "prev buffer")
 
@@ -125,6 +127,8 @@
     "f s" '(save-buffer :which-key "save")
     "f S" '(write-file :which-key "save as")
     "f D" '(delete-file :which-key "delete this file")
+    "f u" '(my/sudo-find-file :which-key "sudo find file")
+    "f U" '(my/sudo-this-file :which-key "sudo this file")
     "f y" '(my/yank-file-path :which-key "yank file path")
 
     ;; Git
@@ -184,7 +188,7 @@
     "p f" '(project-find-file :which-key "find file")
     "p p" '(project-switch-project :which-key "switch project")
     "p b" '(consult-project-buffer :which-key "project buffers")
-    "p d" '(project-find-dir :which-key "find dir")
+    "p d" '(project-forget-project :which-key "remove known project")
     "p k" '(project-kill-buffers :which-key "kill project buffers")
     "p !" '(project-shell-command :which-key "run cmd in project")
     "p &" '(project-async-shell-command :which-key "async cmd in project")
@@ -205,11 +209,15 @@
     "s"   '(:ignore t :which-key "search")
     "s s" '(consult-line :which-key "search buffer")
     "s b" '(consult-line-multi :which-key "search all buffers")
-    "s d" '(consult-find :which-key "find file in dir")
+    "s d" '((lambda () (interactive) (consult-ripgrep default-directory)) :which-key "search cwd")
     "s p" '(consult-ripgrep :which-key "search project")
     "s i" '(consult-imenu :which-key "jump to symbol")
     "s m" '(consult-bookmark :which-key "jump to bookmark")
-    "s r" '(consult-register :which-key "jump to register")
+    "s r" '(evil-show-marks :which-key "jump to mark")
+    "s S" '((lambda () (interactive) (consult-line (thing-at-point 'symbol))) :which-key "search symbol at point")
+    "s f" '(locate :which-key "locate file")
+    "s j" '(evil-show-jumps :which-key "jump list")
+    "s u" '(undo-tree-visualize :which-key "undo history")
 
     ;; Toggle
     "t"   '(:ignore t :which-key "toggle")
@@ -235,6 +243,21 @@
     "TAB ["   '(persp-prev :which-key "prev workspace")
 
     "W"   '(weekfile :which-key "weekfile"))
+
+  (defun my/kill-other-buffers ()
+    "Kill all buffers except the current one."
+    (interactive)
+    (mapc #'kill-buffer (delq (current-buffer) (buffer-list))))
+
+  (defun my/sudo-find-file (file)
+    "Open FILE with sudo via TRAMP."
+    (interactive "FFind file (sudo): ")
+    (find-file (concat "/sudo::" (expand-file-name file))))
+
+  (defun my/sudo-this-file ()
+    "Re-open the current file with sudo via TRAMP."
+    (interactive)
+    (find-file (concat "/sudo::" (or buffer-file-name (error "Buffer is not visiting a file")))))
 
   (defun my/kill-all-buffers ()
     "Kill all buffers."
