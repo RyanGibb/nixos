@@ -65,6 +65,7 @@ let
       neocaml
       nix-mode
       ledger-mode
+      auctex
 
       # Tree-sitter
       treesit-grammars.with-all-grammars

@@ -149,21 +149,42 @@
 ;;;; PDF
 
 (use-package pdf-tools
+  :demand t
   :mode ("\\.pdf\\'" . pdf-view-mode)
+  :hook (pdf-view-mode . (lambda () (display-line-numbers-mode -1)))
+  :custom
+  (pdf-view-display-size 'fit-page)
   :config
-  (pdf-tools-install :no-query)
+  (require 'pdf-annot)
+  (require 'pdf-cache)
+  (require 'pdf-history)
+  (require 'pdf-isearch)
+  (require 'pdf-links)
+  (require 'pdf-misc)
+  (require 'pdf-occur)
+  (require 'pdf-outline)
+  (require 'pdf-sync)
+  (pdf-tools-install-noverify)
 
   (defun my/pdf-view-fit-window-to-width ()
     "Resize the current window to match the width of the PDF."
     (interactive)
     (when (eq major-mode 'pdf-view-mode)
-      (let* ((pdf-px-width (car (pdf-view-image-size)))
-             (char-width (frame-char-width))
-             (desired-cols (round (/ (float pdf-px-width) (float char-width))))
+      (let* ((page-size (pdf-info-pagesize (pdf-view-current-page)))
+             (page-aspect (/ (float (car page-size)) (cdr page-size)))
+             (win-height-px (* (window-body-height) (frame-char-height)))
+             (ideal-width-px (* win-height-px page-aspect))
+             (desired-cols (round (/ ideal-width-px (float (frame-char-width)))))
              (delta (- desired-cols (window-width))))
-        (window-resize (selected-window) delta t))))
+        (ignore-errors (window-resize (selected-window) delta t)))))
 
-  (add-hook 'pdf-view-after-change-page-hook #'my/pdf-view-fit-window-to-width))
+  (defvar-local my/pdf-initial-fit-done nil)
+  (add-hook 'pdf-view-after-change-page-hook
+            (lambda ()
+              (unless my/pdf-initial-fit-done
+                (setq my/pdf-initial-fit-done t)
+                (my/pdf-view-fit-window-to-width)
+                (pdf-view-redisplay)))))
 
 ;;;; Help
 

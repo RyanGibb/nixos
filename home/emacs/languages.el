@@ -47,6 +47,40 @@
     ""  '(:ignore t :which-key "report")
     "r" '(ledger-report :which-key "report")))
 
+;;;; LaTeX
+
+(require 'tex-site)
+
+(use-package tex
+  :custom
+  (TeX-auto-save t)
+  (TeX-parse-self t)
+  (TeX-source-correlate-mode t)
+  (TeX-source-correlate-method 'synctex)
+  (TeX-source-correlate-start-server nil)
+  (preview-auto-cache-preamble nil)
+  :config
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools")))
+  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+  (setq-default TeX-command-default "LaTeX")
+  (defun my/latex-compile ()
+    "Save and compile the LaTeX document."
+    (interactive)
+    (TeX-save-document (TeX-master-file))
+    (TeX-command TeX-command-default 'TeX-master-file -1))
+
+  (my/local-leader-def
+    :keymaps '(LaTeX-mode-map latex-mode-map)
+    ""  '(:ignore t :which-key "latex")
+    "v" '(TeX-view :which-key "view")
+    "c" '(my/latex-compile :which-key "compile")
+    "a" '(TeX-command-run-all :which-key "run all")
+    "m" '(TeX-command-master :which-key "run a command")
+    "p" '(preview-at-point :which-key "preview")
+    "P" '(preview-clearout-at-point :which-key "clear preview")
+    "f" '(TeX-fold-paragraph :which-key "fold paragraph")
+    "F" '(TeX-fold-clearout-paragraph :which-key "unfold paragraph")))
+
 ;;;; Tree-sitter
 
 (setq treesit-font-lock-level 4)
