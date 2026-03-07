@@ -202,6 +202,7 @@ in
                 "0" = "Alt+Shift+space";
               };
             };
+            addons.clipboard.globalSection."TriggerKey" = "";
             inputMethod = {
               GroupOrder."0" = "Default";
               "Groups/0" = {
