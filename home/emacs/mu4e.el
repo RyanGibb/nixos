@@ -14,7 +14,7 @@
   (setq mu4e-search-show-threads nil)
   (setq mu4e-search-include-related nil)
   (setq mu4e-context-policy 'pick-first)
-  (setq shr-color-visible-luminance-min 80)
+  (setq shr-use-colors nil)
 
   (let ((full-name "Ryan Gibb")
         (signature nil))
