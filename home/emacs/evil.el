@@ -230,6 +230,7 @@
 
     ;; Windows (inherit all C-w bindings from evil-window-map)
     "w"   '(:keymap evil-window-map :which-key "window")
+    "w d" '(kill-buffer-and-window :which-key "kill buffer & window")
 
     ;; Workspaces
     "TAB"     '(:ignore t :which-key "workspace")
