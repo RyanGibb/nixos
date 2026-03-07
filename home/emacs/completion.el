@@ -36,7 +36,10 @@
   :custom
   (corfu-auto t)
   (corfu-auto-delay 0.2)
-  :config (global-corfu-mode))
+  :config
+  (global-corfu-mode)
+  (evil-define-key 'insert 'global
+    (kbd "C-SPC") #'completion-at-point))
 
 (use-package cape
   :init
@@ -46,10 +49,20 @@
 ;;;; Snippets
 
 (use-package yasnippet
-  :config (yas-global-mode 1))
+  :config
+  (add-to-list 'yas-snippet-dirs
+               (expand-file-name "snippets" user-emacs-directory))
+  (yas-global-mode 1))
 
 (use-package yasnippet-snippets
   :after yasnippet)
+
+(use-package yasnippet-capf
+  :after (yasnippet cape)
+  :config
+  (add-hook 'yas-minor-mode-hook
+            (lambda ()
+              (add-hook 'completion-at-point-functions #'yasnippet-capf 30 t))))
 
 ;;;; Key discovery
 

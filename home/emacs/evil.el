@@ -16,6 +16,12 @@
   :config
   (evil-collection-init))
 
+;; ys<motion><char> to add, cs<old><new> to change, ds<char> to delete, S in visual
+(use-package evil-surround
+  :after evil
+  :config
+  (global-evil-surround-mode 1))
+
 (use-package undo-tree
   :config
   (global-undo-tree-mode)
@@ -37,9 +43,10 @@
   :after evil
   :config
   (general-create-definer my/leader-def
-    :states '(normal visual motion)
+    :states '(normal visual motion insert emacs)
     :keymaps 'override
-    :prefix "SPC")
+    :prefix "SPC"
+    :non-normal-prefix "M-SPC")
 
   (general-create-definer my/local-leader-def
     :states '(normal visual motion)
@@ -115,6 +122,12 @@
     "h m" '(describe-mode :which-key "describe mode")
     "h p" '(describe-package :which-key "describe package")
     "h i" '(info :which-key "info")
+
+    ;; Insert
+    "i"   '(:ignore t :which-key "insert")
+    "i s" '(yas-insert-snippet :which-key "snippet")
+    "i e" '(insert-char :which-key "unicode")
+    "i r" '(evil-show-registers :which-key "from register")
 
     ;; Notes/Org
     "n"   '(:ignore t :which-key "notes")

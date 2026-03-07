@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: open
+# key: open
+# --
+open ${1:Module}

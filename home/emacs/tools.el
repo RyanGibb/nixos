@@ -209,6 +209,8 @@
 (use-package eglot
   :hook ((neocaml-mode neocaml-interface-mode nix-mode) . eglot-ensure)
   :config
+  ;; Make eglot non-exclusive so other capfs (yasnippet, cape) can contribute
+  (advice-add #'eglot-completion-at-point :around #'cape-wrap-nonexclusive)
   ;; Only needed for modes eglot doesn't have a default server for
   (add-to-list 'eglot-server-programs
                '((neocaml-mode neocaml-interface-mode) . ("ocamllsp")))

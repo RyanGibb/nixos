@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: module M = F(...)
+# key: modm
+# --
+module ${1:M} = ${2:F}(${3:Arg})

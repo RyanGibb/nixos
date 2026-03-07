@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: if ... then ... else
+# key: if
+# --
+if ${1:cond} then
+  ${2:expr}
+else
+  $0

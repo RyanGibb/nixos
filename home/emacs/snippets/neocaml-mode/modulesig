@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: module type
+# key: modt
+# --
+module type ${1:NAME} = sig
+  $0
+end

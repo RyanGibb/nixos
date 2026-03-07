@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: type variant
+# key: typev
+# --
+type ${1:t} =
+  | ${2:Constructor} of $0

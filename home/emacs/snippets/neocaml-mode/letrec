@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: let rec
+# key: letr
+# --
+let rec ${1:f} ${2:x} =
+  $0

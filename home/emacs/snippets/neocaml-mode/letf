@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: let f x = ...
+# key: letf
+# --
+let ${1:f} ${2:x} =
+  $0

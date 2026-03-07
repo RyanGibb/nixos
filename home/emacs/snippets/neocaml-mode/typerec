@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: type record
+# key: typer
+# --
+type ${1:t} = {
+  ${2:field} : ${3:typ};
+  $0
+}

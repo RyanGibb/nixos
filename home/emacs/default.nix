@@ -12,11 +12,13 @@ let
       # Evil (vim keybindings)
       evil
       evil-collection
+      evil-surround
       undo-tree
 
       # Snippets
       yasnippet
       yasnippet-snippets
+      yasnippet-capf
 
       # Completion
       vertico
@@ -94,6 +96,7 @@ in
     xdg.configFile."emacs/org.el".source = ./org.el;
     xdg.configFile."emacs/mu4e.el".source = ./mu4e.el;
     xdg.configFile."emacs/languages.el".source = ./languages.el;
+    xdg.configFile."emacs/snippets".source = ./snippets;
 
     services.emacs = {
       enable = true;

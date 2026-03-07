@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: let ... in
+# key: let
+# --
+let ${1:x} = ${2:expr} in
