@@ -187,28 +187,40 @@
 
 ;;;; Eglot (LSP)
 
-(use-package eldoc-box
-  :after eglot
-  :config
-  (defun my/eldoc-box-help-at-point ()
-    "Show eldoc in a childframe. If already visible, open in a window."
-    (interactive)
-    (if (and eldoc-box--frame
-             (frame-live-p eldoc-box--frame)
-             (frame-visible-p eldoc-box--frame))
-        (let ((buf (get-buffer eldoc-box--buffer)))
-          (eldoc-box-quit-frame)
-          (when buf
-            (pop-to-buffer buf)
-            (goto-char (point-min))
-            (special-mode)))
-      (eldoc-box-help-at-point)))
-  (evil-collection-define-key 'normal 'eglot-mode-map
-    "K" 'my/eldoc-box-help-at-point))
+(add-to-list 'display-buffer-alist
+             '("\\*eldoc\\*"
+               (display-buffer-in-side-window)
+               (side . bottom) (slot . 1)
+               (window-height . shrink-window-if-larger-than-buffer)))
+
+(defun my/eldoc-help-at-point ()
+  "Show eldoc documentation buffer, auto-dismissing on cursor movement.
+Second press focuses the documentation window instead."
+  (interactive)
+  (let* ((buf (get-buffer "*eldoc*"))
+         (win (and buf (get-buffer-window buf))))
+    (if win
+        (select-window win)
+      (eldoc-doc-buffer t)
+      (when-let* ((buf (get-buffer "*eldoc*"))
+                  (win (get-buffer-window buf)))
+        (let ((source-window (selected-window)))
+          (letrec ((dismiss (lambda ()
+                              (cond
+                               ((eq this-command #'my/eldoc-help-at-point) nil)
+                               ((not (eq (selected-window) source-window)) nil)
+                               (t (when-let* ((w (get-buffer-window buf)))
+                                    (quit-window nil w))
+                                  (remove-hook 'post-command-hook dismiss))))))
+            (run-with-timer 0 nil
+                            (lambda ()
+                              (add-hook 'post-command-hook dismiss)))))))))
 
 (use-package eglot
   :hook ((neocaml-mode neocaml-interface-mode nix-mode) . eglot-ensure)
   :config
+  (evil-collection-define-key 'normal 'eglot-mode-map
+    "K" #'my/eldoc-help-at-point)
   ;; Make eglot non-exclusive so other capfs (yasnippet, cape) can contribute
   (advice-add #'eglot-completion-at-point :around #'cape-wrap-nonexclusive)
   ;; Only needed for modes eglot doesn't have a default server for

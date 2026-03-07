@@ -50,7 +50,6 @@ let
 
       # Help
       helpful
-      eldoc-box
 
       # Tools
       magit
