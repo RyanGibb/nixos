@@ -130,6 +130,8 @@
 
 (use-package magit
   :bind ("C-x g" . magit-status)
+  :custom
+  (magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
   :config
   (defun my/magit-commit-update ()
     "Create a commit with the message \"update\"."

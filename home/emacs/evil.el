@@ -12,6 +12,7 @@
   :after evil
   :init
   (setq evil-collection-setup-minibuffer t)
+  (setq evil-collection-magit-use-z-for-folds t)
   :config
   (evil-collection-init))
 
