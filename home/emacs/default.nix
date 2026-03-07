@@ -16,6 +16,7 @@ let
       evil-nerd-commenter
       evil-snipe
       evil-easymotion
+      evil-org
       avy
       undo-tree
 

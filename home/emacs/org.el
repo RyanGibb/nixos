@@ -69,6 +69,15 @@
             (tags-todo "habit"))
            ((org-agenda-compact-blocks nil))))))
 
+(use-package evil-org
+  :after org
+  :hook (org-mode . evil-org-mode))
+
+(use-package evil-org-agenda
+  :after org-agenda
+  :config
+  (evil-org-agenda-set-keys))
+
 ;;;; Org local leader bindings (SPC m)
 
 (with-eval-after-load 'general
