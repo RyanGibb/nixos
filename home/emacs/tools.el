@@ -269,9 +269,15 @@ Second press focuses the documentation window instead."
   ;; Hide evil's cursor in insert mode so only vterm's terminal cursor shows
   (add-hook 'vterm-mode-hook
             (lambda ()
+              (setq-local evil-normal-state-cursor 'box)
               (setq-local evil-insert-state-cursor '(nil))))
   (evil-collection-define-key 'insert 'vterm-mode-map
-    (kbd "C-c") #'vterm--self-insert))
+    (kbd "C-c") #'vterm--self-insert)
+  ;; vterm--self-insert-meta mishandles M-RET (sends C-M-m instead of ESC RET)
+  (define-key vterm-mode-map (kbd "M-RET")
+              (lambda () (interactive)
+                (when vterm--term
+                  (process-send-string vterm--process "\e\C-m")))))
 
 ;;;; Claude Code
 
