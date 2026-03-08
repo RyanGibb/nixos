@@ -261,4 +261,25 @@ Second press focuses the documentation window instead."
     (when cfg
       (plist-put cfg 'modes '(neocaml-mode neocaml-interface-mode)))))
 
+;;;; Terminal
+
+(use-package vterm
+  :commands vterm
+  :config
+  ;; Hide evil's cursor in insert mode so only vterm's terminal cursor shows
+  (add-hook 'vterm-mode-hook
+            (lambda ()
+              (setq-local evil-insert-state-cursor '(nil))))
+  (evil-collection-define-key 'insert 'vterm-mode-map
+    (kbd "C-c") #'vterm--self-insert))
+
+;;;; Claude Code
+
+(use-package claude-code-ide
+  :bind ("C-c C-'" . claude-code-ide-menu)
+  :custom
+  (claude-code-ide-terminal-backend 'vterm)
+  :config
+  (claude-code-ide-emacs-tools-setup))
+
 ;;; tools.el ends here

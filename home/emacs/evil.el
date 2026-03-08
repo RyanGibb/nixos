@@ -184,6 +184,8 @@
     "o f" '(make-frame :which-key "new frame")
     "o -" '(dired-jump :which-key "dired")
     "o e" '((lambda () (interactive) (my/open-in-workspace "elfeed" #'elfeed)) :which-key "elfeed")
+    "o c" '(claude-code-ide-menu :which-key "claude code")
+    "o t" '(vterm :which-key "terminal")
 
     ;; Project (inherit project-prefix-map, override d)
     "p"   '(:keymap project-prefix-map :which-key "project")

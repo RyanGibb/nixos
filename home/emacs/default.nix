@@ -7,7 +7,19 @@
 
 let
   cfg = config.custom.emacs;
-  emacs = (pkgs.emacsPackagesFor pkgs.emacs30-pgtk).emacsWithPackages (
+  emacsPackages = pkgs.emacsPackagesFor pkgs.emacs30-pgtk;
+  claude-code-ide = emacsPackages.trivialBuild {
+    pname = "claude-code-ide";
+    version = "0-unstable-2025-03-08";
+    src = pkgs.fetchFromGitHub {
+      owner = "manzaltu";
+      repo = "claude-code-ide.el";
+      rev = "5f12e60c6d2d1802c8c1b7944bbdf935d5db1364";
+      hash = "sha256-tivRvgfI/8XBRImE3wuZ1UD0t2dNWYscv3Aa53BmHZE=";
+    };
+    packageRequires = with emacsPackages; [ vterm websocket transient web-server ];
+  };
+  emacs = emacsPackages.emacsWithPackages (
     epkgs: with epkgs; [
       # Evil (vim keybindings)
       evil
@@ -64,6 +76,12 @@ let
       # RSS
       elfeed
       elfeed-org
+
+      # Terminal
+      vterm
+
+      # AI
+      claude-code-ide
 
       # Debugger
       dape
