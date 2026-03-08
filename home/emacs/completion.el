@@ -30,7 +30,8 @@
          ("M-s r" . consult-ripgrep))
   :init
   (setq xref-show-definitions-function #'consult-xref
-        xref-show-xrefs-function #'consult-xref))
+        xref-show-xrefs-function #'consult-xref)
+  (define-key minibuffer-local-map (kbd "C-s") #'consult-history))
 
 ;;;; In-buffer
 
@@ -65,6 +66,27 @@
   (add-hook 'yas-minor-mode-hook
             (lambda ()
               (add-hook 'completion-at-point-functions #'yasnippet-capf 30 t))))
+
+;;;; Shell history
+
+(defun my/load-zsh-history ()
+  "Load zsh history into `shell-command-history'."
+  (let ((histfile (expand-file-name "~/.histfile")))
+    (when (file-exists-p histfile)
+      (with-temp-buffer
+        (insert-file-contents histfile)
+        (goto-char (point-min))
+        (let (lines)
+          (while (not (eobp))
+            (let ((line (buffer-substring-no-properties
+                         (line-beginning-position) (line-end-position))))
+              (unless (string-empty-p line)
+                (push line lines)))
+            (forward-line 1))
+          (setq shell-command-history
+                (delete-dups lines)))))))
+
+(add-hook 'emacs-startup-hook #'my/load-zsh-history)
 
 ;;;; Key discovery
 

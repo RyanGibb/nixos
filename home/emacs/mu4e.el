@@ -174,6 +174,7 @@
   (advice-add 'mu4e-view-headers-next-unread :after #'my/mu4e-headers-recenter)
   (advice-add 'mu4e-view-headers-prev-unread :after #'my/mu4e-headers-recenter)
 
+  (setq mu4e-completing-read-function #'completing-read-default)
   (setq mu4e-confirm-quit nil)
 
   ;; Close mu4e workspace when main buffer is killed
