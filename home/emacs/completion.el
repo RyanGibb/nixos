@@ -83,8 +83,7 @@
               (unless (string-empty-p line)
                 (push line lines)))
             (forward-line 1))
-          (setq shell-command-history
-                (delete-dups (append shell-command-history lines))))))))
+          (setq shell-command-history (delete-dups lines)))))))
 
 (add-hook 'emacs-startup-hook #'my/load-zsh-history)
 
@@ -93,7 +92,9 @@
   (let ((histfile (expand-file-name "~/.histfile")))
     (write-region (concat command "\n") nil histfile 'append 'silent)))
 
-(advice-add 'shell-command :before #'my/append-to-zsh-history)
+;; Only advise async-shell-command, not shell-command, because
+;; async-shell-command delegates to shell-command with " &" appended
+;; and advising both would create duplicate entries.
 (advice-add 'async-shell-command :before #'my/append-to-zsh-history)
 
 ;;;; Key discovery

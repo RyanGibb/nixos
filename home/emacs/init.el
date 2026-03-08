@@ -37,7 +37,7 @@
 (recentf-mode 1)
 
 ;; Remember minibuffer history (shell-command-history loaded from zsh histfile)
-(setq savehist-ignored-variables '(shell-command-history))
+(setq savehist-ignored-variables '(shell-command-history command-history))
 (savehist-mode 1)
 
 ;; Remember cursor position in files
@@ -80,6 +80,10 @@
               (x (user-error "embark category %S doesn't support writable export" x)))))
          (embark-after-export-hook `(,@embark-after-export-hook ,edit-command)))
     (embark-export)))
+
+;; Focus async shell command output
+(add-to-list 'display-buffer-alist
+             '("\\*Async Shell Command\\*" nil (body-function . select-window)))
 
 ;; Group grep results by file
 (setq grep-use-headings t)

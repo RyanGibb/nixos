@@ -15,7 +15,8 @@
   (setq evil-collection-setup-minibuffer t)
   (setq evil-collection-magit-use-z-for-folds t)
   :config
-  (evil-collection-init))
+  (evil-collection-init)
+  (evil-set-initial-state 'shell-command-mode 'normal))
 
 ;; ys<motion><char> to add, cs<old><new> to change, ds<char> to delete, S in visual
 (use-package evil-surround
