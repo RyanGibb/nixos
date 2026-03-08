@@ -36,7 +36,8 @@
 ;; Remember recent files
 (recentf-mode 1)
 
-;; Remember minibuffer history
+;; Remember minibuffer history (shell-command-history loaded from zsh histfile)
+(setq savehist-ignored-variables '(shell-command-history))
 (savehist-mode 1)
 
 ;; Remember cursor position in files

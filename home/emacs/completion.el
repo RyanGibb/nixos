@@ -84,9 +84,17 @@
                 (push line lines)))
             (forward-line 1))
           (setq shell-command-history
-                (delete-dups lines)))))))
+                (delete-dups (append shell-command-history lines))))))))
 
 (add-hook 'emacs-startup-hook #'my/load-zsh-history)
+
+(defun my/append-to-zsh-history (command &rest _)
+  "Append COMMAND to zsh histfile."
+  (let ((histfile (expand-file-name "~/.histfile")))
+    (write-region (concat command "\n") nil histfile 'append 'silent)))
+
+(advice-add 'shell-command :before #'my/append-to-zsh-history)
+(advice-add 'async-shell-command :before #'my/append-to-zsh-history)
 
 ;;;; Key discovery
 
