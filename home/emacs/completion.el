@@ -6,7 +6,9 @@
   :config
   (vertico-mode)
   (require 'vertico-sort)
-  (setq vertico-sort-function #'vertico-sort-history-length-alpha))
+  (setq vertico-sort-function #'vertico-sort-history-length-alpha)
+  (require 'vertico-repeat)
+  (add-hook 'minibuffer-setup-hook #'vertico-repeat-save))
 
 (use-package vertico-posframe
   :config (vertico-posframe-mode 1))

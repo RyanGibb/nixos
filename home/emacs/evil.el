@@ -97,6 +97,8 @@
     ","   '(consult-buffer :which-key "switch buffer")
     "/"   '(consult-ripgrep :which-key "search project")
     "`"   '(evil-switch-to-windows-last-buffer :which-key "last buffer")
+    "RET" '(bookmark-jump :which-key "bookmark jump")
+    "'"   '(vertico-repeat :which-key "resume last search")
     ";"   '(pp-eval-expression :which-key "eval expression")
     "a"   '(embark-act :which-key "actions")
     "u"   '(universal-argument :which-key "universal argument")
@@ -117,6 +119,8 @@
     "b s" '(save-buffer :which-key "save buffer")
     "b S" '(evil-write-all :which-key "save all buffers")
     "b N" '(evil-buffer-new :which-key "new empty buffer")
+    "b m" '(bookmark-set :which-key "set bookmark")
+    "b M" '(bookmark-delete :which-key "delete bookmark")
     "b O" '(my/kill-other-buffers :which-key "kill other buffers")
     "b ]" '(next-buffer :which-key "next buffer")
     "b [" '(previous-buffer :which-key "prev buffer")
@@ -141,6 +145,8 @@
     "g l" '(magit-log-buffer-file :which-key "magit buffer log")
     "g ]" '(diff-hl-next-hunk :which-key "next hunk")
     "g [" '(diff-hl-previous-hunk :which-key "prev hunk")
+    "g s" '(diff-hl-stage-current-hunk :which-key "stage hunk")
+    "g r" '(diff-hl-revert-hunk :which-key "revert hunk")
 
     ;; Code
     "c"   '(:ignore t :which-key "code")
