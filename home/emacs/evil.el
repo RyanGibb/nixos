@@ -229,6 +229,7 @@
     ;; Windows (inherit all C-w bindings from evil-window-map)
     "w"   '(:keymap evil-window-map :which-key "window")
     "w d" '(kill-buffer-and-window :which-key "kill buffer & window")
+    "w w" '(ace-window :which-key "ace window")
 
     ;; Workspaces
     "TAB"     '(:ignore t :which-key "workspace")
@@ -243,6 +244,12 @@
     "TAB ["   '(persp-prev :which-key "prev workspace")
 
     "W"   '(weekfile :which-key "weekfile"))
+
+  ;; Remove C- duplicates from evil-window-map so C-h (help) works under SPC w
+  (dolist (key '("\C-h" "\C-j" "\C-k" "\C-l" "\C-s" "\C-v"
+                 "\C-n" "\C-p" "\C-o" "\C-r" "\C-c" "\C-f"
+                 "\C-b" "\C-t" "\C-x" "\C-_" "\C-]"))
+    (define-key evil-window-map key nil))
 
   (defun my/kill-other-buffers ()
     "Kill all buffers except the current one."

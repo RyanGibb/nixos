@@ -60,6 +60,9 @@ let
       doom-modeline
       nerd-icons
 
+      # Windows
+      ace-window
+
       # Help
       helpful
 
