@@ -139,9 +139,7 @@
            :query "date:7d..now"
            :hide-unread t
            :key ?w)
-          (:name "Messages with images"
-           :query "mime:image/*"
-           :key ?p)))
+))
 
   (setq mu4e-headers-fields
         '((:maildir . 40)
