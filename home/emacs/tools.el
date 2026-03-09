@@ -46,7 +46,9 @@
   (advice-add 'project-switch-project :around
               (lambda (orig-fn &optional dir)
                 (let* ((dir (or dir (project-prompt-project-dir)))
-                       (name (file-name-nondirectory (directory-file-name dir))))
+                       (name (if-let ((host (file-remote-p dir 'host)))
+                                 (format "%s:%s" host (file-remote-p dir 'localname))
+                               dir)))
                   (my/workspace-switch name)
                   (funcall orig-fn dir))))
 
@@ -82,6 +84,13 @@
     (write-region "" nil my/persp-restore-flag)
     (restart-emacs))
 
+  (defun my/workspace-short-name (name)
+    "Return a short display name for workspace NAME."
+    (let ((base (file-name-nondirectory (directory-file-name name))))
+      (if (string-match "\\`\\([^:]+\\):" name)
+          (format "%s@%s" base (match-string 1 name))
+        base)))
+
   (defun my/workspace-display ()
     "Display a list of workspaces in the echo area."
     (interactive)
@@ -92,7 +101,7 @@
                (mapconcat
                 (lambda (name)
                   (let ((i (1+ (cl-position name names :test #'equal))))
-                    (propertize (format " [%d] %s " i name)
+                    (propertize (format " [%d] %s " i (my/workspace-short-name name))
                                 'face (if (equal name current)
                                           'highlight
                                         'default))))
