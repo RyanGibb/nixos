@@ -282,27 +282,61 @@ Second press focuses the documentation window instead."
 
 ;;;; Claude Code
 
-(defun my/mcp-read-buffer ()
-  "Read the contents of the currently active buffer in Emacs."
-  (claude-code-ide-mcp-server-with-session-context nil
-    (let ((file (or buffer-file-name (buffer-name)))
-          (content (buffer-substring-no-properties (point-min) (point-max)))
-          (line (line-number-at-pos))
-          (total-lines (count-lines (point-min) (point-max))))
-      (format "File: %s\nCursor at line: %d\nTotal lines: %d\n\n%s"
-              file line total-lines content))))
+(defun my/mcp-user-buffers ()
+  "Get visible non-claude-code buffers, ordered by most recently accessed."
+  (cl-remove-if (lambda (buf)
+                  (or (string-match-p "\\*claude-code" (buffer-name buf))
+                      (minibufferp buf)
+                      (not (get-buffer-window buf))))
+                (buffer-list)))
 
-(defun my/mcp-edit-buffer (old-text new-text)
-  "Replace OLD-TEXT with NEW-TEXT in the currently active buffer."
-  (claude-code-ide-mcp-server-with-session-context nil
-    (let ((file (or buffer-file-name (buffer-name))))
-      (save-excursion
-        (goto-char (point-min))
-        (if (search-forward old-text nil t)
-            (progn
-              (replace-match new-text t t)
-              (format "Replaced text in %s" file))
-          (format "Text not found in %s" file))))))
+(defun my/mcp-list-buffers ()
+  "List all visible user buffers with index, file path, and cursor position."
+  (let ((bufs (my/mcp-user-buffers))
+        (i 0))
+    (if bufs
+        (mapconcat (lambda (buf)
+                     (with-current-buffer buf
+                       (prog1 (format "[%d] %s (line %d/%d)"
+                                      i
+                                      (or buffer-file-name (buffer-name))
+                                      (line-number-at-pos)
+                                      (count-lines (point-min) (point-max)))
+                         (cl-incf i))))
+                   bufs "\n")
+      "No user buffers found")))
+
+(defun my/mcp-read-buffer (&optional index)
+  "Read the contents of a visible buffer in Emacs.
+INDEX selects which buffer (0 = most recent, default)."
+  (let* ((bufs (my/mcp-user-buffers))
+         (buf (nth (or index 0) bufs)))
+    (if buf
+        (with-current-buffer buf
+          (let ((file (or buffer-file-name (buffer-name)))
+                (content (buffer-substring-no-properties (point-min) (point-max)))
+                (line (line-number-at-pos))
+                (total-lines (count-lines (point-min) (point-max))))
+            (format "File: %s\nCursor at line: %d\nTotal lines: %d\n\n%s"
+                    file line total-lines content)))
+      "No user buffer found")))
+
+(defun my/mcp-edit-buffer (old-text new-text &optional index)
+  "Replace OLD-TEXT with NEW-TEXT in a visible buffer.
+INDEX selects which buffer (0 = most recent, default)."
+  (let* ((bufs (my/mcp-user-buffers))
+         (buf (nth (or index 0) bufs)))
+    (if buf
+        (with-current-buffer buf
+          (let ((file (or buffer-file-name (buffer-name))))
+            (save-excursion
+              (goto-char (point-min))
+              (if (search-forward old-text nil t)
+                  (progn
+                    (replace-match new-text t t)
+                    (format "Replaced text in %s" file))
+                (format "Text not found in %s" file)))))
+      "No user buffer found")))
 
 (use-package claude-code-ide
   :bind ("C-c C-'" . claude-code-ide-menu)
@@ -312,10 +346,19 @@ Second press focuses the documentation window instead."
   (claude-code-ide-emacs-tools-setup)
 
   (claude-code-ide-make-tool
+   :function #'my/mcp-list-buffers
+   :name "list-buffers"
+   :description "List all visible user buffers (excluding claude-code), ordered by most recently accessed. Returns index, file path, cursor line, and total lines for each. Use the index with read-current-buffer and edit-current-buffer."
+   :args nil)
+
+  (claude-code-ide-make-tool
    :function #'my/mcp-read-buffer
    :name "read-current-buffer"
    :description "Read the full contents of the currently active buffer in Emacs. Returns the file path, cursor position, total lines, and buffer contents."
-   :args nil)
+   :args '((:name "index"
+                  :type integer
+                  :description "Buffer index from list-buffers (0 = most recent, default)"
+                  :optional t)))
 
   (claude-code-ide-make-tool
    :function #'my/mcp-edit-buffer
@@ -326,6 +369,10 @@ Second press focuses the documentation window instead."
                   :description "The exact text to find and replace")
            (:name "new_text"
                   :type string
-                  :description "The replacement text"))))
+                  :description "The replacement text")
+           (:name "index"
+                  :type integer
+                  :description "Buffer index from list-buffers (0 = most recent, default)"
+                  :optional t))))
 
 ;;; tools.el ends here
