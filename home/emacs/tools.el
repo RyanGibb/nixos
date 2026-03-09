@@ -91,6 +91,22 @@
           (format "%s@%s" base (match-string 1 name))
         base)))
 
+  (defun my/workspace-move (n)
+    "Move the current workspace to position N (1-indexed)."
+    (interactive "nMove to position: ")
+    (let* ((names (cl-remove persp-nil-name persp-names-cache :count 1))
+           (current (safe-persp-name (get-current-persp)))
+           (idx (1- n)))
+      (when (or (< idx 0) (>= idx (length names)))
+        (user-error "Position %d out of range (1-%d)" n (length names)))
+      (setq names (cl-remove current names :test #'equal :count 1))
+      (setq persp-names-cache
+            (cons persp-nil-name
+                  (append (cl-subseq names 0 idx)
+                          (list current)
+                          (cl-subseq names idx))))
+      (my/workspace-display)))
+
   (defun my/workspace-display ()
     "Display a list of workspaces in the echo area."
     (interactive)

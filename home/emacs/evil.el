@@ -239,6 +239,7 @@
     "TAB n"   '(persp-frame-switch :which-key "new workspace")
     "TAB N"   '(persp-frame-switch :which-key "new named workspace")
     "TAB d"   '(my/kill-current-workspace :which-key "kill workspace")
+    "TAB m"   '(my/workspace-move :which-key "move workspace")
     "TAB r"   '(persp-rename :which-key "rename workspace")
     "TAB ]"   '(persp-next :which-key "next workspace")
     "TAB ["   '(persp-prev :which-key "prev workspace")
