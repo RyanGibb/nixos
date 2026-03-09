@@ -81,9 +81,14 @@
          (embark-after-export-hook `(,@embark-after-export-hook ,edit-command)))
     (embark-export)))
 
-;; Focus async shell command output
+;; Name async shell buffers by command, and focus output
+(advice-add 'async-shell-command :around
+            (lambda (orig command &optional output-buffer error-buffer)
+              (funcall orig command
+                       (or output-buffer (format "*Command: %s*" command))
+                       error-buffer)))
 (add-to-list 'display-buffer-alist
-             '("\\*Async Shell Command\\*" nil (body-function . select-window)))
+             '((derived-mode . shell-command-mode) nil (body-function . select-window)))
 
 ;; Group grep results by file
 (setq grep-use-headings t)
