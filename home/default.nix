@@ -135,7 +135,7 @@ in
       initContent =
         let
           zshConfigEarlyInit = lib.mkOrder 500 ''
-            [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+            [[ $TERM == "dumb" ]] && unsetopt zle prompt_sp && PS1='$ ' && return
             export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
             export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=5"
             PROMPT='%(?..%F{red}%3?%f )%F{${config.custom.machineColour}}%n@%m%f:%~ %#'$'\n'
