@@ -341,6 +341,18 @@ INDEX selects which buffer (0 = most recent, default)."
                 (format "Text not found in %s" file)))))
       "No user buffer found")))
 
+(defun my/mcp-magit-commit (files message &optional push)
+  "Stage FILES, commit with MESSAGE, and optionally PUSH via magit."
+  (require 'magit)
+  (let ((file-list (split-string files)))
+    (dolist (f file-list)
+      (magit-run-git "add" f))
+    (magit-run-git "commit" "-m" message)
+    (when push
+      (magit-push-current-to-upstream nil))
+    (format "Committed %d file(s)%s" (length file-list)
+            (if push " and pushed" ""))))
+
 (use-package claude-code-ide
   :bind ("C-c C-'" . claude-code-ide-menu)
   :custom
@@ -376,6 +388,21 @@ INDEX selects which buffer (0 = most recent, default)."
            (:name "index"
                   :type integer
                   :description "Buffer index from list-buffers (0 = most recent, default)"
+                  :optional t)))
+
+  (claude-code-ide-make-tool
+   :function #'my/mcp-magit-commit
+   :name "magit-commit"
+   :description "Stage files, commit with a message, and optionally push via magit."
+   :args '((:name "files"
+                  :type string
+                  :description "Space-separated file paths to stage (relative to project root)")
+           (:name "message"
+                  :type string
+                  :description "Commit message")
+           (:name "push"
+                  :type boolean
+                  :description "Push to upstream after committing"
                   :optional t))))
 
 ;;; tools.el ends here
