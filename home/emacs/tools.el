@@ -282,11 +282,50 @@ Second press focuses the documentation window instead."
 
 ;;;; Claude Code
 
+(defun my/mcp-read-buffer ()
+  "Read the contents of the currently active buffer in Emacs."
+  (claude-code-ide-mcp-server-with-session-context nil
+    (let ((file (or buffer-file-name (buffer-name)))
+          (content (buffer-substring-no-properties (point-min) (point-max)))
+          (line (line-number-at-pos))
+          (total-lines (count-lines (point-min) (point-max))))
+      (format "File: %s\nCursor at line: %d\nTotal lines: %d\n\n%s"
+              file line total-lines content))))
+
+(defun my/mcp-edit-buffer (old-text new-text)
+  "Replace OLD-TEXT with NEW-TEXT in the currently active buffer."
+  (claude-code-ide-mcp-server-with-session-context nil
+    (let ((file (or buffer-file-name (buffer-name))))
+      (save-excursion
+        (goto-char (point-min))
+        (if (search-forward old-text nil t)
+            (progn
+              (replace-match new-text t t)
+              (format "Replaced text in %s" file))
+          (format "Text not found in %s" file))))))
+
 (use-package claude-code-ide
   :bind ("C-c C-'" . claude-code-ide-menu)
   :custom
   (claude-code-ide-terminal-backend 'vterm)
   :config
-  (claude-code-ide-emacs-tools-setup))
+  (claude-code-ide-emacs-tools-setup)
+
+  (claude-code-ide-make-tool
+   :function #'my/mcp-read-buffer
+   :name "read-current-buffer"
+   :description "Read the full contents of the currently active buffer in Emacs. Returns the file path, cursor position, total lines, and buffer contents."
+   :args nil)
+
+  (claude-code-ide-make-tool
+   :function #'my/mcp-edit-buffer
+   :name "edit-current-buffer"
+   :description "Edit the currently active buffer by replacing old text with new text. Use read-current-buffer first to see the contents."
+   :args '((:name "old_text"
+                  :type string
+                  :description "The exact text to find and replace")
+           (:name "new_text"
+                  :type string
+                  :description "The replacement text"))))
 
 ;;; tools.el ends here
