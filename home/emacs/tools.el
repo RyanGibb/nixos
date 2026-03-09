@@ -350,29 +350,33 @@ INDEX selects which buffer (0 = most recent, default)."
                 (format "Text not found in %s" file)))))
       "No user buffer found")))
 
+(defun my/mcp-git-repo-root (path)
+  "Return the git repo root for PATH, or signal an error."
+  (require 'magit)
+  (let ((dir (if (file-directory-p path) path (file-name-directory path))))
+    (or (magit-toplevel dir)
+        (error "Not inside a Git repository: %s" path))))
+
+(defun my/mcp-git--format-files (files)
+  "Format a file list: one per line, or \"(none)\"."
+  (if files
+      (format "(%d) %s" (length files) (string-join files "\n  "))
+    "(none)"))
+
 (defun my/mcp-git-status (path)
   "Show git status for the repo containing PATH.
 PATH is an absolute file or directory path."
-  (require 'magit)
-  (let ((default-directory (or (magit-toplevel (if (file-directory-p path)
-                                                   path
-                                                 (file-name-directory path)))
-                               (error "Not inside a Git repository: %s" path))))
-    (let ((staged (magit-staged-files))
-          (unstaged (magit-unstaged-files))
-          (untracked (magit-untracked-files)))
-      (format "Branch: %s\nStaged: %s\nUnstaged: %s\nUntracked: %s"
-              (or (magit-get-current-branch) "(detached)")
-              (if staged (string-join staged ", ") "(none)")
-              (if unstaged (string-join unstaged ", ") "(none)")
-              (if untracked (string-join untracked ", ") "(none)")))))
+  (let ((default-directory (my/mcp-git-repo-root path)))
+    (format "Branch: %s\nStaged: %s\nUnstaged: %s\nUntracked: %s"
+            (or (magit-get-current-branch) "(detached)")
+            (my/mcp-git--format-files (magit-staged-files))
+            (my/mcp-git--format-files (magit-unstaged-files))
+            (my/mcp-git--format-files (magit-untracked-files)))))
 
 (defun my/mcp-git-diff (file &optional staged)
   "Show diff with numbered hunks for FILE.
 FILE is an absolute path. If STAGED is non-nil, show staged diff."
-  (require 'magit)
-  (let* ((default-directory (or (magit-toplevel (file-name-directory file))
-                                (error "Not inside a Git repository: %s" file)))
+  (let* ((default-directory (my/mcp-git-repo-root file))
          (rel-file (file-relative-name file default-directory))
          (args (if staged
                    (list "diff" "--cached" "--" rel-file)
@@ -391,28 +395,23 @@ FILE is an absolute path. If STAGED is non-nil, show staged diff."
   "Stage FILE or specific HUNKS of it.
 FILE is an absolute path. HUNKS is a comma-separated list of hunk
 numbers (e.g. \"1,3\"); omit to stage the whole file."
-  (require 'magit)
-  (let* ((default-directory (or (magit-toplevel (file-name-directory file))
-                                (error "Not inside a Git repository: %s" file)))
+  (let* ((default-directory (my/mcp-git-repo-root file))
          (rel-file (file-relative-name file default-directory)))
     (if (not hunks)
         (progn
           (magit-stage-files (list rel-file))
           (format "Staged %s" rel-file))
-      ;; Parse hunk numbers to stage
+      (require 'diff-hl)
       (let* ((hunk-nums (mapcar #'string-to-number (split-string hunks ",")))
-             ;; Get diff and find @@ lines to map hunk N -> line number
              (diff-lines (magit-git-lines "diff" "--" rel-file))
              (hunk-line-map nil)
              (hunk-idx 0))
-        ;; Build map: hunk number -> target line in buffer
         (dolist (line diff-lines)
           (when (string-match "\\`@@ .* \\+\\([0-9]+\\)" line)
             (cl-incf hunk-idx)
             (push (cons hunk-idx (string-to-number (match-string 1 line)))
                   hunk-line-map)))
         (setq hunk-line-map (nreverse hunk-line-map))
-        ;; Stage each requested hunk via diff-hl
         (let ((buf (find-file-noselect file))
               (staged-hunks nil))
           ;; Stage in reverse order so earlier hunk numbers stay valid
@@ -434,11 +433,7 @@ numbers (e.g. \"1,3\"); omit to stage the whole file."
   "Commit staged changes in the repo containing PATH with MESSAGE.
 PATH is an absolute file or directory path. If PUSH is non-nil,
 push to upstream after committing."
-  (require 'magit)
-  (let ((default-directory (or (magit-toplevel (if (file-directory-p path)
-                                                   path
-                                                 (file-name-directory path)))
-                               (error "Not inside a Git repository: %s" path))))
+  (let ((default-directory (my/mcp-git-repo-root path)))
     (unless (magit-anything-staged-p)
       (error "Nothing staged to commit"))
     (magit-call-git "commit" "-m" message)
