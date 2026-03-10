@@ -38,6 +38,7 @@
 
 ;; Remember minibuffer history (shell-command-history loaded from zsh histfile)
 (setq savehist-ignored-variables '(shell-command-history command-history))
+(setq history-length t) ; unlimited
 (savehist-mode 1)
 
 ;; Remember cursor position in files

@@ -69,23 +69,35 @@
 
 ;;;; Shell history
 
+(defvar my/zsh-history--offset 0
+  "Byte offset into ~/.histfile up to which we have already read.")
+
+(defvar my/zsh-history--mtime nil
+  "Last known modification time of ~/.histfile.")
+
 (defun my/load-zsh-history ()
-  "Load zsh history into `shell-command-history'."
-  (let ((histfile (expand-file-name "~/.histfile")))
-    (when (file-exists-p histfile)
-      (with-temp-buffer
-        (insert-file-contents histfile)
-        (goto-char (point-min))
-        (let (lines)
+  "Load new lines from zsh histfile into `shell-command-history'."
+  (let* ((histfile (expand-file-name "~/.histfile"))
+         (attrs (file-attributes histfile))
+         (mtime (file-attribute-modification-time attrs))
+         (size (file-attribute-size attrs)))
+    (when (and size (not (equal mtime my/zsh-history--mtime)))
+      (setq my/zsh-history--mtime mtime)
+      (when (> size my/zsh-history--offset)
+        (with-temp-buffer
+          (insert-file-contents histfile nil my/zsh-history--offset size)
+          (setq my/zsh-history--offset size)
+          (goto-char (point-min))
           (while (not (eobp))
             (let ((line (buffer-substring-no-properties
                          (line-beginning-position) (line-end-position))))
               (unless (string-empty-p line)
-                (push line lines)))
-            (forward-line 1))
-          (setq shell-command-history (delete-dups lines)))))))
+                (push line shell-command-history)))
+            (forward-line 1)))
+        (delete-dups shell-command-history)))))
 
 (add-hook 'emacs-startup-hook #'my/load-zsh-history)
+(run-with-idle-timer 5 t #'my/load-zsh-history)
 
 (defun my/append-to-zsh-history (command &rest _)
   "Append COMMAND to zsh histfile."
