@@ -20,7 +20,8 @@
                        (let* ((names (cl-remove persp-nil-name persp-names-cache :count 1))
                               (dest (nth ,i names)))
                          (when dest
-                           (my/workspace-switch dest))))))
+                           (my/workspace-switch dest)
+                           (my/workspace-display))))))
 
   (defun my/workspace-switch (name)
     "Switch to workspace NAME, tracking the previous workspace."
