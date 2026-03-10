@@ -18,7 +18,7 @@
     nur.url = "github:nix-community/NUR/e9e77b7985ef9bdeca12a38523c63d47555cc89b";
     disko.url = "github:nix-community/disko";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
-    caledonia.url = "github:RyanGibb/caledonia";
+    caledonia.url = "github:RyanGibb/caledonia/vibing";
     plover-revamp.url = "github:Pandapip1/nixpkgs/plover-revamp";
 
     # deduplicate flake inputs
