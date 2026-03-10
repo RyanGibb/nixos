@@ -453,14 +453,17 @@ numbers (e.g. \"1,3\"); omit to stage the whole file."
                   rel-file
                   (string-join (nreverse staged-hunks) ", ")))))))
 
-(defun my/mcp-git-commit (path message &optional push)
+(defun my/mcp-git-commit (path message &optional push amend)
   "Commit staged changes in the repo containing PATH with MESSAGE.
 PATH is an absolute file or directory path. If PUSH is non-nil,
-push to upstream after committing."
+push to upstream after committing. If AMEND is non-nil, amend the
+previous commit."
   (let ((default-directory (my/mcp-git-repo-root path)))
-    (unless (magit-anything-staged-p)
+    (unless (or amend (magit-anything-staged-p))
       (error "Nothing staged to commit"))
-    (magit-call-git "commit" "-m" message)
+    (if amend
+        (magit-call-git "commit" "--amend" "-m" message)
+      (magit-call-git "commit" "-m" message))
     (let ((hash (magit-rev-format "%h" "HEAD")))
       (when push
         (magit-push-current-to-upstream nil))
@@ -701,6 +704,10 @@ DESTINATION is \"archive\", \"trash\", or an explicit maildir path."
            (:name "push"
                   :type boolean
                   :description "Push to upstream after committing"
+                  :optional t)
+           (:name "amend"
+                  :type boolean
+                  :description "Amend the previous commit instead of creating a new one"
                   :optional t)))
 
   (claude-code-ide-make-tool
