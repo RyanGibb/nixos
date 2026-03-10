@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  caledonia,
   ...
 }:
 
@@ -18,6 +19,12 @@ let
       hash = "sha256-tivRvgfI/8XBRImE3wuZ1UD0t2dNWYscv3Aa53BmHZE=";
     };
     packageRequires = with emacsPackages; [ vterm websocket transient web-server ];
+  };
+  caledonia-el = emacsPackages.trivialBuild {
+    pname = "caledonia";
+    version = "0-unstable";
+    src = "${caledonia}/emacs";
+    packageRequires = with emacsPackages; [ evil ];
   };
   emacs = emacsPackages.emacsWithPackages (
     epkgs: with epkgs; [
@@ -85,6 +92,9 @@ let
 
       # AI
       claude-code-ide
+
+      # Calendar
+      caledonia-el
 
       # Debugger
       dape

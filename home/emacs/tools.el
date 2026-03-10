@@ -286,6 +286,14 @@ Second press focuses the documentation window instead."
     (when cfg
       (plist-put cfg 'modes '(neocaml-mode neocaml-interface-mode)))))
 
+;;;; Calendar
+
+(use-package caledonia
+  :commands (caledonia-list caledonia-search caledonia-query))
+
+(use-package caledonia-evil
+  :after (caledonia evil))
+
 ;;;; Terminal
 
 (use-package vterm

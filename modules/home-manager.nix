@@ -11,6 +11,7 @@ in
       useGlobalPkgs = true;
       extraSpecialArgs = {
         i3-workspace-history = inputs.i3-workspace-history;
+        caledonia = inputs.caledonia;
       };
       users.${config.custom.username} = import ../home/default.nix;
     };
