@@ -73,6 +73,19 @@
         WantedBy = [ "graphical-session.target" ];
       };
     };
+    systemd.user.services.caledonia-alarm = {
+      Unit = {
+        Description = "Caledonia alarm daemon";
+        After = [ "graphical-session.target" ];
+      };
+      Service = {
+        ExecStart = "${inputs.caledonia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/caled alarm-daemon";
+        Restart = "on-failure";
+      };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
+    };
   };
 
   boot.loader.grub = {
