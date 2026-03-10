@@ -181,11 +181,11 @@
     ;; Open
     "o"   '(:ignore t :which-key "open")
     "o a" '((lambda () (interactive) (my/open-in-workspace "agenda" #'org-agenda)) :which-key "org agenda")
-    "o m" '((lambda () (interactive) (my/open-in-workspace "mu4e" #'mu4e "~/mail")) :which-key "mu4e")
+    "o m" '((lambda () (interactive) (my/open-in-workspace "mail" #'mu4e "~/mail")) :which-key "mu4e")
     "o f" '(make-frame :which-key "new frame")
     "o -" '(dired-jump :which-key "dired")
     "o e" '((lambda () (interactive) (my/open-in-workspace "elfeed" #'elfeed)) :which-key "elfeed")
-    "o c" '((lambda () (interactive) (my/open-in-workspace "caledonia" #'caledonia-agenda "~/calendar")) :which-key "caledonia")
+    "o c" '((lambda () (interactive) (my/open-in-workspace "calendar" #'caledonia-agenda "~/calendar")) :which-key "caledonia")
     "o l" '(claude-code-ide-menu :which-key "claude code")
     "o t" '(vterm :which-key "terminal")
 
