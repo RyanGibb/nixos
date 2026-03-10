@@ -715,7 +715,7 @@ DESTINATION is \"archive\", \"trash\", or an explicit maildir path."
    :name "mu4e-headers"
    :description "Search emails and list results. Returns numbered rows; use row numbers with mu4e-view and mu4e-reply."
    :args '((:name "query" :type string
-            :description "mu search query (e.g. \"maildir:/ryan.gibb@cl.cam.ac.uk/Inbox\", \"flag:unread\", \"from:someone\")")
+            :description "mu search query (e.g. \"maildir:/ryan.gibb@cl.cam.ac.uk/Inbox\", \"flag:unread\", \"from:someone\"). IMPORTANT: Never use bare \"flag:unread\" — always exclude Gmail All Mail, e.g. \"flag:unread AND NOT flag:trashed AND NOT maildir:\\\"/ryangibb321@gmail.com/[Gmail]/All Mail\\\"\". For inbox use \"maildir:/ryan@freumh.org/Inbox OR maildir:/ryangibb321@gmail.com/Inbox OR maildir:/ryan.gibb@cl.cam.ac.uk/Inbox\".")
            (:name "limit" :type integer
             :description "Max results to return (default 20)"
             :optional t)))
