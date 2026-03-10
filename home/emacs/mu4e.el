@@ -180,7 +180,7 @@
             (lambda ()
               (add-hook 'kill-buffer-hook
                         (lambda ()
-                          (when (persp-with-name-exists-p "mail")
+                          (when (persp-with-name-exists-p "~/mail/")
                             (my/kill-current-workspace)))
                         nil t)))
 

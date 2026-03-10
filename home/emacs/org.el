@@ -82,14 +82,6 @@
   :config
   (evil-org-agenda-set-keys))
 
-;; Close agenda workspace when agenda buffer is killed
-(add-hook 'org-agenda-mode-hook
-          (lambda ()
-            (add-hook 'kill-buffer-hook
-                      (lambda ()
-                        (when (persp-with-name-exists-p "agenda")
-                          (my/kill-current-workspace)))
-                      nil t)))
 
 ;;;; Org local leader bindings (SPC m)
 

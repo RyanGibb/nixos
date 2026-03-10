@@ -106,7 +106,7 @@
     "u"   '(universal-argument :which-key "universal argument")
     "x"   '(scratch-buffer :which-key "scratch buffer")
     "X"   '(org-capture :which-key "org capture")
-    "A"   '((lambda () (interactive) (my/open-in-workspace "agenda" #'org-agenda-list)) :which-key "agenda list")
+    "A"   '((lambda () (interactive) (my/open-in-workspace "~/vault/" #'org-agenda-list "~/vault")) :which-key "agenda list")
 
     ;; Buffers
     "b"   '(:ignore t :which-key "buffer")
@@ -180,12 +180,12 @@
 
     ;; Open
     "o"   '(:ignore t :which-key "open")
-    "o a" '((lambda () (interactive) (my/open-in-workspace "agenda" #'org-agenda)) :which-key "org agenda")
-    "o m" '((lambda () (interactive) (my/open-in-workspace "mail" #'mu4e "~/mail")) :which-key "mu4e")
+    "o a" '((lambda () (interactive) (my/open-in-workspace "~/vault/" #'org-agenda "~/vault")) :which-key "org agenda")
+    "o m" '((lambda () (interactive) (my/open-in-workspace "~/mail/" #'mu4e "~/mail")) :which-key "mu4e")
     "o f" '(make-frame :which-key "new frame")
     "o -" '(dired-jump :which-key "dired")
     "o e" '((lambda () (interactive) (my/open-in-workspace "elfeed" #'elfeed)) :which-key "elfeed")
-    "o c" '((lambda () (interactive) (my/open-in-workspace "calendar" #'caledonia-agenda "~/calendar")) :which-key "caledonia")
+    "o c" '((lambda () (interactive) (my/open-in-workspace "~/calendar/" #'caledonia-agenda "~/calendar")) :which-key "caledonia")
     "o l" '(claude-code-ide-menu :which-key "claude code")
     "o t" '(vterm :which-key "terminal")
 
