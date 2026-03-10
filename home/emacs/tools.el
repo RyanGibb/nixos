@@ -51,8 +51,10 @@ If DIR is non-nil, set `default-directory' to DIR."
                        (name (if-let ((host (file-remote-p dir 'host)))
                                  (format "%s:%s" host (file-remote-p dir 'localname))
                                dir)))
-                  (my/workspace-switch name)
-                  (funcall orig-fn dir))))
+                  (if (persp-with-name-exists-p name)
+                      (my/workspace-switch name)
+                    (my/workspace-switch name)
+                    (funcall orig-fn dir)))))
 
   (defun my/kill-current-workspace ()
     "Kill the current workspace."

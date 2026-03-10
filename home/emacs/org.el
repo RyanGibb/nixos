@@ -72,7 +72,10 @@
 
 (use-package evil-org
   :after org
-  :hook (org-mode . evil-org-mode))
+  :hook (org-mode . evil-org-mode)
+  :config
+  (evil-define-key 'normal org-mode-map
+    (kbd "RET") #'org-open-at-point))
 
 (use-package evil-org-agenda
   :after org-agenda
