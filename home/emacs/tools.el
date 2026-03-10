@@ -23,6 +23,15 @@
                            (my/workspace-switch dest)
                            (my/workspace-display))))))
 
+  ;; M-, / M-. to cycle workspaces (overrides xref-go-back / evil-repeat-pop-next)
+  (with-eval-after-load 'evil
+    (dolist (map (list evil-normal-state-map evil-insert-state-map
+                       evil-visual-state-map evil-motion-state-map))
+      (define-key map (kbd "M-,")
+                  (lambda () (interactive) (persp-prev) (my/workspace-display)))
+      (define-key map (kbd "M-.")
+                  (lambda () (interactive) (persp-next) (my/workspace-display)))))
+
   (defun my/workspace-switch (name)
     "Switch to workspace NAME, tracking the previous workspace."
     (let ((old-name (safe-persp-name (get-current-persp))))
