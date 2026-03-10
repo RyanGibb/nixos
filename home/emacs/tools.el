@@ -13,9 +13,9 @@
   ;; Track last workspace for switching back
   (defvar my/workspace--last nil)
 
-  ;; M-1 through M-9 to switch workspace by number
-  (dotimes (i 9)
-    (global-set-key (kbd (format "M-%d" (1+ i)))
+  ;; M-1 through M-9 to switch workspace by number, M-0 for 10th
+  (dotimes (i 10)
+    (global-set-key (kbd (format "M-%d" (mod (1+ i) 10)))
                     `(lambda () (interactive)
                        (let* ((names (cl-remove persp-nil-name persp-names-cache :count 1))
                               (dest (nth ,i names)))
