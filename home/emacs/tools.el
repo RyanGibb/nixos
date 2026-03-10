@@ -29,9 +29,11 @@
         (setq my/workspace--last old-name)
         (persp-frame-switch name))))
 
-  (defun my/open-in-workspace (name fn)
-    "Switch to workspace NAME and call FN."
+  (defun my/open-in-workspace (name fn &optional dir)
+    "Switch to workspace NAME and call FN.
+If DIR is non-nil, set `default-directory' to DIR."
     (my/workspace-switch name)
+    (when dir (setq default-directory (expand-file-name dir)))
     (funcall fn))
 
   (defun my/workspace-switch-last ()
