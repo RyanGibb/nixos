@@ -462,6 +462,155 @@ push to upstream after committing."
               (car (split-string message "\n"))
               (if push " (pushed)" "")))))
 
+;;;; mu4e MCP tools
+
+(defvar my/mcp-mu4e--last-results nil
+  "List of message plists from the last mu4e-headers search.")
+
+(defun my/mcp-mu4e--get-result (index)
+  "Get the message plist at 1-based INDEX from last search results."
+  (unless my/mcp-mu4e--last-results
+    (error "No search results — run mu4e-headers first"))
+  (let ((msg (nth (1- index) my/mcp-mu4e--last-results)))
+    (unless msg
+      (error "Index %d out of range (1-%d)" index (length my/mcp-mu4e--last-results)))
+    msg))
+
+(defun my/mcp-mu4e--format-contact (contact)
+  "Format a contact plist as \"Name <email>\" or just \"email\"."
+  (let ((name (plist-get contact :name))
+        (email (plist-get contact :email)))
+    (if name (format "%s <%s>" name email) email)))
+
+(defun my/mcp-mu4e--short-maildir (maildir)
+  "Shorten maildir path for display."
+  (if (string-match "\\`/[^/]+@\\([^/]+\\)\\(/.*\\)" maildir)
+      (format "/%s%s" (match-string 1 maildir) (match-string 2 maildir))
+    maildir))
+
+(defun my/mcp-mu4e-headers (query &optional limit)
+  "Search emails with QUERY and return numbered results.
+LIMIT caps the number of results (default 20)."
+  (require 'mu4e)
+  (let* ((mu4e-search-results-limit (or limit 20))
+         (done nil)
+         (hook-fn (lambda () (setq done t))))
+    (add-hook 'mu4e-headers-found-hook hook-fn 'append)
+    (unwind-protect
+        (cl-letf (((symbol-function 'pop-to-buffer)
+                   (lambda (buf &rest _) (set-buffer buf)))
+                  ((symbol-function 'switch-to-buffer)
+                   (lambda (buf &rest _) (set-buffer buf))))
+          (mu4e-search query)
+          (let ((proc (get-buffer-process " *mu4e-server*")))
+            (while (and (not done) proc (process-live-p proc))
+              (accept-process-output proc 0.1))))
+      (remove-hook 'mu4e-headers-found-hook hook-fn))
+    (setq my/mcp-mu4e--last-results nil)
+    (when-let* ((buf (get-buffer "*mu4e-headers*")))
+      (with-current-buffer buf
+        (mu4e-headers-for-each
+         (lambda (msg)
+           (push msg my/mcp-mu4e--last-results)))))
+    (setq my/mcp-mu4e--last-results (nreverse my/mcp-mu4e--last-results))
+    (if (null my/mcp-mu4e--last-results)
+        "No results"
+      (let ((i 0))
+        (mapconcat
+         (lambda (msg)
+           (cl-incf i)
+           (let* ((from (car (mu4e-message-field msg :from)))
+                  (subject (mu4e-message-field msg :subject))
+                  (date (mu4e-message-field msg :date))
+                  (maildir (mu4e-message-field msg :maildir))
+                  (flags (mu4e-message-field msg :flags)))
+             (format "[%d] %s  %s  %s  %s%s"
+                     i
+                     (my/mcp-mu4e--short-maildir (or maildir ""))
+                     (format-time-string "%b %d" date)
+                     (if from (my/mcp-mu4e--format-contact from) "?")
+                     (or subject "(no subject)")
+                     (if (memq 'unread flags) "  *unread*" ""))))
+         my/mcp-mu4e--last-results "\n")))))
+
+(defun my/mcp-mu4e-view (index)
+  "Read message at 1-based INDEX from last mu4e-headers search."
+  (require 'mu4e)
+  (let ((msg (my/mcp-mu4e--get-result index)))
+    (mu4e-view-message-text msg)))
+
+(defun my/mcp-mu4e-reply (index body)
+  "Draft a reply to message at INDEX with BODY pre-filled.
+Saves the draft to the drafts maildir for later review."
+  (require 'mu4e)
+  (let* ((msg (my/mcp-mu4e--get-result index))
+         (msgid (mu4e-message-field msg :message-id))
+         (subject (mu4e-message-field msg :subject))
+         (headers-buf (get-buffer "*mu4e-headers*")))
+    (unless headers-buf
+      (error "No headers buffer — run mu4e-headers first"))
+    (cl-letf (((symbol-function 'pop-to-buffer)
+               (lambda (buf &rest _) (set-buffer buf)))
+              ((symbol-function 'switch-to-buffer)
+               (lambda (buf &rest _) (set-buffer buf))))
+      (with-current-buffer headers-buf
+        (mu4e-headers-goto-message-id msgid)
+        (mu4e-compose-reply))
+      ;; Find the compose buffer (most recent message-mode buffer)
+      (let ((compose-buf (cl-find-if (lambda (buf)
+                                       (with-current-buffer buf
+                                         (derived-mode-p 'message-mode)))
+                                     (buffer-list))))
+        (unless compose-buf
+          (error "Compose buffer not created"))
+        (with-current-buffer compose-buf
+          (message-goto-body)
+          (insert body "\n\n")
+          (save-buffer)
+          (kill-buffer))
+        (format "Draft saved: Re: %s" (or subject ""))))))
+
+(defun my/mcp-mu4e--parse-indices (indices)
+  "Parse INDICES string into list of message plists.
+INDICES is comma-separated 1-based numbers or \"all\"."
+  (if (equal indices "all")
+      (or my/mcp-mu4e--last-results
+          (error "No search results"))
+    (mapcar (lambda (s)
+              (my/mcp-mu4e--get-result (string-to-number (string-trim s))))
+            (split-string indices ","))))
+
+(defun my/mcp-mu4e-mark-read (indices)
+  "Mark messages at INDICES as read.
+INDICES is comma-separated row numbers or \"all\"."
+  (require 'mu4e)
+  (let ((msgs (my/mcp-mu4e--parse-indices indices)))
+    (dolist (msg msgs)
+      (mu4e--server-move (mu4e-message-field msg :docid) nil "+S-u-N"))
+    (format "Marked %d message(s) as read" (length msgs))))
+
+(defun my/mcp-mu4e-move (indices destination)
+  "Move messages at INDICES to DESTINATION.
+DESTINATION is \"archive\", \"trash\", or an explicit maildir path."
+  (require 'mu4e)
+  (let ((msgs (my/mcp-mu4e--parse-indices indices))
+        (moved 0)
+        (target nil))
+    (dolist (msg msgs)
+      (mu4e-context-determine msg)
+      (setq target
+            (pcase destination
+              ("archive" (if (functionp mu4e-refile-folder)
+                             (funcall mu4e-refile-folder msg)
+                           mu4e-refile-folder))
+              ("trash" (if (functionp mu4e-trash-folder)
+                           (funcall mu4e-trash-folder msg)
+                         mu4e-trash-folder))
+              (_ destination)))
+      (mu4e--server-move (mu4e-message-field msg :docid) target "+S-u-N")
+      (cl-incf moved))
+    (format "Moved %d message(s) to %s" moved target)))
+
 (use-package claude-code-ide
   :bind ("C-c C-'" . claude-code-ide-menu)
   :custom
@@ -544,6 +693,48 @@ push to upstream after committing."
            (:name "push"
                   :type boolean
                   :description "Push to upstream after committing"
-                  :optional t))))
+                  :optional t)))
+
+  (claude-code-ide-make-tool
+   :function #'my/mcp-mu4e-headers
+   :name "mu4e-headers"
+   :description "Search emails and list results. Returns numbered rows; use row numbers with mu4e-view and mu4e-reply."
+   :args '((:name "query" :type string
+            :description "mu search query (e.g. \"maildir:/ryan.gibb@cl.cam.ac.uk/Inbox\", \"flag:unread\", \"from:someone\")")
+           (:name "limit" :type integer
+            :description "Max results to return (default 20)"
+            :optional t)))
+
+  (claude-code-ide-make-tool
+   :function #'my/mcp-mu4e-view
+   :name "mu4e-view"
+   :description "Read a message by row number from the last mu4e-headers search."
+   :args '((:name "index" :type integer
+            :description "Row number from mu4e-headers results (1-based)")))
+
+  (claude-code-ide-make-tool
+   :function #'my/mcp-mu4e-reply
+   :name "mu4e-reply"
+   :description "Draft a reply to a message. Saves to drafts maildir for later review."
+   :args '((:name "index" :type integer
+            :description "Row number from mu4e-headers results (1-based)")
+           (:name "body" :type string
+            :description "Reply body text to pre-fill")))
+
+  (claude-code-ide-make-tool
+   :function #'my/mcp-mu4e-mark-read
+   :name "mu4e-mark-read"
+   :description "Mark messages as read by row number from the last mu4e-headers search."
+   :args '((:name "indices" :type string
+            :description "Row numbers to mark as read (comma-separated, e.g. \"1,2,3\") or \"all\"")))
+
+  (claude-code-ide-make-tool
+   :function #'my/mcp-mu4e-move
+   :name "mu4e-move"
+   :description "Move messages. Destination can be \"archive\", \"trash\" (resolved per account), or an explicit maildir path."
+   :args '((:name "indices" :type string
+            :description "Row numbers (comma-separated, e.g. \"1,2,3\") or \"all\"")
+           (:name "destination" :type string
+            :description "\"archive\", \"trash\", or explicit maildir path"))))
 
 ;;; tools.el ends here
