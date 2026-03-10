@@ -185,7 +185,7 @@
     "o f" '(make-frame :which-key "new frame")
     "o -" '(dired-jump :which-key "dired")
     "o e" '((lambda () (interactive) (my/open-in-workspace "elfeed" #'elfeed)) :which-key "elfeed")
-    "o c" '((lambda () (interactive) (my/open-in-workspace "caledonia" #'caledonia-list "~/calendar")) :which-key "caledonia")
+    "o c" '((lambda () (interactive) (my/open-in-workspace "caledonia" #'caledonia-agenda "~/calendar")) :which-key "caledonia")
     "o l" '(claude-code-ide-menu :which-key "claude code")
     "o t" '(vterm :which-key "terminal")
 

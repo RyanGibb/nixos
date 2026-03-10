@@ -291,7 +291,9 @@ Second press focuses the documentation window instead."
 ;;;; Calendar
 
 (use-package caledonia
-  :commands (caledonia-list caledonia-search caledonia-query))
+  :commands (caledonia-list caledonia-search caledonia-query
+             caledonia-add-event caledonia-edit-event caledonia-delete-event
+             caledonia-agenda))
 
 (use-package caledonia-evil
   :after (caledonia evil))
