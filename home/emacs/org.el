@@ -75,13 +75,293 @@
   :after org
   :hook (org-mode . evil-org-mode)
   :config
-  (evil-define-key 'normal org-mode-map
-    (kbd "RET") #'org-open-at-point))
+  (defun my/evil-org-override-return-bindings (&rest _)
+    "Override evil-org return bindings with DWIM variants."
+    (evil-define-key 'normal 'evil-org-mode
+      (kbd "RET") #'my/org-dwim-at-point
+      (kbd "<C-return>") #'my/org-insert-item-below
+      (kbd "<C-S-return>") #'my/org-insert-item-above
+      (kbd "<M-return>") #'my/org-insert-subheading-below
+      (kbd "<M-S-return>") #'my/org-insert-subheading-above
+      (kbd "<C-M-return>") #'my/org-insert-sub-todo-below
+      (kbd "<C-M-S-return>") #'my/org-insert-sub-todo-above)
+    (evil-define-key 'insert 'evil-org-mode
+      (kbd "RET") #'my/org-return
+      (kbd "<C-return>") #'my/org-insert-item-below
+      (kbd "<C-S-return>") #'my/org-insert-item-above
+      (kbd "<M-return>") #'my/org-insert-subheading-below
+      (kbd "<M-S-return>") #'my/org-insert-subheading-above
+      (kbd "<C-M-return>") #'my/org-insert-sub-todo-below
+      (kbd "<C-M-S-return>") #'my/org-insert-sub-todo-above)
+    (evil-define-key '(normal insert) 'evil-org-mode
+      (kbd "S-<return>") #'my/org-shift-return))
+  (advice-add 'evil-org-set-key-theme :after #'my/evil-org-override-return-bindings)
+  (my/evil-org-override-return-bindings))
 
 (use-package evil-org-agenda
   :after org-agenda
   :config
   (evil-org-agenda-set-keys))
+
+
+;;;; Org DWIM return bindings
+
+(defun my/org-get-todo-keywords-for (&optional keyword)
+  "Return the list of todo keywords that KEYWORD belongs to."
+  (when keyword
+    (cl-loop for (type . keyword-spec)
+             in (cl-remove-if-not #'listp org-todo-keywords)
+             for keywords =
+             (mapcar (lambda (x) (if (string-match "^\\([^(]+\\)(" x)
+                                     (match-string 1 x)
+                                   x))
+                     keyword-spec)
+             if (eq type 'sequence)
+             if (member keyword keywords)
+             return keywords)))
+
+(defun my/org-table-previous-row ()
+  "Go to the previous row (same column) in the current table."
+  (interactive)
+  (org-table-maybe-eval-formula)
+  (org-table-maybe-recalculate-line)
+  (if (and org-table-automatic-realign
+           org-table-may-need-update)
+      (org-table-align))
+  (let ((col (org-table-current-column)))
+    (beginning-of-line 0)
+    (when (or (not (org-at-table-p)) (org-at-table-hline-p))
+      (beginning-of-line))
+    (org-table-goto-column col)
+    (skip-chars-backward "^|\n\r")
+    (when (org-looking-at-p " ")
+      (forward-char))))
+
+(defun my/org--insert-item (direction)
+  "Insert a new heading, table cell or item in DIRECTION (above or below)."
+  (let* ((context (org-element-lineage
+                   (org-element-context)
+                   '(table table-row headline inlinetask item plain-list)
+                   t))
+         ;; Eagerly resolve deferred properties before modifying the buffer
+         (todo-keyword (org-element-property :todo-keyword context))
+         (todo-type (org-element-property :todo-type context))
+         (checkbox (org-element-property :checkbox context)))
+    (pcase (org-element-type context)
+      ((or `item `plain-list)
+       (let ((orig-point (point)))
+         (if (eq direction 'above)
+             (org-beginning-of-item)
+           (end-of-line))
+         (let* ((ctx-item? (eq 'item (org-element-type context)))
+                (ctx-cb (org-element-property :contents-begin context))
+                (beginning-of-list? (and (not ctx-item?)
+                                         (= ctx-cb orig-point)))
+                (item-context (if beginning-of-list?
+                                  (org-element-context)
+                                context))
+                (ictx-cb (org-element-property :contents-begin item-context))
+                (empty? (and (eq direction 'below)
+                             (or (not ictx-cb)
+                                 (= ictx-cb
+                                    (1+ (point))))))
+                (pre-insert-point (point)))
+           (when empty?
+             (insert " "))
+           (org-insert-item checkbox)
+           (when empty?
+             (delete-region pre-insert-point (1+ pre-insert-point))))))
+      ((or `table `table-row)
+       (pcase direction
+         ('below (save-excursion (org-table-insert-row t))
+                 (org-table-next-row))
+         ('above (save-excursion (org-shiftmetadown))
+                 (my/org-table-previous-row))))
+      (_
+       (let ((level (or (org-current-level) 1)))
+         (pcase direction
+           (`below
+            (let (org-insert-heading-respect-content)
+              (goto-char (line-end-position))
+              (org-end-of-subtree)
+              (insert "\n" (make-string level ?*) " ")))
+           (`above
+            (org-back-to-heading)
+            (insert (make-string level ?*) " \n")
+            (forward-line -1)
+            (end-of-line)))
+         (run-hooks 'org-insert-heading-hook)
+         (when (and todo-keyword todo-type)
+           (org-todo
+            (cond ((eq todo-type 'done)
+                   (car (my/org-get-todo-keywords-for todo-keyword)))
+                  (todo-keyword)
+                  ('todo)))))))
+
+    (when (org-invisible-p)
+      (org-show-hidden-entry))
+    (when (and (bound-and-true-p evil-local-mode)
+               (not (evil-emacs-state-p)))
+      (evil-insert 1))))
+
+(defun my/org-dwim-at-point (&optional arg)
+  "Do-what-I-mean at point.
+
+If on a:
+- checkbox list item or todo heading: toggle it.
+- citation: follow it
+- headline: cycle ARCHIVE subtrees, toggle latex/images; update stats.
+- clock: update its time.
+- footnote reference: jump to definition
+- footnote definition: jump to first reference
+- timestamp: open agenda view for the date
+- table-row or TBLFM: recalculate formulas
+- table-cell: clear it and go into insert mode
+- babel-call: execute the source block
+- statistics-cookie: update it
+- src block: execute it
+- latex fragment: toggle it
+- link: follow it
+- otherwise: refresh inline images in current tree."
+  (interactive "P")
+  (if (button-at (point))
+      (call-interactively #'push-button)
+    (let* ((context (org-element-context))
+           (type (org-element-type context)))
+      (while (and context (memq type '(verbatim code bold italic underline strike-through subscript superscript)))
+        (setq context (org-element-property :parent context)
+              type (org-element-type context)))
+      (pcase type
+        ((or `citation `citation-reference)
+         (org-cite-follow context arg))
+
+        (`headline
+         (cond ((memq (bound-and-true-p org-goto-map)
+                      (current-active-maps))
+                (org-goto-ret))
+               ((string= "ARCHIVE" (car-safe (org-get-tags)))
+                (org-force-cycle-archived))
+               ((or (org-element-property :todo-type context)
+                    (org-element-property :scheduled context))
+                (org-todo
+                 (if (eq (org-element-property :todo-type context) 'done)
+                     (or (car (my/org-get-todo-keywords-for (org-element-property :todo-keyword context)))
+                         'todo)
+                   'done))))
+         (org-update-checkbox-count)
+         (org-update-parent-todo-statistics))
+
+        (`clock (org-clock-update-time-maybe))
+
+        (`footnote-reference
+         (org-footnote-goto-definition (org-element-property :label context)))
+
+        (`footnote-definition
+         (org-footnote-goto-previous-reference (org-element-property :label context)))
+
+        ((or `planning `timestamp)
+         (org-follow-timestamp-link))
+
+        ((or `table `table-row)
+         (if (org-at-TBLFM-p)
+             (org-table-calc-current-TBLFM)
+           (ignore-errors
+             (save-excursion
+               (goto-char (org-element-property :contents-begin context))
+               (org-call-with-arg 'org-table-recalculate (or arg t))))))
+
+        (`table-cell
+         (org-table-blank-field)
+         (org-table-recalculate arg)
+         (when (and (string-empty-p (string-trim (org-table-get-field)))
+                    (bound-and-true-p evil-local-mode))
+           (evil-change-state 'insert)))
+
+        (`babel-call
+         (org-babel-lob-execute-maybe))
+
+        (`statistics-cookie
+         (save-excursion (org-update-statistics-cookies arg)))
+
+        ((or `src-block `inline-src-block)
+         (org-babel-execute-src-block arg))
+
+        ((or `latex-fragment `latex-environment)
+         (org-latex-preview arg))
+
+        (`link
+         (org-open-at-point arg))
+
+        ((guard (org-element-property :checkbox (org-element-lineage context '(item) t)))
+         (org-toggle-checkbox))
+
+        (_
+         (when (or (org-in-regexp org-ts-regexp-both nil t)
+                   (org-in-regexp org-tsr-regexp-both nil  t)
+                   (org-in-regexp org-link-any-re nil t))
+           (call-interactively #'org-open-at-point)))))))
+
+(defun my/org-return ()
+  "Call `org-return' then indent (if `electric-indent-mode' is on)."
+  (interactive)
+  (org-return electric-indent-mode))
+
+(defun my/org-shift-return (&optional arg)
+  "Insert a literal newline, or dwim in tables.
+Executes `org-table-copy-down' if in table."
+  (interactive "p")
+  (if (org-at-table-p)
+      (org-table-copy-down arg)
+    (when (and (bound-and-true-p evil-local-mode)
+               (evil-normal-state-p))
+      (goto-char (line-end-position)))
+    (org-return nil arg)))
+
+(defun my/org-insert-item-below (count)
+  "Insert a new heading, table cell or item below the current one."
+  (interactive "p")
+  (dotimes (_ count) (my/org--insert-item 'below)))
+
+(defun my/org-insert-item-above (count)
+  "Insert a new heading, table cell or item above the current one."
+  (interactive "p")
+  (dotimes (_ count) (my/org--insert-item 'above)))
+
+(defun my/org-insert-subheading-below (&optional todo)
+  "Insert a subheading at the bottom of current heading's children.
+With TODO non-nil, add a TODO keyword."
+  (interactive)
+  (org-back-to-heading)
+  (let ((level (1+ (org-current-level))))
+    (org-end-of-subtree)
+    (insert "\n" (make-string level ?*) " ")
+    (when todo (org-todo "TODO"))
+    (when (and (bound-and-true-p evil-local-mode)
+               (not (evil-emacs-state-p)))
+      (evil-insert 1))))
+
+(defun my/org-insert-subheading-above (&optional todo)
+  "Insert a subheading at the top of current heading's children.
+With TODO non-nil, add a TODO keyword."
+  (interactive)
+  (org-back-to-heading)
+  (let ((level (1+ (org-current-level))))
+    (end-of-line)
+    (insert "\n" (make-string level ?*) " ")
+    (when todo (org-todo "TODO"))
+    (when (and (bound-and-true-p evil-local-mode)
+               (not (evil-emacs-state-p)))
+      (evil-insert 1))))
+
+(defun my/org-insert-sub-todo-below ()
+  "Insert a sub-TODO at the bottom of current heading's children."
+  (interactive)
+  (my/org-insert-subheading-below t))
+
+(defun my/org-insert-sub-todo-above ()
+  "Insert a sub-TODO at the top of current heading's children."
+  (interactive)
+  (my/org-insert-subheading-above t))
 
 
 ;;;; Org local leader bindings (SPC m)
