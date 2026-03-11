@@ -2,6 +2,7 @@
 
 (use-package org
   :defer t
+  :hook (org-mode . org-indent-mode)
   :custom
   (org-directory "~/vault/")
   (org-agenda-files (list (concat org-directory "todo.org")
