@@ -122,6 +122,7 @@
         '("ryan@freumh.org"
           "ryangibb321@gmail.com"
           "ryan.gibb@cl.cam.ac.uk"
+          "rtg24@cam.ac.uk"
           "misc@freumh.org"))
 
   (setq mu4e-bookmarks
