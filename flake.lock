@@ -67,11 +67,11 @@
         "opam-nix": "opam-nix"
       },
       "locked": {
-        "lastModified": 1773164497,
-        "narHash": "sha256-FZAJfPbI0rEqIZEJB3BKNiTIjfanxMoUj2UPa1FF6aM=",
+        "lastModified": 1773238328,
+        "narHash": "sha256-wSLSygzZs3zkCUoEx49qRZ6UapxzowX9Jz0uQ6g7EWk=",
         "owner": "RyanGibb",
         "repo": "caledonia",
-        "rev": "6c89144e8c959bd06b2dc2884ecb2ed08f0b5bb7",
+        "rev": "a1d4da5dc4532ce75b3d7bec8740ba0d6b18f23b",
         "type": "github"
       },
       "original": {
