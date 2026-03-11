@@ -95,6 +95,7 @@ in
           realName = "Ryan Gibb";
           userName = "ryan@freumh.org";
           address = "ryan@freumh.org";
+          mu.enable = true;
           passwordCommand = "${pkgs.pass}/bin/pass show email/ryan@freumh.org";
           imap.host = "mail.freumh.org";
           smtp = {
@@ -155,6 +156,7 @@ in
         "misc@freumh.org" = rec {
           userName = "misc@freumh.org";
           address = "misc@freumh.org";
+          mu.enable = true;
           realName = "Misc";
           passwordCommand = "${pkgs.pass}/bin/pass show email/misc@freumh.org";
           imap.host = "mail.freumh.org";
@@ -196,6 +198,7 @@ in
         "ryan.gibb@cl.cam.ac.uk" = rec {
           userName = "rtg24@fm.cl.cam.ac.uk";
           address = "ryan.gibb@cl.cam.ac.uk";
+          mu.enable = true;
           realName = "Ryan Gibb";
           passwordCommand = "${pkgs.pass}/bin/pass show email/ryan.gibb@cl.cam.ac.uk";
           flavor = "fastmail.com";
@@ -257,6 +260,7 @@ in
         "ryangibb321@gmail.com" = rec {
           userName = "ryangibb321@gmail.com";
           address = "ryangibb321@gmail.com";
+          mu.enable = true;
           realName = "Ryan Gibb";
           passwordCommand = "${pkgs.pass}/bin/pass show email/ryangibb321@gmail.com";
           flavor = "gmail.com";
