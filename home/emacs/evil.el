@@ -133,10 +133,12 @@
     "f r" '(consult-recent-file :which-key "recent files")
     "f s" '(save-buffer :which-key "save")
     "f S" '(write-file :which-key "save as")
-    "f D" '(delete-file :which-key "delete this file")
+    "f D" '(my/delete-this-file :which-key "delete this file")
+    "f R" '(my/rename-this-file :which-key "rename/move this file")
     "f u" '(my/sudo-find-file :which-key "sudo find file")
     "f U" '(my/sudo-this-file :which-key "sudo this file")
     "f y" '(my/yank-file-path :which-key "yank file path")
+    "f Y" '(my/yank-file-path-relative :which-key "yank relative path")
 
     ;; Git
     "g"   '(:ignore t :which-key "git")
@@ -279,6 +281,33 @@
     (if-let ((path (or buffer-file-name default-directory)))
         (progn (kill-new path) (message "%s" path))
       (error "Buffer is not visiting a file")))
+
+  (defun my/yank-file-path-relative ()
+    "Copy the current buffer's file path relative to project root."
+    (interactive)
+    (if-let ((path (or buffer-file-name default-directory)))
+        (let* ((root (or (when-let ((proj (project-current))) (project-root proj))
+                         default-directory))
+               (rel (file-relative-name path root)))
+          (kill-new rel)
+          (message "%s" rel))
+      (error "Buffer is not visiting a file")))
+
+  (defun my/delete-this-file ()
+    "Delete the current file and kill its buffer."
+    (interactive)
+    (let ((file (or buffer-file-name (error "Buffer is not visiting a file"))))
+      (when (y-or-n-p (format "Delete %s? " file))
+        (delete-file file)
+        (kill-buffer))))
+
+  (defun my/rename-this-file (new-name)
+    "Rename the current file to NEW-NAME."
+    (interactive (list (read-file-name "Rename to: " nil nil nil
+                                       (file-name-nondirectory buffer-file-name))))
+    (let ((old (or buffer-file-name (error "Buffer is not visiting a file"))))
+      (rename-file old new-name 1)
+      (set-visited-file-name new-name t t)))
 
   (defun weekfile ()
     "Open an Org file named YYYY-MM-DD.org for the Monday of the current week."
