@@ -36,6 +36,7 @@ let
       evil-snipe
       evil-easymotion
       evil-org
+      evil-numbers
       avy
       undo-tree
 

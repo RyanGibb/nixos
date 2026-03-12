@@ -31,6 +31,16 @@
   (evil-define-key '(normal visual) 'global
     "gc" 'evilnc-comment-operator))
 
+;; C-a / C-x to increment/decrement numbers
+(use-package evil-numbers
+  :after evil
+  :config
+  (evil-define-key '(normal visual) 'global
+    (kbd "C-a") 'evil-numbers/inc-at-pt
+    (kbd "C-x") 'evil-numbers/dec-at-pt
+    (kbd "g C-a") 'evil-numbers/inc-at-pt-incremental
+    (kbd "g C-x") 'evil-numbers/dec-at-pt-incremental))
+
 ;; s/S for 2-char search (like vim-sneak)
 (use-package evil-snipe
   :after evil
