@@ -41,10 +41,12 @@
 
   (defun my/open-in-workspace (name fn &optional dir)
     "Switch to workspace NAME and call FN.
-If DIR is non-nil, set `default-directory' to DIR."
+If DIR is non-nil, set `default-directory' to DIR in both the calling
+buffer and any new buffer created by FN."
     (my/workspace-switch name)
-    (when dir (setq default-directory (expand-file-name dir)))
-    (funcall fn))
+    (let ((default-directory (if dir (expand-file-name dir) default-directory)))
+      (funcall fn)
+      (when dir (setq default-directory (expand-file-name dir)))))
 
   (defun my/workspace-switch-last ()
     "Switch to the last workspace."
