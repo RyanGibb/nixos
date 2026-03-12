@@ -30,6 +30,7 @@
     autoUpgrade.enable = true;
     homeManager.enable = true;
     zsa = true;
+    dictation.enable = true;
   };
 
   home-manager.users.${config.custom.username} = {

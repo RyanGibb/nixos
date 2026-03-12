@@ -459,6 +459,8 @@ in
 
     "Mod4+Shift+w" = "exec ${scriptDir}/set_random_wallpaper.sh";
     "Mod4+Control+w" = "exec ${scriptDir}/set_selected_wallpaper.sh";
+
+    "Mod4+Shift+d" = "exec dictation-toggle";
   };
 
   swayKeybindings = scriptDir: {
