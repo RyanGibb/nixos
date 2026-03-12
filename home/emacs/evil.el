@@ -97,9 +97,10 @@
     :non-normal-prefix "M-SPC")
 
   (general-create-definer my/local-leader-def
-    :states '(normal visual motion)
+    :states '(normal visual motion insert emacs)
     :keymaps 'override
-    :prefix "SPC m")
+    :prefix "SPC m"
+    :non-normal-prefix "M-SPC m")
 
   (my/leader-def
     ""    '(nil :which-key "leader")
