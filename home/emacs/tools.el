@@ -645,6 +645,16 @@ DESTINATION is \"archive\", \"trash\", or an explicit maildir path."
   :config
   (claude-code-ide-emacs-tools-setup)
 
+  ;; Pass direnv (envrc) environment through to vterm
+  (defun my/claude-code-ide-inherit-envrc (orig-fun &rest args)
+    "Advise terminal creation to inherit buffer-local process-environment.
+This ensures direnv/envrc environment variables are passed to claude."
+    (let* ((default-env (default-value 'process-environment))
+           (extra-env (cl-set-difference process-environment default-env :test #'string=))
+           (vterm-environment (append extra-env vterm-environment)))
+      (apply orig-fun args)))
+  (advice-add 'claude-code-ide--create-terminal-session :around #'my/claude-code-ide-inherit-envrc)
+
   (claude-code-ide-make-tool
    :function #'my/mcp-list-buffers
    :name "list-buffers"
