@@ -312,6 +312,127 @@ Second press focuses the documentation window instead."
 (use-package caledonia-evil
   :after (caledonia evil))
 
+(defun my/mcp-caledonia-edit-event (id &optional summary start-date start-time
+                                       end-date end-time timezone location
+                                       description alarms)
+  "Edit calendar event ID, updating only the provided fields.
+Refreshes the Caledonia agenda buffer afterwards."
+  (require 'caledonia)
+  (caledonia--ensure-server-running)
+  (let* ((alarm-list (when alarms
+                       (mapcar #'string-trim
+                               (split-string alarms "," t "[ \t]+"))))
+         (fields `(("id" . ,id)
+                   ("summary" . ,summary)
+                   ("start_date" . ,start-date)
+                   ("start_time" . ,start-time)
+                   ("end_date" . ,end-date)
+                   ("end_time" . ,end-time)
+                   ("timezone" . ,timezone)
+                   ("location" . ,location)
+                   ("description" . ,description)
+                   ("alarms" . ,alarm-list)))
+         (request-str (format "(EditEvent (%s))"
+                              (caledonia--build-sexp-fields fields))))
+    (caledonia--send-request request-str)
+    (my/mcp-caledonia--refresh)
+    (format "Event updated: %s" id)))
+
+(defun my/mcp-caledonia--refresh ()
+  "Refresh the Caledonia agenda buffer if it exists."
+  (when-let* ((buf (get-buffer "*Caledonia Agenda*")))
+    (with-current-buffer buf
+      (when (eq major-mode 'caledonia-agenda-mode)
+        (caledonia-refresh)))))
+
+(defun my/mcp-caledonia-add-event (calendar summary start-date
+                                    &optional start-time end-date end-time
+                                    timezone recurrence alarms location
+                                    description)
+  "Create a new calendar event.
+CALENDAR is the calendar name, SUMMARY is the title, START-DATE is YYYY-MM-DD.
+Refreshes the Caledonia agenda buffer afterwards."
+  (require 'caledonia)
+  (caledonia--ensure-server-running)
+  (let* ((alarm-list (when alarms
+                       (mapcar #'string-trim
+                               (split-string alarms "," t "[ \t]+"))))
+         (fields `(("calendar" . ,calendar)
+                   ("summary" . ,summary)
+                   ("start_date" . ,start-date)
+                   ("start_time" . ,start-time)
+                   ("end_date" . ,end-date)
+                   ("end_time" . ,end-time)
+                   ("timezone" . ,timezone)
+                   ("recurrence" . ,recurrence)
+                   ("alarms" . ,alarm-list)
+                   ("location" . ,location)
+                   ("description" . ,description)))
+         (request-str (format "(CreateEvent (%s))"
+                              (caledonia--build-sexp-fields fields))))
+    (caledonia--send-request request-str)
+    (my/mcp-caledonia--refresh)
+    (format "Event created: %s" summary)))
+
+(defun my/mcp-caledonia-delete-event (id &optional occurrence-start)
+  "Delete calendar event by ID.
+If OCCURRENCE-START is provided (RFC 3339), delete only that occurrence
+of a recurring event."
+  (require 'caledonia)
+  (caledonia--ensure-server-running)
+  (let ((request-str
+         (if occurrence-start
+             (format "(DeleteEvent ((id %S)(occurrence_start %S)))" id occurrence-start)
+           (format "(DeleteEvent ((id %S)))" id))))
+    (caledonia--send-request request-str)
+    (my/mcp-caledonia--refresh)
+    (format "Event deleted: %s" id)))
+
+(defun my/mcp-caledonia--format-event (event)
+  "Format EVENT as a human-readable one-line string."
+  (let* ((id (caledonia--get-key 'id event))
+         (summary (or (caledonia--get-key 'summary event) "(no summary)"))
+         (calendar (or (caledonia--get-key 'calendar event) ""))
+         (start (caledonia--get-key 'start event))
+         (end-val (caledonia--get-key 'end event))
+         (is-date (caledonia--get-key 'is_date event))
+         (location (caledonia--get-key 'location event))
+         (recurring (caledonia--get-key 'recurring event))
+         (start-str (if is-date
+                        (caledonia--format-timestamp start "%Y-%m-%d")
+                      (caledonia--format-timestamp start "%Y-%m-%d %H:%M")))
+         (end-str (when end-val
+                    (if is-date
+                        (caledonia--format-timestamp end-val "%Y-%m-%d")
+                      (caledonia--format-timestamp end-val "%H:%M"))))
+         (time-str (if end-str
+                       (format "%s-%s" start-str end-str)
+                     start-str)))
+    (format "%s  %s  %s [%s]%s%s"
+            time-str
+            (or summary "")
+            calendar
+            (or id "")
+            (if location (format " @ %s" location) "")
+            (if recurring " (recurring)" ""))))
+
+(defun my/mcp-caledonia-list-events (&optional from to text)
+  "List calendar events in a date range, optionally filtering by TEXT.
+FROM defaults to \"today\", TO defaults to \"+3m\"."
+  (require 'caledonia)
+  (caledonia--ensure-server-running)
+  (let* ((from (or from "today"))
+         (to (or to "+3m"))
+         (query (if text
+                    `((text ,text) (from ,from) (to ,to))
+                  `((from ,from) (to ,to))))
+         (request-str (format "(Query %s)" (prin1-to-string query)))
+         (payload (caledonia--send-request request-str))
+         (events (caledonia--get-events payload)))
+    (if (null events)
+        "No events found"
+      (mapconcat #'my/mcp-caledonia--format-event events "\n"))))
+
 ;;;; Terminal
 
 (use-package vterm
@@ -778,6 +899,99 @@ This ensures direnv/envrc environment variables are passed to claude."
    :args '((:name "indices" :type string
             :description "Row numbers (comma-separated, e.g. \"1,2,3\") or \"all\"")
            (:name "destination" :type string
-            :description "\"archive\", \"trash\", or explicit maildir path"))))
+            :description "\"archive\", \"trash\", or explicit maildir path")))
+
+  (claude-code-ide-make-tool
+   :function #'my/mcp-caledonia-edit-event
+   :name "caledonia-edit-event"
+   :description "Edit a calendar event by ID. Only provided fields are updated. Read the Caledonia Event Details buffer to get the event ID from the filename. Refreshes the agenda afterwards."
+   :args '((:name "id" :type string
+            :description "Event UUID (from .ics filename)")
+           (:name "summary" :type string
+            :description "Event title/summary"
+            :optional t)
+           (:name "start_date" :type string
+            :description "Start date (YYYY-MM-DD)"
+            :optional t)
+           (:name "start_time" :type string
+            :description "Start time (HH:MM)"
+            :optional t)
+           (:name "end_date" :type string
+            :description "End date (YYYY-MM-DD)"
+            :optional t)
+           (:name "end_time" :type string
+            :description "End time (HH:MM)"
+            :optional t)
+           (:name "timezone" :type string
+            :description "Timezone (e.g. Europe/London)"
+            :optional t)
+           (:name "location" :type string
+            :description "Event location"
+            :optional t)
+           (:name "description" :type string
+            :description "Event description"
+            :optional t)
+           (:name "alarms" :type string
+            :description "Comma-separated alarm triggers (e.g. '1w,3d,1d,16h,1h')"
+            :optional t)))
+
+  (claude-code-ide-make-tool
+   :function #'my/mcp-caledonia-add-event
+   :name "caledonia-add-event"
+   :description "Create a new calendar event. Refreshes the agenda afterwards."
+   :args '((:name "calendar" :type string
+            :description "Calendar name (e.g. 'freumh')")
+           (:name "summary" :type string
+            :description "Event title/summary")
+           (:name "start_date" :type string
+            :description "Start date (YYYY-MM-DD)")
+           (:name "start_time" :type string
+            :description "Start time (HH:MM). Omit for all-day event"
+            :optional t)
+           (:name "end_date" :type string
+            :description "End date (YYYY-MM-DD). Defaults to start_date"
+            :optional t)
+           (:name "end_time" :type string
+            :description "End time (HH:MM). Required if start_time is set"
+            :optional t)
+           (:name "timezone" :type string
+            :description "Timezone (e.g. Europe/London)"
+            :optional t)
+           (:name "recurrence" :type string
+            :description "RRULE recurrence string (e.g. FREQ=WEEKLY;BYDAY=MO)"
+            :optional t)
+           (:name "alarms" :type string
+            :description "Comma-separated alarm triggers (e.g. '1w,3d,1d,16h,1h')"
+            :optional t)
+           (:name "location" :type string
+            :description "Event location"
+            :optional t)
+           (:name "description" :type string
+            :description "Event description"
+            :optional t)))
+
+  (claude-code-ide-make-tool
+   :function #'my/mcp-caledonia-delete-event
+   :name "caledonia-delete-event"
+   :description "Delete a calendar event by ID. For recurring events, provide occurrence_start to delete a single occurrence."
+   :args '((:name "id" :type string
+            :description "Event UUID (from .ics filename)")
+           (:name "occurrence_start" :type string
+            :description "RFC 3339 timestamp to delete only this occurrence of a recurring event"
+            :optional t)))
+
+  (claude-code-ide-make-tool
+   :function #'my/mcp-caledonia-list-events
+   :name "caledonia-list-events"
+   :description "List calendar events in a date range. Returns events with their IDs, times, summaries, and calendars. Optionally filter by text search."
+   :args '((:name "from" :type string
+            :description "Start date (YYYY-MM-DD, 'today', '+7d', etc.). Default: 'today'"
+            :optional t)
+           (:name "to" :type string
+            :description "End date (YYYY-MM-DD, '+1m', etc.). Default: '+3m'"
+            :optional t)
+           (:name "text" :type string
+            :description "Text to search for in event summaries"
+            :optional t))))
 
 ;;; tools.el ends here
