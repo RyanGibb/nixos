@@ -109,6 +109,7 @@
 (load (expand-file-name "evil" user-emacs-directory))
 (load (expand-file-name "completion" user-emacs-directory))
 (load (expand-file-name "tools" user-emacs-directory))
+(load (expand-file-name "claude" user-emacs-directory))
 (load (expand-file-name "org" user-emacs-directory))
 (load (expand-file-name "mu4e" user-emacs-directory))
 (load (expand-file-name "languages" user-emacs-directory))

@@ -131,6 +131,7 @@ in
     xdg.configFile."emacs/evil.el".source = ./evil.el;
     xdg.configFile."emacs/completion.el".source = ./completion.el;
     xdg.configFile."emacs/tools.el".source = ./tools.el;
+    xdg.configFile."emacs/claude.el".source = ./claude.el;
     xdg.configFile."emacs/org.el".source = ./org.el;
     xdg.configFile."emacs/mu4e.el".source = ./mu4e.el;
     xdg.configFile."emacs/languages.el".source = ./languages.el;
