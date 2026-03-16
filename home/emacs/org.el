@@ -5,9 +5,7 @@
   :hook (org-mode . org-indent-mode)
   :custom
   (org-directory "~/vault/")
-  (org-agenda-files (list (concat org-directory "todo.org")
-                          (concat org-directory "recurring.org")
-                          (concat org-directory "habits.org")))
+  (org-agenda-files '("~/vault/"))
   (org-agenda-window-setup 'current-window)
   (org-agenda-start-day nil)
   (org-todo-repeat-to-state "LOOP")
@@ -45,31 +43,12 @@
            "* %u %?\n%i" :prepend t)))
 
   ;; Custom agenda views
-  (defun my/org-agenda-skip-tag (tag &optional others)
-    "Skip entries with TAG. If OTHERS, skip entries without TAG."
-    (let ((next-headline (save-excursion (or (outline-next-heading) (point-max))))
-          (current-headline (or (and (org-at-heading-p) (point))
-                                (save-excursion (org-back-to-heading)))))
-      (if others
-          (if (not (member tag (org-get-tags current-headline)))
-              next-headline nil)
-        (if (member tag (org-get-tags current-headline))
-            next-headline nil))))
-
   (setq org-agenda-custom-commands
         '(("a" "Agenda"
-           ((agenda "" ((org-agenda-skip-function
-                         '(my/org-agenda-skip-tag "habit" nil))))))
+           ((agenda "")))
           ("n" "Agenda and all TODOs"
            ((agenda "")
-            (alltodo "")))
-          ("h" "Habits"
-           ((agenda "" ((org-agenda-span 'day)
-                        (org-agenda-start-day nil)
-                        (org-agenda-skip-function
-                         '(my/org-agenda-skip-tag "habit" t))))
-            (tags-todo "habit"))
-           ((org-agenda-compact-blocks nil))))))
+            (alltodo ""))))))
 
 (use-package evil-org
   :after org
