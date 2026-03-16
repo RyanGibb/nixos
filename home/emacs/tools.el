@@ -344,6 +344,7 @@ Second press focuses the documentation window instead."
             (lambda ()
               (when (and (derived-mode-p 'vterm-mode)
                          vterm-copy-mode)
-                (vterm-copy-mode -1)))))
+                (vterm-copy-mode -1)
+                (setq cursor-type nil)))))
 
 ;;; tools.el ends here
