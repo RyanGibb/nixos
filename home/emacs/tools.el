@@ -332,6 +332,18 @@ Second press focuses the documentation window instead."
                   (process-send-string vterm--process "\e\C-m"))))
   ;; Let M-<num> workspace bindings through in normal mode
   (dotimes (i 9)
-    (define-key vterm-mode-map (kbd (format "M-%d" (1+ i))) nil)))
+    (define-key vterm-mode-map (kbd (format "M-%d" (1+ i))) nil))
+
+  ;; Enter vterm-copy-mode in normal state so scrollback works
+  (add-hook 'evil-normal-state-entry-hook
+            (lambda ()
+              (when (and (derived-mode-p 'vterm-mode)
+                         (not vterm-copy-mode))
+                (vterm-copy-mode 1))))
+  (add-hook 'evil-insert-state-entry-hook
+            (lambda ()
+              (when (and (derived-mode-p 'vterm-mode)
+                         vterm-copy-mode)
+                (vterm-copy-mode -1)))))
 
 ;;; tools.el ends here
