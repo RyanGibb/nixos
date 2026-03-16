@@ -46,7 +46,9 @@ buffer and any new buffer created by FN."
     (my/workspace-switch name)
     (let ((default-directory (if dir (expand-file-name dir) default-directory)))
       (funcall fn)
-      (when dir (setq default-directory (expand-file-name dir)))))
+      (when dir
+        (setq default-directory (expand-file-name dir))
+        (set-persp-parameter 'project-dir (expand-file-name dir)))))
 
   (defun my/workspace-switch-last ()
     "Switch to the last workspace."
@@ -66,7 +68,17 @@ buffer and any new buffer created by FN."
                   (if (persp-with-name-exists-p name)
                       (my/workspace-switch name)
                     (my/workspace-switch name)
-                    (funcall orig-fn dir)))))
+                    (funcall orig-fn dir))
+                  (set-persp-parameter 'project-dir dir))))
+
+  ;; Make project.el use the workspace's project dir
+  (advice-add 'project-current :around
+              (lambda (orig-fn &rest args)
+                (let ((persp-dir (persp-parameter 'project-dir)))
+                  (if persp-dir
+                      (let ((default-directory persp-dir))
+                        (apply orig-fn args))
+                    (apply orig-fn args)))))
 
   (defun my/kill-current-workspace ()
     "Kill the current workspace."
