@@ -39,6 +39,15 @@
         (setq my/workspace--last old-name)
         (persp-frame-switch name))))
 
+  ;; Abort active minibuffer when switching workspaces to prevent stale prompts
+  (advice-add 'persp-frame-switch :around
+              (lambda (orig-fn &rest args)
+                (if (> (minibuffer-depth) 0)
+                    (progn
+                      (run-at-time 0 nil (lambda () (apply orig-fn args)))
+                      (abort-recursive-edit))
+                  (apply orig-fn args))))
+
   (defun my/open-in-workspace (name fn &optional dir)
     "Switch to workspace NAME and call FN.
 If DIR is non-nil, set `default-directory' to DIR in both the calling
