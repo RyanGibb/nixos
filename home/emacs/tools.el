@@ -336,7 +336,10 @@ Second press focuses the documentation window instead."
               (setq-local evil-insert-state-cursor '(nil))))
   (evil-collection-define-key 'insert 'vterm-mode-map
     (kbd "C-c") #'vterm--self-insert
-    (kbd "C-S-v") #'vterm-yank)
+    (kbd "C-S-v") #'vterm-yank
+    (kbd "C-<escape>") (lambda () (interactive)
+                         (when vterm--term
+                           (vterm-send-key "<escape>"))))
   ;; vterm--self-insert-meta mishandles M-RET (sends C-M-m instead of ESC RET)
   (define-key vterm-mode-map (kbd "M-RET")
               (lambda () (interactive)
