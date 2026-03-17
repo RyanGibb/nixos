@@ -15,6 +15,7 @@
       "|"
       "DONE(d)" "MOVE(m)" "KILL(k)")))
   (org-tag-alist '(("work" . ?w) ("systems" . ?s)))
+  (org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
   :config
   (require 'org-habit)
 
