@@ -36,7 +36,12 @@ let
       evil-snipe
       evil-easymotion
       evil-org
-      evil-numbers
+      (evil-numbers.overrideAttrs (old: {
+        # https://github.com/juliapath/evil-numbers/issues/30
+        postPatch = (old.postPatch or "") + ''
+          substituteInPlace evil-numbers.el --replace-fail '(incf ' '(cl-incf '
+        '';
+      }))
       avy
       undo-tree
 
