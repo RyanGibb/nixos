@@ -80,6 +80,19 @@ buffer and any new buffer created by FN."
                         (apply orig-fn args))
                     (apply orig-fn args)))))
 
+  ;; Show scratch instead of a buffer from another workspace when last buffer is killed
+  (add-hook 'kill-buffer-hook
+            (lambda ()
+              (let* ((persp (get-current-persp))
+                     (bufs (when persp
+                             (cl-remove (current-buffer) (persp-buffers persp)))))
+                (when (and persp (null bufs))
+                  (let ((win (selected-window)))
+                    (run-at-time 0 nil
+                                 (lambda ()
+                                   (when (window-live-p win)
+                                     (set-window-buffer win (get-scratch-buffer-create))))))))))
+
   (defun my/kill-current-workspace ()
     "Kill the current workspace."
     (interactive)
