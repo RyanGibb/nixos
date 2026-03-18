@@ -262,13 +262,30 @@ buffer and any new buffer created by FN."
   (global-set-key [remap describe-variable] #'helpful-variable)
   (global-set-key [remap describe-key] #'helpful-key))
 
-;;;; Eglot (LSP)
+;;;; Popup windows
 
-(add-to-list 'display-buffer-alist
-             '("\\*eldoc\\*"
-               (display-buffer-in-side-window)
-               (side . bottom) (slot . 1)
-               (window-height . shrink-window-if-larger-than-buffer)))
+;; Show transient buffers in side windows
+(dolist (rule '(("\\*\\(?:[Hh]elp\\|helpful\\|Apropos\\).*"
+                 (display-buffer-in-side-window)
+                 (side . bottom) (slot . 0) (window-height . 0.4))
+                ("\\*\\(?:[Cc]ompil\\(?:ation\\|e-Log\\)\\|Warnings\\|Messages\\)\\*"
+                 (display-buffer-in-side-window)
+                 (side . bottom) (slot . -1) (window-height . 0.3))
+                ("\\*eldoc\\*"
+                 (display-buffer-in-side-window)
+                 (side . bottom) (slot . 1)
+                 (window-height . shrink-window-if-larger-than-buffer))))
+  (add-to-list 'display-buffer-alist rule))
+
+;; q kills the buffer in side windows instead of burying it
+(defun my/quit-popup-window ()
+  (interactive)
+  (if (window-parameter nil 'window-side)
+      (kill-buffer-and-window)
+    (quit-window)))
+(global-set-key [remap quit-window] #'my/quit-popup-window)
+
+;;;; Eglot (LSP)
 
 (defun my/eldoc-help-at-point ()
   "Show eldoc documentation buffer, auto-dismissing on cursor movement.

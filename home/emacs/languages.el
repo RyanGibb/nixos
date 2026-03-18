@@ -39,6 +39,7 @@
     "R" '(ledger-reconcile :which-key "reconcile")
     "s" '(ledger-sort-region :which-key "sort region")
     "S" '(ledger-schedule-upcoming :which-key "schedule")
+    "c" '(ledger-mode-clean-buffer :which-key "clean buffer")
     "g s" '(ledger-display-ledger-stats :which-key "stats")
     "g b" '(ledger-display-balance-at-point :which-key "balance at point"))
 
