@@ -267,14 +267,14 @@ buffer and any new buffer created by FN."
 ;; Show transient buffers in side windows
 (dolist (rule '(("\\*\\(?:[Hh]elp\\|helpful\\|Apropos\\).*"
                  (display-buffer-in-side-window)
-                 (side . bottom) (slot . 0) (window-height . 0.4))
+                 (side . right) (slot . 1) (window-width . 0.4))
                 ("\\*\\(?:[Cc]ompil\\(?:ation\\|e-Log\\)\\|Warnings\\|Messages\\)\\*"
                  (display-buffer-in-side-window)
                  (side . bottom) (slot . -1) (window-height . 0.3))
                 ("\\*eldoc\\*"
                  (display-buffer-in-side-window)
-                 (side . bottom) (slot . 1)
-                 (window-height . shrink-window-if-larger-than-buffer))))
+                 (side . right) (slot . 2)
+                 (window-width . 0.4))))
   (add-to-list 'display-buffer-alist rule))
 
 ;; q kills the buffer in side windows instead of burying it
