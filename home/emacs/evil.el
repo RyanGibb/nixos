@@ -6,6 +6,7 @@
   (setq evil-want-keybinding nil) ; required for evil-collection
   (setq evil-want-C-u-scroll t)
   (setq evil-undo-system 'undo-tree)
+  (setq evil-search-module 'evil-search)
   :config
   (evil-mode 1)
   ;; In GUI frames, distinguish C-i from TAB so evil-jump-forward works
