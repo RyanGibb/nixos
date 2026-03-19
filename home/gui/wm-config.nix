@@ -427,9 +427,9 @@ in
       "exec ${scriptDir}/title_ws.sh ${scriptDir}/get_ws_title.sh ${scriptDir}/get_cur_ws_name.sh";
 
     "Mod4+i" =
-      "exec ${i3-workspace-history}/bin/i3-workspace-history -mode=forward -sway; exec st workspace -t 500";
+      "exec ${i3-workspace-history}/bin/i3-workspace-history --mode=forward --sway; exec st workspace -t 500";
     "Mod4+o" =
-      "exec ${i3-workspace-history}/bin/i3-workspace-history -mode=back -sway; exec st workspace -t 500";
+      "exec ${i3-workspace-history}/bin/i3-workspace-history --mode=back --sway; exec st workspace -t 500";
 
     "Mod4+Tab" = "exec ${scriptDir}/window_switcher.sh";
     "Mod4+Shift+Tab" = "exec ${scriptDir}/window_switcher_scratch.sh";
