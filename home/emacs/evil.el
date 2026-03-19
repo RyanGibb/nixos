@@ -7,7 +7,12 @@
   (setq evil-want-C-u-scroll t)
   (setq evil-undo-system 'undo-tree)
   :config
-  (evil-mode 1))
+  (evil-mode 1)
+  ;; In GUI frames, distinguish C-i from TAB so evil-jump-forward works
+  ;; even in buffers with button maps (e.g. helpful).
+  (when (display-graphic-p)
+    (define-key input-decode-map [?\C-i] [C-i])
+    (define-key evil-normal-state-map [C-i] #'evil-jump-forward)))
 
 (use-package evil-collection
   :after evil

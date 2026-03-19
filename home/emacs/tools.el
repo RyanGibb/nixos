@@ -296,33 +296,69 @@ buffer and any new buffer created by FN."
 ;;;; Help
 
 (use-package helpful
+  :custom
+  ;; Use display-buffer so display-buffer-alist rules are respected.
+  (helpful-switch-buffer-function
+   (lambda (buf) (select-window (display-buffer buf))))
   :config
   (global-set-key [remap describe-function] #'helpful-callable)
   (global-set-key [remap describe-variable] #'helpful-variable)
-  (global-set-key [remap describe-key] #'helpful-key))
+  (global-set-key [remap describe-key] #'helpful-key)
+  ;; Restore helpful's TAB binding but as [tab] so it doesn't shadow C-i.
+  (define-key helpful-mode-map [?\t] nil)
+  (define-key helpful-mode-map [tab] #'forward-button)
+  ;; q kills the helpful buffer. If there's a previous helpful buffer in the
+  ;; window, show it. Otherwise close the window.
+  (evil-collection-define-key 'normal 'helpful-mode-map
+    "q" (lambda () (interactive)
+          (let* ((win (selected-window))
+                 (buf (current-buffer))
+                 (prev (cl-find-if
+                        (lambda (e)
+                          (and (not (eq (car e) buf))
+                               (buffer-live-p (car e))
+                               (with-current-buffer (car e)
+                                 (derived-mode-p 'helpful-mode))))
+                        (window-prev-buffers win))))
+            (if prev
+                (progn
+                  (set-window-buffer win (car prev))
+                  (kill-buffer buf))
+              (kill-buffer-and-window)))))
+  ;; Allow evil jump list to track helpful buffers (they have no file so
+  ;; evil ignores them by default).
+  (setq evil--jumps-buffer-targets
+        (concat "\\*\\(new\\|scratch\\|helpful \\)"))
+  ;; Record evil jump so C-o works between helpful pages.
+  (advice-add 'helpful--update-and-switch-buffer :around
+              (lambda (orig-fn &rest args)
+                (let ((old-buf (current-buffer))
+                      (old-pos (point)))
+                  (apply orig-fn args)
+                  (save-current-buffer
+                    (set-buffer old-buf)
+                    (save-excursion
+                      (goto-char old-pos)
+                      (evil--jumps-push))))))
+  ;; Open source links in the main window, not a new split.
+  ;; helpful--navigate calls find-file-other-window by default.
+  (advice-add 'helpful--navigate :override
+              (lambda (button)
+                (let ((path (substring-no-properties (button-get button 'path)))
+                      (pos (get-text-property button 'position
+                                              (marker-buffer button))))
+                  (find-file path)
+                  (when pos (goto-char pos))))))
 
 ;;;; Popup windows
 
-;; Show transient buffers in side windows
 (dolist (rule '(("\\*\\(?:[Hh]elp\\|helpful\\|Apropos\\).*"
-                 (display-buffer-in-side-window)
-                 (side . right) (slot . 1) (window-width . 0.4))
+                 (display-buffer-reuse-mode-window display-buffer-pop-up-window)
+                 (mode helpful-mode help-mode))
                 ("\\*\\(?:[Cc]ompil\\(?:ation\\|e-Log\\)\\|Warnings\\|Messages\\)\\*"
                  (display-buffer-in-side-window)
-                 (side . bottom) (slot . -1) (window-height . 0.3))
-                ("\\*eldoc\\*"
-                 (display-buffer-in-side-window)
-                 (side . right) (slot . 2)
-                 (window-width . 0.4))))
+                 (side . bottom) (slot . -1) (window-height . 0.3))))
   (add-to-list 'display-buffer-alist rule))
-
-;; q kills the buffer in side windows instead of burying it
-(defun my/quit-popup-window ()
-  (interactive)
-  (if (window-parameter nil 'window-side)
-      (kill-buffer-and-window)
-    (quit-window)))
-(global-set-key [remap quit-window] #'my/quit-popup-window)
 
 ;;;; Eglot (LSP)
 
@@ -343,7 +379,9 @@ Second press focuses the documentation window instead."
                                ((eq this-command #'my/eldoc-help-at-point) nil)
                                ((not (eq (selected-window) source-window)) nil)
                                (t (when-let* ((w (get-buffer-window buf)))
-                                    (quit-window nil w))
+                                    (if (window-prev-buffers w)
+                                        (switch-to-prev-buffer w)
+                                      (delete-window w)))
                                   (remove-hook 'post-command-hook dismiss))))))
             (run-with-timer 0 nil
                             (lambda ()
