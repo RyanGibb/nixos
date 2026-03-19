@@ -744,22 +744,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-pysaml2": {
-      "locked": {
-        "lastModified": 1760615349,
-        "narHash": "sha256-kterkY+ABH5bYxQQtUhtM3cHLEdLDfFpYCHTk/ehyd4=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "5d1f6df5e189570d6a24bbb80cb5731a63fa41d2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "5d1f6df5e189570d6a24bbb80cb5731a63fa41d2",
-        "type": "github"
-      }
-    },
     "nixpkgs-qtwebengine": {
       "locked": {
         "lastModified": 1756155721,
@@ -1104,7 +1088,6 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-nvidia": "nixpkgs-nvidia",
-        "nixpkgs-pysaml2": "nixpkgs-pysaml2",
         "nixpkgs-qtwebengine": "nixpkgs-qtwebengine",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",

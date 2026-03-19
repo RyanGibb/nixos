@@ -3,7 +3,6 @@
   config,
   lib,
   nixpkgs-unstable,
-  nixpkgs-pysaml2,
   ...
 }:
 
@@ -24,19 +23,33 @@ in
     ./minimal.nix
   ];
 
-  # pysaml2 marked as broken: https://github.com/NixOS/nixpkgs/commit/ea9c00b162c441f9ab41f004a1ddc82b5c5c2002
+  # pysaml2 incompatible with xmlschema >= 4.2.0:
+  #   https://github.com/IdentityPython/pysaml2/issues/947
+  #   https://github.com/NixOS/nixpkgs/issues/469563
   nixpkgs.overlays = [
     (
-      final: prev:
-      let
-        pysaml2-pkgs = import nixpkgs-pysaml2 {
-          inherit (prev.stdenv.hostPlatform) system;
+      final: prev: {
+        python3 = prev.python3.override {
+          packageOverrides = pyFinal: pyPrev: {
+            xmlschema = pyPrev.xmlschema.overridePythonAttrs (old: rec {
+              version = "4.1.0";
+              src = prev.fetchFromGitHub {
+                owner = "sissaschool";
+                repo = "xmlschema";
+                tag = "v${version}";
+                hash = "sha256-3nvl49rlwQpNARmWBSw+faL+yNGqNecokjGGpnaC8a0=";
+              };
+            });
+          };
         };
-      in
-      {
+        python3Packages = final.python3.pkgs;
         matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overridePythonAttrs (old: {
+          doCheck = false;
           optional-dependencies = old.optional-dependencies // {
-            saml2 = [ pysaml2-pkgs.python3Packages.pysaml2 ];
+            saml2 = old.optional-dependencies.saml2 ++ [
+              final.python3Packages.defusedxml
+              final.python3Packages.pytz
+            ];
           };
         });
       }
