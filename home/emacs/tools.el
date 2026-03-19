@@ -214,8 +214,47 @@ buffer and any new buffer created by FN."
 (use-package magit
   :bind ("C-x g" . magit-status)
   :custom
-  (magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
+  (magit-display-buffer-function #'my/magit-display-buffer-fullframe-status)
+  ;; Disable magit's window config save/restore — set-window-configuration is a
+  ;; legacy C function that doesn't handle side windows correctly, mangling
+  ;; their parameters (e.g. no-delete-other-windows) and sizes on restore.
+  ;; See https://github.com/magit/magit/issues/4871
+  (magit-pre-display-buffer-hook nil)
+  (magit-bury-buffer-function #'my/magit-bury-buffer)
   :config
+  ;; magit-display-buffer-fullframe-status-v1 uses delete-other-windows which
+  ;; interacts badly with side windows:
+  ;; - display-buffer-same-window can put magit IN the side window
+  ;; - delete-other-windows can destroy side windows whose
+  ;;   no-delete-other-windows parameter was lost after set-window-configuration
+  ;; This version saves the full window layout (including side windows) via
+  ;; window-state-get, then goes fullframe. On quit, it restores everything.
+  (defvar my/magit--saved-window-state nil)
+
+  (defun my/magit-display-buffer-fullframe-status (buffer)
+    (if (eq (buffer-local-value 'major-mode buffer) 'magit-status-mode)
+        (let ((win (cl-find-if-not
+                    (lambda (w) (window-parameter w 'window-side))
+                    (window-list))))
+          (setq my/magit--saved-window-state
+                (window-state-get (frame-root-window)))
+          (let ((target (or win (selected-window))))
+            (window--display-buffer buffer target 'reuse)
+            (set-window-dedicated-p target t)
+            (dolist (w (window-list))
+              (unless (eq w target)
+                (delete-window w)))
+            (set-window-dedicated-p target nil)
+            target))
+      (magit-display-buffer-traditional buffer)))
+
+  (defun my/magit-bury-buffer (_window)
+    (if my/magit--saved-window-state
+        (progn
+          (window-state-put my/magit--saved-window-state (frame-root-window) t)
+          (setq my/magit--saved-window-state nil))
+      (switch-to-prev-buffer)))
+
   (defun my/magit-commit-update ()
     "Create a commit with the message \"update\"."
     (interactive)
