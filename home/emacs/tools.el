@@ -370,6 +370,8 @@ Second press focuses the documentation window instead."
          (win (and buf (get-buffer-window buf))))
     (if win
         (select-window win)
+      (let ((eldoc-idle-delay 0))
+        (eldoc-print-current-symbol-info))
       (eldoc-doc-buffer t)
       (when-let* ((buf (get-buffer "*eldoc*"))
                   (win (get-buffer-window buf)))

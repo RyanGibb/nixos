@@ -27,8 +27,7 @@
 ;; y/n instead of yes/no
 (setq use-short-answers t)
 
-;; Show eldoc quickly
-(setq eldoc-idle-delay 0)
+(setq eldoc-idle-delay 0.5)
 
 ;; Allow commands in minibuffer while in minibuffer
 (setq enable-recursive-minibuffers t)
