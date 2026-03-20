@@ -39,6 +39,7 @@
   :custom
   (corfu-auto t)
   (corfu-auto-delay 0.2)
+  (corfu-preselect 'prompt)
   :config
   (global-corfu-mode)
   (evil-define-key 'insert 'global
