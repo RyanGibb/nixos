@@ -112,6 +112,8 @@
       intel-media-driver
       # Intel Video Processing Library (VPL) API runtime implementation
       vpl-gpu-rt
+      # OpenCL runtime for Intel GPUs (required for HDR tonemapping)
+      intel-compute-runtime
     ];
   };
   nixpkgs.config.packageOverrides = prev: {
