@@ -556,11 +556,11 @@ in
       "c" = "exec grim -g \"\$(${scriptDir}/slurp_point.sh)\" - | wl-copy, mode default";
       "e" = "exec grim -g \"\$(${scriptDir}/slurp_point.sh)\" - | swappy -f -, mode default";
       "f" =
-        "exec grim -g \"\$(${scriptDir}/slurp_point.sh)\" \$XDG_PICTURES_DIR/\"\$(date '+%Y-%m-%d %H.%M.%S')\".png, mode default";
+        "exec grim -g \"\$(${scriptDir}/slurp_point.sh)\" \$XDG_PICTURES_DIR/capture/\"\$(date '+%Y-%m-%d %H.%M.%S')\".png, mode default";
       "Shift+c" = "exec grim - | wl-copy, mode default; exec notify-send copied";
       "Shift+e" = "exec grim - | swappy -f -, mode default; exec notify-send saved";
       "Shift+f" =
-        "exec grim \$XDG_PICTURES_DIR/\"\$(date '+%Y-%m-%d %H.%M.%S')\".png, mode default; exec notify-send \"saved to file\"";
+        "exec grim \$XDG_PICTURES_DIR/capture/\"\$(date '+%Y-%m-%d %H.%M.%S')\".png, mode default; exec notify-send \"saved to file\"";
       "v" =
         "exec wf-recorder -a=\"\$(pactl info | sed -En 's/Default Sink: (.*)/\\1/p').monitor\" -o \$(swaymsg -t get_outputs | jq -r '.[] | select(.type==\"output\" and .focused).name') -f \$XDG_VIDEOS_DIR/\"\$(date '+%Y-%m-%d %H.%M')\".mp4, mode default";
       "Shift+v" = "exec pkill -SIGINT wf-recorder; exec notify-send \"stop recording\"";

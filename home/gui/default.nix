@@ -165,7 +165,7 @@ in
         "Element/config.json".source = ./element.json;
         "swappy/config".text = ''
           [Default]
-          save_dir=~/capture/capture/
+          save_dir=$XDG_PICTURES_DIR/capture/
           save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
         '';
         "tridactyl/tridactylrc".source = ./tridactylrc;
