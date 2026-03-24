@@ -36,6 +36,15 @@
     ];
   };
 
+  services.nginx.commonHttpConfig = ''
+    add_header Strict-Transport-Security max-age=31536000 always;
+    add_header X-Frame-Options SAMEORIGIN always;
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy same-origin always;
+
+    limit_req_zone $binary_remote_addr zone=login:10m rate=5r/s;
+  '';
+
   services.nginx = {
     package = pkgs.nginxMainline.override {
       modules = with pkgs.nginxModules; [
@@ -199,6 +208,7 @@
     enable = true;
     openFirewall = true;
     settings = {
+      network_interface = "enp1s0";
       media_dir = [ "/tank/" ];
       notify_interval = 60;
       inofity = true;
@@ -207,7 +217,6 @@
 
   services.jellyfin = {
     enable = true;
-    openFirewall = true;
   };
   users.users.${config.services.jellyfin.user}.extraGroups = [
     config.services.transmission.user
@@ -399,7 +408,6 @@
 
   services.immich = {
     enable = true;
-    openFirewall = true;
     host = "100.64.0.9";
     mediaLocation = "/tank/immich";
   };
