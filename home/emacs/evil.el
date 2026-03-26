@@ -5,7 +5,7 @@
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil) ; required for evil-collection
   (setq evil-want-C-u-scroll t)
-  (setq evil-undo-system 'undo-tree)
+  (setq evil-undo-system 'undo-redo)
   (setq evil-search-module 'evil-search)
   :config
   (evil-mode 1)
@@ -76,11 +76,12 @@
   (define-key evilem-map "a" (evilem-create #'evil-forward-arg))
   (define-key evilem-map "A" (evilem-create #'evil-backward-arg)))
 
-(use-package undo-tree
+(use-package vundo
+  :defer t)
+
+(use-package undo-fu-session
   :config
-  (global-undo-tree-mode)
-  (setq undo-tree-history-directory-alist
-        `(("." . ,(expand-file-name "undo-tree-hist" user-emacs-directory)))))
+  (undo-fu-session-global-mode))
 
 ;; Mouse back/forward buttons
 (global-set-key (kbd "<mouse-8>") #'evil-jump-backward)
@@ -236,7 +237,7 @@
     "s S" '((lambda () (interactive) (consult-line (thing-at-point 'symbol))) :which-key "search symbol at point")
     "s f" '(locate :which-key "locate file")
     "s j" '(evil-show-jumps :which-key "jump list")
-    "s u" '(undo-tree-visualize :which-key "undo history")
+    "s u" '(vundo :which-key "undo history")
 
     ;; Toggle
     "t"   '(:ignore t :which-key "toggle")

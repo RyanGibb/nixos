@@ -43,7 +43,8 @@ let
         '';
       }))
       avy
-      undo-tree
+      vundo
+      undo-fu-session
 
       # Snippets
       yasnippet
