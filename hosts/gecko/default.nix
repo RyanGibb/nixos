@@ -49,6 +49,58 @@
       battery.enable = true;
       emacs.enable = true;
     };
+    home.packages =
+      let
+        bibtoolRsc = pkgs.writeText "bibtool.rsc" ''
+          key.generation = on
+          key.format = {{%-1n(author) # }%3W(title){%4d(date) # %4d(year) # }}
+          fmt.et.al = ""
+          new.entry.type = "online"
+          new.entry.type = "report"
+          new.entry.type = "thesis"
+          new.entry.type = "software"
+          new.entry.type = "video"
+          new.entry.type = "artwork"
+          ignored.word = "a"
+          ignored.word = "an"
+          ignored.word = "the"
+          ignored.word = "is"
+          ignored.word = "are"
+          ignored.word = "but"
+          ignored.word = "and"
+          ignored.word = "or"
+          ignored.word = "nor"
+          ignored.word = "for"
+          ignored.word = "yet"
+          ignored.word = "so"
+          ignored.word = "in"
+          ignored.word = "on"
+          ignored.word = "at"
+          ignored.word = "to"
+          ignored.word = "by"
+          ignored.word = "of"
+          ignored.word = "with"
+          ignored.word = "from"
+          ignored.word = "as"
+          ignored.word = "it"
+          ignored.word = "its"
+          ignored.word = "we"
+          ignored.word = "not"
+          print.align.key = 0
+          print.align = 17
+          print.use.tab = off
+          print.wide.equal = on
+          print.equal.right = off
+          print.line.length = 70
+        '';
+      in
+      [
+        (pkgs.writeShellScriptBin "url2bib" ''
+          curl -s -d "$1" -H 'Content-Type: text/plain' http://127.0.0.1:1969/web \
+          | curl -s -d @- -H 'Content-Type: application/json' 'http://127.0.0.1:1969/export?format=bibtex' \
+          | ${pkgs.bibtool}/bin/bibtool -r ${bibtoolRsc}
+        '')
+      ];
     home.sessionVariables = {
       LEDGER_FILE = "$HOME/vault/finances.ledger";
       CALENDAR_DIR = "$HOME/calendar";
@@ -106,7 +158,6 @@
     gparted
     chromium
     calibre
-    zotero
     element-desktop
     (nheko.overrideAttrs (old: {
       src = fetchFromGitHub {
@@ -262,6 +313,18 @@
 
   # for CL VPN
   networking.networkmanager.plugins = [ pkgs.networkmanager-strongswan ];
+
+  systemd.services.zotero-translation-server = {
+    description = "Zotero translation server";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.zotero-translation-server}/bin/translation-server";
+      DynamicUser = true;
+    };
+    environment = {
+      NODE_CONFIG_DIR = "${pkgs.zotero-translation-server}/lib/node_modules/translation-server/config";
+    };
+  };
 
   services = {
     syncthing = {

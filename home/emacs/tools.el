@@ -468,4 +468,14 @@ Second press focuses the documentation window instead."
     (define-key vterm-mode-map (kbd (format "M-%d" (1+ i))) nil))
 )
 
+;;;; BibTeX
+
+(use-package bibtex
+  :custom
+  (bibtex-text-indentation 17)
+  (bibtex-field-indentation 2)
+  (bibtex-contline-indentation 17)
+  (bibtex-align-at-equal-sign nil)
+  (bibtex-entry-format '(opts-or-alts required-fields)))
+
 ;;; tools.el ends here
