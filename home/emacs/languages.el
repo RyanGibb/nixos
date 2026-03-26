@@ -7,7 +7,9 @@
          ("\\.mli\\'" . neocaml-interface-mode))
   :config
   (require 'neocaml-repl)
-  (add-hook 'neocaml-base-mode-hook #'neocaml-repl-minor-mode))
+  (add-hook 'neocaml-base-mode-hook #'neocaml-repl-minor-mode)
+  (with-eval-after-load 'org-src
+    (setf (alist-get "ocaml" org-src-lang-modes nil nil #'equal) 'neocaml)))
 
 ;;;; Nix
 

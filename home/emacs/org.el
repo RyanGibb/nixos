@@ -5,7 +5,9 @@
   :hook (org-mode . org-indent-mode)
   :custom
   (org-directory "~/vault/")
-  (org-agenda-files '("~/vault/"))
+  (org-agenda-files (list (concat org-directory "todo.org")
+                          (concat org-directory "recurring.org")
+                          (concat org-directory "habits.org")))
   (org-agenda-window-setup 'current-window)
   (org-agenda-start-day nil)
   (org-todo-repeat-to-state "LOOP")
