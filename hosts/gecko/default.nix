@@ -96,6 +96,9 @@
       in
       [
         (pkgs.writeShellScriptBin "url2bib" ''
+          systemctl --user start zotero-translation-server
+          systemctl --user restart zotero-translation-server-idle.timer
+          while ! ${pkgs.curl}/bin/curl -s -o /dev/null http://127.0.0.1:1969/; do sleep 0.1; done
           curl -s -d "$1" -H 'Content-Type: text/plain' http://127.0.0.1:1969/web \
           | curl -s -d @- -H 'Content-Type: application/json' 'http://127.0.0.1:1969/export?format=bibtex' \
           | ${pkgs.bibtool}/bin/bibtool -r ${bibtoolRsc}
@@ -138,6 +141,24 @@
       Install = {
         WantedBy = [ "graphical-session.target" ];
       };
+    };
+    systemd.user.services.zotero-translation-server = {
+      Unit.Description = "Zotero translation server";
+      Service = {
+        ExecStart = "${pkgs.zotero-translation-server}/bin/translation-server";
+        Environment = "NODE_CONFIG_DIR=${pkgs.zotero-translation-server}/lib/node_modules/translation-server/config";
+      };
+    };
+    systemd.user.services.zotero-translation-server-idle = {
+      Unit.Description = "Stop idle Zotero translation server";
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.systemd}/bin/systemctl --user stop zotero-translation-server";
+      };
+    };
+    systemd.user.timers.zotero-translation-server-idle = {
+      Unit.Description = "Stop Zotero translation server after 10 minutes of inactivity";
+      Timer.OnActiveSec = "10m";
     };
   };
 
@@ -314,17 +335,6 @@
   # for CL VPN
   networking.networkmanager.plugins = [ pkgs.networkmanager-strongswan ];
 
-  systemd.services.zotero-translation-server = {
-    description = "Zotero translation server";
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.zotero-translation-server}/bin/translation-server";
-      DynamicUser = true;
-    };
-    environment = {
-      NODE_CONFIG_DIR = "${pkgs.zotero-translation-server}/lib/node_modules/translation-server/config";
-    };
-  };
 
   services = {
     syncthing = {
