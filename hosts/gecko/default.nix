@@ -99,9 +99,31 @@
           systemctl --user start zotero-translation-server
           systemctl --user restart zotero-translation-server-idle.timer
           while ! ${pkgs.curl}/bin/curl -s -o /dev/null http://127.0.0.1:1969/; do sleep 0.1; done
-          curl -s -d "$1" -H 'Content-Type: text/plain' http://127.0.0.1:1969/web \
-          | curl -s -d @- -H 'Content-Type: application/json' 'http://127.0.0.1:1969/export?format=bibtex' \
-          | ${pkgs.bibtool}/bin/bibtool -r ${bibtoolRsc}
+
+          json=$(curl -s -d "$1" -H 'Content-Type: text/plain' http://127.0.0.1:1969/web)
+          bib=$(echo "$json" \
+            | curl -s -d @- -H 'Content-Type: application/json' 'http://127.0.0.1:1969/export?format=bibtex' \
+            | ${pkgs.bibtool}/bin/bibtool -r ${bibtoolRsc})
+          key=$(echo "$bib" | ${pkgs.gnugrep}/bin/grep -oP '@\w+\{\K[^,]+')
+
+          pdf_url="''${2:-}"
+          if [ -z "$pdf_url" ]; then
+            doi=$(echo "$json" | ${pkgs.jq}/bin/jq -r '.[0].DOI // empty' 2>/dev/null)
+            if [ -n "$doi" ]; then
+              pdf_url=$(curl -s "https://api.unpaywall.org/v2/$doi?email=ryan@freumh.org" \
+                | ${pkgs.jq}/bin/jq -r '.best_oa_location.url_for_pdf // empty' 2>/dev/null)
+            fi
+          fi
+
+          if [ -n "$pdf_url" ]; then
+            mkdir -p ~/papers
+            curl -sL "$pdf_url" -o ~/papers/"$key".pdf
+            bib=$(printf '%s\n' "$bib" | ${pkgs.gnused}/bin/sed "$ s|}|,\n  file = {$HOME/papers/$key.pdf}\n}|")
+            bib=$(echo "$bib" | ${pkgs.bibtool}/bin/bibtool -r ${bibtoolRsc})
+            echo "Downloaded: ~/papers/$key.pdf" >&2
+          fi
+
+          echo "$bib"
         '')
       ];
     home.sessionVariables = {
