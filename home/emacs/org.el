@@ -358,6 +358,7 @@ With TODO non-nil, add a TODO keyword."
     "/"   '(consult-org-agenda :which-key "goto agenda heading")
     "@"   '(org-cite-insert :which-key "cite")
     "A"   '(org-archive-subtree-default :which-key "archive subtree")
+    "S"   '(org-insert-structure-template :which-key "structure template")
     "e"   '(org-export-dispatch :which-key "export")
     "f"   '(org-footnote-action :which-key "footnote")
     "h"   '(org-toggle-heading :which-key "toggle heading")
