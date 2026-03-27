@@ -13,7 +13,14 @@
   ;; even in buffers with button maps (e.g. helpful).
   (when (display-graphic-p)
     (define-key input-decode-map [?\C-i] [C-i])
-    (define-key evil-normal-state-map [C-i] #'evil-jump-forward)))
+    (define-key evil-normal-state-map [C-i] #'evil-jump-forward))
+
+  ;; M-h/j/k/l for window navigation
+  (general-def '(normal visual motion) :keymaps 'override
+    "M-h" #'evil-window-left
+    "M-j" #'evil-window-down
+    "M-k" #'evil-window-up
+    "M-l" #'evil-window-right))
 
 (use-package evil-collection
   :after evil
