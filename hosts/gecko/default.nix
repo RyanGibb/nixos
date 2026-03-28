@@ -315,6 +315,8 @@
     inputs.plover-revamp.legacyPackages.${pkgs.stdenv.hostPlatform.system}.python3Packages.plover-dev
 
     slipshow
+
+    gh
   ];
 
   services.gnome.gnome-keyring.enable = true;
