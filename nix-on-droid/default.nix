@@ -15,6 +15,12 @@ inputs:
     util-linux # for whereis
     gawk # for shell history search
     ledger
+    opam
+    gnutar
+    rsync
+    gcc
+    gzip
+    gnugrep
   ];
   environment.etcBackupExtension = ".bak";
 
