@@ -21,6 +21,10 @@ inputs:
     gcc
     gzip
     gnugrep
+    gnused
+    gnumake
+    patch
+    diffutils
   ];
   environment.etcBackupExtension = ".bak";
 
