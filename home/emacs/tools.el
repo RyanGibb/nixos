@@ -376,18 +376,17 @@ Second press focuses the documentation window instead."
       (when-let* ((buf (get-buffer "*eldoc*"))
                   (win (get-buffer-window buf)))
         (let ((source-window (selected-window)))
-          (letrec ((dismiss (lambda ()
-                              (cond
-                               ((eq this-command #'my/eldoc-help-at-point) nil)
-                               ((not (eq (selected-window) source-window)) nil)
-                               (t (when-let* ((w (get-buffer-window buf)))
-                                    (if (window-prev-buffers w)
-                                        (switch-to-prev-buffer w)
-                                      (delete-window w)))
-                                  (remove-hook 'post-command-hook dismiss))))))
-            (run-with-timer 0 nil
-                            (lambda ()
-                              (add-hook 'post-command-hook dismiss)))))))))
+          (let ((skip t))
+            (letrec ((dismiss (lambda ()
+                                (if skip
+                                    (setq skip nil)
+                                  (cond
+                                   ((eq this-command #'my/eldoc-help-at-point) nil)
+                                   ((not (eq (selected-window) source-window)) nil)
+                                   (t (when-let* ((w (get-buffer-window buf)))
+                                        (delete-window w))
+                                      (remove-hook 'post-command-hook dismiss)))))))
+              (add-hook 'post-command-hook dismiss))))))))
 
 (use-package eglot
   :hook ((neocaml-mode neocaml-interface-mode nix-mode) . eglot-ensure)
