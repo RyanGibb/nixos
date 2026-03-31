@@ -462,9 +462,11 @@ Second press focuses the documentation window instead."
               (lambda () (interactive)
                 (when vterm--term
                   (process-send-string vterm--process "\e\C-m"))))
-  ;; Let M-<num> workspace bindings through in normal mode
+  ;; Let M-<num> workspace and M-h/j/k/l window bindings through
   (dotimes (i 9)
     (define-key vterm-mode-map (kbd (format "M-%d" (1+ i))) nil))
+  (dolist (key '("M-h" "M-j" "M-k" "M-l"))
+    (define-key vterm-mode-map (kbd key) nil))
 )
 
 ;;;; BibTeX

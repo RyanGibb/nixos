@@ -16,7 +16,7 @@
     (define-key evil-normal-state-map [C-i] #'evil-jump-forward))
 
   ;; M-h/j/k/l for window navigation
-  (general-def '(normal visual motion) :keymaps 'override
+  (general-def '(normal visual motion insert emacs) :keymaps 'override
     "M-h" #'evil-window-left
     "M-j" #'evil-window-down
     "M-k" #'evil-window-up
