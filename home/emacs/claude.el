@@ -368,9 +368,12 @@ Refreshes the Caledonia agenda buffer afterwards."
                    ("description" . ,description)))
          (request-str (format "(CreateEvent (%s))"
                               (caledonia--build-sexp-fields fields))))
-    (caledonia--send-request request-str)
-    (my/mcp-caledonia--refresh)
-    (format "Event created: %s" summary)))
+    (let* ((payload (caledonia--send-request request-str))
+           (events (caledonia--get-events payload))
+           (event (car events))
+           (id (caledonia--get-key 'id event)))
+      (my/mcp-caledonia--refresh)
+      (format "Event created: %s [%s]" summary id))))
 
 (defun my/mcp-caledonia-delete-event (id &optional occurrence-start)
   "Delete calendar event by ID.
