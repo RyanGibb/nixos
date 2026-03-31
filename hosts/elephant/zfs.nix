@@ -2,7 +2,7 @@
 
 {
   # to create:
-  #   zpool create tank mirror /dev/disk/by-id/ata-ST16000NM001G-2KK103_ZL28CDKQ /dev/disk/by-id/ata-TOSHIBA_MG08ACA16TE_83E0A00UFVGG
+  #   zpool create tank mirror /dev/disk/by-id/ata-TOSHIBA_MG08ACA16TE_83E0A00UFVGG /dev/disk/by-id/ata-TOSHIBA_MG08ACA16TE_5390A0X2SWTG
   #   truncate -s 512G /var/zfs_cache
   #   zpool add poolname cache /var/zfs_cache
 
@@ -24,6 +24,8 @@
       enable = true;
     };
   };
+
+  environment.etc."aliases".text = "root: ryan@freumh.org";
 
   age.secrets.email-elephant.file = ../../secrets/email-system.age;
   programs.msmtp = {
