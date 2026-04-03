@@ -15,12 +15,13 @@
     (define-key input-decode-map [?\C-i] [C-i])
     (define-key evil-normal-state-map [C-i] #'evil-jump-forward))
 
-  ;; M-h/j/k/l for window navigation
+  ;; M-h/j/k/l for window navigation (override org-meta* etc.)
   (general-def '(normal visual motion insert emacs) :keymaps 'override
     "M-h" #'evil-window-left
     "M-j" #'evil-window-down
     "M-k" #'evil-window-up
-    "M-l" #'evil-window-right))
+    "M-l" #'evil-window-right)
+)
 
 (use-package evil-collection
   :after evil

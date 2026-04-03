@@ -76,7 +76,13 @@
       (kbd "<C-M-return>") #'my/org-insert-sub-todo-below
       (kbd "<C-M-S-return>") #'my/org-insert-sub-todo-above)
     (evil-define-key '(normal insert) 'evil-org-mode
-      (kbd "S-<return>") #'my/org-shift-return))
+      (kbd "S-<return>") #'my/org-shift-return)
+    ;; Reclaim M-h/j/k/l for window navigation (evil-org binds them to org-meta*)
+    (evil-define-key '(normal visual motion insert) 'evil-org-mode
+      (kbd "M-h") #'evil-window-left
+      (kbd "M-j") #'evil-window-down
+      (kbd "M-k") #'evil-window-up
+      (kbd "M-l") #'evil-window-right))
   (advice-add 'evil-org-set-key-theme :after #'my/evil-org-override-return-bindings)
   (my/evil-org-override-return-bindings))
 
