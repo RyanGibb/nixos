@@ -46,9 +46,12 @@ in
       clientMaxBodySize = "100M";
       virtualHosts."${cfg.domain}" = {
         forceSSL = true;
-        locations."/".proxyPass = ''
-          http://localhost:${builtins.toString cfg.port}
-        '';
+        locations."/" = {
+          proxyPass = ''
+            http://localhost:${builtins.toString cfg.port}
+          '';
+          proxyWebsockets = true;
+        };
       };
     };
 
