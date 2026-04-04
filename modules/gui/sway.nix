@@ -60,6 +60,7 @@ in
         grim
         slurp
         swappy
+        wayfreeze
         dunst
         kanshi
       ];

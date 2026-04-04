@@ -486,7 +486,7 @@ in
     "Mod4+q" = "exec dunstctl close";
     "Mod4+Shift+q" = "exec dunstctl action";
     "Mod4+Control+q" = "exec dunstctl history-pop";
-    "Print" = "exec grim -g \"$(${scriptDir}/slurp_point.sh)\" - | wl-copy";
+    "Print" = "exec ${scriptDir}/capture_region.sh | wl-copy";
   };
 
   i3Keybindings = scriptDir: {
@@ -553,10 +553,10 @@ in
     };
     capture = {
       "q" = "exec dunstctl close";
-      "c" = "exec grim -g \"\$(${scriptDir}/slurp_point.sh)\" - | wl-copy, mode default";
-      "e" = "exec grim -g \"\$(${scriptDir}/slurp_point.sh)\" - | swappy -f -, mode default";
+      "c" = "exec ${scriptDir}/capture_region.sh | wl-copy, mode default";
+      "e" = "exec ${scriptDir}/capture_region.sh | swappy -f -, mode default";
       "f" =
-        "exec grim -g \"\$(${scriptDir}/slurp_point.sh)\" \$XDG_PICTURES_DIR/capture/\"\$(date '+%Y-%m-%d %H.%M.%S')\".png, mode default";
+        "exec ${scriptDir}/capture_region.sh > \$XDG_PICTURES_DIR/capture/\"\$(date '+%Y-%m-%d %H.%M.%S')\".png, mode default";
       "Shift+c" = "exec grim - | wl-copy, mode default; exec notify-send copied";
       "Shift+e" = "exec grim - | swappy -f -, mode default; exec notify-send saved";
       "Shift+f" =
