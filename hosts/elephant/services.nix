@@ -217,6 +217,7 @@
 
   services.jellyfin = {
     enable = true;
+    openFirewall = true;
   };
   users.users.${config.services.jellyfin.user}.extraGroups = [
     config.services.transmission.user
