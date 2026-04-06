@@ -318,8 +318,8 @@ DESTINATION is \"archive\", \"trash\", or an explicit maildir path."
         (caledonia-refresh)))))
 
 (defun my/mcp-caledonia-edit-event (id &optional summary start-date start-time
-                                       end-date end-time timezone location
-                                       description alarms)
+                                       end-date end-time timezone end-timezone
+                                       location description alarms)
   "Edit calendar event ID, updating only the provided fields.
 Refreshes the Caledonia agenda buffer afterwards."
   (require 'caledonia)
@@ -334,6 +334,7 @@ Refreshes the Caledonia agenda buffer afterwards."
                    ("end_date" . ,end-date)
                    ("end_time" . ,end-time)
                    ("timezone" . ,timezone)
+                   ("end_timezone" . ,end-timezone)
                    ("location" . ,location)
                    ("description" . ,description)
                    ("alarms" . ,alarm-list)))
@@ -345,8 +346,8 @@ Refreshes the Caledonia agenda buffer afterwards."
 
 (defun my/mcp-caledonia-add-event (calendar summary start-date
                                     &optional start-time end-date end-time
-                                    timezone recurrence alarms location
-                                    description)
+                                    timezone end-timezone recurrence alarms
+                                    location description)
   "Create a new calendar event.
 CALENDAR is the calendar name, SUMMARY is the title, START-DATE is YYYY-MM-DD.
 Refreshes the Caledonia agenda buffer afterwards."
@@ -362,6 +363,7 @@ Refreshes the Caledonia agenda buffer afterwards."
                    ("end_date" . ,end-date)
                    ("end_time" . ,end-time)
                    ("timezone" . ,timezone)
+                   ("end_timezone" . ,end-timezone)
                    ("recurrence" . ,recurrence)
                    ("alarms" . ,alarm-list)
                    ("location" . ,location)
@@ -604,6 +606,9 @@ This ensures direnv/envrc environment variables are passed to claude."
            (:name "timezone" :type string
             :description "Timezone (e.g. Europe/London)"
             :optional t)
+           (:name "end_timezone" :type string
+            :description "End timezone if different from start (e.g. America/New_York)"
+            :optional t)
            (:name "location" :type string
             :description "Event location"
             :optional t)
@@ -635,6 +640,9 @@ This ensures direnv/envrc environment variables are passed to claude."
             :optional t)
            (:name "timezone" :type string
             :description "Timezone (e.g. Europe/London)"
+            :optional t)
+           (:name "end_timezone" :type string
+            :description "End timezone if different from start (e.g. America/New_York)"
             :optional t)
            (:name "recurrence" :type string
             :description "RRULE recurrence string (e.g. FREQ=WEEKLY;BYDAY=MO)"
