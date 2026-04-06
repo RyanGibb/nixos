@@ -436,7 +436,9 @@ Second press focuses the documentation window instead."
 (use-package caledonia
   :commands (caledonia-list caledonia-search caledonia-query
              caledonia-add-event caledonia-edit-event caledonia-delete-event
-             caledonia-agenda))
+             caledonia-agenda)
+  :custom
+  (caledonia-executable (expand-file-name "~/projects/caledonia/_build/default/bin/main.exe")))
 
 (use-package caledonia-evil
   :after (caledonia evil))
