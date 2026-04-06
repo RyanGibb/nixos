@@ -163,6 +163,22 @@ in
       fn06.enable = true;
     };
   };
+  # rmfakecloud fail2ban (app logs ::1 behind nginx, so use nginx access log)
+  services.fail2ban.jails."rmfakecloud".settings = {
+    backend = "auto";
+    port = "80,443";
+    protocol = "tcp";
+    filter = "rmfakecloud";
+    maxRetry = 3;
+    bantime = "86400";
+    findTime = "43200";
+    logPath = "/var/log/nginx/access.log";
+  };
+  environment.etc."fail2ban/filter.d/rmfakecloud.local".text = ''
+    [Definition]
+    failregex = ^<HOST> .* "POST /ui/api/login HTTP/[^"]*" 401
+  '';
+
   services.nginx.commonHttpConfig = ''
     add_header Strict-Transport-Security max-age=31536000 always;
     add_header X-Frame-Options SAMEORIGIN always;
