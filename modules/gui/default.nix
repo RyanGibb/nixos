@@ -8,6 +8,26 @@
 
 let
   cfg = config.custom.gui;
+  plangothic = pkgs.stdenvNoCC.mkDerivation rec {
+    pname = "plangothic";
+    version = "2.9.5792";
+    srcs = [
+      (pkgs.fetchurl {
+        url = "https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/releases/download/V${version}/PlangothicP1-Regular.ttf";
+        sha256 = "0qyaxg3kgb7dlvqpdjld6nj5mdcqcid7yhxgry8z4lqrv6y4abdc";
+      })
+      (pkgs.fetchurl {
+        url = "https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project/releases/download/V${version}/PlangothicP2-Regular.ttf";
+        sha256 = "1jf0l75zjcj8c5ysfs918gr4i4n5dgrqwr924vl2ca30cjz6icrs";
+      })
+    ];
+    sourceRoot = ".";
+    dontUnpack = true;
+    installPhase = ''
+      install -Dm444 ${builtins.elemAt srcs 0} $out/share/fonts/truetype/PlangothicP1-Regular.ttf
+      install -Dm444 ${builtins.elemAt srcs 1} $out/share/fonts/truetype/PlangothicP2-Regular.ttf
+    '';
+  };
 in
 {
   options.custom.gui.enable = lib.mkOption {
@@ -107,7 +127,7 @@ in
       noto-fonts
       noto-fonts-color-emoji
       nerd-fonts.droid-sans-mono
-      wqy_zenhei
+      plangothic
       libertine
     ];
 
