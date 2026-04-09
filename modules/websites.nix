@@ -37,7 +37,7 @@ let
           default_type "text/plain; charset=utf-8";
         '';
       };
-      locations."~ \\.bib$" = {
+      locations."~ ^(?!/var/).*\\.bib$" = {
         extraConfig = ''
           default_type text/plain;
         '';
