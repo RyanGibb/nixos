@@ -30,6 +30,13 @@ let
           add_header Referrer-Policy 'same-origin';
         '';
       };
+      locations."~ ^/var/(.*\\.bib)$" = {
+        alias = "/var/www/var/$1";
+        extraConfig = ''
+          types { }
+          default_type "text/plain; charset=utf-8";
+        '';
+      };
       locations."~ \\.bib$" = {
         extraConfig = ''
           default_type text/plain;
