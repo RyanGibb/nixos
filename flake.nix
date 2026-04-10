@@ -43,7 +43,7 @@
       getSystemOverlays = system: nixpkgsConfig: [
         (final: prev: {
           overlay-unstable = import inputs.nixpkgs-unstable {
-            inherit system;
+            localSystem = system;
             config = nixpkgsConfig;
           };
         })
@@ -144,10 +144,10 @@
               let
                 machine = inputs.self.nixosConfigurations.${host.name};
                 system = machine.pkgs.stdenv.hostPlatform.system;
-                pkgs = import inputs.nixpkgs { inherit system; };
+                pkgs = import inputs.nixpkgs { localSystem = system; };
                 # nixpkgs with deploy-rs overlay but force the nixpkgs package
                 deployPkgs = import inputs.nixpkgs {
-                  inherit system;
+                  localSystem = system;
                   overlays = [
                     inputs.deploy-rs.overlays.default
                     (self: super: {
@@ -216,7 +216,7 @@
       nixOnDroidConfigurations.default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
         modules = [ (import ./nix-on-droid/default.nix inputs) ];
         pkgs = import inputs.nixpkgs {
-          system = "aarch64-linux";
+          localSystem = "aarch64-linux";
           overlays = getSystemOverlays "aarch64-linux" { };
           config.permittedInsecurePackages = [
             # https://github.com/nix-community/nixd/issues/357
@@ -272,7 +272,7 @@
 
       legacyPackages = inputs.nixpkgs.lib.genAttrs inputs.nixpkgs.lib.systems.flakeExposed (system: {
         nixpkgs = import inputs.nixpkgs {
-          inherit system;
+          localSystem = system;
           overlays = getSystemOverlays system { };
         };
       });

@@ -231,7 +231,8 @@
     typst
     evince
     pdfpc
-    krop
+    # https://github.com/NixOS/nixpkgs/pull/504557
+    # krop
     transmission_4
     transmission_4-gtk
     libreoffice
