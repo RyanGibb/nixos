@@ -9,7 +9,9 @@ let
   cfg = config.custom.dictation;
   whisper-cpp = pkgs.whisper-cpp;
   modelName = cfg.model;
-  modelDir = "${config.home-manager.users.${config.custom.username}.home.homeDirectory}/.local/share/whisper-models";
+  modelDir = "${
+    config.home-manager.users.${config.custom.username}.home.homeDirectory
+  }/.local/share/whisper-models";
   audioFile = "/tmp/dictation-recording.wav";
   dictation-toggle = pkgs.writeShellScript "dictation-toggle" ''
     PIDFILE="/tmp/dictation-record.pid"
@@ -87,8 +89,8 @@ in
       pkgs.xdotool
       pkgs.wtype
       pkgs.ffmpeg
-      (pkgs.writeShellScriptBin "dictation-toggle" ''exec ${dictation-toggle}'')
-      (pkgs.writeShellScriptBin "dictation-download-model" ''exec ${dictation-download}'')
+      (pkgs.writeShellScriptBin "dictation-toggle" "exec ${dictation-toggle}")
+      (pkgs.writeShellScriptBin "dictation-download-model" "exec ${dictation-download}")
     ];
   };
 }

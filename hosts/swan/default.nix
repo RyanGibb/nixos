@@ -27,33 +27,31 @@ in
   #   https://github.com/IdentityPython/pysaml2/issues/947
   #   https://github.com/NixOS/nixpkgs/issues/469563
   nixpkgs.overlays = [
-    (
-      final: prev: {
-        python3 = prev.python3.override {
-          packageOverrides = pyFinal: pyPrev: {
-            xmlschema = pyPrev.xmlschema.overridePythonAttrs (old: rec {
-              version = "4.1.0";
-              src = prev.fetchFromGitHub {
-                owner = "sissaschool";
-                repo = "xmlschema";
-                tag = "v${version}";
-                hash = "sha256-3nvl49rlwQpNARmWBSw+faL+yNGqNecokjGGpnaC8a0=";
-              };
-            });
-          };
+    (final: prev: {
+      python3 = prev.python3.override {
+        packageOverrides = pyFinal: pyPrev: {
+          xmlschema = pyPrev.xmlschema.overridePythonAttrs (old: rec {
+            version = "4.1.0";
+            src = prev.fetchFromGitHub {
+              owner = "sissaschool";
+              repo = "xmlschema";
+              tag = "v${version}";
+              hash = "sha256-3nvl49rlwQpNARmWBSw+faL+yNGqNecokjGGpnaC8a0=";
+            };
+          });
         };
-        python3Packages = final.python3.pkgs;
-        matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overridePythonAttrs (old: {
-          doCheck = false;
-          optional-dependencies = old.optional-dependencies // {
-            saml2 = old.optional-dependencies.saml2 ++ [
-              final.python3Packages.defusedxml
-              final.python3Packages.pytz
-            ];
-          };
-        });
-      }
-    )
+      };
+      python3Packages = final.python3.pkgs;
+      matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overridePythonAttrs (old: {
+        doCheck = false;
+        optional-dependencies = old.optional-dependencies // {
+          saml2 = old.optional-dependencies.saml2 ++ [
+            final.python3Packages.defusedxml
+            final.python3Packages.pytz
+          ];
+        };
+      });
+    })
   ];
 
   security.acme = {

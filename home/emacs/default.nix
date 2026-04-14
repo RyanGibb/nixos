@@ -18,7 +18,12 @@ let
       rev = "5f12e60c6d2d1802c8c1b7944bbdf935d5db1364";
       hash = "sha256-tivRvgfI/8XBRImE3wuZ1UD0t2dNWYscv3Aa53BmHZE=";
     };
-    packageRequires = with emacsPackages; [ vterm websocket transient web-server ];
+    packageRequires = with emacsPackages; [
+      vterm
+      websocket
+      transient
+      web-server
+    ];
   };
   caledonia-el = emacsPackages.trivialBuild {
     pname = "caledonia";

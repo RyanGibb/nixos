@@ -157,7 +157,9 @@
         After = [ "graphical-session.target" ];
       };
       Service = {
-        ExecStart = "${inputs.caledonia.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/caled alarm-daemon";
+        ExecStart = "${
+          inputs.caledonia.packages.${pkgs.stdenv.hostPlatform.system}.default
+        }/bin/caled alarm-daemon";
         Restart = "on-failure";
       };
       Install = {
@@ -359,7 +361,6 @@
 
   # for CL VPN
   networking.networkmanager.plugins = [ pkgs.networkmanager-strongswan ];
-
 
   services = {
     syncthing = {
