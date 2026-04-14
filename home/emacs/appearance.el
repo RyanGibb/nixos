@@ -1,7 +1,7 @@
 ;;; appearance.el --- UI configuration -*- lexical-binding: t; -*-
 
 (set-face-attribute 'default nil :family "monospace" :height 110 :weight 'medium)
-(set-face-attribute 'variable-pitch nil :family "Noto Sans" :height 110)
+(set-face-attribute 'variable-pitch nil :family "sans" :height 110)
 
 (use-package gruvbox-theme
   :config
