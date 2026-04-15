@@ -187,14 +187,16 @@
   (setq mu4e-completing-read-function #'completing-read-default)
   (setq mu4e-confirm-quit nil)
 
-  ;; Close mu4e workspace when main buffer is killed
-  (add-hook 'mu4e-main-mode-hook
-            (lambda ()
-              (add-hook 'kill-buffer-hook
-                        (lambda ()
-                          (when (persp-with-name-exists-p "~/mail/")
-                            (my/kill-current-workspace)))
-                        nil t)))
+  ;; Close mu4e workspace when explicitly quitting from main view
+  (defun my/mu4e-quit-and-kill-workspace ()
+    "Quit mu4e and kill the mail workspace."
+    (interactive)
+    (mu4e-quit)
+    (when (persp-with-name-exists-p "~/mail/")
+      (my/kill-current-workspace)))
+  (with-eval-after-load 'evil-collection
+    (evil-collection-define-key 'normal 'mu4e-main-mode-map
+      (kbd "q") 'my/mu4e-quit-and-kill-workspace))
 
   ;; 'i' to update index in main view
   (with-eval-after-load 'evil-collection
