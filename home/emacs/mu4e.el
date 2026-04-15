@@ -15,6 +15,17 @@
   (setq mu4e-search-include-related nil)
   (setq mu4e-context-policy 'pick-first)
   (setq shr-use-colors nil)
+  ;; Prefer text/plain over text/html
+  (setq mm-discouraged-alternatives '("text/html"))
+
+  (defun my/mu4e-toggle-html ()
+    "Toggle between text/plain and text/html in the current message."
+    (interactive)
+    (if (member "text/html" mm-discouraged-alternatives)
+        (setq mm-discouraged-alternatives nil)
+      (setq mm-discouraged-alternatives '("text/html")))
+    (mu4e-view-refresh)
+    (message "Preferring %s" (if mm-discouraged-alternatives "plain text" "HTML")))
 
   (let ((full-name "Ryan Gibb")
         (signature nil))
@@ -190,9 +201,10 @@
     (evil-collection-define-key 'normal 'mu4e-main-mode-map
       (kbd "i") 'mu4e-update-index))
 
-  ;; 'A' for mime part action in message view
+  ;; 'A' for mime part action, 'h' to toggle HTML in message view
   (evil-define-key '(normal insert) mu4e-view-mode-map
-    (kbd "A") #'mu4e-view-mime-part-action)
+    (kbd "A") #'mu4e-view-mime-part-action
+    (kbd "h") #'my/mu4e-toggle-html)
 
   ;; Local leader bindings for compose mode
   (with-eval-after-load 'general
