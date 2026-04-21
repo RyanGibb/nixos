@@ -255,6 +255,14 @@
       };
     };
   };
+  services.nfs.server = {
+    enable = true;
+    exports = ''
+      /tank 100.64.0.0/10(rw,no_subtree_check,no_root_squash)
+    '';
+  };
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 2049 ];
+
   users.mutableUsers = lib.mkForce true;
 
   services.transmission = {
