@@ -1,5 +1,7 @@
 ;;; org.el --- Org mode configuration -*- lexical-binding: t; -*-
 
+(load "~/.emacs-local.el" t)
+
 (use-package org
   :defer t
   :hook (org-mode . org-indent-mode)
