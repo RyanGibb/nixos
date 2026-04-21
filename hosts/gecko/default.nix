@@ -424,4 +424,19 @@
   };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  fileSystems."/mnt/elephant" = {
+    device = "//100.64.0.9/tank";
+    fsType = "cifs";
+    options = [
+      "credentials=/etc/samba-credentials"
+      "uid=1000"
+      "gid=100"
+      "x-systemd.automount"
+      "x-systemd.idle-timeout=60"
+      "x-systemd.device-timeout=5s"
+      "x-systemd.mount-timeout=5s"
+      "noauto"
+    ];
+  };
 }
