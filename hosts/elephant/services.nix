@@ -132,6 +132,9 @@
       };
       "photos.freumh.org" = {
         onlySSL = true;
+        extraConfig = ''
+          access_log /var/log/nginx/immich.access.log;
+        '';
         locations."/" = {
           proxyPass = with config.services.immich; ''
             http://${host}:${builtins.toString port}
@@ -244,6 +247,8 @@
         "hosts deny" = "0.0.0.0/0";
         "guest account" = "nobody";
         "map to guest" = "bad user";
+        "log level" = "1 auth_audit:3";
+        "logging" = "syslog@3";
       };
       tank = {
         path = "/tank/";
@@ -482,6 +487,25 @@
       findTime = "43200";
       logPath = "/var/lib/calibre-web/log";
     };
+    jails."samba".settings = {
+      backend = "systemd";
+      port = "139,445";
+      protocol = "tcp";
+      filter = "samba";
+      maxRetry = 3;
+      bantime = "86400";
+      findTime = "43200";
+    };
+    jails."immich".settings = {
+      backend = "auto";
+      port = "80,443";
+      protocol = "tcp";
+      filter = "immich";
+      maxRetry = 5;
+      bantime = "86400";
+      findTime = "43200";
+      logPath = "/var/log/nginx/immich.access.log";
+    };
   };
   environment.etc = {
     "fail2ban/filter.d/jellyfin.local".text = ''
@@ -495,6 +519,17 @@
     "fail2ban/filter.d/calibre-web.local".text = ''
       [Definition]
       failregex = ^(?:\[\])?\s*WARN \{[^\}]*\} Login failed for user "<F-USER>[^"]*</F-USER>" IP-address: <ADDR>
+    '';
+    "fail2ban/filter.d/samba.local".text = ''
+      [Definition]
+      journalmatch = _SYSTEMD_UNIT=samba-smbd.service
+      failregex = Auth:.*status \[NT_STATUS_WRONG_PASSWORD\].*remote host \[ipv[46]:<ADDR>:\d+\]
+                  Auth:.*status \[NT_STATUS_NO_SUCH_USER\].*remote host \[ipv[46]:<ADDR>:\d+\]
+    '';
+    "fail2ban/filter.d/immich.local".text = ''
+      [Definition]
+      failregex = ^<ADDR> - .* "(POST|GET) /api/auth/login.*" 401
+                  ^<ADDR> - .* "(POST|GET) /api/auth/login.*" 403
     '';
   };
 
