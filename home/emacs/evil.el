@@ -209,7 +209,18 @@
     ;; Open
     "o"   '(:ignore t :which-key "open")
     "o a" '((lambda () (interactive) (my/open-in-workspace "~/vault/" #'org-agenda "~/vault")) :which-key "org agenda")
-    "o m" '((lambda () (interactive) (my/open-in-workspace "~/mail/" #'mu4e "~/mail")) :which-key "mu4e")
+    "o m" '((lambda () (interactive)
+               (if (and (mu4e-running-p) (persp-with-name-exists-p "~/mail/"))
+                   (progn
+                     (my/workspace-switch "~/mail/")
+                     ;; Switch to the most useful existing buffer
+                     (or (cl-loop for buf in (buffer-list)
+                                  thereis (pcase (buffer-local-value 'major-mode buf)
+                                            ('mu4e-view-mode (switch-to-buffer buf))
+                                            ('mu4e-headers-mode (switch-to-buffer buf))))
+                         (mu4e)))
+                 (my/open-in-workspace "~/mail/" #'mu4e "~/mail")))
+             :which-key "mu4e")
     "o f" '(make-frame :which-key "new frame")
     "o -" '(dired-jump :which-key "dired")
     "o e" '((lambda () (interactive) (my/open-in-workspace "elfeed" #'elfeed)) :which-key "elfeed")
