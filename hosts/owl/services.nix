@@ -144,6 +144,13 @@ in
     '';
   };
   users.users.ryan.extraGroups = [ "git" ];
+  users.users.patrick = {
+    isNormalUser = true;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFiobEqDGuy5NpMIh3JDZ5cMO0EbgYAFtDUWGObkpO6+"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINOSSxTeL83eqW7kvZVrj1kuiDgG9VJhTRmwC1eAK+Cf"
+    ];
+  };
   home-manager.users.${config.custom.username}.programs.git.settings.safe.directory =
     "/var/lib/git/repos/*";
 
