@@ -203,10 +203,10 @@
     (evil-collection-define-key 'normal 'mu4e-main-mode-map
       (kbd "i") 'mu4e-update-index))
 
-  ;; 'A' for mime part action, 'h' to toggle HTML in message view
+  ;; 'A' for mime part action, 'H' to toggle HTML in message view
   (evil-define-key '(normal insert) mu4e-view-mode-map
     (kbd "A") #'mu4e-view-mime-part-action
-    (kbd "h") #'my/mu4e-toggle-html)
+    (kbd "H") #'my/mu4e-toggle-html)
 
   ;; Local leader bindings for compose mode
   (with-eval-after-load 'general
