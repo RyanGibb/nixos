@@ -43,8 +43,8 @@
           ("R" "Refile (link)" entry
            (file ,(concat org-directory "refile.org"))
            "* %?\n%a\n%u\n%i" :prepend t)
-          ("s" "Schedule" entry
-           (file ,(concat org-directory "schedule.org"))
+          ("l" "Log" entry
+           (file ,(concat org-directory "log.org"))
            "* %u %?\n%i" :prepend t)))
 
   ;; Custom agenda views
