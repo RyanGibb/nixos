@@ -158,6 +158,7 @@ in
   custom = {
     freumh.enable = true;
     rmfakecloud.enable = true;
+    koreader-syncd.enable = true;
     website = {
       ryan = {
         enable = true;

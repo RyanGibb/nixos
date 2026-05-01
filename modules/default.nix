@@ -21,6 +21,7 @@ in
     ./gui/kde.nix
     ./gui/sway.nix
     ./home-manager.nix
+    ./koreader-syncd.nix
     ./laptop.nix
     ./nix-cache.nix
     ./nix-index.nix

@@ -19,6 +19,7 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     caledonia.url = "github:RyanGibb/caledonia/vibing";
     plover-revamp.url = "github:Pandapip1/nixpkgs/plover-revamp";
+    koreader-syncd.url = "github:pborzenkov/koreader-syncd";
 
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
@@ -35,6 +36,7 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     caledonia.inputs.nixpkgs.follows = "nixpkgs";
+    koreader-syncd.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
