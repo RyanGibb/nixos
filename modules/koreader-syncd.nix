@@ -29,7 +29,7 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${koreader-syncd.packages.${config.nixpkgs.hostPlatform.system}.default}/bin/koreader-syncd -a 0.0.0.0:${builtins.toString cfg.port} -d /var/lib/koreader-syncd/state.db --enable-register";
+        ExecStart = "${koreader-syncd.packages.${config.nixpkgs.hostPlatform.system}.default}/bin/koreader-syncd -a 0.0.0.0:${builtins.toString cfg.port} -d /var/lib/koreader-syncd/state.db";
         DynamicUser = true;
         StateDirectory = "koreader-syncd";
         Restart = "on-failure";
