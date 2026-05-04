@@ -210,7 +210,7 @@
     "o"   '(:ignore t :which-key "open")
     "o a" '((lambda () (interactive) (my/open-in-workspace "~/vault/" #'org-agenda "~/vault")) :which-key "org agenda")
     "o m" '((lambda () (interactive)
-               (if (and (mu4e-running-p) (persp-with-name-exists-p "~/mail/"))
+               (if (and (fboundp 'mu4e-running-p) (mu4e-running-p) (persp-with-name-exists-p "~/mail/"))
                    (progn
                      (my/workspace-switch "~/mail/")
                      ;; Switch to the most useful existing buffer
