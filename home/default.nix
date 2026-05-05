@@ -69,6 +69,7 @@ in
   };
 
   config = {
+    home.sessionPath = [ "$HOME/.local/bin" ];
     home.sessionVariables = {
       EDITOR = "nvim";
       NIX_AUTO_RUN = "y";
