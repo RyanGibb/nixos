@@ -320,6 +320,8 @@
     slipshow
 
     gh
+
+    koreader
   ];
 
   services.gnome.gnome-keyring.enable = true;
