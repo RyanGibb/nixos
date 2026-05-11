@@ -62,6 +62,13 @@ in
     '';
     boot.kernelModules = [ "hid-apple" ];
 
+    # Disable the fake graphical-session target that NixOS activates at login
+    # via default.target. Home-manager's sway/i3 systemd integration properly
+    # activates graphical-session.target after the compositor is ready and
+    # environment variables are imported. The fake target causes services like
+    # dunst and fcitx5 to start before WAYLAND_DISPLAY is set.
+    systemd.user.targets.nixos-fake-graphical-session.enable = false;
+
     services.xserver = {
       excludePackages = with pkgs; [ xterm ];
       displayManager.startx.enable = true;
