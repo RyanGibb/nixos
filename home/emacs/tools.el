@@ -183,6 +183,7 @@ buffer and any new buffer created by FN."
 (use-package diff-hl
   :custom
   (diff-hl-show-staged-changes nil)
+  (diff-hl-highlight-reference-function nil)
   :config
   (global-diff-hl-mode)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
