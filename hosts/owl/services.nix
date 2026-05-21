@@ -294,14 +294,14 @@ in
     openFirewall = true;
   };
 
-  services.nginx.virtualHosts."meands.org" = {
+  services.nginx.virtualHosts."meands.freumh.org" = {
     forceSSL = true;
     enableACME = true;
-    root = "/var/www/meands.org/_site";
+    root = "/var/www/meands.freumh.org/_site";
     extraConfig = ''
       error_page 403 =404 /404.html;
       error_page 404 /404.html;
-      access_log /var/log/nginx/meands.org.log;
+      access_log /var/log/nginx/meands.freumh.org.log;
       add_header Strict-Transport-Security max-age=31536000 always;
       add_header X-Frame-Options SAMEORIGIN always;
       add_header X-Content-Type-Options nosniff always;
@@ -465,6 +465,12 @@ in
           name = "photos";
           type = "CNAME";
           value = "elephant";
+        }
+
+        {
+          name = "meands";
+          type = "CNAME";
+          value = "owl";
         }
       ]
       ++ vpnRecords;
