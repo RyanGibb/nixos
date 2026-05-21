@@ -169,6 +169,10 @@ in
         cname = "owl";
       };
       fn06.enable = true;
+      meands = {
+        enable = true;
+        cname = "owl";
+      };
     };
   };
   # rmfakecloud fail2ban (app logs ::1 behind nginx, so use nginx access log)
@@ -292,22 +296,6 @@ in
     package = pkgs.overlay-unstable.minecraft-server;
     eula = true;
     openFirewall = true;
-  };
-
-  services.nginx.virtualHosts."meands.freumh.org" = {
-    forceSSL = true;
-    enableACME = true;
-    root = "/var/www/meands.freumh.org/_site";
-    extraConfig = ''
-      error_page 403 =404 /404.html;
-      error_page 404 /404.html;
-      access_log /var/log/nginx/meands.freumh.org.log;
-      add_header Strict-Transport-Security max-age=31536000 always;
-      add_header X-Frame-Options SAMEORIGIN always;
-      add_header X-Content-Type-Options nosniff always;
-      add_header Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; base-uri 'self'; frame-src 'self'; frame-ancestors 'self'; form-action 'self'; style-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com; script-src 'self' https://cdn.jsdelivr.net;" always;
-      add_header Referrer-Policy 'same-origin';
-    '';
   };
 
   # DNS records
@@ -465,12 +453,6 @@ in
           name = "photos";
           type = "CNAME";
           value = "elephant";
-        }
-
-        {
-          name = "meands";
-          type = "CNAME";
-          value = "owl";
         }
       ]
       ++ vpnRecords;

@@ -87,11 +87,24 @@ let
     defaultRoot = "/var/www/fn06.org/";
     enableDNS = false;
   };
+
+  meandsWebsite = mkStaticWebsite {
+    name = "meands";
+    defaultRoot = "/var/www/meands.freumh.org/_site";
+    extraConfig = ''
+      add_header Strict-Transport-Security max-age=31536000 always;
+      add_header X-Frame-Options SAMEORIGIN always;
+      add_header X-Content-Type-Options nosniff always;
+      add_header Content-Security-Policy "default-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; base-uri 'self'; frame-src 'self'; frame-ancestors 'self'; form-action 'self'; style-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com; script-src 'self' https://cdn.jsdelivr.net;" always;
+      add_header Referrer-Policy 'same-origin';
+    '';
+  };
 in
 {
   imports = [
     ryanWebsite
     alecWebsite
     fn06Website
+    meandsWebsite
   ];
 }
