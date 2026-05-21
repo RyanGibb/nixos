@@ -223,6 +223,7 @@ in
 
     programs.tmux = {
       enable = true;
+      historyLimit = 100000;
       extraConfig =
         let
           toggle-status-bar = pkgs.writeScript "toggle-status-bar.sh" ''
