@@ -259,7 +259,36 @@ in
     bridges.messenger = true;
   };
   eilean.turn.enable = true;
-  # Synapse media offload to garage S3 on elephant
+  # Synapse media offload to garage S3 on elephant.
+  #
+  # The bucket+key are bootstrapped on elephant (see comment by
+  # services.garage there). Credentials and bucket details live in
+  # synapse-s3-config.yml.age and are merged into synapse's config via
+  # extraConfigFiles. New media is dual-written: local + S3
+  # (store_local + store_remote both true, store_synchronous false).
+  # On read, synapse falls back to S3 if local file is missing — see
+  # synapse/media/media_storage.py:fetch_media.
+  #
+  # Migrating historic media (pre-existing files on owl's disk) to S3
+  # uses the s3_media_upload script that ships with the plugin:
+  #
+  #   S3UP=$(nix eval --raw nixpkgs#matrix-synapse-plugins.matrix-synapse-s3-storage-provider.outPath)/bin/s3_media_upload
+  #   HSCONF=$(systemctl show matrix-synapse -p ExecStart --value \
+  #     | grep -oE '/nix/store/[^ ]+homeserver.yaml')
+  #   cd /tmp
+  #   # 1. build sqlite cache of media untouched in last 30 days
+  #   sudo -u matrix-synapse AWS_ACCESS_KEY_ID=<key> AWS_SECRET_ACCESS_KEY=<secret> \
+  #     $S3UP update-db 30d --homeserver-config-path "$HSCONF"
+  #   # 2. mark cache entries whose file is missing on disk
+  #   sudo -u matrix-synapse $S3UP check-deleted /var/lib/matrix-synapse/media_store
+  #   # 3. upload (no --delete first, verify Objects in `garage bucket info matrix-media`)
+  #   sudo -u matrix-synapse AWS_ACCESS_KEY_ID=<key> AWS_SECRET_ACCESS_KEY=<secret> \
+  #     $S3UP upload /var/lib/matrix-synapse/media_store matrix-media \
+  #     --endpoint-url http://100.64.0.9:3900
+  #   # 4. once verified, re-run with --delete to reclaim disk
+  #
+  # The cache.db file in cwd is incremental — keep cwd stable across runs.
+  # AWS creds are the access_key_id/secret_access_key from synapse-s3-config.yml.age.
   age.secrets."synapse-s3-config.yml" = {
     file = ../../secrets/synapse-s3-config.yml.age;
     mode = "440";
