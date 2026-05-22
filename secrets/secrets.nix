@@ -48,4 +48,6 @@ in
   ];
   "eon-sirref-primary.cap.age".publicKeys = user ++ [ owl ];
   "anki.age".publicKeys = user ++ [ elephant ];
+  "garage-env.age".publicKeys = user ++ [ elephant ];
+  "synapse-s3-config.yml.age".publicKeys = user ++ [ owl ];
 }

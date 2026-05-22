@@ -259,6 +259,19 @@ in
     bridges.messenger = true;
   };
   eilean.turn.enable = true;
+  # Synapse media offload to garage S3 on elephant
+  age.secrets."synapse-s3-config.yml" = {
+    file = ../../secrets/synapse-s3-config.yml.age;
+    mode = "440";
+    owner = "${config.systemd.services.matrix-synapse.serviceConfig.User}";
+    group = "${config.systemd.services.matrix-synapse.serviceConfig.Group}";
+  };
+  services.matrix-synapse = {
+    plugins = with config.services.matrix-synapse.package.plugins; [
+      matrix-synapse-s3-storage-provider
+    ];
+    extraConfigFiles = [ config.age.secrets."synapse-s3-config.yml".path ];
+  };
   systemd.services.matrix-as-meta = {
     path = [ pkgs.ffmpeg ];
   };

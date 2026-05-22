@@ -266,7 +266,81 @@
       /tank 100.64.0.0/10(rw,no_subtree_check,no_root_squash)
     '';
   };
-  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 2049 ];
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [
+    2049
+    3900
+  ];
+
+  # Garage S3-compatible object storage (tailscale-only S3 API on
+  # 100.64.0.9:3900). Used as the media backend for Synapse via the
+  # synapse-s3-storage-provider plugin (configured on owl). Single-node,
+  # replication_factor=1, data on /tank.
+  #
+  # Bootstrap (one-time, after first deploy):
+  #
+  #   garage status                                     # find node ID
+  #   garage layout assign <node-id> -z dc1 -c 1000G
+  #   garage layout apply --version 1
+  #   garage bucket create matrix-media
+  #   garage key create matrix-media-key
+  #   garage bucket allow --read --write --owner matrix-media \
+  #     --key matrix-media-key
+  #   garage key info matrix-media-key                  # prints Key ID + secret
+  #
+  # The Key ID + secret go into secrets/synapse-s3-config.yml.age (a YAML
+  # snippet pulled in via services.matrix-synapse.extraConfigFiles on owl).
+  # Rotate via `garage key rotate <key>` then re-encrypt the YAML and deploy.
+  #
+  # GARAGE_RPC_SECRET and GARAGE_ADMIN_TOKEN come from garage-env.age. To
+  # regenerate them:
+  #
+  #   cd secrets && agenix -e garage-env.age <<EOF
+  #   GARAGE_RPC_SECRET=$(openssl rand -hex 32)
+  #   GARAGE_ADMIN_TOKEN=$(openssl rand -base64 32)
+  #   EOF
+  age.secrets.garage-env = {
+    file = ../../secrets/garage-env.age;
+    mode = "440";
+  };
+  users.users.garage = {
+    isSystemUser = true;
+    group = "garage";
+    home = "/var/lib/garage";
+  };
+  users.groups.garage = { };
+  systemd.tmpfiles.rules = [
+    "d /tank/garage     0700 garage garage -"
+    "d /tank/garage/data 0700 garage garage -"
+  ];
+  services.garage = {
+    enable = true;
+    package = pkgs.garage;
+    environmentFile = config.age.secrets.garage-env.path;
+    settings = {
+      metadata_dir = "/var/lib/garage/meta";
+      data_dir = "/tank/garage/data";
+      replication_factor = 1;
+      db_engine = "lmdb";
+
+      rpc_bind_addr = "127.0.0.1:3901";
+      rpc_public_addr = "127.0.0.1:3901";
+      # rpc_secret loaded from environmentFile as GARAGE_RPC_SECRET
+
+      s3_api = {
+        api_bind_addr = "100.64.0.9:3900";
+        s3_region = "garage";
+        root_domain = ".s3.freumh.org";
+      };
+
+      admin = {
+        api_bind_addr = "127.0.0.1:3903";
+        # admin_token loaded from environmentFile as GARAGE_ADMIN_TOKEN
+      };
+    };
+  };
+  systemd.services.garage.serviceConfig.DynamicUser = lib.mkForce false;
+  systemd.services.garage.serviceConfig.User = "garage";
+  systemd.services.garage.serviceConfig.Group = "garage";
 
   users.mutableUsers = lib.mkForce true;
 
