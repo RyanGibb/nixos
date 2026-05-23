@@ -51,6 +51,8 @@ in
           ];
         };
       });
+      # valkey 8.1.7 has a flaky dual-channel-replication integration test.
+      valkey = prev.valkey.overrideAttrs (_: { doCheck = false; });
     })
   ];
 
@@ -276,7 +278,24 @@ in
   services = {
     peertube = {
       enable = true;
-      package = pkgs.overlay-unstable.peertube;
+      # Bump to 8.1.8 for CVE fixes (SQL injection, malicious plugin removal,
+      # OAuth invalidation). nixpkgs-unstable is at 8.1.5 as of 2026-05-23.
+      # Revert once nixpkgs catches up.
+      package = pkgs.overlay-unstable.peertube.overrideAttrs (finalAttrs: _prev: {
+        version = "8.1.8";
+        src = pkgs.overlay-unstable.fetchFromGitHub {
+          owner = "Chocobozzz";
+          repo = "PeerTube";
+          tag = "v${finalAttrs.version}";
+          hash = "sha256-Ei7MgEyHDJyLXnjI8mT7S7pLno+pTmFWZHc6oEZaTcM=";
+        };
+        pnpmDeps = pkgs.overlay-unstable.fetchPnpmDeps {
+          inherit (finalAttrs) pname version src;
+          pnpm = pkgs.overlay-unstable.pnpm_10;
+          fetcherVersion = 3;
+          hash = "sha256-fQ0FyBPZ3v3lCSoWYz1ccbOSrfgnzwQvOyE7Dp3ZGRY=";
+        };
+      });
       localDomain = "watch.eeg.cl.cam.ac.uk";
       listenWeb = 443;
       enableWebHttps = true;
