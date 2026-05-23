@@ -92,6 +92,7 @@
     overlay-qtwebengine.jellyfin-media-player
     overlay-qtwebengine.stremio
     mangohud
+    overlay-unstable.claude-code
   ];
 
   security.sudo.extraConfig = ''
