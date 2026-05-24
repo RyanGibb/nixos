@@ -314,6 +314,7 @@
     inputs.caledonia.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     mangohud
+    prismlauncher
 
     inputs.plover-revamp.legacyPackages.${pkgs.stdenv.hostPlatform.system}.python3Packages.plover-dev
 
