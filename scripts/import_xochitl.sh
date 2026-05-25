@@ -100,14 +100,14 @@ EOF
 
     else
 	echo "Unknown extension: $extension, skipping $filename"
-        rm -rf ${tmpdir}/*
+        rm -rf "${tmpdir:?}"/*
 	continue
     fi
 
     # Transfer files
     echo "Transferring $filename as $uuid"
     scp -r ${tmpdir}/* "${XOCHITL_DIR}"
-    rm -rf ${tmpdir}/*
+    rm -rf "${tmpdir:?}"/*
 done
 
 rm -rf ${tmpdir}

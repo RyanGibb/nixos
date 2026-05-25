@@ -9,8 +9,8 @@ windows="$(@wmmsg@ -t get_tree | jq -r "$jq_cmd")"
 
 echo "$windows"
 
-windows_focused=($(echo "$windows" | jq '.focused'))
-windows_id=($(echo "$windows" | jq '.id'))
+mapfile -t windows_focused < <(echo "$windows" | jq '.focused')
+mapfile -t windows_id < <(echo "$windows" | jq '.id')
 
 echo "${windows_focused[@]}"
 echo "${windows_id[@]}"
@@ -35,5 +35,5 @@ i=$(((i % ${#windows_focused[@]})))
 
 id="${windows_id[$i]}"
 echo "$id"
-$(dirname "$0")/focus_on_id.sh "$id"
+"$(dirname "$0")/focus_on_id.sh" "$id"
 

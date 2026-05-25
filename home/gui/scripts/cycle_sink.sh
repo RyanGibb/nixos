@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-sink_ids=($(pactl list short sinks | cut -f 1))
-sinks=($(pactl list short sinks | cut -f 2))
+mapfile -t sink_ids < <(pactl list short sinks | cut -f 1)
+mapfile -t sinks < <(pactl list short sinks | cut -f 2)
 
 default_sink=$(pactl info | sed -En 's/Default Sink: (.*)/\1/p')
 

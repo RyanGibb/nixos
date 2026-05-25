@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd "$1"
+cd "$1" || exit 1
 
 log="$(git log --pretty=format:'%h %ad' --date=iso-strict)"
 

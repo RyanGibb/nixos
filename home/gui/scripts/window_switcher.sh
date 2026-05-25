@@ -11,4 +11,4 @@ windows=$(\
 
 selected=$(echo "$windows" | @dmenu@ "Select window:" | awk '{print $1}')
 
-@wmmsg@ "[con_id="$selected"] focus"
+@wmmsg@ "[con_id=$selected] focus"
