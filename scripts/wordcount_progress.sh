@@ -11,8 +11,8 @@ while IFS= read -r line; do
 	hash="$(echo "$line" | awk '{print $1}')"
 	time="$(echo "$line" | awk '{print $2}')"
 	git checkout "$hash" || exit 1
-	wordcount="$(texcount -merge -sum -q -1 ${3:-main.tex})"
-	if [ ! -z $wordcount ]; then 
+	wordcount="$(texcount -merge -sum -q -1 "${3:-main.tex}")"
+	if [ -n "$wordcount" ]; then
 		echo "$wordcount,$time" >> wordcounts.csv
 	fi
 	if [ "$hash" == "$2" ]; then break; fi

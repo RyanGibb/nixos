@@ -27,7 +27,7 @@ while true; do
 		break
 	fi
 	#  break if no other sink
-	if [ $prev_i -eq $i ]; then
+	if [ "$prev_i" -eq "$i" ]; then
 		break
 	fi
 done

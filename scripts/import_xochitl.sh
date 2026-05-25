@@ -4,7 +4,7 @@
 XOCHITL_DIR=${XOCHITL_DIR:-.local/share/remarkable/xochitl/}
 
 if [ $# -lt 1 ]; then
-    echo "usage: $(basename $0) [ -r ] path-to-file [path-to-file]..."
+    echo "usage: $(basename "$0") [ -r ] path-to-file [path-to-file]..."
     exit 1
 fi
 
@@ -12,7 +12,7 @@ RESTART_XOCHITL_DEFAULT=${RESTART_XOCHITL_DEFAULT:-0}
 RESTART_XOCHITL=${RESTART_XOCHITL_DEFAULT}
 if [ "$1" = "-r" ] ; then
     shift
-    if [ $RESTART_XOCHITL_DEFAULT -eq 0 ] ; then
+    if [ "$RESTART_XOCHITL_DEFAULT" -eq 0 ] ; then
         echo Switching
         RESTART_XOCHITL=1
     else
@@ -38,7 +38,7 @@ for filename in "$@" ; do
 
     # Add metadata
     # The lastModified item appears to contain the date in milliseconds since Epoch
-    cat <<EOF >>${tmpdir}/${uuid}.metadata
+    cat <<EOF >>"${tmpdir}/${uuid}.metadata"
 {
     "deleted": false,
     "lastModified": "$(date +%s)000",
@@ -55,7 +55,7 @@ EOF
 
     if [ "$extension" = "pdf" ]; then
 	# Add content information
-	cat <<EOF >${tmpdir}/${uuid}.content
+	cat <<EOF >"${tmpdir}/${uuid}.content"
 {
     "extraMetadata": {
     },
@@ -81,18 +81,18 @@ EOF
 EOF
 
 	# Add cache directory
-	mkdir ${tmpdir}/${uuid}.cache
+	mkdir "${tmpdir}/${uuid}.cache"
 
 	# Add highlights directory
-	mkdir ${tmpdir}/${uuid}.highlights
+	mkdir "${tmpdir}/${uuid}.highlights"
 
 	# Add thumbnails directory
-	mkdir ${tmpdir}/${uuid}.thumbnails
+	mkdir "${tmpdir}/${uuid}.thumbnails"
 
     elif [ "$extension" = "epub" ]; then
 
 	# Add content information
-	cat <<EOF >${tmpdir}/${uuid}.content
+	cat <<EOF >"${tmpdir}/${uuid}.content"
 {
     "fileType": "epub"
 }
@@ -106,13 +106,13 @@ EOF
 
     # Transfer files
     echo "Transferring $filename as $uuid"
-    scp -r ${tmpdir}/* "${XOCHITL_DIR}"
+    scp -r "${tmpdir}"/* "${XOCHITL_DIR}"
     rm -rf "${tmpdir:?}"/*
 done
 
-rm -rf ${tmpdir}
+rm -rf "${tmpdir}"
 
-if [ $RESTART_XOCHITL -eq 1 ] ; then
+if [ "$RESTART_XOCHITL" -eq 1 ] ; then
     echo "Restarting Xochitl..."
     systemctl restart xochitl
     echo "Done."

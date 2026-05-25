@@ -2,6 +2,6 @@
 
 NAME="$(eval "$1")" || exit
 
-@wmmsg@ workspace \"$NAME\"
+@wmmsg@ workspace "\"$NAME\""
 
 notify-send "$NAME" -t 500

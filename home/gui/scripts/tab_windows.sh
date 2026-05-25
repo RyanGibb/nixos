@@ -31,7 +31,7 @@ elif [[ "$1" == "forward" ]]; then
 fi
 
 
-i=$(((i % ${#windows_focused[@]})))
+i=$((i % ${#windows_focused[@]}))
 
 id="${windows_id[$i]}"
 echo "$id"
