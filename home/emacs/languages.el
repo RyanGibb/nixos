@@ -73,6 +73,16 @@
     (TeX-save-document (TeX-master-file))
     (TeX-command TeX-command-default 'TeX-master-file -1))
 
+  (defun my/tex-view-refit (&rest _)
+    "After TeX-view, resize any visible pdf-view window to fit the PDF width."
+    (dolist (win (window-list))
+      (with-current-buffer (window-buffer win)
+        (when (derived-mode-p 'pdf-view-mode)
+          (with-selected-window win
+            (my/pdf-view-fit-window-to-width)
+            (pdf-view-redisplay))))))
+  (advice-add 'TeX-view :after #'my/tex-view-refit)
+
   (my/local-leader-def
     :keymaps '(LaTeX-mode-map latex-mode-map)
     ""  '(:ignore t :which-key "latex")
