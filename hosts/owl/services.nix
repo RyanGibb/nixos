@@ -104,6 +104,7 @@ in
     "knot.freumh.org"
     "enki.freumh.org"
     "git.freumh.org"
+    "atuin.freumh.org"
   ];
 
   # VPN
@@ -340,6 +341,20 @@ in
     openFirewall = true;
   };
 
+  # atuin: shell history sync server (e2e encrypted, server stores ciphertext only)
+  services.atuin = {
+    enable = true;
+    openRegistration = true;
+    host = "127.0.0.1";
+    port = 8888;
+  };
+  services.nginx.virtualHosts."atuin.freumh.org" = {
+    forceSSL = true;
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${toString config.services.atuin.port}";
+    };
+  };
+
   # DNS records
   eilean.dns.nameservers = [ "ns1" ];
   eilean.services.dns.zones = {
@@ -426,6 +441,12 @@ in
 
         {
           name = "git";
+          type = "CNAME";
+          value = "owl";
+        }
+
+        {
+          name = "atuin";
           type = "CNAME";
           value = "owl";
         }

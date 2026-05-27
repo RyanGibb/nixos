@@ -149,6 +149,18 @@ in
         ];
     };
 
+    programs.atuin = {
+      enable = true;
+      enableZshIntegration = true;
+      flags = [ "--disable-up-arrow" ];
+      settings = {
+        sync_address = "https://atuin.freumh.org";
+        auto_sync = true;
+        sync_frequency = "5m";
+        update_check = false;
+      };
+    };
+
     programs.bash.initExtra = ''
       PS1='\[\e[36m\]\u@\h:\W\[\e[0m\] $ '
     '';
