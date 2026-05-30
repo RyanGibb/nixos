@@ -105,6 +105,7 @@ in
     "enki.freumh.org"
     "git.freumh.org"
     "atuin.freumh.org"
+    "vaultwarden.freumh.org"
   ];
 
   # VPN
@@ -230,6 +231,7 @@ in
     };
     "misc@${config.networking.domain}" = {
       passwordFile = config.age.secrets.email-ryan.path;
+      aliases = [ "vaultwarden@${config.networking.domain}" ];
       catchAll = [ "${config.networking.domain}" ];
     };
     "system@${config.networking.domain}" = {
@@ -355,6 +357,69 @@ in
     };
   };
 
+  # vaultwarden: self-hosted Bitwarden-compatible password manager.
+  # secrets/vaultwarden.age contains KEY=value lines for SMTP_PASSWORD and
+  # ADMIN_TOKEN. ADMIN_TOKEN is an argon2 PHC hash — generate with
+  #   nix run nixpkgs#vaultwarden -- hash
+  # and single-quote the "$argon2id$..." string in the env file so $ isn't
+  # expanded.
+  age.secrets.vaultwarden.file = ../../secrets/vaultwarden.age;
+  services.vaultwarden = {
+    enable = true;
+    dbBackend = "sqlite";
+    environmentFile = config.age.secrets.vaultwarden.path;
+    config = {
+      DOMAIN = "https://vaultwarden.freumh.org";
+      ROCKET_ADDRESS = "127.0.0.1";
+      ROCKET_PORT = 8222;
+      SIGNUPS_ALLOWED = true; # flip off via /admin once your account is created
+      SMTP_HOST = "mail.freumh.org";
+      SMTP_PORT = 465;
+      SMTP_SECURITY = "force_tls";
+      SMTP_USERNAME = "misc@freumh.org";
+      SMTP_FROM = "vaultwarden@freumh.org";
+      SMTP_FROM_NAME = "Vaultwarden";
+    };
+  };
+  # fail2ban for vaultwarden — match its own journal lines (already carry
+  # the real client IP from X-Real-IP) rather than nginx access logs
+  # where 400 is ambiguous. Covers both the user login and the /admin
+  # panel.
+  services.fail2ban.jails."vaultwarden".settings = {
+    backend = "systemd";
+    filter = "vaultwarden";
+    maxRetry = 5;
+    bantime = "14400";
+    findTime = "1800";
+    port = "80,443";
+  };
+  environment.etc."fail2ban/filter.d/vaultwarden.local".text = ''
+    [Definition]
+    failregex = ^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$
+                ^.*Invalid admin token\. IP: <ADDR>.*$
+    journalmatch = _SYSTEMD_UNIT=vaultwarden.service
+  '';
+
+  services.nginx.virtualHosts."vaultwarden.freumh.org" = {
+    forceSSL = true;
+    # Override owl's global CSP — vaultwarden needs connect-src for the
+    # HIBP password-strength check and the Bitwarden directory APIs, plus
+    # wasm-unsafe-eval for the web vault's WebAssembly crypto. Any
+    # add_header in a vhost resets nginx inheritance, so re-declare the
+    # other security headers from commonHttpConfig.
+    extraConfig = ''
+      add_header Strict-Transport-Security max-age=31536000 always;
+      add_header X-Frame-Options SAMEORIGIN always;
+      add_header X-Content-Type-Options nosniff always;
+      add_header Referrer-Policy 'same-origin' always;
+      add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.pwnedpasswords.com https://api.2fa.directory https://app.simplelogin.io https://app.addy.io https://api.fastmail.com https://api.forwardemail.net; frame-src 'self' https://*.duosecurity.com https://*.duofederal.com; child-src 'self' https://*.duosecurity.com https://*.duofederal.com; object-src 'self' blob:;" always;
+    '';
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}";
+      proxyWebsockets = true;
+    };
+  };
+
   # DNS records
   eilean.dns.nameservers = [ "ns1" ];
   eilean.services.dns.zones = {
@@ -447,6 +512,12 @@ in
 
         {
           name = "atuin";
+          type = "CNAME";
+          value = "owl";
+        }
+
+        {
+          name = "vaultwarden";
           type = "CNAME";
           value = "owl";
         }
