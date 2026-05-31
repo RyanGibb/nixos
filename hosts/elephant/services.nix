@@ -102,7 +102,7 @@
         locations."/" = {
           recommendedProxySettings = true;
           proxyPass = ''
-            http://localhost:${builtins.toString config.services.jellyseerr.port}
+            http://localhost:${builtins.toString config.services.seerr.port}
           '';
           proxyWebsockets = true;
         };
@@ -367,7 +367,7 @@
   services.bazarr.enable = true;
   services.lidarr.enable = true;
   services.readarr.enable = true;
-  services.jellyseerr.enable = true;
+  services.seerr.enable = true;
   users.users.${config.services.sonarr.user}.extraGroups = [
     config.services.transmission.user
     config.services.nzbget.user

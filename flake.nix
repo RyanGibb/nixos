@@ -280,7 +280,7 @@
       });
 
       formatter = inputs.nixpkgs.lib.genAttrs inputs.nixpkgs.lib.systems.flakeExposed (
-        system: inputs.nixpkgs.legacyPackages.${system}.nixfmt-rfc-style
+        system: inputs.nixpkgs.legacyPackages.${system}.nixfmt
       );
     };
 }

@@ -20,6 +20,7 @@ in
 
     programs = {
       password-store.enable = true;
+      password-store.settings.PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
       gpg.enable = true;
     };
 

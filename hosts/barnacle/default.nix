@@ -18,6 +18,9 @@
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
+  # installer media has no root zfs pool; adopt the 26.11 default
+  boot.zfs.forceImportRoot = false;
+
   custom = {
     enable = true;
     laptop = true;

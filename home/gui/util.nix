@@ -23,7 +23,7 @@
             in
             {
               source = pkgs.writeScript (builtins.baseNameOf file) (
-                lib.fold (
+                lib.foldr (
                   name: acc: builtins.replaceStrings [ "@${name}@" ] [ replacements.${name} ] acc
                 ) fileContent (builtins.attrNames usedReplacements)
               );

@@ -142,6 +142,7 @@ in
       in
       {
         enable = true;
+        configPath = ".mozilla/firefox";
         profiles.default = {
           inherit settings userChrome extensions;
         };
@@ -172,6 +173,7 @@ in
       };
       userDirs = {
         enable = true;
+        setSessionVariables = true;
         createDirectories = true;
         download = "$HOME/downloads/";
         pictures = "$HOME/pictures/";

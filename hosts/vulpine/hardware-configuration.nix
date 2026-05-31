@@ -42,6 +42,7 @@
 
   fileSystems."/media/hdd" = {
     device = "/dev/disk/by-label/HDD";
+    fsType = "auto";
     options = [
       "nofail"
       "x-systemd.device-timeout=1ms"
