@@ -20,6 +20,8 @@
     caledonia.url = "github:RyanGibb/caledonia/vibing";
     plover-revamp.url = "github:Pandapip1/nixpkgs/plover-revamp";
     koreader-syncd.url = "github:pborzenkov/koreader-syncd";
+    # fork fixes nested-list nativeBuildInputs deprecation warning (optional -> optionals)
+    opam-nix.url = "github:RyanGibb/opam-nix";
 
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
@@ -37,6 +39,10 @@
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     caledonia.inputs.nixpkgs.follows = "nixpkgs";
     koreader-syncd.inputs.nixpkgs.follows = "nixpkgs";
+
+    opam-nix.inputs.nixpkgs.follows = "nixpkgs";
+    eon.inputs.opam-nix.follows = "opam-nix";
+    caledonia.inputs.opam-nix.follows = "opam-nix";
   };
 
   outputs =
