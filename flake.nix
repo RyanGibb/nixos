@@ -1,11 +1,11 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-nvidia.url = "github:nixos/nixpkgs/5b09dc45f24cf32316283e62aec81ffee3c3e376";
     nixpkgs-qtwebengine.url = "github:nixos/nixpkgs/2cbbdc9fdf6b7a254c98c79f42cc053b8d100798";
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     agenix.url = "github:ryantm/agenix";
     deploy-rs.url = "github:serokell/deploy-rs";
     nix-on-droid.url = "github:nix-community/nix-on-droid/release-24.05";

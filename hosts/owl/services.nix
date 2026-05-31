@@ -213,7 +213,7 @@ in
   eilean.mailserver.systemAccountPasswordFile = config.age.secrets.email-system.path;
   # https://nixos-mailserver.readthedocs.io/en/latest/migrations.html
   mailserver.stateVersion = lib.mkDefault 3;
-  mailserver.loginAccounts = {
+  mailserver.accounts = {
     "${config.eilean.username}@${config.networking.domain}" = {
       passwordFile = config.age.secrets.email-ryan.path;
       aliases = [

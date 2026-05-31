@@ -31,6 +31,7 @@ in
         package = pkgs.gruvbox-gtk-theme;
         name = "Gruvbox-Dark";
       };
+      gtk4.theme = config.gtk.theme;
       gtk2.force = true;
     };
 

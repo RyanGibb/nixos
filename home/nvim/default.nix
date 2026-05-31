@@ -52,8 +52,10 @@ in
       enable = true;
       viAlias = true;
       vimAlias = true;
+      withRuby = true;
+      withPython3 = true;
       extraPackages = with pkgs; [ ripgrep ];
-      extraLuaConfig = builtins.readFile ./init.lua;
+      initLua = builtins.readFile ./init.lua;
       # undo transparent background
       # + "colorscheme gruvbox";
       plugins = with pkgs.vimPlugins; [

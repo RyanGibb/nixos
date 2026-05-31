@@ -20,9 +20,7 @@ in
     services.tlp.enable = true;
     powerManagement.enable = true;
 
-    systemd.sleep.extraConfig = ''
-      HibernateDelaySec=1h
-    '';
+    systemd.sleep.settings.Sleep.HibernateDelaySec = "1h";
 
     # https://github.com/systemd/systemd/issues/12001#issuecomment-1711464475
     services.logind.settings.Login.HandleLidSwitch = "ignore";

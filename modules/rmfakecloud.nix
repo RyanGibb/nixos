@@ -35,7 +35,7 @@ in
       };
     };
 
-    mailserver.loginAccounts."misc@${domain}".aliases = [ "remarkable@${domain}" ];
+    mailserver.accounts."misc@${domain}".aliases = [ "remarkable@${domain}" ];
 
     security.acme-eon.nginxCerts = [ cfg.domain ];
     services.nginx = {
