@@ -1,0 +1,22 @@
+Enable display of series-type custom columns.
+
+cc_exceptions disabled all series-type custom columns to dodge a crash on
+calibre-web's internal DB-reconnect path (see janeczku/calibre-web#1501,
+#2797). The display path itself works -- setup_db_cc_classes and
+detail.html already contain a 'series' branch -- only the exception list
+suppresses it. Removing 'series' here exposes the column name and index
+in book details, advanced search, and the sidebar. The reconnect crash is
+unsolved upstream; a `systemctl restart calibre-web` after a settings
+change that triggers internal reload is the workaround.
+
+--- a/cps/db.py
++++ b/cps/db.py
+@@ -53,7 +53,7 @@ from .string_helper import strip_whitespaces
+
+ log = logger.create()
+
+-cc_exceptions = ['composite', 'series']
++cc_exceptions = ['composite']
+ cc_classes = {}
+
+ Base = declarative_base()

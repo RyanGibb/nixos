@@ -403,6 +403,9 @@
     # https://github.com/NixOS/nixpkgs/issues/405974
     package = pkgs.calibre-web.overridePythonAttrs (old: rec {
       dependencies = old.dependencies ++ old.optional-dependencies.kobo;
+      # Expose series-type custom columns in the UI; see
+      # janeczku/calibre-web#1501 and #2797.
+      patches = (old.patches or [ ]) ++ [ ./calibre-web-series-cc.patch ];
     });
   };
   users.users.${config.services.calibre-web.user}.extraGroups = [
