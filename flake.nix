@@ -206,7 +206,7 @@
               }
               {
                 name = "shrew";
-                remoteBuild = true;
+                remoteBuild = false;
               }
               {
                 name = "vulpine";
