@@ -1,15 +1,13 @@
 -- lspconfig
 
 --- underline errors rather than highlight
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-	vim.lsp.diagnostic.on_publish_diagnostics, {
-		underline = true,
-		---virtual_text = true,
-		signs = true,
-		update_in_insert = true,
-		float = true,
-	}
-)
+vim.diagnostic.config {
+	underline = true,
+	virtual_text = false,
+	signs = true,
+	update_in_insert = true,
+	float = true,
+}
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
