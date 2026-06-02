@@ -61,6 +61,7 @@ in
     ./nvim/default.nix
     ./emacs/default.nix
     ./battery.nix
+    ./atuin.nix
   ];
 
   options.custom.machineColour = lib.mkOption {
@@ -147,20 +148,6 @@ in
           zshConfigEarlyInit
           zshConfig
         ];
-    };
-
-    programs.atuin = {
-      enable = true;
-      enableZshIntegration = true;
-      daemon.enable = true;
-      flags = [ "--disable-up-arrow" ];
-      settings = {
-        sync_address = "https://atuin.freumh.org";
-        auto_sync = true;
-        sync_frequency = "5m";
-        update_check = false;
-        search_mode = "skim";
-      };
     };
 
     programs.bash.initExtra = ''
