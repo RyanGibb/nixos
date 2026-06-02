@@ -222,6 +222,7 @@ buffer and any new buffer created by FN."
   ;; See https://github.com/magit/magit/issues/4871
   (magit-pre-display-buffer-hook nil)
   (magit-bury-buffer-function #'my/magit-bury-buffer)
+  (magit-diff-refine-hunk 'all)
   :config
   ;; magit-display-buffer-fullframe-status-v1 uses delete-other-windows which
   ;; interacts badly with side windows:
