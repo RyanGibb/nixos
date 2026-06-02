@@ -13,7 +13,10 @@
     homeManager.enable = true;
   };
 
-  home-manager.users.${config.custom.username}.config.custom.machineColour = "yellow";
+  home-manager.users.${config.custom.username}.config.custom = {
+    machineColour = "yellow";
+    atuin.enable = true;
+  };
 
   boot.tmp.cleanOnBoot = true;
 
