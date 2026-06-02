@@ -21,7 +21,8 @@ in
       enable = true;
       font = {
         name = "Noto Sans 11";
-        package = pkgs.noto-fonts;
+        # already installed system wide
+        # package = pkgs.noto-fonts;
       };
       iconTheme = {
         package = pkgs.gruvbox-gtk-theme;
