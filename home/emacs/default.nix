@@ -9,6 +9,9 @@
 let
   cfg = config.custom.emacs;
   emacsPackages = pkgs.emacsPackagesFor pkgs.emacs30-pgtk;
+  # flyspell otherwise resolves a dictless aspell off exec-path, which fatally
+  # errors ("No word lists can be found"); pin the dict-bundled one.
+  aspell = pkgs.aspellWithDicts (ps: with ps; [ en en-computers en-science ]);
   claude-code-ide = emacsPackages.trivialBuild {
     pname = "claude-code-ide";
     version = "0-unstable-2025-03-08";
@@ -138,6 +141,9 @@ in
 
     xdg.configFile."emacs/early-init.el".source = ./early-init.el;
     xdg.configFile."emacs/init.el".source = ./init.el;
+    xdg.configFile."emacs/spell.el".text = ''
+      (setq ispell-program-name "${aspell}/bin/aspell")
+    '';
     xdg.configFile."emacs/appearance.el".source = ./appearance.el;
     xdg.configFile."emacs/evil.el".source = ./evil.el;
     xdg.configFile."emacs/completion.el".source = ./completion.el;

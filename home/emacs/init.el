@@ -104,6 +104,7 @@
 
 ;;;; Load modules
 
+(load (expand-file-name "spell" user-emacs-directory))
 (load (expand-file-name "appearance" user-emacs-directory))
 (load (expand-file-name "evil" user-emacs-directory))
 (load (expand-file-name "completion" user-emacs-directory))
