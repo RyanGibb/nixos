@@ -245,7 +245,6 @@
     kdePackages.kdenlive
     tor-browser
     ffmpeg
-    audio-recorder
     speechd
     deploy-rs
     nix-prefetch-git
