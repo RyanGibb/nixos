@@ -178,6 +178,12 @@ buffer and any new buffer created by FN."
 (use-package hideshow
   :hook (prog-mode . hs-minor-mode))
 
+;;;; Dired
+
+(use-package dired
+  :custom
+  (dired-listing-switches "-alhp"))
+
 ;;;; Git gutter
 
 (use-package diff-hl
@@ -186,7 +192,49 @@ buffer and any new buffer created by FN."
   (diff-hl-highlight-reference-function nil)
   :config
   (global-diff-hl-mode)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+  (add-hook 'dired-mode-hook #'diff-hl-dired-mode)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
+
+  ;; Color the whole dired line by VC status (not just the fringe glyph).
+  (defun my/diff-hl-dired-color-line (alist)
+    (dolist (pair alist)
+      (let ((file (car pair))
+            (type (cdr pair)))
+        (when type
+          (save-excursion
+            (goto-char (point-min))
+            (when (dired-goto-file-1 (file-name-nondirectory file)
+                                     (expand-file-name file) nil)
+              (let ((o (make-overlay (line-beginning-position) (line-end-position))))
+                (overlay-put o 'face (intern (format "diff-hl-dired-%s" type)))
+                (overlay-put o 'diff-hl t))))))))
+  (advice-add 'diff-hl-dired-highlight-items :after #'my/diff-hl-dired-color-line)
+
+  ;; diff-hl-dired-nondirectory-files skips directories, so ignored dirs never
+  ;; get queried. Override to include them.
+  (defun my/diff-hl-dired-all-entries ()
+    (cl-mapcan
+     (lambda (entry)
+       (let* ((dir (file-relative-name (car entry)))
+              (all (file-name-all-completions "" dir))
+              res)
+         (dolist (file all)
+           (unless (member file '("./" "../"))
+             (push (if (equal dir "./") file (concat dir file)) res)))
+         res))
+     dired-subdir-alist))
+  (advice-add 'diff-hl-dired-nondirectory-files :override #'my/diff-hl-dired-all-entries)
+
+  (with-eval-after-load 'diff-hl-dired
+    (set-face-attribute 'diff-hl-dired-unknown nil :inherit nil :foreground "#e06c75")
+    (set-face-attribute 'diff-hl-dired-ignored nil :inherit nil :foreground "#5c6370")
+    (set-face-attribute 'diff-hl-dired-change  nil :inherit nil :foreground "#d19a66")
+    (set-face-attribute 'diff-hl-dired-insert  nil :inherit nil :foreground "#98c379")
+    (set-face-attribute 'diff-hl-dired-delete  nil :inherit nil :foreground "#be5046"))
+
+  ;; Match dirs to files for unmodified entries (kill dired-directory yellow).
+  (with-eval-after-load 'dired
+    (set-face-attribute 'dired-directory nil :inherit nil :foreground 'unspecified)))
 
 ;;;; Direnv
 
