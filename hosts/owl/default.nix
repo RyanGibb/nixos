@@ -18,6 +18,10 @@
     })
   ];
 
+  home-manager.users.${config.custom.username}.config.custom = {
+    # atuin.enable = true;
+  };
+
   environment.systemPackages = with pkgs; [
     nixd
     nixfmt-rfc-style

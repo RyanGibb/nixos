@@ -48,7 +48,7 @@
       calendar.enable = true;
       battery.enable = true;
       emacs.enable = true;
-      atuin.enable = true;
+      # atuin.enable = true;
     };
     home.packages =
       let
