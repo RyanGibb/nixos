@@ -9,9 +9,17 @@
 let
   cfg = config.custom.emacs;
   emacsPackages = pkgs.emacsPackagesFor pkgs.emacs30-pgtk;
-  # flyspell otherwise resolves a dictless aspell off exec-path, which fatally
-  # errors ("No word lists can be found"); pin the dict-bundled one.
-  aspell = pkgs.aspellWithDicts (ps: with ps; [ en en-computers en-science ]);
+  aspellEnv = pkgs.aspellWithDicts (ps: with ps; [ en en-computers en-science ]);
+  # aspellWithDicts sets data-dir to an empty share/aspell and never sets
+  # filter-path, while the filter-mode definitions (tex, nroff, ...) live in
+  # lib/aspell. Entering TeX mode — flyspell sends "+" for tex/latex buffers —
+  # then aborts with an unhandled "Unknown mode: tex" PosibErr (SIGABRT).
+  # Re-wrap the bare binary with filter-path pointed at lib/aspell.
+  aspell = pkgs.runCommand "aspell-tex-fix" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
+    mkdir -p $out/bin
+    makeWrapper ${pkgs.aspell}/bin/aspell $out/bin/aspell \
+      --set ASPELL_CONF "dict-dir ${aspellEnv}/lib/aspell; data-dir ${aspellEnv}/share/aspell; filter-path ${aspellEnv}/lib/aspell"
+  '';
   claude-code-ide = emacsPackages.trivialBuild {
     pname = "claude-code-ide";
     version = "0-unstable-2025-03-08";
