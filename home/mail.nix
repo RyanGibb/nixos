@@ -35,7 +35,7 @@ in
 
     programs = {
       password-store.enable = true;
-      password-store.settings.PASSWORD_STORE_DIR = "$XDG_DATA_HOME/password-store";
+      password-store.settings.PASSWORD_STORE_DIR = "${config.xdg.dataHome}/password-store";
       gpg.enable = true;
       mbsync.enable = true;
       mu.enable = true;
