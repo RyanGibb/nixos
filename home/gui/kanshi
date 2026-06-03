@@ -1,33 +1,32 @@
 
 profile {
 	output "Sharp Corporation 0x14F9 Unknown" mode 1920x1200@60Hz scale 1 position 0,0 transform normal enable
-	exec ~/.config/sway/scripts/swayidle_suspend.sh
+	exec ~/.config/sway/scripts/swayidle_default.sh laptop ~/.config/sway/scripts/swayidle_suspend.sh
 }
 
 profile {
 	output "Sharp Corporation 0x14F9 Unknown" mode 1920x1200@60Hz scale 1 position 0,0 transform normal disable
 	output "Acer Technologies VG270U TEHEE004852A" mode 2560x1440@60Hz position 1920,0 transform normal enable
-	exec ~/.config/sway/scripts/swayidle_dpms.sh
+	exec ~/.config/sway/scripts/swayidle_default.sh acer-clamshell ~/.config/sway/scripts/swayidle_dpms.sh
 }
 
 profile {
 	output "Acer Technologies VG270U TEHEE004852A" mode 2560x1440@60Hz position 0,0 transform normal enable
-	exec ~/.config/sway/scripts/swayidle_dpms.sh
+	exec ~/.config/sway/scripts/swayidle_default.sh acer ~/.config/sway/scripts/swayidle_dpms.sh
 }
 
 profile {
 	output "Sharp Corporation 0x14F9 Unknown" mode 1920x1200@60Hz scale 1 position 0,0 transform normal disable
 	output 'Dell Inc. DELL P3223QE 3RWDWN3' mode 3840x2160@60Hz scale 1.5 position 1920,0 transform normal enable
-	exec ~/.config/sway/scripts/swayidle_lock.sh
+	exec ~/.config/sway/scripts/swayidle_default.sh dell-clamshell ~/.config/sway/scripts/swayidle_lock.sh
 }
 
 profile {
 	output 'Dell Inc. DELL P3223QE 3RWDWN3' mode 3840x2160@60Hz scale 1.5 position 0,0 transform normal disable
-	exec ~/.config/sway/scripts/swayidle_lock.sh
+	exec ~/.config/sway/scripts/swayidle_default.sh dell ~/.config/sway/scripts/swayidle_lock.sh
 }
 
 profile {
     output 'Sony SONY TV  *00 0x01010101' mode 1920x1080@60Hz scale 1.5
-	exec ~/.config/sway/scripts/swayidle_suspend_long.sh
+	exec ~/.config/sway/scripts/swayidle_default.sh sony ~/.config/sway/scripts/swayidle_suspend_long.sh
 }
-
