@@ -14,6 +14,27 @@
   nixpkgs.overlays = [
     (final: prev: {
       opam = final.overlay-unstable.opam;
+
+      # Work around curl 8.20 threaded-resolver bug that pegs nheko at 100% CPU:
+      # https://github.com/Nheko-Reborn/nheko/issues/2054. Disable the threaded
+      # resolver in the curl used by nheko's HTTP stack (coeurl/mtxclient/nheko).
+      # Remove when nixpkgs ships curl >= 8.21 with the upstream fix.
+      nheko =
+        let
+          curlNoThreadedResolver = prev.curl.overrideAttrs (old: {
+            configureFlags = (old.configureFlags or [ ]) ++ [ "--disable-threaded-resolver" ];
+          });
+          coeurlFixed = prev.coeurl.override { curl = curlNoThreadedResolver; };
+          mtxclientFixed = prev.mtxclient.override {
+            curl = curlNoThreadedResolver;
+            coeurl = coeurlFixed;
+          };
+        in
+        prev.nheko.override {
+          curl = curlNoThreadedResolver;
+          coeurl = coeurlFixed;
+          mtxclient = mtxclientFixed;
+        };
     })
   ];
 
