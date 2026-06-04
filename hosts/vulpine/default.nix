@@ -3,19 +3,10 @@
   config,
   lib,
   ...
-}@inputs:
+}:
 
 {
   imports = [ ./hardware-configuration.nix ];
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      overlay-qtwebengine = import inputs.nixpkgs-qtwebengine {
-        inherit (pkgs.stdenv.hostPlatform) system;
-        config = config.nixpkgs.config;
-      };
-    })
-  ];
 
   custom = {
     enable = true;
@@ -89,8 +80,8 @@
     pandoc
     ledger
     nixd
-    overlay-qtwebengine.jellyfin-media-player
-    overlay-qtwebengine.stremio
+    jellyfin-desktop
+    stremio-linux-shell
     mangohud
     overlay-unstable.claude-code
   ];
