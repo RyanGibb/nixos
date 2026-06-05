@@ -2,11 +2,11 @@
 
 set -o pipefail
 
-mac_addr="$(\
-	nmcli -f BSSID,IN-USE,SSID,CHAN,RATE,SIGNAL,BARS,SECURITY dev wifi list\
-	| tail -n +2\
+ssid="$(\
+	nmcli -g IN-USE,SSID,SIGNAL,BARS,SECURITY dev wifi list\
+	| awk -F: '$2 != "" && !seen[$2]++ {printf "%s %s %s %s\t%s\n", $1, $4, $3, $5, $2}'\
 	| wofi -d "Select network:"\
-	| awk '{print $1}'
+	| cut -f2-
 )" || exit
 
-nmcli dev wifi connect "$mac_addr"
+nmcli dev wifi connect "$ssid"
