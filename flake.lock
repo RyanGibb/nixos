@@ -158,11 +158,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780242487,
-        "narHash": "sha256-svpR/BLVMwCMjImezdfwgzMo03n/UfmkxrlhsNtc2Tw=",
+        "lastModified": 1780858652,
+        "narHash": "sha256-uBRd0c56CLo/DqCKS/pVER51vGVJ1CRcEvLEaAdcYgE=",
         "owner": "RyanGibb",
         "repo": "eilean-nix",
-        "rev": "3b9ca3e07e037efd565f126434937aeb0f4317c9",
+        "rev": "2ff64e5f93067137b7cf9706eb1cdf8cca45a2e5",
         "type": "github"
       },
       "original": {
