@@ -396,6 +396,7 @@
       ip = "127.0.0.1";
     };
     options = {
+      calibreLibrary = "/tank/books";
       enableBookConversion = true;
       enableBookUploading = true;
       enableKepubify = true;
