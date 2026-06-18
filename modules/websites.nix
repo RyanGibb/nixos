@@ -107,4 +107,11 @@ in
     fn06Website
     meandsWebsite
   ];
+
+  # Allow non-nginx users to traverse into a per-domain log dir they're a member
+  # of (the dirs themselves stay private to their own group). systemd forces
+  # 0750 by default, which would block traversal entirely.
+  config = lib.mkIf config.services.nginx.enable {
+    systemd.services.nginx.serviceConfig.LogsDirectoryMode = lib.mkForce "0751";
+  };
 }

@@ -169,6 +169,7 @@ in
       alec = {
         enable = true;
         cname = "owl";
+        logReaders = [ "alec" ];
       };
       fn06.enable = true;
       meands = {
@@ -177,6 +178,9 @@ in
       };
     };
   };
+
+  environment.systemPackages = [ pkgs.goaccess ];
+
   # rmfakecloud fail2ban (app logs ::1 behind nginx, so use nginx access log)
   services.fail2ban.jails."rmfakecloud".settings = {
     backend = "auto";

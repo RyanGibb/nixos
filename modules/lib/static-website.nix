@@ -22,6 +22,10 @@ in
     }:
     let
       cfg = config.custom.website.${name};
+      logGroup = "${name}-log";
+      logDir = "/var/log/nginx/${cfg.domain}";
+      accessLog = "${logDir}/access.log";
+      hasReaders = cfg.logReaders != [ ];
     in
     {
       options.custom.website.${name} = {
@@ -54,6 +58,15 @@ in
           default = index;
           description = "Index files for the root location";
         };
+        logReaders = mkOption {
+          type = types.listOf types.str;
+          default = [ ];
+          description = ''
+            Users granted read-only access to this site's access logs.
+            When non-empty the log directory is made setgid to a dedicated
+            group (''${name}-log) containing these users.
+          '';
+        };
       };
 
       config = mkIf cfg.enable {
@@ -71,7 +84,7 @@ in
                 extraConfig = ''
                   error_page 403 =404 /404.html;
                   error_page 404 /404.html;
-                  access_log /var/log/nginx/${cfg.domain}.log;
+                  access_log ${accessLog};
                 ''
                 + extraConfig;
               }
@@ -106,6 +119,24 @@ in
             value = cfg.cname;
           }
         ];
+
+        # Per-domain log directory; setgid to ${logGroup} when logReaders is set
+        # so the named users can read this site's logs (and nothing else).
+        systemd.tmpfiles.rules = [
+          "d ${logDir} ${if hasReaders then "2750" else "0750"} nginx ${
+            if hasReaders then logGroup else "nginx"
+          } -"
+        ];
+        users.groups = mkIf hasReaders { "${logGroup}".members = cfg.logReaders; };
+        services.logrotate.settings."${accessLog}" = {
+          frequency = "weekly";
+          rotate = 520;
+          compress = true;
+          delaycompress = true;
+          missingok = true;
+          su = "nginx ${if hasReaders then logGroup else "nginx"}";
+          postrotate = "[ ! -f /var/run/nginx/nginx.pid ] || kill -USR1 `cat /var/run/nginx/nginx.pid`";
+        };
       };
     };
 }
