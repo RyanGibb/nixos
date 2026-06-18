@@ -43,7 +43,7 @@
     tailscale = true;
     laptop = true;
     # cups-browsed is using 100% of a core
-    printing = false;
+    printing = true;
     gui.i3 = true;
     gui.kde = true;
     gui.sway = true;
