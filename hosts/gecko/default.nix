@@ -376,9 +376,6 @@
     env.MANGOHUD = "1";
   };
 
-  # https://github.com/NixOS/nixpkgs/pull/524488
-  security.wrappers.bwrap.setuid = lib.mkForce false;
-
   security.sudo.extraConfig = ''
     Defaults !tty_tickets
   '';

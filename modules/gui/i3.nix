@@ -26,7 +26,7 @@ in
 
     environment.systemPackages = with pkgs; [
       i3
-      xorg.xrandr
+      xrandr
       arandr
       xss-lock
       xsecurelock

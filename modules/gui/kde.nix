@@ -9,7 +9,6 @@ in
   config = lib.mkIf cfg.kde {
     services.desktopManager.plasma6.enable = true;
     services.displayManager.ly.enable = true;
-    services.displayManager.defaultSession = lib.mkDefault null;
 
     # screen reader
     services.orca.enable = false;

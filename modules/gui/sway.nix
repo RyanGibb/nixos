@@ -19,7 +19,8 @@ in
       };
 
     services.displayManager.ly.enable = true;
-    services.displayManager.defaultSession = lib.mkDefault "sway";
+    # win over plasma6's mkDefault when both sway and kde are enabled
+    services.displayManager.defaultSession = lib.mkOverride 900 "sway";
 
     programs.sway = {
       enable = true;
