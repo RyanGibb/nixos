@@ -32,6 +32,15 @@
   users.users.${config.custom.username}.hashedPassword = lib.mkForce null;
   users.users.root.hashedPassword = lib.mkForce null;
 
+  # recovery tool: recreate the grub UEFI NVRAM entry after a firmware reset wipes it
+  environment.systemPackages = [
+    (pkgs.writeShellApplication {
+      name = "fix-uefi-boot";
+      runtimeInputs = [ pkgs.efibootmgr ];
+      text = builtins.readFile ./fix-uefi-boot.sh;
+    })
+  ];
+
   services.openssh.settings.PermitRootLogin = lib.mkForce "no";
   services.getty.autologinUser = lib.mkForce "${config.custom.username}";
   services.getty.helpLine = lib.mkForce "";
