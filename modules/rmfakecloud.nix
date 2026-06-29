@@ -43,7 +43,7 @@ in
       recommendedProxySettings = true;
       # to allow syncing
       # another option would just be opening a separate port for this
-      clientMaxBodySize = "100M";
+      clientMaxBodySize = "512M";
       virtualHosts."${cfg.domain}" = {
         forceSSL = true;
         locations."/" = {
