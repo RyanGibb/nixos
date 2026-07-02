@@ -199,6 +199,7 @@ in
         "ryan.gibb@cl.cam.ac.uk" = rec {
           userName = "rtg24@fm.cl.cam.ac.uk";
           address = "ryan.gibb@cl.cam.ac.uk";
+          aliases = [ "rtg24@cam.ac.uk" ];
           mu.enable = true;
           realName = "Ryan Gibb";
           passwordCommand = "${pkgs.pass}/bin/pass show email/ryan.gibb@cl.cam.ac.uk";
