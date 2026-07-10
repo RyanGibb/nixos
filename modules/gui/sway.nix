@@ -59,7 +59,12 @@ in
         wdisplays
         wf-recorder
         grim
-        slurp
+        # slurp segfaults in xkb_state_update_mask when run alongside wayfreeze
+        # (capture_region.sh): keyboard events arrive before xkb_state is set up.
+        # Upstream fix, unmerged: https://github.com/emersion/slurp/pull/190
+        (slurp.overrideAttrs (old: {
+          patches = (old.patches or [ ]) ++ [ ./slurp-pr190-xkb-crash.patch ];
+        }))
         swappy
         wayfreeze
         dunst
