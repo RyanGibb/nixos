@@ -31,6 +31,7 @@
       "photos.freumh.org"
       "calibre.freumh.org"
       "audiobookshelf.vpn.freumh.org"
+      "music.vpn.freumh.org"
       "anki.vpn.freumh.org"
       "webdav.vpn.freumh.org"
     ];
@@ -163,6 +164,16 @@
         locations."/" = {
           proxyPass = ''
             http://localhost:${builtins.toString config.services.audiobookshelf.port}
+          '';
+          proxyWebsockets = true;
+        };
+      };
+      "music.vpn.freumh.org" = {
+        onlySSL = true;
+        listenAddresses = [ "100.64.0.9" ];
+        locations."/" = {
+          proxyPass = ''
+            http://localhost:${builtins.toString config.services.navidrome.settings.Port}
           '';
           proxyWebsockets = true;
         };
@@ -510,6 +521,18 @@
   };
   users.users.${config.services.audiobookshelf.user}.extraGroups = [
     config.services.readarr.user
+  ];
+
+  services.navidrome = {
+    enable = true;
+    settings = {
+      Address = "127.0.0.1";
+      Port = 4533;
+      MusicFolder = "/tank/music";
+    };
+  };
+  users.users.${config.services.navidrome.user}.extraGroups = [
+    config.services.lidarr.user
   ];
 
   age.secrets.anki.file = ../../secrets/anki.age;
