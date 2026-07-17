@@ -423,6 +423,13 @@
   users.users.${config.services.calibre-web.user}.extraGroups = [
     config.services.readarr.user
   ];
+  # The nixpkgs module hardens the unit with RestrictSUIDSGID=yes. Moving a book
+  # to a new author folder falls back to shutil.copytree (author dir doesn't
+  # pre-exist), whose copystat replicates the setgid mode of /tank/books; setting
+  # the sgid bit is denied under RestrictSUIDSGID, so the move fails with EPERM
+  # ("Operation not permitted"). /tank/books relies on setgid for calibre-web
+  # and readarr to share group ownership, so allow it here.
+  systemd.services.calibre-web.serviceConfig.RestrictSUIDSGID = lib.mkForce false;
 
   age.secrets.restic-gecko.file = ../../secrets/restic-gecko.age;
   age.secrets.restic-owl.file = ../../secrets/restic-owl.age;
