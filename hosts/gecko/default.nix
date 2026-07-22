@@ -252,6 +252,7 @@
     restic
     mosquitto
     texlive.combined.scheme-full
+    ghostscript
     typst
     evince
     pdfpc
