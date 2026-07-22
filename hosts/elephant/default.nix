@@ -66,13 +66,21 @@
       "/tank/family/other/"
       "/tank/immich/"
     ];
+    # skip regeneratable / re-downloadable data to shrink the offsite repo
+    exclude = [
+      "/var/lib/transmission"
+      "/var/lib/jellyfin/metadata"
+      "/tank/immich/encoded-video"
+      "/tank/immich/thumbs"
+    ];
     timerConfig = {
       OnCalendar = "monthly";
     };
     pruneOpts = [
       "--keep-daily 7"
       "--keep-weekly 4"
-      "--keep-yearly 10"
+      "--keep-monthly 6"
+      "--keep-yearly 2"
     ];
   };
 
