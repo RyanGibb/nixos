@@ -65,6 +65,7 @@
       "/tank/family/mp4/"
       "/tank/family/other/"
       "/tank/immich/"
+      "/tank/backups/photos/" # pre-immich photo exports; no other offsite copy
     ];
     # skip regeneratable / re-downloadable data to shrink the offsite repo
     exclude = [
@@ -77,6 +78,9 @@
       OnCalendar = "monthly";
     };
     pruneOpts = [
+      # group across all snapshots regardless of path-set, else retention
+      # applies per historical path-set and never collapses old snapshots
+      "--group-by host"
       "--keep-daily 7"
       "--keep-weekly 4"
       "--keep-monthly 6"
