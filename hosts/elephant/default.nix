@@ -11,6 +11,7 @@
     ./zfs.nix
     ./services.nix
     ./owntracks.nix
+    ./decluttarr.nix
   ];
 
   nixpkgs.overlays = [
