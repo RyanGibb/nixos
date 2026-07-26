@@ -104,6 +104,7 @@
       randomizedDelaySec = "1hr";
     };
     pruneOpts = [
+      "--group-by host"
       "--keep-daily 7"
       "--keep-weekly 4"
       "--keep-monthly 12"

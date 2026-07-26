@@ -440,14 +440,18 @@
       repository = "${config.services.restic.server.dataDir}/gecko";
       passwordFile = config.age.secrets.restic-gecko.path;
       timerConfig = {
-        OnCalendar = "02:00";
+        OnCalendar = "05:00";
+        Persistent = true;
       };
-      # pruneOpts = [
-      #   "--keep-daily 7"
-      #   "--keep-weekly 300"
-      #   "--keep-monthly 12"
-      #   "--keep-yearly 100"
-      # ];
+      # --group-by host: paths changed over time, and the default host,paths
+      # grouping applies retention per path-set
+      pruneOpts = [
+        "--group-by host"
+        "--keep-daily 7"
+        "--keep-weekly 300"
+        "--keep-monthly 12"
+        "--keep-yearly 100"
+      ];
     };
     owl = {
       user = "restic";
@@ -457,6 +461,7 @@
         OnCalendar = "02:00";
       };
       pruneOpts = [
+        "--group-by host"
         "--keep-daily 7"
         "--keep-weekly 4"
         "--keep-monthly 12"
