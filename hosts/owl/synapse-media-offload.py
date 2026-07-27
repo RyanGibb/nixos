@@ -52,15 +52,22 @@ def sha256_path(path):
     return h.hexdigest()
 
 
-def local_files(origin, fsid):
-    """Every file synapse stores for one media id, relative to MEDIA_STORE."""
+def local_files(origin, fsid, m_type):
+    """Every file synapse stores for one media id, relative to MEDIA_STORE.
+
+    Mirrors s3_media_upload's to_path/to_thumbnail_dir/get_local_files: the
+    local-vs-remote split comes from m_type, not from origin, and the S3 key is
+    exactly this relative path.
+    """
     a, b, rest = fsid[:2], fsid[2:4], fsid[4:]
-    if origin:
+    if m_type == "local":
+        content = os.path.join("local_content", a, b, rest)
+        thumbs = os.path.join("local_thumbnails", a, b, rest)
+    elif m_type == "remote":
         content = os.path.join("remote_content", origin, a, b, rest)
         thumbs = os.path.join("remote_thumbnail", origin, a, b, rest)
     else:
-        content = os.path.join("local_content", a, b, rest)
-        thumbs = os.path.join("local_thumbnails", a, b, rest)
+        raise ValueError(f"unexpected media type {m_type!r}")
     out = []
     if os.path.isfile(os.path.join(MEDIA_STORE, content)):
         out.append(content)
@@ -96,12 +103,13 @@ def main():
                       aws_access_key_id=akey, aws_secret_access_key=asec)
     db = sqlite3.connect(os.path.join(CACHE_DIR, "cache.db"))
     rows = db.execute(
-        "SELECT origin, filesystem_id FROM media WHERE deleted = 0").fetchall()
+        "SELECT origin, filesystem_id, type FROM media WHERE NOT known_deleted"
+    ).fetchall()
 
     ok = bad = absent = 0
     freed = 0
-    for origin, fsid in rows:
-        for rel in local_files(origin, fsid):
+    for origin, fsid, m_type in rows:
+        for rel in local_files(origin, fsid, m_type):
             local = os.path.join(MEDIA_STORE, rel)
             try:
                 body = s3.get_object(Bucket=bucket, Key=rel)["Body"]
