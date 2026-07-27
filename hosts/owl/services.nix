@@ -49,6 +49,11 @@ let
       value = "100.64.0.9";
     }
     {
+      name = "nzbget.vpn.${config.networking.domain}.";
+      type = "A";
+      value = "100.64.0.9";
+    }
+    {
       name = "anki.vpn.${config.networking.domain}.";
       type = "A";
       value = "100.64.0.9";

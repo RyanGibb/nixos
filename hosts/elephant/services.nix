@@ -32,6 +32,7 @@
       "calibre.freumh.org"
       "audiobookshelf.vpn.freumh.org"
       "music.vpn.freumh.org"
+      "nzbget.vpn.freumh.org"
       "anki.vpn.freumh.org"
       "webdav.vpn.freumh.org"
     ];
@@ -178,6 +179,15 @@
           proxyWebsockets = true;
         };
       };
+      "nzbget.vpn.freumh.org" = {
+        onlySSL = true;
+        listenAddresses = [ "100.64.0.9" ];
+        locations."/" = {
+          proxyPass = ''
+            http://localhost:${builtins.toString config.services.nzbget.settings.ControlPort}
+          '';
+        };
+      };
       "anki.vpn.freumh.org" = {
         onlySSL = true;
         listenAddresses = [ "100.64.0.9" ];
@@ -322,6 +332,12 @@
   systemd.tmpfiles.rules = [
     "d /tank/garage     0700 garage garage -"
     "d /tank/garage/data 0700 garage garage -"
+    # group-writable so lidarr (in the nzbget group) can hardlink into /tank/music
+    "d /tank/nzbget       0775 nzbget nzbget -"
+    "d /tank/nzbget/dst   0775 nzbget nzbget -"
+    "d /tank/nzbget/inter 0775 nzbget nzbget -"
+    # nzbget only creates category dirs on first download; the *arrs check eagerly
+    "d /tank/nzbget/dst/music 0775 nzbget nzbget -"
   ];
   services.garage = {
     enable = true;
@@ -371,6 +387,23 @@
     };
   };
 
+  # Credentials live in the mutable 0700 /var/lib/nzbget/nzbget.conf, not here:
+  # `settings` are rendered into -o flags on ExecStart, visible in /nix/store and ps.
+  services.nzbget = {
+    enable = true;
+    settings = {
+      MainDir = "/tank/nzbget";
+      DestDir = "/tank/nzbget/dst";
+      InterDir = "/tank/nzbget/inter";
+      NzbDir = "/tank/nzbget/nzb";
+      QueueDir = "/tank/nzbget/queue";
+      TempDir = "/tank/nzbget/tmp";
+      # lidarr's download-client musicCategory points at nzbget's stock Category3
+      "Category3.DestDir" = "/tank/nzbget/dst/music";
+      ControlIP = "127.0.0.1";
+      ControlPort = 6789;
+    };
+  };
   services.prowlarr.enable = true;
   services.flaresolverr.enable = true;
   services.sonarr.enable = true;
