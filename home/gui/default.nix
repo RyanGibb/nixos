@@ -176,6 +176,7 @@ in
         enable = true;
         setSessionVariables = true;
         createDirectories = true;
+        projects = "$HOME/projects/";
         download = "$HOME/downloads/";
         pictures = "$HOME/pictures/";
         videos = "$HOME/pictures/videos/";
