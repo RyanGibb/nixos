@@ -63,8 +63,7 @@
       "/var/lib/"
       "/etc/"
       "/home/"
-      "/tank/family/mp4/"
-      "/tank/family/other/"
+      "/tank/family/"
       "/tank/immich/"
       "/tank/backups/photos/" # pre-immich photo exports; no other offsite copy
     ];
@@ -74,6 +73,7 @@
       "/var/lib/jellyfin/metadata"
       "/tank/immich/encoded-video"
       "/tank/immich/thumbs"
+      "*.trickplay"
     ];
     timerConfig = {
       OnCalendar = "monthly";
