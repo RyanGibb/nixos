@@ -25,6 +25,14 @@
     };
   };
 
+  services.smartd = {
+    enable = true;
+    notifications.mail.enable = true;
+    # -o on: automatic offline testing; short test daily 01:00, long test
+    # Sundays 06:00 (clear of the 02:00-05:00 restic window)
+    defaults.monitored = "-a -o on -s (S/../.././01|L/../../7/06)";
+  };
+
   environment.etc."aliases".text = "root: ryan@freumh.org";
 
   age.secrets.email-elephant.file = ../../secrets/email-system.age;
