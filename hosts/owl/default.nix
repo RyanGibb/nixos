@@ -10,6 +10,7 @@
     ./hardware-configuration.nix
     ./minimal.nix
     ./services.nix
+    ./synapse-media-offload.nix
   ];
 
   nixpkgs.overlays = [
