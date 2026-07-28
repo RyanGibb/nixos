@@ -284,7 +284,8 @@
   services.nfs.server = {
     enable = true;
     exports = ''
-      /tank 100.64.0.0/10(rw,no_subtree_check,no_root_squash)
+      # crossmnt: child datasets are separate filesystems and would otherwise appear empty to clients
+      /tank 100.64.0.0/10(rw,no_subtree_check,no_root_squash,crossmnt)
     '';
   };
   networking.firewall.interfaces."tailscale0".allowedTCPPorts = [
