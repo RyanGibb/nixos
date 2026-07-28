@@ -4,9 +4,10 @@ verifying the stored object byte-for-byte.
 
 s3_media_upload's own --delete only checks that an object with the right key
 exists, so a truncated or corrupt object would still let it drop the local
-file. This runs `upload` without --delete, re-reads each object from S3 and
-compares SHA-256 against the local file, removing it only on an exact match.
-Anything that fails is left on disk and retried next run.
+file. This runs `upload` without --delete, then compares each object's ETag
+against a digest computed from the local file, removing it only on an exact
+match. Nothing is ever downloaded to verify it. Anything that fails is left on
+disk and retried next run.
 
 S3 keys are exactly the path relative to the media store, so enumeration has to
 match synapse's layout:
@@ -44,12 +45,50 @@ def homeserver_config():
     return m.group(1)
 
 
-def sha256_path(path):
-    h = hashlib.sha256()
+def md5_path(path, chunk=1 << 20):
+    h = hashlib.md5()
     with open(path, "rb") as f:
-        for chunk in iter(lambda: f.read(1 << 20), b""):
-            h.update(chunk)
+        for block in iter(lambda: f.read(chunk), b""):
+            h.update(block)
     return h.hexdigest()
+
+
+def etag_matches(path, etag):
+    """Whether the local file reproduces the object's ETag, without downloading.
+
+    Single-part objects use a plain MD5. Multipart ones use the MD5 of the
+    concatenated part MD5s with a "-N" part count, which is reproducible
+    locally if the part size matches; candidates are derived from the file size
+    and part count. Returns False when it can't be reproduced, so the caller
+    keeps the local copy rather than trusting it.
+    """
+    etag = etag.strip('"')
+    if "-" not in etag:
+        return md5_path(path) == etag
+
+    want, _, parts = etag.partition("-")
+    try:
+        nparts = int(parts)
+    except ValueError:
+        return False
+    size = os.path.getsize(path)
+    if nparts < 1:
+        return False
+
+    mib = 1 << 20
+    derived = -(-size // nparts)                      # ceil, the minimum viable size
+    candidates = {8 * mib, 5 * mib, 15 * mib, 16 * mib, 64 * mib, 100 * mib,
+                  -(-derived // mib) * mib}           # rounded up to a whole MiB
+    for part_size in sorted(candidates):
+        if part_size <= 0 or -(-size // part_size) != nparts:
+            continue
+        digests = []
+        with open(path, "rb") as f:
+            for block in iter(lambda: f.read(part_size), b""):
+                digests.append(hashlib.md5(block).digest())
+        if hashlib.md5(b"".join(digests)).hexdigest() == want:
+            return True
+    return False
 
 
 def local_files(origin, fsid, m_type):
@@ -112,18 +151,14 @@ def main():
         for rel in local_files(origin, fsid, m_type):
             local = os.path.join(MEDIA_STORE, rel)
             try:
-                body = s3.get_object(Bucket=bucket, Key=rel)["Body"]
-                h = hashlib.sha256()
-                for chunk in iter(lambda: body.read(1 << 20), b""):
-                    h.update(chunk)
-                remote = h.hexdigest()
+                etag = s3.head_object(Bucket=bucket, Key=rel)["ETag"]
             except Exception as e:
                 absent += 1
-                print(f"  unretrievable, keeping: {rel} ({str(e)[:60]})")
+                print(f"  not in bucket, keeping: {rel} ({str(e)[:60]})")
                 continue
-            if remote != sha256_path(local):
+            if not etag_matches(local, etag):
                 bad += 1
-                print(f"  SHA MISMATCH, keeping: {rel}")
+                print(f"  ETAG MISMATCH, keeping: {rel}")
                 continue
             size = os.path.getsize(local)
             os.remove(local)
