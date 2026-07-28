@@ -68,10 +68,7 @@
       "/home/"
       "/tank/family/"
       "/tank/immich/"
-      "/tank/backups/photos/" # pre-immich photo exports; no other offsite copy
-      "/tank/garage/" # matrix media; sole copy once synapse prunes its local files
     ];
-    # skip regeneratable / re-downloadable data to shrink the offsite repo
     exclude = [
       "/var/lib/transmission"
       "/var/lib/jellyfin/metadata"
