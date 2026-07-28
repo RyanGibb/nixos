@@ -28,7 +28,10 @@
     gui.sway = true;
   };
 
-  home-manager.users.${config.custom.username}.config.custom.machineColour = "blue";
+  home-manager.users.${config.custom.username}.config = {
+    custom.machineColour = "blue";
+    xdg.userDirs.enable = lib.mkForce false;
+  };
 
   environment.systemPackages = with pkgs; [
     smartmontools
