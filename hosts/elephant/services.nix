@@ -249,7 +249,7 @@
     config.services.radarr.user
     config.services.bazarr.user
     config.services.lidarr.user
-    config.services.readarr.user
+    config.services.calibre-web.user
   ];
 
   services.samba = {
@@ -411,7 +411,6 @@
   services.radarr.enable = true;
   services.bazarr.enable = true;
   services.lidarr.enable = true;
-  services.readarr.enable = true;
   services.seerr.enable = true;
   users.users.${config.services.sonarr.user}.extraGroups = [
     config.services.transmission.user
@@ -426,10 +425,6 @@
     config.services.radarr.user
   ];
   users.users.${config.services.lidarr.user}.extraGroups = [
-    config.services.transmission.user
-    config.services.nzbget.user
-  ];
-  users.users.${config.services.readarr.user}.extraGroups = [
     config.services.transmission.user
     config.services.nzbget.user
   ];
@@ -454,15 +449,7 @@
       patches = (old.patches or [ ]) ++ [ ./calibre-web-series-cc.patch ];
     });
   };
-  users.users.${config.services.calibre-web.user}.extraGroups = [
-    config.services.readarr.user
-  ];
-  # The nixpkgs module hardens the unit with RestrictSUIDSGID=yes. Moving a book
-  # to a new author folder falls back to shutil.copytree (author dir doesn't
-  # pre-exist), whose copystat replicates the setgid mode of /tank/books; setting
-  # the sgid bit is denied under RestrictSUIDSGID, so the move fails with EPERM
-  # ("Operation not permitted"). /tank/books relies on setgid for calibre-web
-  # and readarr to share group ownership, so allow it here.
+  # moving a book to a new author dir copies /tank/books' setgid mode, which the module's RestrictSUIDSGID=yes denies
   systemd.services.calibre-web.serviceConfig.RestrictSUIDSGID = lib.mkForce false;
 
   age.secrets.restic-gecko.file = ../../secrets/restic-gecko.age;
@@ -566,7 +553,7 @@
     port = 8001;
   };
   users.users.${config.services.audiobookshelf.user}.extraGroups = [
-    config.services.readarr.user
+    config.services.calibre-web.user
   ];
 
   services.navidrome = {
