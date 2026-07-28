@@ -158,21 +158,21 @@
       enableZshIntegration = true;
       enableBashIntegration = true;
     };
-    systemd.user.services.plover = {
-      Unit = {
-        Description = "Plover stenography engine";
-        After = [ "graphical-session.target" ];
-      };
-      Service = {
-        ExecStart = "${
-          inputs.plover-revamp.legacyPackages.${pkgs.stdenv.hostPlatform.system}.python3Packages.plover-dev
-        }/bin/plover --gui none";
-        Restart = "on-failure";
-      };
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
-    };
+    # systemd.user.services.plover = {
+    #   Unit = {
+    #     Description = "Plover stenography engine";
+    #     After = [ "graphical-session.target" ];
+    #   };
+    #   Service = {
+    #     ExecStart = "${
+    #       inputs.plover-revamp.legacyPackages.${pkgs.stdenv.hostPlatform.system}.python3Packages.plover-dev
+    #     }/bin/plover --gui none";
+    #     Restart = "on-failure";
+    #   };
+    #   Install = {
+    #     WantedBy = [ "graphical-session.target" ];
+    #   };
+    # };
     systemd.user.services.caledonia-alarm = {
       Unit = {
         Description = "Caledonia alarm daemon";
@@ -251,7 +251,7 @@
     gthumb
     restic
     mosquitto
-    texlive.combined.scheme-full
+    texlive.combined.scheme-medium
     ghostscript
     typst
     evince
@@ -261,7 +261,7 @@
     transmission_4
     transmission_4-gtk
     libreoffice
-    obs-studio
+    # obs-studio
     xournalpp
     inkscape
     kdePackages.kdenlive
@@ -338,7 +338,7 @@
     mangohud
     prismlauncher
 
-    inputs.plover-revamp.legacyPackages.${pkgs.stdenv.hostPlatform.system}.python3Packages.plover-dev
+    # inputs.plover-revamp.legacyPackages.${pkgs.stdenv.hostPlatform.system}.python3Packages.plover-dev
 
     slipshow
 

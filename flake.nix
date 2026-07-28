@@ -16,7 +16,7 @@
     disko.url = "github:nix-community/disko";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     caledonia.url = "github:RyanGibb/caledonia/vibing";
-    plover-revamp.url = "github:Pandapip1/nixpkgs/plover-revamp";
+    # plover-revamp.url = "github:Pandapip1/nixpkgs/plover-revamp";
     koreader-syncd.url = "github:pborzenkov/koreader-syncd";
     # fork fixes nested-list nativeBuildInputs deprecation warning (optional -> optionals)
     opam-nix.url = "github:RyanGibb/opam-nix";
