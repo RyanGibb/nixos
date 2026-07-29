@@ -1,6 +1,6 @@
 let
   user = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAGNcdBuEeoJiMH8TMO4k/w3OVKfiSZ9IZ3xrzFOZEi8 ryan@dell-xps"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAGNcdBuEeoJiMH8TMO4k/w3OVKfiSZ9IZ3xrzFOZEi8 ryan@gecko"
   ];
 
   gecko = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGLEtqkSlJx219h1aYRXRjP60vBmJmhrCp0Mj1FIF25N root@gecko";
