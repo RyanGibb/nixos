@@ -253,6 +253,7 @@
     mosquitto
     texlive.combined.scheme-medium
     ghostscript
+    rocq-core
     typst
     evince
     pdfpc

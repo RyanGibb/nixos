@@ -139,6 +139,8 @@ let
       ledger-mode
       auctex
       nael
+      proof-general
+      company-coq
 
       # Tree-sitter
       treesit-grammars.with-all-grammars

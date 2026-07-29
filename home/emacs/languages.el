@@ -114,6 +114,67 @@
     ""  '(:ignore t :which-key "lean")
     "a" '(nael-abbrev-help :which-key "abbrev help")))
 
+;;;; Rocq / Coq (Proof General)
+
+(use-package coq
+  :mode ("\\.v\\'" . coq-mode)
+  :custom
+  (proof-splash-enable nil)
+  (proof-three-window-mode-policy 'hybrid)
+  :config
+  (add-hook 'coq-mode-hook (lambda () (setq-local tab-width proof-indent)))
+
+  (my/local-leader-def
+    :keymaps 'coq-mode-map
+    ""  '(:ignore t :which-key "rocq")
+    "]" '(proof-assert-next-command-interactive :which-key "next")
+    "[" '(proof-undo-last-successful-command :which-key "undo")
+    "." '(proof-goto-point :which-key "goto point")
+    "l" '(:ignore t :which-key "layout")
+    "lc" '(pg-response-clear-displays :which-key "clear displays")
+    "ll" '(proof-layout-windows :which-key "relayout")
+    "lp" '(proof-prf :which-key "show proof")
+    "p" '(:ignore t :which-key "proof")
+    "pi" '(proof-interrupt-process :which-key "interrupt")
+    "pp" '(proof-process-buffer :which-key "process buffer")
+    "pq" '(proof-shell-exit :which-key "quit prover")
+    "pr" '(proof-retract-buffer :which-key "retract buffer")
+    "a" '(:ignore t :which-key "about/print/check")
+    "aa" '(coq-Print :which-key "print")
+    "aA" '(coq-Print-with-all :which-key "print (all)")
+    "ab" '(coq-About :which-key "about")
+    "aB" '(coq-About-with-all :which-key "about (all)")
+    "ac" '(coq-Check :which-key "check")
+    "aC" '(coq-Check-show-all :which-key "check (all)")
+    "af" '(proof-find-theorems :which-key "find theorems")
+    "g" '(:ignore t :which-key "goto")
+    "ge" '(proof-goto-command-end :which-key "command end")
+    "gl" '(proof-goto-end-of-locked :which-key "end of locked")
+    "gs" '(proof-goto-command-start :which-key "command start")
+    "i" '(:ignore t :which-key "insert")
+    "ic" '(coq-insert-command :which-key "command")
+    "ie" '(coq-end-Section :which-key "end section")
+    "iI" '(coq-insert-intros :which-key "intros")
+    "ir" '(coq-insert-requires :which-key "requires")
+    "is" '(coq-insert-section-or-module :which-key "section/module")
+    "it" '(coq-insert-tactic :which-key "tactic")
+    "iT" '(coq-insert-tactical :which-key "tactical")))
+
+(use-package company-coq
+  :after coq
+  :hook (coq-mode . company-coq-mode)
+  :custom
+  (company-coq-disabled-features '(hello company company-defaults spinner))
+  :config
+  (add-hook 'coq-mode-hook
+            (lambda ()
+              (dolist (b '(company-coq-master-backend company-coq-math-symbols-backend))
+                (add-to-list 'completion-at-point-functions (cape-company-to-capf b)))))
+  (advice-add 'company-coq--proof-goto-point-advice :override
+              (lambda (&rest _)
+                (when (bound-and-true-p company-candidates)
+                  (company-abort)))))
+
 ;;;; Tree-sitter
 
 (setq treesit-font-lock-level 4)
