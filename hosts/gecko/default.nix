@@ -251,7 +251,7 @@
     gthumb
     restic
     mosquitto
-    texlive.combined.scheme-medium
+    texlive.combined.scheme-full
     ghostscript
     rocq-core
     typst
