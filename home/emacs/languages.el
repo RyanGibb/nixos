@@ -173,7 +173,13 @@
   (advice-add 'company-coq--proof-goto-point-advice :override
               (lambda (&rest _)
                 (when (bound-and-true-p company-candidates)
-                  (company-abort)))))
+                  (company-abort))))
+  (define-key coq-mode-map (kbd "M-.") nil)
+  (define-key coq-mode-map (kbd "M-,") nil)
+  (evil-define-key 'normal coq-mode-map
+    "gd" #'company-coq-jump-to-definition
+    "gr" #'company-coq-grep-symbol
+    "K"  #'company-coq-doc))
 
 ;;;; Tree-sitter
 
