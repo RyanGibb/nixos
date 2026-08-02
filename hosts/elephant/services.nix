@@ -375,6 +375,7 @@
   services.transmission = {
     enable = true;
     openRPCPort = true;
+    openPeerPorts = true;
     package = pkgs.transmission_4;
     settings = {
       download-dir = "/tank/transmission";
@@ -562,6 +563,11 @@
       Address = "127.0.0.1";
       Port = 4533;
       MusicFolder = "/tank/music";
+      Tags.source = {
+        Aliases = [ "source" ];
+        Type = "string";
+        MaxLength = 100;
+      };
     };
   };
   users.users.${config.services.navidrome.user}.extraGroups = [
