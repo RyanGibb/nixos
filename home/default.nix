@@ -213,7 +213,7 @@ in
           ps = "push";
           pf = "push --force-with-lease";
           pu = "push --set-upstream";
-          pa = ''!f() { git remote | xargs -L1 -I{} git push "$@" {} --all; }; f'';
+          pa = ''!f() { git remote | xargs -I{} git push "$@" {} --all; }; f'';
           paf = "!git pa --force-with-lease";
           pl = "pull";
           pr = "pull --rebase";
