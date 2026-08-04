@@ -174,6 +174,26 @@
               (lambda (&rest _)
                 (when (bound-and-true-p company-candidates)
                   (company-abort))))
+  (add-hook 'company-coq-mode-hook
+            (lambda ()
+              (setq-local outline-regexp
+                          "^[ \t]*\\(Module\\|Section\\|Chapter\\|Class\\|Instance\\|Lemma\\|Theorem\\|Definition\\|Record\\|Inductive\\|Fixpoint\\|Proof\\|Qed\\|Defined\\|Admitted\\|Abort\\|End\\)\\b")
+              (setq-local outline-level (lambda () (1+ (current-indentation))))
+              (setq-local outline-heading-end-regexp "\n")
+              (outline-minor-mode 1)
+              (when (bound-and-true-p hs-minor-mode) (hs-minor-mode -1))
+              (my/coq-fold-all-proofs)))
+
+  (defun my/coq-fold-all-proofs ()
+    "Fold every Lemma statement and Proof block in the buffer."
+    (interactive)
+    (save-excursion
+      (goto-char (point-min))
+      (while (re-search-forward "^[ \t]*\\(Proof\\|Lemma\\)\\b" nil t)
+        (beginning-of-line)
+        (outline-hide-subtree)
+        (forward-line 1))))
+
   (define-key coq-mode-map (kbd "M-.") nil)
   (define-key coq-mode-map (kbd "M-,") nil)
   (evil-define-key 'normal coq-mode-map
