@@ -196,6 +196,9 @@
 
   (define-key coq-mode-map (kbd "M-.") nil)
   (define-key coq-mode-map (kbd "M-,") nil)
+  (advice-add 'company-coq-jump-to-definition :before
+              (lambda (&rest _) (evil-set-jump)))
+
   (evil-define-key 'normal coq-mode-map
     "gd" #'company-coq-jump-to-definition
     "gr" #'company-coq-grep-symbol
