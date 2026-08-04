@@ -7,7 +7,7 @@
   :config
   (load-theme 'gruvbox-dark-medium t))
 
-(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type 'visual)
 (global-display-line-numbers-mode 1)
 (column-number-mode 1)
 (display-battery-mode 1)
