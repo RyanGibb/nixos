@@ -14,10 +14,16 @@ let
     if [[ $# -eq 1 ]]; then
         selected=$1
     else
+        current=$(tmux display-message -p '#S' 2>/dev/null)
         selected=$((tac "$hist_file"
-            find ~/ ~/projects -mindepth 1 -maxdepth 1 -type d -not -path '*/[.]*'
+            fd --type d --min-depth 1 --max-depth 1 --absolute-path . ~/ ~/projects
             awk '{print "ssh " $1}' ~/.ssh/known_hosts 2>/dev/null | sort -u
-            echo /etc/nixos) | awk '!seen[$0]++' | fzf --print-query | tail -n 1)
+            echo /etc/nixos) | awk -v cur="$current" '
+                !seen[$0]++ {
+                    n = $0; sub(/.*\//, "", n); gsub(/\./, "_", n)
+                    if (n != cur) print
+                }
+            ' | fzf --print-query | tail -n 1)
     fi
 
     if [[ -z $selected ]]; then
@@ -268,7 +274,7 @@ in
           bind -T copy-mode-vi v send-keys -X begin-selection
           bind -T copy-mode-vi y send-keys -X copy-selection-and-cancel
           # find
-          bind-key -r f run-shell "tmux neww tmux-sessionizer"
+          bind-key f display-popup -E -w 80% -h 80% "tmux-sessionizer"
           # reload
           bind-key r source-file ~/.config/tmux/tmux.conf
         '';
