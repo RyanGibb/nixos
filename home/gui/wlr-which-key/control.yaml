@@ -21,11 +21,11 @@ menu:
         desc: +10%
         cmd: brightnessctl set 10%+
         keep_open: true
-      - key: Shift+minus
+      - key: underscore
         desc: -1%
         cmd: brightnessctl set 1%-
         keep_open: true
-      - key: Shift+equal
+      - key: plus
         desc: +1%
         cmd: brightnessctl set 1%+
         keep_open: true

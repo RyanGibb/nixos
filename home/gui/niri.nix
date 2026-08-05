@@ -89,29 +89,6 @@ in
       spawn-at-startup "xwayland-satellite"
       spawn-at-startup "sh" "-c" "swaybg -i $HOME/.cache/wallpaper -m fill"
 
-      // Persistent named workspaces (indexed 1-20) so Mod+N always
-      // goes to the same workspace regardless of dynamic re-indexing.
-      workspace "1"
-      workspace "2"
-      workspace "3"
-      workspace "4"
-      workspace "5"
-      workspace "6"
-      workspace "7"
-      workspace "8"
-      workspace "9"
-      workspace "10"
-      workspace "11"
-      workspace "12"
-      workspace "13"
-      workspace "14"
-      workspace "15"
-      workspace "16"
-      workspace "17"
-      workspace "18"
-      workspace "19"
-      workspace "20"
-
       prefer-no-csd
       hotkey-overlay { skip-at-startup; }
 
@@ -219,47 +196,47 @@ in
           Mod+Alt+v   { consume-or-expel-window-right; }
 
           // --- Workspaces (1-9, 0=10, Ctrl+1-9=11-19, Ctrl+0=20) ---
-          Mod+1 { focus-workspace "1"; }
-          Mod+2 { focus-workspace "2"; }
-          Mod+3 { focus-workspace "3"; }
-          Mod+4 { focus-workspace "4"; }
-          Mod+5 { focus-workspace "5"; }
-          Mod+6 { focus-workspace "6"; }
-          Mod+7 { focus-workspace "7"; }
-          Mod+8 { focus-workspace "8"; }
-          Mod+9 { focus-workspace "9"; }
-          Mod+0 { focus-workspace "10"; }
-          Mod+Ctrl+1 { focus-workspace "11"; }
-          Mod+Ctrl+2 { focus-workspace "12"; }
-          Mod+Ctrl+3 { focus-workspace "13"; }
-          Mod+Ctrl+4 { focus-workspace "14"; }
-          Mod+Ctrl+5 { focus-workspace "15"; }
-          Mod+Ctrl+6 { focus-workspace "16"; }
-          Mod+Ctrl+7 { focus-workspace "17"; }
-          Mod+Ctrl+8 { focus-workspace "18"; }
-          Mod+Ctrl+9 { focus-workspace "19"; }
-          Mod+Ctrl+0 { focus-workspace "20"; }
+          Mod+1 { focus-workspace 1; }
+          Mod+2 { focus-workspace 2; }
+          Mod+3 { focus-workspace 3; }
+          Mod+4 { focus-workspace 4; }
+          Mod+5 { focus-workspace 5; }
+          Mod+6 { focus-workspace 6; }
+          Mod+7 { focus-workspace 7; }
+          Mod+8 { focus-workspace 8; }
+          Mod+9 { focus-workspace 9; }
+          Mod+0 { focus-workspace 10; }
+          Mod+Ctrl+1 { focus-workspace 11; }
+          Mod+Ctrl+2 { focus-workspace 12; }
+          Mod+Ctrl+3 { focus-workspace 13; }
+          Mod+Ctrl+4 { focus-workspace 14; }
+          Mod+Ctrl+5 { focus-workspace 15; }
+          Mod+Ctrl+6 { focus-workspace 16; }
+          Mod+Ctrl+7 { focus-workspace 17; }
+          Mod+Ctrl+8 { focus-workspace 18; }
+          Mod+Ctrl+9 { focus-workspace 19; }
+          Mod+Ctrl+0 { focus-workspace 20; }
 
-          Mod+Shift+1 { move-column-to-workspace "1"; }
-          Mod+Shift+2 { move-column-to-workspace "2"; }
-          Mod+Shift+3 { move-column-to-workspace "3"; }
-          Mod+Shift+4 { move-column-to-workspace "4"; }
-          Mod+Shift+5 { move-column-to-workspace "5"; }
-          Mod+Shift+6 { move-column-to-workspace "6"; }
-          Mod+Shift+7 { move-column-to-workspace "7"; }
-          Mod+Shift+8 { move-column-to-workspace "8"; }
-          Mod+Shift+9 { move-column-to-workspace "9"; }
-          Mod+Shift+0 { move-column-to-workspace "10"; }
-          Mod+Shift+Ctrl+1 { move-column-to-workspace "11"; }
-          Mod+Shift+Ctrl+2 { move-column-to-workspace "12"; }
-          Mod+Shift+Ctrl+3 { move-column-to-workspace "13"; }
-          Mod+Shift+Ctrl+4 { move-column-to-workspace "14"; }
-          Mod+Shift+Ctrl+5 { move-column-to-workspace "15"; }
-          Mod+Shift+Ctrl+6 { move-column-to-workspace "16"; }
-          Mod+Shift+Ctrl+7 { move-column-to-workspace "17"; }
-          Mod+Shift+Ctrl+8 { move-column-to-workspace "18"; }
-          Mod+Shift+Ctrl+9 { move-column-to-workspace "19"; }
-          Mod+Shift+Ctrl+0 { move-column-to-workspace "20"; }
+          Mod+Shift+1 { move-column-to-workspace 1; }
+          Mod+Shift+2 { move-column-to-workspace 2; }
+          Mod+Shift+3 { move-column-to-workspace 3; }
+          Mod+Shift+4 { move-column-to-workspace 4; }
+          Mod+Shift+5 { move-column-to-workspace 5; }
+          Mod+Shift+6 { move-column-to-workspace 6; }
+          Mod+Shift+7 { move-column-to-workspace 7; }
+          Mod+Shift+8 { move-column-to-workspace 8; }
+          Mod+Shift+9 { move-column-to-workspace 9; }
+          Mod+Shift+0 { move-column-to-workspace 10; }
+          Mod+Shift+Ctrl+1 { move-column-to-workspace 11; }
+          Mod+Shift+Ctrl+2 { move-column-to-workspace 12; }
+          Mod+Shift+Ctrl+3 { move-column-to-workspace 13; }
+          Mod+Shift+Ctrl+4 { move-column-to-workspace 14; }
+          Mod+Shift+Ctrl+5 { move-column-to-workspace 15; }
+          Mod+Shift+Ctrl+6 { move-column-to-workspace 16; }
+          Mod+Shift+Ctrl+7 { move-column-to-workspace 17; }
+          Mod+Shift+Ctrl+8 { move-column-to-workspace 18; }
+          Mod+Shift+Ctrl+9 { move-column-to-workspace 19; }
+          Mod+Shift+Ctrl+0 { move-column-to-workspace 20; }
 
           Mod+grave        { focus-workspace-previous; }
           Mod+period       { focus-workspace-down; }
