@@ -25,6 +25,37 @@ in
       package = pkgs.niri;
     };
 
+    # keyd: modal mouse layer, enter with Meta+Shift+P, Escape exits.
+    # Ports the sway "mouse" mode; wlrctl calls run in the active user's
+    # session so they inherit WAYLAND_DISPLAY. Enabling keyd overrides
+    # sway's own `mode "mouse"` binding on Meta+Shift+P.
+    services.keyd = {
+      enable = true;
+      keyboards.default = {
+        ids = [ "*" ];
+        settings = {
+          main = {
+            "meta+shift+p" = "layer(mouse)";
+          };
+          "mouse:overlay" = {
+            h = ''command(wlrctl pointer move -20 0)'';
+            j = ''command(wlrctl pointer move 0 20)'';
+            k = ''command(wlrctl pointer move 0 -20)'';
+            l = ''command(wlrctl pointer move 20 0)'';
+            n = ''command(wlrctl pointer scroll 0 -20)'';
+            m = ''command(wlrctl pointer scroll 20 0)'';
+            "comma"  = ''command(wlrctl pointer scroll -20 0)'';
+            "dot"    = ''command(wlrctl pointer scroll 0 20)'';
+            s = ''command(wlrctl pointer click left)'';
+            d = ''command(wlrctl pointer click middle)'';
+            f = ''command(wlrctl pointer click right)'';
+            escape = "layer(mouse)";
+            enter  = "layer(mouse)";
+          };
+        };
+      };
+    };
+
     environment.systemPackages = with pkgs; [
       wl-clipboard
       clipman

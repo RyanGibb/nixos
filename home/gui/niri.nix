@@ -138,56 +138,53 @@ in
           Mod+Shift+Slash { show-hotkey-overlay; }
 
           // --- Terminals & launchers ---
-          Mod+Return       { spawn "alacritty" "-e" "tmux"; }
-          Mod+Shift+Return { spawn "alacritty" "-e" "tmux" "attach"; }
-          Mod+Alt+Return   { spawn "sh" "-c" "WAYLAND_DISPLAY= alacritty -e tmux"; }
-          Mod+d            { spawn "wofi" "-i" "--show" "drun" "--allow-images" "-a"; }
-          Mod+Escape       { spawn "st"; }
-          Mod+Shift+Escape { spawn "st" "date" "workspace" "mail" "idle" "disk" "temperature" "load_average" "memory" "backlight" "player" "battery"; }
-          Mod+b            { spawn "firefox"; }
-          Mod+Shift+b      { spawn "firefox" "-P" "secondary"; }
-          Mod+Ctrl+b       { spawn "firefox" "-private-window"; }
+          Mod+Return       hotkey-overlay-title="Terminal (tmux)"                    { spawn "alacritty" "-e" "tmux"; }
+          Mod+Shift+Return hotkey-overlay-title="Terminal (tmux attach)"             { spawn "alacritty" "-e" "tmux" "attach"; }
+          Mod+Alt+Return   hotkey-overlay-title="Terminal (no wayland)"              { spawn "sh" "-c" "WAYLAND_DISPLAY= alacritty -e tmux"; }
+          Mod+d            hotkey-overlay-title="App launcher (wofi)"                { spawn "wofi" "-i" "--show" "drun" "--allow-images" "-a"; }
+          Mod+Escape       hotkey-overlay-title="Status (st)"                        { spawn "st"; }
+          Mod+Shift+Escape hotkey-overlay-title="Status (st, full)"                  { spawn "st" "date" "workspace" "mail" "idle" "disk" "temperature" "load_average" "memory" "backlight" "player" "battery"; }
+          Mod+b            hotkey-overlay-title="Firefox"                            { spawn "firefox"; }
+          Mod+Shift+b      hotkey-overlay-title="Firefox (secondary profile)"        { spawn "firefox" "-P" "secondary"; }
+          Mod+Ctrl+b       hotkey-overlay-title="Firefox (private)"                  { spawn "firefox" "-private-window"; }
 
           // Clipboard (clipman)
-          Mod+Shift+v      { spawn "sh" "-c" "clipman pick -t wofi -T-i"; }
-          Mod+Ctrl+v       { spawn "sh" "-c" "wl-copy \"$(clipman pick -t STDOUT | head -n 1)\""; }
-          Mod+Shift+Ctrl+v { spawn "sh" "-c" "wtype \"$(clipman pick -t STDOUT | head -n 1)\""; }
-          Mod+Alt+space       { spawn "sh" "-c" "yad --entry --text input | wl-copy"; }
-          Mod+Alt+Shift+space { spawn "sh" "-c" "yad --entry --text input | xargs wtype"; }
+          Mod+Shift+v         hotkey-overlay-title="Clipboard picker (clipman)"      { spawn "sh" "-c" "clipman pick -t wofi -T-i"; }
+          Mod+Ctrl+v          hotkey-overlay-title="Copy last clipman entry"         { spawn "sh" "-c" "wl-copy \"$(clipman pick -t STDOUT | head -n 1)\""; }
+          Mod+Shift+Ctrl+v    hotkey-overlay-title="Type last clipman entry"         { spawn "sh" "-c" "wtype \"$(clipman pick -t STDOUT | head -n 1)\""; }
+          Mod+Alt+space       hotkey-overlay-title="Prompt -> clipboard (yad)"       { spawn "sh" "-c" "yad --entry --text input | wl-copy"; }
+          Mod+Alt+Shift+space hotkey-overlay-title="Prompt -> type (yad)"            { spawn "sh" "-c" "yad --entry --text input | xargs wtype"; }
 
           // Emoji
-          Mod+apostrophe   { spawn "sh" "-c" "rofimoji --selector wofi --selector-args=-i --skin-tone neutral --prompt \"\" -a copy"; }
+          Mod+apostrophe   hotkey-overlay-title="Emoji picker (rofimoji)"            { spawn "sh" "-c" "rofimoji --selector wofi --selector-args=-i --skin-tone neutral --prompt \"\" -a copy"; }
 
-          // Bluetooth / wifi (compositor-agnostic scripts under sway config)
-          Mod+semicolon       { spawn "sh" "-c" "~/.config/sway/scripts/bluetooth_device.sh"; }
-          Mod+Shift+semicolon { spawn "sh" "-c" "~/.config/sway/scripts/bluetooth_device.sh disconnect"; }
-          Mod+Ctrl+semicolon  { spawn "sh" "-c" "~/.config/sway/scripts/wifi.sh"; }
+          // Bluetooth / wifi
+          Mod+semicolon       hotkey-overlay-title="Bluetooth connect"               { spawn "sh" "-c" "~/.config/sway/scripts/bluetooth_device.sh"; }
+          Mod+Shift+semicolon hotkey-overlay-title="Bluetooth disconnect"            { spawn "sh" "-c" "~/.config/sway/scripts/bluetooth_device.sh disconnect"; }
+          Mod+Ctrl+semicolon  hotkey-overlay-title="Wifi picker"                     { spawn "sh" "-c" "~/.config/sway/scripts/wifi.sh"; }
 
           // Wallpaper
-          Mod+Shift+w { spawn "sh" "-c" "~/.config/sway/scripts/set_random_wallpaper.sh"; }
-          Mod+Ctrl+w  { spawn "sh" "-c" "~/.config/sway/scripts/set_selected_wallpaper.sh"; }
+          Mod+Shift+w hotkey-overlay-title="Random wallpaper"                        { spawn "sh" "-c" "~/.config/sway/scripts/set_random_wallpaper.sh"; }
+          Mod+Ctrl+w  hotkey-overlay-title="Select wallpaper"                        { spawn "sh" "-c" "~/.config/sway/scripts/set_selected_wallpaper.sh"; }
 
           // Dunst (notifications)
-          Mod+q       { spawn "dunstctl" "close"; }
-          Mod+Shift+q { spawn "dunstctl" "action"; }
-          Mod+Ctrl+q  { spawn "dunstctl" "history-pop"; }
+          Mod+q       hotkey-overlay-title="Dismiss notification"                    { spawn "dunstctl" "close"; }
+          Mod+Shift+q hotkey-overlay-title="Notification default action"             { spawn "dunstctl" "action"; }
+          Mod+Ctrl+q  hotkey-overlay-title="Notification history"                    { spawn "dunstctl" "history-pop"; }
 
-          // wl-kbptr (keyboard mouse)
-          Mod+p { spawn "wl-kbptr" "-o" "modes=floating,click" "-o" "mode_floating.source=detect"; }
-          // TODO: sway mouse mode (keyboard-driven cursor).
-          //   wlrctl pointer move works under niri, but niri has no modal
-          //   layer support. Set up services.keyd with a mouse layer that
-          //   maps hjkl -> wlrctl pointer move / scroll / press invocations,
-          //   Escape exits. Bind Mod+Shift+P here to activate the keyd layer.
-          //   Reference: sway config in home/gui/wm-config.nix swayModes.mouse.
+          // wl-kbptr (keyboard mouse click)
+          Mod+p hotkey-overlay-title="Keyboard cursor (wl-kbptr)"                    { spawn "wl-kbptr" "-o" "modes=floating,click" "-o" "mode_floating.source=detect"; }
+          // Keyboard-driven cursor movement is available via keyd:
+          // Meta+Shift+P enters a mouse layer (see services.keyd in niri module).
+          // hjkl move cursor, n/m/,/. scroll, s/d/f click, Escape exits.
 
           // Dictation
-          Mod+Shift+d { spawn "dictation-toggle"; }
+          Mod+Shift+d hotkey-overlay-title="Toggle dictation"                        { spawn "dictation-toggle"; }
 
           // --- Window ops ---
           Mod+Shift+BackSpace { close-window; }
           Mod+f               { fullscreen-window; }
-          Mod+Shift+f         { spawn "wtype" "-k" "F11"; }
+          Mod+Shift+f         hotkey-overlay-title="Send F11 to app" { spawn "wtype" "-k" "F11"; }
           Mod+e               { maximize-column; }
           Mod+Shift+space     { toggle-window-floating; }
           Mod+space           { switch-focus-between-floating-and-tiling; }
@@ -348,7 +345,7 @@ in
           Mod+Print          { spawn "sh" "-c" "~/.config/niri/scripts/mode_capture.sh"; }
           Ctrl+Print         { screenshot-screen; }
           Alt+Print          { screenshot-window; }
-          Mod+Shift+Print    { spawn "sh" "-c" "pkill -SIGINT wf-recorder; notify-send 'stop recording'"; }
+          Mod+Shift+Print    hotkey-overlay-title="Stop screen recording" { spawn "sh" "-c" "pkill -SIGINT wf-recorder; notify-send 'stop recording'"; }
 
           // --- Session / lock ---
           Mod+x           { spawn "sh" "-c" "~/.config/niri/scripts/mode_system.sh"; }
