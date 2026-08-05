@@ -1,0 +1,40 @@
+font: Noto Sans 12
+background: "#282828cc"
+color: "#ebdbb2"
+border: "#83a598"
+separator: "  "
+border_width: 1
+corner_r: 12
+padding: 15
+anchor: center
+inhibit_compositor_keyboard_shortcuts: true
+
+menu:
+  - key: b
+    desc: Brightness
+    submenu:
+      - key: minus
+        desc: -10%
+        cmd: brightnessctl set 10%-
+        keep_open: true
+      - key: equal
+        desc: +10%
+        cmd: brightnessctl set 10%+
+        keep_open: true
+      - key: Shift+minus
+        desc: -1%
+        cmd: brightnessctl set 1%-
+        keep_open: true
+      - key: Shift+equal
+        desc: +1%
+        cmd: brightnessctl set 1%+
+        keep_open: true
+  - key: d
+    desc: DPMS off
+    cmd: niri msg action power-off-monitors
+  - key: o
+    desc: Outputs on
+    cmd: niri msg action power-on-monitors
+  - key: D
+    desc: Disable focused output
+    cmd: sh -c 'name=$(niri msg --json focused-output | jq -r .name); niri msg output "$name" off'

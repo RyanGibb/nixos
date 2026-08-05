@@ -24,22 +24,10 @@ in
       xwayland-satellite
     ];
 
-    xdg.configFile."niri/scripts/mode_system.sh" = {
-      source = ./niri-scripts/mode_system.sh;
-      executable = true;
-    };
-    xdg.configFile."niri/scripts/mode_capture.sh" = {
-      source = ./niri-scripts/mode_capture.sh;
-      executable = true;
-    };
-    xdg.configFile."niri/scripts/mode_control.sh" = {
-      source = ./niri-scripts/mode_control.sh;
-      executable = true;
-    };
-    xdg.configFile."niri/scripts/mode_idle.sh" = {
-      source = ./niri-scripts/mode_idle.sh;
-      executable = true;
-    };
+    xdg.configFile."wlr-which-key/system.yaml".source  = ./wlr-which-key/system.yaml;
+    xdg.configFile."wlr-which-key/capture.yaml".source = ./wlr-which-key/capture.yaml;
+    xdg.configFile."wlr-which-key/control.yaml".source = ./wlr-which-key/control.yaml;
+    xdg.configFile."wlr-which-key/idle.yaml".source    = ./wlr-which-key/idle.yaml;
 
     xdg.configFile."niri/config.kdl".text = ''
       input {
@@ -342,15 +330,16 @@ in
 
           // --- Screenshots ---
           Print              { spawn "sh" "-c" "~/.config/sway/scripts/capture_region.sh | wl-copy"; }
-          Mod+Print          { spawn "sh" "-c" "~/.config/niri/scripts/mode_capture.sh"; }
+          Mod+Print          { spawn "wlr-which-key" "capture"; }
           Ctrl+Print         { screenshot-screen; }
           Alt+Print          { screenshot-window; }
           Mod+Shift+Print    hotkey-overlay-title="Stop screen recording" { spawn "sh" "-c" "pkill -SIGINT wf-recorder; notify-send 'stop recording'"; }
 
           // --- Session / lock ---
-          Mod+x           hotkey-overlay-title="System mode"   { spawn "sh" "-c" "~/.config/niri/scripts/mode_system.sh"; }
-          Mod+c           hotkey-overlay-title="Control mode"  { spawn "sh" "-c" "~/.config/niri/scripts/mode_control.sh"; }
-          Mod+u           hotkey-overlay-title="Idle mode"     { spawn "sh" "-c" "~/.config/niri/scripts/mode_idle.sh"; }
+          Mod+x           hotkey-overlay-title="System mode"     { spawn "wlr-which-key" "system"; }
+          Mod+c           hotkey-overlay-title="Control mode"    { spawn "wlr-which-key" "control"; }
+          Mod+u           hotkey-overlay-title="Idle mode"       { spawn "wlr-which-key" "idle"; }
+          Mod+Alt+b       hotkey-overlay-title="Brightness mode" { spawn "wlr-which-key" "control" "--initial-keys" "b"; }
           Mod+Ctrl+x      { spawn "swaylock" "-f" "-i" "/home/ryan/.cache/wallpaper"; }
           Mod+Delete      { toggle-keyboard-shortcuts-inhibit; }
           Mod+Shift+e     { quit; }

@@ -1,0 +1,30 @@
+font: Noto Sans 12
+background: "#282828cc"
+color: "#ebdbb2"
+border: "#83a598"
+separator: "  "
+border_width: 1
+corner_r: 12
+padding: 15
+anchor: center
+inhibit_compositor_keyboard_shortcuts: true
+
+menu:
+  - key: i
+    desc: Inhibit
+    cmd: ~/.config/sway/scripts/swayidle_inhibit.sh
+  - key: d
+    desc: DPMS
+    cmd: ~/.config/sway/scripts/swayidle_dpms.sh
+  - key: l
+    desc: Lock
+    cmd: ~/.config/sway/scripts/swayidle_lock.sh
+  - key: L
+    desc: Lock (no DPMS)
+    cmd: ~/.config/sway/scripts/swayidle_lock_no_dpms.sh
+  - key: s
+    desc: Suspend
+    cmd: ~/.config/sway/scripts/swayidle_suspend.sh
+  - key: S
+    desc: Suspend (long)
+    cmd: ~/.config/sway/scripts/swayidle_suspend_long.sh

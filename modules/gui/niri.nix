@@ -37,15 +37,6 @@ in
         settings = {
           main = {
             "meta+shift+p" = "layer(mouse)";
-            "meta+alt+b"   = "layer(brightness)";
-          };
-          "brightness:overlay" = {
-            "minus"       = ''command(brightnessctl set 10%-)'';
-            "equal"       = ''command(brightnessctl set 10%+)'';
-            "shift+minus" = ''command(brightnessctl set 1%-)'';
-            "shift+equal" = ''command(brightnessctl set 1%+)'';
-            "escape"      = "layer(brightness)";
-            "enter"       = "layer(brightness)";
           };
           "mouse:overlay" = {
             h = ''command(wlrctl pointer move -20 0)'';
@@ -67,6 +58,7 @@ in
     };
 
     environment.systemPackages = with pkgs; [
+      wlr-which-key
       wl-clipboard
       clipman
       wtype

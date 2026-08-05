@@ -1,0 +1,36 @@
+font: Noto Sans 12
+background: "#282828cc"
+color: "#ebdbb2"
+border: "#83a598"
+separator: "  "
+border_width: 1
+corner_r: 12
+padding: 15
+anchor: center
+inhibit_compositor_keyboard_shortcuts: true
+
+menu:
+  - key: c
+    desc: Copy region
+    cmd: sh -c '~/.config/sway/scripts/capture_region.sh | wl-copy'
+  - key: e
+    desc: Edit region
+    cmd: sh -c '~/.config/sway/scripts/capture_region.sh | swappy -f -'
+  - key: f
+    desc: Save region to file
+    cmd: sh -c '~/.config/sway/scripts/capture_region.sh > "$XDG_PICTURES_DIR/capture/$(date "+%Y-%m-%d %H.%M.%S").png"'
+  - key: C
+    desc: Copy screen
+    cmd: sh -c 'grim - | wl-copy'
+  - key: E
+    desc: Edit screen
+    cmd: sh -c 'grim - | swappy -f -'
+  - key: F
+    desc: Save screen to file
+    cmd: sh -c 'grim "$XDG_PICTURES_DIR/capture/$(date "+%Y-%m-%d %H.%M.%S").png"'
+  - key: v
+    desc: Record video
+    cmd: sh -c 'output=$(niri msg --json focused-output | jq -r .name); sink="$(pactl info | sed -En "s/Default Sink: (.*)/\1/p").monitor"; wf-recorder -a="$sink" -o "$output" -f "$XDG_VIDEOS_DIR/$(date "+%Y-%m-%d %H.%M").mp4" &'
+  - key: V
+    desc: Stop recording
+    cmd: pkill -SIGINT wf-recorder

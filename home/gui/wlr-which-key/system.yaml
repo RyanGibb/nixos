@@ -1,0 +1,36 @@
+font: Noto Sans 12
+background: "#282828cc"
+color: "#ebdbb2"
+border: "#83a598"
+separator: "  "
+border_width: 1
+corner_r: 12
+padding: 15
+anchor: center
+inhibit_compositor_keyboard_shortcuts: true
+
+menu:
+  - key: l
+    desc: Lock
+    cmd: loginctl lock-session
+  - key: e
+    desc: Exit
+    cmd: niri msg action quit
+  - key: s
+    desc: Suspend then hibernate
+    cmd: systemctl suspend-then-hibernate
+  - key: S
+    desc: Suspend
+    cmd: systemctl suspend
+  - key: h
+    desc: Hibernate
+    cmd: systemctl hibernate
+  - key: r
+    desc: Reboot
+    cmd: systemctl reboot
+  - key: p
+    desc: Poweroff
+    cmd: systemctl poweroff -i
+  - key: u
+    desc: UEFI/BIOS
+    cmd: systemctl reboot --firmware-setup
