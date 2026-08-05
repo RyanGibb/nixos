@@ -468,6 +468,7 @@ in
     "Mod4+d" = "exec wofi -i --show drun --allow-images -a";
 
     "Mod4+c" = "mode \"control\"; exec notify-send \"Control b/t/d/o\"";
+    "Mod4+Mod1+b" = "mode \"control_backlight\"; exec notify-send \"Brightness -/+\"";
     "Mod4+u" = "mode \"idle\"; exec notify-send \"Idle i/d/l/s/S/L\"";
     "Mod4+Print" =
       "mode \"capture\"; exec notify-send \"Capture (c)opy/(e)dit/(f)file c/e/f selection C/E/F output (v)ideo\"";

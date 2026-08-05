@@ -348,7 +348,9 @@ in
           Mod+Shift+Print    hotkey-overlay-title="Stop screen recording" { spawn "sh" "-c" "pkill -SIGINT wf-recorder; notify-send 'stop recording'"; }
 
           // --- Session / lock ---
-          Mod+x           { spawn "sh" "-c" "~/.config/niri/scripts/mode_system.sh"; }
+          Mod+x           hotkey-overlay-title="System mode"   { spawn "sh" "-c" "~/.config/niri/scripts/mode_system.sh"; }
+          Mod+c           hotkey-overlay-title="Control mode"  { spawn "sh" "-c" "~/.config/niri/scripts/mode_control.sh"; }
+          Mod+u           hotkey-overlay-title="Idle mode"     { spawn "sh" "-c" "~/.config/niri/scripts/mode_idle.sh"; }
           Mod+Ctrl+x      { spawn "swaylock" "-f" "-i" "/home/ryan/.cache/wallpaper"; }
           Mod+Delete      { toggle-keyboard-shortcuts-inhibit; }
           Mod+Shift+e     { quit; }

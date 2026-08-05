@@ -25,6 +25,7 @@ in
       package = pkgs.niri;
     };
 
+
     # keyd: modal mouse layer, enter with Meta+Shift+P, Escape exits.
     # Ports the sway "mouse" mode; wlrctl calls run in the active user's
     # session so they inherit WAYLAND_DISPLAY. Enabling keyd overrides
@@ -36,6 +37,15 @@ in
         settings = {
           main = {
             "meta+shift+p" = "layer(mouse)";
+            "meta+alt+b"   = "layer(brightness)";
+          };
+          "brightness:overlay" = {
+            "minus"       = ''command(brightnessctl set 10%-)'';
+            "equal"       = ''command(brightnessctl set 10%+)'';
+            "shift+minus" = ''command(brightnessctl set 1%-)'';
+            "shift+equal" = ''command(brightnessctl set 1%+)'';
+            "escape"      = "layer(brightness)";
+            "enter"       = "layer(brightness)";
           };
           "mouse:overlay" = {
             h = ''command(wlrctl pointer move -20 0)'';
