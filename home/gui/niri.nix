@@ -146,11 +146,15 @@ in
           // Dictation
           Mod+Shift+d hotkey-overlay-title="Toggle dictation"                        { spawn "dictation-toggle"; }
 
+          // Rename current workspace (matches sway Mod+t)
+          Mod+t hotkey-overlay-title="Rename workspace" { spawn "sh" "-c" "name=$(echo | wofi -d -i -p 'workspace name'); [ -n \"$name\" ] && niri msg action set-workspace-name \"$name\""; }
+
           // --- Window ops ---
           Mod+Shift+BackSpace { close-window; }
           Mod+f               { fullscreen-window; }
           Mod+Shift+f         hotkey-overlay-title="Send F11 to app" { spawn "wtype" "-k" "F11"; }
           Mod+e               { maximize-column; }
+          Mod+w               { toggle-column-tabbed-display; }
           Mod+Shift+space     { toggle-window-floating; }
           Mod+space           { switch-focus-between-floating-and-tiling; }
 
@@ -345,6 +349,9 @@ in
           match namespace="^wofi$"
           match namespace="^notifications$"
           geometry-corner-radius 8
+          shadow {
+              off
+          }
           background-effect {
               blur true
           }
