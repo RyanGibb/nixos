@@ -6,10 +6,10 @@
 }:
 
 let
-  tmux-sessionizer = pkgs.writeScriptBin "tmux-sessionizer" ''
+  tmux-sessioniser = pkgs.writeScriptBin "tmux-sessioniser" ''
     #!/usr/bin/env bash
 
-    hist_file=~/.cache/sessionizer.hist
+    hist_file=~/.cache/sessioniser.hist
 
     if [[ $# -eq 1 ]]; then
         selected=$1
@@ -96,7 +96,7 @@ in
       dua
       fd
       ripgrep
-      tmux-sessionizer
+      tmux-sessioniser
       bfs
     ];
 
@@ -274,7 +274,7 @@ in
           bind -T copy-mode-vi v send-keys -X begin-selection
           bind -T copy-mode-vi y send-keys -X copy-selection-and-cancel
           # find
-          bind-key f display-popup -E -w 80% -h 80% "tmux-sessionizer"
+          bind-key f display-popup -E -w 80% -h 80% "tmux-sessioniser"
           # reload
           bind-key r source-file ~/.config/tmux/tmux.conf
         '';
