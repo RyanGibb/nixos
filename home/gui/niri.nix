@@ -307,15 +307,25 @@ in
           Mod+Shift+y     { spawn "sh" "-c" "~/.config/sway/scripts/cycle_sink.sh back && st pulse -t 500"; }
 
           // Media keys
-          XF86AudioRaiseVolume  { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +5%; st pulse -t 500"; }
-          XF86AudioLowerVolume  { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -5%; st pulse -t 500"; }
-          XF86AudioMute         { spawn "sh" "-c" "pactl set-sink-mute   @DEFAULT_SINK@ toggle; st pulse -t 500"; }
-          XF86AudioMicMute      { spawn "sh" "-c" "pactl set-source-mute @DEFAULT_SOURCE@ toggle; st pulse -t 500"; }
-          XF86AudioPlay         { spawn "sh" "-c" "playerctl play-pause; st player -t 500"; }
-          XF86AudioNext         { spawn "sh" "-c" "playerctl next; st player -t 500"; }
-          XF86AudioPrev         { spawn "sh" "-c" "playerctl previous; st player -t 500"; }
-          XF86MonBrightnessUp   { spawn "sh" "-c" "brightnessctl set 5%+; st backlight -t 500"; }
-          XF86MonBrightnessDown { spawn "sh" "-c" "brightnessctl set 5%-; st backlight -t 500"; }
+          XF86AudioRaiseVolume         { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +10%; st pulse -t 500"; }
+          XF86AudioLowerVolume         { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -10%; st pulse -t 500"; }
+          Shift+XF86AudioRaiseVolume   { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +1%; st pulse -t 500"; }
+          Shift+XF86AudioLowerVolume   { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -1%; st pulse -t 500"; }
+          Ctrl+XF86AudioRaiseVolume    { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +5%; st pulse -t 500"; }
+          Ctrl+XF86AudioLowerVolume    { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -5%; st pulse -t 500"; }
+          XF86AudioMute                { spawn "sh" "-c" "pactl set-sink-mute   @DEFAULT_SINK@ toggle; st pulse -t 500"; }
+          XF86AudioMicMute             { spawn "sh" "-c" "pactl set-source-mute @DEFAULT_SOURCE@ toggle; st pulse -t 500"; }
+          XF86AudioPlay                { spawn "sh" "-c" "playerctl play-pause; st player -t 500"; }
+          XF86AudioPause               { spawn "sh" "-c" "playerctl play-pause; st player -t 500"; }
+          XF86AudioNext                { spawn "sh" "-c" "playerctl next; st player -t 500"; }
+          XF86AudioPrev                { spawn "sh" "-c" "playerctl previous; st player -t 500"; }
+          XF86AudioStop                { spawn "sh" "-c" "playerctl stop; st player -t 500"; }
+          XF86MonBrightnessUp          { spawn "sh" "-c" "brightnessctl set 10%+; st backlight -t 500"; }
+          XF86MonBrightnessDown        { spawn "sh" "-c" "brightnessctl set 10%-; st backlight -t 500"; }
+          Shift+XF86MonBrightnessUp    { spawn "sh" "-c" "brightnessctl set 1%+; st backlight -t 500"; }
+          Shift+XF86MonBrightnessDown  { spawn "sh" "-c" "brightnessctl set 1%-; st backlight -t 500"; }
+          Ctrl+XF86MonBrightnessUp     { spawn "sh" "-c" "brightnessctl set 5%+; st backlight -t 500"; }
+          Ctrl+XF86MonBrightnessDown   { spawn "sh" "-c" "brightnessctl set 5%-; st backlight -t 500"; }
 
           // --- Screenshots ---
           Print              { spawn "sh" "-c" "~/.config/sway/scripts/capture_region.sh | wl-copy"; }
