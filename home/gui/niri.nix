@@ -70,6 +70,14 @@ in
           border {
               off
           }
+          tab-indicator {
+              width 6
+              gap 6
+              length total-proportion=1.0
+              place-within-column
+              active-color "#83a598"
+              inactive-color "#3c3836"
+          }
       }
 
       environment {
@@ -287,27 +295,27 @@ in
           Mod+Ctrl+bracketright { move-workspace-to-monitor-right; }
 
           // --- Audio ---
-          Mod+equal       { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "+10%"; }
-          Mod+minus       { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "-10%"; }
-          Mod+Shift+equal { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "+1%"; }
-          Mod+Shift+minus { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "-1%"; }
-          Mod+Ctrl+equal  { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "+5%"; }
-          Mod+Ctrl+minus  { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "-5%"; }
-          Mod+n           { spawn "pactl" "set-sink-mute"   "@DEFAULT_SINK@" "toggle"; }
-          Mod+Shift+n     { spawn "pactl" "set-source-mute" "@DEFAULT_SOURCE@" "toggle"; }
-          Mod+y           { spawn "sh" "-c" "~/.config/sway/scripts/cycle_sink.sh"; }
-          Mod+Shift+y     { spawn "sh" "-c" "~/.config/sway/scripts/cycle_sink.sh back"; }
+          Mod+equal       { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +10%; st pulse -t 500"; }
+          Mod+minus       { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -10%; st pulse -t 500"; }
+          Mod+Shift+equal { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +1%; st pulse -t 500"; }
+          Mod+Shift+minus { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -1%; st pulse -t 500"; }
+          Mod+Ctrl+equal  { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +5%; st pulse -t 500"; }
+          Mod+Ctrl+minus  { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -5%; st pulse -t 500"; }
+          Mod+n           { spawn "sh" "-c" "pactl set-sink-mute   @DEFAULT_SINK@ toggle; st pulse -t 500"; }
+          Mod+Shift+n     { spawn "sh" "-c" "pactl set-source-mute @DEFAULT_SOURCE@ toggle; st pulse -t 500"; }
+          Mod+y           { spawn "sh" "-c" "~/.config/sway/scripts/cycle_sink.sh && st pulse -t 500"; }
+          Mod+Shift+y     { spawn "sh" "-c" "~/.config/sway/scripts/cycle_sink.sh back && st pulse -t 500"; }
 
           // Media keys
-          XF86AudioRaiseVolume { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "+5%"; }
-          XF86AudioLowerVolume { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "-5%"; }
-          XF86AudioMute        { spawn "pactl" "set-sink-mute"   "@DEFAULT_SINK@" "toggle"; }
-          XF86AudioMicMute     { spawn "pactl" "set-source-mute" "@DEFAULT_SOURCE@" "toggle"; }
-          XF86AudioPlay        { spawn "playerctl" "play-pause"; }
-          XF86AudioNext        { spawn "playerctl" "next"; }
-          XF86AudioPrev        { spawn "playerctl" "previous"; }
-          XF86MonBrightnessUp   { spawn "brightnessctl" "set" "5%+"; }
-          XF86MonBrightnessDown { spawn "brightnessctl" "set" "5%-"; }
+          XF86AudioRaiseVolume  { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +5%; st pulse -t 500"; }
+          XF86AudioLowerVolume  { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -5%; st pulse -t 500"; }
+          XF86AudioMute         { spawn "sh" "-c" "pactl set-sink-mute   @DEFAULT_SINK@ toggle; st pulse -t 500"; }
+          XF86AudioMicMute      { spawn "sh" "-c" "pactl set-source-mute @DEFAULT_SOURCE@ toggle; st pulse -t 500"; }
+          XF86AudioPlay         { spawn "sh" "-c" "playerctl play-pause; st player -t 500"; }
+          XF86AudioNext         { spawn "sh" "-c" "playerctl next; st player -t 500"; }
+          XF86AudioPrev         { spawn "sh" "-c" "playerctl previous; st player -t 500"; }
+          XF86MonBrightnessUp   { spawn "sh" "-c" "brightnessctl set 5%+; st backlight -t 500"; }
+          XF86MonBrightnessDown { spawn "sh" "-c" "brightnessctl set 5%-; st backlight -t 500"; }
 
           // --- Screenshots ---
           Print              { spawn "sh" "-c" "~/.config/sway/scripts/capture_region.sh | wl-copy"; }
