@@ -54,12 +54,17 @@
         # https://github.com/mid1221213/nginx-dav-ext-module/commit/51185d0aa980bafcd02f5a039cf6e46e75b35935
         {
           name = "dav";
-          src = pkgs.fetchFromGitHub {
+          # upstream is dead since 2018; the four fixes were only ever in a fork
+          # that has since been deleted, so they are vendored here
+          src = pkgs.applyPatches {
             name = "dav";
-            owner = "mid1221213";
-            repo = "nginx-dav-ext-module";
-            rev = "9f112cf8e396ea5e1bdc70cedfa4f5cbc48fe98a";
-            sha256 = "sha256-BMYRH/BNuq/TTWPWdQJpz/Mx64vNEN7SQ/Swu3by92A=";
+            src = pkgs.fetchFromGitHub {
+              owner = "arut";
+              repo = "nginx-dav-ext-module";
+              rev = "v3.0.0";
+              sha256 = "000dm5zk0m1hm1iq60aff5r6y8xmqd7djrwhgnz9ig01xyhnjv9w";
+            };
+            patches = [ ./nginx-dav-ext-fixes.patch ];
           };
 
           inputs = [ pkgs.expat ];
