@@ -97,6 +97,13 @@ in
       spawn-at-startup "xwayland-satellite"
       spawn-at-startup "sh" "-c" "swaybg -i $HOME/.cache/wallpaper -m fill"
 
+      // Pinned workspaces: apps below open on these by name.
+      // Position order = number order, so Mod+1..4 still hit them.
+      workspace "emacs"
+      workspace "term"
+      workspace "web"
+      workspace "chat"
+
       prefer-no-csd
       hotkey-overlay { skip-at-startup; }
 
@@ -357,6 +364,32 @@ in
       window-rule {
           match app-id="firefox" title="^Picture-in-Picture$"
           open-floating true
+      }
+
+      // Pin apps to their home workspaces.
+      window-rule {
+          match app-id="^emacs$"
+          open-on-workspace "emacs"
+      }
+      window-rule {
+          match app-id="^Alacritty$"
+          open-on-workspace "term"
+      }
+      window-rule {
+          match app-id="firefox"
+          open-on-workspace "web"
+      }
+      window-rule {
+          match app-id="^nheko$"
+          open-on-workspace "chat"
+      }
+      window-rule {
+          match app-id="^element$"
+          open-on-workspace "chat"
+      }
+      window-rule {
+          match app-id="^zulip$"
+          open-on-workspace "chat"
       }
 
       // Blur anything translucent
