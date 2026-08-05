@@ -11,12 +11,19 @@ in
 {
   imports = [
     ./i3.nix
+    ./niri.nix
     ./sway.nix
   ];
 
   options.custom.gui.enable = lib.mkEnableOption "gui";
 
   config = lib.mkIf cfg.enable {
+    systemd.user.targets.wayland-session.Unit = {
+      Description = "Wayland compositor session (sway, niri, ...)";
+      BindsTo = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+
     gtk = {
       enable = true;
       font = {

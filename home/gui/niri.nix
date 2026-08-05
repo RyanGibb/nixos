@@ -1,0 +1,421 @@
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+
+let
+  cfg = config.custom.gui.niri;
+  scriptDir = "$HOME/.config/niri/scripts";
+in
+{
+  options.custom.gui.niri = {
+    enable = lib.mkEnableOption "niri";
+  };
+
+  config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      wl-clipboard
+      clipman
+      wtype
+      wl-kbptr
+      wlrctl
+      xwayland-satellite
+    ];
+
+    xdg.configFile."niri/scripts/mode_system.sh" = {
+      source = ./niri-scripts/mode_system.sh;
+      executable = true;
+    };
+    xdg.configFile."niri/scripts/mode_capture.sh" = {
+      source = ./niri-scripts/mode_capture.sh;
+      executable = true;
+    };
+    xdg.configFile."niri/scripts/mode_control.sh" = {
+      source = ./niri-scripts/mode_control.sh;
+      executable = true;
+    };
+    xdg.configFile."niri/scripts/mode_idle.sh" = {
+      source = ./niri-scripts/mode_idle.sh;
+      executable = true;
+    };
+
+    xdg.configFile."niri/config.kdl".text = ''
+      input {
+          keyboard {
+              xkb {
+                  layout "gb"
+              }
+              numlock
+          }
+          touchpad {
+              tap
+              natural-scroll
+              dwt
+              accel-speed 0.2
+              click-method "clickfinger"
+              scroll-factor 0.5
+          }
+          mouse {
+              accel-profile "flat"
+              accel-speed 0.0
+          }
+          focus-follows-mouse
+          workspace-auto-back-and-forth
+      }
+
+      layout {
+          gaps 8
+          center-focused-column "never"
+          preset-column-widths {
+              proportion 0.33333
+              proportion 0.5
+              proportion 0.66667
+          }
+          default-column-width { proportion 0.5; }
+          focus-ring {
+              width 2
+              active-color "#83a598"
+              inactive-color "#3c3836"
+          }
+          border {
+              off
+          }
+      }
+
+      environment {
+          QT_QPA_PLATFORM "wayland"
+          QT_STYLE_OVERRIDE "Fusion"
+          SDL_VIDEODRIVER "wayland"
+          MOZ_ENABLE_WAYLAND "1"
+          MOZ_DBUS_REMOTE "1"
+          NIXOS_OZONE_WL "1"
+          _JAVA_AWT_WM_NONREPARENTING "1"
+          XDG_SESSION_TYPE "wayland"
+          XDG_CURRENT_DESKTOP "niri"
+          DISPLAY ":0"
+      }
+
+      spawn-at-startup "systemctl" "--user" "start" "wayland-session.target"
+      spawn-at-startup "xwayland-satellite"
+      spawn-at-startup "sh" "-c" "swaybg -i $HOME/.cache/wallpaper -m fill"
+
+      // Persistent named workspaces (indexed 1-20) so Mod+N always
+      // goes to the same workspace regardless of dynamic re-indexing.
+      workspace "1"
+      workspace "2"
+      workspace "3"
+      workspace "4"
+      workspace "5"
+      workspace "6"
+      workspace "7"
+      workspace "8"
+      workspace "9"
+      workspace "10"
+      workspace "11"
+      workspace "12"
+      workspace "13"
+      workspace "14"
+      workspace "15"
+      workspace "16"
+      workspace "17"
+      workspace "18"
+      workspace "19"
+      workspace "20"
+
+      prefer-no-csd
+      hotkey-overlay { skip-at-startup; }
+
+      screenshot-path "~/pictures/capture/screenshot_%Y-%m-%dT%H:%M:%S%z.png"
+
+      binds {
+          // NOTE: bindings that shell out to scripts under $HOME/.config/sway/scripts
+          // are reused from the sway config. Any script using `swaymsg` will not
+          // work until it has a niri (`niri msg`) port. `st` is the sway status
+          // notifier script; it works standalone since it only uses dunstify.
+
+          Mod+Shift+Slash { show-hotkey-overlay; }
+
+          // --- Terminals & launchers ---
+          Mod+Return       { spawn "alacritty" "-e" "tmux"; }
+          Mod+Shift+Return { spawn "alacritty" "-e" "tmux" "attach"; }
+          Mod+Alt+Return   { spawn "sh" "-c" "WAYLAND_DISPLAY= alacritty -e tmux"; }
+          Mod+d            { spawn "wofi" "-i" "--show" "drun" "--allow-images" "-a"; }
+          Mod+Escape       { spawn "st"; }
+          Mod+Shift+Escape { spawn "st" "date" "workspace" "mail" "idle" "disk" "temperature" "load_average" "memory" "backlight" "player" "battery"; }
+          Mod+b            { spawn "firefox"; }
+          Mod+Shift+b      { spawn "firefox" "-P" "secondary"; }
+          Mod+Ctrl+b       { spawn "firefox" "-private-window"; }
+
+          // Clipboard (clipman)
+          Mod+Shift+v      { spawn "sh" "-c" "clipman pick -t wofi -T-i"; }
+          Mod+Ctrl+v       { spawn "sh" "-c" "wl-copy \"$(clipman pick -t STDOUT | head -n 1)\""; }
+          Mod+Shift+Ctrl+v { spawn "sh" "-c" "wtype \"$(clipman pick -t STDOUT | head -n 1)\""; }
+          Mod+Alt+space       { spawn "sh" "-c" "yad --entry --text input | wl-copy"; }
+          Mod+Alt+Shift+space { spawn "sh" "-c" "yad --entry --text input | xargs wtype"; }
+
+          // Emoji
+          Mod+apostrophe   { spawn "sh" "-c" "rofimoji --selector wofi --selector-args=-i --skin-tone neutral --prompt \"\" -a copy"; }
+
+          // Bluetooth / wifi (compositor-agnostic scripts under sway config)
+          Mod+semicolon       { spawn "sh" "-c" "~/.config/sway/scripts/bluetooth_device.sh"; }
+          Mod+Shift+semicolon { spawn "sh" "-c" "~/.config/sway/scripts/bluetooth_device.sh disconnect"; }
+          Mod+Ctrl+semicolon  { spawn "sh" "-c" "~/.config/sway/scripts/wifi.sh"; }
+
+          // Wallpaper
+          Mod+Shift+w { spawn "sh" "-c" "~/.config/sway/scripts/set_random_wallpaper.sh"; }
+          Mod+Ctrl+w  { spawn "sh" "-c" "~/.config/sway/scripts/set_selected_wallpaper.sh"; }
+
+          // Dunst (notifications)
+          Mod+q       { spawn "dunstctl" "close"; }
+          Mod+Shift+q { spawn "dunstctl" "action"; }
+          Mod+Ctrl+q  { spawn "dunstctl" "history-pop"; }
+
+          // wl-kbptr (keyboard mouse)
+          Mod+p { spawn "wl-kbptr" "-o" "modes=floating,click" "-o" "mode_floating.source=detect"; }
+          // TODO: sway mouse mode (keyboard-driven cursor).
+          //   wlrctl pointer move works under niri, but niri has no modal
+          //   layer support. Set up services.keyd with a mouse layer that
+          //   maps hjkl -> wlrctl pointer move / scroll / press invocations,
+          //   Escape exits. Bind Mod+Shift+P here to activate the keyd layer.
+          //   Reference: sway config in home/gui/wm-config.nix swayModes.mouse.
+
+          // Dictation
+          Mod+Shift+d { spawn "dictation-toggle"; }
+
+          // --- Window ops ---
+          Mod+Shift+BackSpace { close-window; }
+          Mod+f               { fullscreen-window; }
+          Mod+Shift+f         { spawn "wtype" "-k" "F11"; }
+          Mod+e               { maximize-column; }
+          Mod+Shift+space     { toggle-window-floating; }
+          Mod+space           { switch-focus-between-floating-and-tiling; }
+
+          // Column focus (h/j/k/l + arrows)
+          Mod+h     { focus-column-left; }
+          Mod+l     { focus-column-right; }
+          Mod+j     { focus-window-down; }
+          Mod+k     { focus-window-up; }
+          Mod+Left  { focus-column-left; }
+          Mod+Right { focus-column-right; }
+          Mod+Down  { focus-window-down; }
+          Mod+Up    { focus-window-up; }
+
+          // Column move
+          Mod+Shift+h     { move-column-left; }
+          Mod+Shift+l     { move-column-right; }
+          Mod+Shift+j     { move-window-down; }
+          Mod+Shift+k     { move-window-up; }
+          Mod+Shift+Left  { move-column-left; }
+          Mod+Shift+Right { move-column-right; }
+          Mod+Shift+Down  { move-window-down; }
+          Mod+Shift+Up    { move-window-up; }
+
+          // Column width / height (coarse then fine)
+          Mod+Ctrl+h        { set-column-width "-5%"; }
+          Mod+Ctrl+l        { set-column-width "+5%"; }
+          Mod+Ctrl+j        { set-window-height "+5%"; }
+          Mod+Ctrl+k        { set-window-height "-5%"; }
+          Mod+Ctrl+Left     { set-column-width "-5%"; }
+          Mod+Ctrl+Right    { set-column-width "+5%"; }
+          Mod+Ctrl+Down     { set-window-height "+5%"; }
+          Mod+Ctrl+Up       { set-window-height "-5%"; }
+          Mod+Ctrl+Shift+h  { set-column-width "-1%"; }
+          Mod+Ctrl+Shift+l  { set-column-width "+1%"; }
+          Mod+Ctrl+Shift+j  { set-window-height "+1%"; }
+          Mod+Ctrl+Shift+k  { set-window-height "-1%"; }
+          Mod+r             { switch-preset-column-width; }
+
+          // Consume/expel windows into/from a column (niri "split" analog)
+          Mod+g       { consume-window-into-column; }
+          Mod+v       { expel-window-from-column; }
+          Mod+Alt+g   { consume-or-expel-window-left; }
+          Mod+Alt+v   { consume-or-expel-window-right; }
+
+          // --- Workspaces (1-9, 0=10, Ctrl+1-9=11-19, Ctrl+0=20) ---
+          Mod+1 { focus-workspace "1"; }
+          Mod+2 { focus-workspace "2"; }
+          Mod+3 { focus-workspace "3"; }
+          Mod+4 { focus-workspace "4"; }
+          Mod+5 { focus-workspace "5"; }
+          Mod+6 { focus-workspace "6"; }
+          Mod+7 { focus-workspace "7"; }
+          Mod+8 { focus-workspace "8"; }
+          Mod+9 { focus-workspace "9"; }
+          Mod+0 { focus-workspace "10"; }
+          Mod+Ctrl+1 { focus-workspace "11"; }
+          Mod+Ctrl+2 { focus-workspace "12"; }
+          Mod+Ctrl+3 { focus-workspace "13"; }
+          Mod+Ctrl+4 { focus-workspace "14"; }
+          Mod+Ctrl+5 { focus-workspace "15"; }
+          Mod+Ctrl+6 { focus-workspace "16"; }
+          Mod+Ctrl+7 { focus-workspace "17"; }
+          Mod+Ctrl+8 { focus-workspace "18"; }
+          Mod+Ctrl+9 { focus-workspace "19"; }
+          Mod+Ctrl+0 { focus-workspace "20"; }
+
+          Mod+Shift+1 { move-column-to-workspace "1"; }
+          Mod+Shift+2 { move-column-to-workspace "2"; }
+          Mod+Shift+3 { move-column-to-workspace "3"; }
+          Mod+Shift+4 { move-column-to-workspace "4"; }
+          Mod+Shift+5 { move-column-to-workspace "5"; }
+          Mod+Shift+6 { move-column-to-workspace "6"; }
+          Mod+Shift+7 { move-column-to-workspace "7"; }
+          Mod+Shift+8 { move-column-to-workspace "8"; }
+          Mod+Shift+9 { move-column-to-workspace "9"; }
+          Mod+Shift+0 { move-column-to-workspace "10"; }
+          Mod+Shift+Ctrl+1 { move-column-to-workspace "11"; }
+          Mod+Shift+Ctrl+2 { move-column-to-workspace "12"; }
+          Mod+Shift+Ctrl+3 { move-column-to-workspace "13"; }
+          Mod+Shift+Ctrl+4 { move-column-to-workspace "14"; }
+          Mod+Shift+Ctrl+5 { move-column-to-workspace "15"; }
+          Mod+Shift+Ctrl+6 { move-column-to-workspace "16"; }
+          Mod+Shift+Ctrl+7 { move-column-to-workspace "17"; }
+          Mod+Shift+Ctrl+8 { move-column-to-workspace "18"; }
+          Mod+Shift+Ctrl+9 { move-column-to-workspace "19"; }
+          Mod+Shift+Ctrl+0 { move-column-to-workspace "20"; }
+
+          Mod+grave        { focus-workspace-previous; }
+          Mod+period       { focus-workspace-down; }
+          Mod+comma        { focus-workspace-up; }
+          Mod+Shift+period { move-column-to-workspace-down; }
+          Mod+Shift+comma  { move-column-to-workspace-up; }
+
+          // Window switcher: fuzzy pick via wofi, focus by id
+          Mod+Tab { spawn "sh" "-c" "id=$(niri msg --json windows | jq -r '.[] | \"\\(.id)\\t\\(.app_id // \"?\")  \\(.title // \"\")\"' | wofi -d -i -p 'window' | awk '{print $1}'); [ -n \"$id\" ] && niri msg action focus-window --id \"$id\""; }
+          Mod+Shift+Tab { toggle-overview; }
+
+          // --- Monitors (Mod+Alt+hjkl / arrows / brackets) ---
+          Mod+Alt+h        { focus-monitor-left; }
+          Mod+Alt+l        { focus-monitor-right; }
+          Mod+Alt+j        { focus-monitor-down; }
+          Mod+Alt+k        { focus-monitor-up; }
+          Mod+Alt+Left     { focus-monitor-left; }
+          Mod+Alt+Right    { focus-monitor-right; }
+          Mod+Alt+Down     { focus-monitor-down; }
+          Mod+Alt+Up       { focus-monitor-up; }
+          Mod+bracketleft  { focus-monitor-left; }
+          Mod+bracketright { focus-monitor-right; }
+
+          Mod+Alt+Shift+h        { move-column-to-monitor-left; }
+          Mod+Alt+Shift+l        { move-column-to-monitor-right; }
+          Mod+Alt+Shift+j        { move-column-to-monitor-down; }
+          Mod+Alt+Shift+k        { move-column-to-monitor-up; }
+          Mod+Alt+Shift+Left     { move-column-to-monitor-left; }
+          Mod+Alt+Shift+Right    { move-column-to-monitor-right; }
+          Mod+Alt+Shift+Down     { move-column-to-monitor-down; }
+          Mod+Alt+Shift+Up       { move-column-to-monitor-up; }
+          Mod+Shift+bracketleft  { move-column-to-monitor-left; }
+          Mod+Shift+bracketright { move-column-to-monitor-right; }
+
+          Mod+Alt+Ctrl+h        { move-workspace-to-monitor-left; }
+          Mod+Alt+Ctrl+l        { move-workspace-to-monitor-right; }
+          Mod+Alt+Ctrl+j        { move-workspace-to-monitor-down; }
+          Mod+Alt+Ctrl+k        { move-workspace-to-monitor-up; }
+          Mod+Alt+Ctrl+Left     { move-workspace-to-monitor-left; }
+          Mod+Alt+Ctrl+Right    { move-workspace-to-monitor-right; }
+          Mod+Alt+Ctrl+Down     { move-workspace-to-monitor-down; }
+          Mod+Alt+Ctrl+Up       { move-workspace-to-monitor-up; }
+          Mod+Ctrl+bracketleft  { move-workspace-to-monitor-left; }
+          Mod+Ctrl+bracketright { move-workspace-to-monitor-right; }
+
+          // --- Audio ---
+          Mod+equal       { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "+10%"; }
+          Mod+minus       { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "-10%"; }
+          Mod+Shift+equal { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "+1%"; }
+          Mod+Shift+minus { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "-1%"; }
+          Mod+Ctrl+equal  { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "+5%"; }
+          Mod+Ctrl+minus  { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "-5%"; }
+          Mod+n           { spawn "pactl" "set-sink-mute"   "@DEFAULT_SINK@" "toggle"; }
+          Mod+Shift+n     { spawn "pactl" "set-source-mute" "@DEFAULT_SOURCE@" "toggle"; }
+          Mod+y           { spawn "sh" "-c" "~/.config/sway/scripts/cycle_sink.sh"; }
+          Mod+Shift+y     { spawn "sh" "-c" "~/.config/sway/scripts/cycle_sink.sh back"; }
+
+          // Media keys
+          XF86AudioRaiseVolume { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "+5%"; }
+          XF86AudioLowerVolume { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "-5%"; }
+          XF86AudioMute        { spawn "pactl" "set-sink-mute"   "@DEFAULT_SINK@" "toggle"; }
+          XF86AudioMicMute     { spawn "pactl" "set-source-mute" "@DEFAULT_SOURCE@" "toggle"; }
+          XF86AudioPlay        { spawn "playerctl" "play-pause"; }
+          XF86AudioNext        { spawn "playerctl" "next"; }
+          XF86AudioPrev        { spawn "playerctl" "previous"; }
+          XF86MonBrightnessUp   { spawn "brightnessctl" "set" "5%+"; }
+          XF86MonBrightnessDown { spawn "brightnessctl" "set" "5%-"; }
+
+          // --- Screenshots ---
+          Print              { spawn "sh" "-c" "~/.config/sway/scripts/capture_region.sh | wl-copy"; }
+          Mod+Print          { spawn "sh" "-c" "~/.config/niri/scripts/mode_capture.sh"; }
+          Ctrl+Print         { screenshot-screen; }
+          Alt+Print          { screenshot-window; }
+          Mod+Shift+Print    { spawn "sh" "-c" "pkill -SIGINT wf-recorder; notify-send 'stop recording'"; }
+
+          // --- Session / lock ---
+          Mod+x           { spawn "sh" "-c" "~/.config/niri/scripts/mode_system.sh"; }
+          Mod+Ctrl+x      { spawn "swaylock" "-f" "-i" "/home/ryan/.cache/wallpaper"; }
+          Mod+Delete      { toggle-keyboard-shortcuts-inhibit; }
+          Mod+Shift+e     { quit; }
+          Mod+Shift+r     { spawn "sh" "-c" "pkill -HUP niri || true"; }
+      }
+
+      cursor {
+          xcursor-theme "Adwaita"
+          xcursor-size 32
+      }
+
+      window-rule {
+          match app-id="firefox" title="^Picture-in-Picture$"
+          open-floating true
+      }
+
+      // Blur anything translucent
+      window-rule {
+          geometry-corner-radius 8
+          clip-to-geometry true
+          background-effect {
+              blur true
+          }
+      }
+      layer-rule {
+          match namespace="^wofi$"
+          match namespace="^notifications$"
+          geometry-corner-radius 8
+          background-effect {
+              blur true
+          }
+      }
+    '';
+
+    services = {
+      gammastep = {
+        enable = true;
+        provider = "geoclue2";
+        temperature.day = 6500;
+      };
+      playerctld.enable = true;
+      dunst.enable = true;
+      kanshi.enable = true;
+      clipman.enable = true;
+    };
+
+    systemd.user.services.gammastep.Service.ExecStart =
+      lib.mkForce "${pkgs.gammastep}/bin/gammastep -r";
+
+    systemd.user.services.clipman.Service.ExecStart =
+      lib.mkForce "${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store -P --max-items=1000";
+
+    systemd.user.services.dunst.Service.Type = lib.mkForce "simple";
+
+    xdg.configFile = {
+      "kanshi/config".source = ./kanshi;
+      "dunst/dunstrc".source = ./dunst;
+      "swaylock/config".source = ./swaylock;
+      "wofi/style.css".source = ./wofi.css;
+      "swappy/config".text = ''
+        [Default]
+        save_dir=$XDG_PICTURES_DIR/capture/
+        save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
+      '';
+    };
+  };
+}

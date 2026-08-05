@@ -46,6 +46,7 @@
     printing = true;
     gui.i3 = true;
     gui.kde = true;
+    gui.niri = true;
     gui.sway = true;
     workstation = true;
     autoUpgrade.enable = true;

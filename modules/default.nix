@@ -19,6 +19,7 @@ in
     ./gui/default.nix
     ./gui/i3.nix
     ./gui/kde.nix
+    ./gui/niri.nix
     ./gui/sway.nix
     ./home-manager.nix
     ./koreader-syncd.nix

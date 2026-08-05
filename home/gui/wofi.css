@@ -1,47 +1,55 @@
-*{
-	font-family: monospace;
+* {
+	font-family: "Noto Sans", sans-serif;
+	font-size: 14px;
 	outline-style: none;
+	border: none;
+	box-shadow: none;
 }
 
 window {
-	background-color: #282828;
+	background-color: rgba(40, 40, 40, 0.8);
+	border-radius: 16px;
+	border: 1px solid rgba(235, 219, 178, 0.08);
+	padding: 8px;
 }
 
 #input {
-	margin: 5px;
-	border-radius: 0px;
-	border: none;
+	margin: 6px 6px 10px 6px;
+	padding: 10px 14px;
+	border-radius: 12px;
 	color: #ebdbb2;
-	background-color: #1d2021;
+	background-color: transparent;
+	border: 1px solid rgba(235, 219, 178, 0.08);
+	caret-color: #83a598;
 }
 
-#inner-box {
-	background-color: #282828;
+#inner-box, #outer-box {
+	background-color: transparent;
+	margin: 0;
 }
 
-#outer-box {
-	margin: 5px;
-	border: none;
-	background-color: #282828;
+#scroll {
+	margin: 0 6px;
 }
 
 #text {
-	padding: 5px;
+	padding: 4px 8px;
 	color: #ebdbb2;
 }
 
-#entry:nth-child(odd){
-	background-color: #32302f;
+#entry {
+	padding: 6px 10px;
+	border-radius: 10px;
+	margin: 2px 4px;
+	background-color: transparent;
+	transition: background-color 120ms ease;
 }
 
 #entry:selected {
-	background-color: #1d2021;
+	background-color: rgba(131, 165, 152, 0.25);
 }
 
-#text:selected {
-	background-color: #1d2021;
-}
-
-#img:selected {
-	background-color: #1d2021;
+#entry:selected #text,
+#entry:selected #img {
+	color: #ffffff;
 }

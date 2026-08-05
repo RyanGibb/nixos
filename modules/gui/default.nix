@@ -32,7 +32,7 @@ in
 {
   options.custom.gui.enable = lib.mkOption {
     type = lib.types.bool;
-    default = cfg.i3 || cfg.sway || cfg.kde;
+    default = cfg.i3 || cfg.sway || cfg.kde || cfg.niri;
   };
 
   config = lib.mkIf cfg.enable {

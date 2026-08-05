@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
-fullscreen=$(swaymsg -t get_tree | jq '.. | select(.type? == "con" and .focused == true) | .fullscreen_mode')
-
-if [ "$fullscreen" -eq 0 ]; then
-    echo "Not Fullscreen"
+if [ "$XDG_CURRENT_DESKTOP" = "niri" ]; then
+	fullscreen=$(niri msg --json focused-window | jq -r '.is_fullscreen // false')
 else
-    echo "Fullscreen"
+	fullscreen=$(swaymsg -t get_tree | jq '.. | select(.type? == "con" and .focused == true) | .fullscreen_mode')
 fi
+
+case "$fullscreen" in
+	0|false|"") echo "Not Fullscreen" ;;
+	*)          echo "Fullscreen" ;;
+esac

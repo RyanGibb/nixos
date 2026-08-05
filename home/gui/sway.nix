@@ -63,7 +63,9 @@ in
       wlrctl
     ];
 
-    wayland.systemd.target = "sway-session.target";
+    wayland.systemd.target = "wayland-session.target";
+
+    systemd.user.targets.sway-session.Unit.Wants = [ "wayland-session.target" ];
 
     wayland.windowManager.sway = {
       systemd.enable = true;
