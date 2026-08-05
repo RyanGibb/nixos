@@ -214,7 +214,8 @@ in
               };
             };
             addons.clipboard.globalSection."TriggerKey" = "";
-            addons.pinyin.sections.Global.FirstRun = "False";
+            addons.pinyin.globalSection.FirstRun = "False";
+            addons.classicui.globalSection.UseAccentColor = "False";
             inputMethod = {
               GroupOrder."0" = "Default";
               "Groups/0" = {
