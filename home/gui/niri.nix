@@ -244,9 +244,9 @@ in
           Mod+Shift+period { move-column-to-workspace-down; }
           Mod+Shift+comma  { move-column-to-workspace-up; }
 
+          Mod+Tab { toggle-overview; }
           // Window switcher: fuzzy pick via wofi, focus by id
-          Mod+Tab { spawn "sh" "-c" "id=$(niri msg --json windows | jq -r '.[] | \"\\(.id)\\t\\(.app_id // \"?\")  \\(.title // \"\")\"' | wofi -d -i -p 'window' | awk '{print $1}'); [ -n \"$id\" ] && niri msg action focus-window --id \"$id\""; }
-          Mod+Shift+Tab { toggle-overview; }
+          Mod+Shift+Tab { spawn "sh" "-c" "id=$(niri msg --json windows | jq -r '.[] | \"\\(.id)\\t\\(.app_id // \"?\")  \\(.title // \"\")\"' | wofi -d -i -p 'window' | awk '{print $1}'); [ -n \"$id\" ] && niri msg action focus-window --id \"$id\""; }
 
           // --- Monitors (Mod+Alt+hjkl / arrows / brackets) ---
           Mod+Alt+h        { focus-monitor-left; }
