@@ -12,6 +12,7 @@
     ./services.nix
     ./owntracks.nix
     ./decluttarr.nix
+    ./slskd.nix
   ];
 
   nixpkgs.overlays = [
