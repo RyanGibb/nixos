@@ -264,8 +264,9 @@ in
           # https://stackoverflow.com/questions/62182401/neovim-screen-lagging-when-switching-mode-from-insert-to-normal
           # locking
           set -s escape-time 0
-          # for .zprofile display environment starting https://github.com/tmux/tmux/issues/3483
-          set-option -g update-environment XDG_VTNR
+          # XDG_VTNR: https://github.com/tmux/tmux/issues/3483
+          # Compositor vars: refresh sockets/identity for new panes on attach.
+          set-option -g update-environment "XDG_VTNR WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_CURRENT_DESKTOP DISPLAY SWAYSOCK NIRI_SOCKET"
           # Allow clipboard with OSC-52 work
           set -s set-clipboard on
           # toggle
