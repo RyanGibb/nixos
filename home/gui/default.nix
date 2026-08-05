@@ -214,6 +214,7 @@ in
               };
             };
             addons.clipboard.globalSection."TriggerKey" = "";
+            addons.cloudpinyin.globalSection."Enabled" = "False";
             inputMethod = {
               GroupOrder."0" = "Default";
               "Groups/0" = {
