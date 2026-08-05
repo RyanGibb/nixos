@@ -195,10 +195,14 @@ in
           Mod+Ctrl+Right    { set-column-width "+5%"; }
           Mod+Ctrl+Down     { set-window-height "+5%"; }
           Mod+Ctrl+Up       { set-window-height "-5%"; }
-          Mod+Ctrl+Shift+h  { set-column-width "-1%"; }
-          Mod+Ctrl+Shift+l  { set-column-width "+1%"; }
-          Mod+Ctrl+Shift+j  { set-window-height "+1%"; }
-          Mod+Ctrl+Shift+k  { set-window-height "-1%"; }
+          Mod+Ctrl+Shift+h     { set-column-width "-1%"; }
+          Mod+Ctrl+Shift+l     { set-column-width "+1%"; }
+          Mod+Ctrl+Shift+j     { set-window-height "+1%"; }
+          Mod+Ctrl+Shift+k     { set-window-height "-1%"; }
+          Mod+Ctrl+Shift+Left  { set-column-width "-1%"; }
+          Mod+Ctrl+Shift+Right { set-column-width "+1%"; }
+          Mod+Ctrl+Shift+Down  { set-window-height "+1%"; }
+          Mod+Ctrl+Shift+Up    { set-window-height "-1%"; }
           Mod+r             { switch-preset-column-width; }
 
           // Consume/expel windows into/from a column (niri "split" analog)
