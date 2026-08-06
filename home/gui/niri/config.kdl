@@ -160,13 +160,14 @@ binds {
     Mod+t hotkey-overlay-title="Rename workspace" { spawn "sh" "-c" "name=$(echo | wofi -d -i -p 'workspace name'); [ -n \"$name\" ] && niri msg action set-workspace-name \"$name\""; }
 
     // --- Window ops ---
-    Mod+Shift+BackSpace                                { close-window; }
-    Mod+f                                              { fullscreen-window; }
-    Mod+Shift+f hotkey-overlay-title="Send F11 to app" { spawn "wtype" "-k" "F11"; }
-    Mod+e                                              { maximize-column; }
-    Mod+w                                              { toggle-column-tabbed-display; }
-    Mod+Shift+space                                    { toggle-window-floating; }
-    Mod+space                                          { switch-focus-between-floating-and-tiling; }
+    Mod+Shift+BackSpace { close-window; }
+    Mod+f               { fullscreen-window; }
+    Mod+Shift+f         { toggle-windowed-fullscreen; }
+    Mod+Ctrl+f          { maximize-window-to-edges; }
+    Mod+e               { maximize-column; }
+    Mod+w               { toggle-column-tabbed-display; }
+    Mod+Shift+space     { toggle-window-floating; }
+    Mod+space           { switch-focus-between-floating-and-tiling; }
 
     // Column focus (h/j/k/l + arrows)
     Mod+h     { focus-column-left; }
@@ -208,11 +209,8 @@ binds {
     Mod+r                { switch-preset-column-width; }
     Mod+Shift+r          { switch-preset-column-width-back; }
 
-    // Column / window anchor
-    Mod+a       { center-column; }
-    Mod+Ctrl+f  { expand-column-to-available-width; }
-    Mod+Shift+a { center-visible-columns; }
-    Mod+Shift+z { maximize-window-to-edges; }
+    Mod+a { center-column; }
+    Mod+z { center-visible-columns; }
 
     // Jump to first/last column in workspace
     Mod+Home      { focus-column-first; }
@@ -363,6 +361,9 @@ binds {
     Mod+c hotkey-overlay-title="Control mode" { spawn "wlr-which-key" "control"; }
     Mod+u hotkey-overlay-title="Idle mode"    { spawn "wlr-which-key" "idle"; }
     Mod+Delete                                { toggle-keyboard-shortcuts-inhibit; }
+
+    // Direct swaylock; also fires from the red screen if the locker died.
+    Mod+Ctrl+x allow-when-locked=true hotkey-overlay-title="Lock (or relock)" { spawn "swaylock" "-f" "-i" "/home/ryan/.cache/wallpaper"; }
 }
 
 cursor {
