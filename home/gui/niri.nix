@@ -372,10 +372,6 @@ in
           open-on-workspace "emacs"
       }
       window-rule {
-          match app-id="^Alacritty$"
-          open-on-workspace "term"
-      }
-      window-rule {
           match app-id="firefox"
           open-on-workspace "web"
       }
