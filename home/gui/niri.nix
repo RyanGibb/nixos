@@ -225,6 +225,19 @@ in
           Mod+Ctrl+Shift+Down  { set-window-height "+1%"; }
           Mod+Ctrl+Shift+Up    { set-window-height "-1%"; }
           Mod+r             { switch-preset-column-width; }
+          Mod+Shift+r       { switch-preset-column-width-back; }
+
+          // Jump to first/last column in workspace
+          Mod+Home { focus-column-first; }
+          Mod+End  { focus-column-last; }
+
+          // Reorder workspaces vertically within the monitor
+          Mod+Ctrl+comma  { move-workspace-up; }
+          Mod+Ctrl+period { move-workspace-down; }
+
+          // Swap focused window with its left/right neighbour
+          Mod+backslash { swap-window-left; }
+          Mod+slash     { swap-window-right; }
 
           // Consume/expel windows into/from a column (niri "split" analog)
           Mod+g       { consume-window-into-column; }
