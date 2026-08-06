@@ -20,13 +20,26 @@ input {
     focus-follows-mouse
 }
 
-window-rule {
-    geometry-corner-radius 8
-    clip-to-geometry true
-    background-effect {
-        blur true
-    }
+environment {
+    QT_QPA_PLATFORM "wayland"
+    QT_STYLE_OVERRIDE "Fusion"
+    SDL_VIDEODRIVER "wayland"
+    MOZ_ENABLE_WAYLAND "1"
+    MOZ_DBUS_REMOTE "1"
+    NIXOS_OZONE_WL "1"
+    _JAVA_AWT_WM_NONREPARENTING "1"
+    XDG_SESSION_TYPE "wayland"
+    XDG_CURRENT_DESKTOP "niri"
+    DISPLAY ":0"
 }
+
+spawn-at-startup "systemctl" "--user" "start" "wayland-session.target"
+spawn-at-startup "xwayland-satellite"
+spawn-at-startup "wmwall"
+
+prefer-no-csd
+
+screenshot-path "~/pictures/capture/screenshot_%Y-%m-%dT%H:%M:%S%z.png"
 
 layout {
     gaps 12
@@ -60,47 +73,12 @@ cursor {
     xcursor-size 24
 }
 
-window-rule {
-    match is-window-cast-target=true
-    focus-ring {
-        active-color "#fb4934"
-        inactive-color "#cc241d"
-    }
-    border {
-        inactive-color "#cc241d"
-    }
-    shadow {
-        color "#cc241d70"
-    }
-    tab-indicator {
-        active-color "#fb4934"
-        inactive-color "#cc241d"
-    }
-}
-
-window-rule {
-    match app-id="^emacs$"
-    open-on-workspace "emacs"
-}
-window-rule {
-    match app-id="^nheko$"
-    open-on-workspace "chat"
-}
-window-rule {
-    match app-id="^element$"
-    open-on-workspace "chat"
-}
-window-rule {
-    match app-id="^zulip$"
-    open-on-workspace "chat"
-}
-
+// Pinned workspaces: apps below open on these by name.
+// Position order = number order, so Mod+1..4 still hit them.
 workspace "emacs"
 workspace "term"
 workspace "web"
 workspace "chat"
-
-prefer-no-csd
 
 gestures {
     dnd-edge-view-scroll {
@@ -136,7 +114,53 @@ recent-windows {
     }
 }
 
-screenshot-path "~/pictures/capture/screenshot_%Y-%m-%dT%H:%M:%S%z.png"
+// --- Window rules ---
+
+// Global: rounded corners + blur behind translucent windows.
+window-rule {
+    geometry-corner-radius 8
+    clip-to-geometry true
+    background-effect {
+        blur true
+    }
+}
+
+// Indicate windows being screencast with gruvbox red.
+window-rule {
+    match is-window-cast-target=true
+    focus-ring {
+        active-color "#fb4934"
+        inactive-color "#cc241d"
+    }
+    border {
+        inactive-color "#cc241d"
+    }
+    shadow {
+        color "#cc241d70"
+    }
+    tab-indicator {
+        active-color "#fb4934"
+        inactive-color "#cc241d"
+    }
+}
+
+// Pin apps to their home workspaces.
+window-rule {
+    match app-id="^emacs$"
+    open-on-workspace "emacs"
+}
+window-rule {
+    match app-id="^nheko$"
+    open-on-workspace "chat"
+}
+window-rule {
+    match app-id="^element$"
+    open-on-workspace "chat"
+}
+window-rule {
+    match app-id="^zulip$"
+    open-on-workspace "chat"
+}
 
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
@@ -380,20 +404,3 @@ binds {
     // Direct swaylock; also fires from the red screen if the locker died
     Mod+Ctrl+x allow-when-locked=true hotkey-overlay-title="Lock (or relock)" { spawn "swaylock" "-f" "-i" "/home/ryan/.cache/wallpaper"; }
 }
-
-environment {
-    QT_QPA_PLATFORM "wayland"
-    QT_STYLE_OVERRIDE "Fusion"
-    SDL_VIDEODRIVER "wayland"
-    MOZ_ENABLE_WAYLAND "1"
-    MOZ_DBUS_REMOTE "1"
-    NIXOS_OZONE_WL "1"
-    _JAVA_AWT_WM_NONREPARENTING "1"
-    XDG_SESSION_TYPE "wayland"
-    XDG_CURRENT_DESKTOP "niri"
-    DISPLAY ":0"
-}
-
-spawn-at-startup "systemctl" "--user" "start" "wayland-session.target"
-spawn-at-startup "xwayland-satellite"
-spawn-at-startup "wmwall"
