@@ -347,22 +347,32 @@ binds {
 
 cursor {
     xcursor-theme "Adwaita"
-    xcursor-size 32
+    xcursor-size 24
 }
 
+// Indicate windows being screencast with a red focus ring / border / shadow
 window-rule {
-    match app-id="firefox" title="^Picture-in-Picture$"
-    open-floating true
+    match is-window-cast-target=true
+    focus-ring {
+        active-color "#fb4934"
+        inactive-color "#cc241d"
+    }
+    border {
+        inactive-color "#cc241d"
+    }
+    shadow {
+        color "#cc241d70"
+    }
+    tab-indicator {
+        active-color "#fb4934"
+        inactive-color "#cc241d"
+    }
 }
 
 // Pin apps to their home workspaces.
 window-rule {
     match app-id="^emacs$"
     open-on-workspace "emacs"
-}
-window-rule {
-    match app-id="firefox"
-    open-on-workspace "web"
 }
 window-rule {
     match app-id="^nheko$"
@@ -377,21 +387,9 @@ window-rule {
     open-on-workspace "chat"
 }
 
-// Blur anything translucent
 window-rule {
     geometry-corner-radius 8
     clip-to-geometry true
-    background-effect {
-        blur true
-    }
-}
-layer-rule {
-    match namespace="^wofi$"
-    match namespace="^notifications$"
-    geometry-corner-radius 8
-    shadow {
-        off
-    }
     background-effect {
         blur true
     }
