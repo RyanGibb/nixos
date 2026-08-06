@@ -18,7 +18,6 @@ input {
         accel-speed 0.0
     }
     focus-follows-mouse
-    workspace-auto-back-and-forth
 }
 
 layout {
