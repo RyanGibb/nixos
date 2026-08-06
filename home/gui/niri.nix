@@ -227,6 +227,12 @@ in
           Mod+r             { switch-preset-column-width; }
           Mod+Shift+r       { switch-preset-column-width-back; }
 
+          // Column / window anchor (repurposed from sway's tree navigation)
+          Mod+a             { center-column; }
+          Mod+z             { expand-column-to-available-width; }
+          Mod+Shift+a       { center-visible-columns; }
+          Mod+Shift+z       { maximize-window-to-edges; }
+
           // Jump to first/last column in workspace
           Mod+Home { focus-column-first; }
           Mod+End  { focus-column-last; }
@@ -234,6 +240,9 @@ in
           // Reorder workspaces vertically within the monitor
           Mod+Ctrl+comma  { move-workspace-up; }
           Mod+Ctrl+period { move-workspace-down; }
+
+          // Jump back to previously focused window
+          Mod+numbersign { focus-window-previous; }
 
           // Swap focused window with its left/right neighbour
           Mod+backslash { swap-window-left; }
@@ -256,6 +265,7 @@ in
           Mod+8 { focus-workspace 8; }
           Mod+9 { focus-workspace 9; }
           Mod+0 { focus-workspace 10; }
+          Mod+m { focus-workspace 11; }
 
           Mod+Shift+1 { move-column-to-workspace 1; }
           Mod+Shift+2 { move-column-to-workspace 2; }
@@ -267,6 +277,7 @@ in
           Mod+Shift+8 { move-column-to-workspace 8; }
           Mod+Shift+9 { move-column-to-workspace 9; }
           Mod+Shift+0 { move-column-to-workspace 10; }
+          Mod+Shift+m { move-column-to-workspace 11; }
 
           Mod+grave        { focus-workspace-previous; }
           Mod+period       { focus-workspace-down; }
