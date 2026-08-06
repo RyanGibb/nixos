@@ -344,10 +344,7 @@ in
           Mod+c           hotkey-overlay-title="Control mode"    { spawn "wlr-which-key" "control"; }
           Mod+u           hotkey-overlay-title="Idle mode"       { spawn "wlr-which-key" "idle"; }
           Mod+Alt+b       hotkey-overlay-title="Brightness mode" { spawn "wlr-which-key" "control" "--initial-keys" "b"; }
-          Mod+Ctrl+x      { spawn "swaylock" "-f" "-i" "/home/ryan/.cache/wallpaper"; }
           Mod+Delete      { toggle-keyboard-shortcuts-inhibit; }
-          Mod+Shift+e     { quit; }
-          Mod+Shift+r     { spawn "sh" "-c" "pkill -HUP niri || true"; }
       }
 
       cursor {

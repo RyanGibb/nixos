@@ -61,8 +61,18 @@ in
               cp -r * $out
             '';
           };
+          wmdpms = pkgs.writeShellScriptBin "wmdpms" ''
+            # Compositor-agnostic DPMS/output control.
+            # Usage: wmdpms on|off|enable
+            case "$XDG_CURRENT_DESKTOP:$1" in
+              niri:enable) for o in $(niri msg -j outputs | jq -r 'keys[]'); do niri msg output "$o" on; done ;;
+              niri:*)      niri msg action "power-$1-monitors" ;;
+              *:enable)    swaymsg "output * enable" ;;
+              *)           swaymsg "output * dpms $1" ;;
+            esac
+          '';
         in
-        [ status ];
+        [ status wmdpms ];
 
       sessionVariables = {
         # evince workaround
