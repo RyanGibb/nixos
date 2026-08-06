@@ -87,11 +87,6 @@ recent-windows {
 screenshot-path "~/pictures/capture/screenshot_%Y-%m-%dT%H:%M:%S%z.png"
 
 binds {
-    // NOTE: bindings that shell out to scripts under $HOME/.config/sway/scripts
-    // are reused from the sway config. Any script using `swaymsg` will not
-    // work until it has a niri (`niri msg`) port. `st` is the sway status
-    // notifier script; it works standalone since it only uses dunstify.
-
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // --- Terminals & launchers ---
@@ -192,13 +187,27 @@ binds {
 
     // Column / window anchor (repurposed from sway's tree navigation)
     Mod+a             { center-column; }
-    Mod+z             { expand-column-to-available-width; }
+    Mod+Ctrl+f        { expand-column-to-available-width; }
     Mod+Shift+a       { center-visible-columns; }
     Mod+Shift+z       { maximize-window-to-edges; }
 
     // Jump to first/last column in workspace
-    Mod+Home { focus-column-first; }
-    Mod+End  { focus-column-last; }
+    Mod+Home      { focus-column-first; }
+    Mod+End       { focus-column-last; }
+    Mod+Ctrl+Home { move-column-to-first; }
+    Mod+Ctrl+End  { move-column-to-last; }
+
+    Mod+Ctrl+r    { reset-window-height; }
+
+    // Mouse-wheel workspace / column navigation (niri defaults)
+    Mod+WheelScrollDown       cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp         cooldown-ms=150 { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown  cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp    cooldown-ms=150 { move-column-to-workspace-up; }
+    Mod+WheelScrollRight      { focus-column-right; }
+    Mod+WheelScrollLeft       { focus-column-left; }
+    Mod+Ctrl+WheelScrollRight { move-column-right; }
+    Mod+Ctrl+WheelScrollLeft  { move-column-left; }
 
     // Reorder workspaces vertically within the monitor
     Mod+Ctrl+comma  { move-workspace-up; }
