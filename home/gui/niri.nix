@@ -24,6 +24,11 @@ in
       xwayland-satellite
     ];
 
+    xdg.configFile."niri/scripts/workspace_notifier.sh" = {
+      source = ./niri-scripts/workspace_notifier.sh;
+      executable = true;
+    };
+
     xdg.configFile."wlr-which-key/system.yaml".source  = ./wlr-which-key/system.yaml;
     xdg.configFile."wlr-which-key/capture.yaml".source = ./wlr-which-key/capture.yaml;
     xdg.configFile."wlr-which-key/control.yaml".source = ./wlr-which-key/control.yaml;
@@ -107,6 +112,15 @@ in
       prefer-no-csd
       hotkey-overlay { skip-at-startup; }
 
+      recent-windows {
+          binds {
+              Mod+o       { next-window; }
+              Mod+i       { previous-window; }
+              Mod+Shift+o { next-window     filter="app-id"; }
+              Mod+Shift+i { previous-window filter="app-id"; }
+          }
+      }
+
       screenshot-path "~/pictures/capture/screenshot_%Y-%m-%dT%H:%M:%S%z.png"
 
       binds {
@@ -176,22 +190,22 @@ in
           // Column focus (h/j/k/l + arrows)
           Mod+h     { focus-column-left; }
           Mod+l     { focus-column-right; }
-          Mod+j     { focus-window-down; }
-          Mod+k     { focus-window-up; }
+          Mod+j     { focus-window-or-workspace-down; }
+          Mod+k     { focus-window-or-workspace-up; }
           Mod+Left  { focus-column-left; }
           Mod+Right { focus-column-right; }
-          Mod+Down  { focus-window-down; }
-          Mod+Up    { focus-window-up; }
+          Mod+Down  { focus-window-or-workspace-down; }
+          Mod+Up    { focus-window-or-workspace-up; }
 
           // Column move
           Mod+Shift+h     { move-column-left; }
           Mod+Shift+l     { move-column-right; }
-          Mod+Shift+j     { move-window-down; }
-          Mod+Shift+k     { move-window-up; }
+          Mod+Shift+j     { move-window-down-or-to-workspace-down; }
+          Mod+Shift+k     { move-window-up-or-to-workspace-up; }
           Mod+Shift+Left  { move-column-left; }
           Mod+Shift+Right { move-column-right; }
-          Mod+Shift+Down  { move-window-down; }
-          Mod+Shift+Up    { move-window-up; }
+          Mod+Shift+Down  { move-window-down-or-to-workspace-down; }
+          Mod+Shift+Up    { move-window-up-or-to-workspace-up; }
 
           // Column width / height (coarse then fine)
           Mod+Ctrl+h        { set-column-width "-5%"; }
@@ -218,7 +232,7 @@ in
           Mod+Alt+g   { consume-or-expel-window-left; }
           Mod+Alt+v   { consume-or-expel-window-right; }
 
-          // --- Workspaces (1-9, 0=10, Ctrl+1-9=11-19, Ctrl+0=20) ---
+          // --- Workspaces (1-9, 0=10) ---
           Mod+1 { focus-workspace 1; }
           Mod+2 { focus-workspace 2; }
           Mod+3 { focus-workspace 3; }
@@ -229,16 +243,6 @@ in
           Mod+8 { focus-workspace 8; }
           Mod+9 { focus-workspace 9; }
           Mod+0 { focus-workspace 10; }
-          Mod+Ctrl+1 { focus-workspace 11; }
-          Mod+Ctrl+2 { focus-workspace 12; }
-          Mod+Ctrl+3 { focus-workspace 13; }
-          Mod+Ctrl+4 { focus-workspace 14; }
-          Mod+Ctrl+5 { focus-workspace 15; }
-          Mod+Ctrl+6 { focus-workspace 16; }
-          Mod+Ctrl+7 { focus-workspace 17; }
-          Mod+Ctrl+8 { focus-workspace 18; }
-          Mod+Ctrl+9 { focus-workspace 19; }
-          Mod+Ctrl+0 { focus-workspace 20; }
 
           Mod+Shift+1 { move-column-to-workspace 1; }
           Mod+Shift+2 { move-column-to-workspace 2; }
@@ -250,16 +254,6 @@ in
           Mod+Shift+8 { move-column-to-workspace 8; }
           Mod+Shift+9 { move-column-to-workspace 9; }
           Mod+Shift+0 { move-column-to-workspace 10; }
-          Mod+Shift+Ctrl+1 { move-column-to-workspace 11; }
-          Mod+Shift+Ctrl+2 { move-column-to-workspace 12; }
-          Mod+Shift+Ctrl+3 { move-column-to-workspace 13; }
-          Mod+Shift+Ctrl+4 { move-column-to-workspace 14; }
-          Mod+Shift+Ctrl+5 { move-column-to-workspace 15; }
-          Mod+Shift+Ctrl+6 { move-column-to-workspace 16; }
-          Mod+Shift+Ctrl+7 { move-column-to-workspace 17; }
-          Mod+Shift+Ctrl+8 { move-column-to-workspace 18; }
-          Mod+Shift+Ctrl+9 { move-column-to-workspace 19; }
-          Mod+Shift+Ctrl+0 { move-column-to-workspace 20; }
 
           Mod+grave        { focus-workspace-previous; }
           Mod+period       { focus-workspace-down; }
@@ -428,6 +422,19 @@ in
       lib.mkForce "${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store -P --max-items=1000";
 
     systemd.user.services.dunst.Service.Type = lib.mkForce "simple";
+
+    systemd.user.services.niri-workspace-notifier = {
+      Unit = {
+        Description = "Fire st workspace notification on niri workspace change";
+        PartOf = [ "graphical-session.target" ];
+        After = [ "graphical-session.target" ];
+      };
+      Service = {
+        ExecStart = "%h/.config/niri/scripts/workspace_notifier.sh";
+        Restart = "on-failure";
+      };
+      Install.WantedBy = [ "graphical-session.target" ];
+    };
 
     xdg.configFile = {
       "kanshi/config".source = ./kanshi;
