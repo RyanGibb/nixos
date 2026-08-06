@@ -15,26 +15,26 @@ menu:
     submenu:
       - key: minus
         desc: -10%
-        cmd: brightnessctl set 10%-
+        cmd: sh -c 'brightnessctl set 10%-; st backlight -t 500'
         keep_open: true
       - key: equal
         desc: +10%
-        cmd: brightnessctl set 10%+
+        cmd: sh -c 'brightnessctl set 10%+; st backlight -t 500'
         keep_open: true
       - key: underscore
         desc: -1%
-        cmd: brightnessctl set 1%-
+        cmd: sh -c 'brightnessctl set 1%-; st backlight -t 500'
         keep_open: true
       - key: plus
         desc: +1%
-        cmd: brightnessctl set 1%+
+        cmd: sh -c 'brightnessctl set 1%+; st backlight -t 500'
         keep_open: true
   - key: d
     desc: DPMS off
-    cmd: niri msg action power-off-monitors
+    cmd: sh -c 'niri msg action power-off-monitors; st backlight -t 500'
   - key: o
     desc: Outputs on
-    cmd: niri msg action power-on-monitors
+    cmd: sh -c 'niri msg action power-on-monitors; st backlight -t 500'
   - key: D
     desc: Disable focused output
     cmd: sh -c 'name=$(niri msg --json focused-output | jq -r .name); niri msg output "$name" off'
