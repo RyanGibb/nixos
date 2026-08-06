@@ -73,7 +73,10 @@ workspace "web"
 workspace "chat"
 
 prefer-no-csd
-hotkey-overlay { skip-at-startup; }
+hotkey-overlay {
+    skip-at-startup
+    hide-not-bound
+}
 
 recent-windows {
     binds {
@@ -90,60 +93,60 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // --- Terminals & launchers ---
-    Mod+Return       hotkey-overlay-title="Terminal (tmux)"                    { spawn "alacritty" "-e" "tmux"; }
-    Mod+Shift+Return hotkey-overlay-title="Terminal (tmux attach)"             { spawn "alacritty" "-e" "tmux" "attach"; }
-    Mod+Alt+Return   hotkey-overlay-title="Terminal (no wayland)"              { spawn "sh" "-c" "WAYLAND_DISPLAY= alacritty -e tmux"; }
-    Mod+d            hotkey-overlay-title="App launcher (wofi)"                { spawn "wofi" "-i" "--show" "drun" "--allow-images" "-a"; }
-    Mod+Escape       hotkey-overlay-title="Status (st)"                        { spawn "st"; }
-    Mod+Shift+Escape hotkey-overlay-title="Status (st, full)"                  { spawn "st" "date" "workspace" "mail" "idle" "disk" "temperature" "load_average" "memory" "backlight" "player" "battery"; }
-    Mod+b            hotkey-overlay-title="Firefox"                            { spawn "firefox"; }
-    Mod+Shift+b      hotkey-overlay-title="Firefox (secondary profile)"        { spawn "firefox" "-P" "secondary"; }
-    Mod+Ctrl+b       hotkey-overlay-title="Firefox (private)"                  { spawn "firefox" "-private-window"; }
+    Mod+Return hotkey-overlay-title="Terminal"        { spawn "alacritty" "-e" "tmux"; }
+    Mod+Shift+Return                                  { spawn "alacritty" "-e" "tmux" "attach"; }
+    Mod+Alt+Return hotkey-overlay-title=null          { spawn "sh" "-c" "WAYLAND_DISPLAY= alacritty -e tmux"; }
+    Mod+d hotkey-overlay-title="App launcher (wofi)"  { spawn "wofi" "-i" "--show" "drun" "--allow-images" "-a"; }
+    Mod+Escape hotkey-overlay-title="Status (st)"     { spawn "st"; }
+    Mod+Shift+Escape hotkey-overlay-title=null        { spawn "st" "date" "workspace" "mail" "idle" "disk" "temperature" "load_average" "memory" "backlight" "player" "battery"; }
+    Mod+b hotkey-overlay-title="Firefox"              { spawn "firefox"; }
+    Mod+Shift+b hotkey-overlay-title=null             { spawn "firefox" "-P" "secondary"; }
+    Mod+Ctrl+b hotkey-overlay-title=null              { spawn "firefox" "-private-window"; }
 
     // Clipboard (clipman)
-    Mod+Shift+v         hotkey-overlay-title="Clipboard picker (clipman)"      { spawn "sh" "-c" "clipman pick -t wofi -T-i"; }
-    Mod+Ctrl+v          hotkey-overlay-title="Copy last clipman entry"         { spawn "sh" "-c" "wl-copy \"$(clipman pick -t STDOUT | head -n 1)\""; }
-    Mod+Shift+Ctrl+v    hotkey-overlay-title="Type last clipman entry"         { spawn "sh" "-c" "wtype \"$(clipman pick -t STDOUT | head -n 1)\""; }
-    Mod+Alt+space       hotkey-overlay-title="Prompt -> clipboard (yad)"       { spawn "sh" "-c" "yad --entry --text input | wl-copy"; }
-    Mod+Alt+Shift+space hotkey-overlay-title="Prompt -> type (yad)"            { spawn "sh" "-c" "yad --entry --text input | xargs wtype"; }
+    Mod+Shift+v hotkey-overlay-title="Clipboard picker (clipman)"  { spawn "sh" "-c" "clipman pick -t wofi -T-i"; }
+    Mod+Ctrl+v hotkey-overlay-title=null                           { spawn "sh" "-c" "wl-copy \"$(clipman pick -t STDOUT | head -n 1)\""; }
+    Mod+Shift+Ctrl+v hotkey-overlay-title=null                     { spawn "sh" "-c" "wtype \"$(clipman pick -t STDOUT | head -n 1)\""; }
+    Mod+Alt+space hotkey-overlay-title="Prompt -> clipboard (yad)" { spawn "sh" "-c" "yad --entry --text input | wl-copy"; }
+    Mod+Alt+Shift+space hotkey-overlay-title=null                  { spawn "sh" "-c" "yad --entry --text input | xargs wtype"; }
 
     // Emoji
-    Mod+apostrophe   hotkey-overlay-title="Emoji picker (rofimoji)"            { spawn "sh" "-c" "rofimoji --selector wofi --selector-args=-i --skin-tone neutral --prompt \"\" -a copy"; }
+    Mod+apostrophe hotkey-overlay-title="Emoji picker (rofimoji)" { spawn "sh" "-c" "rofimoji --selector wofi --selector-args=-i --skin-tone neutral --prompt \"\" -a copy"; }
 
     // Bluetooth / wifi
-    Mod+semicolon       hotkey-overlay-title="Bluetooth connect"               { spawn "sh" "-c" "~/.config/sway/scripts/bluetooth_device.sh"; }
-    Mod+Shift+semicolon hotkey-overlay-title="Bluetooth disconnect"            { spawn "sh" "-c" "~/.config/sway/scripts/bluetooth_device.sh disconnect"; }
-    Mod+Ctrl+semicolon  hotkey-overlay-title="Wifi picker"                     { spawn "sh" "-c" "~/.config/sway/scripts/wifi.sh"; }
+    Mod+semicolon hotkey-overlay-title="Bluetooth connect" { spawn "sh" "-c" "~/.config/sway/scripts/bluetooth_device.sh"; }
+    Mod+Shift+semicolon hotkey-overlay-title=null          { spawn "sh" "-c" "~/.config/sway/scripts/bluetooth_device.sh disconnect"; }
+    Mod+Ctrl+semicolon hotkey-overlay-title="Wifi picker"  { spawn "sh" "-c" "~/.config/sway/scripts/wifi.sh"; }
 
     // Wallpaper
-    Mod+Shift+w hotkey-overlay-title="Random wallpaper"                        { spawn "sh" "-c" "~/.config/sway/scripts/set_random_wallpaper.sh"; }
-    Mod+Ctrl+w  hotkey-overlay-title="Select wallpaper"                        { spawn "sh" "-c" "~/.config/sway/scripts/set_selected_wallpaper.sh"; }
+    Mod+Shift+w hotkey-overlay-title="Random wallpaper" { spawn "sh" "-c" "~/.config/sway/scripts/set_random_wallpaper.sh"; }
+    Mod+Ctrl+w hotkey-overlay-title=null                { spawn "sh" "-c" "~/.config/sway/scripts/set_selected_wallpaper.sh"; }
 
-    // Dunst (notifications)
-    Mod+q       hotkey-overlay-title="Dismiss notification"                    { spawn "dunstctl" "close"; }
-    Mod+Shift+q hotkey-overlay-title="Notification default action"             { spawn "dunstctl" "action"; }
-    Mod+Ctrl+q  hotkey-overlay-title="Notification history"                    { spawn "dunstctl" "history-pop"; }
+    // Notifications
+    Mod+q hotkey-overlay-title="Dismiss notification" { spawn "dunstctl" "close"; }
+    Mod+Shift+q hotkey-overlay-title=null             { spawn "dunstctl" "action"; }
+    Mod+Ctrl+q hotkey-overlay-title=null              { spawn "dunstctl" "history-pop"; }
 
     // wl-kbptr (keyboard mouse click)
-    Mod+p hotkey-overlay-title="Keyboard cursor (wl-kbptr)"                    { spawn "wl-kbptr" "-o" "modes=floating,click" "-o" "mode_floating.source=detect"; }
+    Mod+p hotkey-overlay-title="Keyboard cursor (wl-kbptr)" { spawn "wl-kbptr" "-o" "modes=floating,click" "-o" "mode_floating.source=detect"; }
     // Keyboard-driven cursor movement is available via keyd:
     // Meta+Shift+P enters a mouse layer (see services.keyd in niri module).
     // hjkl move cursor, n/m/,/. scroll, s/d/f click, Escape exits.
 
     // Dictation
-    Mod+Shift+d hotkey-overlay-title="Toggle dictation"                        { spawn "dictation-toggle"; }
+    Mod+Shift+d hotkey-overlay-title="Toggle dictation" { spawn "dictation-toggle"; }
 
     // Rename current workspace (matches sway Mod+t)
     Mod+t hotkey-overlay-title="Rename workspace" { spawn "sh" "-c" "name=$(echo | wofi -d -i -p 'workspace name'); [ -n \"$name\" ] && niri msg action set-workspace-name \"$name\""; }
 
     // --- Window ops ---
-    Mod+Shift+BackSpace { close-window; }
-    Mod+f               { fullscreen-window; }
-    Mod+Shift+f         hotkey-overlay-title="Send F11 to app" { spawn "wtype" "-k" "F11"; }
-    Mod+e               { maximize-column; }
-    Mod+w               { toggle-column-tabbed-display; }
-    Mod+Shift+space     { toggle-window-floating; }
-    Mod+space           { switch-focus-between-floating-and-tiling; }
+    Mod+Shift+BackSpace                                { close-window; }
+    Mod+f                                              { fullscreen-window; }
+    Mod+Shift+f hotkey-overlay-title="Send F11 to app" { spawn "wtype" "-k" "F11"; }
+    Mod+e                                              { maximize-column; }
+    Mod+w                                              { toggle-column-tabbed-display; }
+    Mod+Shift+space                                    { toggle-window-floating; }
+    Mod+space                                          { switch-focus-between-floating-and-tiling; }
 
     // Column focus (h/j/k/l + arrows)
     Mod+h     { focus-column-left; }
@@ -166,14 +169,14 @@ binds {
     Mod+Shift+Up    { move-window-up-or-to-workspace-up; }
 
     // Column width / height (coarse then fine)
-    Mod+Ctrl+h        { set-column-width "-5%"; }
-    Mod+Ctrl+l        { set-column-width "+5%"; }
-    Mod+Ctrl+j        { set-window-height "+5%"; }
-    Mod+Ctrl+k        { set-window-height "-5%"; }
-    Mod+Ctrl+Left     { set-column-width "-5%"; }
-    Mod+Ctrl+Right    { set-column-width "+5%"; }
-    Mod+Ctrl+Down     { set-window-height "+5%"; }
-    Mod+Ctrl+Up       { set-window-height "-5%"; }
+    Mod+Ctrl+h           { set-column-width "-5%"; }
+    Mod+Ctrl+l           { set-column-width "+5%"; }
+    Mod+Ctrl+j           { set-window-height "+5%"; }
+    Mod+Ctrl+k           { set-window-height "-5%"; }
+    Mod+Ctrl+Left        { set-column-width "-5%"; }
+    Mod+Ctrl+Right       { set-column-width "+5%"; }
+    Mod+Ctrl+Down        { set-window-height "+5%"; }
+    Mod+Ctrl+Up          { set-window-height "-5%"; }
     Mod+Ctrl+Shift+h     { set-column-width "-1%"; }
     Mod+Ctrl+Shift+l     { set-column-width "+1%"; }
     Mod+Ctrl+Shift+j     { set-window-height "+1%"; }
@@ -182,14 +185,14 @@ binds {
     Mod+Ctrl+Shift+Right { set-column-width "+1%"; }
     Mod+Ctrl+Shift+Down  { set-window-height "+1%"; }
     Mod+Ctrl+Shift+Up    { set-window-height "-1%"; }
-    Mod+r             { switch-preset-column-width; }
-    Mod+Shift+r       { switch-preset-column-width-back; }
+    Mod+r                { switch-preset-column-width; }
+    Mod+Shift+r          { switch-preset-column-width-back; }
 
-    // Column / window anchor (repurposed from sway's tree navigation)
-    Mod+a             { center-column; }
-    Mod+Ctrl+f        { expand-column-to-available-width; }
-    Mod+Shift+a       { center-visible-columns; }
-    Mod+Shift+z       { maximize-window-to-edges; }
+    // Column / window anchor
+    Mod+a       { center-column; }
+    Mod+Ctrl+f  { expand-column-to-available-width; }
+    Mod+Shift+a { center-visible-columns; }
+    Mod+Shift+z { maximize-window-to-edges; }
 
     // Jump to first/last column in workspace
     Mod+Home      { focus-column-first; }
@@ -197,7 +200,7 @@ binds {
     Mod+Ctrl+Home { move-column-to-first; }
     Mod+Ctrl+End  { move-column-to-last; }
 
-    Mod+Ctrl+r    { reset-window-height; }
+    Mod+Ctrl+r { reset-window-height; }
 
     // Mouse-wheel workspace / column navigation (niri defaults)
     Mod+WheelScrollDown       cooldown-ms=150 { focus-workspace-down; }
@@ -220,11 +223,11 @@ binds {
     Mod+backslash { swap-window-left; }
     Mod+slash     { swap-window-right; }
 
-    // Consume/expel windows into/from a column (niri "split" analog)
-    Mod+g       { consume-window-into-column; }
-    Mod+v       { expel-window-from-column; }
-    Mod+Alt+g   { consume-or-expel-window-left; }
-    Mod+Alt+v   { consume-or-expel-window-right; }
+    // Consume/expel windows into/from a column
+    Mod+g     { consume-window-into-column; }
+    Mod+v     { expel-window-from-column; }
+    Mod+Alt+g { consume-or-expel-window-left; }
+    Mod+Alt+v { consume-or-expel-window-right; }
 
     // --- Workspaces (1-9, 0=10) ---
     Mod+1 { focus-workspace 1; }
@@ -258,8 +261,8 @@ binds {
     Mod+Shift+comma  { move-column-to-workspace-up; }
 
     Mod+Tab { toggle-overview; }
-    // Window switcher: fuzzy pick via wofi, focus by id
-    Mod+Shift+Tab { spawn "sh" "-c" "id=$(niri msg --json windows | jq -r '.[] | \"\\(.id)\\t\\(.app_id // \"?\")  \\(.title // \"\")\"' | wofi -d -i -p 'window' | awk '{print $1}'); [ -n \"$id\" ] && niri msg action focus-window --id \"$id\""; }
+    // Window switcher
+    Mod+Shift+Tab hotkey-overlay-title=null { spawn "sh" "-c" "id=$(niri msg --json windows | jq -r '.[] | \"\\(.id)\\t\\(.app_id // \"?\")  \\(.title // \"\")\"' | wofi -d -i -p 'window' | awk '{print $1}'); [ -n \"$id\" ] && niri msg action focus-window --id \"$id\""; }
 
     // --- Monitors (Mod+Alt+hjkl / arrows / brackets) ---
     Mod+Alt+h        { focus-monitor-left; }
@@ -296,51 +299,50 @@ binds {
     Mod+Ctrl+bracketright { move-workspace-to-monitor-right; }
 
     // --- Audio ---
-    Mod+equal       { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +10%; st pulse -t 500"; }
-    Mod+minus       { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -10%; st pulse -t 500"; }
-    Mod+Shift+equal { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +1%; st pulse -t 500"; }
-    Mod+Shift+minus { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -1%; st pulse -t 500"; }
-    Mod+Ctrl+equal  { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +5%; st pulse -t 500"; }
-    Mod+Ctrl+minus  { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -5%; st pulse -t 500"; }
-    Mod+n           { spawn "sh" "-c" "pactl set-sink-mute   @DEFAULT_SINK@ toggle; st pulse -t 500"; }
-    Mod+Shift+n     { spawn "sh" "-c" "pactl set-source-mute @DEFAULT_SOURCE@ toggle; st pulse -t 500"; }
-    Mod+y           { spawn "sh" "-c" "~/.config/sway/scripts/cycle_sink.sh && st pulse -t 500"; }
-    Mod+Shift+y     { spawn "sh" "-c" "~/.config/sway/scripts/cycle_sink.sh back && st pulse -t 500"; }
+    Mod+equal hotkey-overlay-title=null       { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +10%; st pulse -t 500"; }
+    Mod+minus hotkey-overlay-title=null       { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -10%; st pulse -t 500"; }
+    Mod+Shift+equal hotkey-overlay-title=null { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +1%; st pulse -t 500"; }
+    Mod+Shift+minus hotkey-overlay-title=null { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -1%; st pulse -t 500"; }
+    Mod+Ctrl+equal hotkey-overlay-title=null  { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +5%; st pulse -t 500"; }
+    Mod+Ctrl+minus hotkey-overlay-title=null  { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -5%; st pulse -t 500"; }
+    Mod+n hotkey-overlay-title=null           { spawn "sh" "-c" "pactl set-sink-mute   @DEFAULT_SINK@ toggle; st pulse -t 500"; }
+    Mod+Shift+n hotkey-overlay-title=null     { spawn "sh" "-c" "pactl set-source-mute @DEFAULT_SOURCE@ toggle; st pulse -t 500"; }
+    Mod+y hotkey-overlay-title=null           { spawn "sh" "-c" "~/.config/sway/scripts/cycle_sink.sh && st pulse -t 500"; }
+    Mod+Shift+y hotkey-overlay-title=null     { spawn "sh" "-c" "~/.config/sway/scripts/cycle_sink.sh back && st pulse -t 500"; }
 
     // Media keys
-    XF86AudioRaiseVolume         { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +10%; st pulse -t 500"; }
-    XF86AudioLowerVolume         { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -10%; st pulse -t 500"; }
-    Shift+XF86AudioRaiseVolume   { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +1%; st pulse -t 500"; }
-    Shift+XF86AudioLowerVolume   { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -1%; st pulse -t 500"; }
-    Ctrl+XF86AudioRaiseVolume    { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +5%; st pulse -t 500"; }
-    Ctrl+XF86AudioLowerVolume    { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -5%; st pulse -t 500"; }
-    XF86AudioMute                { spawn "sh" "-c" "pactl set-sink-mute   @DEFAULT_SINK@ toggle; st pulse -t 500"; }
-    XF86AudioMicMute             { spawn "sh" "-c" "pactl set-source-mute @DEFAULT_SOURCE@ toggle; st pulse -t 500"; }
-    XF86AudioPlay                { spawn "sh" "-c" "playerctl play-pause; st player -t 500"; }
-    XF86AudioPause               { spawn "sh" "-c" "playerctl play-pause; st player -t 500"; }
-    XF86AudioNext                { spawn "sh" "-c" "playerctl next; st player -t 500"; }
-    XF86AudioPrev                { spawn "sh" "-c" "playerctl previous; st player -t 500"; }
-    XF86AudioStop                { spawn "sh" "-c" "playerctl stop; st player -t 500"; }
-    XF86MonBrightnessUp          { spawn "sh" "-c" "brightnessctl set 10%+; st backlight -t 500"; }
-    XF86MonBrightnessDown        { spawn "sh" "-c" "brightnessctl set 10%-; st backlight -t 500"; }
-    Shift+XF86MonBrightnessUp    { spawn "sh" "-c" "brightnessctl set 1%+; st backlight -t 500"; }
-    Shift+XF86MonBrightnessDown  { spawn "sh" "-c" "brightnessctl set 1%-; st backlight -t 500"; }
-    Ctrl+XF86MonBrightnessUp     { spawn "sh" "-c" "brightnessctl set 5%+; st backlight -t 500"; }
-    Ctrl+XF86MonBrightnessDown   { spawn "sh" "-c" "brightnessctl set 5%-; st backlight -t 500"; }
+    XF86AudioRaiseVolume hotkey-overlay-title=null        { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +10%; st pulse -t 500"; }
+    XF86AudioLowerVolume hotkey-overlay-title=null        { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -10%; st pulse -t 500"; }
+    Shift+XF86AudioRaiseVolume hotkey-overlay-title=null  { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +1%; st pulse -t 500"; }
+    Shift+XF86AudioLowerVolume hotkey-overlay-title=null  { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -1%; st pulse -t 500"; }
+    Ctrl+XF86AudioRaiseVolume hotkey-overlay-title=null   { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +5%; st pulse -t 500"; }
+    Ctrl+XF86AudioLowerVolume hotkey-overlay-title=null   { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -5%; st pulse -t 500"; }
+    XF86AudioMute hotkey-overlay-title=null               { spawn "sh" "-c" "pactl set-sink-mute   @DEFAULT_SINK@ toggle; st pulse -t 500"; }
+    XF86AudioMicMute hotkey-overlay-title=null            { spawn "sh" "-c" "pactl set-source-mute @DEFAULT_SOURCE@ toggle; st pulse -t 500"; }
+    XF86AudioPlay hotkey-overlay-title=null               { spawn "sh" "-c" "playerctl play-pause; st player -t 500"; }
+    XF86AudioPause hotkey-overlay-title=null              { spawn "sh" "-c" "playerctl play-pause; st player -t 500"; }
+    XF86AudioNext hotkey-overlay-title=null               { spawn "sh" "-c" "playerctl next; st player -t 500"; }
+    XF86AudioPrev hotkey-overlay-title=null               { spawn "sh" "-c" "playerctl previous; st player -t 500"; }
+    XF86AudioStop hotkey-overlay-title=null               { spawn "sh" "-c" "playerctl stop; st player -t 500"; }
+    XF86MonBrightnessUp hotkey-overlay-title=null         { spawn "sh" "-c" "brightnessctl set 10%+; st backlight -t 500"; }
+    XF86MonBrightnessDown hotkey-overlay-title=null       { spawn "sh" "-c" "brightnessctl set 10%-; st backlight -t 500"; }
+    Shift+XF86MonBrightnessUp hotkey-overlay-title=null   { spawn "sh" "-c" "brightnessctl set 1%+; st backlight -t 500"; }
+    Shift+XF86MonBrightnessDown hotkey-overlay-title=null { spawn "sh" "-c" "brightnessctl set 1%-; st backlight -t 500"; }
+    Ctrl+XF86MonBrightnessUp hotkey-overlay-title=null    { spawn "sh" "-c" "brightnessctl set 5%+; st backlight -t 500"; }
+    Ctrl+XF86MonBrightnessDown hotkey-overlay-title=null  { spawn "sh" "-c" "brightnessctl set 5%-; st backlight -t 500"; }
 
     // --- Screenshots ---
-    Print              { spawn "sh" "-c" "~/.config/sway/scripts/capture_region.sh | wl-copy"; }
-    Mod+Print          { spawn "wlr-which-key" "capture"; }
-    Ctrl+Print         { screenshot-screen; }
-    Alt+Print          { screenshot-window; }
-    Mod+Shift+Print    hotkey-overlay-title="Stop screen recording" { spawn "sh" "-c" "pkill -SIGINT wf-recorder; notify-send 'stop recording'"; }
+    Print hotkey-overlay-title=null                              { spawn "sh" "-c" "~/.config/sway/scripts/capture_region.sh | wl-copy"; }
+    Mod+Print hotkey-overlay-title=null                          { spawn "wlr-which-key" "capture"; }
+    Ctrl+Print                                                   { screenshot-screen; }
+    Alt+Print                                                    { screenshot-window; }
+    Mod+Shift+Print hotkey-overlay-title="Stop screen recording" { spawn "sh" "-c" "pkill -SIGINT wf-recorder; notify-send 'stop recording'"; }
 
-    // --- Session / lock ---
-    Mod+x           hotkey-overlay-title="System mode"     { spawn "wlr-which-key" "system"; }
-    Mod+c           hotkey-overlay-title="Control mode"    { spawn "wlr-which-key" "control"; }
-    Mod+u           hotkey-overlay-title="Idle mode"       { spawn "wlr-which-key" "idle"; }
-    Mod+Alt+b       hotkey-overlay-title="Brightness mode" { spawn "wlr-which-key" "control" "--initial-keys" "b"; }
-    Mod+Delete      { toggle-keyboard-shortcuts-inhibit; }
+    // --- Session ---
+    Mod+x hotkey-overlay-title="System mode"  { spawn "wlr-which-key" "system"; }
+    Mod+c hotkey-overlay-title="Control mode" { spawn "wlr-which-key" "control"; }
+    Mod+u hotkey-overlay-title="Idle mode"    { spawn "wlr-which-key" "idle"; }
+    Mod+Delete                                { toggle-keyboard-shortcuts-inhibit; }
 }
 
 cursor {
