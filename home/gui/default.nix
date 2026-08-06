@@ -71,8 +71,18 @@ in
               *)           swaymsg "output * dpms $1" ;;
             esac
           '';
+          wmwall = pkgs.writeShellScriptBin "wmwall" ''
+            # Re-apply the wallpaper from $HOME/.cache/wallpaper.
+            # sway: swaymsg tells sway to load it.
+            # niri: swaybg doesn't reload on file change, so restart it.
+            case "$XDG_CURRENT_DESKTOP" in
+              sway) swaymsg "output * bg $HOME/.cache/wallpaper fill #282828" ;;
+              *)    pkill -x swaybg
+                    ${pkgs.swaybg}/bin/swaybg -i "$HOME/.cache/wallpaper" -m fill -c '#282828' & ;;
+            esac
+          '';
         in
-        [ status wmdpms ];
+        [ status wmdpms wmwall ];
 
       sessionVariables = {
         # evince workaround

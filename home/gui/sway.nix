@@ -22,7 +22,7 @@ let
     bar_extra = "icon_theme Papirus";
     locked = "--locked";
     polkit_gnome = "${pkgs.polkit_gnome}";
-    set_wallpaper = ''swaymsg "output * bg $HOME/.cache/wallpaper fill #282828"'';
+    set_wallpaper = "wmwall";
     locker = "swaylock -f -i $HOME/.cache/wallpaper";
     enable_output = "swaymsg output $laptop_output enable";
     disable_output = "swaymsg output $laptop_output disable";

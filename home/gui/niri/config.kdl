@@ -63,7 +63,7 @@ environment {
 
 spawn-at-startup "systemctl" "--user" "start" "wayland-session.target"
 spawn-at-startup "xwayland-satellite"
-spawn-at-startup "sh" "-c" "swaybg -i $HOME/.cache/wallpaper -m fill"
+spawn-at-startup "wmwall"
 
 // Pinned workspaces: apps below open on these by name.
 // Position order = number order, so Mod+1..4 still hit them.
