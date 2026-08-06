@@ -176,8 +176,8 @@ binds {
     Mod+space           { switch-focus-between-floating-and-tiling; }
     Mod+g               { consume-window-into-column; }
     Mod+v               { expel-window-from-column; }
-    Mod+Alt+g           { consume-or-expel-window-left; }
-    Mod+Alt+v           { consume-or-expel-window-right; }
+    Mod+bracketleft     { consume-or-expel-window-left; }
+    Mod+bracketright    { consume-or-expel-window-right; }
     Mod+a               { center-column; }
     Mod+z               { center-visible-columns; }
 
@@ -264,7 +264,7 @@ binds {
 
     Mod+grave { focus-workspace-previous; }
 
-    // --- Monitors (Mod+Alt+hjkl / arrows / brackets) ---
+    // --- Monitors (Mod+Alt+hjkl / arrows) ---
     Mod+Alt+h        { focus-monitor-left; }
     Mod+Alt+l        { focus-monitor-right; }
     Mod+Alt+j        { focus-monitor-down; }
@@ -273,8 +273,6 @@ binds {
     Mod+Alt+Right    { focus-monitor-right; }
     Mod+Alt+Down     { focus-monitor-down; }
     Mod+Alt+Up       { focus-monitor-up; }
-    Mod+bracketleft  { focus-monitor-left; }
-    Mod+bracketright { focus-monitor-right; }
 
     Mod+Alt+Shift+h        { move-column-to-monitor-left; }
     Mod+Alt+Shift+l        { move-column-to-monitor-right; }
@@ -284,8 +282,6 @@ binds {
     Mod+Alt+Shift+Right    { move-column-to-monitor-right; }
     Mod+Alt+Shift+Down     { move-column-to-monitor-down; }
     Mod+Alt+Shift+Up       { move-column-to-monitor-up; }
-    Mod+Shift+bracketleft  { move-column-to-monitor-left; }
-    Mod+Shift+bracketright { move-column-to-monitor-right; }
 
     Mod+Alt+Ctrl+h        { move-workspace-to-monitor-left; }
     Mod+Alt+Ctrl+l        { move-workspace-to-monitor-right; }
@@ -295,8 +291,6 @@ binds {
     Mod+Alt+Ctrl+Right    { move-workspace-to-monitor-right; }
     Mod+Alt+Ctrl+Down     { move-workspace-to-monitor-down; }
     Mod+Alt+Ctrl+Up       { move-workspace-to-monitor-up; }
-    Mod+Ctrl+bracketleft  { move-workspace-to-monitor-left; }
-    Mod+Ctrl+bracketright { move-workspace-to-monitor-right; }
 
     // --- Audio ---
     Mod+equal hotkey-overlay-title=null       { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +10%; st pulse -t 500"; }
