@@ -296,10 +296,14 @@ $NEW_WS_NUM"
             # focus-workspace-previous is a no-op when there is no previous workspace
             [ "$TO" != "$FROM" ] || exit 0
             IDX="$(niri msg --json workspaces | ${jq} -r '.[] | select(.is_focused) | .idx')"
-            niri msg action move-window-to-workspace --window-id "$ID" "$IDX" ;;
+            niri msg action move-window-to-workspace --window-id "$ID" "$IDX"
+            # --focus only follows a window that is still focused, and we already left it
+            niri msg action focus-window --id "$ID" ;;
       *)    ID="$(wm-focus-id-get)"
             wm-focus-id "$ID"
-            swaymsg move container to workspace back_and_forth ;;
+            swaymsg move container to workspace back_and_forth
+            swaymsg workspace back_and_forth
+            wm-focus-id "$ID" ;;
     esac
   '';
 
