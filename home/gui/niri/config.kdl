@@ -42,7 +42,7 @@ prefer-no-csd
 screenshot-path "~/pictures/capture/screenshot_%Y-%m-%dT%H:%M:%S%z.png"
 
 layout {
-    gaps 12
+    gaps 16
     center-focused-column "never"
     preset-column-widths {
         proportion 0.33333
