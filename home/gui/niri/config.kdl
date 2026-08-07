@@ -144,6 +144,12 @@ window-rule {
     }
 }
 
+// Float transient prompts.
+window-rule {
+    match app-id="^yad$"
+    open-floating true
+}
+
 // Pin apps to their home workspaces.
 window-rule {
     match app-id="^emacs$"
@@ -170,16 +176,15 @@ binds {
     Mod+f               { fullscreen-window; }
     Mod+Shift+f         { toggle-windowed-fullscreen; }
     Mod+Ctrl+f          { maximize-window-to-edges; }
-    Mod+e               { maximize-column; }
-    Mod+w               { toggle-column-tabbed-display; }
     Mod+Shift+space     { toggle-window-floating; }
     Mod+space           { switch-focus-between-floating-and-tiling; }
-    Mod+g               { consume-window-into-column; }
-    Mod+v               { expel-window-from-column; }
-    Mod+bracketleft     { consume-or-expel-window-left; }
-    Mod+bracketright    { consume-or-expel-window-right; }
-    Mod+a               { center-column; }
-    Mod+z               { center-visible-columns; }
+    Mod+w               { toggle-column-tabbed-display; }
+    Mod+v               { consume-window-into-column; }
+    Mod+g               { expel-window-from-column; }
+    Mod+a               { consume-or-expel-window-left; }
+    Mod+s               { consume-or-expel-window-right; }
+    Mod+z               { center-column; }
+    Mod+Shift+z         { center-visible-columns; }
 
     // Column focus
     Mod+h     { focus-column-left; }
@@ -206,6 +211,10 @@ binds {
     Mod+Shift+End   { move-column-to-last; }
 
     // Column width / height
+    Mod+e               { maximize-column; }
+    Mod+r                { switch-preset-column-width; }
+    Mod+Shift+r          { switch-preset-column-width-back; }
+    Mod+Ctrl+r           { reset-window-height; }
     Mod+Ctrl+h           { set-column-width "-5%"; }
     Mod+Ctrl+l           { set-column-width "+5%"; }
     Mod+Ctrl+j           { set-window-height "+5%"; }
@@ -222,9 +231,6 @@ binds {
     Mod+Ctrl+Shift+Right { set-column-width "+1%"; }
     Mod+Ctrl+Shift+Down  { set-window-height "+1%"; }
     Mod+Ctrl+Shift+Up    { set-window-height "-1%"; }
-    Mod+r                { switch-preset-column-width; }
-    Mod+Shift+r          { switch-preset-column-width-back; }
-    Mod+Ctrl+r           { reset-window-height; }
 
     // --- Workspaces ---
     Mod+period       { focus-workspace-down; }
@@ -344,9 +350,9 @@ binds {
     Mod+Ctrl+b hotkey-overlay-title=null              { spawn "firefox" "-private-window"; }
 
     // Clipboard (clipman)
-    Mod+Shift+v hotkey-overlay-title="Clipboard picker (clipman)"  { spawn "sh" "-c" "clipman pick -t wofi -T-i"; }
-    Mod+Ctrl+v hotkey-overlay-title=null                           { spawn "sh" "-c" "wl-copy \"$(clipman pick -t STDOUT | head -n 1)\""; }
-    Mod+Shift+Ctrl+v hotkey-overlay-title=null                     { spawn "sh" "-c" "wtype \"$(clipman pick -t STDOUT | head -n 1)\""; }
+    Mod+v hotkey-overlay-title="Clipboard picker (clipman)"        { spawn "sh" "-c" "clipman pick -t wofi -T-i"; }
+    Mod+Shift+v hotkey-overlay-title=null                          { spawn "sh" "-c" "wl-copy \"$(clipman pick -t STDOUT | head -n 1)\""; }
+    Mod+Ctrl+v hotkey-overlay-title=null                           { spawn "sh" "-c" "wtype \"$(clipman pick -t STDOUT | head -n 1)\""; }
     Mod+Alt+space hotkey-overlay-title="Prompt -> clipboard (yad)" { spawn "sh" "-c" "yad --entry --text input | wl-copy"; }
     Mod+Alt+Shift+space hotkey-overlay-title=null                  { spawn "sh" "-c" "yad --entry --text input | xargs wtype"; }
 
@@ -376,8 +382,8 @@ binds {
     // Dictation
     Mod+Shift+d hotkey-overlay-title="Toggle dictation" { spawn "dictation-toggle"; }
 
-    // Rename current workspace (matches sway Mod+t)
-    Mod+t hotkey-overlay-title="Rename workspace" { spawn "sh" "-c" "name=$(echo | wofi -d -i -p 'workspace name'); [ -n \"$name\" ] && niri msg action set-workspace-name \"$name\""; }
+    // Rename current workspace (yad prefilled with current name)
+    Mod+t hotkey-overlay-title="Rename workspace" { spawn "wmrename"; }
 
     // Mouse-wheel workspace / column navigation (niri defaults)
     Mod+WheelScrollDown       cooldown-ms=150 { focus-workspace-down; }
