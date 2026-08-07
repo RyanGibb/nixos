@@ -15,6 +15,12 @@
     (final: prev: {
       opam = final.overlay-unstable.opam;
 
+      # nixpkgs' realvnc-vnc-viewer is unbuildable: RealVNC pulled every 7.x
+      # download (https://github.com/NixOS/nixpkgs/issues/534133). Vendor the
+      # 8.x successor from https://github.com/NixOS/nixpkgs/pull/432394 until
+      # that lands.
+      realvnc-rvncconnect = final.callPackage ./rvncconnect.nix { };
+
       # Work around curl 8.20 threaded-resolver bug that pegs nheko at 100% CPU:
       # https://github.com/Nheko-Reborn/nheko/issues/2054. Disable the threaded
       # resolver in the curl used by nheko's HTTP stack (coeurl/mtxclient/nheko).
@@ -333,7 +339,7 @@
     texlab
 
     # due to https://github.com/TigerVNC/tigervnc/issues/274
-    realvnc-vnc-viewer
+    realvnc-rvncconnect
 
     inputs.caledonia.packages.${pkgs.stdenv.hostPlatform.system}.default
 
@@ -356,11 +362,11 @@
   services.gnome.evolution-data-server.enable = true;
   services.gnome.gnome-online-accounts.enable = true;
 
-  virtualisation.docker.enable = true;
-  users.users.ryan.extraGroups = [ "docker" ];
+  # virtualisation.docker.enable = true;
+  # users.users.ryan.extraGroups = [ "docker" ];
 
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "ryan" ];
+  # virtualisation.virtualbox.host.enable = true;
+  # users.extraGroups.vboxusers.members = [ "ryan" ];
 
   systemd.settings.Manager.DefaultTimeoutStopSec = "30s";
 

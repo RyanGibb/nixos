@@ -8,18 +8,7 @@
 
 let
   cfg = config.custom.emacs;
-  emacsPackages = (pkgs.emacsPackagesFor pkgs.emacs30-pgtk).overrideScope (
-    _final: prev: {
-      # GNU ELPA regenerated the org 9.8.6 tarball with a new hash while keeping
-      # the same version, so the hash pinned by emacs-overlay no longer matches.
-      # Pin the src to the current tarball hash until the overlay catches up.
-      org = prev.org.overrideAttrs (old: {
-        src = old.src.overrideAttrs (_: {
-          outputHash = "sha256-kqh8S5DZr8ZQX7P//eISddFi7TyLH5IYUoo5NBNhiWE=";
-        });
-      });
-    }
-  );
+  emacsPackages = pkgs.emacsPackagesFor pkgs.emacs30-pgtk;
   aspellEnv = pkgs.aspellWithDicts (ps: with ps; [ en en-computers en-science ]);
   # aspellWithDicts sets data-dir to an empty share/aspell and never sets
   # filter-path, while the filter-mode definitions (tex, nroff, ...) live in
