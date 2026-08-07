@@ -172,17 +172,17 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // --- Window ops ---
-    Mod+Shift+BackSpace { close-window; }
-    Mod+f               { fullscreen-window; }
-    Mod+Shift+f         { toggle-windowed-fullscreen; }
-    Mod+Ctrl+f          { maximize-window-to-edges; }
-    Mod+Shift+space     { toggle-window-floating; }
-    Mod+space           { switch-focus-between-floating-and-tiling; }
-    Mod+w               { toggle-column-tabbed-display; }
-    Mod+a               { consume-or-expel-window-left; }
-    Mod+s               { consume-or-expel-window-right; }
-    Mod+z               { center-column; }
-    Mod+Shift+z         { center-visible-columns; }
+    Mod+Shift+BackSpace repeat=false { close-window; }
+    Mod+f                            { fullscreen-window; }
+    Mod+Shift+f                      { toggle-windowed-fullscreen; }
+    Mod+Ctrl+f                       { maximize-window-to-edges; }
+    Mod+Shift+space                  { toggle-window-floating; }
+    Mod+space                        { switch-focus-between-floating-and-tiling; }
+    Mod+w                            { toggle-column-tabbed-display; }
+    Mod+a                            { consume-or-expel-window-left; }
+    Mod+s                            { consume-or-expel-window-right; }
+    Mod+z                            { center-column; }
+    Mod+Shift+z                      { center-visible-columns; }
 
     // Column focus
     Mod+h     { focus-column-left; }
@@ -262,7 +262,7 @@ binds {
     Mod+Shift+0 { move-column-to-workspace 10; }
     Mod+Shift+m { move-column-to-workspace 11; }
 
-    Mod+Tab { toggle-overview; }
+    Mod+Tab repeat=false { toggle-overview; }
     // Window switcher
     Mod+Shift+Tab hotkey-overlay-title=null { spawn "sh" "-c" "id=$(niri msg --json windows | jq -r '.[] | \"\\(.id)\\t\\(.app_id // \"?\")  \\(.title // \"\")\"' | wofi -d -i -p 'window' | awk '{print $1}'); [ -n \"$id\" ] && niri msg action focus-window --id \"$id\""; }
 
