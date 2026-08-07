@@ -179,8 +179,6 @@ binds {
     Mod+Shift+space     { toggle-window-floating; }
     Mod+space           { switch-focus-between-floating-and-tiling; }
     Mod+w               { toggle-column-tabbed-display; }
-    Mod+v               { consume-window-into-column; }
-    Mod+g               { expel-window-from-column; }
     Mod+a               { consume-or-expel-window-left; }
     Mod+s               { consume-or-expel-window-right; }
     Mod+z               { center-column; }
