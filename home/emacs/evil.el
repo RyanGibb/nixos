@@ -199,6 +199,7 @@
     "i s" '(yas-insert-snippet :which-key "snippet")
     "i e" '(insert-char :which-key "unicode")
     "i r" '(evil-show-registers :which-key "from register")
+    "i d" '(my/insert-date :which-key "date")
 
     ;; Notes/Org
     "n"   '(:ignore t :which-key "notes")
@@ -291,6 +292,14 @@
                  "\C-n" "\C-p" "\C-o" "\C-r" "\C-c" "\C-f"
                  "\C-b" "\C-t" "\C-x" "\C-_" "\C-]"))
     (define-key evil-window-map key nil))
+
+  (defun my/insert-date (&optional pick)
+    "Insert today's date as YYYY-MM-DD.
+With prefix arg PICK, choose a date with the org calendar prompt."
+    (interactive "P")
+    (insert (if pick
+                (progn (require 'org) (org-read-date))
+              (format-time-string "%Y-%m-%d"))))
 
   (defun my/kill-other-buffers ()
     "Kill all buffers except the current one."
