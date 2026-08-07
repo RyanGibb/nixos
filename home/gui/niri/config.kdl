@@ -125,6 +125,13 @@ window-rule {
     }
 }
 
+blur {
+    passes 3
+    offset 1.0
+    noise 0.02
+    saturation 2
+}
+
 // Indicate windows being screencast with gruvbox red.
 window-rule {
     match is-window-cast-target=true

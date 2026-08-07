@@ -353,6 +353,12 @@ With TODO non-nil, add a TODO keyword."
   (interactive)
   (my/org-insert-subheading-above t))
 
+(defun my/insert-date (&optional pick)
+  "Insert today's date as YYYY-MM-DD.
+With prefix arg PICK, choose a date with the org calendar prompt."
+  (interactive "P")
+  (insert (if pick (org-read-date) (format-time-string "%Y-%m-%d"))))
+
 
 ;;;; Org local leader bindings (SPC m)
 
@@ -394,6 +400,7 @@ With TODO non-nil, add a TODO keyword."
     "d s" '(org-schedule :which-key "schedule")
     "d t" '(org-time-stamp :which-key "timestamp")
     "d T" '(org-time-stamp-inactive :which-key "inactive timestamp")
+    "d i" '(my/insert-date :which-key "insert YYYY-MM-DD")
 
     ;; Links
     "l"   '(:ignore t :which-key "links")
