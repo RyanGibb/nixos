@@ -278,7 +278,8 @@ binds {
     // Window switcher
     Mod+Shift+Tab hotkey-overlay-title=null { spawn "wm-window-switcher"; }
 
-    Mod+grave { focus-workspace-previous; }
+    Mod+grave       { focus-workspace-previous; }
+    Mod+Shift+grave { spawn "wm-ws-mv-prev"; }
 
     // --- Monitors (Mod+Alt+hjkl / arrows / brackets) ---
     Mod+Alt+h        { focus-monitor-left; }

@@ -286,6 +286,23 @@ $NEW_WS_NUM"
     ${notifySend} "$NAME" -t 500
   '';
 
+  wm-ws-mv-prev = pkgs.writeShellScriptBin "wm-ws-mv-prev" ''
+    case "$XDG_CURRENT_DESKTOP" in
+      niri) ID="$(niri msg --json focused-window | ${jq} -r '.id // empty')"
+            [ -n "$ID" ] || exit 0
+            FROM="$(niri msg --json workspaces | ${jq} -r '.[] | select(.is_focused) | .id')"
+            niri msg action focus-workspace-previous
+            TO="$(niri msg --json workspaces | ${jq} -r '.[] | select(.is_focused) | .id')"
+            # focus-workspace-previous is a no-op when there is no previous workspace
+            [ "$TO" != "$FROM" ] || exit 0
+            IDX="$(niri msg --json workspaces | ${jq} -r '.[] | select(.is_focused) | .idx')"
+            niri msg action move-window-to-workspace --window-id "$ID" "$IDX" ;;
+      *)    ID="$(wm-focus-id-get)"
+            wm-focus-id "$ID"
+            swaymsg move container to workspace back_and_forth ;;
+    esac
+  '';
+
   wm-clamshell = pkgs.writeShellScriptBin "wm-clamshell" ''
     laptop_output=eDP-1
     if grep -q closed /proc/acpi/button/lid/LID*/state; then
@@ -521,7 +538,7 @@ $NEW_WS_NUM"
     wm-open-file wm-vault wm-vault-titled
     wm-rename
     wm-focus-id wm-focus-id-get wm-ws-name wm-output-focused
-    wm-ws-free wm-ws-select wm-ws-switch wm-ws-mv wm-ws-switch-mv
+    wm-ws-free wm-ws-select wm-ws-switch wm-ws-mv wm-ws-switch-mv wm-ws-mv-prev
     wm-clamshell wm-lock-if-solo wm-dpms-toggle wm-dunst-watch wm-window-switcher
     wm-focus-leaf wm-focus-root wm-tab-windows wm-scratch-switcher wm-slurp-windows
     wm-idle-kanshi wm-idle-inhibit wm-idle-dpms wm-idle-lock wm-idle-lock-no-dpms
