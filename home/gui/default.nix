@@ -32,9 +32,11 @@ in
         # already installed system wide
         # package = pkgs.noto-fonts;
       };
+      # gruvbox-gtk-theme ships no share/icons, so naming it here left every
+      # themed icon unresolvable (GTK drew image-missing instead).
       iconTheme = {
-        package = pkgs.gruvbox-gtk-theme;
-        name = "Gruvbox-Dark";
+        package = pkgs.adwaita-icon-theme;
+        name = "Adwaita";
       };
       theme = {
         package = pkgs.gruvbox-gtk-theme;
