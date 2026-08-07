@@ -182,8 +182,12 @@ binds {
     Mod+g                            { center-column; }
     Mod+Shift+g                      { center-visible-columns; }
     Mod+w                            { toggle-column-tabbed-display; }
-    Mod+a                            { consume-or-expel-window-left; }
-    Mod+s                            { consume-or-expel-window-right; }
+    Mod+a                            { consume-window-into-column; }
+    Mod+s                            { expel-window-from-column; }
+    Mod+bracketleft                  { consume-or-expel-window-left; }
+    Mod+bracketright                 { consume-or-expel-window-right; }
+    Mod+backslash                    { swap-window-left; }
+    Mod+slash                        { swap-window-right; }
 
     // Column focus
     Mod+h     { focus-column-left; }
@@ -278,8 +282,6 @@ binds {
     Mod+Alt+Right    { focus-monitor-right; }
     Mod+Alt+Down     { focus-monitor-down; }
     Mod+Alt+Up       { focus-monitor-up; }
-    Mod+bracketleft  { focus-monitor-left; }
-    Mod+bracketright { focus-monitor-right; }
 
     Mod+Alt+Shift+h        { move-column-to-monitor-left; }
     Mod+Alt+Shift+l        { move-column-to-monitor-right; }
@@ -289,8 +291,6 @@ binds {
     Mod+Alt+Shift+Right    { move-column-to-monitor-right; }
     Mod+Alt+Shift+Down     { move-column-to-monitor-down; }
     Mod+Alt+Shift+Up       { move-column-to-monitor-up; }
-    Mod+Shift+bracketleft  { move-column-to-monitor-left; }
-    Mod+Shift+bracketright { move-column-to-monitor-right; }
 
     Mod+Alt+Ctrl+h        { move-workspace-to-monitor-left; }
     Mod+Alt+Ctrl+l        { move-workspace-to-monitor-right; }
@@ -300,8 +300,6 @@ binds {
     Mod+Alt+Ctrl+Right    { move-workspace-to-monitor-right; }
     Mod+Alt+Ctrl+Down     { move-workspace-to-monitor-down; }
     Mod+Alt+Ctrl+Up       { move-workspace-to-monitor-up; }
-    Mod+Ctrl+bracketleft  { move-workspace-to-monitor-left; }
-    Mod+Ctrl+bracketright { move-workspace-to-monitor-right; }
 
     // --- Audio ---
     Mod+equal hotkey-overlay-title=null       { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +10%; st pulse -t 500"; }
@@ -404,7 +402,7 @@ binds {
     Mod+x hotkey-overlay-title="System mode"  { spawn "wlr-which-key" "system"; }
     Mod+c hotkey-overlay-title="Control mode" { spawn "wlr-which-key" "control"; }
     Mod+u hotkey-overlay-title="Idle mode"    { spawn "wlr-which-key" "idle"; }
-    Mod+Delete                                { toggle-keyboard-shortcuts-inhibit; }
+    Mod+Delete allow-inhibiting=false         { toggle-keyboard-shortcuts-inhibit; }
 
     // Direct swaylock; also fires from the red screen if the locker died
     Mod+Ctrl+x allow-when-locked=true hotkey-overlay-title="Lock (or relock)" { spawn "swaylock" "-f" "-i" "/home/ryan/.cache/wallpaper"; }
