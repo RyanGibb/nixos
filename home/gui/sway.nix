@@ -8,30 +8,11 @@
 let
   i3-workspace-history =
     inputs.i3-workspace-history.packages.${pkgs.stdenv.hostPlatform.system}.default;
-  util = import ./util.nix { inherit pkgs lib; };
   cfg = config.custom.gui.sway;
   wmCommon = import ./wm-config.nix {
     inherit pkgs lib i3-workspace-history;
   };
-  scriptDir = "$HOME/.config/sway/scripts";
-  replacements = {
-    wm = "sway";
-    wmmsg = "swaymsg";
-    rofi = "wofi";
-    app_id = "app_id";
-    bar_extra = "icon_theme Papirus";
-    locked = "--locked";
-    polkit_gnome = "${pkgs.polkit_gnome}";
-    set_wallpaper = "wmwall";
-    locker = "swaylock -f -i $HOME/.cache/wallpaper";
-    enable_output = "swaymsg output $laptop_output enable";
-    disable_output = "swaymsg output $laptop_output disable";
-    drun = "wofi -i --show drun --allow-images -a";
-    dmenu = "wofi -d -i -p";
-    notification_deamon = "dunst";
-    i3_workspace_history = "${i3-workspace-history}/bin/i3-workspace-history";
-    i3_workspace_history_args = "-sway";
-  };
+  scriptDir = null;
 in
 {
   options.custom.gui.sway = {
@@ -113,31 +94,27 @@ in
         );
         modes = wmCommon.commonModes // (wmCommon.swayModes scriptDir);
         startup =
-          wmCommon.commonStartup ++ (wmCommon.swayStartup cfg.idle scriptDir replacements.set_wallpaper);
+          wmCommon.commonStartup ++ (wmCommon.swayStartup cfg.idle scriptDir "wm-wall");
       };
       extraConfig = ''
         focus_on_window_activation smart
-        bindswitch --reload --locked lid:on exec ${scriptDir}/lock_on_lid_close.sh; exec ${scriptDir}/laptop_clamshell.sh
-        bindswitch --reload --locked lid:off exec ${scriptDir}/lock_on_lid_close.sh; exec ${scriptDir}/laptop_clamshell.sh
+        bindswitch --reload --locked lid:on exec wm-lock-if-solo; exec wm-clamshell
+        bindswitch --reload --locked lid:off exec wm-lock-if-solo; exec wm-clamshell
       '';
     };
 
-    xdg.configFile =
-      let
-        entries = {
-          "fusuma/config.yml".source = ./fusuma.yml;
-          "kanshi/config".source = ./kanshi;
-          "dunst/dunstrc".source = ./dunst;
-          "swaylock/config".source = ./swaylock;
-          "wofi/style.css".source = ./wofi.css;
-          "swappy/config".text = ''
-            [Default]
-            save_dir=$XDG_PICTURES_DIR/capture/
-            save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
-          '';
-        };
-      in
-      (util.inDirReplace ./scripts "sway/scripts" replacements) // entries;
+    xdg.configFile = {
+      "fusuma/config.yml".source = ./fusuma.yml;
+      "kanshi/config".source = ./kanshi;
+      "dunst/dunstrc".source = ./dunst;
+      "swaylock/config".source = ./swaylock;
+      "wofi/style.css".source = ./wofi.css;
+      "swappy/config".text = ''
+        [Default]
+        save_dir=$XDG_PICTURES_DIR/capture/
+        save_filename_format=screenshot_%Y-%m-%dT%H:%M:%S%z.png
+      '';
+    };
 
     services = {
       gammastep = {

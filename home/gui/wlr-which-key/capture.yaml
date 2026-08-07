@@ -12,13 +12,13 @@ inhibit_compositor_keyboard_shortcuts: true
 menu:
   - key: c
     desc: Copy region
-    cmd: sh -c '~/.config/sway/scripts/capture_region.sh | wl-copy'
+    cmd: sh -c 'wm-capture-region | wl-copy'
   - key: e
     desc: Edit region
-    cmd: sh -c '~/.config/sway/scripts/capture_region.sh | swappy -f -'
+    cmd: sh -c 'wm-capture-region | swappy -f -'
   - key: f
     desc: Save region to file
-    cmd: sh -c '~/.config/sway/scripts/capture_region.sh > "$XDG_PICTURES_DIR/capture/$(date "+%Y-%m-%d %H.%M.%S").png"'
+    cmd: sh -c 'wm-capture-region > "$XDG_PICTURES_DIR/capture/$(date "+%Y-%m-%d %H.%M.%S").png"'
   - key: C
     desc: Copy screen
     cmd: sh -c 'grim - | wl-copy'

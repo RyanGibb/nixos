@@ -8,30 +8,11 @@
 let
   i3-workspace-history =
     inputs.i3-workspace-history.packages.${pkgs.stdenv.hostPlatform.system}.default;
-  util = import ./util.nix { inherit pkgs lib; };
   cfg = config.custom.gui.i3;
   wmCommon = import ./wm-config.nix {
     inherit pkgs lib i3-workspace-history;
   };
-  scriptDir = "$HOME/.config/i3/scripts";
-  replacements = {
-    wm = "i3";
-    wmmsg = "i3-msg";
-    rofi = "rofi";
-    app_id = "class";
-    bar_extra = "";
-    locked = "";
-    polkit_gnome = "${pkgs.polkit_gnome}";
-    set_wallpaper = "feh --bg-fill $HOME/.cache/wallpaper";
-    locker = "xsecurelock";
-    enable_output = "xrandr --output $laptop_output --auto";
-    disable_output = "xrandr --output $laptop_output --off";
-    drun = "rofi -i -modi drun -show drun";
-    dmenu = "rofi -i -dmenu -p";
-    notification_deamon = "dunst";
-    i3_workspace_history = "${i3-workspace-history}/bin/i3-workspace-history";
-    i3_workspace_history_args = "";
-  };
+  scriptDir = null;
 in
 {
   options.custom.gui.i3.enable = lib.mkEnableOption "i3";
@@ -77,18 +58,14 @@ in
           // (wmCommon.i3Keybindings scriptDir)
         );
         modes = wmCommon.commonModes // (wmCommon.i3Modes scriptDir);
-        startup = wmCommon.commonStartup ++ (wmCommon.i3Startup scriptDir replacements.set_wallpaper);
+        startup = wmCommon.commonStartup ++ (wmCommon.i3Startup scriptDir "feh --bg-fill $HOME/.cache/wallpaper");
       };
     };
 
-    xdg.configFile =
-      let
-        entries = {
-          "dunst/dunstrc".source = ./dunst;
-          "rofi/config.rasi".source = ./rofi.rasi;
-        };
-      in
-      (util.inDirReplace ./scripts "i3/scripts" replacements) // entries;
+    xdg.configFile = {
+      "dunst/dunstrc".source = ./dunst;
+      "rofi/config.rasi".source = ./rofi.rasi;
+    };
 
     services.redshift = {
       enable = true;

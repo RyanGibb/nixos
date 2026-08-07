@@ -12,6 +12,7 @@ in
   imports = [
     ./i3.nix
     ./niri.nix
+    ./scripts.nix
     ./sway.nix
   ];
 
@@ -61,42 +62,8 @@ in
               cp -r * $out
             '';
           };
-          wmdpms = pkgs.writeShellScriptBin "wmdpms" ''
-            # Compositor-agnostic DPMS/output control.
-            # Usage: wmdpms on|off|enable
-            case "$XDG_CURRENT_DESKTOP:$1" in
-              niri:enable) for o in $(niri msg -j outputs | jq -r 'keys[]'); do niri msg output "$o" on; done ;;
-              niri:*)      niri msg action "power-$1-monitors" ;;
-              *:enable)    swaymsg "output * enable" ;;
-              *)           swaymsg "output * dpms $1" ;;
-            esac
-          '';
-          wmwall = pkgs.writeShellScriptBin "wmwall" ''
-            # Re-apply the wallpaper from $HOME/.cache/wallpaper.
-            # sway: swaymsg tells sway to load it.
-            # niri: swaybg doesn't reload on file change, so restart it.
-            case "$XDG_CURRENT_DESKTOP" in
-              sway) swaymsg "output * bg $HOME/.cache/wallpaper fill #282828" ;;
-              *)    pkill -x swaybg
-                    ${pkgs.swaybg}/bin/swaybg -i "$HOME/.cache/wallpaper" -m fill -c '#282828' & ;;
-            esac
-          '';
-          wmrename = pkgs.writeShellScriptBin "wmrename" ''
-            # Rename the focused workspace via yad, prefilled with current name.
-            # Empty input unsets the name.
-            case "$XDG_CURRENT_DESKTOP" in
-              niri) cur=$(niri msg --json workspaces | ${pkgs.jq}/bin/jq -r '.[] | select(.is_focused) | .name // ""') ;;
-              *)    cur=$(swaymsg -t get_workspaces | ${pkgs.jq}/bin/jq -r '.[] | select(.focused) | .name') ;;
-            esac
-            name=$(${pkgs.yad}/bin/yad --entry --text 'Workspace name (empty to unset):' --entry-text="$cur") || exit 0
-            case "$XDG_CURRENT_DESKTOP" in
-              niri) if [ -z "$name" ]; then niri msg action unset-workspace-name
-                    else niri msg action set-workspace-name "$name"; fi ;;
-              *)    swaymsg rename workspace to "\"$name\"" ;;
-            esac
-          '';
         in
-        [ status wmdpms wmwall wmrename ];
+        [ status ];
 
       sessionVariables = {
         # evince workaround

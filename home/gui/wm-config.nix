@@ -245,8 +245,8 @@ in
 
     "Mod4+a" = "focus parent";
     "Mod4+z" = "focus child";
-    "Mod4+Shift+a" = "exec ${scriptDir}/focus_root.sh";
-    "Mod4+Shift+z" = "exec ${scriptDir}/focus_leaf.sh";
+    "Mod4+Shift+a" = "exec wm-focus-root";
+    "Mod4+Shift+z" = "exec wm-focus-leaf";
 
     "Mod4+1" = "workspace number 1; exec dunstify -C `cat ~/.cache/st_id`";
     "Mod4+2" = "workspace number 2; exec dunstify -C `cat ~/.cache/st_id`";
@@ -415,24 +415,23 @@ in
     "Mod4+Shift+period" = "move container to workspace next_on_output";
     "Mod4+Shift+comma" = "move container to workspace prev_on_output";
 
-    "Mod4+m" = "exec ${scriptDir}/ws_switch.sh ${scriptDir}/get_free_ws_num.sh";
-    "Mod4+Shift+m" = "exec ${scriptDir}/ws_mv.sh ${scriptDir}/get_free_ws_num.sh";
-    "Mod4+Control+m" = "exec ${scriptDir}/ws_switch_mv.sh ${scriptDir}/get_free_ws_num.sh";
+    "Mod4+m" = "exec wm-ws-switch wm-ws-free";
+    "Mod4+Shift+m" = "exec wm-ws-mv wm-ws-free";
+    "Mod4+Control+m" = "exec wm-ws-switch-mv wm-ws-free";
 
-    "Mod4+backslash" = "exec ${scriptDir}/ws_switch.sh ${scriptDir}/select_ws.sh";
-    "Mod4+Shift+backslash" = "exec ${scriptDir}/ws_mv.sh ${scriptDir}/select_ws.sh";
-    "Mod4+Control+backslash" = "exec ${scriptDir}/ws_switch_mv.sh ${scriptDir}/select_ws.sh";
+    "Mod4+backslash" = "exec wm-ws-switch wm-ws-select";
+    "Mod4+Shift+backslash" = "exec wm-ws-mv wm-ws-select";
+    "Mod4+Control+backslash" = "exec wm-ws-switch-mv wm-ws-select";
 
-    "Mod4+t" =
-      "exec ${scriptDir}/title_ws.sh ${scriptDir}/get_ws_title.sh ${scriptDir}/get_cur_ws_name.sh";
+    "Mod4+t" = "exec wm-rename";
 
     "Mod4+i" =
       "exec ${i3-workspace-history}/bin/i3-workspace-history --mode=forward --sway; exec st workspace -t 500";
     "Mod4+o" =
       "exec ${i3-workspace-history}/bin/i3-workspace-history --mode=back --sway; exec st workspace -t 500";
 
-    "Mod4+Tab" = "exec ${scriptDir}/window_switcher.sh";
-    "Mod4+Shift+Tab" = "exec ${scriptDir}/window_switcher_scratch.sh";
+    "Mod4+Tab" = "exec wm-window-switcher";
+    "Mod4+Shift+Tab" = "exec wm-scratch-switcher";
 
     "Mod4+equal" = "exec pactl set-sink-volume @DEFAULT_SINK@ +10%; exec st pulse -t 500";
     "Mod4+minus" = "exec pactl set-sink-volume @DEFAULT_SINK@ -10%; exec st pulse -t 500";
@@ -441,24 +440,24 @@ in
     "Mod4+Control+equal" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%; exec st pulse -t 500";
     "Mod4+Control+minus" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%; exec st pulse -t 500";
 
-    "Mod4+y" = "exec ${scriptDir}/cycle_sink.sh && st pulse -t 500";
-    "Mod4+Shift+y" = "exec ${scriptDir}/cycle_sink.sh back && st pulse -t 500";
+    "Mod4+y" = "exec wm-cycle-sink && st pulse -t 500";
+    "Mod4+Shift+y" = "exec wm-cycle-sink back && st pulse -t 500";
     "Mod4+n" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle; exec st pulse -t 500";
     "Mod4+Shift+n" = "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle; exec st pulse -t 500";
 
     "Mod4+apostrophe" =
       "exec rofimoji --selector wofi --selector-args=-i --skin-tone neutral --prompt \"\" -a copy";
-    "Mod4+semicolon" = "exec ${scriptDir}/bluetooth_device.sh";
-    "Mod4+Shift+semicolon" = "exec ${scriptDir}/bluetooth_device.sh disconnect";
-    "Mod4+Control+semicolon" = "exec ${scriptDir}/wifi.sh";
+    "Mod4+semicolon" = "exec wm-bluetooth";
+    "Mod4+Shift+semicolon" = "exec wm-bluetooth disconnect";
+    "Mod4+Control+semicolon" = "exec wm-wifi";
 
     "button2" = "kill";
 
     "Mod4+Shift+g" = "mode \"gaps\"; exec notify-send \"Gaps | h/j/k/l/-/+ | 0 1 2 3 4\"";
     "Mod4+x" = "mode \"system\"; exec notify-send \"System | l/e/s/S/h/r/p/u\"";
 
-    "Mod4+Shift+w" = "exec ${scriptDir}/set_random_wallpaper.sh";
-    "Mod4+Control+w" = "exec ${scriptDir}/set_selected_wallpaper.sh";
+    "Mod4+Shift+w" = "exec wm-wall-random";
+    "Mod4+Control+w" = "exec wm-wall-pick";
 
     "Mod4+Shift+d" = "exec dictation-toggle";
   };
@@ -487,7 +486,7 @@ in
     "Mod4+q" = "exec dunstctl close";
     "Mod4+Shift+q" = "exec dunstctl action";
     "Mod4+Control+q" = "exec dunstctl history-pop";
-    "Print" = "exec ${scriptDir}/capture_region.sh | wl-copy";
+    "Print" = "exec wm-capture-region | wl-copy";
   };
 
   i3Keybindings = scriptDir: {
@@ -498,7 +497,7 @@ in
     "Mod4+Shift+Control+v" = "exec xdotool type \"$(greenclip print | head -n 1)\"";
     "Mod4+q" = "exec dunstctl close-all";
     "Mod4+Shift+r" = "exec \"i3-msg reload; feh --bg-fill $HOME/.cache/wallpaper\"";
-    "Mod4+Shift+p" = "exec xrandr --output \"$(${scriptDir}/get_focused_output.sh)\" --off";
+    "Mod4+Shift+p" = "exec xrandr --output \"$(wm-output-focused)\" --off";
     "Mod4+c" = "mode \"control\"; exec notify-send \"Control b/t/d\"";
   };
 
@@ -541,23 +540,21 @@ in
       "Escape" = "mode default; exec notify-send default";
     };
     idle = {
-      "i" = "exec ${scriptDir}/swayidle_inhibit.sh, mode default; exec notify-send inhibit";
-      "d" = "exec ${scriptDir}/swayidle_dpms.sh, mode default; exec notify-send dpms";
-      "l" = "exec ${scriptDir}/swayidle_lock.sh, mode default; exec notify-send lock";
-      "s" = "exec ${scriptDir}/swayidle_suspend.sh, mode default; exec notify-send suspend";
-      "Shift+s" =
-        "exec ${scriptDir}/swayidle_suspend_long.sh, mode default; exec notify-send suspend_long";
-      "Shift+l" =
-        "exec ${scriptDir}/swayidle_lock_no_dpms.sh, mode default; exec notify-send \"lock no dpms\"";
+      "i" = "exec wm-idle-inhibit, mode default; exec notify-send inhibit";
+      "d" = "exec wm-idle-dpms, mode default; exec notify-send dpms";
+      "l" = "exec wm-idle-lock, mode default; exec notify-send lock";
+      "s" = "exec wm-idle-suspend, mode default; exec notify-send suspend";
+      "Shift+s" = "exec wm-idle-suspend-long, mode default; exec notify-send suspend_long";
+      "Shift+l" = "exec wm-idle-lock-no-dpms, mode default; exec notify-send \"lock no dpms\"";
       "Return" = "mode default; exec notify-send default";
       "Escape" = "mode default; exec notify-send default";
     };
     capture = {
       "q" = "exec dunstctl close";
-      "c" = "exec ${scriptDir}/capture_region.sh | wl-copy, mode default";
-      "e" = "exec ${scriptDir}/capture_region.sh | swappy -f -, mode default";
+      "c" = "exec wm-capture-region | wl-copy, mode default";
+      "e" = "exec wm-capture-region | swappy -f -, mode default";
       "f" =
-        "exec ${scriptDir}/capture_region.sh > \$XDG_PICTURES_DIR/capture/\"\$(date '+%Y-%m-%d %H.%M.%S')\".png, mode default";
+        "exec wm-capture-region > \$XDG_PICTURES_DIR/capture/\"\$(date '+%Y-%m-%d %H.%M.%S')\".png, mode default";
       "Shift+c" = "exec grim - | wl-copy, mode default; exec notify-send copied";
       "Shift+e" = "exec grim - | swappy -f -, mode default; exec notify-send saved";
       "Shift+f" =
@@ -624,14 +621,14 @@ in
     };
     control_outputs = {
       "e" = "output * enable; output * dpms on, mode default";
-      "d" = "exec swaymsg output \"\$(${scriptDir}/get_focused_output.sh)\" disable";
+      "d" = "exec swaymsg output \"\$(wm-output-focused)\" disable";
       "Return" = "mode default; exec notify-send default";
       "Escape" = "mode default; exec notify-send default";
     };
     control = {
       "b" = "mode control_backlight; exec notify-send \"Control backlight | -/+\"";
       "t" = "mode control_dwt; exec notify-send \"Control DWT | (e)nabled (d)isabled\"";
-      "d" = "exec ${scriptDir}/dpms_off.sh; exec notify-send \"DPMS Off\", mode default";
+      "d" = "exec wm-dpms off; exec notify-send \"DPMS Off\", mode default";
       "o" = "mode control_outputs; exec notify-send \"Control Outputs | (e)nable (d)isable\"";
       "Return" = "mode default; exec notify-send default";
       "Escape" = "mode default; exec notify-send default";
@@ -655,7 +652,7 @@ in
     control = {
       "b" = "mode \"control_backlight\"; exec notify-send \"Control backlight | -/+\"";
       "t" = "mode \"control_dwt\"; exec notify-send \"Control DWT | (e)nabled (d)isabled\"";
-      "d" = "exec ${scriptDir}/dpms_off.sh; exec notify-send \"DPMS Off\"; mode \"default\"";
+      "d" = "exec wm-dpms off; exec notify-send \"DPMS Off\"; mode \"default\"";
       "Return" = "mode \"default\"; exec notify-send \"default\"";
       "Escape" = "mode \"default\"; exec notify-send \"default\"";
     };
@@ -670,12 +667,12 @@ in
 
   swayStartup = idle: scriptDir: set_wallpaper: [
     {
-      command = "${scriptDir}/swayidle_${idle}.sh";
+      command = "wm-idle-${idle}";
       always = true;
     }
     { command = "systemctl --user import-environment XDG_SESSION_TYPE XDG_CURRENT_DESKTOP SWAYSOCK"; }
     {
-      command = "pkill -f dunst_restart; ${scriptDir}/dunst_restart.sh";
+      command = "pkill -f wm-dunst-watch; wm-dunst-watch";
       always = true;
     }
     {
@@ -683,7 +680,7 @@ in
       always = true;
     }
     {
-      command = "pkill -f laptop_clamshell; ${scriptDir}/laptop_clamshell.sh";
+      command = "pkill -f wm-clamshell; wm-clamshell";
       always = true;
     }
   ];

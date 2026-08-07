@@ -35,7 +35,7 @@ environment {
 
 spawn-at-startup "systemctl" "--user" "start" "wayland-session.target"
 spawn-at-startup "xwayland-satellite"
-spawn-at-startup "wmwall"
+spawn-at-startup "wm-wall"
 
 prefer-no-csd
 
@@ -269,7 +269,7 @@ binds {
 
     Mod+Tab repeat=false { toggle-overview; }
     // Window switcher
-    Mod+Shift+Tab hotkey-overlay-title=null { spawn "sh" "-c" "id=$(niri msg --json windows | jq -r '.[] | \"\\(.id)\\t\\(.app_id // \"?\")  \\(.title // \"\")\"' | wofi -d -i -p 'window' | awk '{print $1}'); [ -n \"$id\" ] && niri msg action focus-window --id \"$id\""; }
+    Mod+Shift+Tab hotkey-overlay-title=null { spawn "wm-window-switcher"; }
 
     Mod+grave { focus-workspace-previous; }
 
@@ -310,8 +310,8 @@ binds {
     Mod+Ctrl+minus hotkey-overlay-title=null  { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ -5%; st pulse -t 500"; }
     Mod+n hotkey-overlay-title=null           { spawn "sh" "-c" "pactl set-sink-mute   @DEFAULT_SINK@ toggle; st pulse -t 500"; }
     Mod+Shift+n hotkey-overlay-title=null     { spawn "sh" "-c" "pactl set-source-mute @DEFAULT_SOURCE@ toggle; st pulse -t 500"; }
-    Mod+y hotkey-overlay-title=null           { spawn "sh" "-c" "~/.config/sway/scripts/cycle_sink.sh && st pulse -t 500"; }
-    Mod+Shift+y hotkey-overlay-title=null     { spawn "sh" "-c" "~/.config/sway/scripts/cycle_sink.sh back && st pulse -t 500"; }
+    Mod+y hotkey-overlay-title=null           { spawn "sh" "-c" "wm-cycle-sink && st pulse -t 500"; }
+    Mod+Shift+y hotkey-overlay-title=null     { spawn "sh" "-c" "wm-cycle-sink back && st pulse -t 500"; }
 
     // Media keys
     XF86AudioRaiseVolume hotkey-overlay-title=null        { spawn "sh" "-c" "pactl set-sink-volume @DEFAULT_SINK@ +10%; st pulse -t 500"; }
@@ -335,7 +335,7 @@ binds {
     Ctrl+XF86MonBrightnessDown hotkey-overlay-title=null  { spawn "sh" "-c" "brightnessctl set 5%-; st backlight -t 500"; }
 
     // --- Screenshots ---
-    Print hotkey-overlay-title=null                              { spawn "sh" "-c" "~/.config/sway/scripts/capture_region.sh | wl-copy"; }
+    Print hotkey-overlay-title=null                              { spawn "sh" "-c" "wm-capture-region | wl-copy"; }
     Mod+Print hotkey-overlay-title=null                          { spawn "wlr-which-key" "capture"; }
     Ctrl+Print                                                   { screenshot-screen; }
     Alt+Print                                                    { screenshot-window; }
@@ -363,13 +363,13 @@ binds {
     Mod+apostrophe hotkey-overlay-title="Emoji picker (rofimoji)" { spawn "sh" "-c" "rofimoji --selector wofi --selector-args=-i --skin-tone neutral --prompt \"\" -a copy"; }
 
     // Bluetooth / wifi
-    Mod+semicolon hotkey-overlay-title="Bluetooth connect" { spawn "sh" "-c" "~/.config/sway/scripts/bluetooth_device.sh"; }
-    Mod+Shift+semicolon hotkey-overlay-title=null          { spawn "sh" "-c" "~/.config/sway/scripts/bluetooth_device.sh disconnect"; }
-    Mod+Ctrl+semicolon hotkey-overlay-title="Wifi picker"  { spawn "sh" "-c" "~/.config/sway/scripts/wifi.sh"; }
+    Mod+semicolon hotkey-overlay-title="Bluetooth connect" { spawn "wm-bluetooth"; }
+    Mod+Shift+semicolon hotkey-overlay-title=null          { spawn "wm-bluetooth" "disconnect"; }
+    Mod+Ctrl+semicolon hotkey-overlay-title="Wifi picker"  { spawn "wm-wifi"; }
 
     // Wallpaper
-    Mod+Shift+w hotkey-overlay-title="Random wallpaper" { spawn "sh" "-c" "~/.config/sway/scripts/set_random_wallpaper.sh"; }
-    Mod+Ctrl+w hotkey-overlay-title=null                { spawn "sh" "-c" "~/.config/sway/scripts/set_selected_wallpaper.sh"; }
+    Mod+Shift+w hotkey-overlay-title="Random wallpaper" { spawn "wm-wall-random"; }
+    Mod+Ctrl+w hotkey-overlay-title=null                { spawn "wm-wall-pick"; }
 
     // Notifications
     Mod+q hotkey-overlay-title="Dismiss notification" { spawn "dunstctl" "close"; }
@@ -386,7 +386,7 @@ binds {
     Mod+Shift+d hotkey-overlay-title="Toggle dictation" { spawn "dictation-toggle"; }
 
     // Rename current workspace (yad prefilled with current name)
-    Mod+t hotkey-overlay-title="Rename workspace" { spawn "wmrename"; }
+    Mod+t hotkey-overlay-title="Rename workspace" { spawn "wm-rename"; }
 
     // Mouse-wheel workspace / column navigation (niri defaults)
     Mod+WheelScrollDown        cooldown-ms=150 { focus-workspace-down; }

@@ -12,19 +12,19 @@ inhibit_compositor_keyboard_shortcuts: true
 menu:
   - key: i
     desc: Inhibit
-    cmd: ~/.config/sway/scripts/swayidle_inhibit.sh
+    cmd: wm-idle-inhibit
   - key: d
     desc: DPMS
-    cmd: ~/.config/sway/scripts/swayidle_dpms.sh
+    cmd: wm-idle-dpms
   - key: l
     desc: Lock
-    cmd: ~/.config/sway/scripts/swayidle_lock.sh
+    cmd: wm-idle-lock
   - key: L
     desc: Lock (no DPMS)
-    cmd: ~/.config/sway/scripts/swayidle_lock_no_dpms.sh
+    cmd: wm-idle-lock-no-dpms
   - key: s
     desc: Suspend
-    cmd: ~/.config/sway/scripts/swayidle_suspend.sh
+    cmd: wm-idle-suspend
   - key: S
     desc: Suspend (long)
-    cmd: ~/.config/sway/scripts/swayidle_suspend_long.sh
+    cmd: wm-idle-suspend-long
