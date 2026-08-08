@@ -390,6 +390,8 @@
       rpc-host-whitelist-enabled = false;
       ratio-limit-enabled = true;
       download-queue-size = 20;
+      speed-limit-up-enabled = true;
+      speed-limit-up = 400;
       umask = 2; # Creates files with 664 (rw-rw-r--) for hardlinking
     };
   };
