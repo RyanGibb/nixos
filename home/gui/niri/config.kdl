@@ -280,6 +280,7 @@ binds {
 
     Mod+grave       { focus-workspace-previous; }
     Mod+Shift+grave { spawn "wm-ws-mv-prev"; }
+    Mod+numbersign  { focus-window-previous; }
 
     // --- Monitors (Mod+Alt+hjkl / arrows / brackets) ---
     Mod+Alt+h        { focus-monitor-left; }
