@@ -232,6 +232,7 @@
     ;; Project (inherit project-prefix-map, override d)
     "p"   '(:keymap project-prefix-map :which-key "project")
     "p d" '(project-forget-project :which-key "remove known project")
+    "p i" '(my/project-invalidate-cache :which-key "invalidate cache")
 
     ;; Quit
     "q"   '(:ignore t :which-key "quit/session")
@@ -292,6 +293,13 @@
                  "\C-n" "\C-p" "\C-o" "\C-r" "\C-c" "\C-f"
                  "\C-b" "\C-t" "\C-x" "\C-_" "\C-]"))
     (define-key evil-window-map key nil))
+
+  (defun my/project-invalidate-cache ()
+    "Drop project.el's cached roots and dir-locals, and forget dead projects."
+    (interactive)
+    (project--clear-cache)
+    (project-forget-zombie-projects)
+    (message "Project cache cleared"))
 
   (defun my/insert-date (&optional pick)
     "Insert today's date as YYYY-MM-DD.
