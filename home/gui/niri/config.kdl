@@ -183,7 +183,7 @@ binds {
     Mod+f                            { fullscreen-window; }
     Mod+Shift+f                      { toggle-windowed-fullscreen; }
     Mod+Ctrl+f                       { maximize-window-to-edges; }
-    Mod+Shift+Ctrl+f                 { expand-column-to-available-width; }
+    Mod+Alt+f                        { expand-column-to-available-width; }
     Mod+Shift+space                  { toggle-window-floating; }
     Mod+space                        { switch-focus-between-floating-and-tiling; }
     Mod+g                            { center-column; }
