@@ -17,7 +17,6 @@ input {
         accel-profile "flat"
         accel-speed 0.0
     }
-    focus-follows-mouse
 }
 
 environment {
