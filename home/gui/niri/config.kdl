@@ -353,21 +353,21 @@ binds {
     Mod+Return hotkey-overlay-title="Terminal"        { spawn "alacritty" "-e" "tmux"; }
     Mod+Shift+Return                                  { spawn "alacritty" "-e" "tmux" "attach"; }
     Mod+Alt+Return hotkey-overlay-title=null          { spawn "sh" "-c" "WAYLAND_DISPLAY= alacritty -e tmux"; }
-    Mod+d hotkey-overlay-title="App launcher (wofi)"  { spawn "wofi" "-i" "--show" "drun" "--allow-images" "-a"; }
-    Mod+Escape hotkey-overlay-title="Status (st)"     { spawn "st"; }
+    Mod+d hotkey-overlay-title="App launcher"         { spawn "wofi" "-i" "--show" "drun" "--allow-images" "-a"; }
+    Mod+Escape hotkey-overlay-title="Status"          { spawn "st"; }
     Mod+Shift+Escape hotkey-overlay-title=null        { spawn "st" "date" "workspace" "mail" "idle" "disk" "temperature" "load_average" "memory" "backlight" "player" "battery"; }
     Mod+b hotkey-overlay-title="Firefox"              { spawn "firefox"; }
     Mod+Shift+b hotkey-overlay-title=null             { spawn "firefox" "-P" "secondary"; }
     Mod+Ctrl+b hotkey-overlay-title=null              { spawn "firefox" "-private-window"; }
 
     // Clipboard (clipman)
-    Mod+v hotkey-overlay-title="Clipboard picker (clipman)"        { spawn "sh" "-c" "clipman pick -t wofi -T-i"; }
+    Mod+v hotkey-overlay-title="Clipboard picker"                  { spawn "sh" "-c" "clipman pick -t wofi -T-i"; }
     Mod+Ctrl+v hotkey-overlay-title=null                           { spawn "sh" "-c" "wtype \"$(clipman pick -t STDOUT | head -n 1)\""; }
-    Mod+Alt+space hotkey-overlay-title="Prompt -> clipboard (yad)" { spawn "sh" "-c" "yad --entry --text input | wl-copy"; }
+    Mod+Alt+space hotkey-overlay-title="Prompt -> clipboard"       { spawn "sh" "-c" "yad --entry --text input | wl-copy"; }
     Mod+Alt+Shift+space hotkey-overlay-title=null                  { spawn "sh" "-c" "yad --entry --text input | xargs wtype"; }
 
     // Emoji
-    Mod+apostrophe hotkey-overlay-title="Emoji picker (rofimoji)" { spawn "sh" "-c" "rofimoji --selector wofi --selector-args=-i --skin-tone neutral --prompt \"\" -a copy"; }
+    Mod+apostrophe hotkey-overlay-title="Emoji picker"            { spawn "sh" "-c" "rofimoji --selector wofi --selector-args=-i --skin-tone neutral --prompt \"\" -a copy"; }
 
     // Bluetooth / wifi
     Mod+semicolon hotkey-overlay-title="Bluetooth connect" { spawn "wm-bluetooth"; }
@@ -384,7 +384,7 @@ binds {
     Mod+Ctrl+q hotkey-overlay-title=null              { spawn "dunstctl" "history-pop"; }
 
     // wl-kbptr (keyboard mouse click)
-    Mod+p hotkey-overlay-title="Keyboard cursor (wl-kbptr)" { spawn "wl-kbptr" "-o" "modes=floating,click" "-o" "mode_floating.source=detect"; }
+    Mod+p hotkey-overlay-title="Keyboard cursor"            { spawn "wl-kbptr" "-o" "modes=floating,click" "-o" "mode_floating.source=detect"; }
     // Keyboard-driven cursor movement is available via keyd:
     // Meta+Shift+P enters a mouse layer (see services.keyd in niri module).
     // hjkl move cursor, n/m/,/. scroll, s/d/f click, Escape exits.
