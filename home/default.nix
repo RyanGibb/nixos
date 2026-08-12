@@ -18,9 +18,9 @@ let
         selected=$((tac "$hist_file"
             fd --type d --min-depth 1 --max-depth 1 --absolute-path . ~/ ~/projects
             awk '{print "ssh " $1}' ~/.ssh/known_hosts 2>/dev/null | sort -u
-            echo /etc/nixos) | awk -v cur="$current" '
+            echo /etc/nixos/) | awk -v cur="$current" '
                 !seen[$0]++ {
-                    n = $0; sub(/.*\//, "", n); gsub(/\./, "_", n)
+                    n = $0; sub(/\/$/, "", n); sub(/.*\//, "", n); gsub(/\./, "_", n)
                     if (n != cur) print
                 }
             ' | fzf --print-query | tail -n 1)
