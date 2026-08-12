@@ -481,7 +481,6 @@ in
     "Mod4+Mod1+space" = "exec yad --entry --text input | wl-copy";
     "Mod4+Mod1+Shift+space" = "exec yad --entry --text input | xargs wtype";
     "Mod4+Shift+v" = "exec clipman pick -t wofi -T-i";
-    "Mod4+Control+v" = "exec wl-copy \"$(clipman pick -t STDOUT | head -n 1)\"";
     "Mod4+Shift+Control+v" = "exec wtype \"$(clipman pick -t STDOUT | head -n 1)\"";
     "Mod4+q" = "exec dunstctl close";
     "Mod4+Shift+q" = "exec dunstctl action";

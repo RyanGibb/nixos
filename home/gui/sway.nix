@@ -132,7 +132,7 @@ in
       lib.mkForce "${pkgs.gammastep}/bin/gammastep -r";
 
     systemd.user.services.clipman.Service.ExecStart =
-      lib.mkForce "${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store -P --max-items=1000";
+      lib.mkForce "${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store --max-items=1000";
 
     systemd.user.services.dunst.Service.Type = lib.mkForce "simple";
 

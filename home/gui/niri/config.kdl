@@ -362,7 +362,6 @@ binds {
 
     // Clipboard (clipman)
     Mod+v hotkey-overlay-title="Clipboard picker (clipman)"        { spawn "sh" "-c" "clipman pick -t wofi -T-i"; }
-    Mod+Shift+v hotkey-overlay-title=null                          { spawn "sh" "-c" "wl-copy \"$(clipman pick -t STDOUT | head -n 1)\""; }
     Mod+Ctrl+v hotkey-overlay-title=null                           { spawn "sh" "-c" "wtype \"$(clipman pick -t STDOUT | head -n 1)\""; }
     Mod+Alt+space hotkey-overlay-title="Prompt -> clipboard (yad)" { spawn "sh" "-c" "yad --entry --text input | wl-copy"; }
     Mod+Alt+Shift+space hotkey-overlay-title=null                  { spawn "sh" "-c" "yad --entry --text input | xargs wtype"; }
