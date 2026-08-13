@@ -8,6 +8,23 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      # QtWebEngine composes into the Qt Quick scene graph via EXT_memory_object,
+      # which segfaults in nouveau's nv50_resource_from_memobj (SIGSEGV in
+      # QSGRenderThread). Route all GL through llvmpipe to avoid nouveau entirely;
+      # QT_QUICK_BACKEND=software alone isn't enough. The nvidia specialisation is
+      # too buggy under sway to be the answer here.
+      jellyfin-desktop = prev.jellyfin-desktop.overrideAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ prev.makeWrapper ];
+        postFixup = (old.postFixup or "") + ''
+          wrapProgram $out/bin/jellyfin-desktop \
+            --set-default LIBGL_ALWAYS_SOFTWARE 1
+        '';
+      });
+    })
+  ];
+
   custom = {
     enable = true;
     tailscale = true;
