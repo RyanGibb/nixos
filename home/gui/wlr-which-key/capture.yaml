@@ -30,7 +30,8 @@ menu:
     cmd: sh -c 'grim "$XDG_PICTURES_DIR/capture/$(date "+%Y-%m-%d %H.%M.%S").png"'
   - key: v
     desc: Record video
-    cmd: sh -c 'output=$(niri msg --json focused-output | jq -r .name); sink="$(pactl info | sed -En "s/Default Sink: (.*)/\1/p").monitor"; wf-recorder -a="$sink" -o "$output" -f "$XDG_VIDEOS_DIR/$(date "+%Y-%m-%d %H.%M").mp4" &'
+    cmd: |-
+      sh -c 'output=$(niri msg --json focused-output | jq -r .name); sink="$(pactl info | sed -En "s/Default Sink: (.*)/\1/p").monitor"; wf-recorder -a="$sink" -o "$output" -f "$XDG_VIDEOS_DIR/$(date "+%Y-%m-%d %H.%M").mp4" &'
   - key: V
     desc: Stop recording
     cmd: pkill -SIGINT wf-recorder
