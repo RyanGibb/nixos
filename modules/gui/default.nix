@@ -88,9 +88,17 @@ in
       settings = {
         General = {
           FastConnectable = true;
+          Experimental = "true";
+        };
+        # These belong to [Policy], not [General] — bluetoothd silently discards
+        # them otherwise ("Unknown key ReconnectAttempts for group General").
+        Policy = {
+          AutoEnable = true;
+          # BlueZ only auto-reconnects UUIDs listed here, and the default covers
+          # audio profiles only. This is the HID UUID, for the Keychron K2.
+          ReconnectUUIDs = "00001124-0000-1000-8000-00805f9b34fb";
           ReconnectAttempts = 7;
           ReconnectIntervals = "1,2,3";
-          Experimental = "true";
         };
       };
     };
