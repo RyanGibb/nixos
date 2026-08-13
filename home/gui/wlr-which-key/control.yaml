@@ -29,12 +29,46 @@ menu:
         desc: +1%
         cmd: sh -c 'brightnessctl set 1%+; st backlight -t 500'
         keep_open: true
+  - key: v
+    desc: Volume
+    submenu:
+      - key: minus
+        desc: -10%
+        cmd: sh -c 'pactl set-sink-volume @DEFAULT_SINK@ -10%; st pulse -t 500'
+        keep_open: true
+      - key: equal
+        desc: +10%
+        cmd: sh -c 'pactl set-sink-volume @DEFAULT_SINK@ +10%; st pulse -t 500'
+        keep_open: true
+      - key: underscore
+        desc: -1%
+        cmd: sh -c 'pactl set-sink-volume @DEFAULT_SINK@ -1%; st pulse -t 500'
+        keep_open: true
+      - key: plus
+        desc: +1%
+        cmd: sh -c 'pactl set-sink-volume @DEFAULT_SINK@ +1%; st pulse -t 500'
+        keep_open: true
+      - key: m
+        desc: Mute output
+        cmd: sh -c 'pactl set-sink-mute @DEFAULT_SINK@ toggle; st pulse -t 500'
+      - key: M
+        desc: Mute mic
+        cmd: sh -c 'pactl set-source-mute @DEFAULT_SOURCE@ toggle; st pulse -t 500'
+  - key: n
+    desc: Notifications
+    submenu:
+      - key: a
+        desc: Action
+        cmd: dunstctl action
+      - key: h
+        desc: History pop
+        cmd: dunstctl history-pop
   - key: d
     desc: DPMS off
-    cmd: sh -c 'niri msg action power-off-monitors; st backlight -t 500'
+    cmd: niri msg action power-off-monitors
   - key: o
     desc: Outputs on
-    cmd: sh -c 'niri msg action power-on-monitors; st backlight -t 500'
+    cmd: niri msg action power-on-monitors
   - key: D
     desc: Disable focused output
     cmd: sh -c 'name=$(niri msg --json focused-output | jq -r .name); niri msg output "$name" off'

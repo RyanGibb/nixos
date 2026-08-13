@@ -220,9 +220,10 @@ binds {
     Mod+Shift+End   { move-column-to-last; }
 
     // Column width / height
-    Mod+e                { maximize-column; }
-    Mod+r                { switch-preset-column-width; }
-    Mod+Shift+r          { switch-preset-column-width-back; }
+    Mod+q                { set-column-width "33.333%"; }
+    Mod+w                { set-column-width "50%"; }
+    Mod+e                { set-column-width "66.667%"; }
+    Mod+r                { maximize-column; }
     Mod+Ctrl+r           { reset-window-height; }
     Mod+Ctrl+h           { set-column-width "-5%"; }
     Mod+Ctrl+l           { set-column-width "+5%"; }
@@ -378,10 +379,8 @@ binds {
     Mod+Shift+w hotkey-overlay-title="Random wallpaper" { spawn "wm-wall-random"; }
     Mod+Ctrl+w hotkey-overlay-title=null                { spawn "wm-wall-pick"; }
 
-    // Notifications
-    Mod+q hotkey-overlay-title="Dismiss notification" { spawn "dunstctl" "close"; }
-    Mod+Shift+q hotkey-overlay-title=null             { spawn "dunstctl" "action"; }
-    Mod+Ctrl+q hotkey-overlay-title=null              { spawn "dunstctl" "history-pop"; }
+    // Notifications (action / history under Mod+c)
+    Mod+BackSpace hotkey-overlay-title="Dismiss notification" { spawn "dunstctl" "close"; }
 
     // wl-kbptr (keyboard mouse click)
     Mod+p hotkey-overlay-title="Keyboard cursor"            { spawn "wl-kbptr" "-o" "modes=floating,click" "-o" "mode_floating.source=detect"; }
