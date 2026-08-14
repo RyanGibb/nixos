@@ -50,7 +50,13 @@ let
     dontBuild = true;
     installPhase = ''
       install -Dm755 soularr.py $out/share/soularr/soularr.py
-      makeWrapper ${python.withPackages (ps: [ ps.pyarr music-tag slskd-api ])}/bin/python3 \
+      makeWrapper ${
+        python.withPackages (ps: [
+          ps.pyarr
+          music-tag
+          slskd-api
+        ])
+      }/bin/python3 \
         $out/bin/soularr --add-flags $out/share/soularr/soularr.py
     '';
   };

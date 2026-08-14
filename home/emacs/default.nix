@@ -9,7 +9,13 @@
 let
   cfg = config.custom.emacs;
   emacsPackages = pkgs.emacsPackagesFor pkgs.emacs30-pgtk;
-  aspellEnv = pkgs.aspellWithDicts (ps: with ps; [ en en-computers en-science ]);
+  aspellEnv = pkgs.aspellWithDicts (
+    ps: with ps; [
+      en
+      en-computers
+      en-science
+    ]
+  );
   # aspellWithDicts sets data-dir to an empty share/aspell and never sets
   # filter-path, while the filter-mode definitions (tex, nroff, ...) live in
   # lib/aspell. Entering TeX mode — flyspell sends "+" for tex/latex buffers —

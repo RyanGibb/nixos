@@ -93,8 +93,7 @@ in
           // (wmCommon.swayKeybindings scriptDir)
         );
         modes = wmCommon.commonModes // (wmCommon.swayModes scriptDir);
-        startup =
-          wmCommon.commonStartup ++ (wmCommon.swayStartup cfg.idle scriptDir "wm-wall");
+        startup = wmCommon.commonStartup ++ (wmCommon.swayStartup cfg.idle scriptDir "wm-wall");
       };
       extraConfig = ''
         focus_on_window_activation smart

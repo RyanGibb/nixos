@@ -241,15 +241,15 @@ let
   '';
 
   wm-ws-select = pkgs.writeShellScriptBin "wm-ws-select" ''
-    NEW_WS_NUM="$(wm-ws-free)" || exit 1
-    case "$XDG_CURRENT_DESKTOP" in
-      niri) WORKSPACES="$(niri msg --json workspaces | ${jq} -r '.[] | .name // (.idx | tostring)')" ;;
-      *)    WORKSPACES="$(swaymsg -t get_workspaces | ${jq} -r '.[] | .name')" ;;
-    esac
-    WORKSPACES="''${WORKSPACES}
-$NEW_WS_NUM"
-    NAME=$(echo "$WORKSPACES" | ${wofi} -d -i -p "Select workspace:" -o default) || exit 1
-    echo "$NAME"
+        NEW_WS_NUM="$(wm-ws-free)" || exit 1
+        case "$XDG_CURRENT_DESKTOP" in
+          niri) WORKSPACES="$(niri msg --json workspaces | ${jq} -r '.[] | .name // (.idx | tostring)')" ;;
+          *)    WORKSPACES="$(swaymsg -t get_workspaces | ${jq} -r '.[] | .name')" ;;
+        esac
+        WORKSPACES="''${WORKSPACES}
+    $NEW_WS_NUM"
+        NAME=$(echo "$WORKSPACES" | ${wofi} -d -i -p "Select workspace:" -o default) || exit 1
+        echo "$NAME"
   '';
 
   wm-ws-switch = pkgs.writeShellScriptBin "wm-ws-switch" ''
@@ -536,17 +536,48 @@ $NEW_WS_NUM"
   '';
 
   allBins = [
-    wm-dpms wm-wall wm-wall-set wm-wall-random wm-wall-pick
-    wm-capture-region wm-cycle-sink wm-pause-player
-    wm-bluetooth wm-wifi wm-network-connect
-    wm-open-file wm-vault wm-vault-titled
+    wm-dpms
+    wm-wall
+    wm-wall-set
+    wm-wall-random
+    wm-wall-pick
+    wm-capture-region
+    wm-cycle-sink
+    wm-pause-player
+    wm-bluetooth
+    wm-wifi
+    wm-network-connect
+    wm-open-file
+    wm-vault
+    wm-vault-titled
     wm-rename
-    wm-focus-id wm-focus-id-get wm-ws-name wm-output-focused
-    wm-ws-free wm-ws-select wm-ws-switch wm-ws-mv wm-ws-switch-mv wm-ws-mv-prev
-    wm-clamshell wm-lock-if-solo wm-dpms-toggle wm-dunst-watch wm-window-switcher
-    wm-focus-leaf wm-focus-root wm-tab-windows wm-scratch-switcher wm-slurp-windows
-    wm-idle-kanshi wm-idle-inhibit wm-idle-dpms wm-idle-lock wm-idle-lock-no-dpms
-    wm-idle-suspend wm-idle-suspend-long
+    wm-focus-id
+    wm-focus-id-get
+    wm-ws-name
+    wm-output-focused
+    wm-ws-free
+    wm-ws-select
+    wm-ws-switch
+    wm-ws-mv
+    wm-ws-switch-mv
+    wm-ws-mv-prev
+    wm-clamshell
+    wm-lock-if-solo
+    wm-dpms-toggle
+    wm-dunst-watch
+    wm-window-switcher
+    wm-focus-leaf
+    wm-focus-root
+    wm-tab-windows
+    wm-scratch-switcher
+    wm-slurp-windows
+    wm-idle-kanshi
+    wm-idle-inhibit
+    wm-idle-dpms
+    wm-idle-lock
+    wm-idle-lock-no-dpms
+    wm-idle-suspend
+    wm-idle-suspend-long
   ];
 in
 {

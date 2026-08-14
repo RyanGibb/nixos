@@ -58,7 +58,8 @@ in
           // (wmCommon.i3Keybindings scriptDir)
         );
         modes = wmCommon.commonModes // (wmCommon.i3Modes scriptDir);
-        startup = wmCommon.commonStartup ++ (wmCommon.i3Startup scriptDir "feh --bg-fill $HOME/.cache/wallpaper");
+        startup =
+          wmCommon.commonStartup ++ (wmCommon.i3Startup scriptDir "feh --bg-fill $HOME/.cache/wallpaper");
       };
     };
 

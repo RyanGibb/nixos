@@ -139,23 +139,26 @@ in
       umask 077
       mkdir -p /run/decluttarr/config /run/decluttarr/logs
       cp ${configTemplate} /run/decluttarr/config/config.yaml
-      ${lib.concatMapStringsSep "\n" (a: ''
-        key=$(${pkgs.gnused}/bin/sed -n 's:.*<ApiKey>\(.*\)</ApiKey>.*:\1:p' ${a.cfg})
-        ${pkgs.gnused}/bin/sed -i "s|@${a.name}_KEY@|$key|" /run/decluttarr/config/config.yaml
-      '') [
-        {
-          name = "SONARR";
-          cfg = "/var/lib/sonarr/.config/NzbDrone/config.xml";
-        }
-        {
-          name = "RADARR";
-          cfg = "/var/lib/radarr/.config/Radarr/config.xml";
-        }
-        {
-          name = "LIDARR";
-          cfg = "/var/lib/lidarr/.config/Lidarr/config.xml";
-        }
-      ]}
+      ${lib.concatMapStringsSep "\n"
+        (a: ''
+          key=$(${pkgs.gnused}/bin/sed -n 's:.*<ApiKey>\(.*\)</ApiKey>.*:\1:p' ${a.cfg})
+          ${pkgs.gnused}/bin/sed -i "s|@${a.name}_KEY@|$key|" /run/decluttarr/config/config.yaml
+        '')
+        [
+          {
+            name = "SONARR";
+            cfg = "/var/lib/sonarr/.config/NzbDrone/config.xml";
+          }
+          {
+            name = "RADARR";
+            cfg = "/var/lib/radarr/.config/Radarr/config.xml";
+          }
+          {
+            name = "LIDARR";
+            cfg = "/var/lib/lidarr/.config/Lidarr/config.xml";
+          }
+        ]
+      }
     '';
 
     serviceConfig = {

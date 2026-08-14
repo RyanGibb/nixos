@@ -29,10 +29,10 @@ in
       executable = true;
     };
 
-    xdg.configFile."wlr-which-key/system.yaml".source  = ./wlr-which-key/system.yaml;
+    xdg.configFile."wlr-which-key/system.yaml".source = ./wlr-which-key/system.yaml;
     xdg.configFile."wlr-which-key/capture.yaml".source = ./wlr-which-key/capture.yaml;
     xdg.configFile."wlr-which-key/control.yaml".source = ./wlr-which-key/control.yaml;
-    xdg.configFile."wlr-which-key/idle.yaml".source    = ./wlr-which-key/idle.yaml;
+    xdg.configFile."wlr-which-key/idle.yaml".source = ./wlr-which-key/idle.yaml;
 
     xdg.configFile."niri/config.kdl".source = ./niri/config.kdl;
 
