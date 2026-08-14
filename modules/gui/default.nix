@@ -81,6 +81,16 @@ in
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
+      # wireplumber suspends idle sinks after 5s; resuming them (HDMI especially)
+      # delays the start of playback
+      wireplumber.extraConfig."51-suspend-timeout" = {
+        "monitor.alsa.rules" = [
+          {
+            matches = [ { "node.name" = "~alsa_output.*"; } ];
+            actions.update-props."session.suspend-timeout-seconds" = 3600;
+          }
+        ];
+      };
     };
 
     hardware.bluetooth = {
