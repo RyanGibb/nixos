@@ -51,7 +51,7 @@
     # cups-browsed is using 100% of a core
     printing = true;
     gui.i3 = true;
-    gui.kde = true;
+    gui.kde = false;
     gui.niri = true;
     gui.sway = true;
     workstation = true;
