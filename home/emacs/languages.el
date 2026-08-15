@@ -51,6 +51,18 @@
     ""  '(:ignore t :which-key "report")
     "r" '(ledger-report :which-key "report")))
 
+;;;; Slipshow
+
+(use-package slipshow-mode
+  :mode "\\.slp\\'"
+  :config
+  (my/local-leader-def
+    :keymaps 'slipshow-mode-map
+    ""  '(:ignore t :which-key "slipshow")
+    "]" '(slipshow-preview-go-next :which-key "next")
+    "[" '(slipshow-preview-go-previous :which-key "previous")
+    "r" '(slipshow-resend-conf :which-key "resend config")))
+
 ;;;; LaTeX
 
 (require 'tex-site)

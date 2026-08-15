@@ -21,6 +21,15 @@
       # that lands.
       realvnc-rvncconnect = final.callPackage ./rvncconnect.nix { };
 
+      # nixpkgs is on 0.9.0, which has no `slipshow lsp`; slipshow-mode.el needs
+      # >= 0.12.0. Drop both of these once nixpkgs catches up.
+      ocamlPackages = prev.ocamlPackages.overrideScope (
+        oself: osuper: {
+          ansi = oself.callPackage ./ocaml-ansi.nix { };
+        }
+      );
+      slipshow = final.callPackage ./slipshow.nix { };
+
       # Work around curl 8.20 threaded-resolver bug that pegs nheko at 100% CPU:
       # https://github.com/Nheko-Reborn/nheko/issues/2054. Disable the threaded
       # resolver in the curl used by nheko's HTTP stack (coeurl/mtxclient/nheko).

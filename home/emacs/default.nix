@@ -42,6 +42,17 @@ let
       web-server
     ];
   };
+  slipshow-mode = emacsPackages.trivialBuild {
+    pname = "slipshow-mode";
+    version = "0-unstable-2026-08-14";
+    src = pkgs.fetchFromGitHub {
+      owner = "panglesd";
+      repo = "slipshow-emacs-mode";
+      rev = "1f51ee087fcaf87965938445cf401f3421284ae4";
+      hash = "sha256-n6Fji4MDiYThZsM+blpDy+YffXDl3SUJFE09G0Bd37o=";
+    };
+    packageRequires = with emacsPackages; [ markdown-mode ];
+  };
   caledonia-el = emacsPackages.trivialBuild {
     pname = "caledonia";
     version = "0-unstable";
@@ -131,6 +142,8 @@ let
       # Languages
       neocaml
       nix-mode
+      markdown-mode
+      slipshow-mode
       ledger-mode
       auctex
       nael
