@@ -18,6 +18,9 @@
   nixpkgs.overlays = [
     (final: prev: {
       immich = final.overlay-unstable.immich;
+      navidrome = prev.navidrome.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [ ./navidrome-mediasession-directional.patch ];
+      });
     })
   ];
 

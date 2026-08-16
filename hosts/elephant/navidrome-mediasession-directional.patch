@@ -1,0 +1,43 @@
+Make the MediaSession play/pause actions directional.
+
+navidrome-music-player binds both 'play' and 'pause' to onTogglePlay, so a
+redundant pause command flips a paused player into playing. WirePlumber sends
+exactly that when an output sink disappears, so unplugging a DAC, a Bluetooth
+headset going to standby, or an HDMI display powering down all resume
+playback. https://github.com/navidrome/navidrome/issues/4643
+
+Wrapping setActionHandler at module scope, rather than re-registering after
+mount, avoids racing the library: it re-registers its handlers on every track
+change via onAddMediaSession.
+
+--- a/ui/src/audioplayer/Player.jsx
++++ b/ui/src/audioplayer/Player.jsx
+@@ -35,6 +35,28 @@
+ import { calculateGain } from '../utils/calculateReplayGain'
+ import { detectBrowserProfile, decisionService } from '../transcode'
+ 
++// navidrome-music-player binds mediaSession 'play' and 'pause' to the same
++// toggle, so a redundant pause starts playback. Only forward an action when it
++// would actually change state. See navidrome/navidrome#4643.
++if (typeof navigator !== 'undefined' && navigator.mediaSession?.setActionHandler) {
++  const session = navigator.mediaSession
++  const setActionHandler = session.setActionHandler.bind(session)
++  session.setActionHandler = (action, handler) => {
++    if (handler && (action === 'play' || action === 'pause')) {
++      return setActionHandler(action, (...args) => {
++        const audio = document.querySelector('audio')
++        if (!audio) {
++          return handler(...args)
++        }
++        if (action === 'play' ? audio.paused : !audio.paused) {
++          return handler(...args)
++        }
++      })
++    }
++    return setActionHandler(action, handler)
++  }
++}
++
+ const Player = () => {
+   const theme = useCurrentTheme()
+   const translate = useTranslate()
