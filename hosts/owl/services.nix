@@ -116,6 +116,7 @@ in
     "git.freumh.org"
     "atuin.freumh.org"
     "vaultwarden.freumh.org"
+    "pad.freumh.org"
   ];
 
   # VPN
@@ -434,6 +435,43 @@ in
     };
   };
 
+  # hedgedoc: collaborative markdown pads.
+  # secrets/hedgedoc.age contains CMD_SESSION_SECRET=<random>; the module runs
+  # envsubst over config.json, so settings can reference it as a placeholder.
+  age.secrets.hedgedoc = {
+    file = ../../secrets/hedgedoc.age;
+    owner = "hedgedoc";
+    group = "hedgedoc";
+  };
+  services.hedgedoc = {
+    enable = true;
+    configureNginx = true;
+    environmentFile = config.age.secrets.hedgedoc.path;
+    settings = {
+      domain = "pad.freumh.org";
+      protocolUseSSL = true;
+      sessionSecret = "$CMD_SESSION_SECRET";
+      # no signup: create accounts with `manage_users` (see below). Guests get
+      # edit rights on any note whose permission is `freely`, which is the
+      # default for notes created here.
+      allowEmailRegister = false;
+      allowAnonymous = true;
+      allowAnonymousEdits = true;
+      defaultPermission = "freely";
+    };
+  };
+  # Widen owl's global CSP for this vhost. Two CSP headers are enforced as an
+  # intersection, so this only has to avoid being the binding constraint —
+  # hedgedoc emits its own, nonce-based, and that stays the real policy.
+  # Any add_header here resets nginx inheritance, so restate the rest.
+  services.nginx.virtualHosts."pad.freumh.org".extraConfig = ''
+    add_header Strict-Transport-Security max-age=31536000 always;
+    add_header X-Frame-Options SAMEORIGIN always;
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy 'same-origin' always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src * data: blob:; font-src 'self' data:; connect-src 'self' wss:; frame-src 'self' https:; worker-src 'self' blob:; object-src 'self';" always;
+  '';
+
   # DNS records
   eilean.dns.nameservers = [ "ns1" ];
   eilean.services.dns.zones = {
@@ -532,6 +570,12 @@ in
 
         {
           name = "vaultwarden";
+          type = "CNAME";
+          value = "owl";
+        }
+
+        {
+          name = "pad";
           type = "CNAME";
           value = "owl";
         }

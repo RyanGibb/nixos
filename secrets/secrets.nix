@@ -25,6 +25,7 @@ in
   "website-phd.age".publicKeys = user ++ [ owl ];
   "rmfakecloud.age".publicKeys = user ++ [ owl ];
   "vaultwarden.age".publicKeys = user ++ [ owl ];
+  "hedgedoc.age".publicKeys = user ++ [ owl ];
   "restic-owl.age".publicKeys = user ++ [
     owl
     elephant
