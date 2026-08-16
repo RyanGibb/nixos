@@ -458,6 +458,7 @@ in
       allowAnonymous = true;
       allowAnonymousEdits = true;
       defaultPermission = "freely";
+      externalLinkWarning = false;
     };
   };
   # Widen owl's global CSP for this vhost. Two CSP headers are enforced as an
