@@ -400,6 +400,12 @@ buffer and any new buffer created by FN."
                   (find-file path)
                   (when pos (goto-char pos))))))
 
+;;;; Window switching
+
+(use-package ace-window
+  :custom
+  (aw-scope 'frame))
+
 ;;;; Popup windows
 
 (dolist (rule '(("\\*\\(?:[Hh]elp\\|helpful\\|Apropos\\).*"
