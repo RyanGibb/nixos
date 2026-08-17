@@ -56,6 +56,14 @@
 (use-package slipshow-mode
   :mode "\\.slp\\'"
   :config
+  ;; slipshow puts {...} on nearly every line, markdown's worst case
+  (defun my/slipshow-trim-font-lock ()
+    (setq-local markdown-mode-font-lock-keywords
+                (seq-remove (lambda (e)
+                              (eq (car-safe e) 'markdown-match-inline-attributes))
+                            markdown-mode-font-lock-keywords)))
+  (add-hook 'slipshow-mode-hook #'my/slipshow-trim-font-lock)
+
   (my/local-leader-def
     :keymaps 'slipshow-mode-map
     ""  '(:ignore t :which-key "slipshow")
