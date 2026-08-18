@@ -575,6 +575,11 @@
         Type = "string";
         MaxLength = 100;
       };
+      Tags.verified = {
+        Aliases = [ "verified" ];
+        Type = "string";
+        MaxLength = 20;
+      };
     };
   };
   users.users.${config.services.navidrome.user}.extraGroups = [
