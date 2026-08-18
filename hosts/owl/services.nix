@@ -121,10 +121,39 @@ in
 
   # VPN
   eilean.headscale.enable = true;
-  services.headscale.settings.dns = {
-    extra_records = vpnRecords;
-    base_domain = "vpn.freumh.org";
-    nameservers.global = config.networking.nameservers;
+  # 0.29 for nodeAttrs in the policy
+  services.headscale.package = pkgs.overlay-unstable.headscale;
+  services.headscale.settings = {
+    dns = {
+      extra_records = vpnRecords;
+      base_domain = "vpn.freumh.org";
+      nameservers.global = config.networking.nameservers;
+    };
+    # the 1.102 Apple GUI only populates its exit node list once control sends a
+    # suggestion; headscale only surfaces the attr for approved exit nodes
+    # https://github.com/juanfont/headscale/issues/3415
+    policy.path = (pkgs.formats.json { }).generate "headscale-policy.json" {
+      acls = [
+        {
+          action = "accept";
+          src = [ "*" ];
+          dst = [
+            # * is tailnet-only since 0.29, so exit nodes need this too
+            "*:*"
+            "autogroup:internet:*"
+          ];
+        }
+      ];
+      nodeAttrs = [
+        {
+          target = [ "*" ];
+          attr = [
+            "suggest-exit-node"
+            "suggest-exit-node-ui"
+          ];
+        }
+      ];
+    };
   };
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;
