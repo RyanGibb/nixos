@@ -126,6 +126,15 @@
       "owntracks.vpn.freumh.org" = {
         onlySSL = true;
         listenAddresses = [ "100.64.0.9" ];
+        # OSM's tile servers reject requests with no Referer, and the global
+        # same-origin policy sends none cross-origin. Any add_header here resets
+        # nginx inheritance, so restate the rest.
+        extraConfig = ''
+          add_header Strict-Transport-Security max-age=31536000 always;
+          add_header X-Frame-Options SAMEORIGIN always;
+          add_header X-Content-Type-Options nosniff always;
+          add_header Referrer-Policy strict-origin-when-cross-origin always;
+        '';
       };
       "immich.vpn.freumh.org" = {
         onlySSL = true;
