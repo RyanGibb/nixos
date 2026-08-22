@@ -53,7 +53,7 @@ let
     # Re-apply the wallpaper from $HOME/.cache/wallpaper.
     case "$XDG_CURRENT_DESKTOP" in
       sway) swaymsg "output * bg $HOME/.cache/wallpaper fill #282828" ;;
-      *)    pkill -x swaybg
+      *)    pkill -f '/bin/swaybg'
             ${swaybg} -i "$HOME/.cache/wallpaper" -m fill -c '#282828' & ;;
     esac
   '';
