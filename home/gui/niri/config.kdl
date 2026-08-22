@@ -384,9 +384,7 @@ binds {
 
     // wl-kbptr (keyboard mouse click)
     Mod+p hotkey-overlay-title="Keyboard cursor"            { spawn "wl-kbptr" "-o" "modes=floating,click" "-o" "mode_floating.source=detect"; }
-    // Keyboard-driven cursor movement is available via keyd:
-    // Meta+Shift+P enters a mouse layer (see services.keyd in niri module).
-    // hjkl move cursor, n/m/,/. scroll, s/d/f click, Escape exits.
+    Mod+Shift+p hotkey-overlay-title="Mouse mode"           { spawn "wlr-which-key" "mouse"; }
 
     // Dictation
     Mod+Shift+d hotkey-overlay-title="Toggle dictation" { spawn "dictation-toggle"; }

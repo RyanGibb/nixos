@@ -1,0 +1,77 @@
+font: Noto Sans 12
+background: "#282828cc"
+color: "#ebdbb2"
+border: "#83a598"
+separator: "  "
+border_width: 1
+corner_r: 12
+padding: 15
+anchor: bottom-right
+margin_bottom: 20
+margin_right: 20
+rows_per_column: 4
+column_padding: 20
+inhibit_compositor_keyboard_shortcuts: true
+
+# Capitals are the fine-grained (2px) variants of each motion.
+menu:
+  - key: h
+    desc: Left
+    cmd: wlrctl pointer move -20 0
+    keep_open: true
+  - key: j
+    desc: Down
+    cmd: wlrctl pointer move 0 20
+    keep_open: true
+  - key: k
+    desc: Up
+    cmd: wlrctl pointer move 0 -20
+    keep_open: true
+  - key: l
+    desc: Right
+    cmd: wlrctl pointer move 20 0
+    keep_open: true
+  - key: H
+    desc: Left fine
+    cmd: wlrctl pointer move -2 0
+    keep_open: true
+  - key: J
+    desc: Down fine
+    cmd: wlrctl pointer move 0 2
+    keep_open: true
+  - key: K
+    desc: Up fine
+    cmd: wlrctl pointer move 0 -2
+    keep_open: true
+  - key: L
+    desc: Right fine
+    cmd: wlrctl pointer move 2 0
+    keep_open: true
+  - key: n
+    desc: Scroll left
+    cmd: wlrctl pointer scroll 0 -20
+    keep_open: true
+  - key: m
+    desc: Scroll up
+    cmd: wlrctl pointer scroll 20 0
+    keep_open: true
+  - key: comma
+    desc: Scroll down
+    cmd: wlrctl pointer scroll -20 0
+    keep_open: true
+  - key: period
+    desc: Scroll right
+    cmd: wlrctl pointer scroll 0 20
+    keep_open: true
+  - key: s
+    desc: Click left
+    cmd: wlrctl pointer click left
+  - key: d
+    desc: Click middle
+    cmd: wlrctl pointer click middle
+  - key: f
+    desc: Click right
+    cmd: wlrctl pointer click right
+  - key: a
+    desc: Jump cursor
+    cmd: wl-kbptr -o modes=floating,click -o mode_floating.source=detect
