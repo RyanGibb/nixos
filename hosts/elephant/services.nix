@@ -589,6 +589,11 @@
         Type = "string";
         MaxLength = 20;
       };
+      Tags.acquired = {
+        Aliases = [ "acquired" ];
+        Type = "string";
+        MaxLength = 30;
+      };
     };
   };
   users.users.${config.services.navidrome.user}.extraGroups = [
