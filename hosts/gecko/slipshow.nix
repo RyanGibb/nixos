@@ -25,6 +25,10 @@ ocamlPackages'.buildDunePackage rec {
     hash = "sha256-z/RL2+3ZRxy+4LKl7bRYip1u9+MqXIteKvdir9sub7U=";
   };
 
+  # https://github.com/panglesd/slipshow/pull/273: the table of contents lists the
+  # step that enters a slide under the previous slide's title. Drop once merged.
+  patches = [ ./slipshow-toc-slide-grouping.patch ];
+
   postPatch = ''
     substituteInPlace ./src/version/slipshow_version.ml \
       --replace-fail '%%VERSION%%' '${version}'
