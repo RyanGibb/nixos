@@ -20,6 +20,7 @@
     koreader-syncd.url = "github:pborzenkov/koreader-syncd";
     # fork fixes nested-list nativeBuildInputs deprecation warning (optional -> optionals)
     opam-nix.url = "github:RyanGibb/opam-nix";
+    nix-zulip.url = "github:RyanGibb/nix-zulip";
 
     # deduplicate flake inputs
     eilean.inputs.nixpkgs.follows = "nixpkgs";
@@ -37,6 +38,7 @@
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     caledonia.inputs.nixpkgs.follows = "nixpkgs";
     koreader-syncd.inputs.nixpkgs.follows = "nixpkgs";
+    nix-zulip.inputs.nixpkgs.follows = "nixpkgs";
 
     opam-nix.inputs.nixpkgs.follows = "nixpkgs";
     eon.inputs.opam-nix.follows = "opam-nix";
@@ -55,6 +57,7 @@
         })
         inputs.nur.overlays.default
         inputs.emacs-overlay.overlays.default
+        inputs.nix-zulip.overlays.default
       ];
     in
     {
@@ -107,6 +110,7 @@
                 host-home-manager.nixosModules.default
                 inputs.eilean.nixosModules.default
                 inputs.agenix.nixosModules.default
+                inputs.nix-zulip.nixosModules.default
               ];
             };
           readModes =

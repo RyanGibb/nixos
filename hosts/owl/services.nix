@@ -117,6 +117,7 @@ in
     "atuin.freumh.org"
     "vaultwarden.freumh.org"
     "pad.freumh.org"
+    "zulip.freumh.org"
   ];
 
   # VPN
@@ -281,7 +282,14 @@ in
     "system@${config.networking.domain}" = {
       aliases = [ "nas@${config.networking.domain}" ];
     };
+    # Zulip's outgoing mail. The plaintext here must match email_password in
+    # zulip-secrets.conf.age.
+    "zulip@${config.networking.domain}" = {
+      passwordFile = config.age.secrets.email-zulip.path;
+      aliases = [ "noreply@${config.networking.domain}" ];
+    };
   };
+  age.secrets.email-zulip.file = ../../secrets/email-zulip.age;
 
   # CalDAV calendar server
   eilean.radicale = {
@@ -380,11 +388,44 @@ in
   };
 
   # minecraft server
+  # Disabled to make room for zulip: the JVM was holding ~1.6 GiB of owl's
+  # 4 GiB of swap, and zulip needs ~1.1 GiB on top of the existing postgres.
   services.minecraft-server = {
-    enable = true;
+    enable = false;
     package = pkgs.overlay-unstable.minecraft-server;
     eula = true;
     openFirewall = true;
+  };
+
+  # zulip: natively packaged (see github.com/RyanGibb/nix-zulip), not the
+  # upstream Docker image. Secrets file holds secret_key, avatar_salt,
+  # shared_secret, rabbitmq_password and email_password; email_password must
+  # match the plaintext in email-zulip.age used by the mailserver account.
+  age.secrets."zulip-secrets.conf" = {
+    file = ../../secrets/zulip-secrets.conf.age;
+    mode = "440";
+    owner = "zulip";
+    group = "zulip";
+  };
+  services.zulip = {
+    enable = true;
+    host = "zulip.${config.networking.domain}";
+    administrator = "${config.custom.username}@${config.networking.domain}";
+    secretsFile = config.age.secrets."zulip-secrets.conf".path;
+    # owl is memory-constrained; upstream only enables multiprocess queue
+    # workers above 3800 MB of RAM, and owl shares 3.7 GiB with synapse,
+    # mastodon and the mailserver.
+    queueWorkersMultiprocess = false;
+    uwsgiProcesses = 2;
+    settings = {
+      EMAIL_HOST = "mail.${config.networking.domain}";
+      EMAIL_HOST_USER = "zulip@${config.networking.domain}";
+      EMAIL_PORT = 465;
+      EMAIL_USE_SSL = true;
+      EMAIL_USE_TLS = false;
+      NOREPLY_EMAIL_ADDRESS = "noreply@${config.networking.domain}";
+    };
+    nginx.virtualHost.forceSSL = true;
   };
 
   # atuin: shell history sync server (e2e encrypted, server stores ciphertext only)
@@ -606,6 +647,12 @@ in
 
         {
           name = "pad";
+          type = "CNAME";
+          value = "owl";
+        }
+
+        {
+          name = "zulip";
           type = "CNAME";
           value = "owl";
         }

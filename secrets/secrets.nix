@@ -52,4 +52,6 @@ in
   "anki.age".publicKeys = user ++ [ elephant ];
   "garage-env.age".publicKeys = user ++ [ elephant ];
   "synapse-s3-config.yml.age".publicKeys = user ++ [ owl ];
+  "zulip-secrets.conf.age".publicKeys = user ++ [ owl ];
+  "email-zulip.age".publicKeys = user ++ [ owl ];
 }

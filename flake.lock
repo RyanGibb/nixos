@@ -651,6 +651,26 @@
         "type": "gitlab"
       }
     },
+    "nix-zulip": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787714720,
+        "narHash": "sha256-eoYwqZf6EmsiwDDgJ7MruMtwIPJx8fACPJYvVdxW6rU=",
+        "owner": "RyanGibb",
+        "repo": "nix-zulip",
+        "rev": "24abfe4c6caae1742b54ae6ffd0317908c21c449",
+        "type": "github"
+      },
+      "original": {
+        "owner": "RyanGibb",
+        "repo": "nix-zulip",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "inputs": {
         "nixpkgs": "nixpkgs_2"
@@ -1026,6 +1046,7 @@
         "koreader-syncd": "koreader-syncd",
         "nix-on-droid": "nix-on-droid",
         "nix-rpi5": "nix-rpi5",
+        "nix-zulip": "nix-zulip",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-unstable": "nixpkgs-unstable",
