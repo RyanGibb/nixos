@@ -37,6 +37,8 @@ let
 
   locker = "${swaylock} -f -i $HOME/.cache/wallpaper";
   presentationLock = "/tmp/presentation-lock";
+  # Below the status_bar rule's override_pause_level in ./dunst.
+  presentationPauseLevel = "50";
 
   # ---- Compositor-agnostic helpers ----
 
@@ -346,11 +348,11 @@ let
 
   wm-dunst-watch = pkgs.writeShellScriptBin "wm-dunst-watch" ''
     # Restart dunst when the set of outputs changes.
-    # A restarted dunst comes back unpaused, so re-assert presentation mode.
+    # A restarted dunst comes back at default_pause_level, so re-assert it.
     repause() {
       [ -f "${presentationLock}" ] || return 0
       sleep 1
-      ${dunstctl} set-paused true
+      ${dunstctl} set-pause-level ${presentationPauseLevel}
     }
     case "$XDG_CURRENT_DESKTOP" in
       niri)
@@ -512,13 +514,13 @@ let
     esac
     if [ "$want" = on ]; then
       touch "${presentationLock}"
-      ${dunstctl} set-paused true
+      ${dunstctl} set-pause-level ${presentationPauseLevel}
       ${dunstctl} close-all
       ${systemctl} --user stop gammastep
       ${setsid} wm-idle-inhibit >/dev/null 2>&1 &
     else
       rm -f "${presentationLock}"
-      ${dunstctl} set-paused false
+      ${dunstctl} set-pause-level 0
       ${dunstctl} close-all
       ${systemctl} --user start gammastep
       ${setsid} wm-idle-dpms >/dev/null 2>&1 &
