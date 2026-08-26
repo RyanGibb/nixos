@@ -16,6 +16,12 @@ menu:
   - key: d
     desc: DPMS
     cmd: wm-idle-dpms
+  - key: p
+    desc: Presentation on
+    cmd: wm-presentation on
+  - key: P
+    desc: Presentation off
+    cmd: wm-presentation off
   - key: l
     desc: Lock
     cmd: wm-idle-lock

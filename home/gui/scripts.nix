@@ -33,8 +33,10 @@ let
   wl-kbptr = "${pkgs.wl-kbptr}/bin/wl-kbptr";
   dunstctl = "${pkgs.dunst}/bin/dunstctl";
   wlrctl = "${pkgs.wlrctl}/bin/wlrctl";
+  setsid = "${pkgs.util-linux}/bin/setsid";
 
   locker = "${swaylock} -f -i $HOME/.cache/wallpaper";
+  presentationLock = "/tmp/presentation-lock";
 
   # ---- Compositor-agnostic helpers ----
 
@@ -344,6 +346,12 @@ let
 
   wm-dunst-watch = pkgs.writeShellScriptBin "wm-dunst-watch" ''
     # Restart dunst when the set of outputs changes.
+    # A restarted dunst comes back unpaused, so re-assert presentation mode.
+    repause() {
+      [ -f "${presentationLock}" ] || return 0
+      sleep 1
+      ${dunstctl} set-paused true
+    }
     case "$XDG_CURRENT_DESKTOP" in
       niri)
         prev=""
@@ -351,6 +359,7 @@ let
           cur=$(niri msg --json outputs | ${jq} -S '.' | sha256sum | cut -d' ' -f1)
           if [ -n "$prev" ] && [ "$cur" != "$prev" ]; then
             pkill dunst
+            repause
           fi
           prev="$cur"
           sleep 3
@@ -361,6 +370,7 @@ let
           swaymsg -t subscribe '["output"]'
           sleep 3
           pkill dunst
+          repause
         done
         ;;
     esac
@@ -492,6 +502,30 @@ let
       before-sleep '${playerctl} -a pause; ${loginctl} lock-session'
   '';
 
+  wm-presentation = pkgs.writeShellScriptBin "wm-presentation" ''
+    # Usage: wm-presentation on|off|toggle (default toggle).
+    # The lockfile is also read by wm-dunst-watch to re-pause a restarted dunst.
+    case "''${1:-toggle}" in
+      on)  want=on ;;
+      off) want=off ;;
+      *)   if [ -f "${presentationLock}" ]; then want=off; else want=on; fi ;;
+    esac
+    if [ "$want" = on ]; then
+      touch "${presentationLock}"
+      ${dunstctl} set-paused true
+      ${dunstctl} close-all
+      ${systemctl} --user stop gammastep
+      ${setsid} wm-idle-inhibit >/dev/null 2>&1 &
+    else
+      rm -f "${presentationLock}"
+      ${dunstctl} set-paused false
+      ${dunstctl} close-all
+      ${systemctl} --user start gammastep
+      ${setsid} wm-idle-dpms >/dev/null 2>&1 &
+      ${notifySend} 'Presentation mode off' -t 2000
+    fi
+  '';
+
   wm-idle-lock = pkgs.writeShellScriptBin "wm-idle-lock" ''
     pkill -x swayidle
     ${swayidle} -w \
@@ -574,6 +608,7 @@ let
     wm-idle-kanshi
     wm-idle-inhibit
     wm-idle-dpms
+    wm-presentation
     wm-idle-lock
     wm-idle-lock-no-dpms
     wm-idle-suspend
