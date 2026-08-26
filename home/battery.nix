@@ -31,7 +31,8 @@ in
           		${pkgs.util-linux}/bin/logger "Critical battery threshold"
           		${pkgs.systemd}/bin/systemctl hibernate
           	elif [ "$status" = Discharging -a "$capacity" -lt 10 ]; then
-          		${pkgs.libnotify}/bin/notify-send "warning: battery at $capacity%"
+          		${pkgs.libnotify}/bin/notify-send --urgency=critical \
+          			--app-name=battery_monitor "warning: battery at $capacity%"
           	fi
           	${pkgs.coreutils}/bin/sleep 60
           done
