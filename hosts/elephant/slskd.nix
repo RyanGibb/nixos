@@ -91,6 +91,10 @@ in
   ];
   systemd.services.slskd.serviceConfig.UMask = "0002";
 
+  # paused: the library is complete. emptied rather than enable = false so the
+  # slskd user and group survive, which the lidarr membership below needs
+  systemd.services.slskd.wantedBy = lib.mkForce [ ];
+
   users.users.${config.services.lidarr.user}.extraGroups = [ "slskd" ];
   users.users.slskd.extraGroups = [ config.services.lidarr.group ];
 
@@ -155,8 +159,9 @@ in
     '';
   };
 
+  # paused alongside slskd; restore to [ "timers.target" ] to resume
   systemd.timers.soularr = {
-    wantedBy = [ "timers.target" ];
+    wantedBy = [ ];
     timerConfig = {
       OnCalendar = "hourly";
       RandomizedDelaySec = "10m";
