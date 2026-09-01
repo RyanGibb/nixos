@@ -54,4 +54,6 @@ in
   "synapse-s3-config.yml.age".publicKeys = user ++ [ owl ];
   "zulip-secrets.conf.age".publicKeys = user ++ [ owl ];
   "email-zulip.age".publicKeys = user ++ [ owl ];
+  "zomboid-admin.age".publicKeys = user ++ [ elephant ];
+  "zomboid-config.age".publicKeys = user ++ [ elephant ];
 }

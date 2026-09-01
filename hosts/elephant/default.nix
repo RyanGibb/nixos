@@ -13,6 +13,7 @@
     ./owntracks.nix
     ./decluttarr.nix
     ./slskd.nix
+    ./zomboid.nix
   ];
 
   nixpkgs.overlays = [
