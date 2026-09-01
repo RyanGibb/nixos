@@ -74,5 +74,12 @@ in
     };
 
     services.picom.enable = true;
+
+    # Under a wayland session the compositor already owns _NET_WM_CM_S0, so
+    # picom exits immediately and Restart=always turns that into a loop. A
+    # failed ExecCondition skips the unit rather than failing it, so no restart.
+    systemd.user.services.picom.Service.ExecCondition = pkgs.writeShellScript "picom-x11-only" ''
+      [ "''${XDG_SESSION_TYPE:-}" = x11 ]
+    '';
   };
 }

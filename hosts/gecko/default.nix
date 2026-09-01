@@ -432,6 +432,11 @@
     options snd-hda-intel dmic_detect=0
   '';
 
+  # Compressed swap in RAM. Hibernating evicts ~6G to /var/swap every cycle and
+  # faulting it back is what the IO stall is; compressing absorbs most of that
+  # before it reaches the disk.
+  boot.kernelParams = [ "zswap.enabled=1" ];
+
   # ddcutil
   hardware.i2c.enable = true;
 
