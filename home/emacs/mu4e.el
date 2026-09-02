@@ -10,6 +10,7 @@
   (setq message-send-mail-function 'message-send-mail-with-sendmail)
   (setq mail-user-agent 'mu4e-user-agent)
   (setq message-dont-reply-to-names 'mu4e-personal-or-alternative-address-p)
+  (setq message-cite-function #'message-cite-original)
   (setq mu4e-change-filenames-when-moving t)
   (setq mu4e-search-show-threads nil)
   (setq mu4e-search-include-related nil)
