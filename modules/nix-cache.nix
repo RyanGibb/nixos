@@ -17,16 +17,21 @@ in
   };
 
   config = lib.mkIf cfg.nix-cache.enable {
+    # nix-serve runs under DynamicUser, so its user only exists while the unit is
+    # up; activation stops it before agenixChown, so chown to it fails. Grant
+    # access through a static group instead.
+    users.groups.nix-serve-secrets = { };
+
     age.secrets."cache-priv-key.pem" = {
       file = ../secrets/cache-priv-key.pem.age;
-      mode = "770";
-      owner = "${config.systemd.services.nix-serve.serviceConfig.User}";
-      group = "${config.systemd.services.nix-serve.serviceConfig.Group}";
+      mode = "0440";
+      group = "nix-serve-secrets";
     };
     services.nix-serve = {
       enable = true;
       secretKeyFile = config.age.secrets."cache-priv-key.pem".path;
     };
+    systemd.services.nix-serve.serviceConfig.SupplementaryGroups = [ "nix-serve-secrets" ];
 
     services.nginx = {
       enable = true;
