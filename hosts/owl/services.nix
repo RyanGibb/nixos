@@ -97,6 +97,13 @@ in
     capnpAddress = "135.181.100.27";
     logLevel = 0;
   };
+  systemd.services.eon = {
+    # capd binds capnpAddress specifically, so a networking restart during
+    # activation fails it with EADDRNOTAVAIL. Retry until the address returns
+    # instead of tripping the default 5-in-10s start limit and staying dead.
+    startLimitIntervalSec = 0;
+    serviceConfig.RestartSec = lib.mkForce "5s";
+  };
 
   # certificates
   eilean.acme-eon = true;
