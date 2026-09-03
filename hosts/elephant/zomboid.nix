@@ -135,25 +135,5 @@ in
     # the router at 192.168.1.254 still has to forward these UDP ports here.
     openFirewall = true;
     directConnectPorts = 8;
-
-    settings = {
-      PublicName = "knox";
-      # Joinable by address but not advertised in the Steam server browser,
-      # which would also need 8766/udp and 27015/udp open.
-      Public = false;
-      MaxPlayers = 8;
-      PauseEmpty = true;
-      SleepAllowed = true;
-      SleepNeeded = true;
-      MapRemotePlayerVisibility = 2;
-
-      PlayerSafehouse = true;
-      # The fire station is not residential.
-      SafehouseAllowNonResidential = true;
-      SafehouseAllowRespawn = true;
-      # Real-world hours, and the default 144 drops a member over a week away.
-      SafeHouseRemovalTime = 8760;
-      SafehousePreventsLootRespawn = false;
-    };
   };
 }
