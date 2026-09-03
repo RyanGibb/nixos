@@ -34,7 +34,7 @@ let
       value = "100.64.0.9";
     }
     {
-      name = "photos.vpn.${config.networking.domain}.";
+      name = "immich.vpn.${config.networking.domain}.";
       type = "A";
       value = "100.64.0.9";
     }
