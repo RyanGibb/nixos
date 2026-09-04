@@ -1,5 +1,5 @@
 profile {
-	output "Sharp Corporation 0x14F9 Unknown" mode 1920x1200@60Hz scale 1 position 0,0 transform normal enable
+	output "Sharp Corporation 0x14F9 Unknown" mode 1920x1200 scale 1 position 0,0 transform normal enable
 	exec wm-idle-kanshi laptop wm-idle-suspend
 }
 
@@ -21,7 +21,7 @@ profile {
 }
 
 profile {
-	output 'Dell Inc. DELL P3223QE 3RWDWN3' mode 3840x2160@60Hz scale 1.5 position 0,0 transform normal disable
+	output 'Dell Inc. DELL P3223QE 3RWDWN3' mode 3840x2160@60Hz scale 1.5 position 0,0 transform normal enable
 	exec wm-idle-kanshi dell wm-idle-lock
 }
 
