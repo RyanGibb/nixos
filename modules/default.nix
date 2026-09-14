@@ -22,6 +22,7 @@ in
     ./gui/niri.nix
     ./gui/sway.nix
     ./home-manager.nix
+    ./hysteria.nix
     ./koreader-syncd.nix
     ./laptop.nix
     ./nix-cache.nix

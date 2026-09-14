@@ -128,6 +128,10 @@ in
   ];
 
   # VPN
+  custom.hysteria = {
+    enable = true;
+    domain = "freumh.org";
+  };
   eilean.headscale.enable = true;
   # 0.29 for nodeAttrs in the policy
   services.headscale.package = pkgs.overlay-unstable.headscale;

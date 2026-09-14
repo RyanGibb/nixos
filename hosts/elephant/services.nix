@@ -38,6 +38,12 @@
     ];
   };
 
+  # needs UDP 443 forwarded on the router
+  custom.hysteria = {
+    enable = true;
+    domain = "jellyfin.freumh.org";
+  };
+
   services.nginx.commonHttpConfig = ''
     add_header Strict-Transport-Security max-age=31536000 always;
     add_header X-Frame-Options SAMEORIGIN always;
