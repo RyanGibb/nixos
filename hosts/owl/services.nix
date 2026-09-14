@@ -136,6 +136,16 @@ in
   # 0.29 for nodeAttrs in the policy
   services.headscale.package = pkgs.overlay-unstable.headscale;
   services.headscale.settings = {
+    derp.server = {
+      enabled = true;
+      region_id = 999;
+      region_code = "owl";
+      region_name = "owl";
+      # coturn already has 3478
+      stun_listen_addr = "0.0.0.0:3479";
+      ipv4 = "135.181.100.27";
+      ipv6 = "2a01:4f9:c011:87ad::";
+    };
     dns = {
       extra_records = vpnRecords;
       base_domain = "vpn.freumh.org";
@@ -166,6 +176,16 @@ in
         }
       ];
     };
+  };
+  networking.firewall.allowedUDPPorts = [ 3479 ];
+  # relayed connections are long lived, so they outlive the default read timeout
+  services.nginx.virtualHosts."headscale.freumh.org".locations."/derp" = {
+    proxyPass = "http://127.0.0.1:10000";
+    proxyWebsockets = true;
+    extraConfig = ''
+      proxy_read_timeout 1h;
+      proxy_send_timeout 1h;
+    '';
   };
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;
