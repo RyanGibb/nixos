@@ -38,10 +38,12 @@
     ];
   };
 
-  # needs UDP 443 forwarded on the router
+  # the hub refuses to map privileged ports, so this cannot sit on 443
   custom.hysteria = {
     enable = true;
     domain = "jellyfin.freumh.org";
+    port = 45443;
+    natpmp = true;
   };
 
   services.nginx.commonHttpConfig = ''

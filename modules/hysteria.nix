@@ -46,6 +46,7 @@ in
       defaultText = lib.literalExpression ''"https://''${config.custom.hysteria.domain}/"'';
       description = "site shown to anything that fails authentication";
     };
+    natpmp = lib.mkEnableOption "ask the router to forward the port over NAT-PMP";
   };
 
   config = lib.mkIf cfg.enable {
@@ -91,6 +92,24 @@ in
         ProtectSystem = "strict";
         ProtectHome = true;
         PrivateDevices = true;
+      };
+    };
+
+    # mappings are leased, so re-request rather than mapping once at boot
+    systemd.services.hysteria-natpmp = lib.mkIf cfg.natpmp {
+      description = "NAT-PMP port mapping for hysteria2";
+      wants = [ "network-online.target" ];
+      after = [ "network-online.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${lib.getExe pkgs.libnatpmp} -a ${toString cfg.port} ${toString cfg.port} udp 3600";
+      };
+    };
+    systemd.timers.hysteria-natpmp = lib.mkIf cfg.natpmp {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnBootSec = "1m";
+        OnUnitActiveSec = "30m";
       };
     };
 
