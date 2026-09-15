@@ -25,6 +25,7 @@ in
   "hysteria.age".publicKeys = user ++ [
     owl
     elephant
+    gecko
   ];
   "website-phd.age".publicKeys = user ++ [ owl ];
   "rmfakecloud.age".publicKeys = user ++ [ owl ];

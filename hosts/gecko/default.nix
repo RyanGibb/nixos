@@ -68,6 +68,18 @@
     homeManager.enable = true;
     zsa = true;
     dictation.enable = true;
+    hysteria.clients = {
+      owl = {
+        server = "freumh.org:443";
+        socksPort = 1080;
+      };
+      # bounded by elephant's broadband upload
+      elephant = {
+        server = "jellyfin.freumh.org:45443";
+        socksPort = 1082;
+        down = "8 mbps";
+      };
+    };
   };
 
   home-manager.users.${config.custom.username} = {
