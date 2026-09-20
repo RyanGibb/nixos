@@ -488,7 +488,7 @@ in
       DOMAIN = "https://vaultwarden.freumh.org";
       ROCKET_ADDRESS = "127.0.0.1";
       ROCKET_PORT = 8222;
-      SIGNUPS_ALLOWED = true; # flip off via /admin once your account is created
+      SIGNUPS_ALLOWED = false;
       SMTP_HOST = "mail.freumh.org";
       SMTP_PORT = 465;
       SMTP_SECURITY = "force_tls";
