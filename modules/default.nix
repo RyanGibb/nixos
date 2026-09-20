@@ -13,7 +13,6 @@ in
   imports = [
     ./auto-upgrade.nix
     ./dict.nix
-    ./dictation.nix
     ./external-hdd-backup.nix
     ./freumh.nix
     ./gui/default.nix
@@ -33,6 +32,7 @@ in
     ./ssh.nix
     ./tailscale.nix
     ./use-nix-cache.nix
+    ./voxtype.nix
     ./websites.nix
     ./workstation.nix
     ./zsa.nix

@@ -459,7 +459,7 @@ in
     "Mod4+Shift+w" = "exec wm-wall-random";
     "Mod4+Control+w" = "exec wm-wall-pick";
 
-    "Mod4+Shift+d" = "exec dictation-toggle";
+    "Mod4+Shift+d" = "exec voxtype record toggle";
   };
 
   swayKeybindings = scriptDir: {

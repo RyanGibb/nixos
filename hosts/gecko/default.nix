@@ -67,7 +67,10 @@
     autoUpgrade.enable = true;
     homeManager.enable = true;
     zsa = true;
-    dictation.enable = true;
+    voxtype = {
+      enable = true;
+      threads = 8;
+    };
     hysteria.clients = {
       owl = {
         server = "freumh.org:443";

@@ -387,7 +387,7 @@ binds {
     Mod+Shift+p hotkey-overlay-title="Mouse mode"           { spawn "wlr-which-key" "mouse"; }
 
     // Dictation
-    Mod+Shift+d hotkey-overlay-title="Toggle dictation" { spawn "dictation-toggle"; }
+    Mod+Shift+d hotkey-overlay-title="Toggle dictation" { spawn "voxtype" "record" "toggle"; }
 
     // Rename current workspace (yad prefilled with current name)
     Mod+t hotkey-overlay-title="Rename workspace" { spawn "wm-rename"; }
