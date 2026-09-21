@@ -24,6 +24,10 @@
               type = "filesystem";
               format = "ext4";
               mountpoint = "/";
+              mountOptions = [
+                "defaults"
+                "errors=remount-ro"
+              ];
             };
           };
         };
