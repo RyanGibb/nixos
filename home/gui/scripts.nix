@@ -117,7 +117,9 @@ let
 
     while true; do
       i=$(((i+j)%''${#sinks[@]}))
-      if ! ${pactl} list sinks | sed -n "/Sink #''${sink_ids[$i]}/,\$p" | grep "\[Out\]" | head -n 1 | grep "not available"; then
+      # bluetooth sinks list ports without the [Out] prefix, and may list none at all
+      port=$(${pactl} list sinks | sed -n "/^Sink #''${sink_ids[$i]}\$/,/^\$/p" | grep -m 1 "available)")
+      if [[ "$port" != *"not available)"* ]]; then
         ${pactl} set-default-sink "''${sinks[$i]}"
         break
       fi
