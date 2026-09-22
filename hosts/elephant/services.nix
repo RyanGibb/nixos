@@ -441,9 +441,18 @@
   # moving a book to a new author dir copies /tank/books' setgid mode, which the module's RestrictSUIDSGID=yes denies
   systemd.services.calibre-web.serviceConfig.RestrictSUIDSGID = lib.mkForce false;
 
-  age.secrets.restic-gecko.file = ../../secrets/restic-gecko.age;
-  age.secrets.restic-owl.file = ../../secrets/restic-owl.age;
-  age.secrets.restic-shrew.file = ../../secrets/restic-shrew.age;
+  age.secrets.restic-gecko = {
+    file = ../../secrets/restic-gecko.age;
+    owner = "restic";
+  };
+  age.secrets.restic-owl = {
+    file = ../../secrets/restic-owl.age;
+    owner = "restic";
+  };
+  age.secrets.restic-shrew = {
+    file = ../../secrets/restic-shrew.age;
+    owner = "restic";
+  };
   services.restic.backups = {
     gecko = {
       user = "restic";
