@@ -18,6 +18,10 @@
     enable = true;
     autoUpgrade.enable = true;
     homeManager.enable = true;
+    disk-watchdog = {
+      enable = true;
+      device = "/dev/sda2";
+    };
   };
 
   virtualisation.docker.enable = true;

@@ -13,6 +13,7 @@ in
   imports = [
     ./auto-upgrade.nix
     ./dict.nix
+    ./disk-watchdog.nix
     ./external-hdd-backup.nix
     ./freumh.nix
     ./gui/default.nix
