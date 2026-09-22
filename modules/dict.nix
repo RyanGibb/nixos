@@ -12,10 +12,19 @@ let
   # than resolving it, so an "allow 127.0.0.1" rule never matches. The socket
   # unit below is what actually restricts access to localhost.
   dictdb = pkgs.dictDBCollector {
-    dictlist = map (x: {
-      name = x.name;
-      filename = x;
-    }) (with pkgs.dictdDBs; [ wiktionary wordnet ]);
+    dictlist =
+      map
+        (x: {
+          name = x.name;
+          filename = x;
+        })
+        (
+          with pkgs.dictdDBs;
+          [
+            wiktionary
+            wordnet
+          ]
+        );
     allowList = [ "*" ];
   };
 in
