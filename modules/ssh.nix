@@ -52,6 +52,12 @@ in
         IdentityFile ~/.ssh/id_ed25519_L50
         ProxyJump rtg24@slogin-serv.cl.cam.ac.uk
         ForwardAgent yes
+
+      Host gila
+        User deck
+
+      Host fennec
+        User deck
     '';
   };
 }
