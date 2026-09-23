@@ -85,7 +85,7 @@ let
           # "Episode file already imported at ..." and radarr's "Movie ...")
           "*file already imported*"
           "No files found are eligible for import*"
-          "One or more episodes expected in this release were not imported or missing from the release"
+          "*was not found in the grabbed release*"
         ];
       };
       remove_failed_downloads = { };
