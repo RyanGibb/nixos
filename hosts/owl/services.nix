@@ -413,16 +413,6 @@ in
     };
   };
 
-  # minecraft server
-  # Disabled to make room for zulip: the JVM was holding ~1.6 GiB of owl's
-  # 4 GiB of swap, and zulip needs ~1.1 GiB on top of the existing postgres.
-  services.minecraft-server = {
-    enable = false;
-    package = pkgs.overlay-unstable.minecraft-server;
-    eula = true;
-    openFirewall = true;
-  };
-
   # zulip: natively packaged (see github.com/RyanGibb/nix-zulip), not the
   # upstream Docker image. Secrets file holds secret_key, avatar_salt,
   # shared_secret, rabbitmq_password and email_password; email_password must
