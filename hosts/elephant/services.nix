@@ -255,6 +255,7 @@
     enable = true;
     openFirewall = true;
   };
+  systemd.services.jellyfin.serviceConfig.UMask = lib.mkForce "0022";
   users.users.${config.services.jellyfin.user}.extraGroups = [
     config.services.transmission.user
     config.services.sonarr.user
