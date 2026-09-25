@@ -100,7 +100,10 @@
                         "broadcom-sta-6.30.223.271-57-6.12.40"
                         "electron-39.8.10"
                         # CVE-2026-87732, fixed in mirage-crypto 2.2.0
+                        "ocaml5.4.1-mirage-crypto-2.1.0"
                         "ocaml5.4.1-mirage-crypto-rng-2.1.0"
+                        "ocaml5.4.1-mirage-crypto-ec-2.1.0"
+                        "ocaml5.4.1-mirage-crypto-pk-2.1.0"
                       ];
                       overlays = getSystemOverlays config.nixpkgs.hostPlatform.system config.nixpkgs.config;
                       # uncomment for cross compilation (https://github.com/NixOS/nix/issues/3843)
