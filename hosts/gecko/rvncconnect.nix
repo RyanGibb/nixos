@@ -25,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url = "https://downloads.realvnc.com/download/file/realvnc-connect/RealVNC-Connect-${finalAttrs.version}-Linux-x64.deb";
-    hash = "sha256-hgd8fpYffKXlJQ/DmgE18vkLgTN/ShcYk4Y8o257NxA=";
+    hash = "sha256-qFrDzkO7/ghUbLRsW/7kzPUYuSBmno7raIkf+doxI40=";
   };
 
   nativeBuildInputs = [
