@@ -201,7 +201,7 @@
               }
               {
                 name = "gecko";
-                remoteBuild = true;
+                remoteBuild = false;
               }
               {
                 name = "owl";
