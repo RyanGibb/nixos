@@ -192,10 +192,6 @@
             )
             [
               {
-                name = "duck";
-                remoteBuild = false;
-              }
-              {
                 name = "elephant";
                 remoteBuild = true;
               }
@@ -215,10 +211,6 @@
               {
                 name = "shrew";
                 remoteBuild = false;
-              }
-              {
-                name = "vulpine";
-                remoteBuild = true;
               }
               {
                 name = "swan";
