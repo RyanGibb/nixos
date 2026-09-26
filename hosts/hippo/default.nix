@@ -26,6 +26,9 @@
 
   virtualisation.docker.enable = true;
 
+  # build shrew's aarch64 closure here rather than on the pi
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   home-manager.users.${config.custom.username}.config.custom.machineColour = "blue";
 
   networking.hostName = "iphito";
