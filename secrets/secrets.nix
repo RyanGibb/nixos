@@ -10,6 +10,7 @@ let
 in
 {
   "cache-priv-key.pem.age".publicKeys = user ++ [ elephant ];
+  "nix-builder-key.age".publicKeys = user ++ [ gecko ];
   "email-ryan.age".publicKeys = user ++ [
     gecko
     owl

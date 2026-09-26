@@ -432,8 +432,33 @@
   networking.hostId = "e768032f";
 
   #system.includeBuildDependencies = true;
+  age.secrets.nix-builder-key.file = ../../secrets/nix-builder-key.age;
+
+  programs.ssh.knownHosts."iphito.caelum.ci.dev".publicKey =
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII9BxaT1bEomSOWYtqFHMgPT9jPUHGAJd7ltSg9RL4TB";
+
   nix = {
     distributedBuilds = true;
+    buildMachines = [
+      {
+        hostName = "iphito.caelum.ci.dev";
+        sshUser = "nixremote";
+        sshKey = config.age.secrets.nix-builder-key.path;
+        # aarch64 via iphito's binfmt emulation
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+        ];
+        maxJobs = 64;
+        speedFactor = 20;
+        supportedFeatures = [
+          "benchmark"
+          "big-parallel"
+          "kvm"
+          "nixos-test"
+        ];
+      }
+    ];
     extraOptions = ''
       builders-use-substitutes = true
     '';

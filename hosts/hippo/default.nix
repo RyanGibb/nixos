@@ -29,6 +29,16 @@
   # build shrew's aarch64 closure here rather than on the pi
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
+  # unprivileged account gecko farms builds out to; holds no credentials of its own
+  users.users.nixremote = {
+    isNormalUser = true;
+    description = "nix remote builder";
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCGgw4Zb9DUUIzOxK6f/g2KitiYPjN8zN7fUuW9lno1 gecko nix remote builder"
+    ];
+  };
+  nix.settings.trusted-users = [ "nixremote" ];
+
   home-manager.users.${config.custom.username}.config.custom.machineColour = "blue";
 
   networking.hostName = "iphito";
