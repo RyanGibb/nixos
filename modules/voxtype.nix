@@ -34,6 +34,10 @@ let
         hotkey.enabled = false;
         # nixpkgs builds voxtype-osd without a frontend, so it just crash-loops
         osd.enabled = false;
+        output.notification = {
+          on_recording_start = true;
+          on_transcription = false;
+        };
         whisper = {
           model = "${modelFile}";
           language = cfg.language;

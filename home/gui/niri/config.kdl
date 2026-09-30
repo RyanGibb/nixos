@@ -388,6 +388,8 @@ binds {
 
     // Dictation
     Mod+Shift+d hotkey-overlay-title="Toggle dictation" { spawn "voxtype" "record" "toggle"; }
+    // the moonlander's dictation key; xkb maps F13 to the XF86Tools keysym
+    XF86Tools hotkey-overlay-title="Toggle dictation" { spawn "voxtype" "record" "toggle"; }
 
     // Rename current workspace (yad prefilled with current name)
     Mod+t hotkey-overlay-title="Rename workspace" { spawn "wm-rename"; }

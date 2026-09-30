@@ -460,6 +460,8 @@ in
     "Mod4+Control+w" = "exec wm-wall-pick";
 
     "Mod4+Shift+d" = "exec voxtype record toggle";
+    # the moonlander's dictation key; xkb maps F13 to the XF86Tools keysym
+    "XF86Tools" = "exec voxtype record toggle";
   };
 
   swayKeybindings = scriptDir: {
