@@ -29,14 +29,21 @@ let
   };
   clientConfig =
     name: client:
-    (pkgs.formats.yaml { }).generate "hysteria-${name}.yaml" {
-      server = client.server;
-      auth = "@password@";
+    (pkgs.formats.yaml { }).generate "hysteria-${name}.yaml" (
+      {
+        server = client.server;
+        auth = "@password@";
+        socks5.listen = "127.0.0.1:${toString client.socksPort}";
+        http.listen = "127.0.0.1:${toString client.httpPort}";
+      }
+      // lib.optionalAttrs (client.sni != null) { tls.sni = client.sni; }
+    );
+  clientBandwidth =
+    name: client:
+    (pkgs.formats.yaml { }).generate "hysteria-${name}-bandwidth.yaml" {
       bandwidth = {
         inherit (client) up down;
       };
-      socks5.listen = "127.0.0.1:${toString client.socksPort}";
-      http.listen = "127.0.0.1:${toString client.httpPort}";
     };
 in
 {
@@ -71,6 +78,11 @@ in
                 type = lib.types.str;
                 description = "host:port to dial";
               };
+              sni = lib.mkOption {
+                type = lib.types.nullOr lib.types.str;
+                default = null;
+                description = "TLS server name when it differs from the host dialled, e.g. when dialling by IP";
+              };
               socksPort = lib.mkOption { type = lib.types.port; };
               httpPort = lib.mkOption {
                 type = lib.types.port;
@@ -82,10 +94,12 @@ in
               up = lib.mkOption {
                 type = lib.types.str;
                 default = "20 mbps";
+                description = "upload rate; /etc/hysteria/<name>.yaml overrides the bandwidth block if present";
               };
               down = lib.mkOption {
                 type = lib.types.str;
                 default = "50 mbps";
+                description = "download rate; /etc/hysteria/<name>.yaml overrides the bandwidth block if present";
               };
             };
           }
@@ -176,6 +190,11 @@ in
             RuntimeDirectoryMode = "0700";
             ExecStartPre = pkgs.writeShellScript "hysteria-client-${name}-config" ''
               install -m 600 ${clientConfig name client} /run/hysteria-client-${name}/config.yaml
+              if [ -r /etc/hysteria/${name}.yaml ]; then
+                cat /etc/hysteria/${name}.yaml >> /run/hysteria-client-${name}/config.yaml
+              else
+                cat ${clientBandwidth name client} >> /run/hysteria-client-${name}/config.yaml
+              fi
               ${pkgs.replace-secret}/bin/replace-secret @password@ \
                 ${config.age.secrets.hysteria.path} /run/hysteria-client-${name}/config.yaml
             '';

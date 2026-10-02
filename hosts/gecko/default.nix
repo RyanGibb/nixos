@@ -84,6 +84,11 @@
         socksPort = 1082;
         down = "8 mbps";
       };
+      owl-ip = {
+        server = "135.181.100.27:443";
+        sni = "freumh.org";
+        socksPort = 1084;
+      };
     };
   };
 
