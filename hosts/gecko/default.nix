@@ -69,6 +69,8 @@
     zsa = true;
     voxtype = {
       enable = true;
+      engine = "parakeet";
+      # unused under parakeet, but this host's core count if it goes back to whisper
       threads = 8;
     };
     hysteria.clients = {

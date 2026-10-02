@@ -23,21 +23,34 @@ let
     url = "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-${cfg.model}.bin";
     inherit (models.${cfg.model}) hash;
   };
-  # voxtype rejects a partial config, so start from the defaults it ships
-  defaultSettings = builtins.fromTOML (
-    builtins.readFile "${cfg.package}/share/voxtype/default-config.toml"
+
+  parakeetFiles = {
+    "encoder-model.int8.onnx" = "sha256-YTnS+n4bCGCXsnfHFJcl7bq4nMfHrmSyPHQb5AVa/wk=";
+    "decoder_joint-model.int8.onnx" = "sha256-7qdIPuPRowN12u3I7YPjlgyRsJiBISeg2Z0ciXdmenA=";
+    "vocab.txt" = "sha256-1YVEZ56kvGrFY9H1Ret9R0vWz6Rn8KbiwdwcfTfjw10=";
+    "config.json" = "sha256-ZmkDx2uXmMrywhCv1PbNYLCKjb+YAOyNejvA0hSKxGY=";
+  };
+  parakeetModel = pkgs.linkFarm "parakeet-tdt-0.6b-v3-int8" (
+    lib.mapAttrs (
+      name: hash:
+      pkgs.fetchurl {
+        url = "https://huggingface.co/istupakov/parakeet-tdt-0.6b-v3-onnx/resolve/main/${name}";
+        inherit hash;
+      }
+    ) parakeetFiles
   );
-  configFile = format.generate "voxtype-config.toml" (
-    lib.foldl' lib.recursiveUpdate defaultSettings [
+
+  # only the selected engine's model is referenced, so the other is never fetched
+  engineSettings =
+    if cfg.engine == "parakeet" then
       {
-        # push-to-talk comes from the compositor binding, not evdev
-        hotkey.enabled = false;
-        # nixpkgs builds voxtype-osd without a frontend, so it just crash-loops
-        osd.enabled = false;
-        output.notification = {
-          on_recording_start = true;
-          on_transcription = false;
+        parakeet = {
+          model = "${parakeetModel}";
+          model_type = "tdt";
         };
+      }
+    else
+      {
         whisper = {
           model = "${modelFile}";
           language = cfg.language;
@@ -46,7 +59,26 @@ let
           context_window_optimization = true;
         }
         // lib.optionalAttrs (cfg.threads != null) { threads = cfg.threads; };
+      };
+
+  # voxtype rejects a partial config, so start from the defaults it ships
+  defaultSettings = builtins.fromTOML (
+    builtins.readFile "${cfg.package}/share/voxtype/default-config.toml"
+  );
+  configFile = format.generate "voxtype-config.toml" (
+    lib.foldl' lib.recursiveUpdate defaultSettings [
+      {
+        engine = cfg.engine;
+        # push-to-talk comes from the compositor binding, not evdev
+        hotkey.enabled = false;
+        # nixpkgs builds voxtype-osd without a frontend, so it just crash-loops
+        osd.enabled = false;
+        output.notification = {
+          on_recording_start = true;
+          on_transcription = false;
+        };
       }
+      engineSettings
       cfg.settings
     ]
   );
@@ -54,7 +86,20 @@ in
 {
   options.custom.voxtype = {
     enable = lib.mkEnableOption "voxtype voice-to-text daemon";
-    package = lib.mkPackageOption pkgs "voxtype" { };
+    engine = lib.mkOption {
+      type = lib.types.enum [
+        "whisper"
+        "parakeet"
+      ];
+      default = "whisper";
+      description = "parakeet is ~20x faster than whisper base.en and punctuates";
+    };
+    package = lib.mkOption {
+      type = lib.types.package;
+      # parakeet needs the onnxruntime variant
+      default = if cfg.engine == "parakeet" then pkgs.voxtype-onnx else pkgs.voxtype;
+      defaultText = lib.literalExpression "pkgs.voxtype";
+    };
     model = lib.mkOption {
       type = lib.types.enum (lib.attrNames models);
       default = "base.en";
@@ -63,12 +108,12 @@ in
     language = lib.mkOption {
       type = lib.types.str;
       default = "en";
-      description = ''language code, or "auto" to detect'';
+      description = ''whisper only; language code, or "auto" to detect'';
     };
     threads = lib.mkOption {
       type = lib.types.nullOr lib.types.int;
       default = null;
-      description = "inference threads; null leaves voxtype's autodetect, which caps at 4";
+      description = "whisper only; null leaves voxtype's autodetect, which caps at 4";
     };
     settings = lib.mkOption {
       type = format.type;
