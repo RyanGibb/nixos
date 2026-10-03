@@ -33,7 +33,9 @@ let
       server = client.server;
       auth = "@password@";
     }
-    // lib.optionalAttrs (client.sni != null) { tls.sni = client.sni; };
+    // lib.optionalAttrs (client.sni != null) { tls.sni = client.sni; }
+    # tailscale's bypass mark, so the tunnel's own packets never route via an exit node
+    // lib.optionalAttrs config.services.tailscale.enable { quic.sockopts.fwmark = 524288; };
   clientConfig =
     name: client:
     (pkgs.formats.yaml { }).generate "hysteria-${name}.yaml" (
@@ -103,6 +105,10 @@ let
       ProtectSystem = "strict";
       ProtectHome = true;
       PrivateDevices = true;
+    }
+    // lib.optionalAttrs config.services.tailscale.enable {
+      AmbientCapabilities = [ "CAP_NET_ADMIN" ];
+      CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
     };
   };
   clientBandwidth =
