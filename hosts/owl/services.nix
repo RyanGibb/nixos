@@ -131,6 +131,24 @@ in
   # 0.29 for nodeAttrs in the policy
   services.headscale.package = pkgs.overlay-unstable.headscale;
   services.headscale.settings = {
+    # region ids must be YAML ints, which formats.yaml would quote
+    derp.paths = [
+      (pkgs.writeText "derp-kiji.yaml" ''
+        regions:
+          998:
+            regionid: 998
+            regioncode: kiji
+            regionname: kiji
+            nodes:
+              - name: 998a
+                regionid: 998
+                hostname: kiji.freumh.org
+                ipv4: 129.225.137.235
+                stunport: 3478
+                stunonly: false
+                derpport: 443
+      '')
+    ];
     derp.server = {
       enabled = true;
       region_id = 999;
@@ -601,6 +619,11 @@ in
           name = "owl";
           type = "AAAA";
           value = config.eilean.serverIpv6;
+        }
+        {
+          name = "kiji";
+          type = "A";
+          value = "129.225.137.235";
         }
 
         {

@@ -204,6 +204,11 @@
                 remoteBuild = false;
               }
               {
+                name = "kiji";
+                remoteBuild = false;
+                hostname = "129.225.137.235";
+              }
+              {
                 name = "hippo";
                 remoteBuild = true;
                 hostname = "hippo.freumh.org";
