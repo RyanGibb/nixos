@@ -11,6 +11,13 @@
       domain = "kiji.freumh.org";
       masqueradeUrl = "https://freumh.org/";
     };
+    reality = {
+      enable = true;
+      dest = "docs.oracle.com:443";
+      shortId = "c923b71f7ba75d03";
+      publicKey = "659hamBoWkjGWHgC1Za-EZ8kW7teID_0ZdatSE0vVEo";
+      port = 8443;
+    };
   };
 
   age.secrets."eon-freumh.org.cap" = {

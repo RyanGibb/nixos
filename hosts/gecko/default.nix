@@ -104,6 +104,13 @@
         tun = true;
       };
     };
+    reality.clients.kiji = {
+      server = "129.225.137.235:8443";
+      serverName = "docs.oracle.com";
+      publicKey = "659hamBoWkjGWHgC1Za-EZ8kW7teID_0ZdatSE0vVEo";
+      shortId = "c923b71f7ba75d03";
+      socksPort = 1090;
+    };
   };
 
   home-manager.users.${config.custom.username} = {

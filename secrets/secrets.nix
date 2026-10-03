@@ -30,6 +30,11 @@ in
     gecko
     kiji
   ];
+  "reality-key.age".publicKeys = user ++ [ kiji ];
+  "reality-uuid.age".publicKeys = user ++ [
+    gecko
+    kiji
+  ];
   "website-phd.age".publicKeys = user ++ [ owl ];
   "rmfakecloud.age".publicKeys = user ++ [ owl ];
   "vaultwarden.age".publicKeys = user ++ [ owl ];

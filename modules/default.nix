@@ -28,6 +28,7 @@ in
     ./nix-cache.nix
     ./nix-index.nix
     ./printing.nix
+    ./reality.nix
     ./rmfakecloud.nix
     ./scripts.nix
     ./ssh.nix
