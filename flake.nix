@@ -213,10 +213,10 @@
                 remoteBuild = true;
                 hostname = "hippo.freumh.org";
               }
-              {
-                name = "shrew";
-                remoteBuild = false;
-              }
+              # {
+              #   name = "shrew";
+              #   remoteBuild = false;
+              # }
               {
                 name = "swan";
                 remoteBuild = false;
