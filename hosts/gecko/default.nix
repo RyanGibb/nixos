@@ -77,26 +77,31 @@
       owl = {
         server = "freumh.org:443";
         socksPort = 1080;
+        tun = true;
       };
       # bounded by elephant's broadband upload
       elephant = {
         server = "jellyfin.freumh.org:45443";
         socksPort = 1082;
+        tun = true;
         down = "8 mbps";
       };
       owl-ip = {
         server = "135.181.100.27:443";
         sni = "freumh.org";
         socksPort = 1084;
+        tun = true;
       };
       kiji = {
         server = "kiji.freumh.org:443";
         socksPort = 1086;
+        tun = true;
       };
       kiji-ip = {
         server = "129.225.137.235:443";
         sni = "kiji.freumh.org";
         socksPort = 1088;
+        tun = true;
       };
     };
   };

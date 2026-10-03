@@ -27,17 +27,84 @@ let
       };
     };
   };
+  clientSettings =
+    client:
+    {
+      server = client.server;
+      auth = "@password@";
+    }
+    // lib.optionalAttrs (client.sni != null) { tls.sni = client.sni; };
   clientConfig =
     name: client:
     (pkgs.formats.yaml { }).generate "hysteria-${name}.yaml" (
-      {
-        server = client.server;
-        auth = "@password@";
+      clientSettings client
+      // {
         socks5.listen = "127.0.0.1:${toString client.socksPort}";
         http.listen = "127.0.0.1:${toString client.httpPort}";
       }
-      // lib.optionalAttrs (client.sni != null) { tls.sni = client.sni; }
     );
+  tunConfig =
+    name: client: (pkgs.formats.yaml { }).generate "hysteria-${name}-tun.yaml" (clientSettings client);
+  tunSettings =
+    name:
+    pkgs.writeText "hysteria-${name}-tun.json" (
+      builtins.toJSON {
+        name = "hy-${name}";
+        address = {
+          ipv4 = "172.19.0.1/30";
+          ipv6 = "fdfe:dcba:9876::1/126";
+        };
+        route = {
+          ipv4 = [ "0.0.0.0/0" ];
+          ipv6 = [ "::/0" ];
+          ipv4Exclude = [
+            "100.64.0.0/10"
+            "10.0.0.0/8"
+            "172.16.0.0/12"
+            "192.168.0.0/16"
+            "169.254.0.0/16"
+          ];
+          ipv6Exclude = [
+            "fd7a:115c:a1e0::/48"
+            "fe80::/10"
+          ];
+        };
+      }
+    );
+  serverHost =
+    server:
+    let
+      m = builtins.match "[[]([^]]*)[]](:.*)?|([^:]*)(:.*)?" server;
+    in
+    if lib.elemAt m 0 != null then lib.elemAt m 0 else lib.elemAt m 2;
+  tunNames = lib.attrNames (lib.filterAttrs (_: client: client.tun) cfg.clients);
+  clientService = unit: name: client: base: extra: {
+    description = "hysteria2 client for ${name}";
+    serviceConfig = {
+      User = "hysteria";
+      Group = "hysteria";
+      RuntimeDirectory = unit;
+      RuntimeDirectoryMode = "0700";
+      ExecStartPre = pkgs.writeShellScript "${unit}-config" ''
+        install -m 600 ${base} /run/${unit}/config.yaml
+        if [ -r /etc/hysteria/${name}.yaml ]; then
+          cat /etc/hysteria/${name}.yaml >> /run/${unit}/config.yaml
+        else
+          cat ${clientBandwidth name client} >> /run/${unit}/config.yaml
+        fi
+        ${extra}
+        ${pkgs.replace-secret}/bin/replace-secret @password@ \
+          ${config.age.secrets.hysteria.path} /run/${unit}/config.yaml
+      '';
+      ExecStart = "${lib.getExe pkgs.hysteria} client -c /run/${unit}/config.yaml";
+      Restart = "on-failure";
+      RestartSec = "10s";
+      NoNewPrivileges = true;
+      ProtectSystem = "strict";
+      ProtectHome = true;
+      PrivateDevices = true;
+    };
+  };
   clientBandwidth =
     name: client:
     (pkgs.formats.yaml { }).generate "hysteria-${name}-bandwidth.yaml" {
@@ -82,6 +149,11 @@ in
                 type = lib.types.nullOr lib.types.str;
                 default = null;
                 description = "TLS server name when it differs from the host dialled, e.g. when dialling by IP";
+              };
+              tun = lib.mkOption {
+                type = lib.types.bool;
+                default = false;
+                description = "also generate hysteria-client-<name>-tun, routing the whole machine through this server; do not use at the same time as a tailscale exit node";
               };
               socksPort = lib.mkOption { type = lib.types.port; };
               httpPort = lib.mkOption {
@@ -179,33 +251,41 @@ in
     })
 
     {
-      systemd.services = lib.mapAttrs' (
+      assertions = lib.mapAttrsToList (name: client: {
+        assertion = !client.tun || lib.stringLength name <= 12;
+        message = "custom.hysteria.clients.${name}: tun interface hy-${name} exceeds 15 characters";
+      }) cfg.clients;
+
+      systemd.services = lib.concatMapAttrs (
         name: client:
-        lib.nameValuePair "hysteria-client-${name}" {
-          description = "hysteria2 client for ${name}";
-          serviceConfig = {
-            User = "hysteria";
-            Group = "hysteria";
-            RuntimeDirectory = "hysteria-client-${name}";
-            RuntimeDirectoryMode = "0700";
-            ExecStartPre = pkgs.writeShellScript "hysteria-client-${name}-config" ''
-              install -m 600 ${clientConfig name client} /run/hysteria-client-${name}/config.yaml
-              if [ -r /etc/hysteria/${name}.yaml ]; then
-                cat /etc/hysteria/${name}.yaml >> /run/hysteria-client-${name}/config.yaml
-              else
-                cat ${clientBandwidth name client} >> /run/hysteria-client-${name}/config.yaml
-              fi
-              ${pkgs.replace-secret}/bin/replace-secret @password@ \
-                ${config.age.secrets.hysteria.path} /run/hysteria-client-${name}/config.yaml
-            '';
-            ExecStart = "${lib.getExe pkgs.hysteria} client -c /run/hysteria-client-${name}/config.yaml";
-            Restart = "on-failure";
-            RestartSec = "10s";
-            NoNewPrivileges = true;
-            ProtectSystem = "strict";
-            ProtectHome = true;
-            PrivateDevices = true;
-          };
+        {
+          "hysteria-client-${name}" =
+            clientService "hysteria-client-${name}" name client (clientConfig name client)
+              "";
+        }
+        // lib.optionalAttrs client.tun {
+          "hysteria-client-${name}-tun" =
+            lib.recursiveUpdate
+              (clientService "hysteria-client-${name}-tun" name client (tunConfig name client) ''
+                # the server is resolved once at start and excluded, else the tunnel would route into itself
+                tun=$(${lib.getExe pkgs.getent} ahosts ${serverHost client.server} | cut -d' ' -f1 \
+                  | ${lib.getExe pkgs.jq} -Rnc --slurpfile tun ${tunSettings name} '
+                    [inputs | select(. != "")] | unique as $a
+                    | if ($a | length) == 0 then error("cannot resolve ${serverHost client.server}") else $tun[0] end
+                    | .route.ipv4Exclude += [$a[] | select(contains(":") | not)]
+                    | .route.ipv6Exclude += [$a[] | select(contains(":"))]') || exit 1
+                printf '\ntun: %s\n' "$tun" >> /run/hysteria-client-${name}-tun/config.yaml
+              '')
+              {
+                description = "hysteria2 client for ${name}, routing all traffic";
+                conflicts = map (n: "hysteria-client-${n}-tun.service") (lib.remove name tunNames);
+                serviceConfig = {
+                  AmbientCapabilities = [ "CAP_NET_ADMIN" ];
+                  CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
+                  PrivateDevices = false;
+                  DeviceAllow = [ "/dev/net/tun rw" ];
+                };
+              };
         }
       ) cfg.clients;
     }
