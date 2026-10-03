@@ -262,6 +262,9 @@ in
         message = "custom.hysteria.clients.${name}: tun interface hy-${name} exceeds 15 characters";
       }) cfg.clients;
 
+      # the system stack hands the tun's connections back to the kernel
+      networking.firewall.trustedInterfaces = map (n: "hy-${n}") tunNames;
+
       systemd.services = lib.concatMapAttrs (
         name: client:
         {
@@ -290,6 +293,15 @@ in
                   CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
                   PrivateDevices = false;
                   DeviceAllow = [ "/dev/net/tun rw" ];
+                  # sing-tun leaves its policy rules behind when hysteria is killed
+                  ExecStopPost =
+                    "+"
+                    + pkgs.writeShellScript "hysteria-client-${name}-tun-cleanup" ''
+                      for p in $(seq 9000 9010); do
+                        while ${pkgs.iproute2}/bin/ip rule del priority $p 2>/dev/null; do :; done
+                        while ${pkgs.iproute2}/bin/ip -6 rule del priority $p 2>/dev/null; do :; done
+                      done
+                    '';
                 };
               };
         }
