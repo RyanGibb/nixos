@@ -24,14 +24,15 @@
   custom = {
     enable = true;
     laptop = true;
-    gui.i3 = true;
-    gui.sway = true;
+    gui.niri = true;
     homeManager.enable = true;
     tailscale = true;
     username = "nixos";
   };
   users.users.${config.custom.username}.hashedPassword = lib.mkForce null;
   users.users.root.hashedPassword = lib.mkForce null;
+  # the installer's nixos user has an empty password
+  security.pam.services.ly.allowNullPassword = true;
 
   # recovery tool: recreate the grub UEFI NVRAM entry after a firmware reset wipes it
   environment.systemPackages = [
@@ -45,11 +46,6 @@
   services.openssh.settings.PermitRootLogin = lib.mkForce "no";
   services.getty.autologinUser = lib.mkForce "${config.custom.username}";
   services.getty.helpLine = lib.mkForce "";
-
-  networking.wireless = {
-    # so we can use NetworkManager
-    enable = lib.mkForce false;
-  };
 
   # live ISO host keys are regenerated every boot; needs `nix build --impure`
   # from the store, as agenix decrypts before /etc is populated
