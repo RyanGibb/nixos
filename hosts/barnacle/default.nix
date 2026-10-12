@@ -83,6 +83,7 @@
 
   home-manager.users.${config.custom.username}.config.home.file = {
     "install.sh".source = ./install.sh;
+    ".cache/wallpaper".source = /home/ryan/pictures/wallpapers/2025-10-24-mist.jpg;
     "nixos" = {
       recursive = true;
       source = ../..;
