@@ -8,8 +8,12 @@ let
   elephant = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL+ddohsRFrypCVJqIhI3p3R12pJI8iwuMfRu0TJWuPe root@elephant";
   shrew = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHLiZ0xdXSlF1eMibrs320lVQaushEpEDMrR6lp9uFkx root@shrew";
   kiji = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPqj+6/CAWw7FBr8dsEV2Hot9rozZwtG3Gx3I0i966Ew root@relay";
+  # baked into the ISO from ~/.config/barnacle/agenix-key
+  barnacle = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILlu9mRaEbhpsiWFlpOmjkavr8mUIgEubC0GZKBmf/Lx agenix@barnacle";
 in
 {
+  "headscale-barnacle.age".publicKeys = user ++ [ barnacle ];
+  "wifi-barnacle.age".publicKeys = user ++ [ barnacle ];
   "cache-priv-key.pem.age".publicKeys = user ++ [ elephant ];
   "nix-builder-key.age".publicKeys = user ++ [ gecko ];
   "email-ryan.age".publicKeys = user ++ [

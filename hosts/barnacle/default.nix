@@ -7,7 +7,7 @@
 }:
 
 # build with:
-#   nix build /etc/nixos#nixosConfigurations.barnacle.config.system.build.isoImage
+#   nix build --impure /etc/nixos#nixosConfigurations.barnacle.config.system.build.isoImage
 
 {
   imports = [
@@ -27,6 +27,7 @@
     gui.i3 = true;
     gui.sway = true;
     homeManager.enable = true;
+    tailscale = true;
     username = "nixos";
   };
   users.users.${config.custom.username}.hashedPassword = lib.mkForce null;
@@ -48,7 +49,43 @@
   networking.wireless = {
     # so we can use NetworkManager
     enable = lib.mkForce false;
-    # networks = { "SSID" = { psk = "password"; }; };
+  };
+
+  # live ISO host keys are regenerated every boot; needs `nix build --impure`
+  environment.etc."agenix/barnacle" = {
+    source = /home/ryan/.config/barnacle/agenix-key;
+    mode = "0400";
+  };
+  age.identityPaths = [ "/etc/agenix/barnacle" ];
+  age.secrets.headscale-barnacle.file = ../../secrets/headscale-barnacle.age;
+  age.secrets.wifi-barnacle.file = ../../secrets/wifi-barnacle.age;
+
+  networking.networkmanager.ensureProfiles = {
+    environmentFiles = [ config.age.secrets.wifi-barnacle.path ];
+    profiles.home = {
+      connection = {
+        id = "home";
+        type = "wifi";
+      };
+      wifi.ssid = "$HOME_SSID";
+      wifi-security = {
+        key-mgmt = "wpa-psk";
+        psk = "$HOME_PSK";
+      };
+    };
+  };
+
+  # reusable ephemeral preauth key, so each boot registers a fresh node and stale ones expire
+  services.tailscale = {
+    authKeyFile = config.age.secrets.headscale-barnacle.path;
+    extraUpFlags = [
+      "--login-server=https://headscale.freumh.org"
+      "--hostname=barnacle"
+    ];
+  };
+  systemd.services.tailscaled-autoconnect = {
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
   };
 
   home-manager.users.${config.custom.username}.config.home.file = {
