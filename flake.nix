@@ -98,6 +98,7 @@
                         "dotnet-sdk-6.0.428"
                         "dotnet-sdk-wrapped-6.0.428"
                         "broadcom-sta-6.30.223.271-57-6.12.40"
+                        "broadcom-sta-6.30.223.271-59-6.18.54"
                         "electron-39.8.10"
                         # CVE-2026-87732, fixed in mirage-crypto 2.2.0
                         "ocaml5.4.1-mirage-crypto-2.1.0"

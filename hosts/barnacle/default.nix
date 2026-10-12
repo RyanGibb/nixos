@@ -47,6 +47,14 @@
   services.getty.autologinUser = lib.mkForce "${config.custom.username}";
   services.getty.helpLine = lib.mkForce "";
 
+  # vulpine's BCM4360 needs the proprietary wl, but wl's alias claims every
+  # wifi card, so only load it for that chip
+  boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
+  boot.blacklistedKernelModules = [ "wl" ];
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x14e4", ATTR{device}=="0x43a0", RUN+="${pkgs.kmod}/bin/modprobe -r b43 bcma ssb", RUN+="${pkgs.kmod}/bin/modprobe wl"
+  '';
+
   # live ISO host keys are regenerated every boot; needs `nix build --impure`
   # from the store, as agenix decrypts before /etc is populated
   age.identityPaths = [ "${/home/ryan/.config/barnacle/agenix-key}" ];
