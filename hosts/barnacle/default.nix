@@ -52,11 +52,8 @@
   };
 
   # live ISO host keys are regenerated every boot; needs `nix build --impure`
-  environment.etc."agenix/barnacle" = {
-    source = /home/ryan/.config/barnacle/agenix-key;
-    mode = "0400";
-  };
-  age.identityPaths = [ "/etc/agenix/barnacle" ];
+  # from the store, as agenix decrypts before /etc is populated
+  age.identityPaths = [ "${/home/ryan/.config/barnacle/agenix-key}" ];
   age.secrets.headscale-barnacle.file = ../../secrets/headscale-barnacle.age;
   age.secrets.wifi-barnacle.file = ../../secrets/wifi-barnacle.age;
 
