@@ -12,8 +12,6 @@
 {
   imports = [
     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
-    # installs nixpkgs channel for installation
-    "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
   ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
@@ -25,10 +23,13 @@
     enable = true;
     laptop = true;
     gui.niri = true;
+    gui.extras = false;
     homeManager.enable = true;
     tailscale = true;
+    dict = false;
     username = "nixos";
   };
+  services.speechd.enable = lib.mkForce false;
   users.users.${config.custom.username}.hashedPassword = lib.mkForce null;
   users.users.root.hashedPassword = lib.mkForce null;
   # the installer's nixos user has an empty password
@@ -98,8 +99,8 @@
     };
   };
 
-  # comment this out to make a smaller image
-  isoImage.squashfsCompression = "gzip -Xcompression-level 1";
+  # uncomment for a faster build but a larger image
+  # isoImage.squashfsCompression = "gzip -Xcompression-level 1";
 
   system.stateVersion = "24.05";
 }

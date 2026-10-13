@@ -17,6 +17,9 @@ in
   ];
 
   options.custom.gui.enable = lib.mkEnableOption "gui";
+  options.custom.gui.extras = lib.mkEnableOption "non-essential desktop apps" // {
+    default = true;
+  };
 
   config = lib.mkIf cfg.enable {
     systemd.user.targets.wayland-session.Unit = {
@@ -205,11 +208,14 @@ in
         type = "fcitx5";
         fcitx5 = {
           waylandFrontend = true;
-          addons = with pkgs; [
-            fcitx5-rime
-            qt6Packages.fcitx5-chinese-addons
-            fcitx5-m17n
-          ];
+          addons =
+            with pkgs;
+            [
+              fcitx5-rime
+              fcitx5-m17n
+            ]
+            # pulls in qtwebengine
+            ++ lib.optional cfg.extras qt6Packages.fcitx5-chinese-addons;
           settings = {
             globalOptions = {
               "Hotkey/TriggerKeys" = {

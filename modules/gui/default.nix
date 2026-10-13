@@ -34,12 +34,16 @@ in
     type = lib.types.bool;
     default = cfg.i3 || cfg.sway || cfg.kde || cfg.niri;
   };
+  options.custom.gui.extras = lib.mkEnableOption "non-essential desktop apps" // {
+    default = true;
+  };
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${config.custom.username} =
       { config, ... }:
       {
         config.custom.gui.enable = true;
+        config.custom.gui.extras = cfg.extras;
       };
 
     services.displayManager.ly.settings.session_log = ".local/state/ly-session.log";
@@ -143,9 +147,9 @@ in
         # https://nixos.wiki/wiki/PipeWire#pactl_not_found
         pulseaudio
         tridactyl-native
-        vlc
         swaybg
       ]
+      ++ lib.optional cfg.extras vlc
       ++ desktopEntries;
 
     fonts.packages = with pkgs; [
@@ -165,7 +169,7 @@ in
       ];
     };
     services.gvfs.enable = true;
-    services.tumbler.enable = true; # thumbnails
+    services.tumbler.enable = cfg.extras; # thumbnails
 
     # sets $WORLDLIST for `dict`
     environment.wordlist.enable = true;
