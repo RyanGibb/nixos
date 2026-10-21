@@ -20,6 +20,9 @@ let
       hash = "sha256-pOuAQ2KKvhmUM6xX5iX9s33ZXL3OLx6yIOL8LZF1W64=";
     };
 
+    # upstream only forgets removed downloads once the queue is fully empty
+    patches = [ ./decluttarr-forget-deleted.patch ];
+
     nativeBuildInputs = [ pkgs.makeWrapper ];
 
     installPhase =

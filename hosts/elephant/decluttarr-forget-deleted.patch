@@ -1,0 +1,12 @@
+--- a/src/job_manager.py
++++ b/src/job_manager.py
+@@ -76,6 +76,9 @@
+         # Refresh trackers
+         await self.arr.tracker.refresh_private_and_protected(self.settings)
+ 
++        # only needed within a cycle; across cycles it makes a re-grab unremovable
++        self.arr.tracker.deleted.clear()
++
+         # Run Remval Jobs
+ 
+         items_detected = 0
