@@ -53,7 +53,7 @@ in
           add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' blob:;" always;
           add_header Referrer-Policy 'same-origin';
         '';
-        locations."/root" =
+        locations."= /root" =
           let
             random-root = pkgs.writeScript "random-root.php" ''
               <?php
