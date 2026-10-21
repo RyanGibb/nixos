@@ -78,25 +78,31 @@
         server = "freumh.org:443";
         socksPort = 1080;
         tun = true;
+        up = "30 mbps";
+        down = "50 mbps";
       };
-      # bounded by elephant's broadband upload
       elephant = {
         server = "jellyfin.freumh.org:45443";
         socksPort = 1082;
         tun = true;
-        down = "8 mbps";
+        up = "10 mbps";
+        down = "10 mbps";
       };
       owl-ip = {
         server = "135.181.100.27:443";
         sni = "freumh.org";
         socksPort = 1084;
         tun = true;
+        up = "30 mbps";
+        down = "50 mbps";
       };
       kiji = {
         server = "kiji.freumh.org:443";
         socksPort = 1086;
         tun = true;
         ipv6 = false;
+        up = "30 mbps";
+        down = "50 mbps";
       };
       kiji-ip = {
         server = "129.225.137.235:443";
@@ -104,6 +110,8 @@
         socksPort = 1088;
         tun = true;
         ipv6 = false;
+        up = "30 mbps";
+        down = "50 mbps";
       };
     };
     reality.clients.kiji = {
