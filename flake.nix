@@ -58,6 +58,37 @@
         inputs.nur.overlays.default
         inputs.emacs-overlay.overlays.default
         inputs.nix-zulip.overlays.default
+        # PHP2Shell (CVE-2026-109618, CVE-2026-109619), backport of nixpkgs#576865
+        # no-op once nixos-26.05 ships PHP >= 8.4.27, then remove
+        (final: prev: {
+          php84 =
+            if prev.lib.versionOlder prev.php84.version "8.4.27" then
+              (prev.php84.buildEnv {
+                version = "8.4.27";
+                hash = "sha256-slMKh3xyL0sIyeF0owywi6wrfhkD7m6eMV8KqfX4LCQ=";
+              }).withExtensions
+                (
+                  { enabled, ... }:
+                  map (
+                    ext:
+                    if ext.extensionName == "filter" then
+                      # new OOM tests spawn php with -n so need the extension loaded explicitly
+                      ext.overrideAttrs (old: {
+                        postConfigure = (old.postConfigure or "") + ''
+                          substituteInPlace \
+                            tests/oom_filter_input.phpt \
+                            tests/oom_filter_input_array.phpt \
+                            tests/oom_filter_default_encoded.phpt \
+                            --replace-fail "'-n'," "'-n', '-d', 'extension=$PWD/modules/filter.so',"
+                        '';
+                      })
+                    else
+                      ext
+                  ) enabled
+                )
+            else
+              prev.php84;
+        })
       ];
     in
     {
