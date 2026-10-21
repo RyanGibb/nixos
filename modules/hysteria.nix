@@ -138,6 +138,14 @@ in
       description = "site shown to anything that fails authentication";
     };
     natpmp = lib.mkEnableOption "ask the router to forward the port over NAT-PMP";
+    tunNameservers = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
+        "1.1.1.1"
+        "8.8.8.8"
+      ];
+      description = "resolvers used exclusively while a -tun client runs, reached through the tunnel";
+    };
 
     clients = lib.mkOption {
       default = { };
@@ -293,6 +301,14 @@ in
                   CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
                   PrivateDevices = false;
                   DeviceAllow = [ "/dev/net/tun rw" ];
+                  # the lan resolver is excluded from the tun, so point dns at public resolvers that are not
+                  ExecStartPost = lib.mkIf config.networking.resolvconf.enable (
+                    "+"
+                    + pkgs.writeShellScript "hysteria-client-${name}-tun-dns" ''
+                      printf 'nameserver %s\n' ${lib.escapeShellArgs cfg.tunNameservers} \
+                        | ${config.networking.resolvconf.package}/bin/resolvconf -x -a hy-${name}
+                    ''
+                  );
                   # sing-tun leaves its policy rules behind when hysteria is killed
                   ExecStopPost =
                     "+"
@@ -301,6 +317,7 @@ in
                         while ${pkgs.iproute2}/bin/ip rule del priority $p 2>/dev/null; do :; done
                         while ${pkgs.iproute2}/bin/ip -6 rule del priority $p 2>/dev/null; do :; done
                       done
+                      ${lib.optionalString config.networking.resolvconf.enable "${config.networking.resolvconf.package}/bin/resolvconf -d hy-${name} || true"}
                     '';
                 };
               };

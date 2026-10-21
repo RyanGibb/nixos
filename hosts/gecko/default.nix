@@ -113,6 +113,21 @@
     };
   };
 
+  # static servers resolve without dns; elephant's address changes, so it is left out
+  networking.hosts = {
+    "135.181.100.27" = [
+      "freumh.org"
+      "owl.freumh.org"
+      "headscale.freumh.org"
+    ];
+    "2a01:4f9:c011:87ad::" = [
+      "freumh.org"
+      "owl.freumh.org"
+      "headscale.freumh.org"
+    ];
+    "129.225.137.235" = [ "kiji.freumh.org" ];
+  };
+
   home-manager.users.${config.custom.username} = {
     services.kdeconnect.enable = true;
     services.spotifyd = {
