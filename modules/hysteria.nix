@@ -48,17 +48,16 @@ let
   tunConfig =
     name: client: (pkgs.formats.yaml { }).generate "hysteria-${name}-tun.yaml" (clientSettings client);
   tunSettings =
-    name:
+    name: client:
     pkgs.writeText "hysteria-${name}-tun.json" (
       builtins.toJSON {
         name = "hy-${name}";
         address = {
           ipv4 = "172.19.0.1/30";
-          ipv6 = "fdfe:dcba:9876::1/126";
-        };
+        }
+        // lib.optionalAttrs client.ipv6 { ipv6 = "fdfe:dcba:9876::1/126"; };
         route = {
           ipv4 = [ "0.0.0.0/0" ];
-          ipv6 = [ "::/0" ];
           ipv4Exclude = [
             "100.64.0.0/10"
             "10.0.0.0/8"
@@ -70,8 +69,21 @@ let
             "fd7a:115c:a1e0::/48"
             "fe80::/10"
           ];
-        };
+        }
+        // lib.optionalAttrs client.ipv6 { ipv6 = [ "::/0" ]; };
       }
+    );
+  tunUp =
+    name: client:
+    lib.concatStrings (
+      lib.optional config.networking.resolvconf.enable ''
+        printf 'nameserver %s\n' ${lib.escapeShellArgs cfg.tunNameservers} \
+          | ${config.networking.resolvconf.package}/bin/resolvconf -x -a hy-${name}
+      ''
+      # without this, the tun's stack would accept v6 connections and then reset them
+      ++ lib.optional (!client.ipv6) ''
+        ${pkgs.iproute2}/bin/ip -6 rule add pref 8999 to 2000::/3 unreachable
+      ''
     );
   serverHost =
     server:
@@ -163,6 +175,11 @@ in
                 type = lib.types.nullOr lib.types.str;
                 default = null;
                 description = "TLS server name when it differs from the host dialled, e.g. when dialling by IP";
+              };
+              ipv6 = lib.mkOption {
+                type = lib.types.bool;
+                default = true;
+                description = "route IPv6 through the tun; disable when the server has no IPv6, so v6 fails fast and apps use v4";
               };
               tun = lib.mkOption {
                 type = lib.types.bool;
@@ -286,7 +303,7 @@ in
               (clientService "hysteria-client-${name}-tun" name client (tunConfig name client) ''
                 # the server is resolved once at start and excluded, else the tunnel would route into itself
                 tun=$(${lib.getExe pkgs.getent} ahosts ${serverHost client.server} | cut -d' ' -f1 \
-                  | ${lib.getExe pkgs.jq} -Rnc --slurpfile tun ${tunSettings name} '
+                  | ${lib.getExe pkgs.jq} -Rnc --slurpfile tun ${tunSettings name client} '
                     [inputs | select(. != "")] | unique as $a
                     | if ($a | length) == 0 then error("cannot resolve ${serverHost client.server}") else $tun[0] end
                     | .route.ipv4Exclude += [$a[] | select(contains(":") | not)]
@@ -302,18 +319,14 @@ in
                   PrivateDevices = false;
                   DeviceAllow = [ "/dev/net/tun rw" ];
                   # the lan resolver is excluded from the tun, so point dns at public resolvers that are not
-                  ExecStartPost = lib.mkIf config.networking.resolvconf.enable (
-                    "+"
-                    + pkgs.writeShellScript "hysteria-client-${name}-tun-dns" ''
-                      printf 'nameserver %s\n' ${lib.escapeShellArgs cfg.tunNameservers} \
-                        | ${config.networking.resolvconf.package}/bin/resolvconf -x -a hy-${name}
-                    ''
+                  ExecStartPost = lib.mkIf (tunUp name client != "") (
+                    "+" + pkgs.writeShellScript "hysteria-client-${name}-tun-up" (tunUp name client)
                   );
                   # sing-tun leaves its policy rules behind when hysteria is killed
                   ExecStopPost =
                     "+"
                     + pkgs.writeShellScript "hysteria-client-${name}-tun-cleanup" ''
-                      for p in $(seq 9000 9010); do
+                      for p in $(seq 8999 9010); do
                         while ${pkgs.iproute2}/bin/ip rule del priority $p 2>/dev/null; do :; done
                         while ${pkgs.iproute2}/bin/ip -6 rule del priority $p 2>/dev/null; do :; done
                       done

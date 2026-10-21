@@ -96,12 +96,14 @@
         server = "kiji.freumh.org:443";
         socksPort = 1086;
         tun = true;
+        ipv6 = false;
       };
       kiji-ip = {
         server = "129.225.137.235:443";
         sni = "kiji.freumh.org";
         socksPort = 1088;
         tun = true;
+        ipv6 = false;
       };
     };
     reality.clients.kiji = {
