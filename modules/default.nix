@@ -114,6 +114,13 @@ in
         agenix.packages.${system}.default
       ];
 
+      # eMudhra intermediate compromise (https://emudhra.we-have-a-problem.com/)
+      # remove once nixpkgs' cacert drops these roots (NSS >= 3.131.1)
+      security.pki.caCertificateBlacklist = [
+        "Comodo AAA Services root"
+        "emSign ECC Root CA - G3"
+      ];
+
       networking = rec {
         # nameservers = [ "freumh.org" ];
         nameservers = [ "1.1.1.1" ];
