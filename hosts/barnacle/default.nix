@@ -9,7 +9,14 @@
 # build with:
 #   nix build --impure /etc/nixos#nixosConfigurations.barnacle.config.system.build.isoImage
 
+let
+  # the agenix key and wallpaper are only read under --impure (the ISO build);
+  # pure evaluation (nix flake check, deploy-rs) skips them
+  impure = builtins ? currentSystem;
+in
 {
+  warnings = lib.optional (!impure) "barnacle: pure eval, the ISO won't be able to decrypt its secrets";
+
   imports = [
     "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-base.nix"
   ];
@@ -58,7 +65,7 @@
 
   # live ISO host keys are regenerated every boot; needs `nix build --impure`
   # from the store, as agenix decrypts before /etc is populated
-  age.identityPaths = [ "${/home/ryan/.config/barnacle/agenix-key}" ];
+  age.identityPaths = lib.mkIf impure [ "${/home/ryan/.config/barnacle/agenix-key}" ];
   age.secrets.headscale-barnacle.file = ../../secrets/headscale-barnacle.age;
   age.secrets.wifi-barnacle.file = ../../secrets/wifi-barnacle.age;
 
@@ -92,7 +99,9 @@
 
   home-manager.users.${config.custom.username}.config.home.file = {
     "install.sh".source = ./install.sh;
-    ".cache/wallpaper".source = /home/ryan/pictures/wallpapers/2025-10-24-mist.jpg;
+    ".cache/wallpaper" = lib.mkIf impure {
+      source = /home/ryan/pictures/wallpapers/2025-10-24-mist.jpg;
+    };
     "nixos" = {
       recursive = true;
       source = ../..;
