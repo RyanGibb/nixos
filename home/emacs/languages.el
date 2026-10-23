@@ -103,6 +103,14 @@
             (pdf-view-redisplay))))))
   (advice-add 'TeX-view :after #'my/tex-view-refit)
 
+  (defun my/display-buffer-same-window-if-narrow (buffer alist)
+    "Display BUFFER in the selected window when the frame is too narrow to split."
+    (when (<= (frame-pixel-width) 1920)
+      (or (display-buffer-reuse-window buffer alist)
+          (display-buffer-same-window buffer alist))))
+  (setq pdf-sync-forward-display-action '(my/display-buffer-same-window-if-narrow)
+        pdf-sync-backward-display-action '(my/display-buffer-same-window-if-narrow))
+
   (my/local-leader-def
     :keymaps '(LaTeX-mode-map latex-mode-map)
     ""  '(:ignore t :which-key "latex")
